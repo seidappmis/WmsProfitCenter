@@ -28,7 +28,7 @@ class AdminNavListComposer
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'present_to_all', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
     ]];
-    $this->menuItems[] = ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => '#', 'icon' => 'payment', 'childs' => [
+    $this->menuItems[] = ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => '#', 'icon' => 'pages', 'childs' => [
       ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'inventory', 'label' => 'Inventory', 'url' => '#', 'icon' => 'store', 'childs' => [

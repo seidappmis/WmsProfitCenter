@@ -379,10 +379,10 @@ $(window).on("resize", function() {
 function resizetable() {
    if($(window).width() < 976){
       if($('.vertical-layout.vertical-gradient-menu .sidenav-dark .brand-logo').length > 0){
-         $('.vertical-layout.vertical-gradient-menu .sidenav-dark .brand-logo img').attr('src','/images/logo-bio-study.png');
+         $('.vertical-layout.vertical-gradient-menu .sidenav-dark .brand-logo img').attr('src','/favicon.ico');
       }
       if($('.vertical-layout.vertical-dark-menu .sidenav-dark .brand-logo').length > 0){
-         $('.vertical-layout.vertical-dark-menu .sidenav-dark .brand-logo img').attr('src','/images/logo-bio-study.png');
+         $('.vertical-layout.vertical-dark-menu .sidenav-dark .brand-logo img').attr('src','/favicon.ico');
       }
       if($('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo').length > 0){
          $('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo img').attr('src','../../../app-assets/images/logo/materialize-logo.png');
@@ -396,7 +396,7 @@ function resizetable() {
          $('.vertical-layout.vertical-dark-menu .sidenav-dark .brand-logo img').attr('src','../../../app-assets/images/logo/materialize-logo.png');
       }
       if($('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo').length > 0){
-         $('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo img').attr('src','/images/logo-bio-study.png');
+         $('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo img').attr('src','/favicon.ico');
       }
    }
 }
