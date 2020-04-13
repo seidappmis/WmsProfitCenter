@@ -27,7 +27,6 @@ class LoginController extends BaseLoginController
   protected function attemptLogin(Request $request)
   {
     $credentials              = $this->credentials($request);
-    $credentials['user_type'] = 'admin';
 
     return $this->guard()->attempt(
       $credentials, $request->filled('remember')

@@ -23,6 +23,11 @@
     <!-- END: Page Level CSS-->
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{url('materialize/css/custom/custom.css')}}">
+    <style type="text/css">
+        .login-bg {
+            background-image: none; 
+        }
+    </style>
     <!-- END: Custom CSS-->
 </head>
 <!-- END: Head-->
@@ -40,7 +45,7 @@
                                     <h5 class="ml-4">WMS Sharp</h5>
                                 </div>
                                 <div class="col s12 center-align">
-                                    @error('email')
+                                    @error('username')
                                     <span class="red-text darken-4 mb-5" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -50,8 +55,8 @@
                             <div class="row margin">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix pt-2">person_outline</i>
-                                    <input name="email" id="username" type="email" value="{{ old('email') }}" required>
-                                    <label for="username" class="center-align">{{ __('E-Mail Address') }}</label>
+                                    <input name="username" id="username" type="text" value="{{ old('username') }}" required>
+                                    <label for="username" class="center-align">{{ __('Username') }}</label>
                                 </div>
                             </div>
                             <div class="row margin">

@@ -6,3 +6,7 @@ Route::get('/', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::get('/login', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
+
+Route::group(['middleware' => 'auth'], function () {
+  Route::view('dashboard', 'web.dashboard.index');
+});
