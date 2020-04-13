@@ -21,9 +21,9 @@ class AdminNavListComposer
       ['name' => 'incoming', 'label' => 'Incoming', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
-      ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'picking', 'label' => 'Picking List', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'present_to_all', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => 'learning-classes', 'icon' => 'radio_button_unchecked'],
