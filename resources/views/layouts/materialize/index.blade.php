@@ -8,10 +8,13 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description"
-    content="WMS Sharp.">
-  <meta name="keywords"
-    content="WMS Sharp.">
+  <meta name="description" content="WMS Sharp.">
+  <meta name="keywords" content="WMS Sharp.">
+  <meta property="og:title" content="Wms-sharp" />
+  <meta property="og:image" content="{{ url('favicon.ico') }}" />
+  <meta property="og:url" content="/" />
+  <meta property="og:site_name" content="WMS SHARP" />
+  <meta property="og:description" content="WMS Sharp." />
   <meta name="author" content="ThemeSelect">
   <title>WMS Sharp</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
