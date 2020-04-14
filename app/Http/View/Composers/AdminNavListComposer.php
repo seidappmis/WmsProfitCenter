@@ -20,7 +20,7 @@ class AdminNavListComposer
     $this->menuItems[] = ['name' => 'dashboard', 'label' => 'Dashboard', 'url' => '#', 'icon' => 'dvr', 'childs' => [
       ['name' => 'dashboard', 'label' => 'Graphic Dashboard', 'url' => 'dashboard', 'icon' => 'radio_button_unchecked'],
       ['name' => 'dashboard', 'label' => 'Graphic Dashboard 2', 'url' => 'dashboard2', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'dashboard', 'label' => 'Trucking Monitor', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'dashboard', 'label' => 'Trucking Monitor', 'url' => 'trucking-monitor', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'incoming', 'label' => 'Incoming', 'url' => '#', 'icon' => 'play_for_work', 'childs' => [
@@ -54,7 +54,7 @@ class AdminNavListComposer
 
     $this->menuItems[] = ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => '#', 'icon' => 'pages', 'childs' => [
       ['name' => 'invoicing', 'label' => 'List of Unconfirm DO', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'invoicing', 'label' => 'Receipt Invoice', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'invoicing', 'label' => 'Receipt Invoice', 'url' => 'invoicing/receipt-invoice', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Receipt Invoice Accounting', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Summary Freight Cost Analysis', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Branch Invoicing', 'url' => '#', 'icon' => 'radio_button_unchecked'],

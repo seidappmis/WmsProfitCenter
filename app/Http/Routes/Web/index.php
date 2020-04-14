@@ -9,7 +9,4 @@ Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
   Route::view('home', 'web.home.index');
-  Route::view('dashboard', 'web.dashboard.index');
-  Route::view('dashboard2', 'web.dashboard2.index');
-  Route::view('trucking-monitor', 'web.trucking-monitor.index');
 });
