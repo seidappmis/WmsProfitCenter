@@ -11,10 +11,10 @@ PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER 
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
 .navbar .navbar-dark {
-    background: linear-gradient(45deg, #ec1717, #e11010) !important;
+    background: linear-gradient(90deg, #ec1717, #ff4a4a); !important;
 }
 .footer-dark {
-    background: linear-gradient(45deg, #ec1717, #e11010) !important;
+    background: linear-gradient(90deg, #ec1717, #ff4a4a); !important;
 }
 .brand-sidebar span.logo-text {
     position: absolute;
@@ -22,11 +22,11 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     left: 52px;
 }
 .sidenav li a.active {
-    background: linear-gradient(45deg, #ec1717, #e11010);
+    background: linear-gradient(90deg, #ec1717, #ff4a4a);;
     box-shadow: 3px 3px 20px 0 rgb(78, 132, 46);
 }
 .content-wrapper-before {
-    background: linear-gradient(45deg, #ec1717, #e11010);
+    background: linear-gradient(90deg, #ec1717, #ff4a4a);;
 }
 #breadcrumbs-wrapper .breadcrumbs .active {
     color: #ffca22;
@@ -108,7 +108,10 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .datatable-search .select2-container--default .select2-selection--single .select2-selection__arrow b {
     border-color: rgb(255, 255, 255) transparent transparent;
 }
-
+#main .section-data-tables .dataTables_wrapper table.dataTable thead th {
+    font-size: 12px;
+    font-weight: 800;
+}
 .input-field label.error {
     font-size: .8rem;
     position: relative;
@@ -120,4 +123,16 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     -o-transform: translateY(0%);
     transform: translateY(0%);
     color: #ff4081;
+}
+.sidenav li a div {
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    height: 44px;
+}
+.sidenav li>a, .sidenav li a.collapsible-header {
+    line-height: 20px;
+}
+.sidenav .collapsible-header:after {
+    top: 11px;
 }

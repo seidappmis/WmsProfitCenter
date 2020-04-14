@@ -15,11 +15,11 @@ class AdminNavListComposer
    */
   public function __construct()
   {
-    $this->menuItems[] = ['name' => 'home', 'label' => 'Home', 'url' => 'home', 'icon' => 'settings_input_svideo'];
+    $this->menuItems[] = ['name' => 'home', 'label' => 'Home', 'url' => 'home', 'icon' => 'account_balance'];
 
-    $this->menuItems[] = ['name' => 'dashboard', 'label' => 'Dashboard', 'url' => '#', 'icon' => 'play_for_work', 'childs' => [
-      ['name' => 'dashboard', 'label' => 'Graphic Dashboard', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'dashboard', 'label' => 'Graphic Dashboard 2', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+    $this->menuItems[] = ['name' => 'dashboard', 'label' => 'Dashboard', 'url' => '#', 'icon' => 'dvr', 'childs' => [
+      ['name' => 'dashboard', 'label' => 'Graphic Dashboard', 'url' => 'dashboard', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'dashboard', 'label' => 'Graphic Dashboard 2', 'url' => 'dashboard2', 'icon' => 'radio_button_unchecked'],
       ['name' => 'dashboard', 'label' => 'Trucking Monitor', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
@@ -30,7 +30,7 @@ class AdminNavListComposer
       ['name' => 'incoming', 'label' => 'Billing Return', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
-    $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'play_for_work', 'childs' => [
+    $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [
       ['name' => 'other', 'label' => 'Clean Concept', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
@@ -39,7 +39,7 @@ class AdminNavListComposer
     //   ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
     //   ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     // ]];
-    $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'present_to_all', 'childs' => [
+    $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'IDCard Scan', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => '#', 'icon' => 'radio_button_unchecked'],
@@ -67,7 +67,7 @@ class AdminNavListComposer
       ['name' => 'inventory', 'label' => 'Cancel Movement', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
-    $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
+    $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'low_priority', 'childs' => [
       ['name' => 'report', 'label' => 'Task Notice', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
@@ -80,7 +80,7 @@ class AdminNavListComposer
       ['name' => 'report', 'label' => 'Stock Take Compare SAP', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
 
-    $this->menuItems[] = ['name' => 'report', 'label' => 'Report', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
+    $this->menuItems[] = ['name' => 'report', 'label' => 'Report', 'url' => '#', 'icon' => 'style', 'childs' => [
       ['name' => 'report', 'label' => 'Report Master', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Report Master User', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Standby Driver List', 'url' => '#', 'icon' => 'radio_button_unchecked'],
@@ -125,7 +125,7 @@ class AdminNavListComposer
       ['name' => 'master', 'label' => 'Branch Master Driver', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Destination City of Branch', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
-    $this->menuItems[] = ['name' => 'setting', 'label' => 'Setting', 'url' => '#', 'icon' => 'storage', 'childs' => [
+    $this->menuItems[] = ['name' => 'setting', 'label' => 'Setting', 'url' => '#', 'icon' => 'build', 'childs' => [
       ['name' => 'setting', 'label' => 'User Manager', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'setting', 'label' => 'User Roles', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'setting', 'label' => 'Master Area', 'url' => '#', 'icon' => 'radio_button_unchecked'],
