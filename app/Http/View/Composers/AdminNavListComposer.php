@@ -31,7 +31,7 @@ class AdminNavListComposer
     ]];
 
     $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [
-      ['name' => 'other', 'label' => 'Clean Concept', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'other', 'label' => 'Clean Concept', 'url' => 'clean-concept', 'icon' => 'radio_button_unchecked'],
     ]];
 
     // $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [

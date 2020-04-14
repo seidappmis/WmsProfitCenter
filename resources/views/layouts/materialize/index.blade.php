@@ -75,6 +75,7 @@
   <script src="{{ url('materialize/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}">
   </script>
   <script src="{{ url('materialize/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
+  {{-- <script src="{{ url('materialize/vendors/data-tables/js/dataTables.checkboxes.min.js') }}"></script> --}}
   <script src="{{ url('materialize/vendors/sweetalert/sweetalert.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/select2/js/select2.full.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/dropify/js/dropify.min.js') }}"></script>
