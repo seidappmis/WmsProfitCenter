@@ -55,7 +55,7 @@
                           <table id="data-table-section-contents" class="display" width="100%">
                               <thead>
                                   <tr>
-                                    <th data-priority="1" width="30px" class="dt-checkboxes-cell dt-checkboxes-select-all"><input type="checkbox"></th>
+                                    <th data-priority="1" width="30px"></th>
                                     <th>SHIPMENT NO</th>
                                     <th>DELIVERY NO</th>
                                     <th>CBM</th>
@@ -65,7 +65,8 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -87,7 +88,6 @@
         serverSide: false,
         scrollX: true,
         responsive: true,
-        ordering:false,
         // ajax: {
         //     url: '/',
         //     type: 'GET',
@@ -96,15 +96,22 @@
         //       }
         // },
         order: [1, 'asc'],
-        'columnDefs': [{
-         'targets': 0,
-         'searchable': false,
-         'orderable': false,
-         'className': 'dt-body-center',
-         'render': function (data, type, full, meta){
-             return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
-         }
-      }],
+         columnDefs: [ 
+        //  {
+        //   targets: 0,
+        //   className: "control"
+        // },
+        {
+          orderable: true,
+          targets: 0,
+          checkboxes: { selectRow: true }
+        },
+        {
+          targets: [0, 1],
+          orderable: false
+        },
+          ],
+          
         // columns: [
         //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         //     {data: 'content_title', name: 'content_title', className: 'detail'},
