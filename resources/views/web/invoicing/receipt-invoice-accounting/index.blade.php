@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Recipt Invoice</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Recipt Invoice Accounting</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Recipt Invoice</li>
+                    <li class="breadcrumb-item active">Recipt Invoice Accounting</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -24,7 +24,7 @@
                 </div>
                 <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   {{-- <i class="material-icons right">add</i> --}}
-                  Create Reciept
+                  New Report
                 </button>
               </div>
             </div>
@@ -43,11 +43,9 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
-                                    <th>RECEIPT ID</th>
-                                    <th>RECEIPT NO</th>
-                                    <th>RECIEPT DATE</th>
-                                    <th>KWITANSI NO</th>
-                                    <th>EXPEDITION NAME</th>
+                                    <th>REPORT ACCOUNTING DATE</th>
+                                    <th>REPORT ID</th>
+                                    <th>INVOICE RECEIPT ID</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
