@@ -123,7 +123,6 @@
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
           });
-          
         }
       })
     });

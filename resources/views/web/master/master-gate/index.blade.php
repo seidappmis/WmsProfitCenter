@@ -148,9 +148,30 @@
     "responsive": true,
   });
 
-  $(".btn-delete").on("click", function() {
-    $(this).closest("tr").remove();
-  });
+  // $(".btn-delete").on("click", function() {
+  //   $(this).closest("tr").remove();
+  // });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
