@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Gate</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Destination</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Gate</li>
+                    <li class="breadcrumb-item active">Master Destination</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -22,8 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-add">New Gate</a>
-                <!-- <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">New Gate</button> -->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Destination</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -41,23 +40,23 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
+                                    <th>DESTINATION NUMBER</th>
                                     <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>REGION</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <!-- <tr>
                                   <th data-priority="1" width="30px">1.</th>
-                                  <th>101</th>
-                                  <th>GATE NO. 1-A KARAWANG WAREHOUSE</th>
-                                  <th width="400px">KARAWANG</th>
+                                  <th>3D1010</th>
+                                  <th width="400px">JAKARTA</th>
+                                  <th>JABODETABEK</th>
                                   <th width="50px;">
                                     <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit modal-trigger" href="#modal-edit"><i class="material-icons">edit</i></span>
                                     <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
                                   </th>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -77,13 +76,13 @@
 <div id="modal-add" class="modal">
   <form id="form-kelas" onsubmit="return false;">
   <div class="modal-content">
-    <h4>New Gate</h4>
+    <h4>New Destination</h4>
     @csrf
     <input type="hidden" name="id">
     <div class="row">
       <div class="input-field col s12">
         <input id="number" type="text" class="validate" name="gate_number" required>
-        <label for="number">Gate Number</label>
+        <label for="number">Destination Number</label>
       </div>
       <div class="input-field col s12">
         <input id="description" type="text" class="validate" name="description" required>
@@ -111,13 +110,13 @@
 <div id="modal-edit" class="modal">
   <form id="form-edit" onsubmit="return false;">
   <div class="modal-content">
-    <h4>Edit Gate</h4>
+    <h4>Edit Destination</h4>
     @csrf
     <input type="hidden" name="id">
     <div class="row">
       <div class="input-field col s12">
         <input id="number" type="text" class="validate" name="gate_number" required>
-        <label for="number">Gate Number</label>
+        <label for="number">Destination Number</label>
       </div>
       <div class="input-field col s12">
         <input id="description" type="text" class="validate" name="description" required>

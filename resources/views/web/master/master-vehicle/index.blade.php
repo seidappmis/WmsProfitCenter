@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Gate</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Gate</li>
+                    <li class="breadcrumb-item active">Master Vehicle</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -22,9 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-add">New Gate</a>
-                <!-- <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">New Gate</button> -->
-              </div>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Vehicle Group</a>
             </div>
             <div class="col s12 m3">
             </div>
@@ -41,23 +39,21 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>VEHICLE CATEGORY GROUP</th>
+                                    <th>DETAIL CODE</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <!-- <tr>
                                   <th data-priority="1" width="30px">1.</th>
-                                  <th>101</th>
-                                  <th>GATE NO. 1-A KARAWANG WAREHOUSE</th>
-                                  <th width="400px">KARAWANG</th>
+                                  <th>8 METER</th>
+                                  <th>0</th>
                                   <th width="50px;">
                                     <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit modal-trigger" href="#modal-edit"><i class="material-icons">edit</i></span>
                                     <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
                                   </th>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -77,7 +73,7 @@
 <div id="modal-add" class="modal">
   <form id="form-kelas" onsubmit="return false;">
   <div class="modal-content">
-    <h4>New Gate</h4>
+    <h4>New Vehicle Group Category</h4>
     @csrf
     <input type="hidden" name="id">
     <div class="row">
