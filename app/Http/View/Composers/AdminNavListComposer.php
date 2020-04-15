@@ -108,8 +108,8 @@ class AdminNavListComposer
       ['name' => 'report', 'label' => 'Summary DO Confirmed', 'url' => '#', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'master', 'label' => 'Master Data', 'url' => '#', 'icon' => 'storage', 'childs' => [
-      ['name' => 'master', 'label' => 'Master Gate', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'master', 'label' => 'Master Destioantion', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'master', 'label' => 'Master Gate', 'url' => 'master-gate', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'master', 'label' => 'Master Destination', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Vehicle', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Expedition', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Vehicle Expedition', 'url' => '#', 'icon' => 'radio_button_unchecked'],
