@@ -2,6 +2,7 @@
 
 Route::group(['middleware' => 'auth'], function () {
   Route::view('master-gate', 'web.master.master-gate.index');
+  Route::view('master-gate/create', 'web.master.master-gate.create');
   Route::view('master-destination', 'web.master.master-destination.index');
   Route::view('master-vehicle', 'web.master.master-vehicle.index');
   Route::view('master-expedition', 'web.master.master-expedition.index');
