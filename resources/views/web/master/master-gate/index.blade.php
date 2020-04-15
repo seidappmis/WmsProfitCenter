@@ -54,8 +54,8 @@
                                   <th >GATE NO. 1-A KARAWANG WAREHOUSE</th>
                                   <th width="400px">KARAWANG</th>
                                   <th width="50px;">
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" data-id=""><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete" data-id=""><i class="material-icons">delete</i></span>
+                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit modal-trigger" href="#modal-edit"><i class="material-icons">edit</i></span>
+                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
                                   </th>
                                 </tr>
                               </tbody>
@@ -125,8 +125,8 @@
       </div>
       <div class="input-field col m6 s12">
         <select>
-            <option value="" disabled selected>-- Select --</option>
-            <option value="1">KARAWANG</option>
+            <option value="" disabled>-- Select --</option>
+            <option value="1" selected>KARAWANG</option>
             <option value="2">SURABAYA HUB</option>
             <option value="3">SWADAYA</option>
         </select>
@@ -144,16 +144,21 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var table = $('#data-table-simple').DataTable({
-      "responsive": true,
-    });
-   $("input#global_filter").on("keyup click", function () {
-      filterGlobal();
-   });
-  // Custom search
-   function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-   }
+  var table = $('#data-table-simple').DataTable({
+    "responsive": true,
+  });
 
+  $(".btn-delete").on("click", function() {
+    $(this).closest("tr").remove();
+  });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush
