@@ -1,0 +1,111 @@
+@extends('layouts.materialize.index')
+
+@section('content')
+<div class="row">
+
+    @component('layouts.materialize.components.title-wrapper')
+        <div class="row">
+            <div class="col s12 m6">
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle Expedition</span></h5>
+                <ol class="breadcrumbs mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Master Vehicle Expedition</li>
+                </ol>
+            </div>
+        </div>
+    @endcomponent
+    
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <!-- <div class="card"> -->
+                    <div class="card-content p-0">
+                        <ul class="collapsible">
+						   <li class="active">
+							   <div class="collapsible-header">New Vehicle Expedition</div>
+							   <div class="collapsible-body white">
+							   		<div class="row">
+									  <div class="input-field col s12">
+										<select>
+									        <option value="" disabled selected>-- Select Expedition --</option>
+									        <option value="1">BINTAN MEGAH ABADI, PT.</option>
+									        <option value="2">DUA SAMUDRA EXPRESS, CV.</option>
+									        <option value="3">DUA SAMUDRA LOGISTIK, PT.</option>
+									    </select>
+									    <label for="expedition">Expedition</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="no" type="text" class="validate" name="no" required>
+									    <label for="no">Vehicle No.</label>
+									  </div>
+									  <div class="input-field col s12">
+								        <select>
+									        <option value="" disabled selected>-- Select Vehicle --</option>
+									        <option value="1">AMBIL SENDIRI</option>
+									        <option value="2">CD 4 BAN (CDE)</option>
+									        <option value="3">CD 4 BOX (CDE BOX)</option>
+									    </select>
+								        <label for="type">Vehicle Type</label>
+								      </div>
+								      <div class="input-field col s12">
+									    <select>
+									        <option value="" disabled selected>-- Select Destination --</option>
+									        <option value="1">ACEH</option>
+									        <option value="2">BANDUNG</option>
+									        <option value="3">BANJARMASIN</option>
+									    </select>
+									    <label for="destination">Destination</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="npwp" type="text" class="validate" name="npwp">
+									    <label for="npwp">Description</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="cp" type="text" class="validate" name="cp">
+									    <label for="cp">STNK Number</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="phone1" type="number" class="validate" name="phone1">
+									    <label for="phone1">Remarks 1</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="phone2" type="number" class="validate" name="phone2">
+									    <label for="phone2">Remarks 2</label>
+									  </div>
+									  <div class="input-field col m6 s12">
+									    <p>
+									      <label>
+									        <input type="checkbox" class="filled-in" checked="checked" />
+									        <span>ACTIVE</span>
+									      </label>
+									    </p>
+									  </div>
+									</div>
+									<br>
+									<div class="row">
+									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+									  <a class="waves-effect waves-light btn" href="{{ url('master-vehicle-expedition') }}">Cancel</a>
+									</div>
+							   </div>
+						   </li>
+						</ul>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="content-overlay"></div>
+    </div>
+</div>
+@endsection
+
+@push('script_js')
+<script type="text/javascript">
+ 	$('.collapsible').collapsible({
+        accordion:true
+    });
+
+    // $('#address').val('New Text');
+    M.textareaAutoResize($('#address'));
+  
+</script>
+@endpush

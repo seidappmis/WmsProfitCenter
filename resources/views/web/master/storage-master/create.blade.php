@@ -26,26 +26,46 @@
 							   <div class="collapsible-body white">
 							   		<div class="row">
 									  <div class="input-field col s12">
-										<input id="number" type="text" class="validate" name="gate_number" required>
-									    <label for="number">Gate Number</label>
+										<select>
+									        <option value="" disabled selected>-- Select --</option>
+									        <option value="1">10-HYP-PT. SEID HQ JKT</option>
+									    </select>
+									    <label for="branch">Branch</label>
 									  </div>
 									  <div class="input-field col s12">
-									    <input id="description" type="text" class="validate" name="description" required>
-									    <label for="description">Description</label>
+									    <input id="code" type="text" class="validate" name="code" required>
+									    <label for="code">Storage Code</label>
 									  </div>
-									  <div class="input-field col m6 s12">
+									  <div class="input-field col s12">
 									    <select>
 									        <option value="" disabled selected>-- Select --</option>
-									        <option value="1">KARAWANG</option>
-									        <option value="2">SURABAYA HUB</option>
-									        <option value="3">SWADAYA</option>
+									        <option value="1">1st Class</option>
+									        <option value="2">Return All</option>
+									        <option value="3">2nd Class Insurance</option>
 									    </select>
-									    <label>Area</label>
+									    <label>Storage Type</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="total" type="number" class="validate" name="total" required>
+									    <label for="total">Total Pallate</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="used" type="number" class="validate" name="used" required>
+									    <label for="used">Used Space</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="wh" type="number" class="validate" name="wh" required>
+									    <label for="wh">Space WH</label>
+									  </div>
+									  <div class="input-field col s12">
+									    <input id="space" type="number" class="validate" name="space" required>
+									    <label for="space">Hand Pallet Space</label>
 									  </div>
 									</div>
+									<br>
 									<div class="row">
 									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-									  <a class="waves-effect waves-light btn" href="{{ url('master-gate') }}">Cancel</a>
+									  <a class="waves-effect waves-light btn" href="{{ url('storage-master') }}">Cancel</a>
 									</div>
 							   </div>
 						   </li>
