@@ -74,10 +74,10 @@ class AdminNavListComposer
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
       ['name' => 'report', 'label' => 'Stock Take Schedule', 'url' => 'stock-take-schedule', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Stock Take Create Tag', 'url' => 'stock-take-create-tag', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'report', 'label' => 'Stock Take Input 1', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'report', 'label' => 'Stock Take Input 2', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'report', 'label' => 'Stock Take Quick Count', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'report', 'label' => 'Stock Take Compare SAP', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Stock Take Input 1', 'url' => 'stock-take-input-1', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Stock Take Input 2', 'url' => 'stock-take-input-2', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Stock Take Quick Count', 'url' => 'stock-take-quick-count', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Stock Take Compare SAP', 'url' => 'stock-take-compare-sap', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Report', 'url' => '#', 'icon' => 'style', 'childs' => [
