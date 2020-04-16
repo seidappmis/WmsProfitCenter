@@ -28,9 +28,9 @@
 									  <div class="input-field col m6 s12">
 									    <select>
 									        <option value="" disabled selected>-- Expedition --</option>
-									        <option value="1">ALAM RAYA SENTOSA, CV.</option>
+									        <!-- <option value="1">ALAM RAYA SENTOSA, CV.</option>
 									        <option value="2">ALAMUI LOGISTICS, PT.</option>
-									        <option value="3">ALISTON TJOKRO EMKL</option>
+									        <option value="3">ALISTON TJOKRO EMKL</option> -->
 									    </select>
 									    <label>Expedition</label>
 									  </div>
@@ -38,7 +38,7 @@
 									<br>
 									<div class="row">
 									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-									  <a class="waves-effect waves-light btn" href="{{ url('master-driver') }}">Back</a>
+									  <a class="waves-effect waves-light btn" href="{{ url('branch-master-driver') }}">Back</a>
 									</div>
 							   </div>
 						   </li>

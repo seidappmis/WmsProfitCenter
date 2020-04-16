@@ -28,11 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('storage-master/create', 'web.master.storage-master.create');
 
   Route::view('master-model', 'web.master.master-model.index');
-  
+
   Route::view('master-vendor', 'web.master.master-vendor.index');
   Route::view('master-model-exception', 'web.master.master-model-exception.index');
+
   Route::view('master-branch-expedition', 'web.master.master-branch-expedition.index');
   Route::view('branch-expedition-vehicle', 'web.master.branch-expedition-vehicle.index');
+
   Route::view('branch-master-driver', 'web.master.branch-master-driver.index');
+  Route::view('branch-master-driver/create', 'web.master.branch-master-driver.create');
+
   Route::view('destination-city-of-branch', 'web.master.destination-city-of-branch.index');
 });

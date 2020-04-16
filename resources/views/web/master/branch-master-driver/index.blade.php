@@ -21,8 +21,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Driver</a>
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="branch-master-driver/create">New Driver</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -35,20 +35,20 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
+                        <!-- <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
-                                  <!-- <tr>
+                                  <tr>
                                     <th data-priority="1" width="30px">NO.</th>
                                     <th>GATE</th>
                                     <th>DESCRIPTION</th>
                                     <th>AREA</th>
                                     <th width="50px;"></th>
-                                  </tr> -->
+                                  </tr>
                               </thead>
                               <tbody></tbody>
                           </table>
-                        </div>
+                        </div> -->
                         <!-- datatable ends -->
                     </div>
                 </div>
