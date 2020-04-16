@@ -23,7 +23,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 .sidenav li a.active {
     background: linear-gradient(90deg, #d80e0e, #f53e3e);;
-    box-shadow: 3px 3px 20px 0 rgb(78, 132, 46);
+    box-shadow: 3px 3px 20px 0 rgb(186, 75, 75);
 }
 .content-wrapper-before {
     background: linear-gradient(90deg, #d80e0e, #f53e3e);;
@@ -186,12 +186,12 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 .btn-add {
     color: #616161;
-    background: #ffcc80;
+    background: #ffad32;
 }
 .btn-add:hover {
-    background: #ffb74d;
+    background: #ED991B;
 }
 .btn-add:focus {
-    background: #ffb74d;
+    background: #ED991B;
 
 }
