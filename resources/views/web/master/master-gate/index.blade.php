@@ -48,7 +48,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <!-- <tr>
+                                <tr>
                                   <th data-priority="1" width="30px">1.</th>
                                   <th>101</th>
                                   <th>GATE NO. 1-A KARAWANG WAREHOUSE</th>
@@ -57,7 +57,7 @@
                                     <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit modal-trigger" href="#modal-edit"><i class="material-icons">edit</i></span>
                                     <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
                                   </th>
-                                </tr> -->
+                                </tr>
                               </tbody>
                           </table>
                         </div>
