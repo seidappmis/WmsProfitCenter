@@ -21,8 +21,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Vehicle Expedition</a>
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle-expedition/create') }}">New Vehicle Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">

@@ -21,8 +21,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Expedition</a>
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-expedition/create') }}">New Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -48,7 +48,18 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                    <th>1</th>
+                                    <th>ALAM RAYA SENTOSA, CV.</th>
+                                    <th>DUSUN III LEDUNG NO RT.09 RW.03 K..</th>
+                                    <th>ARS</th>
+                                    <th>10XA54</th>
+                                    <th>NO ACTIVE</th>
+                                    <th><span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
+                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span></th>
+                                  </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -67,6 +78,27 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();

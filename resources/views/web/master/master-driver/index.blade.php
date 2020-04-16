@@ -21,8 +21,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Driver</a>
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a>
             </div>
             <div class="col s12 m3">
             </div>

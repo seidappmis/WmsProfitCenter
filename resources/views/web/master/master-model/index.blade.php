@@ -21,7 +21,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
+                <!---- Button Add ----->
                 <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Model</a>
                 <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">Upload Model</button>
               </div>
