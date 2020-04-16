@@ -73,7 +73,7 @@ class AdminNavListComposer
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
       ['name' => 'report', 'label' => 'Stock Take Schedule', 'url' => 'stock-take-schedule', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'report', 'label' => 'Stock Take Create Tag', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Stock Take Create Tag', 'url' => 'stock-take-create-tag', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Stock Take Input 1', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Stock Take Input 2', 'url' => '#', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Stock Take Quick Count', 'url' => '#', 'icon' => 'radio_button_unchecked'],
