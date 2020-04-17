@@ -49,33 +49,33 @@
                         	<div class="row">
                         	  <div class="input-field col s12">
                                 <select>
-							        <option value="" disabled selected>-- Select Material Group --</option>
-							        <option value="1">BG - F3 LED Lightning</option>
-							        <option value="2">BJ - C1 Energy Solution Japan</option>
-							        <option value="3">BP - C1 Energy Sollution Overseas</option>
-							    </select>
+            							        <option value="" disabled selected>-- Select Material Group --</option>
+            							        <option value="1">BG - F3 LED Lightning</option>
+            							        <option value="2">BJ - C1 Energy Solution Japan</option>
+            							        <option value="3">BP - C1 Energy Sollution Overseas</option>
+            							    </select>
                                 <label for="material">Material Group</label>
                               </div>
                         	</div>
                         	<div class="row">
                         	  <div class="input-field col s12">
-                                <select>
-							        <option value="" disabled selected>-- Select Category --</option>
-							        <option value="1">AC</option>
-							        <option value="2">AP</option>
-							        <option value="3">AU</option>
-							    </select>
+                              <select>
+          							        <option value="" disabled selected>-- Select Category --</option>
+          							        <option value="1">AC</option>
+          							        <option value="2">AP</option>
+          							        <option value="3">AU</option>
+            							    </select>
                                 <label for="category">Category</label>
                               </div>
                         	</div>
                         	<div class="row">
                         	  <div class="input-field col s12">
-                                <select>
-							        <option value="" disabled selected>-- Select Category --</option>
-							        <option value="1">IMPORT</option>
-							        <option value="2">LOCAL</option>
-							        <option value="3">OEM</option>
-							    </select>
+                              <select>
+            							        <option value="" disabled selected>-- Select Category --</option>
+            							        <option value="1">IMPORT</option>
+            							        <option value="2">LOCAL</option>
+            							        <option value="3">OEM</option>
+            							    </select>
                                 <label for="type">Type</label>
                               </div>
                         	</div>

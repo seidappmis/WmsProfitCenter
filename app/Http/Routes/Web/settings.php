@@ -2,6 +2,8 @@
 
 Route::group(['middleware' => 'auth'], function () {
   Route::view('user-manager', 'web.settings.user-manager.index');
+  Route::view('user-manager/create', 'web.settings.user-manager.create');
+
   Route::view('user-roles', 'web.settings.user-roles.index');
   Route::view('master-area', 'web.settings.master-area.index');
   Route::view('master-cabang', 'web.settings.master-cabang.index');

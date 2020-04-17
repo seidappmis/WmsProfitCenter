@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>User Manager</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Storage Inventory Monitoring</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">User Manager</li>
+                    <li class="breadcrumb-item active">Storage Inventory Monitoring</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -21,11 +21,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-manager/create') }}">New User</a>
               </div>
-            </div>
-            <div class="col s12 m3">
             </div>
         </div>
     @endcomponent
@@ -40,29 +36,24 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>USERNAME</th>
-                                    <th width="150px;">FIRST NAME</th>
-                                    <th>LAST NAME</th>
-                                    <th width="150px;">ROLES NAME</th>
-                                    <th>AREA</th>
-                                    <th>CABANG</th>
-                                    <th width="100px;">ACTIVE</th>
-                                    <th width="50px;"></th>
+                                    <th>STORAGE TYPE</th>
+                                    <th>STORAGE LOC. CODE</th>
+                                    <th>MODEL NAME</th>
+                                    <th>QTY</th>
+                                    <th>LAST UPDATE</th>
+                                    <th width="100px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th>1.</th>
-                                  <th>13wmsadm1</th>
-                                  <th>Admin</th>
-                                  <th>PNP Bandung 1</th>
-                                  <th>Transporter</th>
-                                  <th>All</th>
-                                  <th>PT. SEID CAB. BANDUNG</th>
-                                  <th>YES</th>
+                                  <th data-priority="1" width="30px">1.</th>
+                                  <th>PAL-Intransit BR</th>
+                                  <th>3690</th>
+                                  <th>FP-JM40Y-B</th>
+                                  <th>5</th>
+                                  <th>2020-02-07 15:28:PM</th>
                                   <th>
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
+                                    <span class="waves-effect btn-small amber darken-4 btn-edit" href="#">View Log</span>
                                   </th>
                                 </tr>
                               </tbody>
@@ -83,27 +74,6 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();

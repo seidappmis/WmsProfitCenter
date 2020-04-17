@@ -60,11 +60,11 @@ class AdminNavListComposer
       ['name' => 'invoicing', 'label' => 'Branch Invoicing', 'url' => 'branch-invoicing', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'inventory', 'label' => 'Inventory', 'url' => '#', 'icon' => 'store', 'childs' => [
-      ['name' => 'inventory', 'label' => 'Storage Inventory Monitoring', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'inventory', 'label' => 'Upload Inventory Storage', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'inventory', 'label' => 'Adjust Inventory Movement', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'inventory', 'label' => 'Transfer SLoc', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'inventory', 'label' => 'Cancel Movement', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'inventory', 'label' => 'Storage Inventory Monitoring', 'url' => 'storage-inventory-monitoring', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'inventory', 'label' => 'Upload Inventory Storage', 'url' => 'upload-inventory-storage', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'inventory', 'label' => 'Adjust Inventory Movement', 'url' => 'adjust-inventory-movement', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'inventory', 'label' => 'Transfer SLoc', 'url' => 'transfer-sloc', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'inventory', 'label' => 'Cancel Movement', 'url' => 'cancel-movement', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'low_priority', 'childs' => [
