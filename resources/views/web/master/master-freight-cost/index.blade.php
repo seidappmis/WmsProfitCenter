@@ -5,7 +5,7 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m6 mb-1">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Freight Cost</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
