@@ -21,8 +21,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Vendor</a>
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vendor/create') }}">New Vendor</a>
             </div>
             <div class="col s12 m3">
             </div>

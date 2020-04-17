@@ -13,18 +13,6 @@
                 </ol>
             </div>
             <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div>
-                </div>
-                <!---- Button Modal Add ----->
-                <!-- <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-add">New Gate</a> -->
-                <!-- <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">New Gate</button> -->
-              </div>
             </div>
             <div class="col s12 m3">
             </div>
@@ -35,23 +23,63 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
+                  <div class="row">
+                    <div class="col s12 m6 l6">
+                      <!-- Input Form -->
+                      <div class="card-content">
+                        <h4 class="card-title">Input Model Exception</h4>
+                        <form>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input type="text" id="excep">
+                              <label for="excep">Model Exception</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                              <a class="waves-effect waves-light btn" href="{{ url('master-model-exception') }}">Cancel</a>
+                            </div>
+                          </div>
+                        </form>
+                      </div> 
+                      <!-- End Input -->
+                    </div>
+                    <div class="col s12 m6 l6">
+                      <div class="card-content">
+                        <h4 class="card-title">Data Model Exception</h4>
+                        <!-- <br> -->
+                        <!-- Search -->
+                        <div class="app-wrapper mr-2">
+                          <div class="datatable-search">
+                            <i class="material-icons mr-2 search-icon">search</i>
+                            <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                          </div>
+                        </div>
+                        <br>
+                        <!-- Datatables Start -->
                         <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
-                                  <!-- <tr>
+                                  <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>MODEL</th>
                                     <th width="50px;"></th>
-                                  </tr> -->
+                                  </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                    <th>1</th>
+                                    <th>ZADDON</th>
+                                    <th><span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span></th>
+                                  </tr>
+                              </tbody>
                           </table>
                         </div>
-                        <!-- datatable ends -->
+                        <!-- Datatables End -->
+                      </div>
                     </div>
+                  </div>
                 </div>
             </div>
             </div>
