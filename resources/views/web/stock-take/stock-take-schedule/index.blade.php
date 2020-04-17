@@ -50,10 +50,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
-                  New Stock Take Schedule
-                </button>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
+                
               </div>
             </div>
       </div>
@@ -83,7 +81,9 @@
                                   <td>Stock_Tacking_Before_Go_Live</td>
                                   <td>2020-02-02</td>
                                   <td>2020-02-02</td>
-                                  <td>Delete</td>
+                                  <th width="50px;">
+                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
+                                  </th>
                                 </tr>
                               </tbody>
                           </table>

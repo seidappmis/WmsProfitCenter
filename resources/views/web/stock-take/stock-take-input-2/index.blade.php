@@ -40,6 +40,66 @@
               </div>
            </div>
       </div>
+
+      <div class="row">
+      <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                      <ul class="collapsible m-0">
+                        <li class="active">
+                          <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Input Stok Take 2</div>
+                          <div class="collapsible-body">
+                            <div class="row">
+                              <div class="input-field col s12">
+                                 <div class="col s12 m4 l3">
+                                    <p>No Tag :</p>
+                                 </div>
+                                 <div class="col s12 m8 l9">
+                                    <p>-</p>
+                                 </div>
+                              </div>
+                              <div class="input-field col s12">
+                                 <div class="col s12 m4 l3">
+                                    <p>Model :</p>
+                                 </div>
+                                 <div class="col s12 m8 l9">
+                                    <p>-</p>
+                                 </div>
+                              </div>
+                              <div class="input-field col s12">
+                                 <div class="col s12 m4 l3">
+                                    <p>Location :</p>
+                                 </div>
+                                 <div class="col s12 m8 l9">
+                                    <p>-</p>
+                                 </div>
+                              </div>
+                              <div class="input-field col s12">
+                                 <div class="col s12 m4 l3">
+                                    <p>Quantity :</p>
+                                 </div>
+                                 <div class="col s12 m8 l9">
+                                    <p>-</p>
+                                 </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                                <button type="submit" class="waves-effect waves-light indigo btn">Clear</button>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
   @endcomponent
 
   <div class="col s12">
@@ -66,7 +126,10 @@
                                   <td>S1-N162D-AB</td>
                                   <td>A</td>
                                   <td>1854</td>
-                                  <td>Delete</td>
+                                  <th width="50px;">
+                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
+                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
+                                  </th>
                                 </tr>
                               </tbody>
                           </table>
