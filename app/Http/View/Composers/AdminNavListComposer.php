@@ -24,10 +24,10 @@ class AdminNavListComposer
     ]];
 
     $this->menuItems[] = ['name' => 'incoming', 'label' => 'Incoming', 'url' => '#', 'icon' => 'play_for_work', 'childs' => [
-      ['name' => 'incoming', 'label' => 'Finish Good Production', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'incoming', 'label' => 'Incoming Import/OEM', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'incoming', 'label' => 'Confirm Manifest', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'incoming', 'label' => 'Billing Return', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'incoming', 'label' => 'Finish Good Production', 'url' => 'finish-good-production', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'incoming', 'label' => 'Incoming Import/OEM', 'url' => 'incoming-import-oem', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'incoming', 'label' => 'Confirm Manifest', 'url' => 'confirm-manifest', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'incoming', 'label' => 'Billing Return', 'url' => 'billing-return', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [
