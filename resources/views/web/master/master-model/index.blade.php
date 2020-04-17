@@ -1,5 +1,7 @@
 @extends('layouts.materialize.index')
 
+@include('web.master.master-model.modal-form')
+
 @section('content')
 <div class="row">
 
@@ -29,7 +31,7 @@
           </div>
           <div class="col s12 m3 ml-0">
             <!---- Upload Button ----->
-            <button class="btn btn-large waves-effect waves-light btn-add white-text" type="submit" name="action">Upload Model</button>
+            <a class="btn btn-large waves-effect waves-light btn-add white-text modal-trigger" href="#modal-upload">Upload Model</a>
           </div>
         </div>
     @endcomponent
