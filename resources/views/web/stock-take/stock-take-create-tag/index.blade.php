@@ -14,32 +14,43 @@
           </div>
         </div>
 
+        <div class="row">
+            <div class="col s12 m2 mb-1">
+              <div class="display-flex">
+                <!---- Search ----->
+                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                  {{-- <i class="material-icons right">add</i> --}}
+                  submit
+                </button>
+              </div>
+            </div>
+
+            <div class="col s12 m2 mb-1">
+              <div class="display-flex">
+                <!---- Search ----->
+                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                  {{-- <i class="material-icons right">add</i> --}}
+                  Print
+                </button>
+              </div>
+            </div>
+      </div>
+
       <div class="row">
-          <div class="col s12 m2">
-            <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-          </div>
           <div class="col s12 m4">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      <option>-Select Branch-</option>
-                      <option>[JF] PT. SEID CAB. JAKARTA</option>
-                      <option>[BDG] PT. SEID CAB. BANDUNG</option>
-                      <option>[CRB] PT. SEID CAB. CIREBON</option>
+                      <option>-Select Schedule ID-</option>
+                      <option>SBY-STO-200201-001</option>
+                      <option>KRW-STO-199801-002</option>
                     </select>
                   </div>
                 </div>
+          </div>
+          <div class="col s12 m2">
+            
           </div>
           <div class="col s12 m6">
               <div class="display-flex">
@@ -52,7 +63,7 @@
                 </div>
                 <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   {{-- <i class="material-icons right">add</i> --}}
-                  New Stock Take Schedule
+                  New Tag
                 </button>
               </div>
             </div>
@@ -69,21 +80,17 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
-                                    <th>STO NO.</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>SCHEDULE START DATE</th>
-                                    <th>SCHEDULE END DATE</th>
-                                    <th width="50px;"></th>
+                                    <th>No Tag</th>
+                                    <th>Model</th>
+                                    <th>Location</th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <td>1.</td>
-                                  <td>BTM-STO-200202-001</td>
-                                  <td>Stock_Tacking_Before_Go_Live</td>
-                                  <td>2020-02-02</td>
-                                  <td>2020-02-02</td>
-                                  <td>Delete</td>
+                                  <td>ES-TT8902-PK</td>
+                                  <td>A</td>
+                                  <td>-</td>
                                 </tr>
                               </tbody>
                           </table>
