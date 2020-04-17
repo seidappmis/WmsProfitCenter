@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m4">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Incoming Manifest</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Select Gate</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Incoming Manifest</li>
+                    <li class="breadcrumb-item active">Select Gate</li>
                 </ol>
             </div>
         </div>
@@ -22,33 +22,23 @@
                 <div class="card">
                     <div class="card-content p-0">
                       <ul class="collapsible m-0">
-                        <li>
-                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>From Manifest HQ</div>
-                          <div class="collapsible-body p-0">
-                            <div class="section-data-tables"> 
-                              <table id="data-table-1" class="display" width="100%">
-                                  <thead>
-                                      <tr>
-                                        <th>DO MANIFEST</th>
-                                        <th>EXPEDITION NAME</th>
-                                        <th>DESTINATION CITY</th>
-                                        <th>STATUS</th>
-                                        <th width="50px;"></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>JKT-180903-053</td>
-                                      <td>PUTRA NAGITA PRATAMA, PT.</td>
-                                      <td>BOGOR</td>
-                                      <td>-</td>
-                                      <td></td>
-                                    </tr>
-                                  </tbody>
-                              </table>
+                        <li class="active">
+                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Loading Status Gates</div>
+                          <div class="collapsible-body">
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <select>
+                                  <option>-Select Area-</option>
+                                  <option>KARAWANG</option>
+                                  <option>SURABAYA HUB</option>
+                                  <option>SWADAYA</option>
+                                </select>
+                                <label for="expedition">Area</label>
+                              </div>
+                              <strong>
+                                <span class="green-text">Green = No Loading</span> <span class="red-text">Red = Loading</span>.
+                              </strong>
                             </div>
-                            <!-- datatable ends -->
-
                           </div>
                         </li>
                       </ul>
@@ -63,24 +53,36 @@
                 <div class="card">
                     <div class="card-content p-0">
                       <ul class="collapsible m-0">
-                        <li>
-                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>From Manifest Branch</div>
+                        <li class="active">
+                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Select Gate</div>
                           <div class="collapsible-body p-0">
                             <div class="section-data-tables"> 
                               <table id="data-table-2" class="display" width="100%">
                                   <thead>
                                       <tr>
-                                        <th>DO MANIFEST</th>
+                                        <th>NO.</th>
+                                        <th>STATUS</th>
+                                        <th>VEHICLE NO.</th>
+                                        <th>DESTINATION</th>
                                         <th>EXPEDITION NAME</th>
-                                        <th>DESTINATION CITY</th>
+                                        <th>VEHICLE TYPE</th>
+                                        <th>TOTAL CBM</th>
+                                        <th>CAPACITY</th>
+                                        <th>BALANCE</th>
                                         <th width="50px;"></th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                     <tr>
-                                      <td>JKT-180903-053</td>
-                                      <td>PUTRA NAGITA PRATAMA, PT.</td>
-                                      <td>BOGOR</td>
+                                      <td>1.</td>
+                                      <td>Waiting Loading</td>
+                                      <td>B 9101 UEI SANIKIN</td>
+                                      <td>Jakarta-Manado <br>Jakarta-Manado</td>
+                                      <td>WINDU JAYA UTAMA, PT.</td>
+                                      <td>CONT 40 (HC)</td>
+                                      <td>63.685</td>
+                                      <td>65.000</td>
+                                      <td>1.315</td>
                                       <td></td>
                                     </tr>
                                   </tbody>

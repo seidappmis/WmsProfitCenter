@@ -40,16 +40,16 @@ class AdminNavListComposer
     //   ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     // ]];
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
-      ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'IDCard Scan', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Select Gate', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Loading Process', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Complete', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Manifest Regular', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Manifest AS', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Update Manifest', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Overload Concept or DO', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => 'upload-concept', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'IDCard Scan', 'url' => 'idcard-scan', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => 'assign-vehicles', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Select Gate', 'url' => 'select-gate', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Loading Process', 'url' => 'loading-process', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Complete', 'url' => 'complete', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Manifest Regular', 'url' => 'manifest-regular', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Manifest AS', 'url' => 'manifest-as', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Update Manifest', 'url' => 'update-manifest', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Overload Concept or DO', 'url' => 'overload-concept-or-do', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => '#', 'icon' => 'pages', 'childs' => [
