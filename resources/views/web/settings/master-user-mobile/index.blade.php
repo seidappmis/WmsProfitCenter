@@ -16,31 +16,31 @@
         <div>
         	<div class="col s12 m3">
             <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-- Select Cabang --</option>
-                      <option>PT. SEID HQ JKT</option>
-                      <option>PT. SEID CAB. JAKARTA</option>
-                      <option>PT. SEID CAB. BANDUNG</option>
-                    </select>
-                  </div>
-                </div>
-          </div>
-          	<div class="col s12 m3"></div>
-            <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div>
-                </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New User Mobile</a>
+            <div class="app-wrapper">
+              <div class="datatable-search">
+                <select id="area_filter">
+                  <option>-- Select Cabang --</option>
+                  <option>PT. SEID HQ JKT</option>
+                  <option>PT. SEID CAB. JAKARTA</option>
+                  <option>PT. SEID CAB. BANDUNG</option>
+                </select>
               </div>
             </div>
+          </div>
+        	<div class="col s12 m3"></div>
+          <div class="col s12 m6">
+            <div class="display-flex">
+              <!---- Search ----->
+              <div class="app-wrapper mr-2">
+                <div class="datatable-search">
+                  <i class="material-icons mr-2 search-icon">search</i>
+                  <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                </div>
+              </div>
+              <!---- Button Add ----->
+              <a class="btn btn-large waves-effect waves-light btn-add" href="#">New User Mobile</a>
+            </div>
+          </div>
         </div>
     @endcomponent
     
