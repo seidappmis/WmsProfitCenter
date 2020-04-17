@@ -19,7 +19,7 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      <option>-Select Cabang-</option>
+                      <option>-- Select Cabang --</option>
                       <option>PT. SEID HQ JKT</option>
                       <option>PT. SEID CAB. JAKARTA</option>
                       <option>PT. SEID CAB. BANDUNG</option>
