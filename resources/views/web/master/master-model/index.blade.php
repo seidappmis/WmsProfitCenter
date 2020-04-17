@@ -24,7 +24,7 @@
                 </div>
               </div>
               <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Model</a>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-model/create') }}">New Model</a>
             </div>
           </div>
           <div class="col s12 m3 ml-0">
