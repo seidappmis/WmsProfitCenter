@@ -126,11 +126,11 @@ class AdminNavListComposer
       ['name' => 'master', 'label' => 'Destination City of Branch', 'url' => 'destination-city-of-branch', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'setting', 'label' => 'Setting', 'url' => '#', 'icon' => 'build', 'childs' => [
-      ['name' => 'setting', 'label' => 'User Manager', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'setting', 'label' => 'User Roles', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'setting', 'label' => 'Master Area', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'setting', 'label' => 'Master Cabang', 'url' => '#', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'setting', 'label' => 'Master User Mobile', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'setting', 'label' => 'User Manager', 'url' => 'user-manager', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'setting', 'label' => 'User Roles', 'url' => 'user-roles', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'setting', 'label' => 'Master Area', 'url' => 'master-area', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'setting', 'label' => 'Master Cabang', 'url' => 'master-cabang', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'setting', 'label' => 'Master User Mobile', 'url' => 'master-user-mobile', 'icon' => 'radio_button_unchecked'],
     ]];
   }
 
