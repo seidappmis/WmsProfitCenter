@@ -5,29 +5,32 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m12 mb-2">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Model</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Master Model</li>
                 </ol>
             </div>
-            <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m7">
+            <div class="display-flex">
+              <!---- Search ----->
+              <div class="app-wrapper mr-4">
+                <div class="datatable-search">
+                  <i class="material-icons mr-2 search-icon">search</i>
+                  <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Model</a>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">Upload Model</button>
               </div>
+              <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Model</a>
             </div>
-            <div class="col s12 m3">
-            </div>
+          </div>
+          <div class="col s12 m3 ml-0">
+            <!---- Upload Button ----->
+            <button class="btn btn-large waves-effect waves-light btn-add white-text" type="submit" name="action">Upload Model</button>
+          </div>
         </div>
     @endcomponent
     
