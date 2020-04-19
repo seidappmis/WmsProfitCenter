@@ -12,19 +12,6 @@
                     <li class="breadcrumb-item active">User Roles</li>
                 </ol>
             </div>
-            <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <!-- <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter"> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m3">
-            </div>
         </div>
     @endcomponent
     
@@ -58,27 +45,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo" /><span></span></label></td>
                                 <td>Graphic Dashboard</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo" /><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Graphic Dashboard 2</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Trucking Monitor</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- GROUPNAME -->
                                 <tr class="group">
@@ -86,11 +73,11 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>ModulName</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                <!-- INCOMING -->
                                 <tr class="group">
@@ -98,27 +85,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Finish Good Production</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Incoming Import/OEM</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>TConform Manifest</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- INVENTORY -->
                                 <tr class="group">
@@ -126,27 +113,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Storage Inventory Monitoring</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Upload Inventory Storage</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Adjust Inventory Movement</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- INVOICING -->
                                 <tr class="group">
@@ -154,27 +141,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>List Of Unconfirm DO</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Receipt Invoice</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Receipt Invoice Accounting</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- Master Data -->
                                 <tr class="group">
@@ -182,27 +169,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Master Gate</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Master Destination</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Master Vehicle</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- OTHERS -->
                                 <tr class="group">
@@ -210,11 +197,11 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Clean Concept</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- OUTGOING -->
                                 <tr class="group">
@@ -222,27 +209,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Upload Concept</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>IDCard Scan</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Assign Vehicles</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- PICKING -->
                                 <tr class="group">
@@ -250,27 +237,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Upload DO for Picking</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Picking List</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Picking to LMB</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- REPORTS -->
                                 <tr class="group">
@@ -278,27 +265,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Report Master Users</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Report Master</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Standby</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- RETURN -->
                                 <tr class="group">
@@ -306,19 +293,19 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Task Notice</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>List Of SO</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- SETTING -->
                                 <tr class="group">
@@ -326,27 +313,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>User Manager</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>User Roles</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Master Area</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <!-- STOCK TAKE -->
                                 <tr class="group">
@@ -354,27 +341,27 @@
                                 </tr>
                                 <tr>
                                 <!-- <td>1.</td> -->
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 <td>Stock Take Schedule</td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                   <!-- <td>2.</td> -->
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                   <td>Stock Take Create Tag</td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                  <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                  <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                                 <tr>
                                     <!-- <td>3.</td> -->
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                     <td>Stock Take Input 1</td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
-                                    <td><label><input type="checkbox" class="filled-in" /><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
+                                    <td><label><input type="checkbox" class="filled-in" name="foo"/><span></span></label></td>
                                 </tr>
                               </tbody>
                           </table>
@@ -398,6 +385,13 @@
 
 @push('script_js')
 <script type="text/javascript">
+  // Checkbox
+  function toggle(source) {
+     checkboxes = document.getElementsByName("foo");
+     for (var i = 0, n = checkboxes.length; i < n; i++) {
+        checkboxes[i].checked = source.checked;
+     }
+  }
   // var table = $('#data-table-simple').DataTable({
   //   "responsive": true,
   // });
