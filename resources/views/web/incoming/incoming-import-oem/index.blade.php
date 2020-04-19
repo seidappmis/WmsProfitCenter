@@ -58,7 +58,10 @@
                                   <td>FUJISEI PLASTIK SEITEK,PT.</td>
                                   <td>Total Items 1</td>
                                   <td>06-Feb-2020</td>
-                                  <td></td>
+                                  <td>
+                                    {!! get_button_view() !!}
+                                    {!! get_button_print() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>

@@ -40,25 +40,11 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<div class="row mb-2">
-                    	  <div class="input-field col s12">
-                    	  	<!-- <input id="number" type="text" class="validate" name="gate_number" required> -->
-							<label for="no">Receipt No. :</label>
-                    	  </div>
-                    	  <div class="input-field col s12">
-                    	  	<!-- <input id="number" type="text" class="validate" name="gate_number" required> -->
-							<label for="no">Ticket No. :</label>
-                    	  </div>
-                    	  <div class="input-field col s12">
-                    	  	<!-- <input id="number" type="text" class="validate" name="gate_number" required> -->
-							<label for="no">Warehouse :</label>
-                    	  </div>
-                    	  <div class="input-field col s12">
-                    	  	<!-- <input id="number" type="text" class="validate" name="gate_number" required> -->
-							<label for="no">Factory :</label>
-                    	  </div>
-                    	</div>
-                    	<br>
+                	  <p>Receipt No : <b class="green-text text-darken-3">ARV-WHHYP-181003-019</b class="green-text text-darken-3"></p>
+                      <p>Ticket No : <b class="green-text text-darken-3">L-TV-1810010006</b class="green-text text-darken-3"></p>
+                      <p>Warehouse : <b class="green-text text-darken-3">SHARP KARAWANG W/H</b class="green-text text-darken-3"></p>
+                      <p>Factory : <b class="green-text text-darken-3">TV</b class="green-text text-darken-3"></p>
+                      <br>
                     	<div class="row mb-2">
                     	  <div class="col s12">
                     		<h4 class="card-title">List Barcode Detail from Factory</h4>
