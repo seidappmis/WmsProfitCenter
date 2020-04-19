@@ -22,7 +22,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('finish-good-production/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                <a href="{{ url('incoming-import-oem/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   New Incoming Import/OEM
                 </a>
               </div>
@@ -66,9 +66,6 @@
                         <!-- datatable ends -->
                     </div>
                 </div>
-            </div>
-            <!---- Button Add ----->
-            {{-- <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a> --}}
             </div>
         </div>
         <div class="content-overlay"></div>
