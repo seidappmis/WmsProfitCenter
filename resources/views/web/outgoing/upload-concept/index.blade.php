@@ -40,7 +40,7 @@
                           </select>
                           <label>Area</label>
                         </div>
-                        <div class="input-field col s12 m12">
+                        <div class="input-field col s12 m12 mb-2">
                           <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                             UPLOAD
                           </button>

@@ -53,10 +53,10 @@ class AdminNavListComposer
     ]];
 
     $this->menuItems[] = ['name' => 'invoicing', 'label' => 'Invoicing', 'url' => '#', 'icon' => 'pages', 'childs' => [
-      ['name' => 'invoicing', 'label' => 'List of Unconfirm DO', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'invoicing', 'label' => 'List of Unconfirm DO', 'url' => 'list-of-unconfirm-do', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Receipt Invoice', 'url' => 'receipt-invoice', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Receipt Invoice Accounting', 'url' => 'receipt-invoice-accounting', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'invoicing', 'label' => 'Summary Freight Cost Analysis', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'invoicing', 'label' => 'Summary Freight Cost Analysis', 'url' => 'summary-freight-cost-analysis', 'icon' => 'radio_button_unchecked'],
       ['name' => 'invoicing', 'label' => 'Branch Invoicing', 'url' => 'branch-invoicing', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'inventory', 'label' => 'Inventory', 'url' => '#', 'icon' => 'store', 'childs' => [
