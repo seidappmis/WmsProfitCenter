@@ -25,20 +25,67 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">filter_drama</i>Loading Status Gates</div>
                           <div class="collapsible-body">
-                            <div class="row">
-                              <div class="input-field col s12">
-                                <select>
-                                  <option>-Select Area-</option>
-                                  <option>KARAWANG</option>
-                                  <option>SURABAYA HUB</option>
-                                  <option>SWADAYA</option>
-                                </select>
-                                <label for="expedition">Area</label>
+                            <form>
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  <select>
+                                    <option>-Select Area-</option>
+                                    <option>KARAWANG</option>
+                                    <option>SURABAYA HUB</option>
+                                    <option>SWADAYA</option>
+                                  </select>
+                                  <label for="expedition">Area</label>
+                                </div>
+                                <div class="row gate-row">
+                                  @push('script_css')
+                                  <style type="text/css">
+                                    .row.gate-row .col {
+                                      padding: 0 .5rem;
+                                    }
+                                    .row.gate-row .col p {
+                                      font-size: 11px;
+                                    }
+                                  </style>
+                                  @endpush
+                                  <div class="col s2 m1">
+                                    <div class="card">
+                                      <div class="card-content p-0">
+                                        <p class="center-align">&nbsp;</p>
+                                        <div class="center-align pt-5">
+                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
+                                        </div>
+                                        <h4 class="card-title center-align">101</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col s2 m1">
+                                    <div class="card">
+                                      <div class="card-content p-0">
+                                        <p class="center-align">&nbsp;</p>
+                                        <div class="center-align pt-5">
+                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
+                                        </div>
+                                        <h4 class="card-title center-align">102</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col s2 m1">
+                                    <div class="card">
+                                      <div class="card-content p-0">
+                                        <p class="center-align">&nbsp;B 9875 UEI</p>
+                                        <div class="center-align pt-5">
+                                          <i class="material-icons red-text" style="font-size: 60px;">directions_bus</i>
+                                        </div>
+                                        <h4 class="card-title center-align">103</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <strong>
+                                  <span class="green-text">Green = No Loading</span> <span class="red-text">Red = Loading</span>.
+                                </strong>
                               </div>
-                              <strong>
-                                <span class="green-text">Green = No Loading</span> <span class="red-text">Red = Loading</span>.
-                              </strong>
-                            </div>
+                            </form>
                           </div>
                         </li>
                       </ul>
