@@ -10,5 +10,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('incoming-import-oem/create', 'web.incoming.incoming-import-oem.create');
 
   Route::view('conform-manifest', 'web.incoming.conform-manifest.index');
+  Route::view('conform-manifest/{id}', 'web.incoming.conform-manifest.view');
+
   Route::view('billing-return', 'web.incoming.billing-return.index');
 });

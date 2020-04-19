@@ -11,10 +11,12 @@ PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER 
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
 .navbar .navbar-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e); !important;
+    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    !important;
 }
 .footer-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e); !important;
+    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    !important;
 }
 .brand-sidebar span.logo-text {
     position: absolute;
@@ -22,11 +24,13 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     left: 52px;
 }
 .sidenav li a.active {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);;
+    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    ;
     box-shadow: 3px 3px 20px 0 rgb(186, 75, 75);
 }
 .content-wrapper-before {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);;
+    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    ;
 }
 #breadcrumbs-wrapper .breadcrumbs .active {
     color: #ffca22;
@@ -105,7 +109,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .datatable-search .select2 {
     z-index: 2;
 }
-.display-flex .app-wrapper{
+.display-flex .app-wrapper {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
@@ -118,44 +122,41 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     height: 3.1rem;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable .dt-checkboxes-cell input {
-  opacity: .5;
-  -webkit-appearance: none;
+    opacity: .5;
+    -webkit-appearance: none;
 }
-
 #main .section-data-tables .dataTables_wrapper table.dataTable .dt-checkboxes-cell input::before, #main .section-data-tables .dataTables_wrapper table.dataTable .dt-checkboxes-cell input::after {
-  content: '';
-  position: absolute;
-  border-radius: 4px;
-  top: -4px;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  z-index: 0;
-  border: 2px solid #9e9e9e;
-  margin-top: -3px;
-  -webkit-transition: .2s;
-  transition: .2s;
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+    top: -4px;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    z-index: 0;
+    border: 2px solid #9e9e9e;
+    margin-top: -3px;
+    -webkit-transition: .2s;
+    transition: .2s;
 }
-
 #main .section-data-tables .dataTables_wrapper table.dataTable .dt-checkboxes-cell input:checked:before, #main .section-data-tables .dataTables_wrapper table.dataTable .dt-checkboxes-cell input:checked::after {
-  top: -4px;
-  left: -5px;
-  width: 12px;
-  height: 22px;
-  border-top: 2px solid transparent;
-  border-left: 2px solid transparent;
-  border-right: 2px solid #ff4081;
-  border-bottom: 2px solid #ff4081;
-  -webkit-transform: rotate(40deg);
-  -ms-transform: rotate(40deg);
-  transform: rotate(40deg);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform-origin: 100% 100%;
-  -ms-transform-origin: 100% 100%;
-  transform-origin: 100% 100%;
+    top: -4px;
+    left: -5px;
+    width: 12px;
+    height: 22px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid #ff4081;
+    border-bottom: 2px solid #ff4081;
+    -webkit-transform: rotate(40deg);
+    -ms-transform: rotate(40deg);
+    transform: rotate(40deg);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
 }
-
 #main .section-data-tables .dataTables_wrapper table.dataTable thead th {
     font-size: 12px;
     font-weight: 800;
@@ -171,6 +172,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     -o-transform: translateY(0%);
     transform: translateY(0%);
     color: #ff4081;
+}
+.input-field {
+    margin-bottom: 0rem;
 }
 .sidenav li a div {
     display: flex;
@@ -193,5 +197,8 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 .btn-add:focus {
     background: #ED991B;
+}
 
+td, th {
+  font-size: 12px;
 }

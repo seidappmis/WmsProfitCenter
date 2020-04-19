@@ -42,7 +42,7 @@
                                       <td>PUTRA NAGITA PRATAMA, PT.</td>
                                       <td>BOGOR</td>
                                       <td>-</td>
-                                      <td></td>
+                                      <td>{!! get_button_view(url('conform-manifest/1')) !!}</td>
                                     </tr>
                                   </tbody>
                               </table>
