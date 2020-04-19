@@ -54,7 +54,7 @@
                                         <div class="center-align pt-5">
                                           <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
                                         </div>
-                                        <h4 class="card-title center-align">101</h4>
+                                        <h4 class="card-title center-align mb-0">101</h4>
                                       </div>
                                     </div>
                                   </div>
@@ -65,7 +65,7 @@
                                         <div class="center-align pt-5">
                                           <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
                                         </div>
-                                        <h4 class="card-title center-align">102</h4>
+                                        <h4 class="card-title center-align mb-0">102</h4>
                                       </div>
                                     </div>
                                   </div>
@@ -76,7 +76,29 @@
                                         <div class="center-align pt-5">
                                           <i class="material-icons red-text" style="font-size: 60px;">directions_bus</i>
                                         </div>
-                                        <h4 class="card-title center-align">103</h4>
+                                        <h4 class="card-title center-align mb-0">103</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col s2 m1">
+                                    <div class="card">
+                                      <div class="card-content p-0">
+                                        <p class="center-align">&nbsp;</p>
+                                        <div class="center-align pt-5">
+                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
+                                        </div>
+                                        <h4 class="card-title center-align mb-0">102</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col s2 m1">
+                                    <div class="card">
+                                      <div class="card-content p-0">
+                                        <p class="center-align">&nbsp;B 9875 UEI</p>
+                                        <div class="center-align pt-5">
+                                          <i class="material-icons red-text" style="font-size: 60px;">directions_bus</i>
+                                        </div>
+                                        <h4 class="card-title center-align mb-0">103</h4>
                                       </div>
                                     </div>
                                   </div>
