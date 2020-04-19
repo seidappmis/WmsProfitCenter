@@ -22,7 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Roles</a>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-roles/create') }}">New Roles</a>
               </div>
             </div>
             <div class="col s12 m3">
