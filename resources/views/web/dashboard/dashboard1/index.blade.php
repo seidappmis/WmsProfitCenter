@@ -1,11 +1,43 @@
 @extends('layouts.materialize.index')
 
 @section('content')
+  @component('layouts.materialize.components.title-wrapper')
+      <div class="row">
+          <div class="col s12 m8 mb-1">
+              <h5 class="breadcrumbs-title mt-0 mb-0"><span>Graphic Dashboard</span></h5>
+              <ol class="breadcrumbs mb-0">
+                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                  <li class="breadcrumb-item active">Graphic Dashboard</li>
+              </ol>
+          </div>
+          <div class="col s12 m4">
+            <!---- Search ----->
+                <div class="app-wrapper">
+                  <div class="datatable-search">
+                    <select id="area_filter">
+                      <option>-Select Area-</option>
+                      <option>KARAWANG</option>
+                      <option>SURABAYA HUB</option>
+                      <option>SWADAYA</option>
+                    </select>
+                  </div>
+                </div>
+          </div>
+      </div>
+  @endcomponent
+
 <div class="row">
     <div class="col s12">
-        sdf
+        <div class="container">
+            <div class="card mb-0">
+                <div class="card-content">
+                    @include('web.dashboard.dashboard1._loading_daily_status_graph')
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col s12">
         <div class="container">
