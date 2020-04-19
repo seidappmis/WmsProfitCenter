@@ -13,4 +13,5 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('conform-manifest/{id}', 'web.incoming.conform-manifest.view');
 
   Route::view('billing-return', 'web.incoming.billing-return.index');
+  Route::view('billing-return/{id}', 'web.incoming.billing-return.view');
 });

@@ -201,4 +201,5 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 
 td, th {
   font-size: 12px;
+  color: #34363f;
 }

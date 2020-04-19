@@ -42,7 +42,7 @@
                                       <td>PUTRA NAGITA PRATAMA, PT.</td>
                                       <td>Tegal</td>
                                       <td>BRANCH</td>
-                                      <td>View For Submit</td>
+                                      <td>{!! get_button_view(url('billing-return/1'), 'View for Submit') !!}</td>
                                     </tr>
                                   </tbody>
                               </table>
@@ -81,7 +81,7 @@
                                       <td>JKT-180903-053</td>
                                       <td>PUTRA NAGITA PRATAMA, PT.</td>
                                       <td>BOGOR</td>
-                                      <td>View</td>
+                                      <td>{!! get_button_view(url('billing-return/1')) !!}</td>
                                     </tr>
                                   </tbody>
                               </table>

@@ -42,7 +42,7 @@
                                       <td>PUTRA NAGITA PRATAMA, PT.</td>
                                       <td>BOGOR</td>
                                       <td>-</td>
-                                      <td>{!! get_button_view(url('conform-manifest/1')) !!}</td>
+                                      <td>{!! get_button_view(url('conform-manifest/1'), 'View for Conform') !!}</td>
                                     </tr>
                                   </tbody>
                               </table>
@@ -81,7 +81,7 @@
                                       <td>JKT-180903-053</td>
                                       <td>PUTRA NAGITA PRATAMA, PT.</td>
                                       <td>BOGOR</td>
-                                      <td></td>
+                                      <td>{!! get_button_view(url('conform-manifest/1')) !!}</td>
                                     </tr>
                                   </tbody>
                               </table>
