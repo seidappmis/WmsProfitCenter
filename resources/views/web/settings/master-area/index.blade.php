@@ -22,7 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Area</a>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-area/create') }}">New Area</a>
               </div>
             </div>
             <div class="col s12 m3">

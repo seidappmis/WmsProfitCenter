@@ -22,7 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Cabang</a>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-cabang/create') }}">New Cabang</a>
               </div>
             </div>
             <div class="col s12 m3">

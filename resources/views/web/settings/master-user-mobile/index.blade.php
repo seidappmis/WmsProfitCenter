@@ -38,7 +38,7 @@
                 </div>
               </div>
               <!---- Button Add ----->
-              <a class="btn btn-large waves-effect waves-light btn-add" href="#">New User Mobile</a>
+              <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-user-mobile/create') }}">New User Mobile</a>
             </div>
           </div>
         </div>
