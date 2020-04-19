@@ -6,7 +6,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
   Route::view('select-gate', 'web.outgoing.select-gate.index');
   Route::view('loading-process', 'web.outgoing.loading-process.index');
+
   Route::view('complete', 'web.outgoing.complete.index');
+  Route::view('complete/{id}', 'web.outgoing.complete.view');
+
   Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');
   Route::view('manifest-as', 'web.outgoing.manifest-as.index');
   Route::view('update-manifest', 'web.outgoing.update-manifest.index');
