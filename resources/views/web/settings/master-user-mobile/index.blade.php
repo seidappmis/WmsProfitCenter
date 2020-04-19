@@ -5,15 +5,13 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m6 mb-2">
+            <div class="col s12 m3">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master User Mobile</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Master User Mobile</li>
                 </ol>
             </div>
-        </div>
-        <div>
         	<div class="col s12 m3">
             <!---- Search ----->
             <div class="app-wrapper">
@@ -27,7 +25,6 @@
               </div>
             </div>
           </div>
-        	<div class="col s12 m3"></div>
           <div class="col s12 m6">
             <div class="display-flex">
               <!---- Search ----->
