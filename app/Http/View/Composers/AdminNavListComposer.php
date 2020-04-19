@@ -68,7 +68,7 @@ class AdminNavListComposer
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'low_priority', 'childs' => [
-      ['name' => 'report', 'label' => 'Task Notice', 'url' => '#', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'report', 'label' => 'Task Notice', 'url' => 'task-notice', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
