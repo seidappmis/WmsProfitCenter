@@ -40,7 +40,8 @@
         "classmap": [
             "database/seeds",
             "database/factories"
-        ]
+        ],
+        "files": ["app/Helpers/my_helper.php", "app/Helpers/wms_sharp_helper.php"]
     },
     "autoload-dev": {
         "psr-4": {

@@ -69,7 +69,9 @@
                                   <td>L-TV-1810010006</td>
                                   <td>SHARP KARAWANG W/H</td>
                                   <td>TV</td>
-                                  <td></td>
+                                  <td>
+                                    {!! get_button_view(url('finish-good-production/1')) !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>
