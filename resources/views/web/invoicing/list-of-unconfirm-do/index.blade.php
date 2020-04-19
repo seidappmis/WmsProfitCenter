@@ -47,6 +47,7 @@
                                     <th>DO INTERNAL</th>
                                     <th>MODEL</th>
                                     <th>QUANTITY</th>
+                                    <th>CBM TOTAL</th>
                                     <th>CUSTOMER</th>
                                     <th>CITY SHIP TO</th>
                                     <th>DO TYPE</th>
@@ -55,7 +56,84 @@
                                     <th>LEAD TIME</th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr class="grey lighten-2">
+                                  <td colspan="12">JKT-180903-035-MARC TRI MANUNGGAL, PT. - Jakarta</td>
+                                </tr>
+                                <tr>
+                                  <td>1000323670</td>
+                                  <td>2101070126</td>
+                                  <td></td>
+                                  <td>AH-A95SAY</td>
+                                  <td>58</td>
+                                  <td>5.046</td>
+                                  <td>PT. MULIA ADHI PERKASA</td>
+                                  <td>JAKARTA</td>
+                                  <td>NORMAL</td>
+                                  <td>2018-09-03</td>
+                                  <td>2018-09-04</td>
+                                  <td>1</td>
+                                </tr>
+                                <tr>
+                                  <td>1000323670</td>
+                                  <td>2101070126</td>
+                                  <td></td>
+                                  <td>AH-A95SAY</td>
+                                  <td>58</td>
+                                  <td>5.046</td>
+                                  <td>PT. MULIA ADHI PERKASA</td>
+                                  <td>JAKARTA</td>
+                                  <td>NORMAL</td>
+                                  <td>2018-09-03</td>
+                                  <td>2018-09-04</td>
+                                  <td>1</td>
+                                </tr>
+                                <tr class="grey lighten-2">
+                                  <td colspan="12">JKT-180903-035-MARC TRI MANUNGGAL, PT. - Jakarta</td>
+                                </tr>
+                                <tr>
+                                  <td>1000323670</td>
+                                  <td>2101070126</td>
+                                  <td></td>
+                                  <td>AH-A95SAY</td>
+                                  <td>58</td>
+                                  <td>5.046</td>
+                                  <td>PT. MULIA ADHI PERKASA</td>
+                                  <td>JAKARTA</td>
+                                  <td>NORMAL</td>
+                                  <td>2018-09-03</td>
+                                  <td>2018-09-04</td>
+                                  <td>1</td>
+                                </tr>
+                                <tr>
+                                  <td>1000323670</td>
+                                  <td>2101070126</td>
+                                  <td></td>
+                                  <td>AH-A95SAY</td>
+                                  <td>58</td>
+                                  <td>5.046</td>
+                                  <td>PT. MULIA ADHI PERKASA</td>
+                                  <td>JAKARTA</td>
+                                  <td>NORMAL</td>
+                                  <td>2018-09-03</td>
+                                  <td>2018-09-04</td>
+                                  <td>1</td>
+                                </tr>
+                                <tr>
+                                  <td>1000323670</td>
+                                  <td>2101070126</td>
+                                  <td></td>
+                                  <td>AH-A95SAY</td>
+                                  <td>58</td>
+                                  <td>5.046</td>
+                                  <td>PT. MULIA ADHI PERKASA</td>
+                                  <td>JAKARTA</td>
+                                  <td>NORMAL</td>
+                                  <td>2018-09-03</td>
+                                  <td>2018-09-04</td>
+                                  <td>1</td>
+                                </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
