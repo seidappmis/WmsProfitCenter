@@ -7,7 +7,7 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m10">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Finish Good Production</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>View Finish Good Production</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('finish-good-production') }}">Finish Good Production</a></li>

@@ -71,6 +71,7 @@
                                   <td>TV</td>
                                   <td>
                                     {!! get_button_view(url('finish-good-production/1')) !!}
+                                    {!! get_button_print() !!}
                                   </td>
                                 </tr>
                               </tbody>
