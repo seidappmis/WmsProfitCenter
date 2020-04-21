@@ -189,14 +189,14 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     top: 11px;
 }
 .btn-add {
-    color: #616161;
-    background: #ffad32;
+    color: #1e1e1e !important;
+    background: #f2ec6f;
 }
 .btn-add:hover {
-    background: #ED991B;
+    background: #d5d05f;
 }
 .btn-add:focus {
-    background: #ED991B;
+    background: #d5d05f;
 }
 
 td, th {
