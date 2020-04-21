@@ -61,16 +61,16 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     min-width: 40px;
 }
 #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current:hover {
-    border: 1px solid #349317;
-    background: #1c5f09;
-    -webkit-box-shadow: 0 0 8px 0 #598c03;
-    box-shadow: 0 0 8px 0 #185901;
+    border: 1px solid #2c4058;
+    background: #0c2e59;
+    -webkit-box-shadow: 0 0 8px 0 #5c7593;
+    box-shadow: 0 0 8px 0 #2d4159;
 }
 #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button:hover, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button:hover {
-    border: 1px solid #349317;
-    background: #1c5f09;
-    -webkit-box-shadow: 0 0 8px 0 #598c03;
-    box-shadow: 0 0 8px 0 #185901;
+    border: 1px solid #2c4058;
+    background: #0c2e59;
+    -webkit-box-shadow: 0 0 8px 0 #5c7593;
+    box-shadow: 0 0 8px 0 #2d4159;
 }
 .datatable-search .select-wrapper {
     background-color: #fff !important;
@@ -201,7 +201,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .btn-add:focus {
     background: #d5d05f;
 }
-.btn, .btn-large, .btn-small, .btn-flat {
+table .btn, table .btn-large, table .btn-small, table .btn-flat {
     padding: 0 .6rem;
     text-transform: none;
 }
