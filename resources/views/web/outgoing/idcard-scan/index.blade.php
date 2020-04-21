@@ -12,30 +12,6 @@
                   <li class="breadcrumb-item active">IDCard Scan</li>
               </ol>
           </div>
-          <div class="col s12 m3">
-            <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-          </div>
-          <div class="col s12 m4">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div>
-                </div>
-              </div>
-            </div>
       </div>
   @endcomponent
 
@@ -43,40 +19,113 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                        <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
-                              <thead>
-                                  <tr>
-                                    <th data-priority="1" width="30px">No.</th>
-                                    <th>SHIPMENT NO</th>
-                                    <th>LINE NO</th>
-                                    <th>DELIVERY NO</th>
-                                    <th>DELIVERY ITEMS</th>
-                                    <th>QUANTITY</th>
-                                    <th>MODEL</th>
-                                    <th>CBM</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>OVERLOAD DATE</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1.</td>
-                                  <td>1000402671</td>
-                                  <td>4</td>
-                                  <td>2101447850</td>
-                                  <td>30</td>
-                                  <td>6</td>
-                                  <td>SJ-X165MG-GB</td>
-                                  <td>2.190</td>
-                                  <td>TIDAK MUAT</td>
-                                  <td>2020-02-06</td>
-                                </tr>
-                              </tbody>
-                          </table>
-                        </div>
-                        <!-- datatable ends -->
+                    <div class="card-content">
+                      <form>
+                        <table class="form-table">
+                          <tr>
+                            <td width="20%">Driver ID</td>
+                            <td>
+                              <div class="row">
+                                <div class="col s12 m6 l3">
+                                  <input placeholder="" id="first_name" type="text" class="validate" required="">
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                        <table class="form-table">
+                          <tr>
+                            <td width="20%">Driver Name</td>
+                            <td>Name</td>
+                            <td width="30%" rowspan="7" class="center-align">
+                              <img src="{{asset('images/profil.png')}}" width="120px">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Transporter</td>
+                            <td>Trans</td>
+                          </tr>
+                          <tr>
+                            <td>Vehicle No.</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <select required="">
+                                  <option value="">-Select Vehicle-</option>
+                                  <option value="B 9010 GB">B 9010 GB</option>
+                                  <option value="B 9033 SYK">B 9033 SYK</option>
+                                  <option value="B 9035 ML">B 9035 ML</option>
+                                  <option value="B 9051 BN">B 9051 BN</option>
+                                  <option value="B 9089 UIW">B 9089 UIW</option>
+                                  <option value="B 9110 KA">B 9110 KA</option>
+                                  <option value="B 9132 BEI">B 9132 BEI</option>
+                                  <option value="B 9132 LS">B 9132 LS</option>
+                                  <option value="B 9143 JS">B 9143 JS</option>
+                                  <option value="B 9184 BEK">B 9184 BEK</option>
+                                  <option value="B 9185 BEK">B 9185 BEK</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Vehicle Type</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <select required="">
+                                  <option value="" selected="selected">-Select Vehicle Type-</option>
+                                  <option value="Z3D006">Cont 20 ft capacity 25 - 28 Cbm</option>
+                                  <option value="Z3D007">Cont 40 ft STD capacity 55 - 60 Cbm</option>
+                                  <option value="Z3D008">Cont 45 ft capacity  55 - 75 cbm</option>
+                                  <option value="Z3D009">Cont 40 ft HC capacity 55 - 65 Cbm</option>
+                                  <option value="Z3D010">Cont 20 combo capacity  50 - 56 cbm</option>
+                                  <option value="Z3D025">Cont 10 ft capacity 10 - 15 cbm</option>
+                                  <option value="LCL">Less than Container Load</option>
+                                  <option value="Z3D027">Cont 20 ft capacity 25 - 28 Cbm (By Train)</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Capacity (CBM)</td>
+                            <td>55.000 to 65.000</td>
+                          </tr>
+                          <tr>
+                            <td>Destination</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <select required="">
+                                  <option value="" selected="selected">-Select Destination-</option>
+                                  <option value="Z3D006">Cont 20 ft capacity 25 - 28 Cbm</option>
+                                  <option value="Z3D007">Cont 40 ft STD capacity 55 - 60 Cbm</option>
+                                  <option value="Z3D008">Cont 45 ft capacity  55 - 75 cbm</option>
+                                  <option value="Z3D009">Cont 40 ft HC capacity 55 - 65 Cbm</option>
+                                  <option value="Z3D010">Cont 20 combo capacity  50 - 56 cbm</option>
+                                  <option value="Z3D025">Cont 10 ft capacity 10 - 15 cbm</option>
+                                  <option value="LCL">Less than Container Load</option>
+                                  <option value="Z3D027">Cont 20 ft capacity 25 - 28 Cbm (By Train)</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Area</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <select required="">
+                                  <option value="" selected="selected">-Select Area-</option>
+                                  <option value="Z3D006">Cont 20 ft capacity 25 - 28 Cbm</option>
+                                  <option value="Z3D007">Cont 40 ft STD capacity 55 - 60 Cbm</option>
+                                  <option value="Z3D008">Cont 45 ft capacity  55 - 75 cbm</option>
+                                  <option value="Z3D009">Cont 40 ft HC capacity 55 - 65 Cbm</option>
+                                  <option value="Z3D010">Cont 20 combo capacity  50 - 56 cbm</option>
+                                  <option value="Z3D025">Cont 10 ft capacity 10 - 15 cbm</option>
+                                  <option value="LCL">Less than Container Load</option>
+                                  <option value="Z3D027">Cont 20 ft capacity 25 - 28 Cbm (By Train)</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </form>
                     </div>
                 </div>
             </div>

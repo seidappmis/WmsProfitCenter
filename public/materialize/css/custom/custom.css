@@ -212,6 +212,7 @@ td, th {
 .form-table th, .form-table td {
     font-size: 14px;
     padding: 0 !important;
+    line-height: 40px;
 }
 .form-table .input-field {
     margin-top: 4px;
@@ -230,6 +231,9 @@ td, th {
 }
 .form-table .dropdown-content li>a, .form-table .dropdown-content li>span {
     padding: 5px 24px;
+}
+.form-table .col {
+    padding: 0;
 }
 .form-table .label {
     padding: 5px;
