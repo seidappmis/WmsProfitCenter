@@ -69,9 +69,9 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                    <th>1</th>
-                                    <th>ZADDON</th>
-                                    <th><span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span></th>
+                                    <td>1</td>
+                                    <td>ZADDON</td>
+                                    <td>{!! get_button_delete() !!}</td>
                                   </tr>
                               </tbody>
                           </table>

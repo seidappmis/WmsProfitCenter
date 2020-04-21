@@ -46,12 +46,12 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th>1.</th>
-                                  <th>admincheck</th>
-                                  <th>
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td>1.</td>
+                                  <td>admincheck</td>
+                                  <td>
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>
