@@ -27,7 +27,7 @@
                        <div class="collapsible-body">
                         <div class="row">
                           <div class="col s12">
-                            <table class="bordered">
+                            <table id="borderd-table" class="bordered" width="100%">
                               <thead></thead>
                               <tbody>
                                 <tr>
@@ -121,6 +121,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-
+  
 </script>
 @endpush
