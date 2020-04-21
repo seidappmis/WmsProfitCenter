@@ -198,8 +198,11 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .btn-add:focus {
     background: #d5d05f;
 }
-
+.btn, .btn-large, .btn-small, .btn-flat {
+    padding: 0 .6rem;
+    text-transform: none;
+}
 td, th {
-  font-size: 12px;
-  color: #34363f;
+    font-size: 12px;
+    color: #34363f;
 }
