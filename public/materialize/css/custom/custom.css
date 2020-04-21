@@ -214,8 +214,8 @@ td, th {
     padding: 0 !important;
 }
 .form-table .input-field {
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 .form-table input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
     margin: 0;
@@ -233,4 +233,10 @@ td, th {
 }
 .form-table .label {
     padding: 5px;
+}
+.datepicker-calendar {
+    padding: 15px !important;
+}
+.datepicker-date-display {
+    background-color: #1b0a73;
 }

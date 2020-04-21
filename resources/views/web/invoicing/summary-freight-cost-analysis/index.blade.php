@@ -53,7 +53,7 @@
                                   From
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate" required="">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
                                 </div>
                               </div>
                               <div class="input-field col s6">
@@ -61,7 +61,7 @@
                                   To
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate" required="">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
                                 </div>
                               </div>
                             </td>
@@ -74,7 +74,7 @@
                                   From
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
                                 </div>
                               </div>
                               <div class="input-field col s6">
@@ -82,7 +82,7 @@
                                   To
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
                                 </div>
                               </div>
                             </td>
