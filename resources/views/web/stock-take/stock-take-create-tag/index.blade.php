@@ -12,31 +12,9 @@
                   <li class="breadcrumb-item active">Stock Take Create Tag</li>
               </ol>
           </div>
-        </div>
-
-        <div class="row">
-            <div class="col s12 m2 mb-1">
-              <div class="display-flex">
-                <!---- Search ----->
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
-                  submit
-                </button>
-              </div>
-            </div>
-
-            <div class="col s12 m2 mb-1">
-              <div class="display-flex">
-                <!---- Search ----->
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
-                  Print
-                </button>
-              </div>
-            </div>
       </div>
 
-      <div class="row">
+      <div class="row mb-2">
           <div class="col s12 m4">
             <!---- Search ----->
                 <div class="app-wrapper">
@@ -66,8 +44,28 @@
                   New Tag
                 </button>
               </div>
-            </div>
+          </div>
       </div>
+
+      <div class="row">
+            <div class="col s12 m6">
+              <div class="display-flex">
+                <!---- Search ----->
+                <button class="btn btn-large waves-effect waves-light btn-add mr-2" type="submit" name="action">
+                  {{-- <i class="material-icons right">add</i> --}}
+                  submit
+                </button>
+
+                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                  {{-- <i class="material-icons right">add</i> --}}
+                  Print
+                </button>
+
+              </div>
+            </div>
+
+            
+        </div>
   @endcomponent
 
   <div class="col s12">
