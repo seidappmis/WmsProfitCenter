@@ -23,7 +23,7 @@
                       <form>
                         <table class="form-table">
                           <tr>
-                            <td width="20%">Driver ID</td>
+                            <td width="20%" class="label">Driver ID</td>
                             <td>
                               <div class="row">
                                 <div class="col s12 m6 l3">
@@ -35,18 +35,18 @@
                         </table>
                         <table class="form-table">
                           <tr>
-                            <td width="20%">Driver Name</td>
+                            <td width="20%" class="label">Driver Name</td>
                             <td>Name</td>
                             <td width="30%" rowspan="7" class="center-align">
                               <img src="{{asset('images/profil.png')}}" width="120px">
                             </td>
                           </tr>
                           <tr>
-                            <td>Transporter</td>
+                            <td class="label">Transporter</td>
                             <td>Trans</td>
                           </tr>
                           <tr>
-                            <td>Vehicle No.</td>
+                            <td class="label">Vehicle No.</td>
                             <td>
                               <div class="input-field col s12">
                                 <select required="">
@@ -67,7 +67,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>Vehicle Type</td>
+                            <td class="label">Vehicle Type</td>
                             <td>
                               <div class="input-field col s12">
                                 <select required="">
@@ -85,11 +85,11 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>Capacity (CBM)</td>
+                            <td class="label">Capacity (CBM)</td>
                             <td>55.000 to 65.000</td>
                           </tr>
                           <tr>
-                            <td>Destination</td>
+                            <td class="label">Destination</td>
                             <td>
                               <div class="input-field col s12">
                                 <select required="">
@@ -107,7 +107,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td>Area</td>
+                            <td class="label">Area</td>
                             <td>
                               <div class="input-field col s12">
                                 <select required="">

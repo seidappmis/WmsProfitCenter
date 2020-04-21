@@ -10,6 +10,9 @@ NOTE:
 PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
+.row {
+    margin-bottom: 20px;
+}
 .navbar .navbar-dark {
     background: linear-gradient(90deg, #25364b, #344b68);
     !important;
@@ -212,18 +215,35 @@ td, th {
 .form-table th, .form-table td {
     font-size: 14px;
     padding: 0 !important;
+    /*line-height: 40px;*/
+    /*min-height: 40px !important;*/
+}
+.form-table td.label {
     line-height: 40px;
 }
 .form-table .input-field {
     margin-top: 4px;
     margin-bottom: 4px;
 }
-.form-table input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+.form-table input:not([type]),
+.form-table input[type=text]:not(.browser-default),
+.form-table input[type=password]:not(.browser-default),
+.form-table input[type=email]:not(.browser-default),
+.form-table input[type=url]:not(.browser-default),
+.form-table input[type=time]:not(.browser-default),
+.form-table input[type=date]:not(.browser-default),
+.form-table input[type=datetime]:not(.browser-default),
+.form-table input[type=datetime-local]:not(.browser-default),
+.form-table input[type=tel]:not(.browser-default),
+.form-table input[type=number]:not(.browser-default),
+.form-table input[type=search]:not(.browser-default),
+.form-table textarea.materialize-textarea {
     margin: 0;
     height: 2rem;
     border-bottom: 1px solid #e0e0e0;
 }
-.form-table input:required, textarea.materialize-textarea:required {
+.form-table input:required,
+.form-table textarea.materialize-textarea:required {
     background-color: #f5da438f;
 }
 .form-table .dropdown-content li {
@@ -232,11 +252,15 @@ td, th {
 .form-table .dropdown-content li>a, .form-table .dropdown-content li>span {
     padding: 5px 24px;
 }
+.form-table .row {
+    margin-bottom: 0px;
+}
+
 .form-table .col {
     padding: 0;
 }
 .form-table .label {
-    padding: 5px;
+    padding: 0px 10px;
 }
 .datepicker-calendar {
     padding: 15px !important;
