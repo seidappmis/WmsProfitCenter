@@ -125,6 +125,9 @@
                             </td>
                           </tr>
                         </table>
+                        <br>
+                        <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                        <button type="" class="waves-effect waves-light btn">Clear</button>
                       </form>
                     </div>
                 </div>
