@@ -68,47 +68,47 @@
                       </div>
                      </li>
                     </ul>
-                      <!-- Sloc To -->
-                      <ul class="collapsible">
-                       <li class="active">
-                         <div class="collapsible-header">SLoc To</div>
-                         <div class="collapsible-body">
+                    <!-- Sloc To -->
+                    <ul class="collapsible">
+                     <li class="active">
+                       <div class="collapsible-header">SLoc To</div>
+                       <div class="collapsible-body">
+                        <div class="row">
+                          <div class="col s12">
+                          <table class="bordered">
+                            <thead></thead>
+                            <tbody>
+                              <tr>
+                                <td>Storage Type</td>
+                                <td><div class="m6 col s12">
+                                  <select>
+                                      <option value="" disabled selected>-- Select Type --</option>
+                                      <option>1st Class</option>
+                                      <option>Return All</option>
+                                      <option>2nd Class Insurance</option>
+                                  </select>
+                                </div></td>
+                              </tr>
+                              <tr>
+                                <td>Storage Location</td>
+                                <td><div class="col m6 s12">
+                                  <select>
+                                    <option value="" disabled selected>-- Select Location --</option>
+                                  </select>
+                                </div></td>
+                              </tr>
+                            </tbody>
+                          </table>
                           <div class="row">
-                            <div class="col s12">
-                            <table class="bordered">
-                              <thead></thead>
-                              <tbody>
-                                <tr>
-                                  <td>Storage Type</td>
-                                  <td><div class="m6 col s12">
-                                    <select>
-                                        <option value="" disabled selected>-- Select Type --</option>
-                                        <option>1st Class</option>
-                                        <option>Return All</option>
-                                        <option>2nd Class Insurance</option>
-                                    </select>
-                                  </div></td>
-                                </tr>
-                                <tr>
-                                  <td>Storage Location</td>
-                                  <td><div class="col m6 s12">
-                                    <select>
-                                      <option value="" disabled selected>-- Select Location --</option>
-                                    </select>
-                                  </div></td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                      <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-                                      <a class="waves-effect waves-light indigo btn" href="{{ url('transfer-sloc') }}">Clear</a>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <div class="input-field col s12 m6">
+                              <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                              <a class="waves-effect waves-light indigo btn" href="{{ url('transfer-sloc') }}">Clear</a>
                             </div>
                           </div>
-                         </div>
-                       </li>
+                          </div>
+                        </div>
+                       </div>
+                     </li>
                     </ul>
                   </div>
                 </div>
