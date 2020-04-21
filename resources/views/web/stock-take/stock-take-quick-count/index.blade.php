@@ -27,23 +27,19 @@
                   </div>
                 </div>
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m6">
           <div class="display-flex">
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                <button class="btn btn-large waves-effect waves-light btn-add mr-2" type="submit" name="action">
                   {{-- <i class="material-icons right">add</i> --}}
                   Load
                 </button>
-              </div>
-          </div>
-          <div class="col s12 m2">
-              <div class="display-flex">
                 <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   {{-- <i class="material-icons right">add</i> --}}
                   Print
                 </button>
               </div>
-              
           </div>
+          
       </div>
   @endcomponent
 

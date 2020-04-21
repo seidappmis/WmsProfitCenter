@@ -11,11 +11,11 @@ PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER 
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
 .navbar .navbar-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     !important;
 }
 .footer-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     !important;
 }
 .brand-sidebar span.logo-text {
@@ -24,12 +24,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     left: 52px;
 }
 .sidenav li a.active {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     ;
-    box-shadow: 3px 3px 20px 0 rgb(186, 75, 75);
+    box-shadow: 3px 3px 20px 0 rgb(44, 63, 87);
 }
 .content-wrapper-before {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     ;
 }
 #breadcrumbs-wrapper .breadcrumbs .active {
@@ -61,16 +61,16 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     min-width: 40px;
 }
 #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current:hover {
-    border: 1px solid #349317;
-    background: #1c5f09;
-    -webkit-box-shadow: 0 0 8px 0 #598c03;
-    box-shadow: 0 0 8px 0 #185901;
+    border: 1px solid #2c4058;
+    background: #0c2e59;
+    -webkit-box-shadow: 0 0 8px 0 #5c7593;
+    box-shadow: 0 0 8px 0 #2d4159;
 }
 #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button:hover, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button:hover {
-    border: 1px solid #349317;
-    background: #1c5f09;
-    -webkit-box-shadow: 0 0 8px 0 #598c03;
-    box-shadow: 0 0 8px 0 #185901;
+    border: 1px solid #2c4058;
+    background: #0c2e59;
+    -webkit-box-shadow: 0 0 8px 0 #5c7593;
+    box-shadow: 0 0 8px 0 #2d4159;
 }
 .datatable-search .select-wrapper {
     background-color: #fff !important;
@@ -161,6 +161,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     font-size: 12px;
     font-weight: 800;
 }
+#main .section-data-tables .dataTables_wrapper table.dataTable th, #main .section-data-tables .dataTables_wrapper table.dataTable td {
+    border-top: 1px solid #cfd8dc;
+}
 .input-field label.error {
     font-size: .8rem;
     position: relative;
@@ -189,17 +192,51 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     top: 11px;
 }
 .btn-add {
-    color: #616161;
-    background: #ffad32;
+    color: #1e1e1e !important;
+    background: #f2ec6f;
 }
 .btn-add:hover {
-    background: #ED991B;
+    background: #d5d05f;
 }
 .btn-add:focus {
-    background: #ED991B;
+    background: #d5d05f;
 }
-
+table .btn, table .btn-large, table .btn-small, table .btn-flat {
+    padding: 0 .6rem;
+    text-transform: none;
+}
 td, th {
-  font-size: 12px;
-  color: #34363f;
+    font-size: 12px;
+    color: #34363f;
+}
+.form-table th, .form-table td {
+    font-size: 14px;
+    padding: 0 !important;
+}
+.form-table .input-field {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.form-table input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+    margin: 0;
+    height: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+.form-table input:required, textarea.materialize-textarea:required {
+    background-color: #f5da438f;
+}
+.form-table .dropdown-content li {
+    min-height: 30px;
+}
+.form-table .dropdown-content li>a, .form-table .dropdown-content li>span {
+    padding: 5px 24px;
+}
+.form-table .label {
+    padding: 5px;
+}
+.datepicker-calendar {
+    padding: 15px !important;
+}
+.datepicker-date-display {
+    background-color: #1b0a73;
 }

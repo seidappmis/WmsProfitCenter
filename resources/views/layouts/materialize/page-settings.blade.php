@@ -31,6 +31,9 @@
     complete: function() { alert('Closed'); } // Callback for Modal close
 });
 
+  jQuery(document).ready(function($) {
+      $('.datepicker').datepicker();
+  });
 
 function get_select2_ajax_options(url) {
   return {

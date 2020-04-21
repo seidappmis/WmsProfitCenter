@@ -21,36 +21,26 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      @push('script_css')
-                      <style type="text/css">
-                        .form-table th, .form-table td {
-                          font-size: 14px;
-                          padding: 0 !important;
-                        }
-                        /*.select-wrapper input.select-dropdown {
-                          margin: 0 !important;
-                        }
-                        input[type=text] {
-                          margin: 0 !important;
-                        }
-                        .input-field {
-                          margin-top: 0 !important;
-                          margin-bottom: .5rem;
-                        }*/
-                      </style>
-
-                      @endpush
                       <form class="form-table">
                         <table>
                           <tr>
                             <td>Expedition</td>
                             <td>
                               <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">Option 1</option>
-                                  <option value="2">Option 2</option>
-                                  <option value="3">Option 3</option>
+                                <select required="">
+                                  <option value="">-All-</option>
+                                  <option value="BMA">BINTAN MEGAH ABADI, PT.</option>
+                                  <option value="DSE">DUA SAMUDERA EXPRESS, CV.</option>
+                                  <option value="DSE">DUA SAMUDRA EXPRESS, CV.</option>
+                                  <option value="DSL">DUA SAMUDRA LOGISTIK, PT.</option>
+                                  <option value="DPE">DUNIA PARCEL EXPRESS, PT.</option>
+                                  <option value="E8T">EXPRESSINDO 88 NUSANTARA, PT.</option>
+                                  <option value="GCL">GCL LOGISTIK INDONESIA, PT.</option>
+                                  <option value="GST">GEMA SARANA TRANSPORTASI, PT.</option>
+                                  <option value="JTT">JASA TRANS TIRTA, PT.</option>
+                                  <option value="KFF">KARURA FREIGHT FORWARDING DAN LOGISTICS, PT.</option>
+                                  <option value="KYU">KARYA UTAMA, CV.</option>
+                                  <option value="KIT">KUNCI INTI TRANSINDO, PT.</option>
                                 </select>
                               </div>
                             </td>
@@ -59,12 +49,20 @@
                             <td>Manifest Date</td>
                             <td>
                               <div class="input-field col s6">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  <label for="first_name">From</label>
+                                <div class="col s3 m2 label">
+                                  From
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                </div>
                               </div>
                               <div class="input-field col s6">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  <label for="first_name">To</label>
+                                <div class="col s3 m2 label">
+                                  To
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                </div>
                               </div>
                             </td>
                           </tr>
@@ -72,12 +70,20 @@
                             <td>DO Date</td>
                             <td>
                               <div class="input-field col s6">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  <label for="first_name">From</label>
+                                <div class="col s3 m2 label">
+                                  From
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                </div>
                               </div>
                               <div class="input-field col s6">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  <label for="first_name">To</label>
+                                <div class="col s3 m2 label">
+                                  To
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                </div>
                               </div>
                             </td>
                           </tr>
@@ -105,9 +111,9 @@
                               <div class="input-field col s12">
                                 <select>
                                   <option value="" disabled selected>-All-</option>
-                                  <option value="1">Option 1</option>
-                                  <option value="2">Option 2</option>
-                                  <option value="3">Option 3</option>
+                                  <option value="1">JAKARTA-JEMBER</option>
+                                  <option value="2">JAKARTA-KARAWANG</option>
+                                  <option value="3">JAKARTA-KEDIRI</option>
                                 </select>
                               </div>
                             </td>
@@ -118,9 +124,9 @@
                               <div class="input-field col s12">
                                 <select>
                                   <option value="" disabled selected>-All-</option>
-                                  <option value="1">Option 1</option>
-                                  <option value="2">Option 2</option>
-                                  <option value="3">Option 3</option>
+                                  <option value="1">JABODETABEK</option>
+                                  <option value="2">JAWA</option>
+                                  <option value="3">KALIMANTAN</option>
                                 </select>
                               </div>
                             </td>
@@ -131,16 +137,16 @@
                               <div class="input-field col s12">
                                 <select>
                                   <option value="" disabled selected>-All-</option>
-                                  <option value="1">Option 1</option>
-                                  <option value="2">Option 2</option>
-                                  <option value="3">Option 3</option>
+                                  <option value="1">UNRECEIPT</option>
+                                  <option value="2">DRAFT UNRECEIPT</option>
+                                  <option value="3">ALREADY UNRECEIPT</option>
                                 </select>
                               </div>
                             </td>
                           </tr>
                         </table>
                         <button class="btn btn-large waves-effect waves-light green darken-4 mt-2" type="submit" name="action">
-                          <i class="material-icons right">local_printshop</i>
+                          <i class="material-icons left">local_printshop</i>
                           Print
                         </button>
                       </form>

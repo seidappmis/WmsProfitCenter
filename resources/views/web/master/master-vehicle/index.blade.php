@@ -46,13 +46,13 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th data-priority="1" width="30px">1.</th>
-                                  <th>8 METER</th>
-                                  <th>0</th>
-                                  <th width="50px;">
-                                    <span class="waves-effect btn-floating btn-small indigo darken-4 btn-edit" href="#"><i class="material-icons">remove_red_eye</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td data-priority="1" width="30px">1.</td>
+                                  <td>8 METER</td>
+                                  <td>0</td>
+                                  <td width="50px;">
+                                    {!! get_button_view() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>

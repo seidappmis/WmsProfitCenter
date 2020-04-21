@@ -48,14 +48,14 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th data-priority="1" width="30px">1.</th>
-                                  <th>3D1010</th>
-                                  <th width="400px">JAKARTA</th>
-                                  <th>JABODETABEK</th>
-                                  <th width="50px;">
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td data-priority="1" width="30px">1.</td>
+                                  <td>3D1010</td>
+                                  <td width="400px">JAKARTA</td>
+                                  <td>JABODETABEK</td>
+                                  <td>
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>

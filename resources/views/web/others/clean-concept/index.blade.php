@@ -35,8 +35,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
+                <button class="btn btn-large waves-effect waves-light red darken-4 btn-delete" type="submit" name="action">
                   Delete
                 </button>
               </div>

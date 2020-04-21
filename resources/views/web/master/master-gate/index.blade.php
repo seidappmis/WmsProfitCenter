@@ -23,7 +23,6 @@
                 </div>
                 <!---- Button Add ----->
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-gate/create') }}">New Gate</a>
-                <!-- <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">New Gate</button> -->
               </div>
             </div>
             <div class="col s12 m3">
@@ -49,14 +48,14 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th data-priority="1" width="30px">1.</th>
-                                  <th>101</th>
-                                  <th>GATE NO. 1-A KARAWANG WAREHOUSE</th>
-                                  <th width="400px">KARAWANG</th>
-                                  <th width="50px;">
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td data-priority="1" width="30px">1.</td>
+                                  <td>101</td>
+                                  <td>GATE NO. 1-A KARAWANG WAREHOUSE</td>
+                                  <td width="400px">KARAWANG</td>
+                                  <td>
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>

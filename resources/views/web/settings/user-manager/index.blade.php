@@ -52,18 +52,18 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th>1.</th>
-                                  <th>13wmsadm1</th>
-                                  <th>Admin</th>
-                                  <th>PNP Bandung 1</th>
-                                  <th>Transporter</th>
-                                  <th>All</th>
-                                  <th>PT. SEID CAB. BANDUNG</th>
-                                  <th>YES</th>
-                                  <th>
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td>1.</td>
+                                  <td>13wmsadm1</td>
+                                  <td>Admin</td>
+                                  <td>PNP Bandung 1</td>
+                                  <td>Transporter</td>
+                                  <td>All</td>
+                                  <td>PT. SEID CAB. BANDUNG</td>
+                                  <td>YES</td>
+                                  <td>
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>
