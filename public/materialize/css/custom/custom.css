@@ -161,6 +161,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     font-size: 12px;
     font-weight: 800;
 }
+#main .section-data-tables .dataTables_wrapper table.dataTable th, #main .section-data-tables .dataTables_wrapper table.dataTable td {
+    border-top: 1px solid #cfd8dc;
+}
 .input-field label.error {
     font-size: .8rem;
     position: relative;

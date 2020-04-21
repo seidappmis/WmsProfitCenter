@@ -25,6 +25,16 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">filter_drama</i>From Manifest HQ</div>
                           <div class="collapsible-body p-0">
+                            <div class="row">
+                              <div class="col s12 offset-m6 m6">
+                                <div class="app-wrapper ml-2 mt-2 mr-2">
+                                  <div class="datatable-search mb-0">
+                                    <i class="material-icons mr-2 search-icon">search</i>
+                                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div class="section-data-tables"> 
                               <table id="data-table-1" class="display" width="100%">
                                   <thead>
@@ -66,6 +76,16 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">filter_drama</i>From Manifest Branch</div>
                           <div class="collapsible-body p-0">
+                            <div class="row">
+                              <div class="col s12 offset-m6 m6">
+                                <div class="app-wrapper ml-2 mt-2 mr-2">
+                                  <div class="datatable-search mb-0">
+                                    <i class="material-icons mr-2 search-icon">search</i>
+                                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <div class="section-data-tables"> 
                               <table id="data-table-2" class="display" width="100%">
                                   <thead>
