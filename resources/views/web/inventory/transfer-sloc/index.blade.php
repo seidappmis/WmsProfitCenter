@@ -99,10 +99,10 @@
                                 </tr>
                                 <tr>
                                   <td>
-                                    <div class="col s12">
+                                    <!-- <div class="col s12"> -->
                                       <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
                                       <a class="waves-effect waves-light indigo btn" href="{{ url('transfer-sloc') }}">Clear</a>
-                                    </div>
+                                    <!-- </div> -->
                                   </td>
                                 </tr>
                               </tbody>
