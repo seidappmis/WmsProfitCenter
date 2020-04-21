@@ -21,42 +21,6 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      @push('script_css')
-                      <style type="text/css">
-                        .form-table th, .form-table td {
-                          font-size: 14px;
-                          padding: 0 !important;
-                        }
-
-                        .form-table .input-field {
-                          margin-top: 2px;
-                          margin-bottom: 2px;
-                        }
-
-                        .form-table input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
-                          margin: 0;
-                          height: 2rem;
-                          border-bottom: 1px solid #e0e0e0;
-                        }
-
-                        .form-table input:required,
-                         textarea.materialize-textarea:required {
-                          background-color: #f5da438f;
-                        }
-
-                        .form-table .dropdown-content li {
-                          min-height: 30px;
-                        }
-
-                        .form-table .dropdown-content li > a, .form-table .dropdown-content li > span {
-                            padding: 5px 24px;
-                        }
-                        .form-table .label {
-                          padding: 5px;
-                        }
-                      </style>
-
-                      @endpush
                       <form class="form-table">
                         <table>
                           <tr>
