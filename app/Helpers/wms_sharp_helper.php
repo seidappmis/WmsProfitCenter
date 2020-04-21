@@ -11,3 +11,11 @@ function get_button_print($url = '#', $label = "Print"){
 function get_button_return($url = '#', $label = "Send Back"){
   return '<a class="waves-effect waves-light btn btn-small orange darken-4 btn-return" href="' . $url . '">' . $label . '</a>';
 }
+
+function get_button_edit($url = '#', $label = "Edit"){
+  return '<a class="waves-effect  waves-light btn-small amber darken-4 btn-edit" href="' . $url . '">' . $label . '</a>';
+}
+
+function get_button_delete($url = '#', $label = "Delete"){
+  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete" href="' . $url . '">' . $label . '</a>';
+}
