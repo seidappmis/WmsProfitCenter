@@ -53,19 +53,19 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th>1.</th>
-                                  <th>10000000</th>
-                                  <th>10</th>
-                                  <th>HYP</th>
-                                  <th>PT. SEID HQ JKT</th>
-                                  <th>JABODETABEK</th>
-                                  <th>BR</th>
-                                  <th>HQ</th>
-                                  <th></th>
-                                  <th>
-                                    <span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
-                                  </th>
+                                  <td>1.</td>
+                                  <td>10000000</td>
+                                  <td>10</td>
+                                  <td>HYP</td>
+                                  <td>PT. SEID HQ JKT</td>
+                                  <td>JABODETABEK</td>
+                                  <td>BR</td>
+                                  <td>HQ</td>
+                                  <td></td>
+                                  <td>
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>

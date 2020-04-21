@@ -50,14 +50,14 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                    <th>1</th>
-                                    <th>ALAM RAYA SENTOSA, CV.</th>
-                                    <th>DUSUN III LEDUNG NO RT.09 RW.03 K..</th>
-                                    <th>ARS</th>
-                                    <th>10XA54</th>
-                                    <th>NO ACTIVE</th>
-                                    <th><span class="waves-effect btn-floating btn-small amber darken-4 btn-edit" href="#"><i class="material-icons">edit</i></span>
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span></th>
+                                    <td>1</td>
+                                    <td>ALAM RAYA SENTOSA, CV.</td>
+                                    <td>DUSUN III LEDUNG NO RT.09 RW.03 K..</td>
+                                    <td>ARS</td>
+                                    <td>10XA54</td>
+                                    <td>NO ACTIVE</td>
+                                    <td>{!! get_button_edit() !!}
+                                    {!! get_button_delete() !!}</td>
                                   </tr>
                               </tbody>
                           </table>
