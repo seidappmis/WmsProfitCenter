@@ -11,11 +11,11 @@ PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER 
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
 .navbar .navbar-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     !important;
 }
 .footer-dark {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     !important;
 }
 .brand-sidebar span.logo-text {
@@ -24,12 +24,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     left: 52px;
 }
 .sidenav li a.active {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     ;
-    box-shadow: 3px 3px 20px 0 rgb(186, 75, 75);
+    box-shadow: 3px 3px 20px 0 rgb(44, 63, 87);
 }
 .content-wrapper-before {
-    background: linear-gradient(90deg, #d80e0e, #f53e3e);
+    background: linear-gradient(90deg, #25364b, #344b68);
     ;
 }
 #breadcrumbs-wrapper .breadcrumbs .active {
