@@ -54,7 +54,7 @@
                                   <td width="400px">KARAWANG</td>
                                   <td>
                                     {!! get_button_edit(url('master-gate/1')) !!}
-                                    {!! get_button_delete(url('master-gate/1')) !!}
+                                    {!! get_button_delete() !!}
                                   </td>
                                 </tr>
                               </tbody>
