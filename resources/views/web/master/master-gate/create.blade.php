@@ -54,7 +54,7 @@
                         		</tr>
                         	</table>
 							<button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-							<a class="waves-effect waves-light btn mt-2" href="{{ url('master-gate') }}">Cancel</a>
+							<a class="waves-effect btn-flat mt-2" href="{{ url('master-gate') }}">Cancel</a>
 						</form>
                     </div>
                 </div>

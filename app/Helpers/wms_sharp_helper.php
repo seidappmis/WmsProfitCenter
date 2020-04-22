@@ -25,5 +25,5 @@ function get_button_save($url = '#', $label = "Save"){
 }
 
 function get_button_cancel($url = '#', $label = "Cancel"){
-  return '<a class="waves-effect waves-light indigo btn" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect btn-flat" href="' . $url . '">' . $label . '</a>';
 }
