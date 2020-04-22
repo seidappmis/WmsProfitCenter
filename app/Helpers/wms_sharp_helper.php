@@ -21,9 +21,9 @@ function get_button_delete($url = '#', $label = "Delete"){
 }
 
 function get_button_save($url = '#', $label = "Save"){
-  return '<a class="waves-effect waves-light indigo btn" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light indigo btn mt-2 mr-2" href="' . $url . '">' . $label . '</a>';
 }
 
 function get_button_cancel($url = '#', $label = "Cancel"){
-  return '<a class="waves-effect btn-flat" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect btn-flat mt-2" href="' . $url . '">' . $label . '</a>';
 }

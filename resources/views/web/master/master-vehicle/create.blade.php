@@ -19,21 +19,23 @@
         <div class="container">
             <div class="section">
                 <!-- <div class="card"> -->
-                    <div class="card-content p-0">
+                    <div class="card-content">
                         <ul class="collapsible">
 						   <li class="active">
 							   <div class="collapsible-header">New Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-							   		<div class="row">
-									  <div class="input-field col s12">
-										<input id="category" type="text" class="validate" name="category" required>
-									    <label for="category">VEHICLE GROUP CATEGORY</label>
-									  </div>
-									</div>
-									<div class="row">
-									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-									  <a class="waves-effect waves-light btn" href="{{ url('master-vehicle') }}">Back</a>
-									</div>
+                                <form class="form-table">
+                                    <table>
+                                        <tr>
+                                            <td>VEHICLE GROUP CATEGORY</td>
+                                            <td>
+                                                <input id="category" type="text" class="validate" name="category">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                                    <a class="waves-effect btn-flat mt-2" href="{{ url('master-vehicle') }}">Back</a>
+                                </form>
 							   </div>
 						   </li>
 						</ul>

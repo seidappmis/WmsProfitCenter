@@ -35,7 +35,7 @@
                               <td>Description</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input id="description" type="text" class="validate" name="description" required>
+                                  <input id="description" type="text" class="validate" name="description">
                                 </div>
                               </td>
                             </tr>
@@ -53,6 +53,9 @@
                                     <span>Current</span>
                                   </label>
                                 </p>
+                                </div>
+                                <div class="input-field col s12">
+                                  <input id="radio" type="text" class="validate" name="group1">
                                 </div>
                               </td>
                             </tr>

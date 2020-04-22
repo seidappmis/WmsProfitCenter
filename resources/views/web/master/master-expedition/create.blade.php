@@ -21,68 +21,111 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">New Expedition</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="code" type="text" class="validate" name="code" required>
-							    <label for="code">Code</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="name" type="text" class="validate" name="name" required>
-							    <label for="name">Expedition Name</label>
-							  </div>
-							  <div class="input-field col s12">
-						        <textarea id="address" class="materialize-textarea"></textarea>
-						        <label for="address">Address</label>
-						      </div>
-						      <div class="input-field col s12">
-							    <input id="sapcode" type="text" class="validate" name="sapcode" required>
-							    <label for="sapcode">SAP CODE</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="npwp" type="text" class="validate" name="npwp">
-							    <label for="npwp">NPWP</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="cp" type="text" class="validate" name="cp">
-							    <label for="cp">CONTACT PERSON</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="phone1" type="number" class="validate" name="phone1">
-							    <label for="phone1">PHONE NUMBER 1</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="phone2" type="number" class="validate" name="phone2">
-							    <label for="phone2">PHONE NUMBER 2</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="fax" type="number" class="validate" name="fax">
-							    <label for="fax">FAX NUMBER</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="bank" type="text" class="validate" name="bank">
-							    <label for="bank">BANK</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="currency" type="text" class="validate" name="currency">
-							    <label for="currency">CURRENCY</label>
-							  </div>
-							  <div class="input-field col m6 s12">
-							    <p>
-							      <label>
-							        <input type="checkbox" class="filled-in" checked="checked" />
-							        <span>ACTIVE</span>
-							      </label>
-							    </p>
-							  </div>
-							</div>
-							<br>
-							<div class="row">
-							  <div class="input-field col m6 s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-expedition') }}">Cancel</a>
-							  </div>
-							</div>
+                        <form class="form-table">
+                        	<table>
+                        		<tr>
+                        			<td>Code</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+										<input id="code" type="text" class="validate" name="code" required>
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Expedition Name</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="name" type="text" class="validate" name="name" required>
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Address</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+								        <textarea id="address" class="materialize-textarea"></textarea>
+								      </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>SAP CODE</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="sapcode" type="text" class="validate" name="sapcode" required>
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>NPWP</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="npwp" type="text" class="validate" name="npwp">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>CONTACT PERSON</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="cp" type="text" class="validate" name="cp">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>PHONE NUMBER 1</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="phone1" type="number" class="validate" name="phone1">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>PHONE NUMBER 2</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="phone2" type="number" class="validate" name="phone2">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>FAX NUMBER</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="fax" type="number" class="validate" name="fax">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>BANK</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="bank" type="text" class="validate" name="bank">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>CURRENCY</td>
+                        			<td>
+                        			  <div class="input-field col s12">
+									    <input id="currency" type="text" class="validate" name="currency">
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>ACTIVE</td>
+                        			<td>
+                        			  <div class="input-field col s12 mt-2">
+									    <p>
+									      <label>
+									        <input type="checkbox" class="filled-in" checked="checked"/><span></span>
+									      </label>
+									    </p>
+									  </div>
+                        			</td>
+                        		</tr>
+                        	</table>
+                        	<button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+							<a class="waves-effect btn-flat mt-2" href="{{ url('master-expedition') }}">Cancel</a>
 						</form>
                     </div>
                 </div>
@@ -95,12 +138,7 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
-
     // $('#address').val('New Text');
     M.textareaAutoResize($('#address'));
-  
 </script>
 @endpush
