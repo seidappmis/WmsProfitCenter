@@ -21,33 +21,40 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">New Gate</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="number" type="text" class="validate" name="gate_number" required>
-							    <label for="number">Gate Number</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="description" type="text" class="validate" name="description" required>
-							    <label for="description">Description</label>
-							  </div>
-							  <div class="input-field col m6 s12">
-							    <select>
-							        <option value="" disabled selected>-- Select --</option>
-							        <option value="1">KARAWANG</option>
-							        <option value="2">SURABAYA HUB</option>
-							        <option value="3">SWADAYA</option>
-							    </select>
-							    <label>Area</label>
-							  </div>
-							</div>
-							<br>
-							<div class="row">
-							  <div class="input-field col s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-gate') }}">Cancel</a>
-							  </div>
-							</div>
+                        <form class="form-table">
+                        	<table>
+                        		<tr>
+                        			<td>Gate Number</td>
+                        			<td>
+                        				<div class="input-field col s12">
+											<input id="number" type="text" class="validate" name="gate_number" required>
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Description</td>
+                        			<td>
+                        				<div class="input-field col s12">
+										    <input id="description" type="text" class="validate" name="description" required>
+									  </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>Area</td>
+                        			<td>
+                        				<div class="input-field col s12">
+									    <select required="">
+									        <option value="" disabled selected>-- Select --</option>
+									        <option value="1">KARAWANG</option>
+									        <option value="2">SURABAYA HUB</option>
+									        <option value="3">SWADAYA</option>
+									    </select>
+									  </div>
+                        			</td>
+                        		</tr>
+                        	</table>
+							<button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+							<a class="waves-effect waves-light btn indigo mt-2" href="{{ url('master-gate') }}">Cancel</a>
 						</form>
                     </div>
                 </div>
@@ -60,8 +67,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush
