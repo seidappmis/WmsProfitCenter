@@ -211,19 +211,19 @@ table .btn, table .btn-large, table .btn-small, table .btn-flat {
 td, th {
     font-size: 12px;
     color: #34363f;
-    border: 1px solid #e0e0e0;
+    /*border: 1px solid #e0e0e0;*/
 }
 .form-table th, .form-table td {
     font-size: 14px;
     padding: 0 !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
+    border: 1px solid #e0e0e0;
     /*line-height: 40px;*/
     /*min-height: 40px !important;*/
 }
 .form-table td.label {
     line-height: 40px;
-    /*border-right: 1px solid #e0e0e0;*/
 }
 .form-table .input-field {
     margin-top: 4px;
@@ -265,8 +265,12 @@ td, th {
 .form-table .label {
     padding: 0px 10px;
 }
+.datepicker {
+    border: 0px !important;
+}
 .datepicker-calendar {
     padding: 15px !important;
+    border: 0px !important;
 }
 .datepicker-date-display {
     background-color: #1b0a73;

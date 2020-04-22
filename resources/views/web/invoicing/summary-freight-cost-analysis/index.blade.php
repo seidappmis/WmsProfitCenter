@@ -24,7 +24,7 @@
                       <form class="form-table">
                         <table>
                           <tr>
-                            <td class="label">Expedition</td>
+                            <td>Expedition</td>
                             <td>
                               <div class="input-field col s12">
                                 <select required="">
@@ -46,7 +46,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Manifest Date</td>
+                            <td>Manifest Date</td>
                             <td>
                               <div class="input-field col s6">
                                 <div class="col s3 m2 label">
@@ -67,7 +67,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">DO Date</td>
+                            <td>DO Date</td>
                             <td>
                               <div class="input-field col s6">
                                 <div class="col s3 m2 label">
@@ -88,7 +88,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">DO Manifest</td>
+                            <td>DO Manifest</td>
                             <td>
                               <div class="input-field col s12">
                                   <input placeholder="" id="first_name" type="text" class="validate">
@@ -97,7 +97,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Recipt ID</td>
+                            <td>Recipt ID</td>
                             <td>
                               <div class="input-field col s12">
                                   <input placeholder="" id="first_name" type="text" class="validate">
@@ -106,7 +106,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Destination</td>
+                            <td>Destination</td>
                             <td>
                               <div class="input-field col s12">
                                 <select>
@@ -119,7 +119,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Region</td>
+                            <td>Region</td>
                             <td>
                               <div class="input-field col s12">
                                 <select>
@@ -132,7 +132,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Status</td>
+                            <td>Status</td>
                             <td>
                               <div class="input-field col s12">
                                 <select>
