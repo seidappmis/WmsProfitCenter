@@ -21,23 +21,28 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">New Destination</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="number" type="text" class="validate" name="number" required>
-							    <label for="number">Destination Number</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="description" type="text" class="validate" name="description" required>
-							    <label for="description">Description</label>
-							  </div>
-                              <div class="row">
-                              <div class="input-field col s12 p-1">
-                                <label for="region">
-                                    <span>Region</span>
-                                </label>
-                              </div>
-                              <div class="input-field col 12">
+                        <form class="form-table">
+                          <table>
+                            <tr>
+                              <td>Destination Number</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input id="number" type="text" class="validate" name="number" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Description</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input id="description" type="text" class="validate" name="description" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Region</td>
+                              <td>
+                                <div class="input-field col 12">
                                 <p>
                                   <label>
                                     <input class="with-gap" name="group1" type="radio" checked/>
@@ -48,21 +53,21 @@
                                     <span>Current</span>
                                   </label>
                                 </p>
-                              </div>
-                              </div>
-							  <div class="input-field col s12">
-                                <input id="cabang" type="text" class="validate" name="cabang" required>
-                                <label for="cabang">Cabang</label>
-                              </div>
-							</div>
-                            <br>
-							<div class="row">
-                              <div class="input-field col s12">
-    							  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-    							  <a class="waves-effect waves-light btn" href="{{ url('master-destination') }}">Cancel</a>
-                              </div>
-							</div>
-					    </form>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Cabang</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input id="cabang" type="text" class="validate" name="cabang" required>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+          							  <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+          							  <a class="waves-effect waves-light btn mt-2" href="{{ url('master-destination') }}">Cancel</a>
+					             </form>
                     </div>
                 </div>
             </div>
