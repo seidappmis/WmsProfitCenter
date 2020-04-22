@@ -221,6 +221,10 @@ td, th {
     /*line-height: 40px;*/
     /*min-height: 40px !important;*/
 }
+.form-table table.datepicker-table td,
+.form-table table.datepicker-table th {
+    border: none;
+}
 .form-table td.label {
     line-height: 40px;
 }
