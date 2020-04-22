@@ -15,7 +15,7 @@
         </div>
 
       <div class="row">
-          <div class="col s12 m2">
+          <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -28,7 +28,7 @@
                   </div>
                 </div>
           </div>
-          <div class="col s12 m4">
+          <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -82,7 +82,10 @@
                                   <td>2020-02-02</td>
                                   <td>2020-02-02</td>
                                   <th width="50px;">
-                                    <span class="waves-effect btn-floating red darken-4 btn-small btn-delete"><i class="material-icons">delete</i></span>
+                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/edit') }}">Edit</a>
+                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
+                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/detail') }}">View Detail</a>
+                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Finish</a>
                                   </th>
                                 </tr>
                               </tbody>
