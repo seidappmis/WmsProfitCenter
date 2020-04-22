@@ -28,33 +28,43 @@
                           <form class="form-table">
                         <table>
                           <tr>
-                            <td class="label">Expedition</td>
+                            <td>STO NO</td>
                             <td>
                               <div class="input-field col s12">
-                                <select required="">
-                                  <option value="">-All-</option>
-                                  <option value="BMA">BINTAN MEGAH ABADI, PT.</option>
-                                  <option value="DSE">DUA SAMUDERA EXPRESS, CV.</option>
-                                  <option value="DSE">DUA SAMUDRA EXPRESS, CV.</option>
-                                  <option value="DSL">DUA SAMUDRA LOGISTIK, PT.</option>
-                                  <option value="DPE">DUNIA PARCEL EXPRESS, PT.</option>
-                                  <option value="E8T">EXPRESSINDO 88 NUSANTARA, PT.</option>
-                                  <option value="GCL">GCL LOGISTIK INDONESIA, PT.</option>
-                                  <option value="GST">GEMA SARANA TRANSPORTASI, PT.</option>
-                                  <option value="JTT">JASA TRANS TIRTA, PT.</option>
-                                  <option value="KFF">KARURA FREIGHT FORWARDING DAN LOGISTICS, PT.</option>
-                                  <option value="KYU">KARYA UTAMA, CV.</option>
-                                  <option value="KIT">KUNCI INTI TRANSINDO, PT.</option>
-                                </select>
+                                <input value="SBY-STO-2232-001" id="ston" type="text" class="validate" name="ston" required>
                               </div>
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">Manifest Date</td>
+                            <td>AREA</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <input value="SURABAYA" id="area" type="text" class="validate" name="area" disabled>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>BRANCH</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <input value="" id="branch" type="text" class="validate" name="branch" validated>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>DESCRIPTION</td>
+                            <td>
+                              <div class="input-field col s12">
+                                    <textarea id="desc" class="materialize-textarea"></textarea>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label">SCHEDULE DATE</td>
                             <td>
                               <div class="input-field col s6">
                                 <div class="col s3 m2 label">
-                                  From
+                                  START
                                 </div>
                                 <div class="col s9 m10">
                                   <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
@@ -62,7 +72,7 @@
                               </div>
                               <div class="input-field col s6">
                                 <div class="col s3 m2 label">
-                                  To
+                                  END
                                 </div>
                                 <div class="col s9 m10">
                                   <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
@@ -71,83 +81,20 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="label">DO Date</td>
+                            <td class = "label">DATA FILE</td>
                             <td>
-                              <div class="input-field col s6">
-                                <div class="col s3 m2 label">
-                                  From
+                              <div class="file-field input-field">
+                                <div class="btn indigo btn">
+                                  <span>Browse</span>
+                                  <input type="file">
                                 </div>
-                                <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
-                                </div>
-                              </div>
-                              <div class="input-field col s6">
-                                <div class="col s3 m2 label">
-                                  To
-                                </div>
-                                <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                <div class="file-path-wrapper">
+                                  <input class="file-path validate" type="text">
                                 </div>
                               </div>
                             </td>
                           </tr>
-                          <tr>
-                            <td class="label">DO Manifest</td>
-                            <td>
-                              <div class="input-field col s12">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  {{-- <label for="first_name">From</label> --}}
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="label">Recipt ID</td>
-                            <td>
-                              <div class="input-field col s12">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
-                                  {{-- <label for="first_name">From</label> --}}
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="label">Destination</td>
-                            <td>
-                              <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">JAKARTA-JEMBER</option>
-                                  <option value="2">JAKARTA-KARAWANG</option>
-                                  <option value="3">JAKARTA-KEDIRI</option>
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="label">Region</td>
-                            <td>
-                              <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">JABODETABEK</option>
-                                  <option value="2">JAWA</option>
-                                  <option value="3">KALIMANTAN</option>
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="label">Status</td>
-                            <td>
-                              <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">UNRECEIPT</option>
-                                  <option value="2">DRAFT UNRECEIPT</option>
-                                  <option value="3">ALREADY UNRECEIPT</option>
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
+                          
                         </table>
                         
                       </form>
