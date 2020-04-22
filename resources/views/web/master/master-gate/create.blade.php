@@ -27,7 +27,7 @@
                         			<td>Gate Number</td>
                         			<td>
                         				<div class="input-field col s12">
-											<input id="number" type="text" class="validate" name="gate_number" required>
+											<input id="number" type="number" class="validate" name="gate_number" required>
 									  </div>
                         			</td>
                         		</tr>
