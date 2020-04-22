@@ -22,10 +22,9 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{url('receipt-invoice/create')}}">
                   Create Reciept
-                </button>
+                </a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -51,7 +50,20 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                  <td>1.</td>
+                                  <td>KRW-FAKTUR-200207-N03</td>
+                                  <td>026/II/DIST.LOG/KU.SEID/20</td>
+                                  <td>2020-02-07</td>
+                                  <td>18578523</td>
+                                  <td>WALUYO LINTAS NUSANTARA, PT.</td>
+                                  <td>
+                                    {!! get_button_view() !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -73,22 +85,7 @@
         serverSide: false,
         scrollX: true,
         responsive: true,
-        ajax: {
-            url: '/',
-            type: 'GET',
-            data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
-        },
         order: [1, 'asc'],
-        // columns: [
-        //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        //     {data: 'content_title', name: 'content_title', className: 'detail'},
-        //     {data: 'video', name: 'video', className: 'detail', orderable: false, searchable: false},
-        //     {data: 'summary_title', name: 'summary_title', className: 'detail'},
-        //     {data: 'question_package_id', name: 'question_package_id', className: 'detail'},
-        //     {data: 'action', className: 'center-align'},
-        // ]
     });
 
     dtdatatable.on('click', '.btn-edit', function(event) {

@@ -204,6 +204,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .btn-add:focus {
     background: #d5d05f;
 }
+.btn-flat.btn-large:hover {
+    background-color: #0a035e80;
+}
 table .btn, table .btn-large, table .btn-small, table .btn-flat {
     padding: 0 .6rem;
     text-transform: none;
