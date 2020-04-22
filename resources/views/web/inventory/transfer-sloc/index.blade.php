@@ -27,7 +27,7 @@
                        <div class="collapsible-body">
                         <div class="row">
                           <div class="col s12">
-                            <table id="borderd-table" class="bordered" width="100%">
+                            {{-- <table id="borderd-table" class="bordered" width="100%">
                               <thead></thead>
                               <tbody>
                                 <tr>
@@ -62,7 +62,44 @@
                                   <td><div class="input-field m6 col s12"><input id="qty" type="text" class="validate" name="qty" required></div></td>
                                 </tr>
                               </tbody>
-                            </table>
+                            </table> --}}
+                            <form class="form-table">
+                              <table>
+                                <tr>
+                                  <td>Storage Type</td>
+                                  <td><div class="input-field col m6 s12">
+                                    <select>
+                                        <option value="" disabled selected>-- Select Type --</option>
+                                        <option>1st Class</option>
+                                        <option>Return All</option>
+                                        <option>2nd Class Insurance</option>
+                                    </select>
+                                  </div></td>
+                                </tr>
+                                <tr>
+                                  <td>Storage Location</td>
+                                  <td><div class="input-field m6 col s12">
+                                    <select>
+                                      <option value="" disabled selected>-- Select Location --</option>
+                                    </select>
+                                  </div></td>
+                                </tr>
+                                
+                                <tr>
+                                  <td>Model</td>
+                                  <td><div class="input-field m6 col s12"><input id="model" type="text" class="validate" name="model" required></div></td>
+                                </tr>
+                                <tr>
+                                  <td>Available QTY</td>
+                                  <td><div class="input-field m6 col s12"><input id="aqty" type="text" class="validate " name="aqty" disabled></div></td>
+                                </tr>
+                                <tr>
+                                  <td>QTY</td>
+                                  <td><div class="input-field m6 col s12"><input id="qty" type="text" class="validate" name="qty" required></div></td>
+                                </tr>
+                              </table>
+                             
+                            </form>
                           </div>
                        </div>
                       </div>
@@ -75,12 +112,11 @@
                        <div class="collapsible-body">
                         <div class="row">
                           <div class="col s12">
-                          <table class="bordered">
-                            <thead></thead>
-                            <tbody>
+                          <form class="form-table">
+                            <table>
                               <tr>
                                 <td>Storage Type</td>
-                                <td><div class="m6 col s12">
+                                <td><div class="input-field col m6 s12">
                                   <select>
                                       <option value="" disabled selected>-- Select Type --</option>
                                       <option>1st Class</option>
@@ -91,14 +127,15 @@
                               </tr>
                               <tr>
                                 <td>Storage Location</td>
-                                <td><div class="col m6 s12">
+                                <td><div class="input-field m6 col s12">
                                   <select>
                                     <option value="" disabled selected>-- Select Location --</option>
                                   </select>
                                 </div></td>
                               </tr>
-                            </tbody>
-                          </table>
+                            </table>
+                           
+                          </form>
                           <div class="row">
                             <div class="input-field col s12 m6">
                               <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
