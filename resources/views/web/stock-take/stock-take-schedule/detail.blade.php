@@ -6,69 +6,79 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Destination</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Schedule</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Destination</li>
+                    <li class="breadcrumb-item active">Stock Take Schedule</li>
                 </ol>
             </div>
         </div>
     @endcomponent
     
-    <div class="col s12">
+    <div class="row">
+      <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content">
-                        <h4 class="card-title">New Destination</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="number" type="text" class="validate" name="number" required>
-							    <label for="number">Destination Number</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="description" type="text" class="validate" name="description" required>
-							    <label for="description">Description</label>
-							  </div>
-                              <div class="row">
-                              <div class="input-field col s12 p-1">
-                                <label for="region">
-                                    <span>Region</span>
-                                </label>
-                              </div>
-                              <div class="input-field col 12">
-                                <p>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" checked/>
-                                    <span>New Region</span>
-                                  </label>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" />
-                                    <span>Current</span>
-                                  </label>
-                                </p>
-                              </div>
-                              </div>
-							  <div class="input-field col s12">
-                                <input id="cabang" type="text" class="validate" name="cabang" required>
-                                <label for="cabang">Cabang</label>
-                              </div>
-							</div>
-                            <br>
-							<div class="row">
+                    <div class="card-content p-0">
+                      <ul class="collapsible m-0">
+                        <li class="active">
+                          <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Detail</div>
+                          <div class="collapsible-body">
+                          
+                          <div class="col s12">
+                            <div class="container">
+                                <div class="section">
+                                    <div class="card">
+                                        <div class="card-content p-0">
+                                            <div class="section-data-tables"> 
+                                              <table id="data-table-section-contents" class="display" width="100%">
+                                                  <thead>
+                                                      <tr>
+                                                        <th data-priority="1" width="30px">No.</th>
+                                                        <th>STO NO.</th>
+                                                        <th>MATERIAL NO</th>
+                                                        <th>QTY</th>
+                                                        <th width="50px;"></th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td>1.</td>
+                                                      <td>BTM-STO-200202-001</td>
+                                                      <td>27-C32B34</td>
+                                                      <td>5464</td>
+                                                      <th width="50px;">
+                                                        <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/edit') }}">Edit</a>
+                                                        
+                                                      </th>
+                                                    </tr>
+                                                  </tbody>
+                                              </table>
+                                            </div>
+                                            <!-- datatable ends -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-overlay"></div>
+                        </div>
+
+                          <div class="row">
                               <div class="input-field col s12">
-    							  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-    							  <a class="waves-effect waves-light btn" href="{{ url('master-destination') }}">Cancel</a>
+                                <a class="waves-effect waves-light indigo btn" href="{{ url('stock-take-schedule') }}">Back</a>
                               </div>
-							</div>
-					    </form>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="content-overlay"></div>
-    </div>
+      </div>
+
 </div>
 @endsection
 
@@ -77,5 +87,9 @@
  	$('.collapsible').collapsible({
         accordion:true
     });
+  var dtdatatable = $('#data-table-section-contents').DataTable({
+      serverSide: false,
+  });
 </script>
 @endpush
+
