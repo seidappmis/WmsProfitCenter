@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Driver</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Branch Master Driver</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Driver</li>
+                    <li class="breadcrumb-item active">Branch Master Driver</li>
                 </ol>
             </div>
         </div>
@@ -18,33 +18,30 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <!-- <div class="card"> -->
-                    <div class="card-content p-0">
-                        <ul class="collapsible">
-						   <li class="active">
-							   <div class="collapsible-header">New Driver</div>
-							   <div class="collapsible-body white">
-							   		<div class="row">
-									  <div class="input-field col m6 s12">
-									    <select>
-									        <option value="" disabled selected>-- Expedition --</option>
-									        <!-- <option value="1">ALAM RAYA SENTOSA, CV.</option>
-									        <option value="2">ALAMUI LOGISTICS, PT.</option>
-									        <option value="3">ALISTON TJOKRO EMKL</option> -->
-									    </select>
-									    <label>Expedition</label>
-									  </div>
-									</div>
-									<br>
-									<div class="row">
-									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-									  <a class="waves-effect waves-light btn" href="{{ url('branch-master-driver') }}">Back</a>
-									</div>
-							   </div>
-						   </li>
-						</ul>
+                <div class="card">
+                    <div class="card-content">
+                        <h4 class="card-title">New Driver</h4>
+                        <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Expedition</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                        <select required="">
+                                            <option value="" disabled selected>-- Expedition --</option>
+                                            <!-- <option value="1">ALAM RAYA SENTOSA, CV.</option>
+                                            <option value="2">ALAMUI LOGISTICS, PT.</option>
+                                            <option value="3">ALISTON TJOKRO EMKL</option> -->
+                                        </select>
+                                      </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                            <a class="waves-effect btn-flat mt-2" href="{{ url('branch-master-driver') }}">Back</a>
+                        </form>
                     </div>
-                <!-- </div> -->
+                </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -54,8 +51,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+    
 </script>
 @endpush

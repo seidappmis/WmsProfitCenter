@@ -18,32 +18,33 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <!-- <div class="card"> -->
-                    <div class="card-content p-0">
-                        <ul class="collapsible">
-						   <li class="active">
-							   <div class="collapsible-header">New Destination City</div>
-							   <div class="collapsible-body white">
-							   		<div class="row">
-									  <div class="input-field col s12">
-										<input id="code" type="text" class="validate" name="code" required>
-									    <label for="code">City Code</label>
-									  </div>
-									  <div class="input-field col s12">
-									    <input id="name" type="text" class="validate" name="name" required>
-									    <label for="name">City Name</label>
-									  </div>
-									</div>
-									<br>
-									<div class="row">
-									  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-									  <a class="waves-effect waves-light btn" href="{{ url('destination-city') }}">Cancel</a>
-									</div>
-							   </div>
-						   </li>
-						</ul>
+                <div class="card">
+                    <div class="card-content ">
+                        <h4 class="card-title">New Destination City</h4>
+                        <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>City Code</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input id="number" type="text" class="validate" name="gate_number" required>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>City Name</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input id="description" type="text" class="validate" name="description">
+                                      </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                            <a class="waves-effect btn-flat mt-2" href="{{ url('destination-city') }}">Cancel</a>
+                        </form>
                     </div>
-                <!-- </div> -->
+                </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -53,8 +54,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush

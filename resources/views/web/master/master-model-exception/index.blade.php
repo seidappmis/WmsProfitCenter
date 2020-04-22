@@ -28,19 +28,19 @@
                       <!-- Input Form -->
                       <div class="card-content">
                         <h4 class="card-title">Input Model Exception</h4>
-                        <form>
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <input type="text" id="excep">
-                              <label for="excep">Model Exception</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-                              <a class="waves-effect waves-light btn" href="{{ url('master-model-exception') }}">Cancel</a>
-                            </div>
-                          </div>
+                        <form class="form-table">
+                          <table>
+                            <tr>
+                              <td>Model Exception</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="excep">
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                          <a class="waves-effect btn-flat mt-2" href="{{ url('master-model-exception') }}">Cancel</a>
                         </form>
                       </div> 
                       <!-- End Input -->

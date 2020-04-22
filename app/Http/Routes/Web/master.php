@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('destination-city/create', 'web.master.destination-city.create');
 
   Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
+  Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
 
   Route::view('storage-master', 'web.master.storage-master.index');
   Route::view('storage-master/create', 'web.master.storage-master.create');

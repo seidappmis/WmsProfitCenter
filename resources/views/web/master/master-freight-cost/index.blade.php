@@ -66,7 +66,7 @@
                         </div>
                       </div>
                       <!---- Button Modal Add ----->
-                      <a class="btn btn-large waves-effect waves-light btn-add" href="#">New Freight Cost</a>
+                      <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-freight-cost/create') }}">New Freight Cost</a>
                     </div>
                   </div>
                 </div>

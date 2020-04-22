@@ -21,55 +21,67 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">New Data</h4>
-                        <form>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="code">
-                                <label for="code">Vendor Code</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="vname">
-                                <label for="vname">Vendor Name</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <textarea id="description" class="materialize-textarea"></textarea>
-                                <label for="description">Description</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <textarea id="address" class="materialize-textarea"></textarea>
-                                <label for="address">Address</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="name">
-                                <label for="name">Name</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="number" id="phone">
-                                <label for="phone">Phone</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="email" id="email">
-                                <label for="email">Email</label>
-                              </div>
-                        	</div>
-							<div class="row">
-							  <div class="input-field col s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-vendor') }}">Cancel</a>
-							  </div>
-							</div>
+                        <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Vendor Code</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input id="code" type="text" class="validate" required>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Vendor Name</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input id="vname" type="text" class="validate" required>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Description</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <textarea id="description" class="materialize-textarea"></textarea>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <textarea id="address" class="materialize-textarea"></textarea>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input type="text" id="name">
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input type="number" id="phone">
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input type="email" id="email" required>
+                                      </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                            <a class="waves-effect btn-flat mt-2" href="{{ url('master-vendor') }}">Cancel</a>
 						</form>
                     </div>
                 </div>
@@ -82,8 +94,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush

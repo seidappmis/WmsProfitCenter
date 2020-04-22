@@ -21,99 +21,139 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">New Data</h4>
-                        <form>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="name">
-                                <label for="name">Model Name</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="barcode">
-                                <label for="barcode">Model From Barcode Prod</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="ean">
-                                <label for="ean">Ean Code</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <input type="text" id="cbm">
-                                <label for="cbm">CBM</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                                <select>
-            							        <option value="" disabled selected>-- Select Material Group --</option>
-            							        <option value="1">BG - F3 LED Lightning</option>
-            							        <option value="2">BJ - C1 Energy Solution Japan</option>
-            							        <option value="3">BP - C1 Energy Sollution Overseas</option>
-            							    </select>
-                                <label for="material">Material Group</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                              <select>
-          							        <option value="" disabled selected>-- Select Category --</option>
-          							        <option value="1">AC</option>
-          							        <option value="2">AP</option>
-          							        <option value="3">AU</option>
-            							    </select>
-                                <label for="category">Category</label>
-                              </div>
-                        	</div>
-                        	<div class="row">
-                        	  <div class="input-field col s12">
-                              <select>
-            							        <option value="" disabled selected>-- Select Category --</option>
-            							        <option value="1">IMPORT</option>
-            							        <option value="2">LOCAL</option>
-            							        <option value="3">OEM</option>
-            							    </select>
-                                <label for="type">Type</label>
-                              </div>
-                        	</div>
-                        	<div class="input-field col s12">
-                              <input type="text" id="description">
-                              <label for="description">Description</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input type="text" id="pieces">
-                              <label for="pieces">Max Pieces/Carton</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input type="text" id="carton">
-                              <label for="carton">Max Carton/Palet</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input type="text" id="palet">
-                              <label for="palet">Palet</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input placeholder="0" type="number" id="price">
-                              <label for="price1">Price 1</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input placeholder="0" type="number" id="price">
-                              <label for="price2">Price 2</label>
-                            </div>
-                            <div class="input-field col s12">
-                              <input placeholder="0" type="number" id="price">
-                              <label for="price3">Price 3</label>
-                            </div>
-							<div class="row">
-							  <div class="input-field col s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-model') }}">Cancel</a>
-							  </div>
-							</div>
-						</form>
+                        <form class="form-table">
+                          <table>
+                            <tr>
+                              <td>Model Name</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="name" class="validate" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Model From Barcode Prod</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="barcode" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Ean Code</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="ean" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>CBM</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="cbm" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Material Group</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <select required="">
+                                    <option value="" disabled selected>-- Select Material Group --</option>
+                                    <option value="1">BG - F3 LED Lightning</option>
+                                    <option value="2">BJ - C1 Energy Solution Japan</option>
+                                    <option value="3">BP - C1 Energy Sollution Overseas</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Category</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <select required="">
+                                    <option value="" disabled selected>-- Select Category --</option>
+                                    <option value="1">AC</option>
+                                    <option value="2">AP</option>
+                                    <option value="3">AU</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Type</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <select required="">
+                                    <option value="" disabled selected>-- Select Category --</option>
+                                    <option value="1">IMPORT</option>
+                                    <option value="2">LOCAL</option>
+                                    <option value="3">OEM</option>
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Description</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="description">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Max Pieces/Carton</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="pieces">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Max Carton/Palet</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="carton">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Palet</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input type="text" id="palet" required>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Price 1</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input placeholder="0" type="number" id="price">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Price 2</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input placeholder="0" type="number" id="price2">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Price 3</td>
+                              <td>
+                                <div class="input-field col s12">
+                                  <input placeholder="0" type="number" id="price3">
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                          <a class="waves-effect btn-flat mt-2" href="{{ url('master-model') }}">Cancel</a>
+						            </form>
                     </div>
                 </div>
             </div>
@@ -125,8 +165,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush
