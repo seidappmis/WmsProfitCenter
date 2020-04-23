@@ -19,13 +19,19 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-1">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <input id="rname" type="text" class="validate" name="rname" required>
-                            <label for="rname">Roles Name</label>
-                        </div>
-                      </div>
+                    <div class="card-content">
+                      <form class="form-table">
+                        <table>
+                          <tr>
+                            <td>Roles Name</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <input id="rname" type="text" class="validate">
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </form>
                       <div class="row">
                         <div class="input-field col s12 mb-2">
                           <label><input class="filled-in" type="checkbox" onClick="toggle(this)" /><span>Check All</span></label>
