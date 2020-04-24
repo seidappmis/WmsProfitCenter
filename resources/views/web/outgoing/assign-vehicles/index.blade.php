@@ -69,7 +69,11 @@
                                   <td>Jakarta</td>
                                   <td>MARC TRI MANUNGGAL, PT.</td>
                                   <td>2020-02-06 11:27:25</td>
-                                  <td></td>
+                                  <td>
+                                    {!! get_button_view(url('#'),'Select DO') !!}
+                                    {!! get_button_edit() !!}
+                                    {!! get_button_delete('Is Leave') !!}
+                                  </td>
                                 </tr>
                               </tbody>
                           </table>
@@ -90,6 +94,27 @@
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
         responsive: true
+    });
+
+    dtdatatable.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        title: "Are you sure has living?",
+        // text: "You will not be able to recover this imaginary file!",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
     });
 </script>
 @endpush

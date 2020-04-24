@@ -21,17 +21,17 @@
                 <div class="card">
                     <div class="card-content">
                     	<form class="form-table">
-                    		<h4 class="card-title">New Vehicle Expedition</h4>
+                    		<h4 class="card-title">Edit Vehicle Expedition</h4>
                     		<table>
                     			<tr>
                     				<td>Expedition</td>
                     				<td>
                     					<div class="input-field col s12">
 										<select required="">
-									        <option value="" disabled selected>-- Select Expedition --</option>
+									        <option value="" disabled>-- Select Expedition --</option>
 									        <option value="1">BINTAN MEGAH ABADI, PT.</option>
 									        <option value="2">DUA SAMUDRA EXPRESS, CV.</option>
-									        <option value="3">DUA SAMUDRA LOGISTIK, PT.</option>
+									        <option value="3" selected>EXPRESSINDO 88 NUSANTARA, PT.</option>
 									    </select>
 									  </div>
                     				</td>
@@ -40,7 +40,7 @@
                     				<td>Vehicle No.</td>
                     				<td>
                     					<div class="input-field col s12">
-									    <input id="no" type="text" class="validate" name="no" required>
+									    <input id="no" type="text" class="validate" value="A 8218 Z" required>
 									  </div>
                     				</td>
                     			</tr>
@@ -49,10 +49,10 @@
                     				<td>
                     					<div class="input-field col s12">
 								        <select required="">
-									        <option value="" disabled selected>-- Select Vehicle --</option>
+									        <option value="" disabled>-- Select Vehicle --</option>
 									        <option value="1">AMBIL SENDIRI</option>
 									        <option value="2">CD 4 BAN (CDE)</option>
-									        <option value="3">CD 4 BOX (CDE BOX)</option>
+									        <option value="3"  selected>TRONTON 8 M</option>
 									    </select>
 								      </div>
                     				</td>
@@ -118,7 +118,7 @@
                     				</td>
                     			</tr>
                     		</table>
-                    		{!! get_button_save() !!}
+                    		{!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-vehicle-expedition')) !!}
                     	</form>
                     </div>

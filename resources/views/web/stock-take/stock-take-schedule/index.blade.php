@@ -84,7 +84,8 @@
                                   <th width="50px;">
                                     <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/edit') }}">Edit</a>
                                     <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
-                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/detail') }}">View Detail</a>
+                                    {!! get_button_view(url('stock-take-schedule/detail'), 'View Detail') !!}
+                                    {{-- <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/detail') }}">View Detail</a> --}}
                                     <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Finish</a>
                                   </th>
                                 </tr>

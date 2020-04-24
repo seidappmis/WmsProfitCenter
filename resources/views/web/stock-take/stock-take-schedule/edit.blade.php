@@ -6,69 +6,114 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Destination</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Schedule</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Destination</li>
+                    <li class="breadcrumb-item active">Stock Take Schedule</li>
                 </ol>
             </div>
         </div>
     @endcomponent
     
-    <div class="col s12">
+    <div class="row">
+      <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content">
-                        <h4 class="card-title">New Destination</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="number" type="text" class="validate" name="number" required>
-							    <label for="number">Destination Number</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="description" type="text" class="validate" name="description" required>
-							    <label for="description">Description</label>
-							  </div>
-                              <div class="row">
-                              <div class="input-field col s12 p-1">
-                                <label for="region">
-                                    <span>Region</span>
-                                </label>
-                              </div>
-                              <div class="input-field col 12">
-                                <p>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" checked/>
-                                    <span>New Region</span>
-                                  </label>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" />
-                                    <span>Current</span>
-                                  </label>
-                                </p>
-                              </div>
-                              </div>
-							  <div class="input-field col s12">
-                                <input id="cabang" type="text" class="validate" name="cabang" required>
-                                <label for="cabang">Cabang</label>
-                              </div>
-							</div>
-                            <br>
-							<div class="row">
+                    <div class="card-content p-0">
+                      <ul class="collapsible m-0">
+                        <li class="active">
+                          <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Edit Stock Take Schedule</div>
+                          <div class="collapsible-body">
+                          <form class="form-table">
+                        <table>
+                          <tr>
+                            <td>STO NO</td>
+                            <td>
                               <div class="input-field col s12">
-    							  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-    							  <a class="waves-effect waves-light btn" href="{{ url('master-destination') }}">Cancel</a>
+                                <input value="SBY-STO-2232-001" id="ston" type="text" class="validate" name="ston" required>
                               </div>
-							</div>
-					    </form>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>AREA</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <input value="SURABAYA" id="area" type="text" class="validate" name="area" disabled>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>BRANCH</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <input value="" id="branch" type="text" class="validate" name="branch" validated>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>DESCRIPTION</td>
+                            <td>
+                              <div class="input-field col s12">
+                                    <textarea  id="desc" class="materialize-textarea"></textarea>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label">SCHEDULE DATE</td>
+                            <td>
+                              <div class="input-field col s6">
+                                <div class="col s3 m2 label">
+                                  START
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                </div>
+                              </div>
+                              <div class="input-field col s6">
+                                <div class="col s3 m2 label">
+                                  END
+                                </div>
+                                <div class="col s9 m10">
+                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class = "label">DATA FILE</td>
+                            <td>
+                              <div class="file-field input-field">
+                                <div class="btn indigo btn">
+                                  <span>Browse</span>
+                                  <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <input class="file-path validate" type="text" placeholder="Select File       Format File : csv">
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                        </table>
+                        
+                      </form>
+                            <div class="row">
+                              <div class="input-field col s12">
+                                
+                                <a class="waves-effect waves-light btn" href="{{ url('stock-take-schedule') }}">Cancel</a>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-        <div class="content-overlay"></div>
-    </div>
+      </div>
+
 </div>
 @endsection
 

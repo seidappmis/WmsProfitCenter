@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                        <h4 class="card-title">New Destination</h4>
+                        <h4 class="card-title">Edit Destination</h4>
                         <form class="form-table">
                           <table>
                             <tr>
                               <td>Destination Number</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input id="number" type="text" class="validate" name="number" required>
+                                  <input id="number" type="text" class="validate" name="number" value="3D1010" required>
                                 </div>
                               </td>
                             </tr>
@@ -35,7 +35,7 @@
                               <td>Description</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input id="description" type="text" class="validate" name="description">
+                                  <input id="description" type="text" class="validate" name="description" value="Jakarta">
                                 </div>
                               </td>
                             </tr>
@@ -45,11 +45,11 @@
                                 <div class="input-field col 12">
                                 <p>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" checked/>
+                                    <input class="with-gap" name="group1" type="radio"/>
                                     <span>New Region</span>
                                   </label>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" />
+                                    <input class="with-gap" name="group1" type="radio" checked/>
                                     <span>Current</span>
                                   </label>
                                 </p>
@@ -68,8 +68,8 @@
                               </td>
                             </tr>
                           </table>
-          							  <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-          							  <a class="waves-effect btn-flat mt-2" href="{{ url('master-destination') }}">Cancel</a>
+          							  {!! get_button_save('Update') !!}
+                          {!! get_button_cancel(url('master-destination')) !!}
 					             </form>
                     </div>
                 </div>

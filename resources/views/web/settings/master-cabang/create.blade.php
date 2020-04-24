@@ -21,62 +21,90 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">New Cabang</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="customer" type="text" class="validate" name="customer" required>
-							    <label for="customer">Kode Customer</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="cabang" type="text" class="validate" name="cabang" required>
-							    <label for="cabang">Kode Cabang</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <textarea id="textarea2" class="materialize-textarea"></textarea>
-							    <label for="short">Short Description</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <textarea id="textarea2" class="materialize-textarea"></textarea>
-							    <label for="long">Long Description</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <select>
-							        <option value="" disabled selected></option>
-							        <!-- <option value="1">admincheck</option>
-							        <option value="2">allocation</option>
-							        <option value="3">Audit</optio -->n>
-							    </select>
-							    <label for="region">Region</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <select>
-							        <option value="" disabled selected>-- Select Type --</option>
-							        <option value="1">BR</option>
-							        <option value="2">DS</option>
-							    </select>
-							    <label>Type Code</label>
-							  </div>
-							  <div class="input-field col s12">
-							  <p>
-							    <label>
-							      <input type="checkbox" class="filled-in" />
-							      <span>HQ</span>
-							    </label>
-							  </p>
-							  </div>
-							  <div class="input-field col s12">
-							    <input id="wms" type="text" class="validate" name="wms" required>
-							    <label for="wms">START WMS</label>
-							  </div>
-							</div>
-							<br>
-							<div class="row">
-							  <div class="input-field col s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-cabang') }}">Cancel</a>
-							  </div>
-							</div>
-						</form>
+                    	<form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Kode Customer</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                           <input id="customer" type="text" class="validate" name="customer" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Kode Cabang</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                           <input id="cabang" type="text" class="validate" name="cabang" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Short Description</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                           <input id="sdes" type="text" class="validate">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Long Description</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                           <input id="ldes" type="text" class="validate">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Region</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <select>
+										        <option value="" disabled selected></option>
+										        <!-- <option value="1">admincheck</option>
+										        <option value="2">allocation</option>
+										        <option value="3">Audit</optio -->
+										    </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Type Code</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <select>
+										        <option value="" disabled selected>-- Select Type --</option>
+										        <option value="1">BR</option>
+										        <option value="2">DS</option>
+										    </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>HQ</td>
+                                    <td>
+                                        <div class="input-field col s12 mt-2">
+                                            <p>
+										    <label>
+										      <input type="checkbox" class="filled-in" />
+										      <span></span>
+										    </label>
+										  </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>START WMS</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                           <input id="wms" type="text" class="validate" name="wms">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                            <a class="waves-effect btn-flat mt-2" href="{{ url('master-cabang') }}">Cancel</a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -88,8 +116,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush

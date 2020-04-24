@@ -56,7 +56,7 @@
                                     <td>ARS</td>
                                     <td>10XA54</td>
                                     <td>NO ACTIVE</td>
-                                    <td>{!! get_button_edit() !!}
+                                    <td>{!! get_button_edit(url('master-expedition/1')) !!}
                                     {!! get_button_delete() !!}</td>
                                   </tr>
                               </tbody>
@@ -84,8 +84,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete the Expedition ALAM RAYA SENTOSA, CV.?",
         icon: 'warning',
         buttons: {
           cancel: true,

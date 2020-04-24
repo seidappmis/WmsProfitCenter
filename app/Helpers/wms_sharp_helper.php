@@ -16,12 +16,12 @@ function get_button_edit($url = '#', $label = "Edit"){
   return '<a class="waves-effect  waves-light btn-small amber darken-4 btn-edit" href="' . $url . '">' . $label . '</a>';
 }
 
-function get_button_delete($url = '#', $label = "Delete"){
-  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete" href="' . $url . '">' . $label . '</a>';
+function get_button_delete($label = "Delete"){
+  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete" >' . $label . '</a>';
 }
 
-function get_button_save($url = '#', $label = "Save"){
-  return '<a class="waves-effect waves-light indigo btn mt-2 mr-2" href="' . $url . '">' . $label . '</a>';
+function get_button_save($label = "Save"){
+  return '<a class="waves-effect waves-light indigo btn btn-save mt-2 mr-2">' . $label . '</a>';
 }
 
 function get_button_cancel($url = '#', $label = "Cancel"){

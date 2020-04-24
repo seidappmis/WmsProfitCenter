@@ -3,21 +3,19 @@
 @section('content')
 <div class="row">
 
-  @component('layouts.materialize.components.title-wrapper')
-      <div class="row">
-          <div class="col s12 m12 mb-1">
-              <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Input 2</span></h5>
-              <ol class="breadcrumbs mb-0">
-                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-                  <li class="breadcrumb-item active">Stock Take Input 2</li>
-              </ol>
-          </div>
+    @component('layouts.materialize.components.title-wrapper')
+        <div class="row">
+            <div class="col s12 m6">
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Input 2</span></h5>
+                <ol class="breadcrumbs mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Stock Take Input 2</li>
+                </ol>
+            </div>
         </div>
-
-      
-  @endcomponent
-  
-  <div class="col s12">
+    @endcomponent
+    
+    <div class="col s12">
         <div class="container">
             <div class="section">
               <div class="card">
@@ -46,7 +44,7 @@
                     <div class="col s12 ">
                       <ul class="collapsible m-0">
                         <li class="active">
-                          <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Input Stok Take 2</div>
+                          <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Edit Stok Take</div>
                           <div class="collapsible-body">
                               <form class="form-table">
                                   <table>
@@ -54,7 +52,7 @@
                                       <td>No Tag</td>
                                       <td>
                                         <div class="input-field col s12">
-                                          <input value="" id="notag" type="text" class="validate" name="notag" validated>
+                                          <input value="3" id="notag" type="text" class="validate" name="notag" validated>
                                         </div>
                                       </td>
                                     </tr>
@@ -70,7 +68,7 @@
                                       <td>Model</td>
                                       <td>
                                         <div class="input-field col s12">
-                                          <input value="" id="model" type="text" class="validate" name="model" disabled>
+                                          <input value="S1-TT8902-PK" id="model" type="text" class="validate" name="model" validated>
                                         </div>
                                       </td>
                                     </tr>
@@ -78,7 +76,7 @@
                                       <td>Location</td>
                                       <td>
                                         <div class="input-field col s12">
-                                          <input value="" id="loca" type="text" class="validate" name="loca" disabled>
+                                          <input value="A" id="loca" type="text" class="validate" name="loca" validated>
                                         </div>
                                       </td>
                                     </tr>
@@ -86,7 +84,7 @@
                                       <td>Quantity</td>
                                       <td>
                                         <div class="input-field col s12">
-                                            <input value="" id="qty" type="text" class="validate" name="qty" required>
+                                            <input value="1223" id="qty" type="text" class="validate" name="qty" required>
                                         </div>
                                       </td>
                                     </tr>
@@ -95,7 +93,7 @@
                             </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                                <a class="waves-effect waves-light indigo btn" href="{{ url('stock-take-input-2') }}">Update</a>  
                                 <button type="submit" class="waves-effect waves-light indigo btn">Clear</button>
                               </div>
                             </div>
@@ -151,7 +149,7 @@
                                                   <td>A</td>
                                                   <td>1223</td>
                                                   <th width="50px;">
-                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-input-2/edit') }}">Edit</a>
+                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-input-1/edit') }}">Edit</a>
                                                     <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
                                                   </th>
                                                 </tr>
@@ -179,6 +177,11 @@
 <script type="text/javascript">
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+    });
+</script>
+<script type="text/javascript">
+ 	$('.collapsible').collapsible({
+        accordion:true
     });
 </script>
 @endpush

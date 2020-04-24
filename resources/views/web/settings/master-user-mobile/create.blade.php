@@ -21,37 +21,45 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">Add Master User Mobile</h4>
-                        <form>
-					   		<div class="row">
-							  <div class="input-field col s12">
-								<input id="user" type="text" class="validate" name="user" required>
-							    <label for="user">User</label>
-							  </div>
-							  <div class="input-field col s12">
-							    <select>
-							        <option value="" disabled selected>-- Select Roles --</option>
-							        <option value="1">Admin</option>
-							        <option value="2">User</option>
-							    </select>
-							    <label>Roles</label>
-							  </div>
-							  <div class="input-field col s12">
-							  <p>
-							    <label>
-							      <input type="checkbox" class="filled-in" checked="checked" />
-							      <span>Active</span>
-							    </label>
-							  </p>
-							  </div>
-							</div>
-							<br>
-							<div class="row">
-							  <div class="input-field col s12">
-								  <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-								  <a class="waves-effect waves-light btn" href="{{ url('master-user-mobile') }}">Cancel</a>
-							  </div>
-							</div>
-						</form>
+                    	<form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>User</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <input id="user" type="text" class="validate" name="user" required>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Roles</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                            <select required>
+										        <option value="" disabled selected>-- Select Roles --</option>
+										        <option value="1">Admin</option>
+										        <option value="2">User</option>
+										    </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Active</td>
+                                    <td>
+                                        <div class="input-field col s12 mt-2">
+                                            <p>
+										    <label>
+										      <input type="checkbox" class="filled-in" checked="checked" />
+										      <span></span>
+										    </label>
+										  </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
+                            <a class="waves-effect btn-flat mt-2" href="{{ url('master-user-mobile') }}">Cancel</a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -63,8 +71,6 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
-        accordion:true
-    });
+ 	
 </script>
 @endpush

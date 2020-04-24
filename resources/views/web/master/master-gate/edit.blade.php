@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<h4 class="card-title">New Gate</h4>
+                    	<h4 class="card-title">Edit Gate</h4>
                         <form class="form-table">
                         	<table>
                         		<tr>
                         			<td>Gate Number</td>
                         			<td>
                         				<div class="input-field col s12">
-											<input id="number" type="number" class="validate" name="gate_number" required>
+											<input id="number" type="number" class="validate" name="gate_number" value="101" required>
 									  </div>
                         			</td>
                         		</tr>
@@ -35,7 +35,7 @@
                         			<td>Description</td>
                         			<td>
                         				<div class="input-field col s12">
-										    <input id="description" type="text" class="validate" name="description" required>
+										    <input id="description" type="text" class="validate" name="description" value="GATE NO.1-A KARAWANG WAREHOUSE" required>
 									  </div>
                         			</td>
                         		</tr>
@@ -44,8 +44,8 @@
                         			<td>
                         				<div class="input-field col s12">
 									    <select required="">
-									        <option value="" disabled selected>-- Select --</option>
-									        <option value="1">KARAWANG</option>
+									        <option value="" disabled>-- Select --</option>
+									        <option value="1" selected>KARAWANG</option>
 									        <option value="2">SURABAYA HUB</option>
 									        <option value="3">SWADAYA</option>
 									    </select>
@@ -53,7 +53,7 @@
                         			</td>
                         		</tr>
                         	</table>
-							{!! get_button_save() !!}
+							{!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-gate')) !!}
 						</form>
                     </div>

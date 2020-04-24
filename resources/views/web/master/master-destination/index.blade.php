@@ -53,7 +53,7 @@
                                   <td width="400px">JAKARTA</td>
                                   <td>JABODETABEK</td>
                                   <td>
-                                    {!! get_button_edit() !!}
+                                    {!! get_button_edit(url('master-destination/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
                                 </tr>
@@ -82,8 +82,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete the Destination Number 3D1010?",
         icon: 'warning',
         buttons: {
           cancel: true,

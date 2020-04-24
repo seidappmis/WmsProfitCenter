@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Area</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Destination City</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Area</li>
+                    <li class="breadcrumb-item active">Destination City</li>
                 </ol>
             </div>
         </div>
@@ -19,29 +19,29 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content">
-                    	<h4 class="card-title">New Area</h4>
+                    <div class="card-content ">
+                        <h4 class="card-title">Edit Destination City</h4>
                         <form class="form-table">
                             <table>
                                 <tr>
-                                    <td>AREA</td>
+                                    <td>City Code</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="area" type="text" class="validate" name="area">
-                                        </div>
+                                            <input id="number" type="text" class="validate" value="227" required>
+                                      </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>CODE</td>
+                                    <td>City Name</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="code" type="text" class="validate" name="code">
-                                        </div>
+                                            <input id="description" type="text" class="validate" value="ACEH">
+                                      </div>
                                     </td>
                                 </tr>
                             </table>
-                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                            <a class="waves-effect btn-flat mt-2" href="{{ url('master-area') }}">Cancel</a>
+                            {!! get_button_save('Update') !!}
+                            {!! get_button_cancel(url('destination-city')) !!}
                         </form>
                     </div>
                 </div>

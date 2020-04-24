@@ -93,6 +93,7 @@
 <script type="text/javascript">
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+        responsive: true
     });
 </script>
 @endpush
