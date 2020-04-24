@@ -36,6 +36,217 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
+                        <form class="form-table">
+                            <table>
+                              <tr>
+                                <td>Shipment No</td>
+                                <td><div class="input-field col s12">
+                                  <input id="model" type="text" class="validate" name="Shipment Nodel" required>
+                                </div></td>
+                              </tr>
+                              <tr>
+                                <td>Do NO</td>
+                                <td><div class="input-field col s12">
+                                  <input id="aqty" type="text" class="validate " name="Do NO">
+                                </div></td>
+                              </tr>
+                              <tr>
+                                <td>Vahicle No.</td>
+                                <td><div class="input-field col s12">
+                                  <input id="aqty" type="text" class="validate " name="Vahicle No.">
+                                </div></td>
+                              </tr>
+                              <tr>
+                                <td>Destination Concept</td>
+                                <td>
+                                  <div class="input-field col s4">
+                                    <select>
+                                      <option value="" disabled selected></option>
+                                      <option value="1"> </option>
+                                      <option value="2"> </option>
+                                      <option value="3"> </option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Expedition</td>
+                                <td>
+                                  <div class="input-field col s4">
+                                    <select>
+                                      <option value="" disabled selected></option>
+                                      <option value="1"> </option>
+                                      <option value="2"> </option>
+                                      <option value="3"> </option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Vahicle Type</td>
+                                <td>
+                                  <div class="input-field col s4">
+                                    <select>
+                                      <option value="" disabled selected></option>
+                                      <option value="1"> </option>
+                                      <option value="2"> </option>
+                                      <option value="3"> </option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Do Manifest No.</td>
+                                <td><div class="input-field col s12">
+                                  <input id="aqty" type="text" class="validate " name="aqty" disabled>
+                                </div></td>
+                              </tr> 
+                              <tr>
+                                <td>Upload Concept Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Register Driver Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Maping Concept Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Loading Start Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Loading Finish Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Complete Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              
+                              <tr>
+                                <td>Status</td>
+                                <td>
+                                  <div class="input-field col s4">
+                                    <select name="" id="">
+                                      <option value="1"></option>
+                                      <option value="2"></option>
+                                      <option value="3"></option>
+                                    </select>
+
+                                  </div>
+                                </td>
+                              </tr>
+                         
+                            </table>
+                            <div class="input-field col s12">
+                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                            </div>
+                          </form>
                     </div>
                 </div>
             </div>
