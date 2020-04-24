@@ -53,31 +53,7 @@
                     <div class="card-content p-0">
                         <form class="form-table">
                             <table>
-                              {{-- <tr>
-                                <td>Area</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <select>
-                                      <option value="" disabled selected>-- Select Branch --</option>
-                                      <option>[HYP]PT. SEID HQ JKT</option>
-                                      <option>[JKT]PT. SEID CAB. JAKARTA</option>
-                                      <option>[JF]PT. SEID CAB. JAKARTA</option>
-                                    </select>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Branch</td>
-                                <td><div class="input-field col s12">
-                                  <select required>
-                                    <option value="" disabled selected>-- Please Select Location --</option>
-                                    <option value="1">1001-YP-1st Class</option>
-                                    <option value="2">1060-HYP-Return All</option>
-                                    <option value="3">1090-HYP-Intransit BR</option>
-                                  </select>
-                                </div></td>
-                              </tr> --}}
-                              
+                        
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
