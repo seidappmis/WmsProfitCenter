@@ -24,7 +24,7 @@
                         <form class="form-table">
                         	<table>
                         		<tr>
-                        			<td>Expedition</td>
+                        			<td width="20%" class="label">Expedition</td>
                         			<td>
                         				<div class="input-field col s12">
 									    <select required="">
@@ -38,17 +38,24 @@
                         		</tr>
                         	</table>
                             <!-- Detail Table -->
-                            <table class="mt-2">
+                            <table>
                                 <tr>
-                                    <td>Driver ID</td>
+                                    <td width="20%" class="label">Driver ID</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="driver_id" type="text" class="validate" value="ARS-17-001 ">
                                         </div>
                                     </td>
+                                    <td width="30%" rowspan="11" class="center-align">
+                                        <div class="col s12">
+                                          <p>Maximum upload size 2MB.</p>
+                                          <br>
+                                          <input type="file" id="input-file-now" class="dropify" name="file" data-default-file="{{asset('images/profil.png')}}" data-height="350"/>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Driver Name</td>
+                                    <td class="label">Driver Name</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="name" type="text" class="validate" value="KIF WAHYUDI">
@@ -56,7 +63,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Driving License Type</td>
+                                    <td class="label">Driving License Type</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <select>
@@ -69,7 +76,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Driving Lisence No.</td>
+                                    <td class="label">Driving Lisence No.</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="number" type="text" class="validate" value="800425350945" required>
@@ -77,7 +84,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>ID (KTP) No.</td>
+                                    <td class="label">ID (KTP) No.</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="ktp_id" type="text" class="validate" value="1807212104800000">
@@ -85,7 +92,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Phone 1</td>
+                                    <td class="label">Phone 1</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="phone" type="text" class="validate" value="082312279597">
@@ -93,7 +100,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Phone 2</td>
+                                    <td class="label">Phone 2</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="phone" type="text" class="validate" name="phone2">
@@ -101,7 +108,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Remarks 1</td>
+                                    <td class="label">Remarks 1</td>
                                     <td>
                                         <div class="input-field col s12">
                                             <input id="remarks" type="text" class="validate" name="remarks1">
@@ -109,7 +116,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Remarks 2</td>
+                                    <td class="label">Remarks 2</td>
                                     <td>
                                         <div class="input-field col s12">
                                            <input id="remarks" type="text" class="validate" name="remarks2">
@@ -117,7 +124,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Remarks 3</td>
+                                    <td class="label">Remarks 3</td>
                                     <td>
                                         <div class="input-field col s12">
                                            <input id="remarks" type="text" class="validate" name="remarks3">
@@ -125,7 +132,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Active</td>
+                                    <td class="label">Active</td>
                                     <td>
                                         <div class="input-field col s12 mt-2">
                                           <p>

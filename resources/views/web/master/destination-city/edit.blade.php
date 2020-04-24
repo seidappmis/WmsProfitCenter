@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content ">
-                        <h4 class="card-title">New Destination City</h4>
+                        <h4 class="card-title">Edit Destination City</h4>
                         <form class="form-table">
                             <table>
                                 <tr>
                                     <td>City Code</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="number" type="text" class="validate" name="gate_number" required>
+                                            <input id="number" type="text" class="validate" value="227" required>
                                       </div>
                                     </td>
                                 </tr>
@@ -35,12 +35,12 @@
                                     <td>City Name</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="description" type="text" class="validate" name="description">
+                                            <input id="description" type="text" class="validate" value="ACEH">
                                       </div>
                                     </td>
                                 </tr>
                             </table>
-                            {!! get_button_save() !!}
+                            {!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('destination-city')) !!}
                         </form>
                     </div>

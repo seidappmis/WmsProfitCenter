@@ -82,7 +82,7 @@
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
         // title: "Are you sure?",
-        text: "Delete the Gate 101 ?",
+        text: "Delete the Gate 101?",
         icon: 'warning',
         buttons: {
           cancel: true,

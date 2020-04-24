@@ -45,7 +45,15 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <td>1</td>
+                                <td>227</td>
+                                <td>ACEH</td>
+                                <td>
+                                  {!! get_button_edit(url('destination-city/1')) !!}
+                                  {!! get_button_delete() !!}
+                                </td>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -64,6 +72,26 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete the City Code 227?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
