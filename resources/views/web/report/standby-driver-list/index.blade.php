@@ -14,7 +14,7 @@
                 </ol>
             </div>
             <div class="col s12 m4 l4">
-                <!---- Search ----->
+                {{-- <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
@@ -26,7 +26,7 @@
                     </select>
                   </div>
                 </div>
-                <!-- end search -->
+                <!-- end search --> --}}
             </div>
         </div>
     @endcomponent
@@ -34,8 +34,30 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card">
-                    <div class="card-content p-0">
+                <div class="card large">
+                    <div class="card-content">
+                        <form class="form-table">
+                            <table>
+                              <tr>
+                                <td>Area</td>
+                                <td>
+                                  <div class="input-field col s12">
+                                    <select class="select2 browser-default">
+                                      <option>- All Area -</option>
+                                      <option>KARAWANG</option>
+                                      <option>SURABAYA HUB</option>
+                                      <option>SWADAYA</option>
+                                      
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                              
+                            </table>
+                            <div class="input-field col s12">
+                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                            </div>
+                          </form>
                     </div>
                 </div>
             </div>

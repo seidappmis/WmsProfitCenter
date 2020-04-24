@@ -13,36 +13,7 @@
                     <li class="breadcrumb-item active">Concept or DO Outstanding List</li>
                 </ol>
             </div>
-            <div class="col s12 m4 l4">
-                <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>ALL</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- end search -->
-            </div>
-            <div class="col s12 m4 l4">
-                <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Branch-</option>
-                      <option>ALL</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- end search -->
-            </div>
+           
         </div>
     @endcomponent
     
@@ -53,7 +24,45 @@
                     <div class="card-content p-0">
                         <form class="form-table">
                             <table>
-                        
+                              <tr style="background-color: darkgray">
+                                <td>Area</td>
+                                <td>
+                                  <div class="input-field col s12">
+                                    <select>
+                                      <option value="" disabled selected>-Select Area-</option>
+                                      <option value="1">KARAWANG</option>
+                                      <option value="2">SURABAYA HUB</option>
+                                      <option value="3">SWADAYA</option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr style="background-color: darkgray">
+                                <td>OR</td>
+                                <td></td>
+                              </tr>
+                              <tr style="background-color: darkgray">
+                                <td>Branch</td>
+                                <td>
+                                  <div class="input-field col s12">
+                                    <select>
+                                      <option value="" disabled selected>-Select Branch-</option>
+                                      <option value="1">PT. SAID CAB. JAKARTA</option>
+                                      <option value="2">PT. SAID CAB. BANDNG</option>
+                                      <option value="3">PT. SAID CAB. CIREBON</option>
+                                      <option value="3">PT. SAID CAB. SEMARNG</option>
+                                      <option value="3">PT. SAID CAB. YOGYAKARTA</option>
+                                      <option value="3">PT. SAID CAB. PURWOKERTO</option>
+                                      <option value="3">PT. SAID CAB. KEDIRI</option>
+                                      <option value="3">PT. SAID CAB. SURABAYA</option>
+                                      <option value="3">PT. SAID CAB. DENPASAT</option>
+                                      <option value="3">PT. SAID CAB. SAMARINDA</option>
+                                      <option value="3">PT. SAID CAB. BANJARMASIN</option>
+
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
@@ -101,9 +110,9 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td>Vehicle Type</td>
+                                <td>Vahicle Type</td>
                                 <td><div class="input-field col s12">
-                                  <textarea id="textarea2" class="materialize-textarea" required></textarea>
+                                  <input id="" type="text" class="validate" name="model" required>
                                 </div></td>
                               </tr>
                             </table>

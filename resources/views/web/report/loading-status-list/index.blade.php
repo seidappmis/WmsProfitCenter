@@ -15,20 +15,10 @@
             </div>
             <div class="col s12 m4 l4">
                 <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>ALL</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
+                
                 <!-- end search -->
             </div>
-        </div>
+        </>
     @endcomponent
     
     <div class="col s12">
@@ -38,6 +28,19 @@
                     <div class="card-content p-0">
                         <form class="form-table">
                             <table>
+                              <tr>
+                                <td>Area</td>
+                                <td>
+                                  <div class="input-field col s12">
+                                    <select>
+                                      <option value="" disabled selected>-Select Area-</option>
+                                      <option value="1">KARAWANG</option>
+                                      <option value="2">SURABAYA HUB</option>
+                                      <option value="3">SWADAYA</option>
+                                    </select>
+                                  </div>
+                                </td>
+                              </tr>
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
