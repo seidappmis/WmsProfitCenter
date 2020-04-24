@@ -37,8 +37,8 @@
                         			</td>
                         		</tr>
                         	</table>
-                        	<button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-							<a class="waves-effect btn-flat mt-2" href="{{ url('master-driver') }}">Back</a>
+                        	{!! get_button_save() !!}
+                            {!! get_button_cancel(url('master-driver')) !!}
 						</form>
                     </div>
                 </div>

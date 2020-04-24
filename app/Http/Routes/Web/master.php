@@ -20,9 +20,11 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
   Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
+  Route::view('master-vehicle-expedition/1', 'web.master.master-vehicle-expedition.edit');
 
   Route::view('master-driver', 'web.master.master-driver.index');
   Route::view('master-driver/create', 'web.master.master-driver.create');
+  Route::view('master-driver/1', 'web.master.master-driver.edit');
 
   Route::view('destination-city', 'web.master.destination-city.index');
   Route::view('destination-city/create', 'web.master.destination-city.create');
