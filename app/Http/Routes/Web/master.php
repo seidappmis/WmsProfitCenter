@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
   Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
+  Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
 
   Route::view('storage-master', 'web.master.storage-master.index');
   Route::view('storage-master/create', 'web.master.storage-master.create');
