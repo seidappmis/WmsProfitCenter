@@ -43,7 +43,7 @@
                                     <td>Driver ID</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="driver_id" type="text" class="validate" name="driver_id">
+                                            <input id="driver_id" type="text" class="validate" value="ARS-17-001 ">
                                         </div>
                                     </td>
                                 </tr>
@@ -51,7 +51,7 @@
                                     <td>Driver Name</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="name" type="text" class="validate" name="name">
+                                            <input id="name" type="text" class="validate" value="KIF WAHYUDI">
                                         </div>
                                     </td>
                                 </tr>
@@ -72,7 +72,7 @@
                                     <td>Driving Lisence No.</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="number" type="text" class="validate" name="number" required>
+                                            <input id="number" type="text" class="validate" value="800425350945" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@
                                     <td>ID (KTP) No.</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="ktp_id" type="text" class="validate" name="ktp_id">
+                                            <input id="ktp_id" type="text" class="validate" value="1807212104800000">
                                         </div>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
                                     <td>Phone 1</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="phone" type="text" class="validate" name="phone1">
+                                            <input id="phone" type="text" class="validate" value="082312279597">
                                         </div>
                                     </td>
                                 </tr>
@@ -127,10 +127,10 @@
                                 <tr>
                                     <td>Active</td>
                                     <td>
-                                        <div class="input-field col s12">
+                                        <div class="input-field col s12 mt-2">
                                           <p>
                                           <label>
-                                            <input type="checkbox" class="filled-in mt-2" checked="checked" />
+                                            <input type="checkbox" class="filled-in" checked="checked" />
                                             <span></span>
                                           </label>
                                           </p>
@@ -138,7 +138,7 @@
                                     </td>
                                 </tr>
                             </table>
-                        	{!! get_button_save() !!}
+                        	{!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-driver'), 'Back') !!}
 						</form>
                     </div>
