@@ -77,17 +77,37 @@
                             <thead>
                                 <tr>
                                   <th data-priority="1" width="30px">NO.</th>
-                                  <th>ORIGIIN AREA</th>
-                                  <th>TRANSPORTER</th>
-                                  <th>DESTINATION</th>
-                                  <th>TRUCK TYPE</th>
-                                  <th>RITASE</th>
+                                  <th>Origin Area</th>
+                                  <th class="center-align">
+                                  Transporter
+                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  </th>
+                                  <th class="center-align"> Destination
+                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  </th>
+                                  <th class="center-align">Truck Type
+                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  </th>
+                                  <th>Ritase</th>
                                   <th>CBM (M3)</th>
-                                  <th>LEAD TIME (DAYS)</th>
+                                  <th>Lead Time (Days)</th>
                                   <th width="50px;"></th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                              <td>1</td>
+                              <td>KARAWANG</td>
+                              <td>ALAM RAYA SENTOSA, CV.</td>
+                              <td>LAMPUNG</td>
+                              <td>TRONTON 10 M</td>
+                              <td>0</td>
+                              <td>145,000</td>
+                              <td>3</td>
+                              <td>
+                                {!! get_button_edit(url('master-freight-cost/1')) !!}
+                                {!! get_button_delete() !!}
+                              </td>
+                            </tbody>
                         </table>
                       </div>
                       <!-- datatable ends -->

@@ -43,7 +43,7 @@
                 </div>
                 <div class="card">
                     <div class="card-content">
-                      <h4 class="card-title">Add Freight Cost</h4>
+                      <h4 class="card-title">Edit Freight Cost</h4>
                         <form class="form-table">
                           <table>
                             <tr>
@@ -51,8 +51,8 @@
                               <td>
                                 <div class="input-field col s12">
                                   <select required="">
-                                    <option value="" disabled selected>-- Area --</option>
-                                    <option value="1">KARAWANG</option>
+                                    <option value="" disabled>-- Area --</option>
+                                    <option value="1" selected>KARAWANG</option>
                                     <option value="2">SURABAYA HUB</option>
                                     <option value="3">SWADAYA</option>
                                   </select>
@@ -73,21 +73,60 @@
                               </td>
                             </tr>
                             <tr>
+                              <td>Destination City</td>
+                              <td>
+                                <div class="input-field col m6 s12">
+                                  <select required="">
+                                    <!-- <option value="" disabled>-- Area --</option> -->
+                                    <option value="1" selected>LAMPUNG</option>
+                                    <!-- <option value="2">SURABAYA HUB</option>
+                                    <option value="3">SWADAYA</option> -->
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Expedition</td>
+                              <td>
+                                <div class="input-field col m6 s12">
+                                  <select required="">
+                                    <option value="" disabled>-- Expedition --</option>
+                                    <option value="1" selected>ALAM RAYA SENTOSA, CV.</option>
+                                    <!-- <option value="2">SURABAYA HUB</option>
+                                    <option value="3">SWADAYA</option> -->
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Vehicle Type</td>
+                              <td>
+                                <div class="input-field col m6 s12">
+                                  <select required="">
+                                    <option value="" disabled selected></option>
+                                    <!-- <option value="1">LAMPUNG</option>
+                                    <option value="2">SURABAYA HUB</option>
+                                    <option value="3">SWADAYA</option> -->
+                                  </select>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
                               <td>
                                 <p>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" checked/>
+                                    <input class="with-gap" name="group1" type="radio"/>
                                     <span>Ritase</span>
                                   </label>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" />
+                                    <input class="with-gap" name="group1" type="radio" checked/>
                                     <span>CBM</span>
                                   </label>
                                 </p>
                               </td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input id="number" type="text" class="validate" name="gate_number" required>
+                                  <input id="number" type="text" class="validate" value="145000.000" required>
                                 </div>
                               </td>
                             </tr>
@@ -95,7 +134,7 @@
                               <td>Lead Time</td>
                               <td>
                                 <div class="input-field col m2 s12">
-                                  <input id="description" type="text" class="validate" name="description" required>
+                                  <input id="description" type="text" class="validate" value="3" required>
                                 </div>
                                 <div class="col m6 s12 mt-2 ml-2">
                                   <span>Days</span>
@@ -103,7 +142,7 @@
                               </td>
                             </tr>
                           </table>
-                          {!! get_button_save() !!}
+                          {!! get_button_save('Update') !!}
                           {!! get_button_cancel(url('master-freight-cost')) !!}
                         </form>
                     </div>
