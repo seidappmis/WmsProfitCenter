@@ -38,7 +38,7 @@
                         		</tr>
                         	</table>
                             <!-- Detail Table -->
-                            <table>
+                            <table class="mt-1">
                                 <tr>
                                     <td width="20%" class="label">Driver ID</td>
                                     <td>
