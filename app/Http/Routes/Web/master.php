@@ -7,12 +7,16 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('master-destination', 'web.master.master-destination.index');
   Route::view('master-destination/create', 'web.master.master-destination.create');
+  Route::view('master-destination/1', 'web.master.master-destination.edit');
 
   Route::view('master-vehicle', 'web.master.master-vehicle.index');
   Route::view('master-vehicle/create', 'web.master.master-vehicle.create');
+  Route::view('master-vehicle/1', 'web.master.master-vehicle.view');
+  Route::view('master-vehicle/2', 'web.master.master-vehicle.detail');
 
   Route::view('master-expedition', 'web.master.master-expedition.index');
   Route::view('master-expedition/create', 'web.master.master-expedition.create');
+  Route::view('master-expedition/1', 'web.master.master-expedition.edit');
 
   Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
   Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');

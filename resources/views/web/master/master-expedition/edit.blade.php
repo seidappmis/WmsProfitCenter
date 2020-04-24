@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<h4 class="card-title">New Expedition</h4>
+                    	<h4 class="card-title">Edit Expedition</h4>
                         <form class="form-table">
                         	<table>
                         		<tr>
                         			<td>Code</td>
                         			<td>
                         			  <div class="input-field col s12">
-										<input id="code" type="text" class="validate" name="code" required>
+										<input id="code" type="text" class="validate" value="ARS" required>
 									  </div>
                         			</td>
                         		</tr>
@@ -35,7 +35,7 @@
                         			<td>Expedition Name</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="name" type="text" class="validate" name="name" required>
+									    <input id="name" type="text" class="validate" value="ALAM RAYA SENTOSA, CV." required>
 									  </div>
                         			</td>
                         		</tr>
@@ -43,7 +43,7 @@
                         			<td>Address</td>
                         			<td>
                         			  <div class="input-field col s12">
-								        <textarea id="address" class="materialize-textarea"></textarea>
+								        <textarea id="address" class="materialize-textarea">DUSUN III LEDUNG NO RT.09 RW.03 KEL LABUHAN RATU KEC.LABUHAN RATU, LAMPUNG TIMUR, LAMPUNG</textarea>
 								      </div>
                         			</td>
                         		</tr>
@@ -51,7 +51,7 @@
                         			<td>SAP CODE</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="sapcode" type="text" class="validate" name="sapcode" required>
+									    <input id="sapcode" type="text" class="validate" value="10XA54" required>
 									  </div>
                         			</td>
                         		</tr>
@@ -67,7 +67,7 @@
                         			<td>CONTACT PERSON</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="cp" type="text" class="validate" name="cp">
+									    <input id="cp" type="text" class="validate" value="HOTMAN">
 									  </div>
                         			</td>
                         		</tr>
@@ -75,7 +75,7 @@
                         			<td>PHONE NUMBER 1</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="phone1" type="number" class="validate" name="phone1">
+									    <input id="phone1" type="text" class="validate">
 									  </div>
                         			</td>
                         		</tr>
@@ -83,7 +83,7 @@
                         			<td>PHONE NUMBER 2</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="phone2" type="number" class="validate" name="phone2">
+									    <input id="phone2" type="text" class="validate" value="0813-8890-4228">
 									  </div>
                         			</td>
                         		</tr>
@@ -99,7 +99,7 @@
                         			<td>BANK</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="bank" type="text" class="validate" name="bank">
+									    <input id="bank" type="text" class="validate" value="TOKYO">
 									  </div>
                         			</td>
                         		</tr>
@@ -107,7 +107,7 @@
                         			<td>CURRENCY</td>
                         			<td>
                         			  <div class="input-field col s12">
-									    <input id="currency" type="text" class="validate" name="currency">
+									    <input id="currency" type="text" class="validate" value="IDR">
 									  </div>
                         			</td>
                         		</tr>
@@ -117,14 +117,14 @@
                         			  <div class="input-field col s12 mt-2">
 									    <p>
 									      <label>
-									        <input type="checkbox" class="filled-in" checked="checked"/><span></span>
+									        <input type="checkbox" class="filled-in"/><span></span>
 									      </label>
 									    </p>
 									  </div>
                         			</td>
                         		</tr>
                         	</table>
-                        	{!! get_button_save() !!}
+                        	{!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-expedition')) !!}
 						</form>
                     </div>

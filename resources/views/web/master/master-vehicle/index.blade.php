@@ -50,7 +50,7 @@
                                   <td>8 METER</td>
                                   <td>0</td>
                                   <td width="50px;">
-                                    {!! get_button_view() !!}
+                                    {!! get_button_view(url('master-vehicle/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
                                 </tr>
@@ -79,8 +79,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete Group Name 8 METER?",
         icon: 'warning',
         buttons: {
           cancel: true,

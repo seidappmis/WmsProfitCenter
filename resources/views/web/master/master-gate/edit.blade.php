@@ -55,7 +55,6 @@
                         	</table>
 							{!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-gate')) !!}
-							<!-- <a class="waves-effect btn-flat mt-2" href="{{ url('master-gate') }}">Cancel</a> -->
 						</form>
                     </div>
                 </div>
