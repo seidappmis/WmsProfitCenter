@@ -36,7 +36,7 @@
                                   </div>
                                 </td>
                               </tr>
-                              <tr ">
+                              <tr>
                                 <td>BRANCH</td>
                                 <td>
                                   <div class="input-field col s12">
