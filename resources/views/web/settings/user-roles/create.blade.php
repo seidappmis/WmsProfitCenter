@@ -299,6 +299,39 @@
                               </div>
                             </td>
                           </tr>
+                          <tr>
+                            <td>Billing Return</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
                         </table>
                         </div>
                         <!-- Table Group Inventory-->
@@ -378,6 +411,72 @@
                           </tr>
                           <tr>
                             <td>Adjust Inventory Movement</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Transfer SLoc</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Cancel Movement</td>
                             <td>
                               <div class="input-field col s12 center-align">
                                 <p>
@@ -519,6 +618,72 @@
                               </div>
                             </td>
                           </tr>
+                          <tr>
+                            <td>Summary Freight Cost Analysis</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Branch Invoicing</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
                         </table>
                         </div>
                         <!-- Table Group Master Data-->
@@ -598,6 +763,72 @@
                           </tr>
                           <tr>
                             <td>Master Vehicle</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Master Epxedition</td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="input-field col s12 center-align">
+                                <p>
+                                  <label>
+                                    <input type="checkbox" class="filled-in" name="foo"/>
+                                    <span></span>
+                                  </label>
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Master Vehicle Expedition</td>
                             <td>
                               <div class="input-field col s12 center-align">
                                 <p>
