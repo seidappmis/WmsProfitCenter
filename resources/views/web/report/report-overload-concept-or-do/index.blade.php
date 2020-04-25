@@ -20,8 +20,52 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                    <div class="card-content ">
+                     <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Area</td>
+                                    <td>
+                                      <div class="input-field col s4">
+                                        <select name="" id="">
+                                          <option value="" disabled selected>-Select Area-</option>
+                                          <option value="1">KARAWANG</option>
+                                          <option value="2">SURABAYA HUB</option>
+                                          <option value="3">SWADAYA</option>
+                                           
+                                        </select>
+    
+                                      </div>
+                                    </td>
+                                  </tr>
+                              <tr>
+                                <td>Overload Concept Date</td>
+                                <td>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      From
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                  <div class="input-field col s6">
+                                    <div class="col s3 m2 label">
+                                      To
+                                    </div>
+                                    <div class="col s9 m10">
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                            <br>
+                            <div class="input-field col s12">
+                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                            </div>
+                         </form>
+                   </div>
                 </div>
             </div>
         </div>
