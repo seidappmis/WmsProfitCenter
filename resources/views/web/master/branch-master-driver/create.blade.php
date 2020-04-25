@@ -28,7 +28,7 @@
                                     <td>
                                         <div class="input-field col s12">
                                         <select required="">
-                                            <option value="" disabled selected>-- Expedition --</option>
+                                            <option value="" selected>-- Expedition --</option>
                                             <!-- <option value="1">ALAM RAYA SENTOSA, CV.</option>
                                             <option value="2">ALAMUI LOGISTICS, PT.</option>
                                             <option value="3">ALISTON TJOKRO EMKL</option> -->
@@ -37,8 +37,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                            <a class="waves-effect btn-flat mt-2" href="{{ url('branch-master-driver') }}">Back</a>
+                            {!! get_button_save() !!}
+                            {!! get_button_cancel(url('branch-master-driver'), 'Back') !!}
                         </form>
                     </div>
                 </div>

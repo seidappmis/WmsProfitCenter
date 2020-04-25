@@ -63,7 +63,7 @@
 @push('script_js')
 <script type="text/javascript">
   swal({
-    title: 'Sorry, HQ cannot access this page',
+    text: 'Sorry, HQ cannot access this page',
     icon: 'warning'
   })
   // var table = $('#data-table-simple').DataTable({

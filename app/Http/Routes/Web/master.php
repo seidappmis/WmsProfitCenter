@@ -36,12 +36,15 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('storage-master', 'web.master.storage-master.index');
   Route::view('storage-master/create', 'web.master.storage-master.create');
+  Route::view('storage-master/1', 'web.master.storage-master.edit');
 
   Route::view('master-model', 'web.master.master-model.index');
   Route::view('master-model/create', 'web.master.master-model.create');
+  Route::view('master-model/1', 'web.master.master-model.edit');
 
   Route::view('master-vendor', 'web.master.master-vendor.index');
   Route::view('master-vendor/create', 'web.master.master-vendor.create');
+  Route::view('master-vendor/1', 'web.master.master-vendor.edit');
 
   Route::view('master-model-exception', 'web.master.master-model-exception.index');
 

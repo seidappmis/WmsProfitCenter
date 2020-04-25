@@ -34,13 +34,13 @@
                               <td>Model Exception</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="excep">
+                                  <input type="text" id="excep" required>
                                 </div>
                               </td>
                             </tr>
                           </table>
-                          <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                          <a class="waves-effect btn-flat mt-2" href="{{ url('master-model-exception') }}">Cancel</a>
+                          {!! get_button_save() !!}
+                          {!! get_button_cancel(url('master-model-exception')) !!}
                         </form>
                       </div> 
                       <!-- End Input -->
@@ -94,6 +94,26 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete the Model ZADDON?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();

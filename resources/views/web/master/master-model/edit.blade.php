@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                        <h4 class="card-title">New Data</h4>
+                        <h4 class="card-title">Edit Data</h4>
                         <form class="form-table">
                           <table>
                             <tr>
                               <td>Model Name</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="name" class="validate" required>
+                                  <input type="text" id="name" class="validate" value="14A20D2" required>
                                 </div>
                               </td>
                             </tr>
@@ -43,7 +43,7 @@
                               <td>Ean Code</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="ean" required>
+                                  <input type="text" id="ean" value="8997401917117" required>
                                 </div>
                               </td>
                             </tr>
@@ -51,7 +51,7 @@
                               <td>CBM</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="cbm" required>
+                                  <input type="text" id="cbm" value="0.100" required>
                                 </div>
                               </td>
                             </tr>
@@ -60,8 +60,8 @@
                               <td>
                                 <div class="input-field col s12">
                                   <select required="">
-                                    <option value="" disabled selected>-- Select Material Group --</option>
-                                    <option value="1">BG - F3 LED Lightning</option>
+                                    <option value="" disabled>-- Select Material Group --</option>
+                                    <option value="1" selected>MH - G1 CRT TV/VTR</option>
                                     <option value="2">BJ - C1 Energy Solution Japan</option>
                                     <option value="3">BP - C1 Energy Sollution Overseas</option>
                                   </select>
@@ -73,9 +73,9 @@
                               <td>
                                 <div class="input-field col s12">
                                   <select required="">
-                                    <option value="" disabled selected>-- Select Category --</option>
+                                    <option value="" disabled>-- Select Category --</option>
                                     <option value="1">AC</option>
-                                    <option value="2">AP</option>
+                                    <option value="2" selected>TV</option>
                                     <option value="3">AU</option>
                                   </select>
                                 </div>
@@ -86,9 +86,9 @@
                               <td>
                                 <div class="input-field col s12">
                                   <select required="">
-                                    <option value="" disabled selected>-- Select Category --</option>
+                                    <option value="" disabled>-- Select Category --</option>
                                     <option value="1">IMPORT</option>
-                                    <option value="2">LOCAL</option>
+                                    <option value="2" selected>LOCAL</option>
                                     <option value="3">OEM</option>
                                   </select>
                                 </div>
@@ -98,7 +98,7 @@
                               <td>Description</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="description">
+                                  <input type="text" id="description" value="TV 14 LOCAL">
                                 </div>
                               </td>
                             </tr>
@@ -106,7 +106,7 @@
                               <td>Max Pieces/Carton</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="pieces">
+                                  <input type="text" id="pieces" value="1">
                                 </div>
                               </td>
                             </tr>
@@ -114,7 +114,7 @@
                               <td>Max Carton/Palet</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="carton">
+                                  <input type="text" id="carton" value="24">
                                 </div>
                               </td>
                             </tr>
@@ -122,7 +122,7 @@
                               <td>Palet</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input type="text" id="palet" required>
+                                  <input type="text" id="palet" value="0" required>
                                 </div>
                               </td>
                             </tr>
@@ -130,7 +130,7 @@
                               <td>Price 1</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input placeholder="0" type="number" id="price">
+                                  <input placeholder="0" type="number" id="price" value="414500">
                                 </div>
                               </td>
                             </tr>
@@ -138,7 +138,7 @@
                               <td>Price 2</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input placeholder="0" type="number" id="price2">
+                                  <input placeholder="0" type="number" id="price2" value="672500">
                                 </div>
                               </td>
                             </tr>
@@ -146,12 +146,12 @@
                               <td>Price 3</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <input placeholder="0" type="number" id="price3">
+                                  <input placeholder="0" type="number" id="price3" value="0">
                                 </div>
                               </td>
                             </tr>
                           </table>
-                          {!! get_button_save() !!}
+                          {!! get_button_save('Update') !!}
                           {!! get_button_cancel(url('master-model')) !!}
 						            </form>
                     </div>

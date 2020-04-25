@@ -49,7 +49,20 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <td>1</td>
+                                <td>10ED03</td>
+                                <td>DAEWOO ELECTRONICS (M) SDN.BHD.</td>
+                                <td>DAEWOO ELECTRONICS (M) SDN.BHD.</td>
+                                <td>LOT 8,JLN PKNK, 1/2 SUNGAI PETANI INDUSTRIAL ESTATE</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                  {!! get_button_edit(url('master-vendor/1')) !!}
+                                  {!! get_button_delete() !!}
+                                </td>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -68,6 +81,26 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete vendor : DAEWOO ELECTRONICS (M) SDN.BHD.?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();

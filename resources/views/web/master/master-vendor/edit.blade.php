@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                        <h4 class="card-title">New Data</h4>
+                        <h4 class="card-title">Edit Data</h4>
                         <form class="form-table">
                             <table>
                                 <tr>
                                     <td>Vendor Code</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="code" type="text" class="validate" required>
+                                            <input id="code" type="text" class="validate" value="10ED03" required disabled>
                                       </div>
                                     </td>
                                 </tr>
@@ -35,7 +35,7 @@
                                     <td>Vendor Name</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="vname" type="text" class="validate" required>
+                                            <input id="vname" type="text" class="validate" value="DAEWOO ELECTRONICS (M) SDN.BHD." required>
                                       </div>
                                     </td>
                                 </tr>
@@ -43,7 +43,7 @@
                                     <td>Description</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <textarea id="description" class="materialize-textarea"></textarea>
+                                            <textarea id="description" class="materialize-textarea">DAEWOO ELECTRONICS (M) SDN.BHD.</textarea>
                                       </div>
                                     </td>
                                 </tr>
@@ -51,7 +51,7 @@
                                     <td>Address</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <textarea id="address" class="materialize-textarea"></textarea>
+                                            <textarea id="address" class="materialize-textarea">LOT 8,JLN PKNK, 1/2 SUNGAI PETANI INDUSTRIAL ESTATE</textarea>
                                       </div>
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            {!! get_button_save() !!}
+                            {!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-vendor')) !!}
 						</form>
                     </div>
