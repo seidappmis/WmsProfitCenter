@@ -19,9 +19,30 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                <div class="card large">
+                    <div class="card-content p-3">
+                        <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Area</td>
+                                    <td>
+                                      <div class="input-field col s12">
+                                        <select>
+                                          <option value="" disabled selected>-Select Area-</option>
+                                          <option value="1">KARAWANG</option>
+                                          <option value="2">SURABAYA HUB</option>
+                                          <option value="3">SWADAYA</option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                            <div class="input-field col s12">
+                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              </div>
+                        </form>
+                  
                 </div>
             </div>
         </div>
