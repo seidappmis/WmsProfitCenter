@@ -19,12 +19,10 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
-                    
-                        <form class="form-table">
+                <div class="card">
+                    <div class="card-content ">
+                     <form class="form-table">
                             <table>
-                              
-                              </tr>
                               <tr>
                                 <td>Date of Manifest</td>
                                 <td>
@@ -131,7 +129,7 @@
                               <button type="submit" class="waves-effect waves-light indigo btn">Print</button>
                             </div>
                           </form>
-                   
+                   </div>
                 </div>
             </div>
         </div>
