@@ -61,7 +61,7 @@
                                   <td>PT. SEID CAB. BANDUNG</td>
                                   <td>YES</td>
                                   <td>
-                                    {!! get_button_edit() !!}
+                                    {!! get_button_edit(url('user-manager/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
                                 </tr>
@@ -89,8 +89,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete the User 13wmsadm1?",
         icon: 'warning',
         buttons: {
           cancel: true,
