@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<h4 class="card-title">New Cabang</h4>
+                    	<h4 class="card-title">Edit Cabang</h4>
                     	<form class="form-table">
                             <table>
                                 <tr>
                                     <td>Kode Customer</td>
                                     <td>
                                         <div class="input-field col s12">
-                                           <input id="customer" type="text" class="validate" name="customer" required>
+                                           <input id="customer" type="text" class="validate" value="10000000" required disabled>
                                         </div>
                                     </td>
                                 </tr>
@@ -35,7 +35,7 @@
                                     <td>Kode Cabang</td>
                                     <td>
                                         <div class="input-field col s12">
-                                           <input id="cabang" type="text" class="validate" name="cabang" required>
+                                           <input id="cabang" type="text" class="validate" value="10" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -43,7 +43,7 @@
                                     <td>Short Description</td>
                                     <td>
                                         <div class="input-field col s12">
-                                           <input id="sdes" type="text" class="validate">
+                                           <input id="sdes" type="text" class="validate" value="HYP">
                                         </div>
                                     </td>
                                 </tr>
@@ -51,7 +51,7 @@
                                     <td>Long Description</td>
                                     <td>
                                         <div class="input-field col s12">
-                                           <input id="ldes" type="text" class="validate">
+                                           <input id="ldes" type="text" class="validate" value="PT. SEID HQ JKT">
                                         </div>
                                     </td>
                                 </tr>
@@ -60,10 +60,10 @@
                                     <td>
                                         <div class="input-field col s12">
                                             <select>
-										        <option value="" disabled selected></option>
-										        <!-- <option value="1">admincheck</option>
-										        <option value="2">allocation</option>
-										        <option value="3">Audit</optio -->
+										        <option value="" >-Select Region-</option>
+										        <option value="1"  selected>JABODETABEK</option>
+										        <option value="2">JAWA</option>
+										        <option value="3">KALIMANTAN</option>
 										    </select>
                                         </div>
                                     </td>
@@ -73,8 +73,8 @@
                                     <td>
                                         <div class="input-field col s12">
                                             <select>
-										        <option value="" disabled selected>-- Select Type --</option>
-										        <option value="1">BR</option>
+										        <option value="" disabled>-- Select Type --</option>
+										        <option value="1" selected>BR</option>
 										        <option value="2">DS</option>
 										    </select>
                                         </div>
@@ -86,7 +86,7 @@
                                         <div class="input-field col s12 mt-2">
                                             <p>
 										    <label>
-										      <input type="checkbox" class="filled-in" />
+										      <input type="checkbox" class="filled-in" checked />
 										      <span></span>
 										    </label>
 										  </p>
@@ -102,7 +102,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            {!! get_button_save() !!}
+                            {!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-cabang')) !!}
                         </form>
                     </div>

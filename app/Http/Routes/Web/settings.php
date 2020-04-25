@@ -7,12 +7,15 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('user-roles', 'web.settings.user-roles.index');
   Route::view('user-roles/create', 'web.settings.user-roles.create');
+  Route::view('user-roles/1', 'web.settings.user-roles.edit');
 
   Route::view('master-area', 'web.settings.master-area.index');
   Route::view('master-area/create', 'web.settings.master-area.create');
+  Route::view('master-area/1', 'web.settings.master-area.edit');
 
   Route::view('master-cabang', 'web.settings.master-cabang.index');
   Route::view('master-cabang/create', 'web.settings.master-cabang.create');
+  Route::view('master-cabang/1', 'web.settings.master-cabang.edit');
 
   Route::view('master-user-mobile', 'web.settings.master-user-mobile.index');
   Route::view('master-user-mobile/create', 'web.settings.master-user-mobile.create');

@@ -48,10 +48,10 @@
                               <tbody>
                                 <tr>
                                   <td>1.</td>
-                                  <td>-- No Code --</td>
+                                  <td>--No Code--</td>
                                   <td>All</td>
                                   <td>
-                                    {!! get_button_edit() !!}
+                                    {!! get_button_edit(url('master-area/1')) !!}
                                   </td>
                                 </tr>
                                 <tr>
@@ -87,8 +87,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete the Area KARAWANG?",
         icon: 'warning',
         buttons: {
           cancel: true,

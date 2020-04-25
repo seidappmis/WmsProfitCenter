@@ -20,14 +20,14 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<h4 class="card-title">New Area</h4>
+                    	<h4 class="card-title">Edit Area</h4>
                         <form class="form-table">
                             <table>
                                 <tr>
                                     <td>AREA</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="area" type="text" class="validate" name="area">
+                                            <input id="area" type="text" class="validate" value="All" ">
                                         </div>
                                     </td>
                                 </tr>
@@ -35,12 +35,12 @@
                                     <td>CODE</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="code" type="text" class="validate" name="code">
+                                            <input id="code" type="text" class="validate" value="--No Code--" ">
                                         </div>
                                     </td>
                                 </tr>
                             </table>
-                            {!! get_button_save() !!}
+                            {!! get_button_save('Update') !!}
                             {!! get_button_cancel(url('master-area')) !!}
                         </form>
                     </div>
