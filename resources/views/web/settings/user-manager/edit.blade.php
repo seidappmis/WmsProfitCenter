@@ -118,7 +118,7 @@
                                 <tr>
                                     <td width="50%">LIST GRANT BRANCH</td>
                                     <td width="50%" rowspan="2">
-                                        <table class="mt-2 mb-2">
+                                        <table id="data-table-simple" class="mt-2 mb-2">
                                             <tr>
                                             <td bgcolor="#344b68" class="white-text">NO.</td>
                                             <td bgcolor="#344b68" class="center-align white-text">BRANCH</td>
@@ -173,8 +173,8 @@
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({,
-        text: "Delete the Gate 101?",
+      swal({
+        text: "Delete the Branch PT. SEID CAB. BANDUNG?",
         icon: 'warning',
         buttons: {
           cancel: true,
