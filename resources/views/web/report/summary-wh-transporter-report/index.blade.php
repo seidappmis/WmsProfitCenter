@@ -20,8 +20,35 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                    <div class="card-content ">
+                        <form class="form-table">
+                               <table>
+                                   
+                                 <tr>
+                                    <td>Destination City Header</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" required>
+                                     </div></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Transporter</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" required>
+                                     </div></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Periode</td>
+                                    <td><div class="col s9 m10">
+                                        <input placeholder="" id="first_name" type="text" class="validate datepicker" required>
+                                      </div></td>
+                                 </tr>
+                               </table>
+                               <div class="input-field col s12">
+                               <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                             </div>
+                               
+                            </form>
+                      </div>
                 </div>
             </div>
         </div>
