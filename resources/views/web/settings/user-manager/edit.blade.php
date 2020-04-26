@@ -116,24 +116,8 @@
                         			</td>
                         		</tr>
                                 <tr>
-                                    <td width="50%">LIST GRANT BRANCH</td>
-                                    <td width="50%" rowspan="2">
-                                        <table id="data-table-simple" class="mt-2 mb-2">
-                                            <tr>
-                                            <td bgcolor="#344b68" class="white-text">NO.</td>
-                                            <td bgcolor="#344b68" class="center-align white-text">BRANCH</td>
-                                            <td bgcolor="#344b68"></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="30px">1</td>
-                                            <td>PT. SEID CAB. BANDUNG</td>
-                                            <td width="50px">{!! get_button_delete() !!}</td>
-                                        </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
+                                    <td width="50%">
+                                        LIST GRANT BRANCH
                                         <table>
                                         <tr>
                                             <td width=25%">Branch Name : </td>
@@ -150,6 +134,20 @@
                                             <td width="30px">
                                                 <a class="waves-effect waves-light indigo btn-small"><i class="material-icons">add</i></a>
                                             </td>
+                                        </tr>
+                                        </table>
+                                    </td>
+                                    <td width="50%">
+                                        <table id="data-table-simple" class="mt-2 mb-2">
+                                            <tr>
+                                            <td bgcolor="#344b68" class="white-text">NO.</td>
+                                            <td bgcolor="#344b68" class="center-align white-text">BRANCH</td>
+                                            <td bgcolor="#344b68"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30px">1</td>
+                                            <td>PT. SEID CAB. BANDUNG</td>
+                                            <td width="50px">{!! get_button_delete() !!}</td>
                                         </tr>
                                         </table>
                                     </td>
