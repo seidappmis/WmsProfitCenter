@@ -27,9 +27,9 @@
                                        <td>Branch</td>
                                        <td>
                                          <div class="input-field col s4">
-                                           <select name="" id="" >
+                                           <select name="" id="" required>
                                              <option value="" disabled selected >-Select Area-</option>
-                                             <option value="1">KARAWANG</option>
+                                             <option value="1" >KARAWANG</option>
                                              <option value="2">SURABAYA HUB</option>
                                              <option value="3">SWADAYA</option>
                                               
