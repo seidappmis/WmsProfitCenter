@@ -20,8 +20,85 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                    <div class="card-content ">
+                        <form class="form-table">
+                               <table>
+                                   <tr>
+                                       <td>Branch</td>
+                                       <td>
+                                         <div class="input-field col s4">
+                                           <select name="" id="" >
+                                             <option value="" disabled selected >-Select Area-</option>
+                                             <option value="1">KARAWANG</option>
+                                             <option value="2">SURABAYA HUB</option>
+                                             <option value="3">SWADAYA</option>
+                                              
+                                           </select>
+       
+                                         </div>
+                                       </td>
+                                     </tr>
+                                 <tr>
+                                   <td>Picking List Date</td>
+                                   <td>
+                                     <div class="input-field col s6">
+                                       <div class="col s3 m2 label">
+                                         From
+                                       </div>
+                                       <div class="col s9 m10">
+                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required>
+                                       </div>
+                                     </div>
+                                     <div class="input-field col s6">
+                                       <div class="col s3 m2 label">
+                                         To
+                                       </div>
+                                       <div class="col s9 m10">
+                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required >
+                                       </div>
+                                     </div>
+                                   </td>
+                                 </tr>
+                                 <tr>
+                                    <td>LMB Date</td>
+                                   <td>
+                                     <div class="input-field col s6">
+                                       <div class="col s3 m2 label">
+                                         From
+                                       </div>
+                                       <div class="col s9 m10">
+                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" >
+                                       </div>
+                                     </div>
+                                     <div class="input-field col s6">
+                                       <div class="col s3 m2 label">
+                                         To
+                                       </div>
+                                       <div class="col s9 m10">
+                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" >
+                                       </div>
+                                     </div>
+                                   </td>
+                                 </tr>
+                                 <tr>
+                                     <td>Picking List NO.</td>
+                                     <td><div class="input-field col s12">
+                                        <input id="" type="text" class="validate" name="" >
+                                      </div></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Model</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" >
+                                     </div></td>
+                                </tr>
+                               </table>
+                              
+                               <div class="input-field col s12">
+                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                               </div>
+                            </form>
+                      </div>
                 </div>
             </div>
         </div>
