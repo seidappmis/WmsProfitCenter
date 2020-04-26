@@ -20,8 +20,33 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                    <div class="card-content ">
+                        <form class="form-table">
+                               <table>
+                                   
+                                 <tr>
+                                    <td>MODEL</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" required>
+                                     </div></td>
+                                 </tr>
+                                 <tr>
+                                    <td>SERIAL NUMBER</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" required>
+                                     </div></td>
+                                 </tr>
+                                 <tr>
+                                    <td></td>
+                                    <td><div class="input-field col s12">
+                                        <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                      </div></td>
+                                 </tr>
+                               </table>
+                              
+                               
+                            </form>
+                      </div>
                 </div>
             </div>
         </div>
