@@ -120,7 +120,7 @@
                                         LIST GRANT BRANCH
                                         <table>
                                         <tr>
-                                            <td width=25%">Branch Name : </td>
+                                            <td width="25%">Branch Name : </td>
                                             <td>
                                                <div class="input-field col s12">
                                                 <select>
