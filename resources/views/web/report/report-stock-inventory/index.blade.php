@@ -20,8 +20,68 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content p-0">
-                    </div>
+                    <div class="card-content ">
+                        <form class="form-table">
+                               <table>
+                                   <tr>
+                                       <td>BRANCH</td>
+                                       <td>
+                                         <div class="input-field col s8">
+                                           <select name="" id="" required>
+                                             <option value="" disabled selected >[HYP]PT. SEID HG JKT</option>
+                                             {{-- <option value="1" >KARAWANG</option>
+                                             <option value="2">SURABAYA HUB</option>
+                                             <option value="3">SWADAYA</option> --}}
+                                              
+                                           </select>
+       
+                                         </div>
+                                       </td>
+                                     </tr>
+                                 </tr>
+                                 <tr>
+                                    <td>MODEL</td>
+                                    <td><div class="input-field col s12">
+                                       <input id="" type="text" class="validate" name="" >
+                                     </div></td>
+                                <tr>
+                                
+                                    <td>STRORAGE LOCATION</td>
+                                    <td>
+                                      <div class="input-field col s8">
+                                        <select name="" id="" required>
+                                          <option value="" disabled selected >-Select Storage Location-</option>
+                                          <option value="1" >1001</option>
+                                          <option value="2">1060</option>
+                                          <option value="3">1093</option>
+                                          <option value="4">1090</option>
+                                           
+                                        </select>
+    
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>STATUS</td>
+                                    <td>
+                                      <div class="input-field col s4">
+                                        <select name="" id="" required>
+                                          <option value="" disabled selected >-All-</option>
+                                          <option value="1" >Intransit</option>
+                                          
+                                           
+                                        </select>
+    
+                                      </div>
+                                    </td>
+                                  </tr>
+                               </table>
+                              
+                               <div class="input-field col s12">
+                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                               </div>
+                            </form>
+                      </div>
                 </div>
             </div>
         </div>
