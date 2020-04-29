@@ -10,7 +10,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('incoming-import-oem') }}">Incoming Import/OEM</a></li>
-                    <li class="breadcrumb-item active">Create</li>
+                    <li class="breadcrumb-item active">OEM-WHKRW-200206-005</li>
                 </ol>
             </div>
             <div class="col s12 m2"></div>
@@ -47,7 +47,7 @@
                     <td width="25%">Arrival No</td>
                     <td width="25%">
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" disabled>
+                        <input id="first_name" type="text" class="validate" value="OEM-WHKRW-200206-005" readonly disabled>
                       </div>
                     </td>
                     <td width="50%" colspan="2">
@@ -61,13 +61,13 @@
                           </div>
                           <div class="col s12 m4">
                             <label>
-                              <input name="group1" type="radio"/>
+                              <input name="group1" type="radio" checked/>
                               <span>OEM</span>
                             </label>
                           </div>
                           <div class="col s12 m4">
                             <label>
-                              <input name="group1" type="radio" checked/>
+                              <input name="group1" type="radio"/>
                               <span>OTHERS</span>
                             </label>
                           </div>
@@ -79,17 +79,17 @@
                     <td>PO</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" required>
+                        <input id="first_name" type="text" class="validate" value="H022202002" required>
                       </div>
                     </td>
                     <td>Vendor Name</td>
                     <td>
                       <div class="input-field col s12">
                         <select required="">
-                          <option value="0" selected>Select Vendor Name</option>
+                          <option value="0">Select Vendor Name</option>
                           <option value="1">BIMA GREEN ENERGI, PT.</option>
                           <option value="2">DAEWOO ELECTRONICS (M) SDN.BHD.</option>
-                          <option value="3">Option 3</option>
+                          <option value="3" selected>FUJISEI PLASTIK SEITEK, PT.</option>
                         </select>
                       </div>
                     </td>
@@ -98,13 +98,13 @@
                     <td>Invoice No</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
+                        <input id="first_name" type="text" class="validate" value="FPS-R05617">
                       </div>
                     </td>
                     <td>Actual Arrive Date</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker">
+                        <input id="first_name" type="text" class="validate datepicker" value="2020-02-06">
                       </div>
                     </td>
                   </tr>
@@ -112,13 +112,13 @@
                     <td>No GR SAP</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
+                        <input id="first_name" type="text" class="validate" value="5001349066">
                       </div>
                     </td>
                     <td>Expedition Name</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
+                        <input id="first_name" type="text" class="validate" value="FUJISEI">
                       </div>
                     </td>
                   </tr>
@@ -126,26 +126,56 @@
                     <td>Document Date</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker">
+                        <input id="first_name" type="text" class="validate datepicker" value="2020-02-06">
                       </div>
                     </td>
                     <td>Container No</td>
                     <td>
                       <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
+                        <input id="first_name" type="text" class="validate" value="B 9147 PRO">
                     </td>
                   </tr>
                 </table>
-                {!! get_button_save() !!}
               </form>
             </div>
             <div class="card-content">
+            <div class="section-data-tables">
               <!-- Incoming Detail -->
               <h4 class="card-title">Incoming Detail</h4>
               <hr>
               <form class="form-table">
-                <table></table>
+                <table id="data-table-section-contents" class="display" width="100%">
+                  <thead bgcolor="#344b68">
+                    <tr>
+                      <td data-priority="1" width="30px" class="white-text">NO.</td>
+                      <td class="white-text">Model</td>
+                      <td class="white-text">Quantity</td>
+                      <td class="white-text">CBM</td>
+                      <td class="white-text">Total CBM</td>
+                      <td class="white-text">No. GR SAP</td>
+                      <td class="white-text">Description</td>
+                      <td class="white-text">Storage Location</td>
+                      <td class="white-text">Created Date</td>
+                      <td width="50px;"></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>SCH-210PS</td>
+                      <td>60</td>
+                      <td>0.550</td>
+                      <td>33.000</td>
+                      <td>5001349066</td>
+                      <td>SHOWCASE REFRIGERATOR</td>
+                      <td>HQ-1st Class</td>
+                      <td>2020-02-06 16:57:49</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
               </form>
+            </div>
             </div>
           </div>
         </div>
@@ -156,8 +186,10 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $('.collapsible').collapsible({
-        accordion:true
+  var dtdatatable = $('#data-table-section-contents').DataTable({
+      "scrollX": true,
+      "ordering": false,
+      "paging": false,
     });
 </script>
 @endpush

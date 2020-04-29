@@ -6,12 +6,25 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m6">
+            <div class="col s12 m4">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Incoming Import/OEM</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Incoming Import/OEM</li>
                 </ol>
+            </div>
+            <div class="col s12 m2">
+              <!---- Select ----->
+                <div class="app-wrapper">
+                  <div class="datatable-search">
+                    <select id="area_filter">
+                      <option>-Select Area-</option>
+                      <option selected>KARAWANG</option>
+                      <option>SURABAYA HUB</option>
+                      <option>SWADAYA</option>
+                    </select>
+                  </div>
+                </div>
             </div>
             <div class="col s12 m6">
               <div class="display-flex">
@@ -59,7 +72,7 @@
                                   <td>Total Items 1</td>
                                   <td>06-Feb-2020</td>
                                   <td>
-                                    {!! get_button_view() !!}
+                                    {!! get_button_view(url('incoming-import-oem/1')) !!}
                                     {!! get_button_print() !!}
                                   </td>
                                 </tr>
