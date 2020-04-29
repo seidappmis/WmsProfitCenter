@@ -45,11 +45,11 @@
                                 <div class="input-field col 12">
                                 <p>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" checked/>
+                                    <input class="with-gap" name="group1" type="radio" value="0" checked/>
                                     <span>New Region</span>
                                   </label>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" />
+                                    <input class="with-gap" name="group1" type="radio" value="1" />
                                     <span>Current</span>
                                   </label>
                                 </p>
@@ -82,6 +82,16 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	
+ 	$(document).ready(function() {
+    $('input:radio[name=group1]').change(function(event) {
+      /* Act on the event */
+      if (this.value == '0') {
+          console.log('value', 'New Region');
+        }
+        else if (this.value == '1') {
+          console.log('value', 'Current');
+        }
+    });
+  });
 </script>
 @endpush
