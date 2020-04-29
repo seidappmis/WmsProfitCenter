@@ -34,7 +34,7 @@
                       <p>Factory : <b class="green-text text-darken-3">TV</b class="green-text text-darken-3"></p>
                       <br>
                       <h4 class="card-title">List Barcode Detailed from Factory</h4>
-                      <hr>
+                      <!-- <hr> -->
                       <div class="section-data-tables"> 
                         <table id="data-table-section-contents" class="display" width="100%">
                             <thead>
