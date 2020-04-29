@@ -14,12 +14,12 @@
                 </ol>
             </div>
             <div class="col s12 m2">
-              <!---- Search ----->
+              <!---- Select ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
                       <option>-Select Area-</option>
-                      <option>KARAWANG</option>
+                      <option selected>KARAWANG</option>
                       <option>SURABAYA HUB</option>
                       <option>SWADAYA</option>
                     </select>
