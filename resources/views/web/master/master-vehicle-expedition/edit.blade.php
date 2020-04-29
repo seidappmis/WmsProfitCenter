@@ -75,7 +75,6 @@
                     				<td>
                     					<div class="input-field col s12">
 									    <input id="npwp" type="text" class="validate" name="npwp">
-									    <label for="npwp"></label>
 									  </div>
                     				</td>
                     			</tr>
@@ -92,7 +91,6 @@
                     				<td>
                     					<div class="input-field col s12">
 									    <input id="phone1" type="number" class="validate" name="phone1">
-									    <label for="phone1"></label>
 									  </div>
                     				</td>
                     			</tr>
@@ -132,7 +130,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-    // $('#address').val('New Text');
-    M.textareaAutoResize($('#address'));
+    
 </script>
 @endpush

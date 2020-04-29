@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Driver</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Branch Master Driver</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Driver</li>
+                    <li class="breadcrumb-item active">Branch Master Driver</li>
                 </ol>
             </div>
         </div>
@@ -20,30 +20,30 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<h4 class="card-title">Edit Driver</h4>
+                        <h4 class="card-title">Edit Driver</h4>
                         <form class="form-table">
-                        	<table>
-                        		<tr>
-                        			<td width="20%" class="label">Expedition</td>
-                        			<td>
-                        				<div class="input-field col s12">
-									    <select required="">
-									        <option value="" disabled>-- Expedition --</option>
-									        <option value="1" selected>ALAM RAYA SENTOSA, CV.</option>
-									        <option value="2">ALAMUI LOGISTICS, PT.</option>
-									        <option value="3">ALISTON TJOKRO EMKL</option>
-									    </select>
-									  </div>
-                        			</td>
-                        		</tr>
-                        	</table>
+                            <table>
+                                <tr>
+                                    <td>Expedition</td>
+                                    <td>
+                                        <div class="input-field col s12">
+                                        <select required="">
+                                            <option value="0" disabled>-- Expedition --</option>
+                                            <option value="1"  selected disabled>PUTRA NAGITA PRATAMA</option>
+                                            <!-- <option value="2">ALAMUI LOGISTICS, PT.</option>
+                                            <option value="3">ALISTON TJOKRO EMKL</option> -->
+                                        </select>
+                                      </div>
+                                    </td>
+                                </tr>
+                            </table>
                             <!-- Detail Table -->
                             <table class="mt-1">
                                 <tr>
                                     <td width="20%" class="label">Driver ID</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="driver_id" type="text" class="validate" value="ARS-17-001">
+                                            <input id="driver_id" type="text" class="validate" value="P13-18-001" disabled>
                                         </div>
                                     </td>
                                     <td width="30%" rowspan="11" class="center-align">
@@ -58,7 +58,7 @@
                                     <td class="label">Driver Name</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="name" type="text" class="validate" value="KIF WAHYUDI">
+                                            <input id="name" type="text" class="validate" value="ASEP SURYANA">
                                         </div>
                                     </td>
                                 </tr>
@@ -67,9 +67,9 @@
                                     <td>
                                         <div class="input-field col s12">
                                             <select>
-                                                <option value="" disabled selected>-- Select Type --</option>
+                                                <option value="" disabled>-- Select Type --</option>
                                                 <option value="1">SIM A</option>
-                                                <option value="2">SIM B</option>
+                                                <option value="2" selected>SIM B</option>
                                                 <option value="3">SIM B1</option>
                                             </select>
                                         </div>
@@ -79,7 +79,7 @@
                                     <td class="label">Driving Lisence No.</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="number" type="text" class="validate" value="800425350945" required>
+                                            <input id="number" type="text" class="validate" value="831113059522" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -87,7 +87,7 @@
                                     <td class="label">ID (KTP) No.</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="ktp_id" type="text" class="validate" value="1807212104800000">
+                                            <input id="ktp_id" type="text" class="validate" value="3273061303720005">
                                         </div>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
                                     <td class="label">Phone 1</td>
                                     <td>
                                         <div class="input-field col s12">
-                                            <input id="phone" type="text" class="validate" value="082312279597">
+                                            <input id="phone" type="text" class="validate" value="085320895722">
                                         </div>
                                     </td>
                                 </tr>
@@ -145,9 +145,9 @@
                                     </td>
                                 </tr>
                             </table>
-                        	{!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('master-driver'), 'Back') !!}
-						</form>
+                            {!! get_button_save('Update') !!}
+                            {!! get_button_cancel(url('branch-master-driver'), 'Back') !!}
+                        </form>
                     </div>
                 </div>
             </div>
@@ -159,7 +159,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-	//Upload Foto
+    //Upload Foto
     $('.dropify').dropify();
 </script>
 @endpush

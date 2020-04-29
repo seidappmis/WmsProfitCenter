@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Branch Master Driver</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Destination City of Branch</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Branch Master Driver</li>
+                    <li class="breadcrumb-item active">Destination City of Branch</li>
                 </ol>
             </div>
         </div>
@@ -19,29 +19,25 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content">
-                        <h4 class="card-title">New Driver</h4>
+                    <div class="card-content ">
+                        <h4 class="card-title">New Data</h4>
                         <form class="form-table">
                             <table>
                                 <tr>
-                                    <td>Expedition</td>
+                                    <td>Destination City Name</td>
                                     <td>
-                                        <div class="input-field col s12">
-                                        <select required="">
-                                            <option value="0" selected>-- Expedition --</option>
-                                            <option value="1">PUTRA NAGITA PRATAMA</option>
-                                            <!-- <option value="2">ALAMUI LOGISTICS, PT.</option>
-                                            <option value="3">ALISTON TJOKRO EMKL</option> -->
-                                        </select>
+                                        <div class="input-field col s12 m6">
+                                            <input id="description" type="text" class="validate" required>
                                       </div>
                                     </td>
                                 </tr>
                             </table>
                             {!! get_button_save() !!}
-                            {!! get_button_cancel(url('branch-master-driver'), 'Back') !!}
+                            {!! get_button_cancel(url('destination-city-of-branch')) !!}
                         </form>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -51,6 +47,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-    
+  
 </script>
 @endpush

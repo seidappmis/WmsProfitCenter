@@ -79,7 +79,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        text: "Delete the Gate 101 ?",
+        text: "Delete the Driver KIF WAHYUDI?",
         icon: 'warning',
         buttons: {
           cancel: true,

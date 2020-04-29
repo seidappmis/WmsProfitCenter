@@ -16,13 +16,13 @@
               <div class="display-flex">
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
-                  <!-- <div class="datatable-search">
+                  <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div> -->
+                  </div>
                 </div>
                 <!---- Button Modal Add ----->
-                <!-- <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-add">New Gate</a> -->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-branch-expedition/create') }}">New Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -35,20 +35,33 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <!-- <div class="section-data-tables"> 
+                        <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>Name</th>
+                                    <th width="400px;">Address</th>
+                                    <th>Code</th>
+                                    <th>STATUS</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>PUTRA NAGITA PRATAMA</td>
+                                  <td></td>
+                                  <td>P13</td>
+                                  <td>ACTIVE</td>
+                                  <td>
+                                    {!! get_button_edit(url('master-branch-expedition/1')) !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
-                        </div> -->
+                        </div>
                         <!-- datatable ends -->
                     </div>
                 </div>
@@ -62,21 +75,42 @@
 
 @push('script_js')
 <script type="text/javascript">
-  swal({
-    text: 'Sorry, HQ cannot access this page',
-    icon: 'warning'
-  })
-  // var table = $('#data-table-simple').DataTable({
-  //   "responsive": true,
-  // });
+  // swal({
+  //   text: 'Sorry, HQ cannot access this page',
+  //   icon: 'warning'
+  // })
 
-  // $("input#global_filter").on("keyup click", function () {
-  //   filterGlobal();
-  // });
+  var table = $('#data-table-simple').DataTable({
+    "responsive": true,
+  });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete the Expedition PUTRA NAGITA PRATAMA?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
 
   // Custom search
-  // function filterGlobal() {
-  //     table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  // }
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

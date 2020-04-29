@@ -16,14 +16,13 @@
               <div class="display-flex">
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
-                  <!-- <div class="datatable-search">
+                  <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div> -->
+                  </div>
                 </div>
                 <!---- Button Modal Add ----->
-                <!-- <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-add">New Gate</a> -->
-                <!-- <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">New Gate</button> -->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-expedition-vehicle/create') }}">New Vehicle Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -36,20 +35,39 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <!-- <div class="section-data-tables"> 
+                        <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>VEHICLE NO</th>
+                                    <th>VEHICLE TYPE</th>
+                                    <th>VEHICLE GROUP</th>
+                                    <th>EXPEDITION NAME</th>
+                                    <th>CBM MIN</th>
+                                    <th>CBM MAX</th>
+                                    <th>DESTINATION</th>
+                                    <th>STATUS</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <td>1</td>
+                                <td>B 9864 TAU</td>
+                                <td>PICK UP</td>
+                                <td>SMALL TRUCK</td>
+                                <td>PUTRA NAGITA PRATAMA</td>
+                                <td>3.000</td>
+                                <td>7.000</td>
+                                <td>BANDUNG</td>
+                                <td>ACTIVE</td>
+                                <td>
+                                  {!! get_button_edit(url('branch-expedition-vehicle/1')) !!}
+                                  {!! get_button_delete() !!}
+                                </td>
+                              </tbody>
                           </table>
-                        </div> -->
+                        </div>
                         <!-- datatable ends -->
                     </div>
                 </div>
@@ -63,21 +81,42 @@
 
 @push('script_js')
 <script type="text/javascript">
-  swal({
-    text: 'Sorry, HQ cannot access this page',
-    icon: 'warning'
-  })
-  // var table = $('#data-table-simple').DataTable({
-  //   "responsive": true,
-  // });
+  // swal({
+  //   text: 'Sorry, HQ cannot access this page',
+  //   icon: 'warning'
+  // })
 
-  // $("input#global_filter").on("keyup click", function () {
-  //   filterGlobal();
-  // });
+  var table = $('#data-table-simple').DataTable({
+    "scrollX": true,
+  });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete Vehicle Expedition Number B 9864 TAU?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
 
   // Custom search
-  // function filterGlobal() {
-  //     table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  // }
+  function filterGlobal() {
+    table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

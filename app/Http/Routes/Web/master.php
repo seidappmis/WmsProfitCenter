@@ -49,10 +49,18 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('master-model-exception', 'web.master.master-model-exception.index');
 
   Route::view('master-branch-expedition', 'web.master.master-branch-expedition.index');
+  Route::view('master-branch-expedition/create', 'web.master.master-branch-expedition.create');
+  Route::view('master-branch-expedition/1', 'web.master.master-branch-expedition.edit');
+
   Route::view('branch-expedition-vehicle', 'web.master.branch-expedition-vehicle.index');
+  Route::view('branch-expedition-vehicle/create', 'web.master.branch-expedition-vehicle.create');
+  Route::view('branch-expedition-vehicle/1', 'web.master.branch-expedition-vehicle.edit');
 
   Route::view('branch-master-driver', 'web.master.branch-master-driver.index');
   Route::view('branch-master-driver/create', 'web.master.branch-master-driver.create');
+  Route::view('branch-master-driver/1', 'web.master.branch-master-driver.edit');
 
   Route::view('destination-city-of-branch', 'web.master.destination-city-of-branch.index');
+  Route::view('destination-city-of-branch/create', 'web.master.destination-city-of-branch.create');
+  Route::view('destination-city-of-branch/1', 'web.master.destination-city-of-branch.edit');
 });

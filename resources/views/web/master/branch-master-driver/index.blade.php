@@ -22,7 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="branch-master-driver/create">New Driver</a>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-master-driver/create') }}">New Driver</a
               </div>
             </div>
             <div class="col s12 m3">
@@ -35,20 +35,29 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <!-- <div class="section-data-tables"> 
+                        <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>GATE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>AREA</th>
+                                    <th>DRIVER ID</th>
+                                    <th>DRIVER NAME</th>
+                                    <th>EXPEDITION</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <td>1</td>
+                                <td>P13-18-001</td>
+                                <td>ASEP SURYANA</td>
+                                <td>PUTRA NAGITA PRATAMA</td>
+                                <td>
+                                  {!! get_button_edit(url('branch-master-driver/1')) !!}
+                                  {!! get_button_delete() !!}
+                                </td>
+                              </tbody>
                           </table>
-                        </div> -->
+                        </div>
                         <!-- datatable ends -->
                     </div>
                 </div>
@@ -65,6 +74,26 @@
   var table = $('#data-table-simple').DataTable({
     "responsive": true,
   });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete the Driver ASEP SURYANA?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $(".btn-delete").closest("tr").remove();
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          //datatable memunculkan no data available in table
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();

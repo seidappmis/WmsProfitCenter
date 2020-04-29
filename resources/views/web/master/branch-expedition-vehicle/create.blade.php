@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle Expedition</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Branch Expedition Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle Expedition</li>
+                    <li class="breadcrumb-item active">Branch Expedition Vehicle</li>
                 </ol>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     				<td>
                     					<div class="input-field col s12">
 										<select required="">
-									        <option value="" disabled selected>-- Select Expedition --</option>
+									        <option value="0" selected>-- Select Expedition --</option>
 									        <option value="1">BINTAN MEGAH ABADI, PT.</option>
 									        <option value="2">DUA SAMUDRA EXPRESS, CV.</option>
 									        <option value="3">DUA SAMUDRA LOGISTIK, PT.</option>
@@ -49,7 +49,7 @@
                     				<td>
                     					<div class="input-field col s12">
 								        <select required="">
-									        <option value="" disabled selected>-- Select Vehicle --</option>
+									        <option value="0" selected>-- Select Vehicle --</option>
 									        <option value="1">AMBIL SENDIRI</option>
 									        <option value="2">CD 4 BAN (CDE)</option>
 									        <option value="3">CD 4 BOX (CDE BOX)</option>
@@ -62,7 +62,7 @@
                     				<td>
                     					<div class="input-field col s12">
 									    <select>
-									        <option value="" disabled selected>-- Select Destination --</option>
+									        <option value="0" selected>-- Select Destination --</option>
 									        <option value="1">ACEH</option>
 									        <option value="2">BANDUNG</option>
 									        <option value="3">BANJARMASIN</option>
@@ -74,7 +74,7 @@
                     				<td>Description</td>
                     				<td>
                     					<div class="input-field col s12">
-									    <input id="description" type="text" class="validate">
+									       <input id="description" type="text" class="validate">
 									  </div>
                     				</td>
                     			</tr>
@@ -82,7 +82,7 @@
                     				<td>STNK Number</td>
                     				<td>
                     					<div class="input-field col s12">
-									    <input id="cp" type="text" class="validate" name="cp">
+									    <input id="cp" type="text" class="validate">
 									  </div>
                     				</td>
                     			</tr>
@@ -98,7 +98,7 @@
                     				<td>Remarks 2</td>
                     				<td>
                     					<div class="input-field col s12">
-									    <input id="phone2" type="number" class="validate" name="phone2">
+									    <input id="phone2" type="number" class="validate">
 									  </div>
                     				</td>
                     			</tr>
@@ -117,7 +117,7 @@
                     			</tr>
                     		</table>
                     		{!! get_button_save() !!}
-                            {!! get_button_cancel(url('master-vehicle-expedition')) !!}
+                            {!! get_button_cancel(url('branch-expedition-vehicle')) !!}
                     	</form>
                     </div>
                 </div>
