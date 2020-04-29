@@ -90,7 +90,7 @@
 @push('script_js')
 <script type="text/javascript">
   var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+    "scrollX": true,
   });
 
   table.on('click', '.btn-delete', function(event) {
