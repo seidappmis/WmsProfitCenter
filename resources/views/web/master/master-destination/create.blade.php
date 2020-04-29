@@ -45,17 +45,25 @@
                                 <div class="input-field col 12">
                                 <p>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" value="0" checked/>
+                                    <input class="with-gap" name="group1" type="radio" id="1" checked/>
                                     <span>New Region</span>
                                   </label>
                                   <label>
-                                    <input class="with-gap" name="group1" type="radio" value="1" />
+                                    <input class="with-gap" name="group1" type="radio" id="2" />
                                     <span>Current</span>
                                   </label>
                                 </p>
                                 </div>
-                                <div class="input-field col s12">
-                                  <input id="radio" type="text" class="validate" name="group1">
+                                <div id="newr" class="input-field col s12">
+                                  <input type="text" class="validate" name="group1">
+                                </div>
+                                <div id="current" class="input-field col s12">
+                                  <select>
+                                    <option value="0" selected>JABODETABEK</option>
+                                    <option value="1">JAWA & BALI</option>
+                                    <option value="2">KALIMANTAN</option>
+                                    <option value="3">OTHERS</option>
+                                  </select>
                                 </div>
                               </td>
                             </tr>
@@ -83,14 +91,15 @@
 @push('script_js')
 <script type="text/javascript">
  	$(document).ready(function() {
-    $('input:radio[name=group1]').change(function(event) {
+    $('.with-gap').click(function(event) {
       /* Act on the event */
-      if (this.value == '0') {
-          console.log('value', 'New Region');
-        }
-        else if (this.value == '1') {
-          console.log('value', 'Current');
-        }
+      if ($(this).attr('id') == "1") {
+          $('#newr').show();
+          $('#current').hide();
+      } else {
+          $('#newr').hide();
+          $('#current').show();
+      }
     });
   });
 </script>

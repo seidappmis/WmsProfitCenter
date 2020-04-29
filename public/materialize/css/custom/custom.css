@@ -277,3 +277,6 @@ td, th {
 .datepicker-date-display {
     background-color: #1b0a73;
 }
+#current{
+  display:none;  
+}
