@@ -30,8 +30,17 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
+                        <div class="row">
+                            <div class="col s12 m6 mt-2">
+                              <div class="display-flex">
+                                <!---- Search ----->
+                                {!! get_button_save('Upload DO') !!}
+                                {!! get_button_save('Multi Delete Selected Items') !!}
+                              </div>
+                            </div>
+                        </div>
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="multi-select" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -46,7 +55,22 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>21600161467</td>
+                                  <td>10</td>
+                                  <td>26.11.2019</td>
+                                  <td>16A120000</td>
+                                  <td>PT.ATAKRIB GROUP</td>
+                                  <td>S1316MG-GB</td>
+                                  <td>8997878549879754</td>
+                                  <td>7</td>
+                                  <td width="50px;">
+                                    {!! get_button_delete() !!}
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
