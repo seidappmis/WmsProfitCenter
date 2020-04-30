@@ -82,11 +82,10 @@
                                   <td>2020-02-02</td>
                                   <td>2020-02-02</td>
                                   <th width="50px;">
-                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/edit') }}">Edit</a>
-                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
+                                    {!! get_button_edit(url('stock-take-schedule/edit')) !!}
+                                    {!! get_button_delete() !!}
                                     {!! get_button_view(url('stock-take-schedule/detail'), 'View Detail') !!}
-                                    {{-- <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/detail') }}">View Detail</a> --}}
-                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Finish</a>
+                                    {!! get_button_edit(url('#'), 'Finish') !!}
                                   </th>
                                 </tr>
                               </tbody>

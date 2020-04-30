@@ -24,7 +24,7 @@
                 <div class="card-content">
                   
                   <div class="row mb-5">
-                    <div class="col s12 m2">
+                    <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
                     </div>
                     <div class="col s12 m4">
@@ -69,10 +69,7 @@
 
                   <div class="row mb-5">
                     <div class="col s12">
-                    <button class="btn waves-effect waves-light indigo btn" type="submit" name="action">
-                            {{-- <i class="material-icons right">add</i> --}}
-                            Load
-                          </button>
+                    {!! get_button_load() !!}
                     </div>
                     
                   </div>

@@ -49,9 +49,8 @@
                                                       <td>27-C32B34</td>
                                                       <td>5464</td>
                                                       <th width="50px;">
-                                                        <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-schedule/edit') }}">Edit</a>
-                                                        
-                                                      </th>
+                                                        {!! get_button_edit(url('stock-take-schedule/edit')) !!}
+                                                       </th>
                                                     </tr>
                                                   </tbody>
                                               </table>
@@ -66,7 +65,7 @@
 
                           <div class="row">
                               <div class="input-field col s12">
-                                <a class="waves-effect waves-light indigo btn" href="{{ url('stock-take-schedule') }}">Back</a>
+                                {!! get_button_view(url('stock-take-schedule'),'BACK') !!}
                               </div>
                             </div>
                           </div>

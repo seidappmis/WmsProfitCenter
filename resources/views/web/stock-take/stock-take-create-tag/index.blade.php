@@ -24,7 +24,7 @@
                 <div class="card-content">
                   
                   <div class="row mb-5">
-                    <div class="col s12 m2">
+                    <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
                     </div>
                     <div class="col s12 m4">
@@ -67,16 +67,8 @@
                       <div class="col s12 m6">
                         <div class="display-flex">
                           <!---- Search ----->
-                          <button class="btn btn-large waves-effect waves-light btn-add mr-2" type="submit" name="action">
-                            {{-- <i class="material-icons right">add</i> --}}
-                            submit
-                          </button>
-
-                          <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                            {{-- <i class="material-icons right">add</i> --}}
-                            Print
-                          </button>
-
+                          {!! get_button_submit() !!}
+                          {!! get_button_print(url('#')) !!}
                         </div>
                       </div>
                     

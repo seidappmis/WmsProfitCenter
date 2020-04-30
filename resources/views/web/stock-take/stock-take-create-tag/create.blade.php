@@ -47,8 +47,8 @@
                       </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-                                <a class="waves-effect waves-light btn" href="{{ url('stock-take-create-tag') }}">Cancel</a>
+                                {!! get_button_save() !!}
+                                {!! get_button_cancel(url('stock-take-create-tag')) !!}
                               </div>
                             </div>
                           </div>

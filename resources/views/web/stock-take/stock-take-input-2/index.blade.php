@@ -23,7 +23,7 @@
               <div class="card">
                 <div class="card-content">
                 <div class="row mb-5">
-                    <div class="col s12 m2">
+                    <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
                     </div>
                     <div class="col s12 m4">
@@ -95,8 +95,8 @@
                             </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
-                                <button type="submit" class="waves-effect waves-light indigo btn">Clear</button>
+                                {!! get_button_save() !!}
+                                {!! get_button_clear() !!}
                               </div>
                             </div>
                           </div>
@@ -151,8 +151,8 @@
                                                   <td>A</td>
                                                   <td>1223</td>
                                                   <th width="50px;">
-                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-input-2/edit') }}">Edit</a>
-                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
+                                                    {!! get_button_edit(url('stock-take-input-2/edit')) !!}
+                                                    {!! get_button_delete() !!}
                                                   </th>
                                                 </tr>
                                               </tbody>

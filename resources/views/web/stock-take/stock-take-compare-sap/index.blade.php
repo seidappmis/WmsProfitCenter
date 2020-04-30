@@ -44,14 +44,8 @@
 
                       <div class="row">
                         <div class="col s12">
-                        <button class="btn waves-effect waves-light indigo btn" type="submit" name="action">
-                                {{-- <i class="material-icons right">add</i> --}}
-                                Compare
-                        </button>
-                        <button class="btn waves-effect waves-light indigo btn" type="submit" name="action">
-                                {{-- <i class="material-icons right">add</i> --}}
-                                Print
-                        </button>
+                        {!! get_button_view('compare') !!}
+                        {!! get_button_print() !!}
                         </div>
                         
                       </div>

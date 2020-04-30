@@ -93,8 +93,8 @@
                             </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                <a class="waves-effect waves-light indigo btn" href="{{ url('stock-take-input-2') }}">Update</a>  
-                                <button type="submit" class="waves-effect waves-light indigo btn">Clear</button>
+                                {!! get_button_update() !!}
+                                {!! get_button_clear() !!}
                               </div>
                             </div>
                           </div>
@@ -149,8 +149,8 @@
                                                   <td>A</td>
                                                   <td>1223</td>
                                                   <th width="50px;">
-                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="{{ url('stock-take-input-1/edit') }}">Edit</a>
-                                                    <a class="btn btn-small waves-effect amber darken-4 btn-edit" href="#">Delete</a>
+                                                    {!! get_button_edit(url('stock-take-input-2/edit')) !!}
+                                                    {!! get_button_delete() !!}
                                                   </th>
                                                 </tr>
                                               </tbody>

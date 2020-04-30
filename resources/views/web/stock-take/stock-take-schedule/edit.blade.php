@@ -100,8 +100,7 @@
                       </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                
-                                <a class="waves-effect waves-light btn" href="{{ url('stock-take-schedule') }}">Cancel</a>
+                                {!! get_button_cancel(url('stock-take-schedule')) !!}
                               </div>
                             </div>
                           </div>
