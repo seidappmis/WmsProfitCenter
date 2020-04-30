@@ -20,7 +20,7 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
+                <div class="card">
                     <div class="card-content">
                         <form class="form-table">
                             <table>
@@ -52,33 +52,45 @@
                           </form>
                           
                           <br><br>
-                           
-                            <table id="data-table-simple" class="display" width="100%">
-                                <thead>
-                                    <tr>
-                                      <th>KODE CUSTOMER</th>
-                                      <th>KODE CABANG</th>
-                                      <th>SORT DESTINATION</th>
-                                      <th>LONG DESTINATION</th>
-                                      <th>TYPE</th>
-                                      <th>REGION</th>
-                                      
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <td>1000000</td>
-                                  <td>10</td>
-                                  <td>HYP</td>
-                                  <td>PY.HEID HQ JKT</td>
-                                  <td>BR</td>
-                                  <td>JABODETABEK</td>
-                                </tbody>
-                            </table>
-                      
+                         
                           
                     </div>
                    
                 </div>
+                <div class="card">
+                  <div class="card-content">
+                    <Form class="form-table">
+                      <table id="data-table-simple" class="display" width="100%">
+                          <thead>
+                              <tr>
+                                <th>KODE CUSTOMER</th>
+                                <th>KODE CABANG</th>
+                                <th>SORT DESTINATION</th>
+                                <th>LONG DESTINATION</th>
+                                <th>TYPE</th>
+                                <th>REGION</th>
+                                
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                            <td>1000000</td>
+                            <td>10</td>
+                            <td>HYP</td>
+                            <td>PY.HEID HQ JKT</td>
+                            <td>BR</td>
+                            <td>JABODETABEK</td>
+                          </tbody>
+                        </tr>
+                      </table>
+                    </Form>
+                        
+                        <br><br>
+                       
+                        
+                  </div>
+                 
+              </div>
             </div>
         </div>
         <div class="content-overlay"></div>

@@ -117,6 +117,40 @@
                          </form>
                    </div>
                 </div>
+                <div class="card">
+                  <div class="card-content p-3">
+                      <form class="form-table">
+                          <table id="data-table-simple" class="display" width="100%">
+                              <thead>
+                                  <tr>
+                                    <th>REGION</th>
+                                    <th>BRANCH DESC</th>
+                                    <th>SALES CODE</th>
+                                    <th>MONT</th>
+                                    <th>YEAR</th>
+                                    <th>DESTINATION</th>
+                                    <th>FREIGHT COST</th>
+                                    <th>MULTI DROP</th>
+                                    <th>UNLOADING</th>
+                                    <th>OVERSTAY</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                               
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </form>
+                   </div>
+               </div>
             </div>
         </div>
         <div class="content-overlay"></div>

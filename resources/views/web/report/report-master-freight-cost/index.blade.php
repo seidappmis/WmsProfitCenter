@@ -19,7 +19,7 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
+                <div class="card">
                     <div class="card-content p-3">
                         <form class="form-table">
                             <table>
@@ -41,12 +41,44 @@
                             <div class="input-field col s12">
                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                               </div>
+                              <br>
                         </form>
-                  
-                </div>
+                     </div>
+                 </div>
+                 <div class="card">
+                    <div class="card-content p-3">
+                        <form class="form-table">
+                            <table id="data-table-simple" class="display" width="100%">
+                                <thead>
+                                    <tr>
+                                      <th>AREA</th>
+                                      <th>CITY CODE</th>
+                                      <th>CITY NAME</th>
+                                      <th>EXPEDITION CODE</th>
+                                      <th>EXPEDITION NAME</th>
+                                      <th>VEHICLE CODE TYPE</th>
+                                      <th>VEHICLE DESCRIPTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                 
+                                    <td>KARAWANG</td>
+                                    <td>1</td>
+                                    <td>AMBON</td>
+                                    <td>WJU</td>
+                                    <td>WINDU JAYA UTAMA, PT.</td>
+                                    <td>Z3D006</td>
+                                    <td>CONT 20</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                     </div>
+                 </div>
             </div>
-        </div>
         <div class="content-overlay"></div>
     </div>
+</div>
 </div>
 @endsection

@@ -64,9 +64,49 @@
                             <div class="input-field col s12">
                               <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                             </div>
+                            <br>
                          </form>
                    </div>
                 </div>
+                <div class="card">
+                  <div class="card-content p-3">
+                      <form class="form-table">
+                          <table id="data-table-simple" class="display" width="100%">
+                              <thead>
+                                  <tr>
+                                    <th>INVOICE</th>
+                                    <th>LINE NO</th>
+                                    <th>OUTPUT DATE</th>
+                                    <th>OUTPUT TIME</th>
+                                    <th>DESTINATION NUMBER</th>
+                                    <th>VEHICLE CODE TYPE</th>
+                                    <th>CARD NO</th>
+                                    <th>CONT NO</th>
+                                    <th>CHECKIN DATE</th>
+                                    <th>CHECKIN TIME</th>
+                                    <th>EXPEDITION ID</th>
+                                    <th>DELEVERY NO</th>
+                                    <th>DELEVERY ITEMS</th>
+                                    <th>MODEL</th>
+                                    <th>QUANTITY</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                               
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </form>
+                   </div>
+               </div>
             </div>
         </div>
         <div class="content-overlay"></div>
