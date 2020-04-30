@@ -110,10 +110,10 @@
                                 </tr>
                                 <tr>
                                   <td>Incoming</td>
-                                  <td>Comform Import/OEM </td>
+                                  <td>Comform Impor </td>
                                   <td>NO</td>
                                   <td>NO</td>
-                                  <td>YES</td>
+                                  <td>NO</td>
                                 </tr>
                               </tbody>
                           </table>

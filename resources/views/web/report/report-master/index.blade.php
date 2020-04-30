@@ -50,8 +50,9 @@
                               <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                             </div>
                           </form>
-                          <br><br><br>
-                          <div class="section-data-tables"> 
+                          
+                          <br><br>
+                           
                             <table id="data-table-simple" class="display" width="100%">
                                 <thead>
                                     <tr>
@@ -73,7 +74,7 @@
                                   <td>JABODETABEK</td>
                                 </tbody>
                             </table>
-                          </div>
+                      
                           
                     </div>
                    

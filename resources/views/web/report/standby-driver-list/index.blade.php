@@ -14,19 +14,7 @@
                 </ol>
             </div>
             <div class="col s12 m4 l4">
-                {{-- <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>ALL</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- end search --> --}}
+              
             </div>
         </div>
     @endcomponent
@@ -34,32 +22,68 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
-                    <div class="card-content">
-                        <form class="form-table">
-                            <table>
+              <div class="card ">
+                <div class="card-content">
+                    <form class="form-table">
+                        <table>
+                          <tr>
+                            <td>Area</td>
+                            <td>
+                              <div class="input-field col s12">
+                                <select class="select2 browser-default">
+                                  <option>- Select Area -</option>
+                                  <option>ALL</option>
+                                  <option>KARAWANG</option>
+                                  <option>SURABAYA HUB</option>
+                                  <option>SWADAYA</option>
+                                  
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                        </table>
+                        <div class="input-field col s12">
+                          <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                        </div>
+                      </form>
+                      <br><br><br>
+                      
+                      <div class="section-data-tables"> 
+                        <table id="data-table-simple" class="display centered" width="100%">
+                            <thead class="grey centered ">
+                                <tr>
+                                  <th>NO</th>
+                                  <th>VEHICLE NUMBER</th>
+                                  <th>DRIVER ID</th>
+                                  <th>DRIVER NAME</th>
+                                  <th>VEHICLE DESCRIPTION</th>
+                                 
+                                  
+                                </tr>
+                            </thead>
+                            <tbody>
                               <tr>
-                                <td>Area</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <select class="select2 browser-default">
-                                      <option>- All Area -</option>
-                                      <option>KARAWANG</option>
-                                      <option>SURABAYA HUB</option>
-                                      <option>SWADAYA</option>
-                                      
-                                    </select>
-                                  </div>
-                                </td>
+                                <td>1</td>
+                                <td>DK 8578 YG</td>
+                                <td>PNP-19-062</td>
+                                <td>I NENGAH PARDI</td>
+                                <td>Tronton 8M capacty 40 -55 cbm</td>
                               </tr>
-                              
-                            </table>
-                            <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                            </div>
-                          </form>
-                    </div>
+                              <tr>
+                                <td>2</td>
+                                <td>H 1792 DP</td>
+                                <td>PNP-17-144</td>
+                                <td>RANGO</td>
+                                <td>Tronton 12 M capacty 70 -80 cbm</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                       
+                      </div>
                 </div>
+            </div>
             </div>
         </div>
         <div class="content-overlay"></div>

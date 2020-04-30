@@ -44,7 +44,7 @@
                                 </tr>
                             </table>
                         </form>
-                    </div>
+                        @include('web.report.concept-issue.grap');
                 </div>
             </div>
         </div>

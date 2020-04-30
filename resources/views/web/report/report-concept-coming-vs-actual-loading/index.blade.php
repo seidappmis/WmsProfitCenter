@@ -46,6 +46,7 @@
                                 </tr>
                             </table>
                         </form>
+                        @include('web.report.report-concept-coming-vs-actual-loading.grap')
                     </div>
                 </div>
             </div>

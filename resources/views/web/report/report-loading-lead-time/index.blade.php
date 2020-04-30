@@ -43,10 +43,54 @@
                                     </td>
                                 </tr>
                             </table>
+                            <br>
+                            <div class="section-data-tables"> 
+                                <table  class="display centered" width="100%">
+                                <thead>
+                                    <tr>
+                                      <th>NO</th>
+                                      <th>Vahicle Description</th>
+                                      <th>Input</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>CD 4 BAN (CDE)</td>
+                                        <td><input type="text"></td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>CD 4 BAN (CDE BOX)</td>
+                                        <td><input type="text"></td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>CD 6 BAN (CDD)</td>
+                                        <td><input type="text"></td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>CON 20</td>
+                                        <td><input type="text"></td>
+                                       
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            
+                            <div class="input-field col s12">
+                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              </div>
+                              <br>
                         </form>
                     </div>
                 </div>
             </div>
+            
         </div>
         <div class="content-overlay"></div>
     </div>
