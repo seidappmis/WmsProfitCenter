@@ -20,7 +20,7 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
+                <div class="card ">
                     <div class="card-content">
                         <form class="form-table">
                             <table>
@@ -44,6 +44,80 @@
                               <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                             </div>
                           </form>
+                          <br><br><br>
+                          <div><p class="center">Master Users</p></div>
+                          <div class="section-data-tables"> 
+                            <table id="data-table-simple" class="display centered" width="100%">
+                                <thead class="grey centered ">
+                                    <tr>
+                                      <th>USER ID</th>
+                                      <th>USER NAME</th>
+                                      <th>AREA</th>
+                                      <th>STATUS</th>
+                                      <th>LAST UPDATE</th>
+                                     
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <td>mgt9</td>
+                                  <td>Bejo Nugroh </td>
+                                  <td>KARAWANG</td>
+                                  <td>Enabled</td>
+                                  <td>24-08-2018 08:28:35</td>
+                                 
+                                </tbody>
+                            </table>
+                            <br>
+                            <table id="data-table-simple" class="display centered" width="100%">
+                              <thead class="grey">
+                                  <tr>
+                                    <th colspan="2">MODUL</th>
+                                    <th>View</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                    
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Dashboard</td>
+                                  <td>Grapihic Dashboard </td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                </tr>
+                                <tr>
+                                  <td>Dashboard</td>
+                                  <td>Grapihic Dashboard 2</td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                </tr>
+                                <tr>
+                                  <td>Dashboard</td>
+                                  <td>Trucking Monitor </td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                </tr>
+                                <tr>
+                                  <td>Group Name</td>
+                                  <td>ModulName </td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                </tr>
+                                <tr>
+                                  <td>Incoming</td>
+                                  <td>Comform Import/OEM </td>
+                                  <td>NO</td>
+                                  <td>NO</td>
+                                  <td>YES</td>
+                                </tr>
+                              </tbody>
+                          </table>
+                          </div>
                     </div>
                 </div>
             </div>

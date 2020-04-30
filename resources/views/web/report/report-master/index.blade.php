@@ -50,7 +50,33 @@
                               <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                             </div>
                           </form>
+                          <br><br><br>
+                          <div class="section-data-tables"> 
+                            <table id="data-table-simple" class="display" width="100%">
+                                <thead>
+                                    <tr>
+                                      <th>KODE CUSTOMER</th>
+                                      <th>KODE CABANG</th>
+                                      <th>SORT DESTINATION</th>
+                                      <th>LONG DESTINATION</th>
+                                      <th>TYPE</th>
+                                      <th>REGION</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <td>1000000</td>
+                                  <td>10</td>
+                                  <td>HYP</td>
+                                  <td>PY.HEID HQ JKT</td>
+                                  <td>BR</td>
+                                  <td>JABODETABEK</td>
+                                </tbody>
+                            </table>
+                          </div>
+                          
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -58,3 +84,4 @@
     </div>
 </div>
 @endsection
+

@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-content p-3">
                         <form class="form-table">
-                            <table>
+                            <table id="data-table-simple" class="display" width="100%">
                                 <tr>
                                     <td>Area</td>
                                     <td>
