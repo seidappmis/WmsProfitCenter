@@ -24,29 +24,52 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                        <div class="row">
+                            <div class="col s12 m6 mt-2">
+                              <div class="display-flex">
+                                <!---- Search ----->
+                                {!! get_button_view(url('picking-list/create'),'New Picking List') !!}
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="section-data-tables">
+                          <table id="multi-select" class="display" width="100%">
                               <thead>
                                   <tr>
-                                    <th data-priority="1" width="30px">No.</th>
-                                    <th>DELIVERY NO.</th>
-                                    <th>DELIVERY ITEM</th>
-                                    <th>DO DATE</th>
-                                    <th>CUSTOMER CODE</th>
-                                    <th>CUSTOMER NAME</th>
-                                    <th>MODEL</th>
-                                    <th>EAN CODE</th>
-                                    <th>QUANTITY</th>
-                                    <th width="50px;"></th>
+                                    <th data-priority="1">PICKING DATE</th>
+                                    <th>PICKING NO.</th>
+                                    <th>DRIVER NAME</th>
+                                    <th>SHIP TO CITY</th>
+                                    <th>EXPEDITION NAME</th>
+                                    <th>STORAGE</th>
+                                    <th>DO STATUS</th>
+                                    <th>LMB</th>
+                                    <th width="150px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                  <td>2020-04-27</td>
+                                  <td>162002121244</td>
+                                  <td>AD 2323 JP</td>
+                                  <td>WONOGIRI</td>
+                                  <td>PUTRA NAGITA PRATAMA</td>
+                                  <td>[1601]YGY 1st Class</td>
+                                  <td>DO Already</td>
+                                  <td>-</td>
+                                  <td width="150px;">
+                                    {!! get_button_edit(url('picking-list/create')) !!}
+                                    {!! get_button_view('Cancel') !!}
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -59,6 +82,44 @@
         </div>
         <div class="content-overlay"></div>
     </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Upload DO Picking</h4>
+      <div class="row">
+
+        <div class="col s12 m2">
+          <p>Data File</p>
+        </div>
+
+        <div class="col s12 m10">
+          <div class="file-field input-field">
+            <div class="btn indigo btn">
+              <span>Browse</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Select File   Format File : csv">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col s12 m2">
+          <p></p>
+        </div>
+        <div class="col s12 m10">
+          <p>Format Layout coloumn :</p>
+          <p>[Plant],[D/O,Date],[Posting Date]</p>
+          <p>[Material]</p>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
+  </div>
 </div>
 @endsection
 
@@ -118,7 +179,7 @@
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
           });
-          
+
         }
       })
     });

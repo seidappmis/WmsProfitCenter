@@ -34,11 +34,13 @@
                             <div class="col s12 m6 mt-2">
                               <div class="display-flex">
                                 <!---- Search ----->
-                                {!! get_button_save('Upload DO') !!}
+                                <!-- Modal Trigger -->
+                                <a class="waves-effect waves-light btn modal-trigger indigo btn mt-2 mr-1 mb-1" href="#modal1">Upload DO</a>
                                 {!! get_button_save('Multi Delete Selected Items') !!}
                               </div>
                             </div>
                         </div>
+                        
                         <div class="section-data-tables"> 
                           <table id="multi-select" class="display" width="100%">
                               <thead>
@@ -83,6 +85,44 @@
         </div>
         <div class="content-overlay"></div>
     </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Upload DO Picking</h4>
+      <div class="row">
+        
+        <div class="col s12 m2">
+          <p>Data File</p>
+        </div>  
+        
+        <div class="col s12 m10">
+          <div class="file-field input-field">
+            <div class="btn indigo btn">
+              <span>Browse</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Select File   Format File : csv">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col s12 m2">
+          <p></p>
+        </div>  
+        <div class="col s12 m10">
+          <p>Format Layout coloumn :</p>
+          <p>[Plant],[D/O,Date],[Posting Date]</p>
+          <p>[Material]</p>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
+  </div>
 </div>
 @endsection
 
