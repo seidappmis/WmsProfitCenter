@@ -45,7 +45,16 @@
                                     </td>
                                 </tr>
                             </table>
+                            <div class="input-field col s12">
+                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              </div>
+                              <br>
                         </form>
+                      
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content p-3">
                         @include('web.report.report-concept-coming-vs-actual-loading.grap')
                     </div>
                 </div>
