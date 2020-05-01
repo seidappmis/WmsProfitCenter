@@ -44,7 +44,15 @@
                                 </tr>
                             </table>
                         </form>
-                        @include('web.report.concept-issue.grap');
+                       <br>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content p-3">
+                        <form class="form-table">
+                            @include('web.report.concept-issue.grap');
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
