@@ -49,6 +49,7 @@
                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                               </div>
                         </form>
+                        <br>
                     </div>
                 </div>
                 <div class="card">
