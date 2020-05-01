@@ -44,6 +44,39 @@
                                 </tr>
                             </table>
                             <br>
+                            
+                            <div class="input-field col s12">
+                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              </div>
+                              <br>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content p-3">
+                        <form class="form-table">
+                            <table>
+                                <tr>
+                                    <td>Area</td>
+                                    <td>
+                                      <div class="input-field col s12">
+                                        <select>
+                                          <option value="" disabled selected>-Select Area-</option>
+                                          <option value="1">KARAWANG</option>
+                                          <option value="2">SURABAYA HUB</option>
+                                          <option value="3">SWADAYA</option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Period</td>
+                                    <td>
+                                        <input placeholder="-Period-" id="first_name" type="text" class="validate datepicker" readonly>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
                             <div class="section-data-tables"> 
                                 <table  class="display centered" width="100%">
                                 <thead>
@@ -81,11 +114,7 @@
                                 </tbody>
                             </table>
                             </div>
-                            
-                            <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                              </div>
-                              <br>
+                            <br>
                         </form>
                     </div>
                 </div>
