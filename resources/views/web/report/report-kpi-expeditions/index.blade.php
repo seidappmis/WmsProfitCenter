@@ -19,7 +19,7 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <div class="card large">
+                <div class="card">
                     <div class="card-content">
                         <form class="form-table">
                             <table>
@@ -36,11 +36,25 @@
                                       </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Periode</td>
+                                    <td>
+                                      <div class="input-field col s12">
+                                        <input type="text" class="validate datepicker">
+                                      </div>
+                                    </td>
+                                </tr>
                             </table>
                             <div class="input-field col s12">
                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
                               </div>
                         </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content center-align">
+                        <div><p> FLeet CApability - Area :KARAWANG(2020-05-01 09:51:40)</p>
+                        </div>
                     </div>
                 </div>
             </div>
