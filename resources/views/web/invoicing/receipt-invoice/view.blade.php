@@ -10,7 +10,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <!-- <li class="breadcrumb-item"><a href="{{ url('receipt-invoice') }}">Receipt Invoice</a></li> -->
-                    <li class="breadcrumb-item active">Receipt Invoice</li>
+                    <li class="breadcrumb-item active">Receipt Invoice List</li>
                 </ol>
             </div>
             <div class="col s12 m4"></div>

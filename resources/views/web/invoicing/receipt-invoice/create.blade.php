@@ -9,7 +9,7 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Receipt Invoice</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('receipt-invoice') }}">Receipt Invoice</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('receipt-invoice') }}">Receipt Invoice List</a></li>
                     <li class="breadcrumb-item active">Create</li>
                 </ol>
             </div>
