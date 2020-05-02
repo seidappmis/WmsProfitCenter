@@ -59,7 +59,7 @@
                                   <td>18578523</td>
                                   <td>WALUYO LINTAS NUSANTARA, PT.</td>
                                   <td>
-                                    {!! get_button_view() !!}
+                                    {!! get_button_view(url('receipt-invoice/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
                                 </tr>
@@ -99,8 +99,7 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Delete the record ?",
         icon: 'warning',
         buttons: {
           cancel: true,

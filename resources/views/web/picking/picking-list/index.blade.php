@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -83,7 +82,9 @@
         <div class="content-overlay"></div>
     </div>
 </div>
+@endsection
 
+@push('page-modal')
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -121,21 +122,22 @@
     <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
   </div>
 </div>
-@endsection
+</div>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
+    var dtdatatable = $('#multi-select').DataTable({
         serverSide: false,
         scrollX: true,
         responsive: true,
-        ajax: {
-            url: '/',
-            type: 'GET',
-            data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
-        },
+        // ajax: {
+        //     url: '/',
+        //     type: 'GET',
+        //     data: function(d) {
+        //         d.search['value'] = $('#global_filter').val()
+        //       }
+        // },
         order: [1, 'asc'],
         // columns: [
         //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},

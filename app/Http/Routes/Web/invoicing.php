@@ -5,6 +5,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('receipt-invoice', 'web.invoicing.receipt-invoice.index');
   Route::view('receipt-invoice/create', 'web.invoicing.receipt-invoice.create');
+  Route::view('receipt-invoice/{id}', 'web.invoicing.receipt-invoice.view');
 
   Route::view('receipt-invoice-accounting', 'web.invoicing.receipt-invoice-accounting.index');
   Route::view('branch-invoicing', 'web.invoicing.branch-invoicing.index');
