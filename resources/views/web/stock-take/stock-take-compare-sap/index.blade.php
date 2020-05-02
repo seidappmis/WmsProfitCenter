@@ -5,7 +5,7 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m12 mb-1">
+          <div class="col s12 m12 mb-0">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Quick Count</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
@@ -14,7 +14,7 @@
           </div>
         </div>
 
-      
+
   @endcomponent
   <div class="col s12">
         <div class="container">
@@ -38,7 +38,7 @@
                               </div>
                         </div>
                         <div class="col s12 m6">
-                        
+
                         </div>
                       </div>
 
@@ -47,16 +47,16 @@
                         {!! get_button_view('compare') !!}
                         {!! get_button_print() !!}
                         </div>
-                        
+
                       </div>
 
 
-                  
+
                         <div class="container">
                             <div class="section">
                                 <div class="card">
                                     <div class="card-content p-0">
-                                        <div class="section-data-tables"> 
+                                        <div class="section-data-tables">
                                           <table id="data-table-section-contents" class="display" width="100%">
                                               <thead>
                                                   <tr>
@@ -80,7 +80,7 @@
                                                   <td>0</td>
                                                 </tr>
                                               </tbody>
-                                              
+
                                           </table>
                                         </div>
                                         <!-- datatable ends -->
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="content-overlay"></div>
-                    
+
                 </div>
             </div>
           </div>

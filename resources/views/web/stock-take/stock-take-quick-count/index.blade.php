@@ -5,7 +5,7 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m12 mb-1">
+          <div class="col s12 m12 mb-0">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Quick Count</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
@@ -14,7 +14,7 @@
           </div>
       </div>
 
-      
+
   @endcomponent
 
   <div class="col s12">
@@ -22,7 +22,7 @@
             <div class="section">
               <div class="card">
                 <div class="card-content">
-                  
+
                   <div class="row mb-5">
                     <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
@@ -40,7 +40,7 @@
                           </div>
                     </div>
                     <div class="col s12 m6">
-                    
+
                     </div>
                   </div>
 
@@ -52,7 +52,7 @@
                         <p>2019-09-01 S/D 2020-09-10 </p>
                     </div>
                     <div class="col s12 m6">
-                    
+
                     </div>
                     <br>
                     <div class="col s12 m2">
@@ -62,7 +62,7 @@
                         <p>Stock Tackling Fiscal 19F</p>
                     </div>
                     <div class="col s12 m6">
-                    
+
                     </div>
 
                   </div>
@@ -71,16 +71,16 @@
                     <div class="col s12">
                     {!! get_button_load() !!}
                     </div>
-                    
+
                   </div>
 
 
-            </div>  
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
@@ -93,17 +93,17 @@
                     <div class="input-field col s12 m6 mb-10">
                       <input value="Only in Input 2" id="ston2" type="text" class="validate" name="ston2" validated>
                     </div>
-                    
+
                     <div class="input-field col s12 mb-10">
                       <input value="Diffrent Quantity" id="ston3" type="text" class="validate" name="ston3" validated>
                     </div>
-                </div>  
+                </div>
                 <div class="row">
                   <div class="col s12">
                   <form class="form-table">
                       <table>
                         <tr>
-                          <td>Total All Tag no</td> 
+                          <td>Total All Tag no</td>
                           <td>
                             <div class="input-field col s12">
                               <input value="204" id="atn" type="text" class="validate" name="atn" required>
@@ -115,7 +115,7 @@
                               <input value="204" id="tam" type="text" class="validate" name="tam" required>
                             </div>
                           </td>
-                             <td>Total All Location</td> 
+                             <td>Total All Location</td>
                           <td>
                             <div class="input-field col s12">
                               <input value="14" id="tal" type="text" class="validate" name="tal" required>
@@ -124,13 +124,13 @@
                         </tr>
 
                         <tr>
-                          <td colspan="2" >Summary tag Compared Match</td>  
+                          <td colspan="2" >Summary tag Compared Match</td>
                           <td colspan="2">
                             <div class="input-field col s12">
                               <input value="201" id="loca" type="text" class="validate" name="loca" required>
                             </div>
                           </td>
-                            <td>Diff City</td> 
+                            <td>Diff City</td>
                           <td>
                             <div class="input-field col s12">
                               <input value="0" id="loca" type="text" class="validate" name="loca" required>
@@ -139,13 +139,13 @@
                         </tr>
 
                         <tr>
-                          <td colspan="2" >Only Input 1</td>  
+                          <td colspan="2" >Only Input 1</td>
                           <td colspan="2">
                             <div class="input-field col s12">
                               <input value="201" id="loca" type="text" class="validate" name="loca" required>
                             </div>
                           </td>
-                            <td>Only Input 2</td> 
+                            <td>Only Input 2</td>
                           <td>
                             <div class="input-field col s12">
                               <input value="201" id="loca" type="text" class="validate" name="loca" required>
@@ -153,11 +153,11 @@
                           </td>
                         </tr>
                     </table>
-                  
+
                 </form>
                   </div>
-                  
-                </div>  
+
+                </div>
               </div>
               </div>
             </div>

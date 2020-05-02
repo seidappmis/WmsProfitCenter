@@ -5,7 +5,7 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m12 mb-1">
+          <div class="col s12 m12 mb-0">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Input 1</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
@@ -14,9 +14,9 @@
           </div>
         </div>
 
-      
+
   @endcomponent
-  
+
   <div class="col s12">
         <div class="container">
             <div class="section">
@@ -39,7 +39,7 @@
                           </div>
                     </div>
                     <div class="col s12 m6">
-                    
+
                     </div>
                   </div>
                   <div class="row">
@@ -58,12 +58,12 @@
                                         </div>
                                       </td>
                                     </tr>
-                                    
+
                                   </table>
                               </form>
                               <br>
 
-                              
+
                               <form class="form-table">
                                   <table>
                                     <tr>
@@ -91,7 +91,7 @@
                                       </td>
                                     </tr>
                                 </table>
-                              
+
                             </form>
                             <div class="row">
                               <div class="input-field col s12">
@@ -104,11 +104,11 @@
                       </ul>
                     </div>
                   </div>
-                  
-                 
+
+
 
                   <div class="row">
-                      
+
                           <div class="display-flex">
                             <!---- Search ----->
                             <div class="col s12 m6">
@@ -124,14 +124,14 @@
                               </div>
                             </div>
                           </div>
-                      
+
                   </div>
-                             
+
                          <div class="container">
                             <div class="section">
                                 <div class="card">
                                     <div class="card-content p-0">
-                                        <div class="section-data-tables"> 
+                                        <div class="section-data-tables">
                                           <table id="data-table-section-contents" class="display" width="100%">
                                               <thead>
                                                   <tr>
@@ -164,7 +164,7 @@
                             </div>
                         </div>
                         <div class="content-overlay"></div>
-                    
+
 
                 </div>
           </div>

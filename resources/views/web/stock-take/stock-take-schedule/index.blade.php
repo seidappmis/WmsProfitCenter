@@ -5,7 +5,7 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m12 mb-1">
+          <div class="col s12 m12 mb-0">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Schedule</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
@@ -51,7 +51,7 @@
                   </div>
                 </div>
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
-                
+
               </div>
             </div>
       </div>
@@ -62,7 +62,7 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
+                        <div class="section-data-tables">
                           <table id="data-table-section-contents" class="display" width="100%">
                               <thead>
                                   <tr>
