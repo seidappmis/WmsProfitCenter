@@ -6,11 +6,11 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Receipt Invoice</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Receipt Invoice</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('receipt-invoice') }}">Receipt Invoice List</a></li>
-                    <li class="breadcrumb-item active">Create</li>
+                    <!-- <li class="breadcrumb-item"><a href="{{ url('receipt-invoice') }}">Receipt Invoice</a></li> -->
+                    <li class="breadcrumb-item active">Receipt Invoice List</li>
                 </ol>
             </div>
             <div class="col s12 m4"></div>
@@ -56,7 +56,7 @@
                             <hr>
                             <br>
                           </div>
-                          {!! get_button_save() !!}
+                          {!! get_button_save('Update') !!}
                           {!! get_button_cancel(url('receipt-invoice'), 'Back') !!}
                       </form>
                       </div> 

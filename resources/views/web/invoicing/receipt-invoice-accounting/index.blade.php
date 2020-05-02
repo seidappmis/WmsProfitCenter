@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Recipt Invoice Accounting</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Receipt Invoice Accounting</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Recipt Invoice Accounting</li>
+                    <li class="breadcrumb-item active">Receipt Invoice Accounting</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -71,13 +71,13 @@
         serverSide: false,
         scrollX: true,
         responsive: true,
-        ajax: {
-            url: '/',
-            type: 'GET',
-            data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
-        },
+        // ajax: {
+        //     url: '/',
+        //     type: 'GET',
+        //     data: function(d) {
+        //         d.search['value'] = $('#global_filter').val()
+        //       }
+        // },
         order: [1, 'asc'],
         // columns: [
         //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},

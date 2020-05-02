@@ -71,13 +71,13 @@
         serverSide: false,
         scrollX: true,
         responsive: true,
-        ajax: {
-            url: '/',
-            type: 'GET',
-            data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
-        },
+        // ajax: {
+        //     url: '/',
+        //     type: 'GET',
+        //     data: function(d) {
+        //         d.search['value'] = $('#global_filter').val()
+        //       }
+        // },
         order: [1, 'asc'],
         // columns: [
         //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
