@@ -59,9 +59,10 @@
                           {!! get_button_save() !!}
                           {!! get_button_cancel(url('receipt-invoice'), 'Back') !!}
                       </form>
-                      </div>
-                      <br>
-                      <!-- Reciept Invoice -->
+                      </div> 
+                    </div>
+                    <!-- Receipt Invoice -->
+                    <div class="card-content">
                       <div class="row">
                       <form class="col s12">
                           <div class="row">
@@ -96,7 +97,47 @@
                                     <tbody></tbody> 
                                 </table>
                             </div>
-                            
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s3">
+                                <input id="name" type="text" placeholder="">
+                                <label for="first_name">Kwitansi No.</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input id="name" type="text" placeholder="" readonly="">
+                                <label for="first_name">Receipt ID.</label>
+                            </div>
+                            <div class="input-field col s3">
+                                <input id="name" type="text" placeholder="" readonly="">
+                                <label for="first_name">Receipt No.</label>
+                            </div>
+                          </div>
+                          <hr>
+                          <br>
+                          <div class="row">
+                              <div class="input-field col s2">
+                                <input id="name" type="text" placeholder="" required>
+                                <label for="first_name">PPh 2% (A)</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input id="name" type="text" placeholder="" required>
+                                <label for="first_name">PPn 10% (B)</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input id="name" type="text" placeholder="" readonly="">
+                                <label for="first_name">Amount Invoice (X)</label>
+                            </div>
+                            <div class="input-field col s2">
+                                <input id="name" type="text" placeholder="" readonly="">
+                                <label for="first_name">Amount Invoice + PPn(B+X)</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                              <div class="input-field col s12 m4">
+                                  <textarea id="textarea2" class="materialize-textarea" placeholder=""></textarea>
+                                  <label for="textarea2">REMARKS</label>
+                              </div>
+                          </div>
                           {!! get_button_save('Submit to Accounting') !!}
                       </form>
                       </div>
@@ -118,5 +159,7 @@
         // responsive: true,
         order: [1, 'asc'],
     });
+
+  M.textareaAutoResize($('#textarea2')); 
 </script>
 @endpush
