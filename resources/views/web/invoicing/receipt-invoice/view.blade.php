@@ -56,7 +56,7 @@
                             <hr>
                             <br>
                           </div>
-                          {!! get_button_save() !!}
+                          {!! get_button_save('Update') !!}
                           {!! get_button_cancel(url('receipt-invoice'), 'Back') !!}
                       </form>
                       </div> 
