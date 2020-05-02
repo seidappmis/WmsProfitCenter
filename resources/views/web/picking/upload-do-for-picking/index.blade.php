@@ -80,13 +80,15 @@
                 </div>
             </div>
             <!---- Button Add ----->
-            <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
-            </div>
+            <!-- <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
+            </div> -->
         </div>
         <div class="content-overlay"></div>
     </div>
 </div>
+@endsection
 
+@push('page-modal')
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
   <div class="modal-content">
@@ -122,23 +124,25 @@
   </div>
   <div class="modal-footer">
     <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
+    <span class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</span>
   </div>
 </div>
-@endsection
+</div>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
+    var dtdatatable = $('#multi-select').DataTable({
         serverSide: false,
         scrollX: true,
-        responsive: true,
-        ajax: {
-            url: '/',
-            type: 'GET',
-            data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
-        },
+        // responsive: true,
+        // ajax: {
+        //     url: '/',
+        //     type: 'GET',
+        //     data: function(d) {
+        //         d.search['value'] = $('#global_filter').val()
+        //       }
+        // },
         order: [1, 'asc'],
         // columns: [
         //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
