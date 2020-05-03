@@ -283,3 +283,10 @@ td, th {
 #detail-driver{
   display:none;  
 }
+.app-search {
+    border: 1px solid #e0e0e0;
+}
+.app-search input[type=text]:not(.browser-default){
+    height: 2rem;
+    border-bottom: 0px;
+}

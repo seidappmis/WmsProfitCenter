@@ -5,7 +5,7 @@ function get_button_view($url = '#', $label = "View"){
 }
 
 function get_button_print($url = '#', $label = "Print"){
-  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print mt-1" href="' . $url . '">' . $label . '</a>';
 }
 
 function get_button_return($url = '#', $label = "Send Back"){
@@ -21,7 +21,7 @@ function get_button_delete($label = "Delete"){
 }
 
 function get_button_save($label = "Save"){
-  return '<a class="waves-effect waves-light indigo btn btn-save mt-2 mr-1 mb-1">' . $label . '</a>';
+  return '<a class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1">' . $label . '</a>';
 }
 
 function get_button_cancel($url = '#', $label = "Cancel"){

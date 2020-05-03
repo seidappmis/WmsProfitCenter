@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -22,10 +21,9 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{url('receipt-invoice-accounting/create')}}">
                   New Report
-                </button>
+                </a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -49,15 +47,23 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody></tbody>
+                              <tbody>
+                                <tr>
+                                  <td>1</td>
+                                  <td>2017-11-28</td>
+                                  <td>2017-11-28 09:14:19</td>
+                                  <td>KRW-FAKTUR-171114-NO1</td>
+                                  <td>
+                                     {!! get_button_view(url('receipt-invoice-accounting/1')) !!}
+                                    {!! get_button_delete() !!}
+                                  </td>
+                                </tr>
+                              </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
                     </div>
                 </div>
-            </div>
-            <!---- Button Add ----->
-            {{-- <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a> --}}
             </div>
         </div>
         <div class="content-overlay"></div>
