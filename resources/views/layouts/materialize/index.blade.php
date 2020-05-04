@@ -13,10 +13,10 @@
   <meta property="og:title" content="Wms-sharp" />
   <meta property="og:image" content="{{ url('favicon.ico') }}" />
   <meta property="og:url" content="/" />
-  <meta property="og:site_name" content="WMS SHARP" />
-  <meta property="og:description" content="WMS Sharp." />
+  <meta property="og:site_name" content="WMS SEID" />
+  <meta property="og:description" content="WMS SEID." />
   <meta name="author" content="ThemeSelect">
-  <title>WMS Sharp</title>
+  <title>@yield('title') SEID - Warehouse Management System</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -62,8 +62,8 @@
   <footer class="page-footer footer footer-static footer-dark gradient-shadow navbar-border navbar-shadow">
     <div class="footer-copyright">
       <div class="container"><span>&copy; 2019 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-            target="_blank">WMS Sharp</a> All rights reserved.</span><span class="right hide-on-small-only">Design and
-          Developed by <a href="https://pixinvent.com/">WMS Sharp</a></span></div>
+            target="_blank">WMS SEID</a> All rights reserved.</span><span class="right hide-on-small-only">Design and
+          Developed by <a href="https://pixinvent.com/">WMS SEID</a></span></div>
     </div>
   </footer>
 
