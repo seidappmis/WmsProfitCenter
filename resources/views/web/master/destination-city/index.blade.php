@@ -98,7 +98,7 @@
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
 
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      // Ask user confirmation to delete the data.
       swal({
         text: "Delete the City Code " + data.city_code + "?",
         icon: 'warning',
@@ -107,7 +107,7 @@
           delete: 'Yes, Delete It'
         }
       }).then(function (confirm) { // proses confirm
-        if (confirm) {
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
             url: '{{ url('destination-city') }}' + '/' + data.city_code ,
             type: 'DELETE',

@@ -47,12 +47,13 @@
         })
         .done(function() { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
               window.location.href = "{{ url('destination-city') }}"
             }) // alert success
         })
         .fail(function(xhr) {
-            showSwalError(xhr)
+            showSwalError(xhr) // Custom function to show error with sweetAlert
         });
 
       }
