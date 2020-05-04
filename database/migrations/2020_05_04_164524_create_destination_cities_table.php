@@ -19,7 +19,7 @@ class CreateDestinationCitiesTable extends Migration
             $table->string('city_name', 100)->nullable();
 
             $table->timestamps();
-            $table->integer('create_by')->nullable();
+            $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
             $table->primary('city_code'); // add primary key

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class DestinationCity extends Model
+class DestinationCity extends BaseModel
 {
-  // Set Table Primary Key 
+  // Set Table Primary Key
   // if not set default : id
   protected $primaryKey = 'city_code';
+
 }

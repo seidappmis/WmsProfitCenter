@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="WMS SEID" />
   <meta property="og:description" content="WMS SEID." />
   <meta name="author" content="ThemeSelect">
-  <title>@yield('title') SEID - Warehouse Management System</title>
+  <title>SEID - Warehouse Management System</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
