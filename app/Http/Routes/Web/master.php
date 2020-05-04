@@ -26,9 +26,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('master-driver/create', 'web.master.master-driver.create');
   Route::view('master-driver/1', 'web.master.master-driver.edit');
 
-  Route::view('destination-city', 'web.master.destination-city.index');
-  Route::view('destination-city/create', 'web.master.destination-city.create');
-  Route::view('destination-city/1', 'web.master.destination-city.edit');
+  // Route::view('destination-city', 'web.master.destination-city.index');
+  // Route::view('destination-city/create', 'web.master.destination-city.create');
+  // Route::view('destination-city/1', 'web.master.destination-city.edit');
+  Route::resource('destination-city', 'Web\DestinationCityController');
 
   Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
   Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');

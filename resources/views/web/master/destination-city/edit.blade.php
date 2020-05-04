@@ -21,28 +21,7 @@
                 <div class="card">
                     <div class="card-content ">
                         <h4 class="card-title">Edit Destination City</h4>
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>City Code</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="number" type="text" class="validate" value="227" required>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>City Name</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="description" type="text" class="validate" value="ACEH">
-                                      </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('destination-city')) !!}
-                        </form>
+                        @include('web.master.destination-city._form')
                     </div>
                 </div>
             </div>
@@ -52,8 +31,31 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
- 	
+ 	$("#form-destination-city").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("destination-city/" . $destinationCity->city_code) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              window.location.href = "{{ url('destination-city') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr)
+        });
+
+      }
+    });
 </script>
 @endpush

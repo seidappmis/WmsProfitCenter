@@ -74,4 +74,12 @@ function setLoading(state = true){
     }
 }
 
+function showSwalError(xhr){
+  var errorDetail = '';
+  $.each(xhr.responseJSON.errors, function(index, val) {
+       /* iterate through array or object */
+       errorDetail += val[0];
+  });
+  swal(xhr.responseJSON.message, errorDetail, "error")
+}
 </script>

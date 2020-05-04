@@ -21,7 +21,7 @@ function get_button_delete($label = "Delete"){
 }
 
 function get_button_save($label = "Save"){
-  return '<a class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1">' . $label . '</a>';
+  return '<button type="submit" class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1">' . $label . '</button>';
 }
 
 function get_button_cancel($url = '#', $label = "Cancel"){
