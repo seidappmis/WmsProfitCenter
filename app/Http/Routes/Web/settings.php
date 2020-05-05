@@ -9,9 +9,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('user-roles/create', 'web.settings.user-roles.create');
   Route::view('user-roles/1', 'web.settings.user-roles.edit');
 
-  Route::view('master-area', 'web.settings.master-area.index');
-  Route::view('master-area/create', 'web.settings.master-area.create');
-  Route::view('master-area/1', 'web.settings.master-area.edit');
+  // Route::view('master-area', 'web.settings.master-area.index');
+  // Route::view('master-area/create', 'web.settings.master-area.create');
+  // Route::view('master-area/1', 'web.settings.master-area.edit');
+  Route::resource('master-area', 'Web\MasterAreaController');
 
   Route::view('master-cabang', 'web.settings.master-cabang.index');
   Route::view('master-cabang/create', 'web.settings.master-cabang.create');
