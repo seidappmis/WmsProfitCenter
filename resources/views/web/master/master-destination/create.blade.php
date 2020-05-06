@@ -21,64 +21,7 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">New Destination</h4>
-                        <form class="form-table">
-                          <table>
-                            <tr>
-                              <td>Destination Number</td>
-                              <td>
-                                <div class="input-field col s12">
-                                  <input id="number" type="text" class="validate" name="number" required>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Description</td>
-                              <td>
-                                <div class="input-field col s12">
-                                  <input id="description" type="text" class="validate" name="description">
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Region</td>
-                              <td>
-                                <div class="input-field col 12">
-                                <p>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" id="1" checked/>
-                                    <span>New Region</span>
-                                  </label>
-                                  <label>
-                                    <input class="with-gap" name="group1" type="radio" id="2" />
-                                    <span>Current</span>
-                                  </label>
-                                </p>
-                                </div>
-                                <div id="newr" class="input-field col s12">
-                                  <input type="text" class="validate" name="group1">
-                                </div>
-                                <div id="current" class="input-field col s12">
-                                  <select>
-                                    <option value="0" selected>JABODETABEK</option>
-                                    <option value="1">JAWA & BALI</option>
-                                    <option value="2">KALIMANTAN</option>
-                                    <option value="3">OTHERS</option>
-                                  </select>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Cabang</td>
-                              <td>
-                                <div class="input-field col s12">
-                                  <input id="cabang" type="text" class="validate" name="cabang" required>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-          							  <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-          							  <a class="waves-effect btn-flat mt-2" href="{{ url('master-destination') }}">Cancel</a>
-					             </form>
+                       @include('web.master.master-destination._form')
                     </div>
                 </div>
             </div>
@@ -90,17 +33,25 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$(document).ready(function() {
-    $('.with-gap').click(function(event) {
-      /* Act on the event */
-      if ($(this).attr('id') == "1") {
-          $('#newr').show();
-          $('#current').hide();
-      } else {
-          $('#newr').hide();
-          $('#current').show();
-      }
-    });
+  $("#form-master-destination").validate({
+    submitHandler: function(form) {
+      $.ajax({
+        url: '{{ url("master-destination") }}',
+        type: 'POST',
+        data: $(form).serialize(),
+      })
+      .done(function() { // selesai dan berhasil
+        swal("Good job!", "You clicked the button!", "success")
+          .then((result) => {
+            // Kalau klik Ok redirect ke index
+            window.location.href = "{{ url('master-destination') }}"
+          }) // alert success
+      })
+      .fail(function(xhr) {
+          showSwalError(xhr) // Custom function to show error with sweetAlert
+      });
+
+    }
   });
 </script>
 @endpush

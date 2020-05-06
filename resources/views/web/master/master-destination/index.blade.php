@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-master-destination" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -47,16 +47,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td data-priority="1" width="30px">1.</td>
-                                  <td>3D1010</td>
-                                  <td width="400px">JAKARTA</td>
-                                  <td>JABODETABEK</td>
-                                  <td>
-                                    {!! get_button_edit(url('master-destination/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr>
+                               
                               </tbody>
                           </table>
                         </div>
@@ -73,29 +64,26 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-master-destination').DataTable({
+    serverside:true,
+    scrollx:true,
+    responsive: true,
+      ajax: {
+        url:'{{url('master-destination')}}',
+        type:'GET',
+        data: function(d){
+          d.search['value']=$('#global_filter').val()
+        }
+      },
+      order:[1,'asc'],
+      columns :[
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'destination_number', name: 'destination_number', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'region', name: 'region', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete the Destination Number 3D1010?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -105,5 +93,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        text: "Delete the Destination number " + data.destination_number + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-destination') }}' + '/' + data.destination_number ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
+  
 </script>
 @endpush
