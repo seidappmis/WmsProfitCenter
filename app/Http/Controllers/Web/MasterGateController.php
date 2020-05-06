@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterGate;
+use App\Models\MasterArea;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterGateController extends Controller
 {
@@ -54,13 +56,13 @@ class MasterGateController extends Controller
         $request->validate([
           'gate_number'  => 'required|unique:master_gates|max:10',
           'description'  => 'required|max:100',
-          'area'  => 'required',
+          'area'         => 'required',
         ]);
 
         $masterGate              = new MasterGate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area = $request->input('area');
+        $masterGate->area        = $request->input('area');
 
         return $masterGate->save();
     }
@@ -108,5 +110,20 @@ class MasterGateController extends Controller
     public function destroy($id)
     {
         return MasterGate::destroy($id);
+    }
+
+    /**
+   * Show the application dataAjax.
+   *
+   * @return \Illuminate\Http\Response
+   */
+    public function getSelect2Area(Request $request)
+    {
+        $query = MasterArea::select(
+          'id',
+          DB::raw('area AS text')
+        );
+
+        return get_select2_data($request, $query);
     }
 }

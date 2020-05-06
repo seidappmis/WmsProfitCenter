@@ -20,11 +20,8 @@
          <td>Area</td>
          <td>
             <div class="input-field col s12">
-               <select id="area" required="">
-            	<option value="" disabled selected>-- Select --</option>
-            	<option value="1">KARAWANG</option>
-            	<option value="2">SURABAYA HUB</option>
-            	<option value="3">SWADAYA</option>
+               <select class="select2-data-ajax browser-default select-area" id="area" required>
+                  <option></option>
                </select>
             </div>
          </td>
@@ -33,3 +30,15 @@
    {!! get_button_save() !!}
    {!! get_button_cancel(url('master-gate')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading area data
+      $('.select-area').select2({
+         placeholder: '-- Select --',
+         ajax: get_select2_ajax_options('/master-gate/select2-areas')
+      });
+   });
+</script>
+@endpush
