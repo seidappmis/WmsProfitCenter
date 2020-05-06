@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-master-gate" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -47,7 +47,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <!-- <tr>
                                   <td data-priority="1" width="30px">1.</td>
                                   <td>101</td>
                                   <td>GATE NO. 1-A KARAWANG WAREHOUSE</td>
@@ -56,7 +56,7 @@
                                     {!! get_button_edit(url('master-gate/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -72,27 +72,55 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-master-gate').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-gate') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'gate_number', name: 'gate_number', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'area', name: 'area', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
       swal({
-        // title: "Are you sure?",
-        text: "Delete the Gate 101?",
+        text: "Delete the City Code " + data.gate_number + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
           delete: 'Yes, Delete It'
         }
       }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-gate') }}' + '/' + data.gate_number ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
         }
       })
     });

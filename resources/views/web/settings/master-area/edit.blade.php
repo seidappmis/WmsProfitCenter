@@ -21,28 +21,7 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">Edit Area</h4>
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>AREA</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="area" type="text" class="validate" value="All" ">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>CODE</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="code" type="text" class="validate" value="--No Code--" ">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('master-area')) !!}
-                        </form>
+                        @include('web.settings.master-area._form')
                     </div>
                 </div>
             </div>
@@ -52,8 +31,32 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
- 	
+    $("#form-master-area").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-area/" . $masterArea->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-area') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+
+      }
+    });
 </script>
 @endpush
