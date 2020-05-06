@@ -4,7 +4,12 @@
          <td>Gate Number</td>
          <td>
             <div class="input-field col s12">
-               <input id="gate_number" type="number" class="validate" name="gate_number" required>
+               <input id="gate_number" 
+               type="number" 
+               class="validate" 
+               name="gate_number"
+               value="{{old('gate_number', !empty($masterGate) ? $masterGate->gate_number : '')}}" 
+               required>
             </div>
          </td>
       </tr>
@@ -12,7 +17,12 @@
 	   <td>Description</td>
 	   <td>
             <div class="input-field col s12">
-               <input id="description" type="text" class="validate" name="description" required>
+               <input id="description" 
+               type="text" 
+               class="validate" 
+               name="description"
+               value="{{old('description', !empty($masterGate) ? $masterGate->description : '')}}" 
+               required>
             </div>
          </td>
       </tr>
@@ -20,7 +30,9 @@
          <td>Area</td>
          <td>
             <div class="input-field col s12">
-               <select class="select2-data-ajax browser-default select-area" id="area" required>
+               <select id="area" 
+               class="select2-data-ajax browser-default select-area" 
+               required>
                   <option></option>
                </select>
             </div>

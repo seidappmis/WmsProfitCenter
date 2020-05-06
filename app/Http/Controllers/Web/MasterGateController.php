@@ -86,7 +86,9 @@ class MasterGateController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['masterGate'] = MasterGate::findOrFail($id);
+
+    return view('web.master.master-gate.edit', $data);
     }
 
     /**
@@ -98,7 +100,18 @@ class MasterGateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+          'gate_number'  => 'required|unique:master_gates|max:10',
+          'description'  => 'required|max:100',
+          'area'         => 'required',
+        ]);
+
+        $masterGate              = MasterGate::findOrFail($id);
+        $masterGate->gate_number = $request->input('gate_number');
+        $masterGate->description = $request->input('description');
+        $masterGate->area        = $request->input('area');
+
+        return $masterGate->save();
     }
 
     /**

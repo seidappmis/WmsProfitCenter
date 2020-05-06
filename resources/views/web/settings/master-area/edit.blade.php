@@ -55,7 +55,6 @@
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
-
       }
     });
 </script>
