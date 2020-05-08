@@ -29,6 +29,7 @@
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/pages/data-tables.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/sweetalert/sweetalert.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2-materialize.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/dropify/css/dropify.min.css') }}">
   @stack('vendor_css')
 

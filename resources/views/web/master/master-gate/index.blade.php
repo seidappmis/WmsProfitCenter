@@ -101,7 +101,7 @@
 
       // Ask user confirmation to delete the data.
       swal({
-        text: "Delete the City Code " + data.gate_number + "?",
+        text: "Delete the Gate " + data.gate_number + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
