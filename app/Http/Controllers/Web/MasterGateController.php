@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterGate;
-use App\Models\MasterArea;
 use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 class MasterGateController extends Controller
 {
@@ -123,20 +122,5 @@ class MasterGateController extends Controller
     public function destroy($id)
     {
         return MasterGate::destroy($id);
-    }
-
-    /**
-   * Show the application dataAjax.
-   *
-   * @return \Illuminate\Http\Response
-   */
-    public function getSelect2Area(Request $request)
-    {
-        $query = MasterArea::select(
-          'id',
-          DB::raw('area AS text')
-        );
-
-        return get_select2_data($request, $query);
     }
 }
