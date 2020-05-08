@@ -34,7 +34,7 @@
                class="select2-data-ajax browser-default select-area" 
                name="area"
                required>
-                  <!-- <option></option> -->
+                  <option></option>
                </select>
             </div>
          </td>

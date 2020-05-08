@@ -128,7 +128,7 @@ class MasterAreaController extends Controller
     public function getSelect2Area(Request $request)
     {
         $query = MasterArea::select(
-          'code',
+          DB::raw('code AS id'),
           DB::raw('area AS text')
         );
 

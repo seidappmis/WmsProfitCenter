@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterGate;
 use DataTables;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class MasterGateController extends Controller
 {
@@ -18,7 +18,14 @@ class MasterGateController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = MasterGate::all();
+          // $query = MasterGate::all();
+          $query = MasterGate::select(
+            'gate_number',
+            'description',
+            DB::raw('master_areas.area AS area_name')
+          )
+            ->leftjoin('master_areas', 'master_gates.area_code', '=', 'master_areas.code')
+            ->get();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
