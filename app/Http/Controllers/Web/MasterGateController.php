@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterGate;
 use DataTables;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class MasterGateController extends Controller
 {
@@ -18,7 +18,14 @@ class MasterGateController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = MasterGate::all();
+          // $query = MasterGate::all();
+          $query = MasterGate::select(
+            'gate_number',
+            'description',
+            DB::raw('master_areas.area AS area_name')
+          )
+            ->leftjoin('master_areas', 'master_gates.area_code', '=', 'master_areas.code')
+            ->get();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -61,7 +68,7 @@ class MasterGateController extends Controller
         $masterGate              = new MasterGate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area');
 
         return $masterGate->save();
     }
@@ -100,7 +107,7 @@ class MasterGateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'gate_number'  => 'required|unique:master_gates|max:10',
+          'gate_number'  => 'required|max:10',
           'description'  => 'required|max:100',
           'area'         => 'required',
         ]);
@@ -108,7 +115,7 @@ class MasterGateController extends Controller
         $masterGate              = MasterGate::findOrFail($id);
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area');
 
         return $masterGate->save();
     }

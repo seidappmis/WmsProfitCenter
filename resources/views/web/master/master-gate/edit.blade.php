@@ -38,7 +38,18 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$("#form-master-area").validate({
+    jQuery(document).ready(function($) {
+        set_initial_form_data();
+        $('.btn-save').html('Update');
+    });
+
+    function set_initial_form_data(){
+
+        set_select2_value('#area', '{{$masterGate->area_code}}', '{{$masterGate->MasterArea->area}}')
+    };
+
+
+ 	$("#form-master-gate").validate({
       submitHandler: function(form) {
         $.ajax({
           url: '{{ url("master-gate/" . $masterGate->gate_number) }}',

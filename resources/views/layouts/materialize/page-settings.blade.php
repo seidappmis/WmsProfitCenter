@@ -82,4 +82,10 @@ function showSwalError(xhr){
   });
   swal(xhr.responseJSON.message, errorDetail, "error")
 }
+
+function set_select2_value(selector, id, text) {
+  let val = '<option value="' + id + '" selected>' + text + '</option>';
+  $(selector).append(val).trigger('change');
+}
+
 </script>

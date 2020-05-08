@@ -17,7 +17,7 @@ class CreateMasterGatesTable extends Migration
             // $table->id();
             $table->string('gate_number', 10);
             $table->string('description', 100)->nullable();
-            $table->string('area', 100)->nullable();
+            $table->string('area_code', 100)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

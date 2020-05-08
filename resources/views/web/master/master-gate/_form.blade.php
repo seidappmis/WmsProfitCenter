@@ -32,6 +32,7 @@
             <div class="input-field col s12">
                <select id="area" 
                class="select2-data-ajax browser-default select-area" 
+               name="area"
                required>
                   <option></option>
                </select>
