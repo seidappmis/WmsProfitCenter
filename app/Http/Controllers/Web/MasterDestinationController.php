@@ -14,7 +14,7 @@ class MasterDestinationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if ($request->ajax()) {
             $query = MasterDestination::all();
@@ -44,8 +44,6 @@ class MasterDestinationController extends Controller
         return view('web.master.master-destination.create');
     }
 
-    
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,8 +53,9 @@ class MasterDestinationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'city_code'  => 'required|unique:destination_cities|max:10',
-            'city_name'  => 'required|max:100',
+            'destination_number'  => 'required|unique:master_destination|max:10',
+            'description'  => 'required|max:100',
+            'region'  => 'required|max:10',
           ]);
       
           $masterDestination            = new MasterDestination;
@@ -100,12 +99,13 @@ class MasterDestinationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'destination_number'  => 'required|max:10',
+            'destination_number'  => 'required|max:8',
             'description'  => 'required|max:100',
-            'region'=>'required|max:2'
+            'region'=>'required|max:10'
           ]);
       
           $masterDestination            = MasterDestination::findOrFail($id);
+          $masterDestination->destination_number = $request->input('destinantion_number');
           $masterDestination->description = $request->input('description');
           $masterDestination->region = $request->input('region');
           
@@ -121,6 +121,6 @@ class MasterDestinationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return MasterDestination::destroy($id);
     }
 }

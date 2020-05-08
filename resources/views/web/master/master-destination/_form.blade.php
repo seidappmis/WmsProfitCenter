@@ -1,7 +1,7 @@
 <form class="form-table" id="form-master-destination">
     <table>
         <tr>
-            <td>City Code</td>
+            <td>Destination Number</td>
             <td>
                 <div class="input-field col s12">
                     <input 
@@ -9,7 +9,7 @@
                         type="text" 
                         class="validate" 
                         name="destination_number" 
-                        value="{{old('destination_number', !empty($masterDestination) ? $masterdestination->destination_number : '')}}" 
+                        value="{{old('destination_number', !empty($masterDestination) ? $masterDestination->destination_number : '')}}" 
                         {{!empty($masterDestination) ? 'readonly' : ''}} 
                         required
                         />
@@ -17,7 +17,7 @@
             </td>
         </tr>
         <tr>
-            <td>City Name</td>
+            <td>Description</td>
             <td>
                 <div class="input-field col s12">
                     <input 
@@ -25,13 +25,13 @@
                         type="text" 
                         class="validate" 
                         name="description" 
-                        value="{{old('city_name', !empty($masterDestination) ? $masterDestination->description : '')}}"
+                        value="{{old('description', !empty($masterDestination) ? $masterDestination->description : '')}}"
                         />
               </div>
             </td>
         </tr>
         <tr>
-            <td>Cabang</td>
+            <td>Region</td>
             <td>
                 <div class="input-field col s12">
                     <input 
@@ -39,8 +39,7 @@
                         type="text" 
                         class="validate" 
                         name="region" 
-                        value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}" 
-                        {{!empty($masterDestination) ? 'readonly' : ''}} 
+                        value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
                         required
                         />
               </div>

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class MasterDestination extends Model
-{
+class MasterDestination extends BaseModel
+{   
+    protected $table = "master_destination";
     protected $primaryKey = 'destination_number';
 
 }

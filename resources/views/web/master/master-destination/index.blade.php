@@ -47,7 +47,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                               
                               </tbody>
                           </table>
                         </div>
@@ -72,7 +71,6 @@
         url:'{{url('master-destination')}}',
         type:'GET',
         data: function(d){
-          d.search['value']=$('#global_filter').val()
         }
       },
       order:[1,'asc'],

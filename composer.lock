@@ -102,15 +102,12 @@
                 "brick",
                 "math"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://tidelift.com/funding/github/packagist/brick/math",
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-15T15:59:35+00:00"
         },
         {
@@ -507,15 +504,12 @@
                 "crossdomain",
                 "laravel"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://github.com/barryvdh",
                     "type": "github"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-28T08:47:37+00:00"
         },
         {
@@ -709,16 +703,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.9.2",
+            "version": "v7.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "757b155658ae6da429065ba8f22242fe599824f7"
+                "reference": "4110965660ffc459206a5f1e5c3b40354347cd08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/757b155658ae6da429065ba8f22242fe599824f7",
-                "reference": "757b155658ae6da429065ba8f22242fe599824f7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4110965660ffc459206a5f1e5c3b40354347cd08",
+                "reference": "4110965660ffc459206a5f1e5c3b40354347cd08",
                 "shasum": ""
             },
             "require": {
@@ -857,7 +851,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-04-28T16:09:20+00:00"
+            "time": "2020-05-05T22:17:38+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1050,7 +1044,6 @@
                 "md",
                 "parser"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
@@ -1077,8 +1070,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-05-04T22:15:21+00:00"
         },
         {
@@ -1163,15 +1154,12 @@
                 "sftp",
                 "storage"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://offset.earth/frankdejonge",
                     "type": "other"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-16T13:21:26+00:00"
         },
         {
@@ -1325,7 +1313,6 @@
                 "datetime",
                 "time"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://opencollective.com/Carbon",
@@ -1336,8 +1323,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-20T15:05:43+00:00"
         },
         {
@@ -2548,7 +2533,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2563,8 +2547,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-18T20:50:06+00:00"
         },
         {
@@ -2662,7 +2644,6 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2677,8 +2658,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-28T18:53:25+00:00"
         },
         {
@@ -2741,7 +2720,6 @@
                 "mime",
                 "mime-type"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2756,8 +2734,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-17T03:29:44+00:00"
         },
         {
@@ -3158,7 +3134,6 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3173,8 +3148,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-15T15:59:10+00:00"
         },
         {
@@ -3251,7 +3224,6 @@
                 "uri",
                 "url"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3266,8 +3238,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-21T21:02:50+00:00"
         },
         {
@@ -3403,7 +3373,6 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3418,8 +3387,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-12T16:45:47+00:00"
         },
         {
@@ -3552,7 +3519,6 @@
                 "debug",
                 "dump"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3567,8 +3533,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-12T16:45:47+00:00"
         },
         {
@@ -3682,7 +3646,6 @@
                 "env",
                 "environment"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -3693,8 +3656,6 @@
                     "type": "tidelift"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-05-02T14:08:57+00:00"
         },
         {
@@ -4056,16 +4017,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.7.1",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130"
+                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
-                "reference": "fff6f1e4f36be0e0d0b84d66b413d9dcb0c49130",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/17d0d3f266c8f925ebd035cd36f83cf802b47d4a",
+                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a",
                 "shasum": ""
             },
             "require": {
@@ -4113,7 +4074,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2020-01-15T10:00:00+00:00"
+            "time": "2020-05-05T12:28:07+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -5042,7 +5003,6 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
@@ -5053,8 +5013,6 @@
                     "type": "github"
                 }
             ],
-=======
->>>>>>> b72d1251397ad6e7e80fb4d04bd6d5923ea245d3
             "time": "2020-04-23T04:39:42+00:00"
         },
         {
