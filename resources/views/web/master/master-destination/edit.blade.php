@@ -38,17 +38,25 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$(document).ready(function() {
-    $('.with-gap').click(function(event) {
-      /* Act on the event */
-      if ($(this).attr('id') == "2") {
-          $('#newr').show();
-          $('#current').hide();
-      } else {
-          $('#newr').hide();
-          $('#current').show();
-      }
-    });
-  });
+    $("#form-master-destination").validate({
+     submitHandler: function(form) {
+       $.ajax({
+         url: '{{ url("master-destination/" . $masterDestination->destination_number)}}',
+         type: 'PUT',
+         data: $(form).serialize(),
+       })
+       .done(function() { // selesai dan berhasil
+         swal("Good job!", "You clicked the button!", "success")
+           .then((result) => { 
+             // Kalau klik Ok redirect ke index
+             window.location.href = "{{ url('master-destination') }}"
+           }) // alert success
+       })
+       .fail(function(xhr) {
+           showSwalError(xhr) // Custom function to show error with sweetAlert
+       });
+
+     }
+   });
 </script>
 @endpush
