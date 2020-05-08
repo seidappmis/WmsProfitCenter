@@ -7,9 +7,11 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-gate', 'Web\MasterGateController');
   Route::get('master-gate/select2-areas', 'Web\MasterGateController@getSelect2Area');
 
-  Route::view('master-destination', 'web.master.master-destination.index');
-  Route::view('master-destination/create', 'web.master.master-destination.create');
-  Route::view('master-destination/{id}', 'web.master.master-destination.edit');
+  
+  // Route::view('master-destination', 'web.master.master-destination.index');
+  // Route::view('master-destination/create', 'web.master.master-destination.create');
+  // Route::view('master-destination/{id}', 'web.master.master-destination.edit');
+  Route::resource('master-destination', 'Web\MasterDestinationController');
 
   Route::view('master-vehicle', 'web.master.master-vehicle.index');
   Route::view('master-vehicle/create', 'web.master.master-vehicle.create');
