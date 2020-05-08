@@ -75,7 +75,7 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'code_area', name: 'code_area', className: 'detail'},
+        {data: 'code', name: 'code', className: 'detail'},
         {data: 'area', name: 'area', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
@@ -107,7 +107,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('master-area') }}' + '/' + data.id ,
+            url: '{{ url('master-area') }}' + '/' + data.code ,
             type: 'DELETE',
             dataType: 'json',
           })

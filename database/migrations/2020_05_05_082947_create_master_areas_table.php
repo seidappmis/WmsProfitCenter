@@ -14,15 +14,15 @@ class CreateMasterAreasTable extends Migration
     public function up()
     {
         Schema::create('master_areas', function (Blueprint $table) {
-            $table->id();
-            $table->string('code_area', 10);
+            // $table->id();
+            $table->string('code', 10);
             $table->string('area', 100)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            // $table->primary('code_area'); // add primary key
+            $table->primary('code'); // add primary key
         });
     }
 

@@ -24,7 +24,7 @@ class MasterAreaController extends Controller
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-area/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_edit(url('master-area/' . $data->code . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -53,12 +53,12 @@ class MasterAreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'code_area'  => 'max:10',
+          'code'       => 'max:10',
           'area'       => 'max:100',
         ]);
 
         $masterArea            = new MasterArea;
-        $masterArea->code_area = $request->input('code_area');
+        $masterArea->code      = $request->input('code');
         $masterArea->area      = $request->input('area');
 
         return $masterArea->save();
@@ -98,12 +98,12 @@ class MasterAreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'code_area'  => 'max:10',
+          'code'       => 'max:10',
           'area'       => 'max:100',
         ]);
 
         $masterArea            = MasterArea::findOrFail($id);
-        $masterArea->code_area = $request->input('code_area');
+        $masterArea->code      = $request->input('code');
         $masterArea->area      = $request->input('area');
 
         return $masterArea->save();
@@ -128,7 +128,7 @@ class MasterAreaController extends Controller
     public function getSelect2Area(Request $request)
     {
         $query = MasterArea::select(
-          'id',
+          'code',
           DB::raw('area AS text')
         );
 

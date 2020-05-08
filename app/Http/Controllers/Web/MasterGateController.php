@@ -55,13 +55,13 @@ class MasterGateController extends Controller
         $request->validate([
           'gate_number'  => 'required|unique:master_gates|max:10',
           'description'  => 'required|max:100',
-          'area'         => 'required',
+          'area-code'    => 'required',
         ]);
 
         $masterGate              = new MasterGate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area-code');
 
         return $masterGate->save();
     }
@@ -102,13 +102,13 @@ class MasterGateController extends Controller
         $request->validate([
           'gate_number'  => 'required|unique:master_gates|max:10',
           'description'  => 'required|max:100',
-          'area'         => 'required',
+          'area-code'    => 'required',
         ]);
 
         $masterGate              = MasterGate::findOrFail($id);
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area-code');
 
         return $masterGate->save();
     }
