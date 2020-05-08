@@ -107,7 +107,7 @@ class MasterGateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'gate_number'  => 'required|unique:master_gates|max:10',
+          'gate_number'  => 'required|max:10',
           'description'  => 'required|max:100',
           'area'         => 'required',
         ]);

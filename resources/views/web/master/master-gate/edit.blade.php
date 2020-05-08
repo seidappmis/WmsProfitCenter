@@ -40,14 +40,16 @@
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         set_initial_form_data();
+        $('.btn-save').html('Update');
     });
 
     function set_initial_form_data(){
+
         set_select2_value('#area', '{{$masterGate->area_code}}', '{{$masterGate->MasterArea->area}}')
-    }
+    };
 
 
- 	$("#form-master-area").validate({
+ 	$("#form-master-gate").validate({
       submitHandler: function(form) {
         $.ajax({
           url: '{{ url("master-gate/" . $masterGate->gate_number) }}',

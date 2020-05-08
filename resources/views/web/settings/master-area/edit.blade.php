@@ -38,6 +38,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
     $("#form-master-area").validate({
       submitHandler: function(form) {
         $.ajax({
