@@ -38,6 +38,15 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        set_initial_form_data();
+    });
+
+    function set_initial_form_data(){
+        set_select2_value('#area', '{{$masterGate->area_code}}', '{{$masterGate->MasterArea->area}}')
+    }
+
+
  	$("#form-master-area").validate({
       submitHandler: function(form) {
         $.ajax({

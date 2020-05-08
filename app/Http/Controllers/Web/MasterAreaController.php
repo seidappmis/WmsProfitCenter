@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterArea;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterAreaController extends Controller
 {
@@ -23,7 +24,7 @@ class MasterAreaController extends Controller
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-area/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_edit(url('master-area/' . $data->code . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -52,12 +53,12 @@ class MasterAreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'code_area'  => 'max:10',
+          'code'       => 'unique:master_areas|max:10',
           'area'       => 'max:100',
         ]);
 
         $masterArea            = new MasterArea;
-        $masterArea->code_area = $request->input('code_area');
+        $masterArea->code      = $request->input('code');
         $masterArea->area      = $request->input('area');
 
         return $masterArea->save();
@@ -97,12 +98,12 @@ class MasterAreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'code_area'  => 'max:10',
+          'code'       => 'max:10',
           'area'       => 'max:100',
         ]);
 
         $masterArea            = MasterArea::findOrFail($id);
-        $masterArea->code_area = $request->input('code_area');
+        $masterArea->code      = $request->input('code');
         $masterArea->area      = $request->input('area');
 
         return $masterArea->save();
@@ -117,5 +118,20 @@ class MasterAreaController extends Controller
     public function destroy($id)
     {
         return MasterArea::destroy($id);
+    }
+
+    /**
+   * Show the application dataAjax.
+   *
+   * @return \Illuminate\Http\Response
+   */
+    public function getSelect2Area(Request $request)
+    {
+        $query = MasterArea::select(
+          DB::raw('code AS id'),
+          DB::raw('area AS text')
+        );
+
+        return get_select2_data($request, $query);
     }
 }

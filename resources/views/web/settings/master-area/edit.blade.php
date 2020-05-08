@@ -41,7 +41,7 @@
     $("#form-master-area").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-area/" . $masterArea->id) }}',
+          url: '{{ url("master-area/" . $masterArea->code) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })

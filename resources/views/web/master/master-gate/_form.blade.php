@@ -32,6 +32,7 @@
             <div class="input-field col s12">
                <select id="area" 
                class="select2-data-ajax browser-default select-area" 
+               name="area"
                required>
                   <option></option>
                </select>
@@ -49,7 +50,7 @@
       // Loading area data
       $('.select-area').select2({
          placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-gate/select2-areas')
+         ajax: get_select2_ajax_options('/master-area/select2-areas')
       });
    });
 </script>

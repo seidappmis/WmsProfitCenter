@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterGate;
-use App\Models\MasterArea;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +18,14 @@ class MasterGateController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = MasterGate::all();
+          // $query = MasterGate::all();
+          $query = MasterGate::select(
+            'gate_number',
+            'description',
+            DB::raw('master_areas.area AS area_name')
+          )
+            ->leftjoin('master_areas', 'master_gates.area_code', '=', 'master_areas.code')
+            ->get();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -62,7 +68,7 @@ class MasterGateController extends Controller
         $masterGate              = new MasterGate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area');
 
         return $masterGate->save();
     }
@@ -109,7 +115,7 @@ class MasterGateController extends Controller
         $masterGate              = MasterGate::findOrFail($id);
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area        = $request->input('area');
+        $masterGate->area_code   = $request->input('area');
 
         return $masterGate->save();
     }
@@ -123,20 +129,5 @@ class MasterGateController extends Controller
     public function destroy($id)
     {
         return MasterGate::destroy($id);
-    }
-
-    /**
-   * Show the application dataAjax.
-   *
-   * @return \Illuminate\Http\Response
-   */
-    public function getSelect2Area(Request $request)
-    {
-        $query = MasterArea::select(
-          'id',
-          DB::raw('area AS text')
-        );
-
-        return get_select2_data($request, $query);
     }
 }

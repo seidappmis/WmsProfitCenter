@@ -47,16 +47,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <!-- <tr>
-                                  <td data-priority="1" width="30px">1.</td>
-                                  <td>101</td>
-                                  <td>GATE NO. 1-A KARAWANG WAREHOUSE</td>
-                                  <td width="400px">KARAWANG</td>
-                                  <td>
-                                    {!! get_button_edit(url('master-gate/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -88,7 +78,7 @@
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'gate_number', name: 'gate_number', className: 'detail'},
         {data: 'description', name: 'description', className: 'detail'},
-        {data: 'area', name: 'area', className: 'detail'},
+        {data: 'area_name', name: 'area', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
