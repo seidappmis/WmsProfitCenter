@@ -53,7 +53,7 @@ class MasterAreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'code'       => 'max:10',
+          'code'       => 'unique:master_areas|max:10',
           'area'       => 'max:100',
         ]);
 

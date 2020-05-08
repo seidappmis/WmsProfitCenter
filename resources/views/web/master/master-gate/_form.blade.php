@@ -30,11 +30,11 @@
          <td>Area</td>
          <td>
             <div class="input-field col s12">
-               <select id="area-code" 
+               <select id="area" 
                class="select2-data-ajax browser-default select-area" 
-               name="area-code"
+               name="area"
                required>
-                  <option></option>
+                  <!-- <option></option> -->
                </select>
             </div>
          </td>
