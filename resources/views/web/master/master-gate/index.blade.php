@@ -47,16 +47,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <!-- <tr>
-                                  <td data-priority="1" width="30px">1.</td>
-                                  <td>101</td>
-                                  <td>GATE NO. 1-A KARAWANG WAREHOUSE</td>
-                                  <td width="400px">KARAWANG</td>
-                                  <td>
-                                    {!! get_button_edit(url('master-gate/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> -->
                               </tbody>
                           </table>
                         </div>
