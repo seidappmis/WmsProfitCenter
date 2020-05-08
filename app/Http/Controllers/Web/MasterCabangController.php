@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterArea;
 use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 
-class MasterAreaController extends Controller
+class MasterCabangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +18,20 @@ class MasterAreaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = MasterArea::all();
+            $query = MasterCabang::all();
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('action', function ($data) {
                     $action = '';
-                    $action .= ' ' . get_button_edit(url('master-area/' . $data->id . '/edit'));
+                    $action .= ' ' . get_button_edit(url('master-cabang/' . $data->code_cabang . '/edit'));
                     $action .= ' ' . get_button_delete();
                     return $action;
                 });
 
             return $datatables->make(true);
         }
-        return view('web.settings.master-area.index');
+        return view('web.settings.master-cabang.index');
     }
 
     /**
@@ -41,7 +41,7 @@ class MasterAreaController extends Controller
      */
     public function create()
     {
-        return view('web.settings.master-area.create');
+        return view('web.settings.master-cabang.create');
     }
 
     /**
@@ -53,15 +53,23 @@ class MasterAreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code_area'  => 'max:10',
-            'area'       => 'max:100',
+            'code_customer'  => 'max:8',
+            'code_cabang'    => 'required|unique:master_cabang|max:2',
+            'sdes'  => 'required|max:3',
+            'ldes'  => 'required|max:100',
+            'region'  => 'required|max:100',
+            'tycode'  => 'required|max:2',
         ]);
 
-        $masterArea            = new MasterArea;
-        $masterArea->code_area = $request->input('code_area');
-        $masterArea->area      = $request->input('area');
+        $masterCabang                = new MasterCabang;
+        $masterCabang->code_customer = $request->input('code_customer');
+        $masterCabang->code_cabang   = $request->input('code_cabang');
+        $masterCabang->sdes   = $request->input('sdes');
+        $masterCabang->ldes   = $request->input('ldes');
+        $masterCabang->region   = $request->input('region');
+        $masterCabang->tycode   = $request->input('tycode');
 
-        return $masterArea->save();
+        return $masterCabang->save();
     }
 
     /**
@@ -83,9 +91,9 @@ class MasterAreaController extends Controller
      */
     public function edit($id)
     {
-        $data['masterArea'] = MasterArea::findOrFail($id);
+        $data['masterCabang'] = MasterCabang::findOrFail($id);
 
-        return view('web.settings.master-area.edit', $data);
+        return view('web.settings.master-cabang.edit', $data);
     }
 
     /**
@@ -98,15 +106,23 @@ class MasterAreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code_area'  => 'max:10',
-            'area'       => 'max:100',
+            'code_customer'  => 'max:8',
+            'code_cabang'    => 'required|unique:master_cabang|max:2',
+            'sdes'  => 'required|max:3',
+            'ldes'  => 'required|max:100',
+            'region'  => 'required|max:100',
+            'tycode'  => 'required|max:2',
         ]);
 
-        $masterArea            = MasterArea::findOrFail($id);
-        $masterArea->code_area = $request->input('code_area');
-        $masterArea->area      = $request->input('area');
+        $masterCabang                = MasterCabang;
+        $masterCabang->code_customer = $request->input('code_customer');
+        $masterCabang->code_cabang   = $request->input('code_cabang');
+        $masterCabang->sdes   = $request->input('sdes');
+        $masterCabang->ldes   = $request->input('ldes');
+        $masterCabang->region   = $request->input('region');
+        $masterCabang->tycode   = $request->input('tycode');
 
-        return $masterArea->save();
+        return $masterCabang->save();
     }
 
     /**
@@ -117,7 +133,7 @@ class MasterAreaController extends Controller
      */
     public function destroy($id)
     {
-        return MasterArea::destroy($id);
+        return MasterCabang::destroy($id);
     }
 
     /**
@@ -125,13 +141,4 @@ class MasterAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getSelect2Area(Request $request)
-    {
-        $query = MasterArea::select(
-            'id',
-            DB::raw('area AS text')
-        );
-
-        return get_select2_data($request, $query);
-    }
 }

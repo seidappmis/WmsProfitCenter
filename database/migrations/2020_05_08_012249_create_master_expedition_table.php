@@ -16,7 +16,7 @@ class CreateMasterExpeditionTable extends Migration
         Schema::create('master_expedition', function (Blueprint $table) {
             $table->string('code');
             $table->string('expedition_name');
-            $table
+            //$table
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

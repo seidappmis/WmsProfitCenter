@@ -29,13 +29,13 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
+                        <div class="section-data-tables">
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
@@ -52,7 +52,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <!--<tr>
                                   <td>1.</td>
                                   <td>10000000</td>
                                   <td>10</td>
@@ -66,7 +66,7 @@
                                     {!! get_button_edit(url('master-cabang/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -82,16 +82,40 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-master-cabang').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-cabang') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'customer', name: 'customer', className: 'detail'},
+        {data: 'cabang', name: 'cabang', className: 'detail'},
+        {data: 'sdes', name: 'sdes', className: 'detail'},
+        {data: 'ldes', name: 'ldes', className: 'detail'},
+        {data: 'region', name: 'region', className: 'detail'},
+        {data: 'tycode', name: 'tycode', className: 'detail'},
+        {data: 'hq', name: 'hq', className: 'detail'},
+        {data: 'wms', name: 'wms', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
       swal({
-        text: "Delete the Kode Customer 10000000?",
+        text: "Delete the Kode Cabang " + data.code_cabang + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
@@ -99,9 +123,18 @@
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
+            $.ajax({
+            url: '{{ url('master-cabang') }}' + '/' + data.code_cabang ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
         }
       })
     });
