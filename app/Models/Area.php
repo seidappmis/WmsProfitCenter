@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class Area extends Model
+class Area extends BaseModel
 {
   // Set Table Primary Key
   // if not set default : id

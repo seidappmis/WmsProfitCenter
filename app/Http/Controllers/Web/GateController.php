@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\MasterGate;
+use App\Models\Gate;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterGateController extends Controller
+class GateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +18,13 @@ class MasterGateController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          // $query = MasterGate::all();
-          $query = MasterGate::select(
-            'gate_number',
-            'description',
-            DB::raw('master_areas.area AS area_name')
-          )
-            ->leftjoin('master_areas', 'master_gates.area_code', '=', 'master_areas.code')
-            ->get();
+          $query = Gate::all();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-gate/' . $data->gate_number . '/edit'));
+              $action .= ' ' . get_button_edit(url('master-gate/' . $data->id . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -60,15 +53,15 @@ class MasterGateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'gate_number'  => 'required|unique:master_gates|max:10',
+          'gate_number'  => 'required|unique:gates|max:10',
           'description'  => 'required|max:100',
           'area'         => 'required',
         ]);
 
-        $masterGate              = new MasterGate;
+        $masterGate              = new Gate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area_code   = $request->input('area');
+        $masterGate->area_id     = $request->input('area');
 
         return $masterGate->save();
     }
@@ -92,7 +85,7 @@ class MasterGateController extends Controller
      */
     public function edit($id)
     {
-        $data['masterGate'] = MasterGate::findOrFail($id);
+        $data['masterGate'] = Gate::findOrFail($id);
 
     return view('web.master.master-gate.edit', $data);
     }
@@ -112,10 +105,10 @@ class MasterGateController extends Controller
           'area'         => 'required',
         ]);
 
-        $masterGate              = MasterGate::findOrFail($id);
+        $masterGate              = Gate::findOrFail($id);
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area_code   = $request->input('area');
+        $masterGate->area_id     = $request->input('area');
 
         return $masterGate->save();
     }
@@ -128,6 +121,6 @@ class MasterGateController extends Controller
      */
     public function destroy($id)
     {
-        return MasterGate::destroy($id);
+        return Gate::destroy($id);
     }
 }

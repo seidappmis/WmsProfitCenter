@@ -4,7 +4,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('master-gate', 'web.master.master-gate.index');
   // Route::view('master-gate/create', 'web.master.master-gate.create');
   // Route::view('master-gate/{id}', 'web.master.master-gate.edit');
-  Route::resource('master-gate', 'Web\MasterGateController');
+  Route::resource('master-gate', 'Web\GateController');
   
   // Route::view('master-destination', 'web.master.master-destination.index');
   // Route::view('master-destination/create', 'web.master.master-destination.create');

@@ -78,7 +78,7 @@
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'gate_number', name: 'gate_number', className: 'detail'},
         {data: 'description', name: 'description', className: 'detail'},
-        {data: 'area_name', name: 'area', className: 'detail'},
+        {data: 'area_id', name: 'area', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
@@ -100,7 +100,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('master-gate') }}' + '/' + data.gate_number ,
+            url: '{{ url('master-gate') }}' + '/' + data.id ,
             type: 'DELETE',
             dataType: 'json',
           })
