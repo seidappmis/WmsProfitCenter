@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
-   // Set Table Primary Key
+  // Set Table Primary Key
   // if not set default : id
   protected $primaryKey = 'area';
 

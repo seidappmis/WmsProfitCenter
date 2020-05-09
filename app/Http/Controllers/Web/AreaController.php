@@ -53,8 +53,8 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'code'       => 'unique:master_areas|max:10',
-          'area'       => 'max:100',
+          'area'       => 'unique:areas|max:45',
+          'code'       => 'max:45',
         ]);
 
         $masterArea            = new Area;
@@ -98,8 +98,8 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'code'       => 'max:10',
-          'area'       => 'max:100',
+          'area'       => 'max:45',
+          'code'       => 'max:45',
         ]);
 
         $masterArea            = Area::findOrFail($id);
@@ -127,7 +127,7 @@ class AreaController extends Controller
      */
     public function getSelect2Area(Request $request)
     {
-        $query = MasterArea::select(
+        $query = Area::select(
           DB::raw('area AS id'),
           DB::raw('area AS text')
         );
