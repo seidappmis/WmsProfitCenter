@@ -10,11 +10,11 @@ class MasterGate extends BaseModel
   // if not set default : id
   protected $primaryKey = 'gate_number';
 
-  /**
-     * Get the Area that owns the Gate.
-     */
-    public function MasterArea()
-    {
-        return $this->belongsTo('App\Models\MasterArea', 'area_code');
-    }
+  // /**
+  //    * Get the Area that owns the Gate.
+  //    */
+  //   public function MasterArea()
+  //   {
+  //       return $this->belongsTo('App\Models\MasterArea', 'area_code');
+  //   }
 }

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\MasterArea;
+use App\Models\Area;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterAreaController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +18,13 @@ class MasterAreaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = MasterArea::all();
+          $query = Area::all();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-area/' . $data->code . '/edit'));
+              $action .= ' ' . get_button_edit(url('master-area/' . $data->area . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -57,9 +57,9 @@ class MasterAreaController extends Controller
           'area'       => 'max:100',
         ]);
 
-        $masterArea            = new MasterArea;
-        $masterArea->code      = $request->input('code');
+        $masterArea            = new Area;
         $masterArea->area      = $request->input('area');
+        $masterArea->code      = $request->input('code');
 
         return $masterArea->save();
     }
@@ -83,7 +83,7 @@ class MasterAreaController extends Controller
      */
     public function edit($id)
     {
-        $data['masterArea'] = MasterArea::findOrFail($id);
+        $data['masterArea'] = Area::findOrFail($id);
 
         return view('web.settings.master-area.edit', $data);
     }
@@ -102,9 +102,9 @@ class MasterAreaController extends Controller
           'area'       => 'max:100',
         ]);
 
-        $masterArea            = MasterArea::findOrFail($id);
-        $masterArea->code      = $request->input('code');
+        $masterArea            = Area::findOrFail($id);
         $masterArea->area      = $request->input('area');
+        $masterArea->code      = $request->input('code');
 
         return $masterArea->save();
     }
@@ -117,7 +117,7 @@ class MasterAreaController extends Controller
      */
     public function destroy($id)
     {
-        return MasterArea::destroy($id);
+        return Area::destroy($id);
     }
 
     /**
@@ -128,7 +128,7 @@ class MasterAreaController extends Controller
     public function getSelect2Area(Request $request)
     {
         $query = MasterArea::select(
-          DB::raw('code AS id'),
+          DB::raw('area AS id'),
           DB::raw('area AS text')
         );
 

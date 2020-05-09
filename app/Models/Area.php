@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\BaseModel;
+use Illuminate\Database\Eloquent\Model;
 
-class MasterArea extends BaseModel
+class Area extends Model
 {
-  // Set Table Primary Key
+   // Set Table Primary Key
   // if not set default : id
-  protected $primaryKey = 'code';
+  protected $primaryKey = 'area';
 
   /**
      * The "type" of the auto-incrementing ID.

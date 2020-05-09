@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterExpeditionTable extends Migration
+class CreateGatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMasterExpeditionTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_expedition', function (Blueprint $table) {
-            $table->string('code');
-            $table->string('expedition_name');
-
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+        Schema::create('gates', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateMasterExpeditionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_expedition');
+        Schema::dropIfExists('gates');
     }
 }
