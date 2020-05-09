@@ -23,7 +23,7 @@ class VehicleController extends Controller
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-vehicle/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id . '/view'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
