@@ -24,17 +24,17 @@
 						   <li class="active">
 							   <div class="collapsible-header">New Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table">
+                                <form class="form-table" id="form-vehicle-group">
                                     <table>
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
-                                                <input id="category" type="text" class="validate" name="category">
+                                                <input id="group_name" type="text" class="validate" name="group_name">
                                             </td>
                                         </tr>
                                     </table>
-                                    <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                                    <a class="waves-effect btn-flat mt-2" href="{{ url('master-vehicle') }}">Back</a>
+                                    {!! get_button_save() !!}
+                                    {!! get_button_cancel(url('master-vehicle'), 'Back') !!}
                                 </form>
 							   </div>
 						   </li>
@@ -48,10 +48,35 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
+    });
+
+    $("#form-vehicle-group").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-vehicle') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
 </script>
 @endpush

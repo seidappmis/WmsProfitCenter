@@ -11,10 +11,11 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('master-destination/{id}', 'web.master.master-destination.edit');
   Route::resource('master-destination', 'Web\MasterDestinationController');
 
-  Route::view('master-vehicle', 'web.master.master-vehicle.index');
-  Route::view('master-vehicle/create', 'web.master.master-vehicle.create');
-  Route::view('master-vehicle/{id}', 'web.master.master-vehicle.view');
-  Route::view('master-vehicle/2', 'web.master.master-vehicle.detail');
+  // Route::view('master-vehicle', 'web.master.master-vehicle.index');
+  // Route::view('master-vehicle/create', 'web.master.master-vehicle.create');
+  // Route::view('master-vehicle/{id}', 'web.master.master-vehicle.view');
+  // Route::view('master-vehicle/2', 'web.master.master-vehicle.detail');
+  Route::resource('master-vehicle', 'Web\VehicleController');
 
   Route::view('master-expedition', 'web.master.master-expedition.index');
   Route::view('master-expedition/create', 'web.master.master-expedition.create');

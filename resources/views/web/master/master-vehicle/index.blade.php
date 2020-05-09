@@ -45,15 +45,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td data-priority="1" width="30px">1.</td>
-                                  <td>8 METER</td>
-                                  <td>0</td>
-                                  <td width="50px;">
-                                    {!! get_button_view(url('master-vehicle/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr>
                               </tbody>
                           </table>
                         </div>
@@ -74,6 +65,20 @@
     serverSide: true,
     scrollX: true,
     responsive: true,
+    ajax: {
+        url: '{{ url('master-vehicle') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'group_name', name: 'group_name', className: 'detail'},
+        {data: 'id', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   $("input#global_filter").on("keyup click", function () {
@@ -93,7 +98,7 @@
 
       // Ask user confirmation to delete the data.
       swal({
-        text: "Delete Group Name " + data.city_code + "?",
+        text: "Delete Group Name " + data.group_name + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
@@ -102,7 +107,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('destination-city') }}' + '/' + data.city_code ,
+            url: '{{ url('master-vehicle') }}' + '/' + data.id ,
             type: 'DELETE',
             dataType: 'json',
           })
