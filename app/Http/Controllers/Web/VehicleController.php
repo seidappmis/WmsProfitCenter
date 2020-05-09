@@ -80,7 +80,9 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['vehicleGroup'] = Vehicle::findOrFail($id);
+
+        return view('web.master.master-vehicle.view', $data);
     }
 
     /**
