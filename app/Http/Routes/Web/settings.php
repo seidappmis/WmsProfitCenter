@@ -12,8 +12,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-area', 'web.settings.master-area.index');
     // Route::view('master-area/create', 'web.settings.master-area.create');
     // Route::view('master-area/1', 'web.settings.master-area.edit');
-    Route::get('master-area/select2-areas', 'Web\MasterAreaController@getSelect2Area');
-    Route::resource('master-area', 'Web\MasterAreaController');
+    Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
+    Route::resource('master-area', 'Web\AreaController');
 
     //Route::view('master-cabang', 'web.settings.master-cabang.index');
     //Route::view('master-cabang/create', 'web.settings.master-cabang.create');

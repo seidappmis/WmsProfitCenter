@@ -45,14 +45,14 @@
 
     function set_initial_form_data(){
 
-        set_select2_value('#area', '{{$masterGate->area_code}}', '{{$masterGate->MasterArea->area}}')
+        set_select2_value('#area', '{{$masterGate->area_id}}', '{{$masterGate->Area->area}}')
     };
 
 
  	$("#form-master-gate").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-gate/" . $masterGate->gate_number) }}',
+          url: '{{ url("master-gate/" . $masterGate->id) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })

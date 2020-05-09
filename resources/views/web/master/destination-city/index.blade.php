@@ -18,7 +18,7 @@
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter1">
+                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
                 <!---- Button Add ----->
@@ -71,7 +71,7 @@
         url: '{{ url('destination-city') }}',
         type: 'GET',
         data: function(d) {
-            d.search['value'] = $('#global_filter1').val()
+            d.search['value'] = $('#global_filter').val()
           }
     },
     order: [1, 'asc'],
