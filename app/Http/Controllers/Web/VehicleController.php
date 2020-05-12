@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
+use App\Models\VehicleDetail;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -70,7 +71,7 @@ class VehicleController extends Controller
     public function show(Request $request, $id)
     {
         if ($request->ajax()) {
-          $query = Vehicle::all();
+          $query = VehicleDetail::all();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -120,7 +121,14 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+          'group_name'  => 'max:45',
+        ]);
+
+        $vehicleGroup             = Vehicle::findOrFail($id);
+        $vehicleGroup->group_name = $request->input('group_name');
+
+        return $vehicleGroup->save();
     }
 
     /**

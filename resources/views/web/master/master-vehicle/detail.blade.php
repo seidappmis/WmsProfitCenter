@@ -24,7 +24,7 @@
 						   <li class="active">
 							   <div class="collapsible-header">Edit Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table">
+                                <form class="form-table" id="form-master-vehicle">
                                     <table>
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
@@ -58,10 +58,38 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
     });
+
+    // VEHICLE GROUP CATEGORY
+    $("#form-master-vehicle").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle/" . $vehicleGroup->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "Vehicle Group Category has been change", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+
+    // DETAIL
 </script>
 @endpush

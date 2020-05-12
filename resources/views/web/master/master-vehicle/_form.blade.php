@@ -3,31 +3,31 @@
         <tr>
             <td>Vehicle Code Type</td>
             <td>
-                <input id="category" type="text" class="validate">
+                <input id="vehicle_code_type" name="vehicle_code_type" type="text" class="validate">
             </td>
         </tr>
         <tr>
             <td>Description</td>
             <td>
-                <input id="description" type="text" class="validate"">
+                <input id="vehicle_desription" name="vehicle_desription" type="text" class="validate"">
             </td>
         </tr>
         <tr>
             <td>SAP Description</td>
             <td>
-                <input id="sap" type="text" class="validate"">
+                <input id="sap_description" name="sap_description" type="text" class="validate"">
             </td>
         </tr>
         <tr>
             <td>CBM MIN</td>
             <td>
-                <input id="min" type="number" class="validate"">
+                <input id="cbm_min" name="cbm_min" type="number" class="validate"">
             </td>
         </tr>
         <tr>
             <td>CBM MAX</td>
             <td>
-                <input id="max" type="number" class="validate"">
+                <input id="cbm_max" name="cbm_max" type="number" class="validate"">
             </td>
         </tr>
         <tr>
@@ -38,5 +38,5 @@
         </tr>
     </table>
     {!! get_button_save() !!}
-    {!! get_button_cancel(url('master-vehicle/1'),'Back') !!}
+    {!! get_button_cancel(url('master-vehicle/' . $vehicleGroup->id),'Back') !!}
 </form>

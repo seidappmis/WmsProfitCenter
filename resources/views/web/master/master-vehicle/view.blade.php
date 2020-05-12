@@ -24,7 +24,7 @@
 						   <li class="active">
 							   <div class="collapsible-header">Edit Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table">
+                                <form class="form-table" id="form-master-vehicle">
                                     <table>
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
@@ -79,16 +79,57 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
     });
 
+    // VEHICLE GROUP CATEGORY
+    $("#form-master-vehicle").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle/" . $vehicleGroup->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "Vehicle Group Category has been change", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id) }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+
+    // DETAIL
     var table = $('#data-table-vehicle-detail').DataTable({
-        // serverSide: true,
-        // scrollX: true,
+        serverSide: true,
+        scrollX: true,
         responsive: true,
+         ajax: {
+            url: '{{ url('master-vehicle/'. $vehicleGroup->id) }}',
+            type: 'GET',
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
+            {data: 'vehicle_desription', name: 'vehicle_desription', className: 'detail'},
+            {data: 'sap_description', name: 'sap_description', className: 'detail'},
+            {data: 'cbm_min', name: 'cbm_min', className: 'detail'},
+            {data: 'cbm_max', name: 'cbm_max', className: 'detail'},
+            {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        ]
     });
 </script>
 @endpush
