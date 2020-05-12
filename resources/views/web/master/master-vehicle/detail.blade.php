@@ -29,7 +29,7 @@
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
-                                                <input id="category" type="text" class="validate" name="category" value="8 METER">
+                                                <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
                                             </td>
                                         </tr>
                                     </table>
@@ -46,48 +46,7 @@
                            <li class="active">
                                <div class="collapsible-header">Detail</div>
                                <div class="collapsible-body white">
-                                <form class="form-table">
-                                    <table>
-                                        <tr>
-                                            <td>Vehicle Code Type</td>
-                                            <td>
-                                                <input id="category" type="text" class="validate">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Description</td>
-                                            <td>
-                                                <input id="description" type="text" class="validate"">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>SAP Description</td>
-                                            <td>
-                                                <input id="sap" type="text" class="validate"">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>CBM MIN</td>
-                                            <td>
-                                                <input id="min" type="number" class="validate"">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>CBM MAX</td>
-                                            <td>
-                                                <input id="max" type="number" class="validate"">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Number</td>
-                                            <td>
-                                                <input id="numb" type="number" class="validate"">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    {!! get_button_save() !!}
-                                    {!! get_button_cancel(url('master-vehicle/1'),'Back') !!}
-                                </form>
+                                 @include('web.master.master-vehicle._form')
                                </div>
                            </li>
                         </ul>

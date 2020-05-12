@@ -23,7 +23,7 @@ class VehicleController extends Controller
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id . '/view'));
+              $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -67,11 +67,37 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if ($request->ajax()) {
+          $query = Vehicle::all();
+
+          $datatables = DataTables::of($query)
+            ->addIndexColumn() //DT_RowIndex (Penomoran)
+            ->addColumn('action', function ($data) {
+              $action = '';
+              $action .= ' ' . get_button_edit(url('master-vehicle/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_delete();
+              return $action;
+            });
+
+          return $datatables->make(true);
+        }
+
         $data['vehicleGroup'] = Vehicle::findOrFail($id);
 
         return view('web.master.master-vehicle.view', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDetail($id)
+    {
+        $data['vehicleGroup'] = Vehicle::findOrFail($id);
+        return view('web.master.master-vehicle.detail',$data);
     }
 
     /**

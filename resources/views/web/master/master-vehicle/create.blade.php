@@ -29,7 +29,11 @@
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
-                                                <input id="group_name" type="text" class="validate" name="group_name">
+                                                <input id="group_name" 
+                                                type="text" 
+                                                class="validate"
+                                                name="group_name"
+                                                value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
                                             </td>
                                         </tr>
                                     </table>
@@ -69,8 +73,8 @@
         .done(function() { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-vehicle') }}"
+              // Kalau klik Ok redirect ke view
+              window.location.href = "{{ url('master-vehicle/{id}') }}"
             }) // alert success
         })
         .fail(function(xhr) {

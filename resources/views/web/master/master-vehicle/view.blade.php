@@ -29,7 +29,7 @@
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
-                                                <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_namep', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
+                                                <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
                                             </td>
                                         </tr>
                                     </table>
@@ -46,7 +46,28 @@
                            <li class="active">
                                <div class="collapsible-header">Detail</div>
                                <div class="collapsible-body white">
-                                <a class="waves-effect waves-light indigo btn" href="{{ url('master-vehicle/detail') }}">Add New Detail</a>
+                                <div class="row">
+                                <a class="waves-effect waves-light indigo btn" href="{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}">Add New Detail</a></div>
+                                <div class="row">
+                                    <div class="section-data-tables">
+                                      <table id="data-table-vehicle-detail" class="display" width="100%">
+                                          <thead>
+                                              <tr>
+                                                <th data-priority="1" width="30px">NO.</th>
+                                                <th>CODE TYPE</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>SAP DESCRIPTION</th>
+                                                <th>CBM MIN</th>
+                                                <th>CBM MAX</th>
+                                                <th width="50px;"></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                    <!-- datatable ends -->
+                                </div>
                                </div>
                            </li>
                         </ul>
@@ -62,6 +83,12 @@
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
+    });
+
+    var table = $('#data-table-vehicle-detail').DataTable({
+        // serverSide: true,
+        // scrollX: true,
+        responsive: true,
     });
 </script>
 @endpush
