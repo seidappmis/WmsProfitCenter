@@ -15,4 +15,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('billing-return', 'web.incoming.billing-return.index');
   Route::view('billing-return/{id}', 'web.incoming.billing-return.view');
+
+  Route::view('claim-notes', 'web.incoming.claim-notes.index');
+  Route::view('claim-notes/create', 'web.incoming.claim-notes.create');
+  Route::view('claim-notes/{id}', 'web.incoming.claim-notes.view');
 });
