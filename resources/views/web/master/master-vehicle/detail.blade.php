@@ -91,5 +91,24 @@
     });
 
     // DETAIL
+    $("#form-vehicle-detail").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle/" . $vehicleGroup->id . "/detail") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke view
+              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush
