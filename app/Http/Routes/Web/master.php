@@ -14,7 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('master-vehicle', 'web.master.master-vehicle.index');
   // Route::view('master-vehicle/create', 'web.master.master-vehicle.create');
   // Route::view('master-vehicle/{id}', 'web.master.master-vehicle.view');
-  Route::resource('master-vehicle/{id}/detail', 'Web\VehicleDetailController');
+  Route::resource('master-vehicle/{vehicle_group_id}/detail', 'Web\VehicleDetailController');
   Route::resource('master-vehicle', 'Web\VehicleController');
 
   Route::view('master-expedition', 'web.master.master-expedition.index');

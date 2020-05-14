@@ -29,8 +29,6 @@
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
-                                                @foreach ($vehicleGroup as $vehicleGroup)
-                                                @endforeach
                                                 <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
                                             </td>
                                         </tr>

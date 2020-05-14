@@ -15,11 +15,11 @@ class VehicleDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index(Request $request, $vehicle_group_id)
     {
         if ($request->ajax()) {
-          $query = VehicleDetail::all();
-          // $query = Vehicle::find($vehicle_group_id)->details;
+          // $query = VehicleDetail::all();
+          $query = Vehicle::find($vehicle_group_id)->details;
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -32,8 +32,10 @@ class VehicleDetailController extends Controller
 
           return $datatables->make(true);
         }
-        $data['vehicleGroup'] = Vehicle::findOrFail($id);
-
+        // $data['vehicleGroup'] = Vehicle::findOrFail($id);
+        $data = [
+          'vehicleGroup' => Vehicle::find($vehicle_group_id),
+        ];
         return view('web.master.master-vehicle.view', $data);
     }
 
@@ -42,10 +44,10 @@ class VehicleDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($vehicle_group_id)
     {
         $data = [
-          'vehicleGroup' => Vehicle::all(),
+          'vehicleGroup' => Vehicle::find($vehicle_group_id),
         ];
 
         return view('web.master.master-vehicle.detail', $data);
