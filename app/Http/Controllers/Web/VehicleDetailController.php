@@ -57,7 +57,7 @@ class VehicleDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $vehicle_group_id)
+    public function store(Request $request)
     {
         //
     }
@@ -68,12 +68,9 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($vehicle_group_id)
+    public function show($id)
     {
-        $data = [
-          'vehicleGroup' => Vehicle::find($vehicle_group_id),
-        ];
-        return view('web.master.master-vehicle.detail',$data);
+        //
     }
 
     /**
@@ -82,7 +79,7 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($vehicle_group_id)
+    public function edit($id)
     {
         //
     }
@@ -94,7 +91,7 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $vehicle_group_id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -105,7 +102,7 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($vehicle_group_id)
+    public function destroy($id)
     {
         //
     }
