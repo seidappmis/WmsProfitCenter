@@ -2,11 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class VehicleDetail extends Model
+class VehicleDetail extends BaseModel
 {
     //Set Table
     //if not set default : vehicledetails
     protected $table = "vehicle_type_details";
+
+    /**
+     * Get the vehicle group that owns the vehicle detail.
+     */
+    public function vehicle()
+    {
+        return $this->belongsTo('App\Models\Vehicle');
+    }
 }

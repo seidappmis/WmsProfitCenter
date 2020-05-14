@@ -47,7 +47,7 @@
                                <div class="collapsible-header">Detail</div>
                                <div class="collapsible-body white">
                                 <div class="row">
-                                <a class="waves-effect waves-light indigo btn" href="{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}">Add New Detail</a></div>
+                                <a class="waves-effect waves-light indigo btn" href="{{ url('master-vehicle/' . $vehicleGroup->id . '/detail/create') }}">Add New Detail</a></div>
                                 <div class="row">
                                     <div class="section-data-tables">
                                       <table id="data-table-vehicle-detail" class="display" width="100%">
@@ -102,7 +102,7 @@
           swal("Good job!", "Vehicle Group Category has been change", "success")
             .then((result) => { 
               // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id) }}"
+              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
             }) // alert success
         })
         .fail(function(xhr) {
@@ -117,7 +117,7 @@
         scrollX: true,
         responsive: true,
          ajax: {
-            url: '{{ url('master-vehicle/'. $vehicleGroup->id) }}',
+            url: '{{ url('master-vehicle/'. $vehicleGroup->id . '/detail') }}',
             type: 'GET',
         },
         order: [1, 'asc'],

@@ -7,32 +7,34 @@ use App\Models\Vehicle;
 use App\Models\VehicleDetail;
 use DataTables;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
 
-class VehicleController extends Controller
+class VehicleDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         if ($request->ajax()) {
-          $query = Vehicle::all();
+          $query = VehicleDetail::all();
+          // $query = Vehicle::find($vehicle_group_id)->details;
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id . '/detail'));
+              $action .= ' ' . get_button_edit(url('master-vehicle/' . $data->id . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
 
           return $datatables->make(true);
         }
-        return view('web.master.master-vehicle.index');
+        $data['vehicleGroup'] = Vehicle::findOrFail($id);
+
+        return view('web.master.master-vehicle.view', $data);
     }
 
     /**
@@ -46,7 +48,7 @@ class VehicleController extends Controller
           'vehicleGroup' => Vehicle::all(),
         ];
 
-        return view('web.master.master-vehicle.create', $data);
+        return view('web.master.master-vehicle.detail', $data);
     }
 
     /**
@@ -55,16 +57,9 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $vehicle_group_id)
     {
-        $request->validate([
-          'group_name'  => 'max:45',
-        ]);
-
-        $vehicleGroup             = new Vehicle;
-        $vehicleGroup->group_name = $request->input('group_name');
-
-        return $vehicleGroup->save();
+        //
     }
 
     /**
@@ -73,9 +68,12 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($vehicle_group_id)
     {
-        //
+        $data = [
+          'vehicleGroup' => Vehicle::find($vehicle_group_id),
+        ];
+        return view('web.master.master-vehicle.detail',$data);
     }
 
     /**
@@ -84,7 +82,7 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($vehicle_group_id)
     {
         //
     }
@@ -96,16 +94,9 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $vehicle_group_id)
     {
-        $request->validate([
-          'group_name'  => 'max:45',
-        ]);
-
-        $vehicleGroup             = Vehicle::findOrFail($id);
-        $vehicleGroup->group_name = $request->input('group_name');
-
-        return $vehicleGroup->save();
+        //
     }
 
     /**
@@ -114,8 +105,8 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($vehicle_group_id)
     {
-        return Vehicle::destroy($id);
+        //
     }
 }

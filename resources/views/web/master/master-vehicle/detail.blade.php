@@ -29,6 +29,8 @@
                                         <tr>
                                             <td>VEHICLE GROUP CATEGORY</td>
                                             <td>
+                                                @foreach ($vehicleGroup as $vehicleGroup)
+                                                @endforeach
                                                 <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
                                             </td>
                                         </tr>
@@ -81,7 +83,7 @@
           swal("Good job!", "Vehicle Group Category has been change", "success")
             .then((result) => { 
               // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}"
+              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
             }) // alert success
         })
         .fail(function(xhr) {
