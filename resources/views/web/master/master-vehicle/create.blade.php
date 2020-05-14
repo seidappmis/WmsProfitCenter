@@ -32,14 +32,15 @@
                                                 <input id="group_name" 
                                                 type="text" 
                                                 class="validate"
-                                                name="group_name"
-                                                value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
+                                                name="group_name">
                                             </td>
                                         </tr>
                                     </table>
                                     {!! get_button_save() !!}
                                     {!! get_button_cancel(url('master-vehicle'), 'Back') !!}
                                 </form>
+                                @foreach ($vehicleGroup as $vehicleGroup)
+                                @endforeach
 							   </div>
 						   </li>
 						</ul>
@@ -74,7 +75,7 @@
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle/detail/') }}"
+              window.location.href = "{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}"
             }) // alert success
         })
         .fail(function(xhr) {

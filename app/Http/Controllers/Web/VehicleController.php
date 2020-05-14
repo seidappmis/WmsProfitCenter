@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use App\Models\VehicleDetail;
 use DataTables;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\DB;
 
 class VehicleController extends Controller
 {
@@ -41,8 +42,11 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        // $data['vehicleGroup'] = Vehicle::findOrFail($id);
-        return view('web.master.master-vehicle.create');
+        $data = [
+          'vehicleGroup' => Vehicle::all(),
+        ];
+
+        return view('web.master.master-vehicle.create', $data);
     }
 
     /**
