@@ -38,5 +38,5 @@
         </tr>
     </table>
     {!! get_button_save() !!}
-    {!! get_button_cancel(url('master-vehicle/'),'Back') !!}
+    {!! get_button_cancel(url('master-vehicle/' . $vehicleGroup->id . '/detail'),'Back') !!}
 </form>
