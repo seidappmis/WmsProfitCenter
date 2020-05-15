@@ -36,7 +36,8 @@ class VehicleDetailController extends Controller
         $data = [
           'vehicleGroup' => Vehicle::find($vehicle_group_id),
         ];
-        return view('web.master.master-vehicle.view', $data);
+
+        return view('web.master.master-vehicle.detail.view', $data);
     }
 
     /**
@@ -50,7 +51,7 @@ class VehicleDetailController extends Controller
           'vehicleGroup' => Vehicle::find($vehicle_group_id),
         ];
 
-        return view('web.master.master-vehicle.detail', $data);
+        return view('web.master.master-vehicle.detail.create', $data);
     }
 
     /**
@@ -90,14 +91,14 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($vehicle_group_id, $id)
+    public function edit($vehicle_group_id, $vehicle_detail_id)
     {
         $data = [
           'vehicleGroup' => Vehicle::find($vehicle_group_id),
-          'vehicleDetail' => VehicleDetail::find($id),
+          'vehicleDetail' => VehicleDetail::find($vehicle_detail_id),
         ];
 
-        return view('web.master.master-vehicle.detail', $data);
+        return view('web.master.master-vehicle.detail.edit', $data);
     }
 
     /**
@@ -107,9 +108,18 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $vehicle_group_id, $vehicle_detail_id)
     {
-        //
+        $vehicleDetail                     = VehicleDetail::findOrFail($vehicle_detail_id);
+        $vehicleDetail->vehicle_group_id   = $vehicle_group_id;
+        $vehicleDetail->vehicle_code_type  = $request->input('vehicle_code_type');
+        $vehicleDetail->vehicle_desription = $request->input('vehicle_desription');
+        $vehicleDetail->sap_description    = $request->input('sap_description');
+        $vehicleDetail->cbm_min            = $request->input('cbm_min');
+        $vehicleDetail->cbm_max            = $request->input('cbm_max');
+        // $vehicleDetail->number = $request->input('numb');
+
+        return $vehicleDetail->save();
     }
 
     /**
@@ -118,11 +128,12 @@ class VehicleDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $vehicle_group_id)
+    public function destroy($vehicle_group_id, $vehicle_detail_id)
     {
-        $data = [
-          'vehicleGroup' => Vehicle::find($vehicle_group_id),
-        ];
-        return VehicleDetail::destroy($id);
+        // delete data detail table only
+        // vehicle_group_id  : id for vehicle type group
+        // vehicle_detail_id : id for vehicle type detail
+
+        return VehicleDetail::destroy($vehicle_detail_id);
     }
 }

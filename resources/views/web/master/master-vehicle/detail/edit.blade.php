@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle</li>
+                    <li class="breadcrumb-item">Master Vehicle</li>
+                    <li class="breadcrumb-item active">Edit Detail</li>
                 </ol>
             </div>
         </div>
@@ -24,18 +25,7 @@
 						   <li class="active">
 							   <div class="collapsible-header">Edit Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table" id="form-master-vehicle">
-                                    <table>
-                                        <tr>
-                                            <td>VEHICLE GROUP CATEGORY</td>
-                                            <td>
-                                                <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    {!! get_button_save('Update') !!}
-                                    {!! get_button_cancel(url('master-vehicle'),'Back') !!}
-                                </form>
+                                @include('web.master.master-vehicle.group._form')
 							   </div>
 						   </li>
 						</ul>
@@ -46,7 +36,7 @@
                            <li class="active">
                                <div class="collapsible-header">Detail</div>
                                <div class="collapsible-body white">
-                                 @include('web.master.master-vehicle._form')
+                                 @include('web.master.master-vehicle.detail._form')
                                </div>
                            </li>
                         </ul>
@@ -65,12 +55,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
  	$('.collapsible').collapsible({
         accordion:true
     });
 
     // VEHICLE GROUP CATEGORY
-    $("#form-master-vehicle").validate({
+    $("#form-vehicle-group").validate({
       submitHandler: function(form) {
         $.ajax({
           url: '{{ url("master-vehicle/" . $vehicleGroup->id) }}',
@@ -94,8 +88,8 @@
     $("#form-vehicle-detail").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-vehicle/" . $vehicleGroup->id . "/detail") }}',
-          type: 'POST',
+          url: '{{ url("master-vehicle/" . $vehicleGroup->id . "/detail/" . $vehicleDetail->id) }}',
+          type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil

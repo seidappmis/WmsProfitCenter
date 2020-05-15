@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle</li>
+                    <li class="breadcrumb-item"><a href="{{ url('master-vehicle') }}">Master Vehicle</a></li>
+                    <li class="breadcrumb-item active">Create</li>
                 </ol>
             </div>
         </div>
@@ -24,23 +25,7 @@
 						   <li class="active">
 							   <div class="collapsible-header">New Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table" id="form-vehicle-group">
-                                    <table>
-                                        <tr>
-                                            <td>VEHICLE GROUP CATEGORY</td>
-                                            <td>
-                                                <input id="group_name" 
-                                                type="text" 
-                                                class="validate"
-                                                name="group_name">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    {!! get_button_save() !!}
-                                    {!! get_button_cancel(url('master-vehicle'), 'Back') !!}
-                                </form>
-                                @foreach ($vehicleGroup as $vehicleGroup)
-                                @endforeach
+                                @include('web.master.master-vehicle.group._form')
 							   </div>
 						   </li>
 						</ul>
