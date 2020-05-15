@@ -69,7 +69,7 @@ class VehicleDetailController extends Controller
         $vehicleDetail->sap_description    = $request->input('sap_description');
         $vehicleDetail->cbm_min            = $request->input('cbm_min');
         $vehicleDetail->cbm_max            = $request->input('cbm_max');
-        // $vehicleDetail->number = $request->input('numb');
+        $vehicleDetail->urut               = $request->input('numb');
 
         return $vehicleDetail->save();
     }
@@ -117,7 +117,7 @@ class VehicleDetailController extends Controller
         $vehicleDetail->sap_description    = $request->input('sap_description');
         $vehicleDetail->cbm_min            = $request->input('cbm_min');
         $vehicleDetail->cbm_max            = $request->input('cbm_max');
-        // $vehicleDetail->number = $request->input('numb');
+        $vehicleDetail->urut               = $request->input('numb');
 
         return $vehicleDetail->save();
     }
