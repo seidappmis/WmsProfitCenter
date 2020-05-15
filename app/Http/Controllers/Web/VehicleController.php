@@ -42,10 +42,10 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCreate($vehicle_group_id)
+    public function getCreate($id)
     {
         $data = [
-          'vehicleGroup' => Vehicle::find($vehicle_group_id),
+          'vehicleGroup' => Vehicle::find($id),
         ];
 
         return view('web.master.master-vehicle.group.create', $data);
