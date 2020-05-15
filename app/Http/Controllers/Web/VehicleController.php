@@ -42,13 +42,23 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getCreate($vehicle_group_id)
     {
         $data = [
-          'vehicleGroup' => Vehicle::all(),
+          'vehicleGroup' => Vehicle::find($vehicle_group_id),
         ];
 
         return view('web.master.master-vehicle.group.create', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('web.master.master-vehicle.group.create');
     }
 
     /**

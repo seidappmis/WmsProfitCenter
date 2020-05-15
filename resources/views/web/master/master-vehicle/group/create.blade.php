@@ -60,7 +60,7 @@
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle/detail/' . $vehicleGroup->id) }}"
+              window.location.href = "{{ url('master-vehicle') }}"
             }) // alert success
         })
         .fail(function(xhr) {
