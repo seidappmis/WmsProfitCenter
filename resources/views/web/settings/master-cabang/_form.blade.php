@@ -10,8 +10,7 @@
                    type="text"
                    class="validate"
                    name="customer"
-                   value="{{old('code_customer', !empty($masterCabang) ? $masterCabang->code_customer : '')}}"
-                   required>
+                   value="{{old('code_customer', !empty($masterCabang) ? $masterCabang->code_customer : '')}}">
                 </div>
             </td>
         </tr>
@@ -23,8 +22,7 @@
                    type="text"
                    class="validate"
                    name="cabang"
-                   value="{{old('code_cabang', !empty($masterCabang) ? $masterCabang->code_cabang : '')}}"
-                   required>
+                   value="{{old('code_cabang', !empty($masterCabang) ? $masterCabang->code_cabang : '')}}">
                 </div>
             </td>
         </tr>
@@ -57,8 +55,7 @@
             <td>
                 <div class="input-field col s12">
                     <select id="region"
-                    class="select2-data-ajax browser-default select-region"
-                    required>
+                    class="select2-data-ajax browser-default select-region">
                         <option></option>
                     </select>
                 </div>
@@ -69,8 +66,7 @@
             <td>
                 <div class="input-field col s12">
                     <select id="tycode"
-                    class="select2-data-ajax browser-default select-tycode"
-                    required>
+                    class="select2-data-ajax browser-default select-tycode">
                         <option></option>
                     </select>
                 </div>
@@ -107,3 +103,27 @@
     {!! get_button_save() !!}
     {!! get_button_cancel(url('master-cabang')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading region data
+      $('.select-region').select2({
+         placeholder: '-- Select --',
+         ajax: get_select2_ajax_options('/master-region/select2-regions')
+      });
+   });
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading region data
+      $('.select-tycode').select2({
+         placeholder: '-- Select --',
+         ajax: get_select2_ajax_options('/master-tycode/select2-tycodes')
+      });
+   });
+</script>
+@endpush

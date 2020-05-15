@@ -96,8 +96,8 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'customer', name: 'customer', className: 'detail'},
-        {data: 'cabang', name: 'cabang', className: 'detail'},
+        {data: 'code_customer', name: 'code_customer', className: 'detail'},
+        {data: 'code_cabang', name: 'code_cabang', className: 'detail'},
         {data: 'sdes', name: 'sdes', className: 'detail'},
         {data: 'ldes', name: 'ldes', className: 'detail'},
         {data: 'region', name: 'region', className: 'detail'},

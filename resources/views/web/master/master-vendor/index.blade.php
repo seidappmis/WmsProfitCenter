@@ -28,13 +28,13 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
+                        <div class="section-data-tables">
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
@@ -50,18 +50,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1</td>
-                                <td>10ED03</td>
-                                <td>DAEWOO ELECTRONICS (M) SDN.BHD.</td>
-                                <td>DAEWOO ELECTRONICS (M) SDN.BHD.</td>
-                                <td>LOT 8,JLN PKNK, 1/2 SUNGAI PETANI INDUSTRIAL ESTATE</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                  {!! get_button_edit(url('master-vendor/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td>
+
                               </tbody>
                           </table>
                         </div>
@@ -78,26 +67,59 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "scrollX": true,
+  var table = $('#data-table-master-vendor').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-vendor') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'vendor_code', name: 'vendor_code', className: 'detail'},
+        {data: 'vendor_name', name: 'vendor_name', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'vendor_address', name: 'vendor_address', className: 'detail'},
+        {data: 'contact_person_name', name: 'contact_person_name', className: 'detail'},
+        {data: 'contact_person_phone', name: 'contact_person_phone', className: 'detail'},
+        {data: 'contact_person_email', name: 'contact_person_email', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
       swal({
-        text: "Delete vendor : DAEWOO ELECTRONICS (M) SDN.BHD.?",
+        text: "Delete the Vendor " + data.vendor_code + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
           delete: 'Yes, Delete It'
         }
       }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-vendor') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
         }
       })
     });

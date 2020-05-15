@@ -14,7 +14,7 @@ class CreateMasterCabangTable extends Migration
     public function up()
     {
         Schema::create('master_cabang', function (Blueprint $table) {
-            // $table->id();
+            $table->id();
             $table->string('code_customer', 8);
             $table->string('code_cabang', 2);
             $table->string('sdes', 3)->nullable();
