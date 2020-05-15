@@ -96,7 +96,7 @@
                             <div class="row">
                               <div class="input-field col s12">
                                 {!! get_button_save() !!}
-                                {!! get_button_clear() !!}
+                                {!! get_button_delete('Clear') !!}
                               </div>
                             </div>
                           </div>

@@ -69,7 +69,7 @@
 
                   <div class="row mb-5">
                     <div class="col s12">
-                    {!! get_button_load() !!}
+                    {!! get_button_save('Load') !!}
                     </div>
 
                   </div>

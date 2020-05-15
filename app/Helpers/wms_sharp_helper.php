@@ -2,12 +2,12 @@
 
 // view, detail, view detail
 function get_button_view($url = '#', $label = "View"){
-  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 btn-view" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mt-2" href="' . $url . '">' . $label . '</a>';
 }
 
 // print
 function get_button_print($url = '#', $label = "Print"){
-  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print mt-1" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print mt-2" href="' . $url . '">' . $label . '</a>';
 }
 
 // send back
@@ -22,7 +22,7 @@ function get_button_edit($url = '#', $label = "Edit"){
 
 // delete, clear
 function get_button_delete($label = "Delete"){
-  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete" >' . $label . '</a>';
+  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete mt-1" >' . $label . '</a>';
 }
 
 // save, update, submit, load
