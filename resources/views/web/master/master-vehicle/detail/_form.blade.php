@@ -38,7 +38,8 @@
         <tr>
             <td>Number</td>
             <td>
-                <input id="numb" type="number" class="validate">
+                <input id="numb" type="number" class="validate"
+                value="{{old('urut', !empty($vehicleDetail) ? $vehicleDetail->urut : '')}}">
             </td>
         </tr>
     </table>

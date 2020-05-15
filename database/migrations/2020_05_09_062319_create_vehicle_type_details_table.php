@@ -21,7 +21,8 @@ class CreateVehicleTypeDetailsTable extends Migration
             $table->decimal('cbm_min', 8, 2)->nullable();
             $table->decimal('cbm_max', 8, 2)->nullable();
             $table->string('sap_description', 100)->nullable();
-            // $table->string('vehicle_merk', 100)->nullable();
+            $table->string('vehicle_merk', 100)->nullable();
+            $table->integer('urut')->nullable();
             
             $table->timestamps();
             $table->integer('created_by')->nullable();

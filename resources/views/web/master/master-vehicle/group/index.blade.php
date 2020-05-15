@@ -76,7 +76,7 @@
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'group_name', name: 'group_name', className: 'detail'},
-        {data: 'id', className: 'detail'},
+        {data: 'detail_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });

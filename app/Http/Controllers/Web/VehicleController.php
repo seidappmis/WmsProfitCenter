@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
-use App\Models\VehicleDetail;
 use DataTables;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class VehicleController extends Controller
 {
@@ -23,6 +22,9 @@ class VehicleController extends Controller
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
+            ->addColumn('detail_code', function ($data) {
+              return $data->details()->count();
+            })
             ->addColumn('action', function ($data) {
               $action = '';
               $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id . '/detail'));
@@ -32,7 +34,21 @@ class VehicleController extends Controller
 
           return $datatables->make(true);
         }
-        return view('web.master.master-vehicle.index');
+        return view('web.master.master-vehicle.group.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCreate($id)
+    {
+        $data = [
+          'vehicleGroup' => Vehicle::find($id),
+        ];
+
+        return view('web.master.master-vehicle.group.create', $data);
     }
 
     /**
@@ -42,11 +58,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        $data = [
-          'vehicleGroup' => Vehicle::all(),
-        ];
-
-        return view('web.master.master-vehicle.create', $data);
+        return view('web.master.master-vehicle.group.create');
     }
 
     /**
@@ -116,6 +128,16 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        return Vehicle::destroy($id);
+        // delete datatable group and
+        // delete all datatable detail with same id group
+
+        $vehicleGroup = Vehicle::find($id);
+
+        return DB::transaction(function () use($vehicleGroup){
+            return (
+                $vehicleGroup->details()->delete()
+                && $vehicleGroup->delete()
+            );
+        });
     }
 }

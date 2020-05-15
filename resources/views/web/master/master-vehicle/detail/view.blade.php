@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle</li>
+                    <li class="breadcrumb-item"><a href="{{ url('master-vehicle') }}">Master Vehicle</a></li>
+                    <li class="breadcrumb-item active">View</li>
                 </ol>
             </div>
         </div>
@@ -20,27 +21,16 @@
             <div class="section">
                 <!-- <div class="card"> -->
                     <div class="card-content">
-                        <ul class="collapsible">
-						   <li class="active">
-							   <div class="collapsible-header">Edit Vehicle Group Category</div>
-							   <div class="collapsible-body white">
-                                <form class="form-table" id="form-master-vehicle">
-                                    <table>
-                                        <tr>
-                                            <td>VEHICLE GROUP CATEGORY</td>
-                                            <td>
-                                                <input id="group_name" type="text" class="validate" name="group_name" value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    {!! get_button_save('Update') !!}
-                                    {!! get_button_cancel(url('master-vehicle'),'Back') !!}
-                                </form>
-							   </div>
-						   </li>
-						</ul>
+                      <ul class="collapsible">
+          						  <li class="active">
+          							  <div class="collapsible-header">Edit Vehicle Group Category</div>
+          							  <div class="collapsible-body white">
+                            @include('web.master.master-vehicle.group._form')  
+          							  </div>
+          						  </li>
+          						</ul>
                     </div>
-                <!-- </div> -->
+                    <!-- </div> -->
                     <div class="card-content">
                         <ul class="collapsible">
                            <li class="active">
@@ -86,12 +76,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
  	$('.collapsible').collapsible({
         accordion:true
     });
 
     // VEHICLE GROUP CATEGORY
-    $("#form-master-vehicle").validate({
+    $("#form-vehicle-group").validate({
       submitHandler: function(form) {
         $.ajax({
           url: '{{ url("master-vehicle/" . $vehicleGroup->id) }}',
