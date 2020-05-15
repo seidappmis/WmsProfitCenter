@@ -44,18 +44,23 @@
                                     <th data-priority="1" width="30px">NO.</th>
                                     <th>BERITA ACARA</th>
                                     <th>CLAIM NOTE</th>
-                                    <th>TOTAL</th>
+                                    <th>REPORTING DATE</th>
+                                    <th>EXPEDITION NAME</th>
+                                    <th>DESTINATION</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <td>1.</td>
-                                  <td>05/BA-PKU/11/2017</td>
+                                  <td></td>
                                   <td>01/Claim CB-Nittsu/Okt/2017</td>
-                                  <td>617.100</td>
+                                  <td>13-Oct</td>
+                                  <td>NITTSU LEMO INDONESIA LOGISTIK, PT.</td>
+                                  <td>Mishandling Swadaya</td>
                                   <td>
-                                    {!! get_button_view(url('claim-notes/1'), 'Detail') !!}
+                                    {!! get_button_view(url('claim-notes/1')) !!}
+                                    {!! get_button_print() !!}
                                   </td>
                                 </tr>
                               </tbody>
