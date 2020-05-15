@@ -41,20 +41,21 @@
                           <table id="data-table-section-contents" class="display" width="100%">
                               <thead>
                                   <tr>
-                                    <th data-priority="1" width="30px">No.</th>
-                                    <th>CLAIM NO</th>
-                                    <th>CABANG/AREA</th>
+                                    <th data-priority="1" width="30px">NO.</th>
+                                    <th>BERITA ACARA</th>
+                                    <th>CLAIM NOTE</th>
+                                    <th>TOTAL</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <tr>
                                   <td>1.</td>
-                                  <td>CC001</td>
-                                  <td></td>
+                                  <td>05/BA-PKU/11/2017</td>
+                                  <td>01/Claim CB-Nittsu/Okt/2017</td>
+                                  <td>617.100</td>
                                   <td>
-                                    {!! get_button_view(url('claim-notes/1')) !!}
-                                    {!! get_button_print() !!}
+                                    {!! get_button_view(url('claim-notes/1'), 'Detail') !!}
                                   </td>
                                 </tr>
                               </tbody>

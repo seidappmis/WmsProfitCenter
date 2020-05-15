@@ -28,18 +28,6 @@ function get_button_cancel($url = '#', $label = "Cancel"){
   return '<a class="waves-effect btn-flat mt-2 mb-1" href="' . $url . '">' . $label . '</a>';
 }
 
-function get_button_submit($label = "Submit"){
-  return '<a class="waves-effect waves-light indigo btn-small btn btn-save mr-2">' . $label . '</a>';
-}
-
-function get_button_clear($label = "Clear"){
-  return '<a class="waves-effect waves-light red darken-4 btn btn-delete mt-2 mr-2 mb-1" >' . $label . '</a>';
-}
-
-function get_button_update($label = "Update"){
-  return '<a class="waves-effect waves-light indigo btn btn-delete mt-2 mr-1 mb-1" >' . $label . '</a>';
-}
-
 function get_button_load($label = "Load"){
   return '<a class="waves-effect waves-light indigo btn btn-delete mt-2 mr-1 mb-1" >' . $label . '</a>';
 }
