@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\MasterGate;
+use App\Models\Vehicle;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterGateController extends Controller
+class VehicleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,27 +18,37 @@ class MasterGateController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          // $query = MasterGate::all();
-          $query = MasterGate::select(
-            'gate_number',
-            'description',
-            DB::raw('master_areas.area AS area_name')
-          )
-            ->leftjoin('master_areas', 'master_gates.area_code', '=', 'master_areas.code')
-            ->get();
+          $query = Vehicle::all();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
+            ->addColumn('detail_code', function ($data) {
+              return $data->details()->count();
+            })
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-gate/' . $data->gate_number . '/edit'));
+              $action .= ' ' . get_button_view(url('master-vehicle/' . $data->id . '/detail'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
 
-           return $datatables->make(true);
+          return $datatables->make(true);
         }
-        return view('web.master.master-gate.index');
+        return view('web.master.master-vehicle.group.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCreate($id)
+    {
+        $data = [
+          'vehicleGroup' => Vehicle::find($id),
+        ];
+
+        return view('web.master.master-vehicle.group.create', $data);
     }
 
     /**
@@ -48,7 +58,7 @@ class MasterGateController extends Controller
      */
     public function create()
     {
-        return view('web.master.master-gate.create');
+        return view('web.master.master-vehicle.group.create');
     }
 
     /**
@@ -60,17 +70,13 @@ class MasterGateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'gate_number'  => 'required|unique:master_gates|max:10',
-          'description'  => 'required|max:100',
-          'area'         => 'required',
+          'group_name'  => 'max:45',
         ]);
 
-        $masterGate              = new MasterGate;
-        $masterGate->gate_number = $request->input('gate_number');
-        $masterGate->description = $request->input('description');
-        $masterGate->area_code   = $request->input('area');
+        $vehicleGroup             = new Vehicle;
+        $vehicleGroup->group_name = $request->input('group_name');
 
-        return $masterGate->save();
+        return $vehicleGroup->save();
     }
 
     /**
@@ -92,9 +98,7 @@ class MasterGateController extends Controller
      */
     public function edit($id)
     {
-        $data['masterGate'] = MasterGate::findOrFail($id);
-
-    return view('web.master.master-gate.edit', $data);
+        //
     }
 
     /**
@@ -107,17 +111,13 @@ class MasterGateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'gate_number'  => 'required|max:10',
-          'description'  => 'required|max:100',
-          'area'         => 'required',
+          'group_name'  => 'max:45',
         ]);
 
-        $masterGate              = MasterGate::findOrFail($id);
-        $masterGate->gate_number = $request->input('gate_number');
-        $masterGate->description = $request->input('description');
-        $masterGate->area_code   = $request->input('area');
+        $vehicleGroup             = Vehicle::findOrFail($id);
+        $vehicleGroup->group_name = $request->input('group_name');
 
-        return $masterGate->save();
+        return $vehicleGroup->save();
     }
 
     /**
@@ -128,6 +128,16 @@ class MasterGateController extends Controller
      */
     public function destroy($id)
     {
-        return MasterGate::destroy($id);
+        // delete datatable group and
+        // delete all datatable detail with same id group
+
+        $vehicleGroup = Vehicle::find($id);
+
+        return DB::transaction(function () use($vehicleGroup){
+            return (
+                $vehicleGroup->details()->delete()
+                && $vehicleGroup->delete()
+            );
+        });
     }
 }

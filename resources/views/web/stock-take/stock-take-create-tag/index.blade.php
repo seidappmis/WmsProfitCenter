@@ -67,8 +67,8 @@
                       <div class="col s12 m6">
                         <div class="display-flex">
                           <!---- Search ----->
-                          {!! get_button_submit() !!}
-                          {!! get_button_print(url('#')) !!}
+                          {!! get_button_save('Submit') !!}
+                          {!! get_button_print() !!}
                         </div>
                       </div>
 

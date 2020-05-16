@@ -26,6 +26,7 @@ class CreateMasterExpeditionTable extends Migration
             $table->string('bank')->nullable();
             $table->string('currency')->nullable();
             $table->boolean('active')->default(0);
+
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

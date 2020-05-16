@@ -93,8 +93,8 @@
                             </form>
                             <div class="row">
                               <div class="input-field col s12">
-                                {!! get_button_update() !!}
-                                {!! get_button_clear() !!}
+                                {!! get_button_save('Update') !!}
+                                {!! get_button_delete('Clear') !!}
                               </div>
                             </div>
                           </div>

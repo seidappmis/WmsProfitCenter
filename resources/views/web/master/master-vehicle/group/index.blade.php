@@ -6,10 +6,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Cabang</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Cabang</li>
+                    <li class="breadcrumb-item active">Master Vehicle</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -22,57 +22,36 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-cabang/create') }}">New Cabang</a>
-              </div>
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle/create') }}">New Vehicle Group</a>
             </div>
             <div class="col s12 m3">
             </div>
         </div>
     @endcomponent
-
+    
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables">
-                          <table id="data-table-master-cabang" class="display" width="100%">
+                        <div class="section-data-tables"> 
+                          <table id="data-table-master-vehicle" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th width="150px;">Kode Customer</th>
-                                    <th width="150px;">Kode Cabang</th>
-                                    <th width="150px;">Short Description</th>
-                                    <th width="150px;">Long Description</th>
-                                    <th>REGION</th>
-                                    <th width="50px;">Type</th>
-                                    <th width="50px;">HQ</th>
-                                    <th width="150px;">WMS START</th>
+                                    <th>VEHICLE CATEGORY GROUP</th>
+                                    <th>DETAIL CODE</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
-                                <!--<tr>
-                                  <td>1.</td>
-                                  <td>10000000</td>
-                                  <td>10</td>
-                                  <td>HYP</td>
-                                  <td>PT. SEID HQ JKT</td>
-                                  <td>JABODETABEK</td>
-                                  <td>BR</td>
-                                  <td>HQ</td>
-                                  <td></td>
-                                  <td>
-                                    {!! get_button_edit(url('master-cabang/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> -->
                               </tbody>
                           </table>
                         </div>
                         <!-- datatable ends -->
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -82,12 +61,12 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-master-cabang').DataTable({
+  var table = $('#data-table-master-vehicle').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
     ajax: {
-        url: '{{ url('master-cabang') }}',
+        url: '{{ url('master-vehicle') }}',
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
@@ -96,35 +75,39 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'code_customer', name: 'code_customer', className: 'detail'},
-        {data: 'code_cabang', name: 'code_cabang', className: 'detail'},
-        {data: 'sdes', name: 'sdes', className: 'detail'},
-        {data: 'ldes', name: 'ldes', className: 'detail'},
-        {data: 'region', name: 'region', className: 'detail'},
-        {data: 'tycode', name: 'tycode', className: 'detail'},
-        {data: 'hq', name: 'hq', className: 'detail'},
-        {data: 'wms', name: 'wms', className: 'detail'},
+        {data: 'group_name', name: 'group_name', className: 'detail'},
+        {data: 'detail_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
 
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
       swal({
-        text: "Delete the Kode Cabang " + data.code_cabang + "?",
+        text: "Delete Group Name " + data.group_name + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
           delete: 'Yes, Delete It'
         }
       }).then(function (confirm) { // proses confirm
-        if (confirm) {
-            $.ajax({
-            url: '{{ url('master-cabang') }}' + '/' + data.code_cabang ,
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-vehicle') }}' + '/' + data.id ,
             type: 'DELETE',
             dataType: 'json',
           })
@@ -138,14 +121,5 @@
         }
       })
     });
-
-  $("input#global_filter").on("keyup click", function () {
-    filterGlobal();
-  });
-
-  // Custom search
-  function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
 </script>
 @endpush

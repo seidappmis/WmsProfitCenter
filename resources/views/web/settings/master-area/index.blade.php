@@ -107,7 +107,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('master-area') }}' + '/' + data.code ,
+            url: '{{ url('master-area') }}' + '/' + data.area ,
             type: 'DELETE',
             dataType: 'json',
           })

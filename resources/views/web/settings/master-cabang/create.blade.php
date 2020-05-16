@@ -14,97 +14,15 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">New Cabang</h4>
-                    	<form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>Kode Customer</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                           <input id="customer" type="text" class="validate" name="customer" required>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Kode Cabang</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                           <input id="cabang" type="text" class="validate" name="cabang" required>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Short Description</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                           <input id="sdes" type="text" class="validate">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Long Description</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                           <input id="ldes" type="text" class="validate">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Region</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <select>
-										        <option value="" disabled selected></option>
-										        <!-- <option value="1">admincheck</option>
-										        <option value="2">allocation</option>
-										        <option value="3">Audit</optio -->
-										    </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Type Code</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <select>
-										        <option value="" disabled selected>-- Select Type --</option>
-										        <option value="1">BR</option>
-										        <option value="2">DS</option>
-										    </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>HQ</td>
-                                    <td>
-                                        <div class="input-field col s12 mt-2">
-                                            <p>
-										    <label>
-										      <input type="checkbox" class="filled-in" />
-										      <span></span>
-										    </label>
-										  </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>START WMS</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                           <input id="wms" type="text" class="validate" name="wms">
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save() !!}
-                            {!! get_button_cancel(url('master-cabang')) !!}
-                        </form>
+                        @include('web.settings.master-cabang._form')
+
                     </div>
                 </div>
             </div>
@@ -115,7 +33,30 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
- 	
+    $("#form-master-cabang").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-cabang") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-cabang') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

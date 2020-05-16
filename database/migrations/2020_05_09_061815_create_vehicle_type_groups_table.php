@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterGatesTable extends Migration
+class CreateVehicleTypeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateMasterGatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_gates', function (Blueprint $table) {
-            // $table->id();
-            $table->string('gate_number', 10);
-            $table->string('description', 100)->nullable();
-            $table->string('area_code', 100)->nullable();
-
+        Schema::create('vehicle_type_groups', function (Blueprint $table) {
+            $table->id();
+            $table->string('group_name', 45)->nullable();
+            
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-
-            $table->primary('gate_number'); // add primary key
         });
     }
 
@@ -34,6 +30,6 @@ class CreateMasterGatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_gates');
+        Schema::dropIfExists('vehicle_type_groups');
     }
 }

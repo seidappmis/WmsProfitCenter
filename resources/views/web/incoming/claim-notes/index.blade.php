@@ -1,4 +1,5 @@
 @extends('layouts.materialize.index')
+{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -6,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Claim Notes</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle</li>
+                    <li class="breadcrumb-item active">Claim Notes</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -21,8 +22,10 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle/create') }}">New Vehicle Group</a>
+                <a href="{{ url('claim-notes/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                  New Claim Note
+                </a>
+              </div>
             </div>
             <div class="col s12 m3">
             </div>
@@ -35,23 +38,29 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-section-contents" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th>VEHICLE CATEGORY GROUP</th>
-                                    <th>DETAIL CODE</th>
+                                    <th>BERITA ACARA</th>
+                                    <th>CLAIM NOTE</th>
+                                    <th>REPORTING DATE</th>
+                                    <th>EXPEDITION NAME</th>
+                                    <th>DESTINATION</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td data-priority="1" width="30px">1.</td>
-                                  <td>8 METER</td>
-                                  <td>0</td>
-                                  <td width="50px;">
-                                    {!! get_button_view(url('master-vehicle/1')) !!}
-                                    {!! get_button_delete() !!}
+                                  <td>1.</td>
+                                  <td></td>
+                                  <td>01/Claim CB-Nittsu/Okt/2017</td>
+                                  <td>13-Oct</td>
+                                  <td>NITTSU LEMO INDONESIA LOGISTIK, PT.</td>
+                                  <td>Mishandling Swadaya</td>
+                                  <td>
+                                    {!! get_button_view(url('claim-notes/1')) !!}
+                                    {!! get_button_print() !!}
                                   </td>
                                 </tr>
                               </tbody>
@@ -61,7 +70,6 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
         <div class="content-overlay"></div>
     </div>
@@ -70,37 +78,9 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
-  });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete Group Name 8 METER?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
+    var dtdatatable = $('#data-table-section-contents').DataTable({
+        serverSide: false,
+        order: [1, 'asc'],
     });
-
-  $("input#global_filter").on("keyup click", function () {
-    filterGlobal();
-  });
-
-  // Custom search
-  function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
 </script>
 @endpush

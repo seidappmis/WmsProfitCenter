@@ -14,75 +14,14 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">Edit Data</h4>
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>Vendor Code</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="code" type="text" class="validate" value="10ED03" required disabled>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Vendor Name</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="vname" type="text" class="validate" value="DAEWOO ELECTRONICS (M) SDN.BHD." required>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Description</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <textarea id="description" class="materialize-textarea">DAEWOO ELECTRONICS (M) SDN.BHD.</textarea>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <textarea id="address" class="materialize-textarea">LOT 8,JLN PKNK, 1/2 SUNGAI PETANI INDUSTRIAL ESTATE</textarea>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input type="text" id="name">
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Phone</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input type="number" id="phone">
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input type="email" id="email" required>
-                                      </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('master-vendor')) !!}
-						</form>
+                        @include('web.master.master-vendor._form')
                     </div>
                 </div>
             </div>
@@ -93,7 +32,36 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
- 	
+    jQuery(document).ready(function($) {
+        set_initial_form_data();
+        $('.btn-save').html('Update');
+    });
+
+
+ 	$("#form-master-vendor").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vendor/" . $masterVendor->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-vendor') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

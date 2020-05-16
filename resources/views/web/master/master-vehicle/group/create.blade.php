@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Vehicle</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Master Vehicle</li>
+                    <li class="breadcrumb-item"><a href="{{ url('master-vehicle') }}">Master Vehicle</a></li>
+                    <li class="breadcrumb-item active">Create</li>
                 </ol>
             </div>
         </div>
@@ -24,18 +25,7 @@
 						   <li class="active">
 							   <div class="collapsible-header">New Vehicle Group Category</div>
 							   <div class="collapsible-body white">
-                                <form class="form-table">
-                                    <table>
-                                        <tr>
-                                            <td>VEHICLE GROUP CATEGORY</td>
-                                            <td>
-                                                <input id="category" type="text" class="validate" name="category">
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                                    <a class="waves-effect btn-flat mt-2" href="{{ url('master-vehicle') }}">Back</a>
-                                </form>
+                                @include('web.master.master-vehicle.group._form')
 							   </div>
 						   </li>
 						</ul>
@@ -48,10 +38,35 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
+    });
+
+    $("#form-vehicle-group").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke view
+              window.location.href = "{{ url('master-vehicle/') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
 </script>
 @endpush
