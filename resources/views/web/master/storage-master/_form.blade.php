@@ -17,7 +17,7 @@
 			<td>Storage Code</td>
 			<td>
 				<div class="input-field col s12">
-					<input id="code" type="text" class="validate" name="code" required>
+					<input id="sto_code" type="text" class="validate" name="sto_code" required>
 			  </div>
 			</td>
 		</tr>
@@ -38,26 +38,26 @@
 			<td>Total Pallate</td>
 			<td>
 				<div class="input-field col s12">
-				    <input id="total" type="number" class="validate" name="total" required>
+				    <input id="total_pallate" type="number" class="validate" name="total_pallate" required>
 			  </div>
 			</td>
 		</tr>
 		<tr>
 			<td>Used Space</td>
 			<td>
-				<input id="used" type="number" class="validate" name="used">
+				<input id="used_space" type="number" class="validate" name="used_space">
 			</td>
 		</tr>
 		<tr>
 			<td>Space WH</td>
 			<td>
-				<input id="wh" type="number" class="validate" name="wh">
+				<input id="space_wh" type="number" class="validate" name="space_wh">
 			</td>
 		</tr>
 		<tr>
 			<td>Hand Pallet Space</td>
 			<td>
-				<input id="space" type="number" class="validate" name="space">
+				<input id="hand_pallet_space" type="number" class="validate" name="hand_pallet_space">
 			</td>
 		</tr>
 	</table>

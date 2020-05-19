@@ -52,7 +52,18 @@ class StorageMasterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $storageMaster                     = new StorageMaster;
+        $storageMaster->kode_cabang_id     = $request->input('branch');
+        $storageMaster->sto_loc_code_short = $request->input('sto_code');
+        $storageMaster->sto_loc_code_long  = $request->input('sdes');
+        $storageMaster->sto_type_id        = $request->input('ldes');
+        $storageMaster->sto_type_desc      = $request->input('sto_type_desc');
+        $storageMaster->total_max_pallet   = $request->input('total_pallate');
+        $storageMaster->used_space         = $request->input('used_space');
+        $storageMaster->space_wh           = $request->input('space_wh');
+        $storageMaster->hand_pallet_space  = $request->input('hand_pallet_space');
+
+        return $storageMaster->save();
     }
 
     /**
