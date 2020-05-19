@@ -9,8 +9,6 @@
                 name="branch" 
                 required>
                     <option></option>
-			        <!-- <option value="" disabled selected>-- Select --</option>
-			        <option value="1">10-HYP-PT. SEID HQ JKT</option> -->
 			    </select>
 			  </div>
 			</td>
@@ -37,7 +35,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Total Pallate</td>
+			<td>Total Pallet</td>
 			<td>
 				<div class="input-field col s12">
 				    <input id="total" type="number" class="validate" name="total" required>
