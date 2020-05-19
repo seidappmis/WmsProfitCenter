@@ -56,11 +56,11 @@
           type: 'POST',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
+        .done(function(response) { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle/') }}"
+              window.location.href = "{{ url('master-vehicle/') }}" + '/' + response.id + '/detail'
             }) // alert success
         })
         .fail(function(xhr) {
