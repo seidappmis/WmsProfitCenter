@@ -38,9 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
     Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
 
-    Route::view('storage-master', 'web.master.storage-master.index');
-    Route::view('storage-master/create', 'web.master.storage-master.create');
-    Route::view('storage-master/1', 'web.master.storage-master.edit');
+    // Route::view('storage-master', 'web.master.storage-master.index');
+    // Route::view('storage-master/create', 'web.master.storage-master.create');
+    // Route::view('storage-master/1', 'web.master.storage-master.edit');
+    Route::resource('storage-master', 'Web\StorageMasterController');
 
     Route::view('master-model', 'web.master.master-model.index');
     Route::view('master-model/create', 'web.master.master-model.create');

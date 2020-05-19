@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-storage-master" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -48,7 +48,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1</td>
+                                <!-- <td>1</td>
                                 <td>10</td>
                                 <td>PT. SEID HQ JKT</td>
                                 <td>1001</td>
@@ -57,7 +57,7 @@
                                 <td>
                                   {!! get_button_edit(url('storage-master/1')) !!}
                                   {!! get_button_delete() !!}
-                                </td>
+                                </td> -->
                               </tbody>
                           </table>
                         </div>
@@ -74,8 +74,10 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-storage-master').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
   });
 
   table.on('click', '.btn-delete', function(event) {
