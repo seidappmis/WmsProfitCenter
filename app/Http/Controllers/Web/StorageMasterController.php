@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\StorageMaster;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StorageMasterController extends Controller
 {
@@ -97,5 +98,15 @@ class StorageMasterController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     public function getSelect2StorageType(Request $request)
+    {
+        $query = DB::table('storage_types')->select(
+          'id',
+          DB::raw("storage_type AS text")
+        );
+
+        return get_select2_data($request, $query);
     }
 }

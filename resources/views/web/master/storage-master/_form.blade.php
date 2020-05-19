@@ -25,17 +25,17 @@
 			<td>Storage Type</td>
 			<td>
 				<div class="input-field col s12">
-			    <select required="">
-			        <option value="" disabled selected>-- Select --</option>
-			        <option value="1">1st Class</option>
-			        <option value="2">Return All</option>
-			        <option value="3">2nd Class Insurance</option>
+			    <select id="sto_type_desc"
+                class="select2-data-ajax browser-default select-sto-type"
+                name="sto_type_desc" 
+                required>
+                    <option></option>
 			    </select>
 			  </div>
 			</td>
 		</tr>
 		<tr>
-			<td>Total Pallet</td>
+			<td>Total Pallate</td>
 			<td>
 				<div class="input-field col s12">
 				    <input id="total" type="number" class="validate" name="total" required>
@@ -72,6 +72,12 @@
       $('.select-branch').select2({
          placeholder: '-- Select --',
          ajax: get_select2_ajax_options('/master-cabang/select2-branch')
+      });
+
+      // Loading storage type data
+      $('.select-sto-type').select2({
+         placeholder: '-- Select --',
+         ajax: get_select2_ajax_options('/storage-master/select2-sto-type')
       });
    });
 </script>
