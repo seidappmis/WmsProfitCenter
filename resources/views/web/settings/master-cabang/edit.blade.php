@@ -38,10 +38,14 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
  	$("#form-master-cabang").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-cabang/" . $masterCabang->code_cabang) }}',
+          url: '{{ url("master-cabang/" . $masterCabang->kode_customer) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })

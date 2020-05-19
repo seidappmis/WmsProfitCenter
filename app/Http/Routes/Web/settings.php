@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::view('master-cabang', 'web.settings.master-cabang.index');
     //Route::view('master-cabang/create', 'web.settings.master-cabang.create');
     //Route::view('master-cabang/1', 'web.settings.master-cabang.edit');
+    // Route::get('master-cabang/select2-regions', 'Web\MasterCabangController@getSelect2Region');
     Route::resource('master-cabang', 'Web\MasterCabangController');
 
     Route::view('master-user-mobile', 'web.settings.master-user-mobile.index');
