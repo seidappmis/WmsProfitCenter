@@ -21,20 +21,7 @@
                 <div class="card">
                     <div class="card-content ">
                         <h4 class="card-title">Edit Data</h4>
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>Destination City Name</td>
-                                    <td>
-                                        <div class="input-field col s12 m6">
-                                            <input id="description" type="text" class="validate" value="Andir" required>
-                                      </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('destination-city-of-branch')) !!}
-                        </form>
+                        @include('web.master.destination-city-of-branch._form')
                     </div>
                 </div>
             </div>
@@ -45,8 +32,31 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-  
+  $("#form-destination-city-of-branch").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("destination-city-of-branch", $destinationCity->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('destination-city-of-branch') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

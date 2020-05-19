@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\BranchExpedition;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class BranchExpeditionController extends Controller
@@ -114,5 +115,17 @@ class BranchExpeditionController extends Controller
   public function destroy($id)
   {
     return BranchExpedition::destroy($id);
+  }
+
+  public function getSelect2ActiveExpedition(Request $request)
+  {
+    $query = BranchExpedition::select(
+      DB::raw("code AS id"),
+      DB::raw("CONCAT(code, '-', expedition_name) AS text")
+    )
+      ->where('status_active', 1)
+      ->toBase();
+
+    return get_select2_data($request, $query);
   }
 }

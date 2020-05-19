@@ -6,6 +6,7 @@ use App\Models\MasterDestination;
 use DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 
 class MasterDestinationController extends Controller
 {
@@ -123,4 +124,14 @@ class MasterDestinationController extends Controller
     {
         return MasterDestination::destroy($id);
     }
+
+    public function getSelect2Destination(Request $request)
+  {
+    $query = MasterDestination::select(
+      DB::raw("destination_number AS id"),
+      DB::raw("description AS text")
+    );
+
+    return get_select2_data($request, $query);
+  }
 }
