@@ -6,7 +6,7 @@ use App\BaseModel;
 
 class UserScanner extends BaseModel
 {
-    protected $table = "wms_user_scanner";
-    protected $primaryKey = 'userid';
-    public $incrementing = false;
+  protected $table      = "wms_user_scanner";
+  protected $primaryKey = 'userid';
+  public $incrementing  = false;
 }
