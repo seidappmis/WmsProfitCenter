@@ -38,6 +38,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        set_initial_form_data();
+        $('.btn-save').hide();
+    });
+
+    function set_initial_form_data(){
+
+        set_select2_value('#sto_type_id', '{{$storageMaster->sto_type_id}}', '{{$storageMaster->StorageType->id}}')
+    };
+
  	swal({
     text: 'Cannot be update, used by another data',
     icon: 'warning'

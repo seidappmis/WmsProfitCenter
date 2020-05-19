@@ -17,7 +17,8 @@
 			<td>Storage Code</td>
 			<td>
 				<div class="input-field col s12">
-					<input id="sto_loc_code_short" type="text" class="validate" name="sto_loc_code_short" required>
+					<input id="sto_loc_code_short" type="text" class="validate" name="sto_loc_code_short"
+                    value="{{old('sto_loc_code_short', !empty($storageMaster) ? $storageMaster->sto_loc_code_short : '')}}" required>
 			  </div>
 			</td>
 		</tr>
@@ -38,26 +39,27 @@
 			<td>Total Pallate</td>
 			<td>
 				<div class="input-field col s12">
-				    <input id="total_max_pallet" type="number" class="validate" name="total_max_pallet" required>
+				    <input id="total_max_pallet" type="number" class="validate" name="total_max_pallet" 
+                    value="{{old('total_max_pallet', !empty($storageMaster) ? $storageMaster->total_max_pallet : '')}}" required>
 			  </div>
 			</td>
 		</tr>
 		<tr>
 			<td>Used Space</td>
 			<td>
-				<input id="used_space" type="number" class="validate" name="used_space">
+				<input id="used_space" type="number" class="validate" name="used_space" value="{{old('used_space', !empty($storageMaster) ? $storageMaster->used_space : '')}}">
 			</td>
 		</tr>
 		<tr>
 			<td>Space WH</td>
 			<td>
-				<input id="space_wh" type="number" class="validate" name="space_wh">
+				<input id="space_wh" type="number" class="validate" name="space_wh" value="{{old('space_wh', !empty($storageMaster) ? $storageMaster->space_wh : '')}}">
 			</td>
 		</tr>
 		<tr>
 			<td>Hand Pallet Space</td>
 			<td>
-				<input id="hand_pallet_space" type="number" class="validate" name="hand_pallet_space">
+				<input id="hand_pallet_space" type="number" class="validate" name="hand_pallet_space" value="{{old('hand_pallet_space', !empty($storageMaster) ? $storageMaster->hand_pallet_space : '')}}">
 			</td>
 		</tr>
 	</table>

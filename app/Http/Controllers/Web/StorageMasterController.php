@@ -18,19 +18,18 @@ class StorageMasterController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          // $query = StorageMaster::all();
           $query = StorageMaster::select(
             'master_storages.*',
             DB::raw('cabangs.long_description AS cabang_description')
           )
           ->leftjoin('cabangs', 'cabangs.kode_cabang', '=',
-          'master_storages.kode_cabang_id');
+          'master_storages.kode_cabang_id')->get();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-area/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_edit(url('storage-master/' . $data->id . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -105,7 +104,9 @@ class StorageMasterController extends Controller
      */
     public function edit($id)
     {
-        //
+         $data['storageMaster'] = StorageMaster::findOrFail($id);
+
+        return view('web.master.storage-master.edit', $data);
     }
 
     /**
@@ -117,7 +118,7 @@ class StorageMasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**
