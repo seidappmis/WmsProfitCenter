@@ -52,11 +52,23 @@ class StorageMasterController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'kode_cabang_id'        => 'required',
+            'sto_loc_code_short'    => 'required',
+            'sto_type_desc'         => 'required',
+            'total_pallate'         => 'required|numeric',
+            'used_space'            => 'numeric',
+            'space_wh'              => 'numeric',
+            'hand_pallet_space'     => 'numeric',
+        ]);
+
         $storageMaster                     = new StorageMaster;
         $storageMaster->kode_cabang_id     = $request->input('kode_cabang_id');
         $storageMaster->sto_loc_code_short = $request->input('sto_loc_code_short');
-        $storageMaster->sto_loc_code_long  = $request->input('');
-        $storageMaster->sto_type_id        = $request->input('');// yang ini tabel sto_type_id tp aku gak tau input e apa gak ada inputan e di form soal e
+        $cabang = \App\Models\MasterCabang::find($storageMaster->kode_cabang_id);
+        $sto_loc_code_long = $storageMaster->sto_loc_code_short . $cabang->kode_cabang;
+        $storageMaster->sto_loc_code_long  = $sto_loc_code_long;
+        // $storageMaster->sto_type_id        = $request->input('');// yang ini tabel sto_type_id tp aku gak tau input e apa gak ada inputan e di form soal e
         $storageMaster->sto_type_desc      = $request->input('sto_type_desc');
         $storageMaster->total_max_pallet   = $request->input('total_pallate');
         $storageMaster->used_space         = $request->input('used_space');
