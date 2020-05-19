@@ -41,8 +41,8 @@
  	$("#form-user-mobile").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-user-mobile") }}',
-          type: 'POST',
+          url: '{{ url("master-user-mobile", $userMobile->userid) }}',
+          type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
