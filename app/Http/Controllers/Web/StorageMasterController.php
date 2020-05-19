@@ -53,10 +53,10 @@ class StorageMasterController extends Controller
     public function store(Request $request)
     {
         $storageMaster                     = new StorageMaster;
-        $storageMaster->kode_cabang_id     = $request->input('branch');
-        $storageMaster->sto_loc_code_short = $request->input('sto_code');
-        $storageMaster->sto_loc_code_long  = $request->input('sdes');
-        $storageMaster->sto_type_id        = $request->input('ldes');
+        $storageMaster->kode_cabang_id     = $request->input('kode_cabang_id');
+        $storageMaster->sto_loc_code_short = $request->input('sto_loc_code_short');
+        $storageMaster->sto_loc_code_long  = $request->input('');
+        $storageMaster->sto_type_id        = $request->input('');// yang ini tabel sto_type_id tp aku gak tau input e apa gak ada inputan e di form soal e
         $storageMaster->sto_type_desc      = $request->input('sto_type_desc');
         $storageMaster->total_max_pallet   = $request->input('total_pallate');
         $storageMaster->used_space         = $request->input('used_space');

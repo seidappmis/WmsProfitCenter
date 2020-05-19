@@ -4,9 +4,9 @@
 			<td>Branch</td>
 			<td>
 				<div class="input-field col s12">
-			    <select id="branch"
+			    <select id="kode_cabang_id"
                 class="select2-data-ajax browser-default select-branch"
-                name="branch" 
+                name="kode_cabang_id" 
                 required>
                     <option></option>
 			    </select>
@@ -17,7 +17,7 @@
 			<td>Storage Code</td>
 			<td>
 				<div class="input-field col s12">
-					<input id="sto_code" type="text" class="validate" name="sto_code" required>
+					<input id="sto_loc_code_short" type="text" class="validate" name="sto_loc_code_short" required>
 			  </div>
 			</td>
 		</tr>
