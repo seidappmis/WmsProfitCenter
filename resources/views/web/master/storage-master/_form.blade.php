@@ -25,9 +25,9 @@
 			<td>Storage Type</td>
 			<td>
 				<div class="input-field col s12">
-			    <select id="sto_type_desc"
+			    <select id="sto_type_id"
                 class="select2-data-ajax browser-default select-sto-type"
-                name="sto_type_desc" 
+                name="sto_type_id" 
                 required>
                     <option></option>
 			    </select>
@@ -38,7 +38,7 @@
 			<td>Total Pallate</td>
 			<td>
 				<div class="input-field col s12">
-				    <input id="total_pallate" type="number" class="validate" name="total_pallate" required>
+				    <input id="total_max_pallet" type="number" class="validate" name="total_max_pallet" required>
 			  </div>
 			</td>
 		</tr>

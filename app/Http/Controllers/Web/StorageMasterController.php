@@ -18,7 +18,13 @@ class StorageMasterController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = StorageMaster::all();
+          // $query = StorageMaster::all();
+          $query = StorageMaster::select(
+            'master_storages.*',
+            DB::raw('cabangs.long_description AS cabang_description')
+          )
+          ->leftjoin('cabangs', 'cabangs.kode_cabang', '=',
+          'master_storages.kode_cabang_id');
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -55,8 +61,8 @@ class StorageMasterController extends Controller
         $request->validate([
             'kode_cabang_id'        => 'required',
             'sto_loc_code_short'    => 'required',
-            'sto_type_desc'         => 'required',
-            'total_pallate'         => 'required|numeric',
+            'sto_type_id'           => 'required',
+            'total_max_pallet'      => 'required|numeric',
             'used_space'            => 'numeric',
             'space_wh'              => 'numeric',
             'hand_pallet_space'     => 'numeric',
@@ -68,9 +74,11 @@ class StorageMasterController extends Controller
         $cabang = \App\Models\MasterCabang::find($storageMaster->kode_cabang_id);
         $sto_loc_code_long = $storageMaster->sto_loc_code_short . $cabang->kode_cabang;
         $storageMaster->sto_loc_code_long  = $sto_loc_code_long;
-        // $storageMaster->sto_type_id        = $request->input('');// yang ini tabel sto_type_id tp aku gak tau input e apa gak ada inputan e di form soal e
-        $storageMaster->sto_type_desc      = $request->input('sto_type_desc');
-        $storageMaster->total_max_pallet   = $request->input('total_pallate');
+        $storageMaster->sto_type_id        = $request->input('sto_type_id');
+        $sto_type = \App\Models\StorageType::find($storageMaster->sto_type_id);
+        $sto_type_desc                     = $sto_type->storage_type;
+        $storageMaster->sto_type_desc      = $sto_type_desc;
+        $storageMaster->total_max_pallet   = $request->input('total_max_pallet');
         $storageMaster->used_space         = $request->input('used_space');
         $storageMaster->space_wh           = $request->input('space_wh');
         $storageMaster->hand_pallet_space  = $request->input('hand_pallet_space');
@@ -120,12 +128,12 @@ class StorageMasterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return StorageMaster::destroy($id);
     }
 
-     public function getSelect2StorageType(Request $request)
+    public function getSelect2StorageType(Request $request)
     {
-        $query = DB::table('storage_types')->select(
+        $query = \App\Models\StorageType::select(
           'id',
           DB::raw("storage_type AS text")
         );
