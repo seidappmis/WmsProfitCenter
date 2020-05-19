@@ -44,8 +44,9 @@
     });
 
     function set_initial_form_data(){
+        set_select2_value('#kode_cabang_id', '{{$storageMaster->kode_cabang_id}}', '{{$storageMaster->MasterCabang->kode_cabang}}');
 
-        set_select2_value('#sto_type_id', '{{$storageMaster->sto_type_id}}', '{{$storageMaster->StorageType->id}}')
+        set_select2_value('#sto_type_id', '{{$storageMaster->sto_type_id}}', '{{$storageMaster->StorageType->storage_type}}');
     };
 
  	swal({

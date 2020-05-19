@@ -12,7 +12,7 @@ class StorageMaster extends BaseModel
     /**
      * Get the branch that owns the storage master.
      */
-    public function kode_cabang()
+    public function MasterCabang()
     {
         return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang_id');
     }
@@ -20,7 +20,7 @@ class StorageMaster extends BaseModel
     /**
      * Get the branch that owns the storage master.
      */
-    public function storage_type()
+    public function StorageType()
     {
         return $this->belongsTo('App\Models\StorageType', 'sto_type_id');
     }
