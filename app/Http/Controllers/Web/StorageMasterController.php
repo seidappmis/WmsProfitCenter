@@ -23,7 +23,7 @@ class StorageMasterController extends Controller
             DB::raw('cabangs.long_description AS cabang_description')
           )
           ->leftjoin('cabangs', 'cabangs.kode_cabang', '=',
-          'master_storages.kode_cabang_id')->get();
+          'master_storages.kode_cabang_id');
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
