@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterCabang;
 use DataTables;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class MasterCabangController extends Controller
 {
@@ -136,6 +136,16 @@ class MasterCabangController extends Controller
     public function destroy($id)
     {
         return MasterCabang::destroy($id);
+    }
+
+    public function getSelect2Branch(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("CONCAT(kode_cabang, '-', short_description, '-', long_description) AS text")
+        );
+
+        return get_select2_data($request, $query);
     }
 
 }

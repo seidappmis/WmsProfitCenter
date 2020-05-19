@@ -4,9 +4,13 @@
 			<td>Branch</td>
 			<td>
 				<div class="input-field col s12">
-			    <select required="">
-			        <option value="" disabled selected>-- Select --</option>
-			        <option value="1">10-HYP-PT. SEID HQ JKT</option>
+			    <select id="branch"
+                class="select2-data-ajax browser-default select-branch"
+                name="branch" 
+                required>
+                    <option></option>
+			        <!-- <option value="" disabled selected>-- Select --</option>
+			        <option value="1">10-HYP-PT. SEID HQ JKT</option> -->
 			    </select>
 			  </div>
 			</td>
@@ -62,3 +66,15 @@
 	{!! get_button_save() !!}
     {!! get_button_cancel(url('storage-master')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading branch data
+      $('.select-branch').select2({
+         placeholder: '-- Select --',
+         ajax: get_select2_ajax_options('/master-cabang/select2-branch')
+      });
+   });
+</script>
+@endpush
