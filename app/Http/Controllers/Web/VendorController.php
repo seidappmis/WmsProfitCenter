@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gate;
+use App\Models\Vendor;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
