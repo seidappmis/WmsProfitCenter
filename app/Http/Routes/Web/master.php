@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('master-model', 'web.master.master-model.index');
   // Route::view('master-model/create', 'web.master.master-model.create');
   // Route::view('master-model/1', 'web.master.master-model.edit');
+  Route::get('master-model/select2-material-group', 'Web\MasterModelController@getSelect2MaterialGroup');
+  Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
+  Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
   Route::resource('master-model', 'Web\MasterModelController');
 
   //Route::view('master-vendor', 'web.master.master-vendor.index');

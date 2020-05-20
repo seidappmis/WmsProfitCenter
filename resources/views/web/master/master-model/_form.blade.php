@@ -4,7 +4,7 @@
       <td>Model Name</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="model_name" name="model_name" class="validate" required>
+          <input type="text" id="model_name" name="model_name" class="validate" value="{{old('model_name', !empty($masterModel) ? $masterModel->model_name : '')}}" required>
         </div>
       </td>
     </tr>
@@ -12,7 +12,7 @@
       <td>Model From Barcode Prod</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="model_from_apbar" name="model_from_apbar" required>
+          <input type="text" id="model_from_apbar" name="model_from_apbar" value="{{old('model_from_apbar', !empty($masterModel) ? $masterModel->model_from_apbar : '')}}" required>
         </div>
       </td>
     </tr>
@@ -20,7 +20,7 @@
       <td>Ean Code</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="ean_code" name="ean_code" required>
+          <input type="text" id="ean_code" name="ean_code" value="{{old('ean_code', !empty($masterModel) ? $masterModel->ean_code : '')}}" required>
         </div>
       </td>
     </tr>
@@ -28,7 +28,7 @@
       <td>CBM</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="cbm" name="cbm" required>
+          <input type="number" id="cbm" name="cbm" value="{{old('cbm', !empty($masterModel) ? $masterModel->cbm : '')}}" required>
         </div>
       </td>
     </tr>
@@ -72,7 +72,7 @@
       <td>Description</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="description" name="description">
+          <input type="text" id="description" name="description" value="{{old('description', !empty($masterModel) ? $masterModel->description : '')}}">
         </div>
       </td>
     </tr>
@@ -80,7 +80,7 @@
       <td>Max Pieces/Carton</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="pcs_ctn" name="pcs_ctn">
+          <input type="number" id="pcs_ctn" name="pcs_ctn" value="{{old('pcs_ctn', !empty($masterModel) ? $masterModel->pcs_ctn : '')}}">
         </div>
       </td>
     </tr>
@@ -88,7 +88,7 @@
       <td>Max Carton/Palet</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="ctn_plt" name="ctn_plt">
+          <input type="number" id="ctn_plt" name="ctn_plt" value="{{old('ctn_plt', !empty($masterModel) ? $masterModel->ctn_plt : '')}}">
         </div>
       </td>
     </tr>
@@ -96,7 +96,7 @@
       <td>Palet</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="max_pallet" name="max_pallet" required>
+          <input type="number" id="max_pallet" name="max_pallet" value="{{old('max_pallet', !empty($masterModel) ? $masterModel->max_pallet : '')}}" required>
         </div>
       </td>
     </tr>
@@ -104,7 +104,7 @@
       <td>Price 1</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price1" name="price1">
+          <input placeholder="0" type="number" id="price1" name="price1" value="{{old('price1', !empty($masterModel) ? $masterModel->price1 : '')}}">
         </div>
       </td>
     </tr>
@@ -112,7 +112,7 @@
       <td>Price 2</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price2" name="price2">
+          <input placeholder="0" type="number" id="price2" name="price2" value="{{old('price2', !empty($masterModel) ? $masterModel->price2 : '')}}">
         </div>
       </td>
     </tr>
@@ -120,7 +120,7 @@
       <td>Price 3</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price3" name="price3">
+          <input placeholder="0" type="number" id="price3" name="price3" value="{{old('price3', !empty($masterModel) ? $masterModel->price3 : '')}}">
         </div>
       </td>
     </tr>
@@ -135,16 +135,19 @@
       // Loading material group data
       $('.select-material-group').select2({
          placeholder: '-- Select Material Group--',
+         ajax: get_select2_ajax_options('/master-model/select2-material-group')
       });
 
       // Loading category data
       $('.select-category').select2({
          placeholder: '-- Select Category--',
+         ajax: get_select2_ajax_options('/master-model/select2-category')
       });
 
       // Loading model type data
       $('.select-model-type').select2({
          placeholder: '-- Select Category--',
+         ajax: get_select2_ajax_options('/master-model/select2-model-type')
       });
    });
 </script>
