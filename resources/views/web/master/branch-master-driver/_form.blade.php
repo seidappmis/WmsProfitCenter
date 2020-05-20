@@ -22,6 +22,9 @@
             </td>
             <td width="30%" rowspan="11" class="center-align">
                 <div class="col s12">
+                    @if(!empty($branchDriver))
+                    <img src="{{Storage::url('Photo/'. $branchDriver->photo_name)}}" style="max-width: 80%;">
+                    @endif
                     <p>Maximum upload size 2MB.</p>
                     <br>
                     <input type="file" id="input-file-now" class="dropify" name="photo_name" data-default-file="{{asset('images/profil.png')}}" data-height="350" />

@@ -108,9 +108,9 @@ class BranchMasterDriverController extends Controller
     // $branchDriver->expedition_code = $request->input('expedition_code');
 
     if (!empty($request->file('photo_name'))) {
-      $photo_name = $branchDriver->expedition_code . date('y') . $max_no . '.' . $request->file('photo_name')->extension();
+      $photo_name = str_replace('-', '', $branchDriver->driver_id) . '.' . $request->file('photo_name')->extension();
       $path       = $request->file('photo_name')->storeAs(
-        'Photo', $photo_name
+        'public/Photo', $photo_name
       );
       $branchDriver->photo_name = $photo_name;
     }
