@@ -46,9 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
   Route::resource('storage-master', 'Web\StorageMasterController');
 
-  Route::view('master-model', 'web.master.master-model.index');
-  Route::view('master-model/create', 'web.master.master-model.create');
-  Route::view('master-model/1', 'web.master.master-model.edit');
+  // Route::view('master-model', 'web.master.master-model.index');
+  // Route::view('master-model/create', 'web.master.master-model.create');
+  // Route::view('master-model/1', 'web.master.master-model.edit');
+  Route::resource('master-model', 'Web\MasterModelController');
 
   //Route::view('master-vendor', 'web.master.master-vendor.index');
   //Route::view('master-vendor/create', 'web.master.master-vendor.create');
