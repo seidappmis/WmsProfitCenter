@@ -28,6 +28,7 @@ class CreateWmsMasterModelTable extends Migration
             $table->integer('price1')->nullable();
             $table->integer('price2')->nullable();
             $table->integer('price3')->nullable();
+            $table->string('model_from_apbar', 50)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

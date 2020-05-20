@@ -4,7 +4,7 @@
       <td>Model Name</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="name" class="validate" required>
+          <input type="text" id="model_name" name="model_name" class="validate" required>
         </div>
       </td>
     </tr>
@@ -12,7 +12,7 @@
       <td>Model From Barcode Prod</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="barcode" required>
+          <input type="text" id="model_from_apbar" name="model_from_apbar" required>
         </div>
       </td>
     </tr>
@@ -20,7 +20,7 @@
       <td>Ean Code</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="ean" required>
+          <input type="text" id="ean_code" name="ean_code" required>
         </div>
       </td>
     </tr>
@@ -28,7 +28,7 @@
       <td>CBM</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="cbm" required>
+          <input type="number" id="cbm" name="cbm" required>
         </div>
       </td>
     </tr>
@@ -36,11 +36,10 @@
       <td>Material Group</td>
       <td>
         <div class="input-field col s12">
-          <select required="">
-            <option value="" disabled selected>-- Select Material Group --</option>
-            <option value="1">BG - F3 LED Lightning</option>
-            <option value="2">BJ - C1 Energy Solution Japan</option>
-            <option value="3">BP - C1 Energy Sollution Overseas</option>
+          <select id="material_group"
+                  name="material_group"
+                  class="select2-data-ajax browser-default select-material-group" required>
+            <option></option>
           </select>
         </div>
       </td>
@@ -49,11 +48,10 @@
       <td>Category</td>
       <td>
         <div class="input-field col s12">
-          <select required="">
-            <option value="" disabled selected>-- Select Category --</option>
-            <option value="1">AC</option>
-            <option value="2">AP</option>
-            <option value="3">AU</option>
+          <select id="category"
+                  name="category"
+                  class="select2-data-ajax browser-default select-category" required>
+            <option></option>
           </select>
         </div>
       </td>
@@ -62,11 +60,10 @@
       <td>Type</td>
       <td>
         <div class="input-field col s12">
-          <select required="">
-            <option value="" disabled selected>-- Select Category --</option>
-            <option value="1">IMPORT</option>
-            <option value="2">LOCAL</option>
-            <option value="3">OEM</option>
+          <select id="model_type"
+                  name="model_type"
+                  class="select2-data-ajax browser-default select-model-type" required>
+            <option></option>
           </select>
         </div>
       </td>
@@ -75,7 +72,7 @@
       <td>Description</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="description">
+          <input type="text" id="description" name="description">
         </div>
       </td>
     </tr>
@@ -83,7 +80,7 @@
       <td>Max Pieces/Carton</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="pieces">
+          <input type="number" id="pcs_ctn" name="pcs_ctn">
         </div>
       </td>
     </tr>
@@ -91,7 +88,7 @@
       <td>Max Carton/Palet</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="carton">
+          <input type="number" id="ctn_plt" name="ctn_plt">
         </div>
       </td>
     </tr>
@@ -99,7 +96,7 @@
       <td>Palet</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="palet" required>
+          <input type="number" id="max_pallet" name="max_pallet" required>
         </div>
       </td>
     </tr>
@@ -107,7 +104,7 @@
       <td>Price 1</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price">
+          <input placeholder="0" type="number" id="price1" name="price1">
         </div>
       </td>
     </tr>
@@ -115,7 +112,7 @@
       <td>Price 2</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price2">
+          <input placeholder="0" type="number" id="price2" name="price2">
         </div>
       </td>
     </tr>
@@ -123,7 +120,7 @@
       <td>Price 3</td>
       <td>
         <div class="input-field col s12">
-          <input placeholder="0" type="number" id="price3">
+          <input placeholder="0" type="number" id="price3" name="price3">
         </div>
       </td>
     </tr>
@@ -131,3 +128,24 @@
   {!! get_button_save() !!}
   {!! get_button_cancel(url('master-model')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading material group data
+      $('.select-material-group').select2({
+         placeholder: '-- Select Material Group--',
+      });
+
+      // Loading category data
+      $('.select-category').select2({
+         placeholder: '-- Select Category--',
+      });
+
+      // Loading model type data
+      $('.select-model-type').select2({
+         placeholder: '-- Select Category--',
+      });
+   });
+</script>
+@endpush
