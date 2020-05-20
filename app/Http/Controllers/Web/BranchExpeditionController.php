@@ -128,4 +128,15 @@ class BranchExpeditionController extends Controller
 
     return get_select2_data($request, $query);
   }
+
+  public function getSelect2AllExpedition(Request $request)
+  {
+    $query = BranchExpedition::select(
+      DB::raw("code AS id"),
+      DB::raw("expedition_name AS text")
+    )
+      ->toBase();
+
+    return get_select2_data($request, $query);
+  }
 }

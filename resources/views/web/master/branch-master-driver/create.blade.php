@@ -21,25 +21,7 @@
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title">New Driver</h4>
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>Expedition</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                        <select required="">
-                                            <option value="0" selected>-- Expedition --</option>
-                                            <option value="1">PUTRA NAGITA PRATAMA</option>
-                                            <!-- <option value="2">ALAMUI LOGISTICS, PT.</option>
-                                            <option value="3">ALISTON TJOKRO EMKL</option> -->
-                                        </select>
-                                      </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            {!! get_button_save() !!}
-                            {!! get_button_cancel(url('branch-master-driver'), 'Back') !!}
-                        </form>
+                        @include('web.master.branch-master-driver._form')
                     </div>
                 </div>
             </div>
@@ -49,8 +31,36 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-    
+    $("#form-branch-master-driver").validate({
+      submitHandler: function(form) {
+        var fd = new FormData(form);
+        $.ajax({
+          url: '{{ url('branch-master-driver') }}',
+          type: 'POST',
+          data: fd,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false,
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('branch-master-driver') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

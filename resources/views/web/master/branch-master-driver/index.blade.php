@@ -22,7 +22,7 @@
                   </div>
                 </div>
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-master-driver/create') }}">New Driver</a
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-master-driver/create') }}">New Driver</a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -47,14 +47,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1</td>
-                                <td>P13-18-001</td>
-                                <td>ASEP SURYANA</td>
-                                <td>PUTRA NAGITA PRATAMA</td>
-                                <td>
-                                  {!! get_button_edit(url('branch-master-driver/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td>
                               </tbody>
                           </table>
                         </div>
@@ -72,28 +64,25 @@
 @push('script_js')
 <script type="text/javascript">
   var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('branch-master-driver') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'driver_id', name: 'driver_id', className: 'detail'},
+        {data: 'driver_name', name: 'driver_name', className: 'detail'},
+        {data: 'expedition_name', name: 'wms_branch_expedition.expedition_name', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete the Driver ASEP SURYANA?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -103,5 +92,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete Branch Expedition vehicle : " + data.driver_id + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('branch-master-driver') }}' + '/' + data.driver_id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush
