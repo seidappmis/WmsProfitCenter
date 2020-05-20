@@ -7,5 +7,5 @@ use App\BaseModel;
 class StorageType extends BaseModel
 {
     //Set Table
-    protected $table = "storage_types";
+    protected $table = "wms_storage_type";
 }

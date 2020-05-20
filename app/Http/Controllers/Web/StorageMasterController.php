@@ -19,11 +19,11 @@ class StorageMasterController extends Controller
     {
         if ($request->ajax()) {
           $query = StorageMaster::select(
-            'master_storages.*',
+            'wms_master_storage.*',
             DB::raw('cabangs.long_description AS cabang_description')
           )
           ->leftjoin('cabangs', 'cabangs.kode_cabang', '=',
-          'master_storages.kode_cabang_id');
+          'wms_master_storage.kode_cabang_id');
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)

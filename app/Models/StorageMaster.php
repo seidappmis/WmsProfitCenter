@@ -7,7 +7,7 @@ use App\BaseModel;
 class StorageMaster extends BaseModel
 {
     //Set Table
-    protected $table = "master_storages";
+    protected $table = "wms_master_storage";
 
     /**
      * Get the branch that owns the storage master.

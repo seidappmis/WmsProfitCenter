@@ -13,7 +13,7 @@ class WMSStorageTypesTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('storage_types')->insert([
+    DB::table('wms_storage_type')->insert([
       [
         'id'                => 1,
         'storage_type'      => '1st Class',

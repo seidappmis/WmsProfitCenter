@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStorageTypesTable extends Migration
+class CreateWmsStorageTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStorageTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('storage_types', function (Blueprint $table) {
+        Schema::create('wms_storage_type', function (Blueprint $table) {
             $table->id();
             $table->string('storage_type', 100)->nullable();
             $table->integer('storage_rank')->nullable();
@@ -30,6 +30,6 @@ class CreateStorageTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('storage_types');
+        Schema::dropIfExists('wms_storage_type');
     }
 }

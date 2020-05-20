@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterStoragesTable extends Migration
+class CreateWmsMasterStorageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMasterStoragesTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_storages', function (Blueprint $table) {
+        Schema::create('wms_master_storage', function (Blueprint $table) {
             $table->id();
             $table->string('kode_cabang_id', 2)->nullable();
             $table->string('sto_loc_code_short', 2)->nullable();
@@ -39,6 +39,6 @@ class CreateMasterStoragesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_storages');
+        Schema::dropIfExists('wms_master_storage');
     }
 }
