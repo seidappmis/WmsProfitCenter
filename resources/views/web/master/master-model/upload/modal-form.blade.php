@@ -4,7 +4,7 @@
   <form id="form-menu" onsubmit="return false;" enctype="multipart/form-data">
   <div class="modal-content">
     <h4>Upload Model</h4>
-    @include('web.master.master-model._form')
+    @include('web.master.master-model.upload._form')
   </div>
   <div class="modal-footer">
     <button type="submit" class="modal-action waves-effect waves-green btn-flat">Upload</button>

@@ -1,6 +1,6 @@
 @extends('layouts.materialize.index')
 
-@include('web.master.master-model.modal-form')
+@include('web.master.master-model.upload.modal-form')
 
 @section('content')
 <div class="row">
