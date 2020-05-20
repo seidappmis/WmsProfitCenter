@@ -109,7 +109,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('master-vendor') }}' + '/' + data.id ,
+            url: '{{ url('master-vendor') }}' + '/' + data.vendor_code ,
             type: 'DELETE',
             dataType: 'json',
           })

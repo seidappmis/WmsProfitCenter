@@ -19,9 +19,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-vehicle/{vehicle_group_id}/detail', 'Web\VehicleDetailController');
   Route::resource('master-vehicle', 'Web\VehicleController');
 
-  Route::view('master-expedition', 'web.master.master-expedition.index');
-  Route::view('master-expedition/create', 'web.master.master-expedition.create');
-  Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
+  Route::resource('master-expedition', 'Web\MasterExpeditionController');
+  // Route::view('master-expedition', 'web.master.master-expedition.index');
+  // Route::view('master-expedition/create', 'web.master.master-expedition.create');
+  // Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
 
   Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
   Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');

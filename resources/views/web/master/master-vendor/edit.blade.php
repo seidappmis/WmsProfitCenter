@@ -39,7 +39,6 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        set_initial_form_data();
         $('.btn-save').html('Update');
     });
 
@@ -47,7 +46,7 @@
  	$("#form-master-vendor").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-vendor/" . $masterVendor->id) }}',
+          url: '{{ url("master-vendor/" . $masterVendor->vendor_code) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
