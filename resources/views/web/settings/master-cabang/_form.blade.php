@@ -54,7 +54,7 @@
             <td>Region</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="region"
+                    <select id="region" name="region" 
                     class="select2-data-ajax browser-default select-region">
                         <option></option>
                     </select>
@@ -91,11 +91,11 @@
             <td>START WMS</td>
             <td>
                 <div class="input-field col s12">
-                   <input id="wms"
+                   <input id="start_wms"
                    type="text"
                    class="validate"
-                   name="wms"
-                   value="{{old('stwms', !empty($masterCabang) ? $masterCabang->stwms : '')}}">
+                   name="start_wms"
+                   value="{{old('start_wms', !empty($masterCabang) ? $masterCabang->start_wms : '')}}">
                 </div>
             </td>
         </tr>
@@ -110,28 +110,7 @@
       // Loading region data
       $('.select-region').select2({
          placeholder: '-- Select Region--',
-         data : [
-          {
-            id: 'JABODETABEK',
-            text: 'JABODETABEK'
-          },
-          {
-            id: 'JAWA',
-            text: 'JAWA'
-          },
-          {
-            id: 'KALIMANTAN',
-            text: 'KALIMANTAN'
-          },
-          {
-            id: 'SULAWESI',
-            text: 'SULAWESI'
-          },
-          {
-            id: 'SUMATERA',
-            text: 'SUMATERA'
-          }
-        ]
+         ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
 
       // Loading type code data

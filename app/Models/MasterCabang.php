@@ -6,7 +6,7 @@ use App\BaseModel;
 
 class MasterCabang extends BaseModel
 {
-    protected $table = "cabangs";
+    protected $table = "log_cabang";
 
     // Set Table Primary Key
     // if not set default : id
@@ -18,4 +18,12 @@ class MasterCabang extends BaseModel
      * @var string
      */
     protected $keyType = 'string';
+
+    /**
+     * Get the region.
+     */
+    public function Region()
+    {
+        return $this->belongsTo('App\Models\Region', 'region');
+    }
 }

@@ -88,7 +88,7 @@
         {data: 'region', name: 'region', className: 'detail'},
         {data: 'type', name: 'tycode', className: 'detail'},
         {data: 'hq', name: 'hq', className: 'detail'},
-        {data: 'hq', name: 'wms', className: 'detail'},
+        {data: 'start_wms', name: 'start_wms', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });

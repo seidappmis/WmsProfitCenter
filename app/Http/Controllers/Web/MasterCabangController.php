@@ -53,12 +53,13 @@ class MasterCabangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_customer'  => 'required|unique:cabangs|max:8',
+            'kode_customer'  => 'required|unique:log_cabang|max:8',
             'kode_cabang'    => 'required|max:2',
             'sdes'  => 'max:3',
             'ldes'  => 'max:100',
             'region'  => 'max:100',
             'tycode'  => 'max:2',
+            'start_wms'  => 'max:20'
         ]);
 
         $masterCabang                = new MasterCabang;
@@ -69,6 +70,7 @@ class MasterCabangController extends Controller
         //$masterCabang->hq   = $request->input('hq');
         $masterCabang->region        = $request->input('region');
         $masterCabang->type          = $request->input('tycode');
+        $masterCabang->start_wms     = $request->input('start_wms');
 
         return $masterCabang->save();
     }
@@ -113,6 +115,7 @@ class MasterCabangController extends Controller
             'ldes'  => 'max:100',
             'region'  => 'max:100',
             'tycode'  => 'max:2',
+            'start_wms'  => 'max:20',
         ]);
 
         $masterCabang                = MasterCabang::findOrFail($id);
@@ -123,6 +126,7 @@ class MasterCabangController extends Controller
         //$masterCabang->hq   = $request->input('hq');
         $masterCabang->region   = $request->input('region');
         $masterCabang->type   = $request->input('tycode');
+        $masterCabang->start_wms     = $request->input('start_wms');
 
         return $masterCabang->save();
     }
@@ -138,11 +142,11 @@ class MasterCabangController extends Controller
         return MasterCabang::destroy($id);
     }
 
-    public function getSelect2Branch(Request $request)
+    public function getSelect2Region(Request $request)
     {
-        $query = MasterCabang::select(
-          DB::raw('kode_cabang AS id'),
-          DB::raw("CONCAT(kode_cabang, '-', short_description, '-', long_description) AS text")
+        $query = \App\Models\Region::select(
+          DB::raw('region AS id'),
+          DB::raw("region AS text")
         );
 
         return get_select2_data($request, $query);
