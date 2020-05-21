@@ -4,9 +4,9 @@
             <td>Expedition</td>
             <td>
                 <div class="input-field select2 col s12">
-                    <select id="expedition_name" 
-                    class="select2-data-ajax browser-default select-master-expedition" 
-                    name="expedition_name"
+                    <select id="expedition_code" 
+                    class="select2-data-ajax browser-default select-code" 
+                    name="expedition_code"
                     required>
                        <option></option>
                     </select>
@@ -194,9 +194,9 @@
 <script type="text/javascript">
    jQuery(document).ready(function($) {
       // Loading area data
-      $('.select-master-expedition').select2({
+      $('.select-code').select2({
          placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-expedition/select2-master-expedition')
+         ajax: get_select2_ajax_options('/master-expedition/select2-master_expedition')
       });
    });
 </script>

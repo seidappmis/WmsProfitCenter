@@ -29,9 +29,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
     Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
 
-    Route::view('master-driver', 'web.master.master-driver.index');
-    Route::view('master-driver/create', 'web.master.master-driver.create');
-    Route::view('master-driver/{id}', 'web.master.master-driver.edit');
+    Route::get('master-driver/select2-active-expedition', 'Web\MasterDriverController@getSelect2ActiveExpedition');
+    Route::get('master-driver/select2-all-expedition', 'Web\MasterDriverController@getSelect2AllExpedition');    
+    Route::resource('master-driver', 'Web\MasterDriverController');
+    // Route::view('master-driver', 'web.master.master-driver.index');
+    // Route::view('master-driver/create', 'web.master.master-driver.create');
+    // Route::view('master-driver/{id}', 'web.master.master-driver.edit');
 
     // Route::view('destination-city', 'web.master.destination-city.index');
     // Route::view('destination-city/create', 'web.master.destination-city.create');
@@ -75,6 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('branch-expedition-vehicle', 'web.master.branch-expedition-vehicle.index');
     // Route::view('branch-expedition-vehicle/create', 'web.master.branch-expedition-vehicle.create');
     // Route::view('branch-expedition-vehicle/1', 'web.master.branch-expedition-vehicle.edit');
+   
     Route::resource('branch-expedition-vehicle', 'Web\BranchExpeditionVehicleController');
 
     // Route::view('branch-master-driver', 'web.master.branch-master-driver.index');
