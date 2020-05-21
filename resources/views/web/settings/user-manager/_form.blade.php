@@ -28,7 +28,7 @@
             <td>ROLES</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="last_name">
+                    <select name="roles_id" class="select2-data-ajax browser-default">
                     </select>
                 </div>
             </td>
@@ -53,11 +53,8 @@
             <td>AREA</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="area">
-                        <option value="" disabled selected>-- Select Area --</option>
-                        <option value="1">All</option>
-                        <option value="2">KARAWANG</option>
-                        <option value="3">SURABAYA HUB</option>
+                    <select name="area" class="select2-data-ajax browser-default ">
+                        
                     </select>
                 </div>
             </td>
@@ -66,11 +63,7 @@
             <td>CABANG</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="cabang">
-                        <option value="" disabled selected>-- Select Branch --</option>
-                        <option value="1">[HYP]PT. SEID HQ JKT</option>
-                        <option value="2">[JKT]PT. SEID CAB. JAKARTA</option>
-                        <option value="3">[JF]PT. SEID CAB. JAKARTA</option>
+                    <select name="kode_customer" class="select2-data-ajax browser-default ">
                     </select>
                 </div>
             </td>
@@ -131,3 +124,23 @@
     {!! get_button_save() !!}
     {!! get_button_cancel(url('user-manager')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading region data
+      $('#form-user-manager [name="kode_customer"]').select2({
+         placeholder: '-- Select Branch--',
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+      });
+      $('#form-user-manager [name="roles_id"]').select2({
+         placeholder: '-- Select Role --',
+         ajax: get_select2_ajax_options('/user-roles/select2-roles')
+      });
+      $('#form-user-manager [name="area"]').select2({
+         placeholder: '-- Select Area --',
+         ajax: get_select2_ajax_options('/master-area/select2-areas')
+      });
+   });
+</script>
+@endpush
