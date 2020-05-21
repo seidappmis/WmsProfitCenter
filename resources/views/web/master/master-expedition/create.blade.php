@@ -31,9 +31,32 @@
 </div>
 @endsection
 
+
+@push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-    // $('#address').val('New Text');
-    M.textareaAutoResize($('#address'));
+    $("#form-master-expedition").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-expedition") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-expedition') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

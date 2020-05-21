@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\MasterExpedition;
+use DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterExpeditionController extends Controller
 {
@@ -12,7 +15,7 @@ class MasterExpeditionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {   
         if ($request->ajax()) {
             $query = MasterExpedition::all();
@@ -52,22 +55,23 @@ class MasterExpeditionController extends Controller
         $request->validate([
             'code'=>'required|unique:master_expedition|max:3',
             'expedition_name'=>'required|max:40',
-            'sap_code'=>'required|max:6'
+            'sap_code'=>'required|max:6',
+           
         ]);
 
         $masterExpedition                           = new MasterExpedition;
-        $masterExpedition->code                     = $request->input('code');
-        $masterExpedition->expedition_name          =$request->input('expedition_code');
+        $masterExpedition->code                     =$request->input('code');
+        $masterExpedition->expedition_name          =$request->input('expedition_name');
         $masterExpedition->sap_code                 =$request->input('sap_code');
         $masterExpedition->address                  =$request->input('address');
-        $masterExpedition->npwp                     =$request->input('NPWP');
+        $masterExpedition->npwp                     =$request->input('npwp');
         $masterExpedition->contact_person           =$request->input('contact_person');
         $masterExpedition->phone1                   =$request->input('phone1');
         $masterExpedition->phone2                   =$request->input('phone2');
         $masterExpedition->fax                      =$request->input('fax');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
-        $masterExpedition->active                   =$request->input('active');
+        $masterExpedition->active                   =$request->has('active');
 
         return $masterExpedition->save();
 
@@ -93,7 +97,7 @@ class MasterExpeditionController extends Controller
     public function edit($id)
     {
         $data['masterExpedition'] = MasterExpedition::findorfail($id);
-        return view('web.master.master-expedition.edit');
+        return view('web.master.master-expedition.edit',$data);
 
     }
 
@@ -109,22 +113,31 @@ class MasterExpeditionController extends Controller
          $request->validate([
             'code'=>'required|unique:master_expedition|max:3',
             'expedition_name'=>'required|max:40',
-            'sap_code'=>'required|max:6'
+            'sap_code'=>'required|max:6',
+            'address'=>'required|max:100',
+            'npwp'=>'required|max:20',
+            'contact_person'=>'required|max:25',
+            'phone1'=>'required|max:12',
+            'phone2'=>'required|max:12',
+            'fax'=>'required|max:12',
+            'bank'=>'required',
+            'currency'=>'required',
+            'active'=>'required'
         ]);
 
-        $masterExpedition                           = new MasterExpedition;
-       
-        $masterExpedition->expedition_name          =$request->input('expedition_code');
+        $masterExpedition                           =MasterExpedition::findorfai($id);
+        $masterExpedition->code                     =$request->input('code');
+        $masterExpedition->expedition_name          =$request->input('expedition_name');
         $masterExpedition->sap_code                 =$request->input('sap_code');
         $masterExpedition->address                  =$request->input('address');
-        $masterExpedition->npwp                     =$request->input('NPWP');
+        $masterExpedition->npwp                     =$request->input('npwp');
         $masterExpedition->contact_person           =$request->input('contact_person');
         $masterExpedition->phone1                   =$request->input('phone1');
         $masterExpedition->phone2                   =$request->input('phone2');
         $masterExpedition->fax                      =$request->input('fax');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
-        $masterExpedition->active                   =$request->input('active');
+        $masterExpedition->active                   =$request->has('active');
         
         return $masterExpedition->save();
     }

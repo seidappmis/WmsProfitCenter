@@ -21,112 +21,7 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">Edit Expedition</h4>
-                        <form class="form-table">
-                        	<table>
-                        		<tr>
-                        			<td>Code</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-										<input id="code" type="text" class="validate" value="ARS" required>
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>Expedition Name</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="name" type="text" class="validate" value="ALAM RAYA SENTOSA, CV." required>
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>Address</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-								        <textarea id="address" class="materialize-textarea">DUSUN III LEDUNG NO RT.09 RW.03 KEL LABUHAN RATU KEC.LABUHAN RATU, LAMPUNG TIMUR, LAMPUNG</textarea>
-								      </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>SAP CODE</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="sapcode" type="text" class="validate" value="10XA54" required>
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>NPWP</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="npwp" type="text" class="validate" name="npwp">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>CONTACT PERSON</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="cp" type="text" class="validate" value="HOTMAN">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>PHONE NUMBER 1</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="phone1" type="text" class="validate">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>PHONE NUMBER 2</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="phone2" type="text" class="validate" value="0813-8890-4228">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>FAX NUMBER</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="fax" type="number" class="validate" name="fax">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>BANK</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="bank" type="text" class="validate" value="TOKYO">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>CURRENCY</td>
-                        			<td>
-                        			  <div class="input-field col s12">
-									    <input id="currency" type="text" class="validate" value="IDR">
-									  </div>
-                        			</td>
-                        		</tr>
-                        		<tr>
-                        			<td>ACTIVE</td>
-                        			<td>
-                        			  <div class="input-field col s12 mt-2">
-									    <p>
-									      <label>
-									        <input type="checkbox" class="filled-in"/><span></span>
-									      </label>
-									    </p>
-									  </div>
-                        			</td>
-                        		</tr>
-                        	</table>
-                        	{!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('master-expedition')) !!}
-						</form>
+                       @include('web.master.master-expedition._form')
                     </div>
                 </div>
             </div>
@@ -136,9 +31,38 @@
 </div>
 @endsection
 
+
+@push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-    // $('#address').val('New Text');
-    M.textareaAutoResize($('#address'));
+    jQuery(document).ready(function($) {
+        set_initial_form_data();
+        $('.btn-save').html('Update');
+    });
+
+
+ 	$("#form-master-expedition").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-expedition/" . $masterExpedition->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-expedition') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

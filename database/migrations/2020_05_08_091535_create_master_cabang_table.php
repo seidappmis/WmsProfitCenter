@@ -14,14 +14,13 @@ class CreateMasterCabangTable extends Migration
     public function up()
     {
         Schema::create('master_cabang', function (Blueprint $table) {
-            $table->id();
+        
             $table->string('code_customer', 8);
             $table->string('code_cabang', 2);
             $table->string('sdes', 3)->nullable();
             $table->string('ldes', 100)->nullable();
             $table->string('tycode', 2)->nullable();
             $table->string('region', 100)->nullable();
-
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

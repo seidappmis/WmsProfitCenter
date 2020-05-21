@@ -8,5 +8,10 @@ use App\BaseModel;
 
 class MasterExpedition extends BaseModel
 {
+    protected $table = "master_expedition";
     protected $primaryKey = 'code';
+    // protected $casts = [
+    //     'active'=>'boolean',
+        
+    // ];
 }
