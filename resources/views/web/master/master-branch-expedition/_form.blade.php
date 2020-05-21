@@ -4,11 +4,8 @@
             <td>Branch Code</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="kode_cabang">
-                        <!-- <option value="" disabled>-- Expedition --</option> -->
-                        <option value="12" selected>PT. SEID CAB. BANDUNG</option>
-                        <!-- <option value="2">ALAMUI LOGISTICS, PT.</option>
-                                <option value="3">ALISTON TJOKRO EMKL</option> -->
+                    <select name="kode_cabang"  class="select2-data-ajax browser-default ">
+                        <option value="{{Auth::user()->cabang->kode_cabang}}" selected>{{Auth::user()->cabang->long_description}}</option>
                     </select>
                 </div>
             </td>
@@ -97,7 +94,7 @@
             <td>CURRENCY</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="currency" type="text" class="validate" name="currency" value="{{old('currency', !empty($branchExpedition) ? $branchExpedition->currency : '')}}">
+                    <input id="currency" type="text" class="validate" name="currency" maxlength="3" value="{{old('currency', !empty($branchExpedition) ? $branchExpedition->currency : '')}}">
                 </div>
             </td>
         </tr>
@@ -117,3 +114,15 @@
     {!! get_button_save() !!}
     {!! get_button_cancel(url('master-branch-expedition')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      // Loading region data
+      $('#form-branch-expedition [name="kode_cabang"]').select2({
+         placeholder: '-- Select Branch--',
+         // ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+      });
+   });
+</script>
+@endpush

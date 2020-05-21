@@ -22,7 +22,7 @@ class UserManagerController extends Controller
           return $data->roles->roles_name;
         })
         ->addColumn('long_description', function ($data) {
-          return $data->cabang->long_description;
+          return !empty($data->cabang) ? $data->cabang->long_description : '';
         })
         ->addColumn('action', function ($data) {
           $action = '';
