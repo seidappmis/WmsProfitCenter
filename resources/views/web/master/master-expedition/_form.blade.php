@@ -53,11 +53,11 @@
             <td>
                 <div class="input-field col s12">
                     <input 
-                        id="sap_code" 
+                        id="sap_vendor_code" 
                         type="text" 
                         class="validate" 
-                        name="sap_code" 
-                        value="{{old('sap_code', !empty($masterExpedition) ? $masterExpedition->sap_code : '')}}" 
+                        name="sap_vendor_code" 
+                        value="{{old('sap_vendor_code', !empty($masterExpedition) ? $masterExpedition->sap_vendor_code : '')}}" 
                         {{!empty($masterExpedition) ? 'readonly' : ''}} 
                         required
                         />
@@ -99,11 +99,11 @@
             <td>
                 <div class="input-field col s12">
                     <input 
-                        id="phone1" 
+                        id="phone_number_1" 
                         type="text" 
                         class="validate" 
-                        name="phone1" 
-                        value="{{old('phone1', !empty($masterExpedition) ? $masterExpedition->phone1 : '')}}" 
+                        name="phone_number_1" 
+                        value="{{old('phone1', !empty($masterExpedition) ? $masterExpedition->phone_number_1 : '')}}" 
                        
                         />
               </div>
@@ -114,11 +114,11 @@
             <td>
                 <div class="input-field col s12">
                     <input 
-                        id="phone2" 
+                        id="phone_number_2" 
                         type="text" 
                         class="validate" 
-                        name="phone2" 
-                        value="{{old('phone2', !empty($masterExpedition) ? $masterExpedition->phone2 : '')}}" 
+                        name="phone_number_2" 
+                        value="{{old('phone2', !empty($masterExpedition) ? $masterExpedition->phone_number_2 : '')}}" 
                        
                         />
               </div>

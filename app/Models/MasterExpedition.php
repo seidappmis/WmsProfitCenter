@@ -9,8 +9,7 @@ use App\BaseModel;
 class MasterExpedition extends BaseModel
 {
     protected $table = 'master_expedition';
-    protected $primaryKey = 'code';
-    protected $keyType='string';
+    
     
    
 }

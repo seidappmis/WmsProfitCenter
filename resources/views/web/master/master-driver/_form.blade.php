@@ -63,12 +63,7 @@
                         <option value="2"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 2 ? 'selected' : ''}}>SIM B</option>
                         <option value="3"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 3 ? 'selected' : ''}}>SIM B1</option>
                     </select>
-                    {{-- <select>
-                        <option value="" disabled selected>-- Select Type --</option>
-                        <option value="1">SIM A</option>
-                        <option value="2">SIM B</option>
-                        <option value="3">SIM B1</option>
-                    </select> --}}
+                    
                 </div>
             </td>
         </tr>

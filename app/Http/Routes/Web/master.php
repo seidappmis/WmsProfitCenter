@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('master-vehicle/{vehicle_group_id}/detail', 'Web\VehicleDetailController');
     Route::resource('master-vehicle', 'Web\VehicleController');
 
+    Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
+    Route::get('master-expedition/select2-all-expedition', 'Web\MasterExpeditionController@getSelect2AllExpedition'); 
     Route::resource('master-expedition', 'Web\MasterExpeditionController');
     // Route::view('master-expedition', 'web.master.master-expedition.index');
     // Route::view('master-expedition/create', 'web.master.master-expedition.create');
@@ -29,8 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
     Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
 
-    Route::get('master-driver/select2-active-expedition', 'Web\MasterDriverController@getSelect2ActiveExpedition');
-    Route::get('master-driver/select2-all-expedition', 'Web\MasterDriverController@getSelect2AllExpedition');    
+      
     Route::resource('master-driver', 'Web\MasterDriverController');
     // Route::view('master-driver', 'web.master.master-driver.index');
     // Route::view('master-driver/create', 'web.master.master-driver.create');
