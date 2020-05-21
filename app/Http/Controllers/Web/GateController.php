@@ -53,15 +53,15 @@ class GateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'gate_number'  => 'required|unique:gates|max:10',
+          'gate_number'  => 'required',
           'description'  => 'required|max:100',
-          'area'         => 'required',
+          'area'         => 'required|max:20',
         ]);
 
         $masterGate              = new Gate;
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area_id     = $request->input('area');
+        $masterGate->area        = $request->input('area');
 
         return $masterGate->save();
     }
@@ -100,15 +100,15 @@ class GateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-          'gate_number'  => 'required|max:10',
+          'gate_number'  => 'required',
           'description'  => 'required|max:100',
-          'area'         => 'required',
+          'area'         => 'required|max:20',
         ]);
 
         $masterGate              = Gate::findOrFail($id);
         $masterGate->gate_number = $request->input('gate_number');
         $masterGate->description = $request->input('description');
-        $masterGate->area_id     = $request->input('area');
+        $masterGate->area        = $request->input('area');
 
         return $masterGate->save();
     }
