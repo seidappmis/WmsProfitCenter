@@ -1,22 +1,20 @@
 <form class="form-table" id="form-master-driver">
+    @method('PUT')
     <table>
         <tr>
             <td>Expedition</td>
             <td>
-                <div class="input-field select2 col s12">
-                    <select id="expedition_code" 
-                    class="select2-data-ajax browser-default select-code" 
-                    name="expedition_code"
-                    required>
-                       <option></option>
+                <div class="input-field  col s12">
+                    <select name="expedition_code" 
+                    class="select2-data-ajax browser-default" required onchange="checkExpeditionValue()">   
                     </select>
               </div>
             </td>
         </tr>
     </table>
     <!-- Detail Table -->
-    <div id="detail-driver">
-    <table class="mt-1">
+   
+    <table class="mt-1" id="form-driver-wrapper" style="display: none;">
         <tr>
             <td width="20%" class="label">Driver ID</td>
             <td>
@@ -186,7 +184,7 @@
             </td>
         </tr>
     </table>
-    </div>
+  
     {!! get_button_save() !!}
     {!! get_button_cancel(url('master-driver')) !!}
 </form>
@@ -194,10 +192,21 @@
 <script type="text/javascript">
    jQuery(document).ready(function($) {
       // Loading area data
-      $('.select-code').select2({
-         placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-expedition/select2-master_expedition')
+    //   $('.select-code').select2({
+    //      placeholder: '-- Select --',
+    //      ajax: get_select2_ajax_options('/master-expedition/select2-master_expedition')
+    //   });
+    $('#form-master-driver [expedition_name="expedition_code"]').select2({
+         placeholder: '-- Select Expedition --',
+         ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
       });
    });
+   function checkExpeditionValue(){
+    if ($('#form-master-driver [expedition_name="expedition_code"]').val() !== null) {
+        $('#form-driver-wrapper').show();
+    } else {
+        $('#form-driver-wrapper').hide();
+    }
+   }
 </script>
 @endpush
