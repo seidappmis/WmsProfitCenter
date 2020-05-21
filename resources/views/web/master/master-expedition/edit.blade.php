@@ -39,16 +39,10 @@
 
 @push('script_js')
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        set_initial_form_data();
-        $('.btn-save').html('Update');
-    });
-
-
  	$("#form-master-expedition").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-expedition/" . $masterExpedition->id) }}',
+          url: '{{ url("master-expedition/" . $masterExpedition->expedition_name) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })

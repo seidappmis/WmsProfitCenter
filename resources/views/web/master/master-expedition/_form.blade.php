@@ -26,7 +26,7 @@
                         type="text" 
                         class="validate" 
                         name="expedition_name" 
-                        value="{{old('expedition_name', !empty($masterExpedition) ? $masterExpedition->code : '')}}" 
+                        value="{{old('expedition_name', !empty($masterExpedition) ? $masterExpedition->expedition_name : '')}}" 
                         {{!empty($masterExpedition) ? 'readonly' : ''}} 
                         required
                         />
@@ -175,25 +175,11 @@
             <td>
               <div class="input-field col s12 mt-2">
                 <p>
-                  <label>
-                    <input 
-                    id="active"
-                    type="checkbox" 
-                    class="form-check-input"
-                    name="active"  
-                    
-                    value="{{old('active', !empty($masterExpedition) ? $masterExpedition->active  : '')}}" /><span></span>
-                    {{-- <input type="checkbox" name="active" class="form-check-input" value="1"/> <span></span> --}}
-                    {{-- <input 
-                        id="active" 
-                        name="active" 
-                        type="checkbox" 
-                        class="form-check-input" 
-                        checked="{{ $masterExpedition -> active ? 'checked' : '' }}"
-
-                        /> --}}
-                  </label>
-                </p>
+                    <label>
+                      <input id= type="checkbox" class="filled-in" name="status_active" {{!empty($masterExpedition) && $masterExpedition->status_active ? 'checked' : ''}} />
+                      <span></span>
+                    </label>
+                  </p>
               </div>
             </td>
         </tr>

@@ -22,9 +22,10 @@ class MasterExpeditionController extends Controller
       
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
+              ->editColumn('status_active', '{{$status_active ? "True" : "False"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
-                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->code . '/edit'));
+                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->expedition_name . '/edit'));
                 $action .= ' ' . get_button_delete();
                 return $action;
               });
@@ -54,7 +55,7 @@ class MasterExpeditionController extends Controller
     {
         $request->validate([
             'code'=>'required|unique:master_expedition|max:3',
-            'expedition_name'=>'required|max:40',
+            'expedition_name'=>'required|unique:master_expedition|max:40',
             'sap_code'=>'required|max:6',
            
         ]);
@@ -71,7 +72,7 @@ class MasterExpeditionController extends Controller
         $masterExpedition->fax                      =$request->input('fax');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
-        $masterExpedition->active                   =$request->has('active');
+        $masterExpedition->status_active            =!empty($request->input('status_active'));
 
         return $masterExpedition->save();
 
@@ -111,7 +112,7 @@ class MasterExpeditionController extends Controller
     public function update(Request $request, $id)
     {
          $request->validate([
-            'code'=>'required|unique:master_expedition|max:3',
+            'code'=>'required|max:3',
             'expedition_name'=>'required|max:40',
             'sap_code'=>'required|max:6',
             'address'=>'required|max:100',
@@ -122,10 +123,10 @@ class MasterExpeditionController extends Controller
             'fax'=>'required|max:12',
             'bank'=>'required',
             'currency'=>'required',
-            'active'=>'required'
+          
         ]);
 
-        $masterExpedition                           =MasterExpedition::findorfai($id);
+        $masterExpedition                           =MasterExpedition::findorfail($id);
         $masterExpedition->code                     =$request->input('code');
         $masterExpedition->expedition_name          =$request->input('expedition_name');
         $masterExpedition->sap_code                 =$request->input('sap_code');
@@ -137,7 +138,7 @@ class MasterExpeditionController extends Controller
         $masterExpedition->fax                      =$request->input('fax');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
-        $masterExpedition->active                   =$request->has('active');
+        $masterExpedition->status_active            =!empty($request->input('status_active'));
         
         return $masterExpedition->save();
     }

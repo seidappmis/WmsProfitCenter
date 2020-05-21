@@ -90,7 +90,7 @@
       // {data: 'fax', name: 'fax', className: 'detail'},
       // {data: 'bank', name: 'bank', className: 'detail'},
       // {data: 'currency', name: 'currency', className: 'detail'},
-      {data: 'active', name: 'active', className: 'detail'},
+      {data: 'status_active', name: 'status_active', className: 'detail'},
 
       {data: 'action', className: 'center-align', searchable: false, orderable: false},
   ]
@@ -113,7 +113,7 @@ table.on('click', '.btn-delete', function(event) {
 
     // Ask user confirmation to delete the data.
     swal({
-      text: "Delete the City Code " + data.code + "?",
+      text: "Delete thema Expedition" + data.expedition_name + "?",
       icon: 'warning',
       buttons: {
         cancel: true,
@@ -122,7 +122,7 @@ table.on('click', '.btn-delete', function(event) {
     }).then(function (confirm) { // proses confirm
       if (confirm) { // if CONFIRMED send DELETE Request to endpoint
         $.ajax({
-          url: '{{ url('master-expedition') }}' + '/' + data.code ,
+          url: '{{ url('master-expedition') }}' + '/' + data.expedition_name ,
           type: 'DELETE',
           dataType: 'json',
         })

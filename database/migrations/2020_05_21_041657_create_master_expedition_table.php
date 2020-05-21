@@ -14,23 +14,23 @@ class CreateMasterExpeditionTable extends Migration
     public function up()
     {
         Schema::create('master_expedition', function (Blueprint $table) {
-            $table->id();
             $table->string('code');
-            $table->text('expedition_name');
+            $table->string('expedition_name',45);
             $table->text('address')->nullable();
             $table->string('sap_code');
             $table->integer('npwp')->nullable();
-            $table->string('contact_person');
-            $table->text('phone1')->nullable();
-            $table->text('phone2')->nullable();
-            $table->string('fax')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->integer('phone1')->nullable();
+            $table->integer('phone2')->nullable();
+            $table->integer('fax')->nullable();
             $table->string('bank')->nullable();
             $table->string('currency')->nullable();
-            $table->boolean('active')->nullable()->default(false);
-
+            $table->tinyInteger('status_active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
+            $table->primary('expedition_name');
+            
         });
     }
 
