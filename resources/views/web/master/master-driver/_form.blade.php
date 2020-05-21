@@ -4,9 +4,9 @@
             <td>Expedition</td>
             <td>
                 <div class="input-field select2 col s12">
-                    <select id="code_exp" 
+                    <select id="expedition_name" 
                     class="select2-data-ajax browser-default select-exp" 
-                    name="code_exp"
+                    name="expedition_name"
                     required>
                        <option></option>
                     </select>
@@ -21,14 +21,18 @@
             <td width="20%" class="label">Driver ID</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="driver_id" type="text" class="validate">
+                    <input id="driver_id" 
+                        type="text" 
+                        class="validate"
+                        name="driver_id"
+                        >
                 </div>
             </td>
             <td width="30%" rowspan="11" class="center-align">
                 <div class="col s12">
                   <p>Maximum upload size 2MB.</p>
                   <br>
-                  <input type="file" id="input-file-now" class="dropify" name="file" data-default-file="" data-height="350"/>
+                  <input type="file" id="photo" class="dropify" name="photo" data-default-file="" data-height="350"/>
                 </div>
             </td>
         </tr>

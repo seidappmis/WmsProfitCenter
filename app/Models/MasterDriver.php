@@ -8,6 +8,6 @@ class MasterDriver extends BaseModel
 {
    public function master_expedition()
    {
-       return $this->belongTo('App\Models\MasterExpedition','code_exp');
+       return $this->belongTo('App\Models\MasterExpedition','expedition_name');
    }
 }
