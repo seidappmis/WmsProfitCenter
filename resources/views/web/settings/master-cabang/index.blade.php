@@ -40,15 +40,15 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
-                                    <th width="150px;">Kode Customer</th>
-                                    <th width="150px;">Kode Cabang</th>
-                                    <th width="150px;">Short Description</th>
-                                    <th width="150px;">Long Description</th>
+                                    <th>Kode Customer</th>
+                                    <th>Kode Cabang</th>
+                                    <th>Short Description</th>
+                                    <th>Long Description</th>
                                     <th>REGION</th>
-                                    <th width="50px;">Type</th>
-                                    <th width="50px;">HQ</th>
-                                    <th width="150px;">WMS START</th>
-                                    <th width="50px;"></th>
+                                    <th>Type</th>
+                                    <th>HQ</th>
+                                    <th>WMS START</th>
+                                    <th width="50px"></th>
                                   </tr>
                               </thead>
                               <tbody>

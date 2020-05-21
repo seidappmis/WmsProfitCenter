@@ -65,9 +65,13 @@
             <td>Type Code</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="tycode"
+                    <select id="tycode" name="tycode" 
                     class="select2-data-ajax browser-default select-tycode">
                       <option></option>
+                      <option value="NN" 
+                              disabled selected>-- Select Type --</option>
+                      <option value="BR">BR</option>
+                      <option value="DS">DS</option>
                     </select>
                 </div>
             </td>
@@ -80,7 +84,9 @@
                     <label>
                       <input id="hq"
                       type="checkbox"
-                      class="filled-in" />
+                      class="filled-in"
+                      name="hq"
+                      {{!empty($masterCabang) && $masterCabang->hq ? 'checked' : ''}} />
                       <span></span>
                     </label>
                   </p>
@@ -113,20 +119,8 @@
          ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
 
-      // Loading type code data
-      $('.select-tycode').select2({
-        placeholder: '-- Select Type--',
-        data : [
-          {
-            id: 'BR',
-            text: 'BR'
-          },
-          {
-            id: 'DS',
-            text: 'DS'
-          }
-        ]
-      });
+      // Type code data
+      $('.select-tycode').select2();
    });
 </script>
 @endpush

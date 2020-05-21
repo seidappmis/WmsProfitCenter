@@ -67,7 +67,7 @@ class MasterCabangController extends Controller
         $masterCabang->kode_cabang   = $request->input('kode_cabang');
         $masterCabang->short_description   = $request->input('sdes');
         $masterCabang->long_description   = $request->input('ldes');
-        //$masterCabang->hq   = $request->input('hq');
+        $masterCabang->hq            = !empty($request->input('hq'));
         $masterCabang->region        = $request->input('region');
         $masterCabang->type          = $request->input('tycode');
         $masterCabang->start_wms     = $request->input('start_wms');
@@ -123,7 +123,7 @@ class MasterCabangController extends Controller
         $masterCabang->kode_cabang   = $request->input('kode_cabang');
         $masterCabang->short_description   = $request->input('sdes');
         $masterCabang->long_description   = $request->input('ldes');
-        //$masterCabang->hq   = $request->input('hq');
+        $masterCabang->hq   = !empty($request->input('hq'));
         $masterCabang->region   = $request->input('region');
         $masterCabang->type   = $request->input('tycode');
         $masterCabang->start_wms     = $request->input('start_wms');
