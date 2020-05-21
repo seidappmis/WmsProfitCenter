@@ -45,7 +45,7 @@
 
     function set_initial_form_data(){
 
-        set_select2_value('#area', '{{$masterGate->area_id}}', '{{$masterGate->Area->area}}')
+        set_select2_value('#area', '{{$masterGate->area}}', '{{$masterGate->Area->area}}')
     };
 
 

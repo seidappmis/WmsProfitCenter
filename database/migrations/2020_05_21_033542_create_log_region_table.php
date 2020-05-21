@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasTable extends Migration
+class CreateLogRegionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->string('area', 45);
-            $table->string('code', 45)->nullable();
+        Schema::create('log_region', function (Blueprint $table) {
+            $table->string('region', 100);
 
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            $table->primary('area'); // add primary key
+            $table->primary('region'); // add primary key
         });
     }
 
@@ -32,6 +31,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('log_region');
     }
 }

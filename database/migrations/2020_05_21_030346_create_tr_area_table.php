@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterDestinationTable extends Migration
+class CreateTrAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateMasterDestinationTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_destination', function (Blueprint $table) {
-            $table->string('destination_number', 8);
-            $table->string('description')->nullable();
-            $table->string('region');
+        Schema::create('tr_area', function (Blueprint $table) {
+            $table->string('area', 20);
+            $table->string('code', 3)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            $table->primary('destination_number');
+            $table->primary('area'); // add primary key
         });
     }
 
@@ -33,6 +32,6 @@ class CreateMasterDestinationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_destination');
+        Schema::dropIfExists('tr_area');
     }
 }
