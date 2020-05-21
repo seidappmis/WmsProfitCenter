@@ -49,7 +49,7 @@
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke index
-              // window.location.href = "{{ url('user-manager') }}"
+              window.location.href = "{{ url('user-manager') }}"
             }) // alert success
         })
         .fail(function(xhr) {

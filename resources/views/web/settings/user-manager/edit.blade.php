@@ -41,6 +41,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.btn-save').html('Update');
+        set_initial_form_value();
     });
 
     $("#form-user-manager").validate({
@@ -62,5 +63,13 @@
         });
       }
     });
+
+    function set_initial_form_value(){
+        set_select2_value('#form-user-manager [name="roles_id"]', '{{$user->roles_id}}', '{{$user->roles->roles_name}}');
+        set_select2_value('#form-user-manager [name="area"]', '{{$user->area}}', '{{$user->area}}');
+        @if (!empty($user->cabang))
+        set_select2_value('#form-user-manager [name="kode_customer"]', '{{$user->kode_customer}}', '{{ "[" . $user->cabang->short_description . "]" . $user->cabang->long_description}}');
+        @endif
+    }
 </script>
 @endpush

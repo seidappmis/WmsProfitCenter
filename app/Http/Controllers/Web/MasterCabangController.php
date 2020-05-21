@@ -152,4 +152,14 @@ class MasterCabangController extends Controller
         return get_select2_data($request, $query);
     }
 
+    public function getSelect2Cabang(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_customer AS id'),
+          DB::raw("CONCAT(short_description, '-', long_description) AS text")
+        );
+
+        return get_select2_data($request, $query);
+    }
+
 }

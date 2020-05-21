@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
       $table->string('first_name')->nullable();
       $table->string('last_name')->nullable();
       $table->string('password');
+      $table->foreignId('roles_id');
       $table->tinyInteger('status')->default(1);
       $table->string('area', 20)->nullable();
       $table->string('kode_customer', 150)->nullable();
