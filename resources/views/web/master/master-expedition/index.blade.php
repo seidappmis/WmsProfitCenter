@@ -74,7 +74,7 @@
       url: '{{ url('master-expedition') }}',
       type: 'GET',
       data: function(d) {
-          d.search['value'] = $('#global_filter1').val()
+          d.search['value'] = $('#global_filter').val()
         }
   },
   order: [1, 'asc'],

@@ -176,7 +176,7 @@
               <div class="input-field col s12 mt-2">
                 <p>
                     <label>
-                      <input id= type="checkbox" class="filled-in" name="status_active" {{!empty($masterExpedition) && $masterExpedition->status_active ? 'checked' : ''}} />
+                      <input type="checkbox" class="filled-in" name="status_active" {{!empty($masterExpedition) && $masterExpedition->status_active ? 'checked' : ''}} />
                       <span></span>
                     </label>
                   </p>
