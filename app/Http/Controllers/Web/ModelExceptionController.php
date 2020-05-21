@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Area;
+use App\Models\ModelException;
 use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class AreaController extends Controller
+class ModelExceptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +17,19 @@ class AreaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = Area::all();
+          $query = ModelException::all();
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('master-area/' . $data->area . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
 
           return $datatables->make(true);
         }
-        return view('web.settings.master-area.index');
+        return view('web.master.master-model-exception.index');
     }
 
     /**
@@ -41,7 +39,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        return view('web.settings.master-area.create');
+        //
     }
 
     /**
@@ -53,15 +51,13 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'area'       => 'unique:tr_area|max:20',
-          'code'       => 'max:3',
+          'model'  => 'required|unique:log_model_exception|max:50',
         ]);
 
-        $masterArea            = new Area;
-        $masterArea->area      = $request->input('area');
-        $masterArea->code      = $request->input('code');
+        $modelException            = new ModelException;
+        $modelException->model     = $request->input('model');
 
-        return $masterArea->save();
+        return $modelException->save();
     }
 
     /**
@@ -83,9 +79,7 @@ class AreaController extends Controller
      */
     public function edit($id)
     {
-        $data['masterArea'] = Area::findOrFail($id);
-
-        return view('web.settings.master-area.edit', $data);
+        //
     }
 
     /**
@@ -97,16 +91,7 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-          'area'       => 'max:20',
-          'code'       => 'max:3',
-        ]);
-
-        $masterArea            = Area::findOrFail($id);
-        $masterArea->area      = $request->input('area');
-        $masterArea->code      = $request->input('code');
-
-        return $masterArea->save();
+        //
     }
 
     /**
@@ -117,21 +102,6 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        return Area::destroy($id);
-    }
-
-    /**
-     * Show the application dataAjax.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getSelect2Area(Request $request)
-    {
-        $query = Area::select(
-          DB::raw('area AS id'),
-          DB::raw('area AS text')
-        );
-
-        return get_select2_data($request, $query);
+        return ModelException::destroy($id);
     }
 }

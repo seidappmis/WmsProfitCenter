@@ -31,7 +31,7 @@
 </div>
 @endsection
 
-@push('script_js')
+@push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
 </script>
 @endpush

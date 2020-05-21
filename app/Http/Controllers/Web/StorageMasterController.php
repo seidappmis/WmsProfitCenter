@@ -104,7 +104,7 @@ class StorageMasterController extends Controller
      */
     public function edit($id)
     {
-         $data['storageMaster'] = StorageMaster::findOrFail($id);
+        $data['storageMaster'] = StorageMaster::findOrFail($id);
 
         return view('web.master.storage-master.edit', $data);
     }

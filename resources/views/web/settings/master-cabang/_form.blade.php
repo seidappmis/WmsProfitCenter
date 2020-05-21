@@ -54,7 +54,7 @@
             <td>Region</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="region"
+                    <select id="region" name="region" 
                     class="select2-data-ajax browser-default select-region">
                         <option></option>
                     </select>
@@ -65,9 +65,13 @@
             <td>Type Code</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="tycode"
+                    <select id="tycode" name="tycode" 
                     class="select2-data-ajax browser-default select-tycode">
                       <option></option>
+                      <option value="NN" 
+                              disabled selected>-- Select Type --</option>
+                      <option value="BR">BR</option>
+                      <option value="DS">DS</option>
                     </select>
                 </div>
             </td>
@@ -80,7 +84,9 @@
                     <label>
                       <input id="hq"
                       type="checkbox"
-                      class="filled-in" />
+                      class="filled-in"
+                      name="hq"
+                      {{!empty($masterCabang) && $masterCabang->hq ? 'checked' : ''}} />
                       <span></span>
                     </label>
                   </p>
@@ -91,11 +97,11 @@
             <td>START WMS</td>
             <td>
                 <div class="input-field col s12">
-                   <input id="wms"
+                   <input id="start_wms"
                    type="text"
                    class="validate"
-                   name="wms"
-                   value="{{old('stwms', !empty($masterCabang) ? $masterCabang->stwms : '')}}">
+                   name="start_wms"
+                   value="{{old('start_wms', !empty($masterCabang) ? $masterCabang->start_wms : '')}}">
                 </div>
             </td>
         </tr>
@@ -110,44 +116,11 @@
       // Loading region data
       $('.select-region').select2({
          placeholder: '-- Select Region--',
-         data : [
-          {
-            id: 'JABODETABEK',
-            text: 'JABODETABEK'
-          },
-          {
-            id: 'JAWA',
-            text: 'JAWA'
-          },
-          {
-            id: 'KALIMANTAN',
-            text: 'KALIMANTAN'
-          },
-          {
-            id: 'SULAWESI',
-            text: 'SULAWESI'
-          },
-          {
-            id: 'SUMATERA',
-            text: 'SUMATERA'
-          }
-        ]
+         ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
 
-      // Loading type code data
-      $('.select-tycode').select2({
-        placeholder: '-- Select Type--',
-        data : [
-          {
-            id: 'BR',
-            text: 'BR'
-          },
-          {
-            id: 'DS',
-            text: 'DS'
-          }
-        ]
-      });
+      // Type code data
+      $('.select-tycode').select2();
    });
 </script>
 @endpush

@@ -6,11 +6,14 @@ use App\BaseModel;
 
 class Gate extends BaseModel
 {
+    //Set Table
+    protected $table = "tr_gate";
+
     /**
      * Get the Area that owns the Gate.
      */
-    public function area()
+    public function Area()
     {
-        return $this->belongsTo('App\Models\Area', 'area_id');
+        return $this->belongsTo('App\Models\Area', 'area');
     }
 }

@@ -19,9 +19,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-vehicle/{vehicle_group_id}/detail', 'Web\VehicleDetailController');
   Route::resource('master-vehicle', 'Web\VehicleController');
 
-  Route::view('master-expedition', 'web.master.master-expedition.index');
-  Route::view('master-expedition/create', 'web.master.master-expedition.create');
-  Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
+  Route::resource('master-expedition', 'Web\MasterExpeditionController');
+  // Route::view('master-expedition', 'web.master.master-expedition.index');
+  // Route::view('master-expedition/create', 'web.master.master-expedition.create');
+  // Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
 
   Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
   Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
@@ -36,9 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('destination-city/1', 'web.master.destination-city.edit');
   Route::resource('destination-city', 'Web\DestinationCityController');
 
-  Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
-  Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
-  Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
+  // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
+  // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
+  // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
+  Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
   // Route::view('storage-master', 'web.master.storage-master.index');
   // Route::view('storage-master/create', 'web.master.storage-master.create');
@@ -49,6 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('master-model', 'web.master.master-model.index');
   // Route::view('master-model/create', 'web.master.master-model.create');
   // Route::view('master-model/1', 'web.master.master-model.edit');
+  Route::get('master-model/select2-material-group', 'Web\MasterModelController@getSelect2MaterialGroup');
+  Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
+  Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
   Route::resource('master-model', 'Web\MasterModelController');
 
   //Route::view('master-vendor', 'web.master.master-vendor.index');
@@ -56,7 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
   //Route::view('master-vendor/1', 'web.master.master-vendor.edit');
   Route::resource('master-vendor', 'Web\VendorController');
 
-  Route::view('master-model-exception', 'web.master.master-model-exception.index');
+  // Route::view('master-model-exception', 'web.master.master-model-exception.index');
+  Route::resource('master-model-exception', 'Web\ModelExceptionController');
 
   // Route::view('master-branch-expedition', 'web.master.master-branch-expedition.index');
   // Route::view('master-branch-expedition/create', 'web.master.master-branch-expedition.create');

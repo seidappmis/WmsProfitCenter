@@ -19,20 +19,20 @@ class MasterDestinationController extends Controller
     {
         if ($request->ajax()) {
             $query = MasterDestination::all();
-      
+
             $datatables = DataTables::of($query)
-              ->addIndexColumn() //DT_RowIndex (Penomoran)
-              ->addColumn('action', function ($data) {
-                $action = '';
-                $action .= ' ' . get_button_edit(url('master-destination/' . $data->destination_number . '/edit'));
-                $action .= ' ' . get_button_delete();
-                return $action;
-              });
-      
+                ->addIndexColumn() //DT_RowIndex (Penomoran)
+                ->addColumn('action', function ($data) {
+                    $action = '';
+                    $action .= ' ' . get_button_edit(url('master-destination/' . $data->destination_number . '/edit'));
+                    $action .= ' ' . get_button_delete();
+                    return $action;
+                });
+
             return $datatables->make(true);
-          }
-         
-          return view('web.master.master-destination.index');
+        }
+
+        return view('web.master.master-destination.index');
     }
 
     /**
@@ -57,13 +57,13 @@ class MasterDestinationController extends Controller
             'destination_number'  => 'required|unique:master_destination|max:10',
             'description'  => 'required|max:100',
             'region'  => 'required|max:10',
-          ]);
-      
-          $masterDestination            = new MasterDestination;
-          $masterDestination->destination_number = $request->input('destination_number');
-          $masterDestination->description = $request->input('description');
-          $masterDestination->region = $request->input('region');
-          return $masterDestination->save();
+        ]);
+
+        $masterDestination            = new MasterDestination;
+        $masterDestination->destination_number = $request->input('destination_number');
+        $masterDestination->description = $request->input('description');
+        $masterDestination->region = $request->input('region');
+        return $masterDestination->save();
     }
 
     /**
@@ -100,18 +100,18 @@ class MasterDestinationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'destination_number'  => 'required|max:8',
+            //'destination_number'  => 'required|max:8',
             'description'  => 'required|max:100',
-            'region'=>'required|max:10'
-          ]);
-      
-          $masterDestination            = MasterDestination::findOrFail($id);
-          $masterDestination->destination_number = $request->input('destinantion_number');
-          $masterDestination->description = $request->input('description');
-          $masterDestination->region = $request->input('region');
-          
-      
-          return $masterDestination->save();
+            'region' => 'required|max:10'
+        ]);
+
+        $masterDestination            = MasterDestination::findOrFail($id);
+        //$masterDestination->destination_number = $request->input('destinantion_number');
+        $masterDestination->description = $request->input('description');
+        $masterDestination->region = $request->input('region');
+
+
+        return $masterDestination->save();
     }
 
     /**
@@ -126,12 +126,12 @@ class MasterDestinationController extends Controller
     }
 
     public function getSelect2Destination(Request $request)
-  {
-    $query = MasterDestination::select(
-      DB::raw("destination_number AS id"),
-      DB::raw("description AS text")
-    );
+    {
+        $query = MasterDestination::select(
+            DB::raw("destination_number AS id"),
+            DB::raw("description AS text")
+        );
 
-    return get_select2_data($request, $query);
-  }
+        return get_select2_data($request, $query);
+    }
 }

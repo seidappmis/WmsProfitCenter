@@ -14,7 +14,6 @@ class CreateMasterVendorTable extends Migration
     public function up()
     {
         Schema::create('master_vendor', function (Blueprint $table) {
-            $table->id();
             $table->string('vendor_code', 50);
             $table->string('vendor_name', 100)->nullable();
             $table->string('description', 250)->nullable();
@@ -24,10 +23,10 @@ class CreateMasterVendorTable extends Migration
             $table->string('contact_person_email', 50)->nullable();
 
             $table->timestamps();
-            $table->integer('created_date')->nullable();
             $table->integer('created_by')->nullable();
-            $table->integer('modify_date')->nullable();
-            $table->integer('modify_by')->nullable();
+            $table->integer('updated_by')->nullable();
+
+            $table->primary('vendor_code');
         });
     }
 

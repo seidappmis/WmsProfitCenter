@@ -39,8 +39,14 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+        set_initial_form_data();
         $('.btn-save').html('Update');
     });
+
+    function set_initial_form_data(){
+
+        set_select2_value('#region', '{{$masterCabang->region}}', '{{$masterCabang->Region->region}}')
+    };
 
  	$("#form-master-cabang").validate({
       submitHandler: function(form) {
