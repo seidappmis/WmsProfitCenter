@@ -1,5 +1,7 @@
 <form class="form-table" id="form-master-driver">
+    @if(!empty($masterDriver))
     @method('PUT')
+    @endif
     <table>
         <tr>
             <td>Expedition</td>
@@ -23,6 +25,7 @@
                         type="text" 
                         class="validate"
                         name="driver_id"
+                        value="{{old('driver_id', !empty($masterDriver) ? $masterDriver->driving_lisence_number : '')}}" 
                         >
                 </div>
             </td>
@@ -46,6 +49,7 @@
                     type="text" 
                     class="validate"
                     name="driver_name">
+                    value="{{old('driver_name', !empty($masterDriver) ? $masterDriver->driver_name : '')}}" 
                 </div>
             </td>
         </tr>
@@ -91,8 +95,7 @@
                     class="validate"
                     name="ktp_no"
                     value="{{old('ktp_no', !empty($masterDriver) ? $masterDriver->ktp_no : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required>
+                   
                     >
                 </div>
             </td>
@@ -106,8 +109,7 @@
                     class="validate"
                     name="phone1"
                     value="{{old('phone1', !empty($masterDriver) ? $masterDriver->phone1 : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required>
+                    
                 </div>
             </td>
         </tr>
@@ -121,8 +123,7 @@
                     class="validate"
                     name="phone2"
                     value="{{old('phone2', !empty($masterDriver) ? $masterDriver->phone2 : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required
+                    
                         >
                     </div>
                 </div>
@@ -137,8 +138,7 @@
                     class="validate" 
                     name="remarks1"
                     value="{{old('remarks1', !empty($masterDriver) ? $masterDriver->remarks1 : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required>
+                    
                 </div>
             </td>
         </tr>
@@ -150,8 +150,7 @@
                    type="text"
                     class="validate" 
                     name="value="{{old('remarks2', !empty($masterDriver) ? $masterDriver->remarks2 : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required>">
+                    
                 </div>
             </td>
         </tr>
@@ -164,8 +163,7 @@
                    class="validate" 
                    name="remarks3"
                    value="{{old('remarks3', !empty($masterDriver) ? $masterDriver->remarks3 : '')}}" 
-                    {{!empty($masterDriver) ? 'readonly' : ''}} 
-                    required>>
+                    
                 </div>
             </td>
         </tr>
