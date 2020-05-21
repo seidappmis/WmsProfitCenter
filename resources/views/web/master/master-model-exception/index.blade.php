@@ -28,20 +28,7 @@
                       <!-- Input Form -->
                       <div class="card-content">
                         <h4 class="card-title">Input Model Exception</h4>
-                        <form class="form-table">
-                          <table>
-                            <tr>
-                              <td>Model Exception</td>
-                              <td>
-                                <div class="input-field col s12">
-                                  <input type="text" id="excep" required>
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-                          {!! get_button_save() !!}
-                          {!! get_button_cancel(url('master-model-exception')) !!}
-                        </form>
+                        @include('web.master.master-model-exception._form')
                       </div> 
                       <!-- End Input -->
                     </div>
@@ -59,7 +46,7 @@
                         <br>
                         <!-- Datatables Start -->
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-model-exception" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -68,11 +55,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>ZADDON</td>
-                                    <td>{!! get_button_delete() !!}</td>
-                                  </tr>
                               </tbody>
                           </table>
                         </div>
@@ -89,30 +71,50 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-model-exception').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-model-exception') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete the Model ZADDON?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
+  $("#form-model-exception").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-model-exception") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-model-exception') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
 
   $("input#global_filter").on("keyup click", function () {
@@ -123,5 +125,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete the Model " + data.model + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-model-exception') }}' + '/' + data.model ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush

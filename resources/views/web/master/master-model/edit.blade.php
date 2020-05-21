@@ -31,8 +31,44 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
- 	
+ 	jQuery(document).ready(function($) {
+        set_initial_form_data();
+        $('.btn-save').html('Update');
+    });
+
+    function set_initial_form_data(){
+        set_select2_value('#material_group', '{{$masterModel->material_group}}', '{{$masterModel->ModelMaterialGroup->description}}');
+
+        set_select2_value('#category', '{{$masterModel->category}}', '{{$masterModel->ModelCategory->category_name}}');
+
+        set_select2_value('#model_type', '{{$masterModel->model_type}}', '{{$masterModel->ModelType->model_type}}');
+    };
+
+    $("#form-master-model").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-model/" . $masterModel->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-model') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

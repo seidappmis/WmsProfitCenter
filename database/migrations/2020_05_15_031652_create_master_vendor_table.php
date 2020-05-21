@@ -23,9 +23,7 @@ class CreateMasterVendorTable extends Migration
             $table->string('contact_person_email', 50)->nullable();
 
             $table->timestamps();
-            $table->integer('created_date')->nullable();
             $table->integer('created_by')->nullable();
-            $table->integer('updated_date')->nullable();
             $table->integer('updated_by')->nullable();
 
             $table->primary('vendor_code');
