@@ -14,12 +14,14 @@ class CreateMasterDestinationTable extends Migration
     public function up()
     {
         Schema::create('master_destination', function (Blueprint $table) {
-            $table->string('destination_number',8);
+            $table->string('destination_number', 8);
             $table->string('description')->nullable();
             $table->string('region');
+
+            $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->timestamps();
+
             $table->primary('destination_number');
         });
     }
