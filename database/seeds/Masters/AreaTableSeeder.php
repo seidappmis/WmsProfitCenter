@@ -1,5 +1,7 @@
 <?php
+namespace Database\Seeds\Masters;
 
+use DB;
 use Illuminate\Database\Seeder;
 
 class AreaTableSeeder extends Seeder
@@ -11,12 +13,22 @@ class AreaTableSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('areas')->insert([
+    DB::table('tr_area')->insert([
       [
-        'id'                => 1,
-        'storage_type'      => '1st Class',
-        'storage_rank'      => 1,
-        'storage_intransit' => 0,
+        'area'      => 'All',
+        'code'      => null,
+      ],
+      [
+        'area'      => 'KARAWANG',
+        'code'      => 'KRW',
+      ],
+      [
+        'area'      => 'SURABAYA HUB',
+        'code'      => 'SBY',
+      ],
+      [
+        'area'      => 'SWADAYA',
+        'code'      => 'JKT',
       ],
     ]);
   }

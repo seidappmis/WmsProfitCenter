@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasTable extends Migration
+class CreateTrAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->string('area', 45);
-            $table->string('code', 45)->nullable();
+        Schema::create('tr_area', function (Blueprint $table) {
+            $table->string('area', 20);
+            $table->string('code', 3)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();
@@ -32,6 +32,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::dropIfExists('tr_area');
     }
 }

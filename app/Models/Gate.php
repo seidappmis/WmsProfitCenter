@@ -9,7 +9,7 @@ class Gate extends BaseModel
     /**
      * Get the Area that owns the Gate.
      */
-    public function area()
+    public function Area()
     {
         return $this->belongsTo('App\Models\Area', 'area_id');
     }
