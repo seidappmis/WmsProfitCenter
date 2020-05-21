@@ -42,20 +42,6 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getCreate($id)
-    {
-        $data = [
-          'vehicleGroup' => Vehicle::find($id),
-        ];
-
-        return view('web.master.master-vehicle.group.create', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('web.master.master-vehicle.group.create');
@@ -76,7 +62,9 @@ class VehicleController extends Controller
         $vehicleGroup             = new Vehicle;
         $vehicleGroup->group_name = $request->input('group_name');
 
-        return $vehicleGroup->save();
+        $vehicleGroup->save();
+
+        return $vehicleGroup;
     }
 
     /**
@@ -134,10 +122,9 @@ class VehicleController extends Controller
         $vehicleGroup = Vehicle::find($id);
 
         return DB::transaction(function () use($vehicleGroup){
-            return (
-                $vehicleGroup->details()->delete()
-                && $vehicleGroup->delete()
-            );
+            $vehicleGroup->details()->delete();
+            $vehicleGroup->delete();
+            return 1;
         });
     }
 }

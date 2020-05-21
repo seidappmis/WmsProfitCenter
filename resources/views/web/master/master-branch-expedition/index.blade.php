@@ -75,34 +75,27 @@
 
 @push('script_js')
 <script type="text/javascript">
-  // swal({
-  //   text: 'Sorry, HQ cannot access this page',
-  //   icon: 'warning'
-  // })
-
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+ var table = $('#data-table-simple').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-branch-expedition') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+        {data: 'address', name: 'address', className: 'detail'},
+        {data: 'code', name: 'code', className: 'detail'},
+        {data: 'status_active', name: 'status', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete the Expedition PUTRA NAGITA PRATAMA?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -112,5 +105,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete Branch Expedition : " + data.expedition_name + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-branch-expedition') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterCabang;
 use DataTables;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class MasterCabangController extends Controller
 {
@@ -24,7 +24,7 @@ class MasterCabangController extends Controller
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('action', function ($data) {
                     $action = '';
-                    $action .= ' ' . get_button_edit(url('master-cabang/' . $data->code_cabang . '/edit'));
+                    $action .= ' ' . get_button_edit(url('master-cabang/' . $data->kode_customer . '/edit'));
                     $action .= ' ' . get_button_delete();
                     return $action;
                 });
@@ -53,22 +53,22 @@ class MasterCabangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code_customer'  => 'required|unique:master_cabang|max:8',
-            'code_cabang'    => 'max:2',
-            'sdes'  => 'required|max:3',
-            'ldes'  => 'required|max:100',
-            'region'  => 'required',
-            'tycode'  => 'required',
+            'kode_customer'  => 'required|unique:cabangs|max:8',
+            'kode_cabang'    => 'required|max:2',
+            'sdes'  => 'max:3',
+            'ldes'  => 'max:100',
+            'region'  => 'max:100',
+            'tycode'  => 'max:2',
         ]);
 
         $masterCabang                = new MasterCabang;
-        $masterCabang->code_customer = $request->input('code_customer');
-        $masterCabang->code_cabang   = $request->input('code_cabang');
-        $masterCabang->sdes   = $request->input('sdes');
-        $masterCabang->ldes   = $request->input('ldes');
+        $masterCabang->kode_customer = $request->input('kode_customer');
+        $masterCabang->kode_cabang   = $request->input('kode_cabang');
+        $masterCabang->short_description   = $request->input('sdes');
+        $masterCabang->long_description   = $request->input('ldes');
         //$masterCabang->hq   = $request->input('hq');
-        $masterCabang->region   = $request->input('region');
-        $masterCabang->tycode   = $request->input('tycode');
+        $masterCabang->region        = $request->input('region');
+        $masterCabang->type          = $request->input('tycode');
 
         return $masterCabang->save();
     }
@@ -107,21 +107,22 @@ class MasterCabangController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code_customer'  => 'required|unique:master_cabang|max:8',
-            'code_cabang'    => 'max:2',
-            'sdes'  => 'required|max:3',
-            'ldes'  => 'required|max:100',
-            'region'  => 'required',
-            'tycode'  => 'required',
+            'kode_customer'  => 'required|max:8',
+            'kode_cabang'    => 'required|max:2',
+            'sdes'  => 'max:3',
+            'ldes'  => 'max:100',
+            'region'  => 'max:100',
+            'tycode'  => 'max:2',
         ]);
 
-        $masterCabang                = MasterCabang;
-        $masterCabang->code_customer = $request->input('code_customer');
-        $masterCabang->code_cabang   = $request->input('code_cabang');
-        $masterCabang->sdes   = $request->input('sdes');
-        $masterCabang->ldes   = $request->input('ldes');
+        $masterCabang                = MasterCabang::findOrFail($id);
+        $masterCabang->kode_customer = $request->input('kode_customer');
+        $masterCabang->kode_cabang   = $request->input('kode_cabang');
+        $masterCabang->short_description   = $request->input('sdes');
+        $masterCabang->long_description   = $request->input('ldes');
+        //$masterCabang->hq   = $request->input('hq');
         $masterCabang->region   = $request->input('region');
-        $masterCabang->tycode   = $request->input('tycode');
+        $masterCabang->type   = $request->input('tycode');
 
         return $masterCabang->save();
     }
@@ -137,29 +138,14 @@ class MasterCabangController extends Controller
         return MasterCabang::destroy($id);
     }
 
-    /**
-     * Show the application dataAjax.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function getSelect2Region(Request $request)
+    public function getSelect2Branch(Request $request)
     {
-        $query = Region::select(
-            DB::raw('region AS id'),
-            DB::raw('region AS text')
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("CONCAT(kode_cabang, '-', short_description, '-', long_description) AS text")
         );
 
         return get_select2_data($request, $query);
     }
 
-    public function getSelect2Tycode(Request $request)
-    {
-        $query = Tycode::select(
-            DB::raw('tycode AS id'),
-            DB::raw('tycode AS text')
-        );
-
-        return get_select2_data($request, $query);
-    }
 }

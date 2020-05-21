@@ -1,6 +1,6 @@
 @extends('layouts.materialize.index')
 
-@include('web.master.master-model.modal-form')
+@include('web.master.master-model.upload.modal-form')
 
 @section('content')
 <div class="row">
@@ -42,7 +42,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-master-model" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -58,7 +58,7 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody><!-- 
                                 <td>1</td>
                                 <td>14A20D2</td>
                                 <td></td>
@@ -72,7 +72,7 @@
                                 <td>
                                   {!! get_button_edit(url('master-model/1')) !!}
                                   {!! get_button_delete() !!}
-                                </td>
+                                </td> -->
                               </tbody>
                           </table>
                         </div>
@@ -89,8 +89,10 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "scrollX": true,
+  var table = $('#data-table-master-model').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
   });
 
   table.on('click', '.btn-delete', function(event) {

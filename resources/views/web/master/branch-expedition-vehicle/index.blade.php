@@ -52,19 +52,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1</td>
-                                <td>B 9864 TAU</td>
-                                <td>PICK UP</td>
-                                <td>SMALL TRUCK</td>
-                                <td>PUTRA NAGITA PRATAMA</td>
-                                <td>3.000</td>
-                                <td>7.000</td>
-                                <td>BANDUNG</td>
-                                <td>ACTIVE</td>
-                                <td>
-                                  {!! get_button_edit(url('branch-expedition-vehicle/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td>
                               </tbody>
                           </table>
                         </div>
@@ -81,34 +68,31 @@
 
 @push('script_js')
 <script type="text/javascript">
-  // swal({
-  //   text: 'Sorry, HQ cannot access this page',
-  //   icon: 'warning'
-  // })
-
   var table = $('#data-table-simple').DataTable({
-    "scrollX": true,
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('branch-expedition-vehicle') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'vehicle_type', name: 'vehicle_type_details.vehicle_desription ', className: 'detail'},
+        {data: 'vehicle_group', name: 'vehicle_type_groups.group_name', className: 'detail'},
+        {data: 'expedition_name', name: 'wms_branch_expedition.expedition_name', className: 'detail'},
+        {data: 'cbm_min', name: 'vehicle_type_details.cbm_min', className: 'detail'},
+        {data: 'cbm_max', name: 'vehicle_type_details.cbm_max', className: 'detail'},
+        {data: 'destination_name', name: 'master_destination.description', className: 'detail'},
+        {data: 'status_active', name: 'status_active', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete Vehicle Expedition Number B 9864 TAU?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -116,7 +100,39 @@
 
   // Custom search
   function filterGlobal() {
-    table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete Branch Expedition vehicle : " + data.vehicle_number + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('branch-expedition-vehicle') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush

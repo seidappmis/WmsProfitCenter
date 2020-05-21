@@ -6,11 +6,11 @@
             <td>Kode Customer</td>
             <td>
                 <div class="input-field col s12">
-                   <input id="customer"
+                   <input id="kode_customer"
                    type="text"
                    class="validate"
-                   name="customer"
-                   value="{{old('code_customer', !empty($masterCabang) ? $masterCabang->code_customer : '')}}">
+                   name="kode_customer"
+                   value="{{old('kode_customer', !empty($masterCabang) ? $masterCabang->kode_customer : '')}}">
                 </div>
             </td>
         </tr>
@@ -18,11 +18,11 @@
             <td>Kode Cabang</td>
             <td>
                 <div class="input-field col s12">
-                   <input id="cabang"
+                   <input id="kode_cabang"
                    type="text"
                    class="validate"
-                   name="cabang"
-                   value="{{old('code_cabang', !empty($masterCabang) ? $masterCabang->code_cabang : '')}}">
+                   name="kode_cabang"
+                   value="{{old('kode_cabang', !empty($masterCabang) ? $masterCabang->kode_cabang : '')}}">
                 </div>
             </td>
         </tr>
@@ -34,7 +34,7 @@
                    type="text"
                    class="validate"
                    name="sdes"
-                   value="{{old('short_des', !empty($masterCabang) ? $masterCabang->short_des : '')}}">
+                   value="{{old('short_description', !empty($masterCabang) ? $masterCabang->short_description : '')}}">
                 </div>
             </td>
         </tr>
@@ -46,7 +46,7 @@
                    type="text"
                    class="validate"
                    name="ldes"
-                   value="{{old('long_des', !empty($masterCabang) ? $masterCabang->long_des : '')}}">
+                   value="{{old('long_description', !empty($masterCabang) ? $masterCabang->long_description : '')}}">
                 </div>
             </td>
         </tr>
@@ -67,7 +67,7 @@
                 <div class="input-field col s12">
                     <select id="tycode"
                     class="select2-data-ajax browser-default select-tycode">
-                        <option></option>
+                      <option></option>
                     </select>
                 </div>
             </td>
@@ -109,20 +109,44 @@
    jQuery(document).ready(function($) {
       // Loading region data
       $('.select-region').select2({
-         placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-region/select2-regions')
+         placeholder: '-- Select Region--',
+         data : [
+          {
+            id: 'JABODETABEK',
+            text: 'JABODETABEK'
+          },
+          {
+            id: 'JAWA',
+            text: 'JAWA'
+          },
+          {
+            id: 'KALIMANTAN',
+            text: 'KALIMANTAN'
+          },
+          {
+            id: 'SULAWESI',
+            text: 'SULAWESI'
+          },
+          {
+            id: 'SUMATERA',
+            text: 'SUMATERA'
+          }
+        ]
       });
-   });
-</script>
-@endpush
 
-@push('script_js')
-<script type="text/javascript">
-   jQuery(document).ready(function($) {
-      // Loading region data
+      // Loading type code data
       $('.select-tycode').select2({
-         placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-tycode/select2-tycodes')
+        placeholder: '-- Select Type--',
+        data : [
+          {
+            id: 'BR',
+            text: 'BR'
+          },
+          {
+            id: 'DS',
+            text: 'DS'
+          }
+        ]
       });
    });
 </script>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gate;
+use App\Models\Vendor;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,13 +18,13 @@ class VendorController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = MasterVendor::all();
+            $query = Vendor::all();
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('action', function ($data) {
                     $action = '';
-                    $action .= ' ' . get_button_edit(url('master-vendor/' . $data->id . '/edit'));
+                    $action .= ' ' . get_button_edit(url('master-vendor/' . $data->vendor_code . '/edit'));
                     $action .= ' ' . get_button_delete();
                     return $action;
                 });
@@ -55,15 +55,15 @@ class VendorController extends Controller
         $request->validate([
             'vendor_code'     => 'required|unique:master_vendor|max:50',
             'vendor_name'     => 'required|max:100',
-            'description'     => 'required|max:250',
-            'vendor_address'     => 'required|max:100',
-            'contact_person_name'     => 'required|max:50',
-            'contact_person_phone'     => 'required|max:20',
+            'description'     => 'max:250',
+            'vendor_address'     => 'max:100',
+            'contact_person_name'     => 'max:50',
+            'contact_person_phone'     => 'max:20',
             'contact_person_email'     => 'required|max:50',
 
         ]);
 
-        $masterVendor                   = new MasterVendor;
+        $masterVendor                   = new Vendor;
         $masterVendor->vendor_code      = $request->input('vendor_code');
         $masterVendor->vendor_name      = $request->input('vendor_name');
         $masterVendor->description        = $request->input('description');
@@ -94,7 +94,7 @@ class VendorController extends Controller
      */
     public function edit($id)
     {
-        $data['masterVendor'] = MasterVendor::findOrFail($id);
+        $data['masterVendor'] = Vendor::findOrFail($id);
 
         return view('web.master.master-vendor.edit', $data);
     }
@@ -109,17 +109,17 @@ class VendorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'vendor_code'     => 'required|unique:master_vendor|max:50',
+            // 'vendor_code'     => 'required|unique:master_vendor|max:50',
             'vendor_name'     => 'required|max:100',
-            'description'     => 'required|max:250',
-            'vendor_address'     => 'required|max:100',
-            'contact_person_name'     => 'required|max:50',
-            'contact_person_phone'     => 'required|max:20',
+            'description'     => 'max:250',
+            'vendor_address'     => 'max:100',
+            'contact_person_name'     => 'max:50',
+            'contact_person_phone'     => 'max:20',
             'contact_person_email'     => 'required|max:50',
         ]);
 
-        $masterVendor                   = new MasterVendor;
-        $masterVendor->vendor_code      = $request->input('vendor_code');
+        $masterVendor                   = Vendor::findOrFail($id);
+        // $masterVendor->vendor_code      = $request->input('vendor_code');
         $masterVendor->vendor_name      = $request->input('vendor_name');
         $masterVendor->description        = $request->input('description');
         $masterVendor->vendor_address        = $request->input('vendor_address');
@@ -138,6 +138,6 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        return masterVendor::destroy($id);
+        return Vendor::destroy($id);
     }
 }

@@ -20,105 +20,7 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<form class="form-table">
-                    		<h4 class="card-title">New Vehicle Expedition</h4>
-                    		<table>
-                    			<tr>
-                    				<td>Expedition</td>
-                    				<td>
-                    					<div class="input-field col s12">
-										<select required="">
-									        <option value="0" selected>-- Select Expedition --</option>
-									        <option value="1">BINTAN MEGAH ABADI, PT.</option>
-									        <option value="2">DUA SAMUDRA EXPRESS, CV.</option>
-									        <option value="3">DUA SAMUDRA LOGISTIK, PT.</option>
-									    </select>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Vehicle No.</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="no" type="text" class="validate" name="no" required>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Vehicle Type</td>
-                    				<td>
-                    					<div class="input-field col s12">
-								        <select required="">
-									        <option value="0" selected>-- Select Vehicle --</option>
-									        <option value="1">AMBIL SENDIRI</option>
-									        <option value="2">CD 4 BAN (CDE)</option>
-									        <option value="3">CD 4 BOX (CDE BOX)</option>
-									    </select>
-								      </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Destination</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <select>
-									        <option value="0" selected>-- Select Destination --</option>
-									        <option value="1">ACEH</option>
-									        <option value="2">BANDUNG</option>
-									        <option value="3">BANJARMASIN</option>
-									    </select>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Description</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									       <input id="description" type="text" class="validate">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>STNK Number</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="cp" type="text" class="validate">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Remarks 1</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="phone1" type="number" class="validate" name="phone1">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Remarks 2</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="phone2" type="number" class="validate">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>ACTIVE</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <p>
-									      <label>
-									        <input type="checkbox" class="filled-in" checked="checked" />
-									        <span></span>
-									      </label>
-									    </p>
-									  </div>
-                    				</td>
-                    			</tr>
-                    		</table>
-                    		{!! get_button_save() !!}
-                            {!! get_button_cancel(url('branch-expedition-vehicle')) !!}
-                    	</form>
+                    	@include('web.master.branch-expedition-vehicle._form')
                     </div>
                 </div>
             </div>
@@ -128,8 +30,31 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-    
+    $("#form-branch-expedition-vehicle").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("branch-expedition-vehicle") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke view
+              window.location.href = "{{ url('branch-expedition-vehicle') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

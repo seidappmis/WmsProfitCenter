@@ -9,4 +9,5 @@ class Vendor extends BaseModel
     protected $table = "master_vendor";
     //protected $primaryKey = 'cabang_number';
     protected $primaryKey = 'vendor_code';
+    public $incrementing = false;
 }

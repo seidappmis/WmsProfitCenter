@@ -52,21 +52,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <!--<tr>
-                                  <td>1.</td>
-                                  <td>10000000</td>
-                                  <td>10</td>
-                                  <td>HYP</td>
-                                  <td>PT. SEID HQ JKT</td>
-                                  <td>JABODETABEK</td>
-                                  <td>BR</td>
-                                  <td>HQ</td>
-                                  <td></td>
-                                  <td>
-                                    {!! get_button_edit(url('master-cabang/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -96,14 +81,14 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'code_customer', name: 'code_customer', className: 'detail'},
-        {data: 'code_cabang', name: 'code_cabang', className: 'detail'},
-        {data: 'sdes', name: 'sdes', className: 'detail'},
-        {data: 'ldes', name: 'ldes', className: 'detail'},
+        {data: 'kode_customer', name: 'kode_customer', className: 'detail'},
+        {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
+        {data: 'short_description', name: 'sdes', className: 'detail'},
+        {data: 'long_description', name: 'ldes', className: 'detail'},
         {data: 'region', name: 'region', className: 'detail'},
-        {data: 'tycode', name: 'tycode', className: 'detail'},
+        {data: 'type', name: 'tycode', className: 'detail'},
         {data: 'hq', name: 'hq', className: 'detail'},
-        {data: 'wms', name: 'wms', className: 'detail'},
+        {data: 'hq', name: 'wms', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
@@ -115,7 +100,7 @@
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
       swal({
-        text: "Delete the Kode Cabang " + data.code_cabang + "?",
+        text: "Delete the Kode Cabang " + data.kode_cabang + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
@@ -124,7 +109,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) {
             $.ajax({
-            url: '{{ url('master-cabang') }}' + '/' + data.code_cabang ,
+            url: '{{ url('master-cabang') }}' + '/' + data.kode_customer ,
             type: 'DELETE',
             dataType: 'json',
           })

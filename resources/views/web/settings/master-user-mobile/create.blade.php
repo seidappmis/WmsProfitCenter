@@ -21,45 +21,7 @@
                 <div class="card">
                     <div class="card-content">
                     	<h4 class="card-title">Add Master User Mobile</h4>
-                    	<form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>User</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <input id="user" type="text" class="validate" name="user" required>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Roles</td>
-                                    <td>
-                                        <div class="input-field col s12">
-                                            <select required>
-										        <option value="" disabled selected>-- Select Roles --</option>
-										        <option value="1">Admin</option>
-										        <option value="2">User</option>
-										    </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Active</td>
-                                    <td>
-                                        <div class="input-field col s12 mt-2">
-                                            <p>
-										    <label>
-										      <input type="checkbox" class="filled-in" checked="checked" />
-										      <span></span>
-										    </label>
-										  </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <button type="submit" class="waves-effect waves-light indigo btn mt-2 mr-2">Save</button>
-                            <a class="waves-effect btn-flat mt-2" href="{{ url('master-user-mobile') }}">Cancel</a>
-                        </form>
+                    	@include('web.settings.master-user-mobile._form')
                     </div>
                 </div>
             </div>
@@ -69,8 +31,31 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
- 	
+ 	$("#form-user-mobile").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-user-mobile") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-user-mobile') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

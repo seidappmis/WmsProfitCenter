@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables">
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-master-vendor" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -109,7 +109,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) { // if CONFIRMED send DELETE Request to endpoint
           $.ajax({
-            url: '{{ url('master-vendor') }}' + '/' + data.id ,
+            url: '{{ url('master-vendor') }}' + '/' + data.vendor_code ,
             type: 'DELETE',
             dataType: 'json',
           })
