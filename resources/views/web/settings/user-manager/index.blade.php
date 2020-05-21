@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="data-table-user-manager" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -52,18 +52,6 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>1.</td>
-                                  <td>13wmsadm1</td>
-                                  <td>Admin</td>
-                                  <td>PNP Bandung 1</td>
-                                  <td>Transporter</td>
-                                  <td>All</td>
-                                  <td>PT. SEID CAB. BANDUNG</td>
-                                  <td>YES</td>
-                                  <td>
-                                    {!! get_button_edit(url('user-manager/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
                                 </tr>
                               </tbody>
                           </table>
@@ -80,29 +68,30 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-user-manager').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('user-manager') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'username', name: 'username', className: 'detail'},
+        {data: 'first_name', name: 'first_name', className: 'detail'},
+        {data: 'last_name', name: 'last_name', className: 'detail'},
+        {data: 'last_name', name: 'last_name', className: 'detail'},
+        {data: 'last_name', name: 'last_name', className: 'detail'},
+        {data: 'last_name', name: 'last_name', className: 'detail'},
+        {data: 'status', name: 'status', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete the User 13wmsadm1?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -112,5 +101,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete the Area " + data.username + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('user-manager') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush

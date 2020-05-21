@@ -1,9 +1,10 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::view('user-manager', 'web.settings.user-manager.index');
-    Route::view('user-manager/create', 'web.settings.user-manager.create');
-    Route::view('user-manager/1', 'web.settings.user-manager.edit');
+    // Route::view('user-manager', 'web.settings.user-manager.index');
+    // Route::view('user-manager/create', 'web.settings.user-manager.create');
+    // Route::view('user-manager/1', 'web.settings.user-manager.edit');
+    Route::resource('user-manager', 'Web\UserManagerController');
 
     Route::view('user-roles', 'web.settings.user-roles.index');
     Route::view('user-roles/create', 'web.settings.user-roles.create');

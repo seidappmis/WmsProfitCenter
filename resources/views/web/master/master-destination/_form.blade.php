@@ -34,14 +34,35 @@
             <td>Region</td>
             <td>
                 <div class="input-field col s12">
+                    <p>
+                        <label>
+                          <input class="with-gap choose-region" name="region_type" value="new_region" type="radio" checked />
+                          <span>New Region</span>
+                        </label>
+                        <label>
+                          <input class="with-gap choose-region" name="region_type" value="current" type="radio" />
+                          <span>Current</span>
+                        </label>
+                    </p>
                     <input 
-                        id="region" 
+                        id="new_region_input" 
                         type="text" 
                         class="validate" 
                         name="region" 
                         value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
                         required
                         />
+                    <select id="current_region_input" name="region" style="display: none;" class="select2-data-ajax browser-default" required>
+                    </select>
+              </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Cabang</td>
+            <td>
+                <div class="input-field col s12">
+                    <select id="cabang" name="cabang" class="select2-data-ajax browser-default" required>
+                    </select>
               </div>
             </td>
         </tr>
@@ -49,3 +70,18 @@
     {!! get_button_save() !!}
     {!! get_button_cancel(url('master-destination')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+    $('#form-master-destination [name="region_type"]').change(function(event) {
+        /* Act on the event */
+        if ($(this).val() == 'new_region') {
+            $('#new_region_input').show();
+            $('#current_region_input').hide();
+        } else {
+            $('#new_region_input').hide();
+            $('#current_region_input').show();
+        }
+    });
+</script>
+@endpush
