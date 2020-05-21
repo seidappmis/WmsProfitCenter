@@ -26,7 +26,7 @@ class MasterDriverController extends Controller
   
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
-              ->editColumn('dltype', '{{$dltype == 1 ? "SIM A" : "SIM B":"SIM B1"}}')
+              ->editColumn('driving_lisence_type', '{{$driving_lisence_type == 1 ? "SIM A" : "SIM B":"SIM B1"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
                 $action .= ' ' . get_button_edit(url('master-driver/' . $data->driver_id . '/edit'));

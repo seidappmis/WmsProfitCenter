@@ -31,8 +31,8 @@
                   <p>Maximum upload size 2MB.</p>
                   <br>
                   <input type="file" 
-                  id="photo" class="dropify" 
-                  name="photo" 
+                  id="photo_name" class="dropify" 
+                  name="photo_name" 
                   data-default-file="" 
                   data-height="350"/>
                 </div>
@@ -42,10 +42,10 @@
             <td class="label">Driver Name</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="name" 
+                    <input id="driver_name" 
                     type="text" 
                     class="validate"
-                    name="name">
+                    name="driver_name">
                 </div>
             </td>
         </tr>
@@ -53,11 +53,11 @@
             <td class="label">Driving License Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="dltype" required>
+                    <select name="driving_lisence_type" required>
                         <option value="" disabled {{empty($masterDriver) ? 'selected' : ''}}>-- Driving License Type --</option>
-                        <option value="1"{{!empty($masterDriver) && $masterDriver->dltype == 1 ? 'selected' : ''}}>SIM A</option>
-                        <option value="2"{{!empty($masterDriver) && $masterDriver->dltype == 2 ? 'selected' : ''}}>SIM B</option>
-                        <option value="3"{{!empty($masterDriver) && $masterDriver->dltype == 3 ? 'selected' : ''}}>SIM B1</option>
+                        <option value="1"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 1 ? 'selected' : ''}}>SIM A</option>
+                        <option value="2"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 2 ? 'selected' : ''}}>SIM B</option>
+                        <option value="3"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 3 ? 'selected' : ''}}>SIM B1</option>
                     </select>
                     {{-- <select>
                         <option value="" disabled selected>-- Select Type --</option>
@@ -72,11 +72,11 @@
             <td class="label">Driving Lisence No.</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="l_number" 
+                    <input id="driving_lisence_number" 
                     type="text" 
                     class="validate" 
-                    name="l_name"
-                    value="{{old('l_name', !empty($masterDriver) ? $masterDriver->l_name : '')}}" 
+                    name="driving_lisence_number"
+                    value="{{old('driving_lisence_number', !empty($masterDriver) ? $masterDriver->driving_lisence_number : '')}}" 
                     {{!empty($masterDriver) ? 'readonly' : ''}} 
                     required>
                 </div>
@@ -86,11 +86,11 @@
             <td class="label">ID (KTP) No.</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="ktp" 
+                    <input id="ktp_no" 
                     type="text" 
                     class="validate"
-                    name="ktp"
-                    value="{{old('ktp', !empty($masterDriver) ? $masterDriver->ktp : '')}}" 
+                    name="ktp_no"
+                    value="{{old('ktp_no', !empty($masterDriver) ? $masterDriver->ktp_no : '')}}" 
                     {{!empty($masterDriver) ? 'readonly' : ''}} 
                     required>
                     >
