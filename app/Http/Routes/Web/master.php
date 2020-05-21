@@ -37,9 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('destination-city/1', 'web.master.destination-city.edit');
   Route::resource('destination-city', 'Web\DestinationCityController');
 
-  Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
-  Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
-  Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
+  // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
+  // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
+  // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
+  Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
   // Route::view('storage-master', 'web.master.storage-master.index');
   // Route::view('storage-master/create', 'web.master.storage-master.create');
