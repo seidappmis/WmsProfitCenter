@@ -60,7 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
   //Route::view('master-vendor/1', 'web.master.master-vendor.edit');
   Route::resource('master-vendor', 'Web\VendorController');
 
-  Route::view('master-model-exception', 'web.master.master-model-exception.index');
+  // Route::view('master-model-exception', 'web.master.master-model-exception.index');
+  Route::resource('master-model-exception', 'Web\ModelExceptionController');
 
   // Route::view('master-branch-expedition', 'web.master.master-branch-expedition.index');
   // Route::view('master-branch-expedition/create', 'web.master.master-branch-expedition.create');
