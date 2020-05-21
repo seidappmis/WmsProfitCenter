@@ -88,7 +88,7 @@
                         type="text" 
                         class="validate" 
                         name="contact_person" 
-                        value="{{old('expedition_name', !empty($masterExpedition) ? $masterExpedition->contact_person : '')}}" 
+                        value="{{old('contact_person', !empty($masterExpedition) ? $masterExpedition->contact_person : '')}}" 
                        
                         />
               </div>
@@ -103,7 +103,7 @@
                         type="text" 
                         class="validate" 
                         name="phone1" 
-                        value="{{old('expedition_name', !empty($masterExpedition) ? $masterExpedition->phone1 : '')}}" 
+                        value="{{old('phone1', !empty($masterExpedition) ? $masterExpedition->phone1 : '')}}" 
                        
                         />
               </div>
@@ -129,11 +129,11 @@
             <td>
                 <div class="input-field col s12">
                     <input 
-                        id="fax" 
+                        id="fax_number" 
                         type="text" 
                         class="validate" 
-                        name="fax" 
-                        value="{{old('fax', !empty($masterExpedition) ? $masterExpedition->fax : '')}}" 
+                        name="fax_number" 
+                        value="{{old('fax_number', !empty($masterExpedition) ? $masterExpedition->fax_number : '')}}" 
                        
                         />
               </div>

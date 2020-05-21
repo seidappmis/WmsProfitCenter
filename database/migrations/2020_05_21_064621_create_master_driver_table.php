@@ -14,7 +14,7 @@ class CreateMasterDriverTable extends Migration
     public function up()
     {
         Schema::create('master_driver', function (Blueprint $table) {
-            $table->string('code_exp');
+            $table->string('expedition_name');
             $table->string('driver_id');
             $table->string('name');
             $table->string('dltype')->nullable();
@@ -25,13 +25,12 @@ class CreateMasterDriverTable extends Migration
             $table->string('remarks1')->nullable();
             $table->string('remarks2')->nullable();
             $table->string('remarks3')->nullable();
-            $table->boolean('active')->nullable()->default(false);
+            $table->tinyInteger('status_active');
             $table->string('photo')->nullable();
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->primary('driver_id');
-
         });
     }
 

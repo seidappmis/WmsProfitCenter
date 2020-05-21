@@ -42,7 +42,7 @@
  	$("#form-master-expedition").validate({
       submitHandler: function(form) {
         $.ajax({
-          url: '{{ url("master-expedition/" . $masterExpedition->expedition_name) }}',
+          url: '{{ url("master-expedition/" . $masterExpedition->code) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })

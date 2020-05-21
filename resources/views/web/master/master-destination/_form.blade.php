@@ -4,13 +4,13 @@
             <td>Destination Number</td>
             <td>
                 <div class="input-field col s12">
-                    <input 
-                        id="destination_number" 
-                        type="text" 
-                        class="validate" 
-                        name="destination_number" 
-                        value="{{old('destination_number', !empty($masterDestination) ? $masterDestination->destination_number : '')}}" 
-                        {{!empty($masterDestination) ? 'readonly' : ''}} 
+                    <input
+                        id="destination_number"
+                        type="text"
+                        class="validate"
+                        name="destination_number"
+                        value="{{old('destination_number', !empty($masterDestination) ? $masterDestination->destination_number : '')}}"
+                        {{!empty($masterDestination) ? 'readonly' : ''}}
                         required
                         />
               </div>
@@ -20,11 +20,11 @@
             <td>Description</td>
             <td>
                 <div class="input-field col s12">
-                    <input 
-                        id="description" 
-                        type="text" 
-                        class="validate" 
-                        name="description" 
+                    <input
+                        id="description"
+                        type="text"
+                        class="validate"
+                        name="description"
                         value="{{old('description', !empty($masterDestination) ? $masterDestination->description : '')}}"
                         />
               </div>
@@ -44,15 +44,15 @@
                           <span>Current</span>
                         </label>
                     </p>
-                    <input 
-                        id="new_region_input" 
-                        type="text" 
-                        class="validate" 
-                        name="region" 
+                    <input
+                        id="new_region_input"
+                        type="text"
+                        class="validate"
+                        name="new_region"
                         value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
                         required
                         />
-                    <select id="current_region_input" name="region" style="display: none;" class="select2-data-ajax browser-default" required>
+                    <select id="current_region_input" name="current_region" style="display: none;" class="select2-data-ajax browser-default" required>
                     </select>
               </div>
             </td>
@@ -83,5 +83,33 @@
             $('#current_region_input').show();
         }
     });
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+
+      // Loading destination Data
+      $('#form-master-destination [name="cabang"]').select2({
+         placeholder: '-- Select Cabang --',
+         ajax: get_select2_ajax_options('/master-cabang/select2-region')
+      });
+   });
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+
+      // Loading region Data
+      $('.select-region').select2({
+         placeholder: '-- Select Region --',
+         ajax: get_select2_ajax_options('/master-cabang/select2-region')
+      });
+
+      $('.select-tycode').select2();
+   });
 </script>
 @endpush
