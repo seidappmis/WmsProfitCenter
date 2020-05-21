@@ -8,8 +8,8 @@ use App\BaseModel;
 
 class MasterExpedition extends BaseModel
 {
-    protected $table = "master_expedition";
-    protected $primaryKey = 'expedition_name';
+    protected $table = 'master_expedition';
+    protected $primaryKey = 'code';
     protected $keyType='string';
     
     // protected $casts = [

@@ -22,6 +22,7 @@ class MasterDriverController extends Controller
   
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
+              ->editColumn('dltype', '{{$dltype == 1 ? "SIM A" : "SIM B":"SIM B1"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
                 $action .= ' ' . get_button_edit(url('master-driver/' . $data->driver_id . '/edit'));
@@ -41,7 +42,7 @@ class MasterDriverController extends Controller
      */
     public function create()
     {
-        //
+        return view ('web.master.master-gate.create');
     }
 
     /**
@@ -51,17 +52,6 @@ class MasterDriverController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
         $request->validate([
             'expedition_name'  => 'required',
@@ -87,6 +77,17 @@ class MasterDriverController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -94,7 +95,7 @@ class MasterDriverController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['masterDriver'] = MasterDriver::findOrFail($id);
     }
 
     /**
@@ -106,7 +107,27 @@ class MasterDriverController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'expedition_name'  => 'required',
+            'diver_id'  => 'required|max:20',
+            'l_driver'  => 'required',
+          ]);
+  
+          $masterDriver              = MasterDriver::findOrFail($id);
+          $masterDriver->expedition_name = $request->input('expedition_name');
+          $masterDriver->driver_id = $request->input('driver_id');
+          $masterDriver->name     = $request->input('name');
+          $masterDriver->dltype   = $request->input('dltype');
+          $masterDriver->l_number = $request->input('l_number');
+          $masterDriver->ktp      = $request->input('ktp');
+          $masterDriver->phone1   = $request->input('phone1');  
+          $masterDriver->phone2   = $request->input('phone2');  
+          $masterDriver->remarks1   = $request->input('remarks1');  
+          $masterDriver->remarks2   = $request->input('remarks2');
+          $masterDriver->remarks3   = $request->input('remarks3'); 
+          $masterDriver->status_active =!empty($request->input('status_active'));
+          $masterDriver->photos     = $request->input('photos');  
+          return $masterDriver->save();
     }
 
     /**
@@ -117,6 +138,6 @@ class MasterDriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return MasterDriver::destroy($id);
     }
 }

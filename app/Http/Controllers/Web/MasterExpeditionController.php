@@ -25,7 +25,7 @@ class MasterExpeditionController extends Controller
               ->editColumn('status_active', '{{$status_active ? "Active" : "No Active"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
-                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->expedition_name . '/edit'));
+                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->code . '/edit'));
                 $action .= ' ' . get_button_delete();
                 return $action;
               });
@@ -54,8 +54,8 @@ class MasterExpeditionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code'=>'required|unique:master_expedition|max:3',
-            'expedition_name'=>'required|unique:master_expedition|max:40',
+            'code'=>'required|unique:code|max:3',
+            
             'sap_code'=>'required|max:6',
            
         ]);

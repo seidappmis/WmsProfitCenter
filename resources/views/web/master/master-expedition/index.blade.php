@@ -113,7 +113,7 @@ table.on('click', '.btn-delete', function(event) {
 
     // Ask user confirmation to delete the data.
     swal({
-      text: "Delete thema Expedition" + data.expedition_name + "?",
+      text: "Delete thema Expedition" + data.code + "?",
       icon: 'warning',
       buttons: {
         cancel: true,
@@ -122,7 +122,7 @@ table.on('click', '.btn-delete', function(event) {
     }).then(function (confirm) { // proses confirm
       if (confirm) { // if CONFIRMED send DELETE Request to endpoint
         $.ajax({
-          url: '{{ url('master-expedition') }}' + '/' + data.expedition_name ,
+          url: '{{ url('master-expedition') }}' + '/' + data.code ,
           type: 'DELETE',
           dataType: 'json',
         })
