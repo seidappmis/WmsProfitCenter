@@ -19,28 +19,18 @@
         <div class="container">
             <div class="section">
               <div class="card-content p-0">
+                <!-- Upload Data -->
                 <ul class="collapsible">
                   <li>
                     <div class="collapsible-header">UPLOAD DATA</div>
                     <div class="collapsible-body white">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <div class="col s12 m4 l3">
-                            <p>Data File</p>
-                          </div>
-                          <div class="col s12 m8 l9">
-                            <input type="file" required id="input-file-now" class="dropify" name="file" data-default-file="" data-height="100"/>
-                            <p>Format File : .csv</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <button type="submit" class="waves-effect waves-light indigo btn">Upload</button>
-                      </div>
+                      @include('web.master.master-freight-cost.upload._form')
                     </div>
                   </li>
                 </ul>
                 </div>
+
+                <!-- Filter and Search -->
                 <div class="row">
                   <div class="col s12 m3">
                     <!---- Search ----->
@@ -70,10 +60,12 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Main Table -->
                 <div class="card">
                     <div class="card-content p-0">
                       <div class="section-data-tables"> 
-                        <table id="data-table-simple" class="display" width="100%">
+                        <table id="data-table-freight-cost" class="display" width="100%">
                             <thead>
                                 <tr>
                                   <th data-priority="1" width="30px">NO.</th>
@@ -94,7 +86,7 @@
                                   <th width="50px;"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody><!-- 
                               <td>1</td>
                               <td>KARAWANG</td>
                               <td>ALAM RAYA SENTOSA, CV.</td>
@@ -106,7 +98,7 @@
                               <td>
                                 {!! get_button_edit(url('master-freight-cost/1')) !!}
                                 {!! get_button_delete() !!}
-                              </td>
+                              </td> -->
                             </tbody>
                         </table>
                       </div>
@@ -123,12 +115,11 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table = $('#data-table-freight-cost').DataTable({
+    // serverSide: true,
+    scrollX: true,
+    responsive: true,
   });
-
-  //Upload File
-  $('.dropify').dropify();
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
