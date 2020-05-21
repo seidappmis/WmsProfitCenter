@@ -80,9 +80,9 @@
   order: [1, 'asc'],
   columns: [
       {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-      {data: 'code', name: 'code', className: 'detail'},
       {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
       {data: 'address', name: 'address', className: 'detail'},
+      {data: 'code', name: 'code', className: 'detail'},
       {data: 'sap_code', name: 'sap_code', className: 'detail'},
       // {data: 'contact_pesrson', name: 'contact_person', className: 'detail'},
       // {data: 'phone1', name: 'phone1', className: 'detail'},
