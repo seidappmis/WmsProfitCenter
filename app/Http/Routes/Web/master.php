@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('master-model/select2-material-group', 'Web\MasterModelController@getSelect2MaterialGroup');
     Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
     Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
+    Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
     Route::resource('master-model', 'Web\MasterModelController');
 
     //Route::view('master-vendor', 'web.master.master-vendor.index');

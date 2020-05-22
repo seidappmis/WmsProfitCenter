@@ -173,6 +173,17 @@ class MasterModelController extends Controller
         return MasterModel::destroy($id);
     }
 
+    public function getSelect2Model(Request $request)
+    {
+        $query = MasterModel::select(
+          DB::raw('model_name AS id'),
+          DB::raw('model_name AS text'),
+          'wms_master_model.*'
+        );
+
+        return get_select2_data($request, $query);
+    }
+
     /**
      * Show the application dataAjax.
      *
