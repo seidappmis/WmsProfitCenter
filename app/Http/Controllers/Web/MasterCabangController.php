@@ -22,6 +22,7 @@ class MasterCabangController extends Controller
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
+                ->editColumn('hq', '{{$hq ? "HQ" : "BRANCH"}}')
                 ->addColumn('action', function ($data) {
                     $action = '';
                     $action .= ' ' . get_button_edit(url('master-cabang/' . $data->kode_customer . '/edit'));
