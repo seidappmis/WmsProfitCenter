@@ -101,19 +101,19 @@
       // Loading destination city data
       $('.select-destination-city').select2({
          placeholder: '-- Destination --',
-         ajax: get_select2_ajax_options('/master-area/select2-areas')
+         ajax: get_select2_ajax_options('/destination-city/select2-destination-city')
       });
 
       // Loading expedition data
       $('.select-expedition').select2({
          placeholder: '-- Expedition --',
-         ajax: get_select2_ajax_options('/master-area/select2-areas')
+         ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
       });
 
       // Loading vehicle type data
       $('.select-vehicle-type').select2({
          placeholder: '-- Select Vehicle --',
-         ajax: get_select2_ajax_options('/master-area/select2-areas')
+         ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
       });
 
       // Hidden input ritase cbm
@@ -146,15 +146,15 @@
         }else{
           $('.select-destination-city').select2({
              placeholder: '-- Destination --',
-             ajax: get_select2_ajax_options('/master-area/select2-areas')
+             ajax: get_select2_ajax_options('/destination-city/select2-destination-city')
           });
           $('.select-expedition').select2({
              placeholder: '-- Expedition --',
-             ajax: get_select2_ajax_options('/master-area/select2-areas')
+             ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
           });
           $('.select-vehicle-type').select2({
              placeholder: '-- Select Vehicle --',
-             ajax: get_select2_ajax_options('/master-area/select2-areas')
+             ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
           });
           $('#leadtime').show();
         }       

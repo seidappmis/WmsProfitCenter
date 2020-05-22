@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('destination-city', 'web.master.destination-city.index');
     // Route::view('destination-city/create', 'web.master.destination-city.create');
     // Route::view('destination-city/1', 'web.master.destination-city.edit');
+    Route::get('destination-city/select2-destination-city', 'Web\DestinationCityController@getSelect2DestinationCity');
     Route::resource('destination-city', 'Web\DestinationCityController');
 
     // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');

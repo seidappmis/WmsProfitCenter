@@ -117,4 +117,14 @@ class DestinationCityController extends Controller
   {
     return DestinationCity::destroy($id);
   }
+
+  public function getSelect2DestinationCity(Request $request)
+    {
+        $query = DestinationCity::select(
+          DB::raw('city_code AS id'),
+          DB::raw("city_name AS text")
+        );
+
+        return get_select2_data($request, $query);
+    }
 }
