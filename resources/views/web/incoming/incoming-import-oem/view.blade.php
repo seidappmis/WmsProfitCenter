@@ -41,102 +41,7 @@
             <div class="card-content">
               <h4 class="card-title">INPUT INCOMING IMPORT/OEM/OTHERS</h4>
               <hr>
-              <form class="form-table">
-                <table width="100%">
-                  <tr>
-                    <td width="25%">Arrival No</td>
-                    <td width="25%">
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="OEM-WHKRW-200206-005" readonly disabled>
-                      </div>
-                    </td>
-                    <td width="50%" colspan="2">
-                      <div class="input-field col s12">
-                        <div class="row">
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio"/>
-                              <span>IMPORT</span>
-                            </label>
-                          </div>
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio" checked/>
-                              <span>OEM</span>
-                            </label>
-                          </div>
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio"/>
-                              <span>OTHERS</span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>PO</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="H022202002" required>
-                      </div>
-                    </td>
-                    <td>Vendor Name</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <select required="">
-                          <option value="0">Select Vendor Name</option>
-                          <option value="1">BIMA GREEN ENERGI, PT.</option>
-                          <option value="2">DAEWOO ELECTRONICS (M) SDN.BHD.</option>
-                          <option value="3" selected>FUJISEI PLASTIK SEITEK, PT.</option>
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Invoice No</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="FPS-R05617">
-                      </div>
-                    </td>
-                    <td>Actual Arrive Date</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker" value="2020-02-06">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>No GR SAP</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="5001349066">
-                      </div>
-                    </td>
-                    <td>Expedition Name</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="FUJISEI">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Document Date</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker" value="2020-02-06">
-                      </div>
-                    </td>
-                    <td>Container No</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" value="B 9147 PRO">
-                    </td>
-                  </tr>
-                </table>
-              </form>
+              @include('web.incoming.incoming-import-oem._form_header')
             </div>
             <div class="card-content">
             <div class="section-data-tables">
@@ -191,5 +96,14 @@
       "ordering": false,
       "paging": false,
     });
+  jQuery(document).ready(function($) {
+    set_form_data();
+});
+
+  function set_form_data() {
+    set_select2_value('#form-incoming-import-oem-header [name="vendor_name"]', '{{$incomingManualHeader->vendor_name}}', '{{$incomingManualHeader->vendor_name}}');
+    $('input:radio[name="inc_type"]').filter('[value="{{$incomingManualHeader->inc_type}}"]').attr('checked', true);
+    $('input:radio[name="inc_type"]').prop('disabled', true);
+  }
 </script>
 @endpush

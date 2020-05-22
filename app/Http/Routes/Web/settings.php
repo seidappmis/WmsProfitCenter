@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-area', 'web.settings.master-area.index');
     // Route::view('master-area/create', 'web.settings.master-area.create');
     // Route::view('master-area/1', 'web.settings.master-area.edit');
+    Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
     Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
     Route::resource('master-area', 'Web\AreaController');
 

@@ -81,8 +81,8 @@
                                   <p><input type="text" class="app-filter" id="global_filter"></p>
                                   </th>
                                   <th>Ritase</th>
-                                  <th>CBM (M3)</th>
-                                  <th>Lead Time (Days)</th>
+                                  <th>CBM <p>(M3)</p></th>
+                                  <th>Lead Time <p>(Days)</p></th>
                                   <th width="50px;"></th>
                                 </tr>
                             </thead>
@@ -116,9 +116,28 @@
 @push('script_js')
 <script type="text/javascript">
   var table = $('#data-table-freight-cost').DataTable({
-    // serverSide: true,
+    serverSide: true,
     scrollX: true,
     responsive: true,
+    ajax: {
+        url: '{{ url('master-freight-cost') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'area', name: 'area', className: 'detail'},
+        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+        {data: 'city_code', name: 'city_code', className: 'detail'},
+        {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
+        {data: 'ritase', name: 'ritase', className: 'detail'},
+        {data: 'cbm', name: 'cbm', className: 'detail'},
+        {data: 'leadtime', name: 'leadtime', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   $("input#global_filter").on("keyup click", function () {
@@ -129,5 +148,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete the Warehouse " + data.area + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-freight-cost') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush

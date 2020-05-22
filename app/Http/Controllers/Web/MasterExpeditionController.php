@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\MasterExpedition;
 use DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -146,7 +146,7 @@ class MasterExpeditionController extends Controller
     }
     public function getSelect2ActiveExpedition(Request $request)
     {
-      $query = MasterDriver::select(
+      $query = MasterExpedition::select(
         DB::raw("code AS id"),
         DB::raw("CONCAT(code, '-', expedition_name) AS text")
       )
@@ -157,7 +157,7 @@ class MasterExpeditionController extends Controller
     }
     public function getSelect2AllExpedition(Request $request)
   {
-    $query = BranchExpedition::select(
+    $query = MasterExpedition::select(
       DB::raw("code AS id"),
       DB::raw("expedition_name AS text")
     )

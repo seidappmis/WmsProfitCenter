@@ -113,7 +113,7 @@ table.on('click', '.btn-delete', function(event) {
 
     // Ask user confirmation to delete the data.
     swal({
-      text: "Delete thema Expedition" + data.id + "?",
+      text: "Delete thema Expedition" + data.expedition_name + "?",
       icon: 'warning',
       buttons: {
         cancel: true,
