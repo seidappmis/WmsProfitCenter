@@ -1,4 +1,4 @@
-<form class="form-table">
+<form class="form-table" id="form-master-freight">
   <table id="table-freight-cost">
     <tr>
       <td>Origin Area</td>
@@ -57,18 +57,18 @@
       <td>
         <p>
           <label>
-            <input class="with-gap" name="group1" type="radio" checked/>
+            <input id="ritase" class="with-gap" name="group1" type="radio" checked/>
             <span>Ritase</span>
           </label>
           <label>
-            <input class="with-gap" name="group1" type="radio" />
+            <input id="cbm" class="with-gap" name="group1" type="radio" />
             <span>CBM</span>
           </label>
         </p>
       </td>
       <td>
         <div class="input-field col s12">
-          <input id="number" type="text" class="validate" name="gate_number" required>
+          <input id="ritase_cbm_input" type="text" class="validate" required>
         </div>
       </td>
     </tr>
@@ -97,6 +97,24 @@
          ajax: get_select2_ajax_options('/master-area/select2-areas')
       });
 
+      // Loading destination city data
+      $('.select-destination-city').select2({
+         placeholder: '-- Destination --',
+         ajax: get_select2_ajax_options('/master-area/select2-areas')
+      });
+
+      // Loading expedition data
+      $('.select-expedition').select2({
+         placeholder: '-- Expedition --',
+         ajax: get_select2_ajax_options('/master-area/select2-areas')
+      });
+
+      // Loading vehicle type data
+      $('.select-vehicle-type').select2({
+         placeholder: '-- Select Vehicle --',
+         ajax: get_select2_ajax_options('/master-area/select2-areas')
+      });
+
       // Checkbox ambil sendiri
       $('#ambil_sendiri').change(function() {
         if($(this).is(":checked")) {
@@ -117,13 +135,16 @@
           $('#leadtime').hide();
         }else{
           $('.select-destination-city').select2({
-             placeholder: '-- Destination City --',
+             placeholder: '-- Destination --',
+             ajax: get_select2_ajax_options('/master-area/select2-areas')
           });
           $('.select-expedition').select2({
              placeholder: '-- Expedition --',
+             ajax: get_select2_ajax_options('/master-area/select2-areas')
           });
           $('.select-vehicle-type').select2({
              placeholder: '-- Select Vehicle --',
+             ajax: get_select2_ajax_options('/master-area/select2-areas')
           });
           $('#leadtime').show();
         }       
