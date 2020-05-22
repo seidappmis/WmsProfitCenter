@@ -41,103 +41,7 @@
             <div class="card-content">
               <h4 class="card-title">INPUT INCOMING IMPORT/OEM/OTHERS</h4>
               <hr>
-              <form class="form-table">
-                <table width="100%">
-                  <tr>
-                    <td width="25%">Arrival No</td>
-                    <td width="25%">
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" disabled>
-                      </div>
-                    </td>
-                    <td width="50%" colspan="2">
-                      <div class="input-field col s12">
-                        <div class="row">
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio"/>
-                              <span>IMPORT</span>
-                            </label>
-                          </div>
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio"/>
-                              <span>OEM</span>
-                            </label>
-                          </div>
-                          <div class="col s12 m4">
-                            <label>
-                              <input name="group1" type="radio" checked/>
-                              <span>OTHERS</span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>PO</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate" required>
-                      </div>
-                    </td>
-                    <td>Vendor Name</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <select required="">
-                          <option value="0" selected>Select Vendor Name</option>
-                          <option value="1">BIMA GREEN ENERGI, PT.</option>
-                          <option value="2">DAEWOO ELECTRONICS (M) SDN.BHD.</option>
-                          <option value="3">Option 3</option>
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Invoice No</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
-                      </div>
-                    </td>
-                    <td>Actual Arrive Date</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>No GR SAP</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
-                      </div>
-                    </td>
-                    <td>Expedition Name</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Document Date</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate datepicker">
-                      </div>
-                    </td>
-                    <td>Container No</td>
-                    <td>
-                      <div class="input-field col s12">
-                        <input id="first_name" type="text" class="validate">
-                    </td>
-                  </tr>
-                </table>
-                {!! get_button_save() !!}
-              </form>
+              @include('web.incoming.incoming-import-oem._form_header')
             </div>
             <div class="card-content">
               <!-- Incoming Detail -->
@@ -155,9 +59,33 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
   $('.collapsible').collapsible({
         accordion:true
+    });
+  $("#form-incoming-import-oem-header").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("incoming-import-oem") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('incoming-import-oem') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
 </script>
 @endpush

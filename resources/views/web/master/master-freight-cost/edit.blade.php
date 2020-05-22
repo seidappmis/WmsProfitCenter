@@ -50,7 +50,35 @@
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
+    set_initial_form_data();
     $('.btn-save').html('Update');
   });
+
+  function set_initial_form_data(){
+    set_select2_value('#area', '{{$masterFreight->area}}', '{{$masterFreight->Area->area}}')
+    set_select2_value('#city_code', '{{$masterFreight->city_code}}', '{{$masterFreight->DestinationCity->city_code}}')
+    set_select2_value('#expedition_code', '{{$masterFreight->expedition_code}}', '{{$masterFreight->MasterExpedition->code}}')
+    set_select2_value('#vehicle_code_type', '{{$masterFreight->vehicle_code_type}}', '{{$masterFreight->VehicleDetail->vehicle_code_type}}')
+  };
+
+  $("#form-master-freight").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-freight-cost/" . $masterFreight->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => { 
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-freight-cost') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

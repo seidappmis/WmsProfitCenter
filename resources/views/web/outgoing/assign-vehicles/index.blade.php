@@ -16,11 +16,7 @@
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter"  class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -45,7 +41,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="data-table-assign-vehicles" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -60,7 +56,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>B 9166 BYT</td>
                                   <td>MTM-19-001 UYE M</td>
@@ -74,7 +70,7 @@
                                     {!! get_button_edit() !!}
                                     {!! get_button_delete('Is Leave') !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -91,18 +87,40 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        responsive: true
-    });
+    var table = $('#data-table-assign-vehicles').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('assign-vehicles') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val(),
+            d.area = $('#area_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'driver_id', name: 'driver_id', className: 'detail'},
+        {data: 'vehicle_description', name: 'vehicle_description', className: 'detail'},
+        {data: 'cbm_max', name: 'cbm_max', className: 'detail'},
+        {data: 'destination_name', name: 'destination_name', className: 'detail'},
+        {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+        {data: 'datetime_in', name: 'datetime_in', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
 
-    dtdatatable.on('click', '.btn-delete', function(event) {
+  table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
       swal({
-        title: "Are you sure has living?",
-        // text: "You will not be able to recover this imaginary file!",
+        text: "Are you sure No. " + data.vehicle_number + " has living?",
         icon: 'warning',
         buttons: {
           cancel: true,
@@ -110,11 +128,40 @@
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
+            $.ajax({
+            url: '{{ url('assign-vehicles') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Vehicle No. " + data.vehicle_number + " has been deleted.", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
         }
       })
     });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  $('#area_filter').change(function(event) {
+    /* Act on the event */
+    table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+  });
+
+  $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+    });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

@@ -15,9 +15,23 @@ class MasterFreightCostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$area_master = DB::table('tr_area')->get();
+        if ($request->ajax()) {
+          $query = FreightCost::all();
+
+          $datatables = DataTables::of($query)
+            ->addIndexColumn() //DT_RowIndex (Penomoran)
+            ->addColumn('action', function ($data) {
+              $action = '';
+              $action .= ' ' . get_button_edit(url('master-freight-cost/' . $data->id . '/edit'));
+              $action .= ' ' . get_button_delete();
+              return $action;
+            });
+
+          return $datatables->make(true);
+        }
+
         $data  = [
           'areas' => \App\Models\Area::all()
         ];
@@ -42,7 +56,36 @@ class MasterFreightCostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'area'              => 'required',
+          'ambil_sendiri'     => 'nullable',
+          'city_code'         => 'required|max:10',
+          'expedition_code'   => 'required|max:3',
+          'vehicle_code_type' => 'required|max:6',
+          'ritase_cbm_input'  => 'numeric',
+          'leadtime'          => 'nullable',
+        ]);
+
+        $masterFreight                     = new FreightCost;
+        $masterFreight->area               = $request->input('area' );
+        $masterFreight->ambil_sendiri      = !empty($request->input('ambil_sendiri'));
+        $masterFreight->city_code          = $request->input('city_code');
+        $masterFreight->expedition_code    = $request->input('expedition_code');
+        $masterFreight->vehicle_code_type  = $request->input('vehicle_code_type');
+        if($request['ritase_cbm'] == 'ritase'){
+            $masterFreight->ritase = $request->input('ritase_cbm_input');  
+            $masterFreight->cbm = $request->input('ritasecbm_input');  
+        } 
+        elseif ($request['ritase_cbm'] == 'cbm')   {
+            $masterFreight->cbm = $request->input('ritase_cbm_input');    
+            $masterFreight->ritase = $request->input('ritasecbm_input'); 
+        }else{
+            $masterFreight->cbm = $request->input('ritasecbm_input');    
+            $masterFreight->ritase = $request->input('ritasecbm_input'); 
+        }
+        $masterFreight->leadtime           = $request->input('leadtime');
+
+        return $masterFreight->save();
     }
 
     /**
@@ -64,7 +107,8 @@ class MasterFreightCostController extends Controller
      */
     public function edit($id)
     {
-        return view('web.master.master-freight-cost.edit');
+        $data['masterFreight'] = FreightCost::findOrFail($id);
+        return view('web.master.master-freight-cost.edit',$data);
     }
 
     /**
@@ -87,6 +131,6 @@ class MasterFreightCostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return FreightCost::destroy($id);
     }
 }
