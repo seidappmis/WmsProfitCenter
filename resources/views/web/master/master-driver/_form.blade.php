@@ -47,8 +47,9 @@
                     <input id="driver_name" 
                     type="text" 
                     class="validate"
-                    name="driver_name">
-                    value="{{old('driver_name', !empty($masterDriver) ? $masterDriver->driver_name : '')}}" 
+                    name="driver_name"
+                    value="{{old('driver_name', !empty($masterDriver) ? $masterDriver->driver_name : '')}}"
+                    > 
                 </div>
             </td>
         </tr>
@@ -56,16 +57,16 @@
             <td class="label">Driving License Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="driving_lisence_type">
+                    <select name="driving_license_type">
                         <option value="">-- Select Type --</option>
                         <option>SIM A</option>
                         <option>SIM B</option>
                         <option>SIM B1</option>
                         <option>SIM B2</option>
                         {{-- <option value="" disabled {{empty($masterDriver) ? 'selected' : ''}}>-- Driving License Type --</option>
-                        <option value="1"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 1 ? 'selected' : ''}}>SIM A</option>
-                        <option value="2"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 2 ? 'selected' : ''}}>SIM B</option>
-                        <option value="3"{{!empty($masterDriver) && $masterDriver->driving_lisence_type == 3 ? 'selected' : ''}}>SIM B1</option> --}}
+                        <option value="1"{{!empty($masterDriver) && $masterDriver->driving_license_type == 1 ? 'selected' : ''}}>SIM A</option>
+                        <option value="2"{{!empty($masterDriver) && $masterDriver->driving_license_type == 2 ? 'selected' : ''}}>SIM B</option>
+                        <option value="3"{{!empty($masterDriver) && $masterDriver->driving_license_type == 3 ? 'selected' : ''}}>SIM B1</option> --}}
                     </select>
                     
                 </div>
@@ -75,11 +76,11 @@
             <td class="label">Driving Lisence No.</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="driving_lisence_number" 
+                    <input id="driving_license_number" 
                     type="text" 
                     class="validate" 
-                    name="driving_lisence_number"
-                    value="{{old('driving_lisence_number', !empty($masterDriver) ? $masterDriver->driving_lisence_number : '')}}" 
+                    name="driving_license_number"
+                    value="{{old('driving_license_number', !empty($masterDriver) ? $masterDriver->driving_license_number : '')}}" 
                     {{!empty($masterDriver) ? 'readonly' : ''}} 
                     required>
                 </div>
@@ -183,16 +184,12 @@
     </table>
   
     {!! get_button_save() !!}
-    {!! get_button_cancel(url('master-driver')) !!}
+    {!! get_button_cancel(url('master-driver'), 'Back') !!}
 </form>
 @push('script_js')
 <script type="text/javascript">
    jQuery(document).ready(function($) {
-      // Loading area data
-    //   $('.select-code').select2({
-    //      placeholder: '-- Select --',
-    //      ajax: get_select2_ajax_options('/master-expedition/select2-master_expedition')
-    //   });
+    
     $('#form-master-driver [name="expedition_code"]').select2({
          placeholder: '-- Select Expedition --',
          ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
