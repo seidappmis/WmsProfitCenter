@@ -1,12 +1,15 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::view('upload-concept', 'web.outgoing.upload-concept.index');
-  
+  // Route::view('upload-concept', 'web.outgoing.upload-concept.index');
+  Route::resource('upload-concept', 'Web\UploadConceptController');
+
   // Route::view('idcard-scan', 'web.outgoing.idcard-scan.index');
   Route::resource('idcard-scan', 'Web\IdCardScanController');
 
-  Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
+  // Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
+  Route::resource('assign-vehicles', 'Web\AssignVehicleController');
+
   Route::view('select-gate', 'web.outgoing.select-gate.index');
   Route::view('loading-process', 'web.outgoing.loading-process.index');
 

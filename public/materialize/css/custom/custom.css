@@ -111,6 +111,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 .datatable-search .select2 {
     z-index: 2;
+    background-color: #fff;
+    border-radius: 0.4rem !important;
+    padding-bottom: 8px;
 }
 .display-flex .app-wrapper {
     -webkit-box-flex: 1;
@@ -119,7 +122,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     flex-grow: 1;
 }
 .datatable-search .select2-container--default .select2-selection--single .select2-selection__arrow b {
-    border-color: rgb(255, 255, 255) transparent transparent;
+    border-color: #303030 transparent transparent;
+    left: 25%;
+    top: 55%;
 }
 .datatable-search input[type=text]:not(.browser-default) {
     height: 3.1rem;
@@ -224,8 +229,7 @@ td, th {
     /*line-height: 40px;*/
     /*min-height: 40px !important;*/
 }
-.form-table table.datepicker-table td,
-.form-table table.datepicker-table th {
+.form-table table.datepicker-table td, .form-table table.datepicker-table th {
     border: none;
 }
 .form-table td.label {
@@ -235,25 +239,12 @@ td, th {
     margin-top: 4px;
     margin-bottom: 4px;
 }
-.form-table input:not([type]),
-.form-table input[type=text]:not(.browser-default),
-.form-table input[type=password]:not(.browser-default),
-.form-table input[type=email]:not(.browser-default),
-.form-table input[type=url]:not(.browser-default),
-.form-table input[type=time]:not(.browser-default),
-.form-table input[type=date]:not(.browser-default),
-.form-table input[type=datetime]:not(.browser-default),
-.form-table input[type=datetime-local]:not(.browser-default),
-.form-table input[type=tel]:not(.browser-default),
-.form-table input[type=number]:not(.browser-default),
-.form-table input[type=search]:not(.browser-default),
-.form-table textarea.materialize-textarea {
+.form-table input:not([type]), .form-table input[type=text]:not(.browser-default), .form-table input[type=password]:not(.browser-default), .form-table input[type=email]:not(.browser-default), .form-table input[type=url]:not(.browser-default), .form-table input[type=time]:not(.browser-default), .form-table input[type=date]:not(.browser-default), .form-table input[type=datetime]:not(.browser-default), .form-table input[type=datetime-local]:not(.browser-default), .form-table input[type=tel]:not(.browser-default), .form-table input[type=number]:not(.browser-default), .form-table input[type=search]:not(.browser-default), .form-table textarea.materialize-textarea {
     margin: 0;
     height: 2rem;
     border-bottom: 1px solid #e0e0e0;
 }
-.form-table input:required,
-.form-table textarea.materialize-textarea:required {
+.form-table input:required, .form-table textarea.materialize-textarea:required {
     background-color: #f5da438f;
 }
 .form-table .dropdown-content li {
@@ -277,16 +268,16 @@ td, th {
 .datepicker-date-display {
     background-color: #1b0a73;
 }
-#current{
-  display:none;  
+#current {
+    display: none;
 }
-#detail-driver{
-  display:none;  
+#detail-driver {
+    display: none;
 }
 .app-search {
     border: 1px solid #e0e0e0;
 }
-.app-search input[type=text]:not(.browser-default){
+.app-search input[type=text]:not(.browser-default) {
     height: 2rem;
     border-bottom: 0px;
 }
