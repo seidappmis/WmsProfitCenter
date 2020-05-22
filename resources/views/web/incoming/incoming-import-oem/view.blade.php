@@ -44,6 +44,17 @@
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
             <div class="card-content">
+                <ul class="collapsible">
+                   <li class="active">
+                     <div class="collapsible-header">Add New Detail</div>
+                     <div class="collapsible-body white pt-1">
+                          @include('web.incoming.incoming-import-oem._form_detail')
+                     </div>
+                   </li>
+                </ul>
+                  <div class="content-overlay"></div>
+            </div>
+            <div class="card-content">
             <div class="section-data-tables">
               <!-- Incoming Detail -->
               <h4 class="card-title">Incoming Detail</h4>
