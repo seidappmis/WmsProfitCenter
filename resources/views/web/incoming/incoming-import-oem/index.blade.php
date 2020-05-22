@@ -17,11 +17,7 @@
               <!---- Select ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option selected>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -51,7 +47,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="data-table-incoming-import-oem" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -64,7 +60,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>OEM-WHKRW-200206-005  </td>
                                   <td>H022202002</td>
@@ -75,7 +71,7 @@
                                     {!! get_button_view(url('incoming-import-oem/1')) !!}
                                     {!! get_button_print() !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -91,9 +87,79 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
+    var table = $('#data-table-incoming-import-oem').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('incoming-import-oem') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val(),
+            d.area = $('#area_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'arrival_no', name: 'arrival_no', className: 'detail'},
+        {data: 'po', name: 'po', className: 'detail'},
+        {data: 'vendor_name', name: 'vendor_name', className: 'detail'},
+        {data: 'status', name: 'status', className: 'detail'},
+        {data: 'document_date', name: 'document_date', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+      swal({
+        text: "Are you sure want to delete " + data.arrival_no + " and the details?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
     });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  $('#area_filter').change(function(event) {
+    /* Act on the event */
+    table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+  });
+
+  $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+    });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

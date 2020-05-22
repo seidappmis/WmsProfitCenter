@@ -23,6 +23,7 @@ class AssignVehicleController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
+          $action .= ' ' . get_button_view(url('assign-vehicles/' . $data->id), 'Select DO');
           $action .= ' ' . get_button_edit(url('assign-vehicles/' . $data->id . '/edit'));
           $action .= ' ' . get_button_delete('Is Leave');
           return $action;
@@ -31,6 +32,13 @@ class AssignVehicleController extends Controller
       return $datatables->make(true);
     }
     return view('web.outgoing.assign-vehicles.index');
+  }
+
+  public function show($id)
+  {
+    $data['driverRegistered'] = DriverRegistered::findOrFail($id);
+
+    return view('web.outgoing.assign-vehicles.select-do', $data);
   }
 
   public function edit($id)
