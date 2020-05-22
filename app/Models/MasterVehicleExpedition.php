@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterVehicleExpedition extends Model
 {
-<<<<<<< HEAD
-    //
-=======
     //Set Table
     protected $table = "tr_vehicle_expedition";
 
@@ -27,5 +24,4 @@ class MasterVehicleExpedition extends Model
     {
         return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code','code');
     }
->>>>>>> d1cdb8e83bc346942575886709760ef7480793b7
 }
