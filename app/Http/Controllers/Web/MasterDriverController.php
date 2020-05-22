@@ -58,8 +58,8 @@ class MasterDriverController extends Controller
     {
         $request->validate([
             'expedition_code'  => 'required|max:3',
-            'diver_id'  => 'required|max:10',
-            'driving_lisence_number'  => 'required|max:50',
+            
+            'driving_license_number'  => 'required|max:50',
           ]);
           $masterDriver = new MasterDriver;
 
@@ -85,8 +85,8 @@ class MasterDriverController extends Controller
       
           $masterDriver->driver_id = $request->input('driver_id');
           $masterDriver->driver_name     = $request->input('driver_name');
-          $masterDriver->driving_lisence_type  = $request->input('driving_lisence_type');
-          $masterDriver->driving_lisence_number = $request->input('driving_lisence_number');
+          $masterDriver->driving_license_type  = $request->input('driving_license_type');
+          $masterDriver->driving_license_number = $request->input('driving_license_number');
           $masterDriver->ktp_no     = $request->input('ktp_no');
           $masterDriver->phone1   = $request->input('phone1');  
           $masterDriver->phone2   = $request->input('phone2');  
@@ -132,10 +132,11 @@ class MasterDriverController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        $masterDriver              = MasterDriver::findOrFail($id);
         $request->validate([
             
-            'driving_lisence_number'  => 'required|max:50',
+            'driving_license_number'  => 'required',
             // 'driver_name'=>'required',
             // 'driving_lisence_type'=>'required',
             // 'ktp_no'=>'required',
@@ -155,13 +156,11 @@ class MasterDriverController extends Controller
                 $masterDriver->photo_name = $photo_name;
 
             }
-
-          $masterDriver              = MasterDriver::findOrFail($id);
           $masterDriver->expedition_code = $request->input('expedition_code');
           $masterDriver->driver_id = $request->input('driver_id');
           $masterDriver->driver_name     = $request->input('driver_name');
-          $masterDriver->driving_lisence_type  = $request->input('driving_lisence_type');
-          $masterDriver->driving_lisence_number = $request->input('driving_lisence_number');
+          $masterDriver->driving_license_type  = $request->input('driving_license_type');
+          $masterDriver->driving_license_number = $request->input('driving_license_number');
           $masterDriver->ktp_no     = $request->input('ktp_no');
           $masterDriver->phone1   = $request->input('phone1');  
           $masterDriver->phone2   = $request->input('phone2');  
@@ -187,9 +186,9 @@ class MasterDriverController extends Controller
     }
     public function getSelect2ActiveExpedition(Request $request)
   {
-    $query = BranchDriver::select(
+    $query = MasterDriver::select(
       DB::raw("code AS id"),
-      DB::raw("CONCAT(code, '-', expedition_code) AS text")
+      DB::raw("CONCAT(code, '-', expedition_name) AS text")
     )
       ->where('status_active', 1)
       ->toBase();

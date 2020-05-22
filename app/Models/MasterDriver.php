@@ -7,7 +7,7 @@ use App\BaseModel;
 class MasterDriver extends BaseModel
 {
    protected $table = "master_driver";
-   protected $primaryKey="dirver_id";
+   protected $primaryKey="driver_id";
    public $incrementing=false;
    public function expedition()
    {

@@ -52,7 +52,10 @@
                         value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
                         required
                         />
-                    <select id="current_region_input" name="current_region" style="display: none;" class="select2-data-ajax browser-default" required>
+                    <select id="current_region_input"
+                            name="current_region"
+                            style="display: none;"
+                            class="select2-data-ajax browser-default select-region" required>
                     </select>
               </div>
             </td>
@@ -61,7 +64,9 @@
             <td>Cabang</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="cabang" name="cabang" class="select2-data-ajax browser-default" required>
+                    <select id="cabang"
+                    name="cabang"
+                    class="select2-data-ajax browser-default select-cabang" required>
                     </select>
               </div>
             </td>
@@ -90,26 +95,24 @@
 <script type="text/javascript">
    jQuery(document).ready(function($) {
 
-      // Loading destination Data
+      /** Loading destination Data
       $('#form-master-destination [name="cabang"]').select2({
          placeholder: '-- Select Cabang --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-region')
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
-   });
-</script>
-@endpush
-
-@push('script_js')
-<script type="text/javascript">
-   jQuery(document).ready(function($) {
+      */
+      // Loading cabang Data
+      $('.select-cabang').select2({
+         placeholder: '-- Select Cabang --',
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+      });
 
       // Loading region Data
       $('.select-region').select2({
          placeholder: '-- Select Region --',
          ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
-
-      $('.select-tycode').select2();
    });
 </script>
 @endpush
+
