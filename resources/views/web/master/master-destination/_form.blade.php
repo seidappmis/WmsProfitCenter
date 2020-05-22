@@ -86,6 +86,12 @@
         } else {
             $('#new_region_input').hide();
             $('#current_region_input').show();
+
+            // Loading region Data
+            $('#form-master-destination [name="current_region"]').select2({
+               placeholder: '-- Select Region --',
+               ajax: get_select2_ajax_options('/master-cabang/select2-region')
+            });
         }
     });
 </script>
@@ -101,17 +107,11 @@
          ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
       */
-      
+
       // Loading cabang Data
       $('.select-cabang').select2({
          placeholder: '-- Select Cabang --',
          ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
-      });
-
-      // Loading region Data
-      $('#form-master-destination [name="current_region"]').select2({
-         placeholder: '-- Select Region --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
    });
 </script>
