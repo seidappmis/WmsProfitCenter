@@ -78,6 +78,14 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+      // Loading cabang Data
+      $('.select-cabang').select2({
+         placeholder: '-- Select Cabang --',
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+      });
+   });
+
     $('#form-master-destination [name="region_type"]').change(function(event) {
         /* Act on the event */
         if ($(this).val() == 'new_region') {
@@ -86,34 +94,13 @@
         } else {
             $('#new_region_input').hide();
             $('#current_region_input').show();
+
+            // Loading region Data
+            $('#form-master-destination [name="current_region"]').select2({
+               placeholder: '-- Select Region --',
+               ajax: get_select2_ajax_options('/master-cabang/select2-region')
+            });
         }
     });
 </script>
 @endpush
-
-@push('script_js')
-<script type="text/javascript">
-   jQuery(document).ready(function($) {
-
-      /** Loading destination Data
-      $('#form-master-destination [name="cabang"]').select2({
-         placeholder: '-- Select Cabang --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
-      });
-      */
-      
-      // Loading cabang Data
-      $('.select-cabang').select2({
-         placeholder: '-- Select Cabang --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
-      });
-
-      // Loading region Data
-      $('#form-master-destination [name="current_region"]').select2({
-         placeholder: '-- Select Region --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-region')
-      });
-   });
-</script>
-@endpush
-

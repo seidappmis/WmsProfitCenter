@@ -38,6 +38,18 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+      set_initial_form_data();
+      $('.btn-save').html('Update');
+  });
+
+    function set_initial_form_data(){
+
+        set_select2_value('#cabang', '{{$masterDestination->kode_cabang}}', '{{$masterDestination->MasterCabang->kode_cabang}}')
+
+        set_select2_value('#current_region_input', '{{$masterDestination->region}}', '{{$masterDestination->Region->region}}')
+    };
+
     $("#form-master-destination").validate({
      submitHandler: function(form) {
        $.ajax({

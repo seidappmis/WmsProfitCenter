@@ -7,8 +7,8 @@
     @include('web.master.master-model.upload._form')
   </div>
   <div class="modal-footer">
-    <button type="submit" class="modal-action waves-effect waves-green btn-flat">Upload</button>
-    <span class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</span>
+    {!! get_button_save('Upload') !!}
+    {!! get_button_cancel_modal() !!}
   </div>
   </form>
 </div>
@@ -16,7 +16,29 @@
 
 @push('script_js')
 <script type="text/javascript">
-    //Upload File
-    $('.dropify').dropify();
+    jQuery(document).ready(function($) {
+      //Upload File
+      $('.dropify').dropify();
+   });
+
+   $("#form-upload-master-model").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-model/upload") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-model') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

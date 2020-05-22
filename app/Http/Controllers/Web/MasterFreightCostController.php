@@ -7,6 +7,7 @@ use App\Models\FreightCost;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MasterFreightCostController extends Controller
 {
@@ -23,7 +24,8 @@ class MasterFreightCostController extends Controller
             DB::raw('destination_cities.city_name AS destination_city_name')
           )
           ->leftjoin('destination_cities', 'destination_cities.city_code', '=',
-          'log_freight_cost.city_code');
+          'log_freight_cost.city_code')
+          ->where('log_freight_cost.area', $request->get('area'));
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -94,6 +96,19 @@ class MasterFreightCostController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function proses_upload(Request $request)
+    {
+        $path = Storage::putFile('master/freight-cost', $request->file('file-freight-cost'));
+
+        return $path->save();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -125,7 +140,36 @@ class MasterFreightCostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+          'area'              => 'required',
+          'ambil_sendiri'     => 'nullable',
+          'city_code'         => 'required|max:10',
+          'expedition_code'   => 'required|max:3',
+          'vehicle_code_type' => 'required|max:6',
+          'ritase_cbm_input'  => 'numeric',
+          'leadtime'          => 'nullable',
+        ]);
+
+        $masterFreight                     = FreightCost::findOrFail($id);
+        $masterFreight->area               = $request->input('area' );
+        $masterFreight->ambil_sendiri      = !empty($request->input('ambil_sendiri'));
+        $masterFreight->city_code          = $request->input('city_code');
+        $masterFreight->expedition_code    = $request->input('expedition_code');
+        $masterFreight->vehicle_code_type  = $request->input('vehicle_code_type');
+        if($request['ritase_cbm'] == 'ritase'){
+            $masterFreight->ritase = $request->input('ritase_cbm_input');  
+            $masterFreight->cbm = $request->input('ritasecbm_input');  
+        } 
+        elseif ($request['ritase_cbm'] == 'cbm')   {
+            $masterFreight->cbm = $request->input('ritase_cbm_input');    
+            $masterFreight->ritase = $request->input('ritasecbm_input'); 
+        }else{
+            $masterFreight->cbm = $request->input('ritasecbm_input');    
+            $masterFreight->ritase = $request->input('ritasecbm_input'); 
+        }
+        $masterFreight->leadtime           = $request->input('leadtime');
+
+        return $masterFreight->save();
     }
 
     /**

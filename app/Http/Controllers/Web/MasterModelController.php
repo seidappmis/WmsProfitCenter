@@ -7,6 +7,7 @@ use App\Models\MasterModel;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MasterModelController extends Controller
 {
@@ -91,6 +92,20 @@ class MasterModelController extends Controller
         $masterModel->price3           = $request->input('price3');
 
         return $masterModel->save();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function proses_upload(Request $request)
+    {
+        
+        $path = Storage::putFile('master/model', $request->file('file-master-model'));
+
+        return $path->save();
     }
 
     /**

@@ -21,7 +21,7 @@ class MasterDestination extends BaseModel
      */
     public function MasterCabang()
     {
-        return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang');
+        return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
     }
 
     /**

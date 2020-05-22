@@ -46,12 +46,13 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
     // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
     // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
+    Route::resource('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
     Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
     // Route::view('storage-master', 'web.master.storage-master.index');
     // Route::view('storage-master/create', 'web.master.storage-master.create');
     // Route::view('storage-master/1', 'web.master.storage-master.edit');
-    Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
+    Route::post('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
     Route::resource('storage-master', 'Web\StorageMasterController');
 
     // Route::view('master-model', 'web.master.master-model.index');
@@ -61,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
     Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
     Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
+    Route::post('master-model/upload', 'Web\MasterModelController@proses_upload');
     Route::resource('master-model', 'Web\MasterModelController');
 
     //Route::view('master-vendor', 'web.master.master-vendor.index');
