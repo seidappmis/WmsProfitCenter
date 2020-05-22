@@ -55,9 +55,6 @@
       $('#table-freight-cost tr:has(td.expedition)').hide();
       $('#table-freight-cost tr:has(td.vehicle_type)').hide();
 
-      // Loading area data
-      
-
       // Area data selected
       $('#area').change(function() {
         if ($("#area option:selected")) {
@@ -81,9 +78,26 @@
           $('#table-freight-cost tr:has(td.vehicle_type)').show();
         }
       });
-
-      // Checkbox ambil sendiri
-      
    });
+
+  $("#form-master-freight").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-freight-cost") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-freight-cost') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush
