@@ -14,9 +14,10 @@ class CreateMasterDestinationTable extends Migration
     public function up()
     {
         Schema::create('master_destination', function (Blueprint $table) {
-            $table->string('destination_number', 8);
-            $table->string('description')->nullable();
-            $table->string('region');
+            $table->string('destination_number', 6);
+            $table->string('description', 100)->nullable();
+            $table->string('region', 100)->nullable();
+            $table->string('kode_cabang', 2)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

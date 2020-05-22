@@ -101,6 +101,7 @@
          ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
       */
+      
       // Loading cabang Data
       $('.select-cabang').select2({
          placeholder: '-- Select Cabang --',
@@ -108,7 +109,7 @@
       });
 
       // Loading region Data
-      $('.select-region').select2({
+      $('#form-master-destination [name="current_region"]').select2({
          placeholder: '-- Select Region --',
          ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
