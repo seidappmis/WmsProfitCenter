@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
 class MasterDriver extends BaseModel
 {
@@ -11,6 +11,6 @@ class MasterDriver extends BaseModel
    public $incrementing=false;
    public function expedition()
    {
-       return $this->belongTo('App\Models\MasterExpedition','expedition_name','expedition_name');
+       return $this->belongsTo('App\Models\MasterExpedition','expedition_code','code');
    }
 }

@@ -46,14 +46,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1</td>
-                                <td>ARS-17-001</td>
-                                <td>KIF WAHYUDI</td>
-                                <td>ALAM RAYA SENTOSA, CV.</td>
-                                <td>
-                                  {!! get_button_edit(url('master-driver/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td>
+                                
                               </tbody>
                           </table>
                         </div>
@@ -70,26 +63,55 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+   var table = $('#data-table-simple').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-driver') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'driver_id', name: 'driver_id', className: 'detail'},
+        {data: 'driver_name', name: 'driver_name', className: 'detail'},
+        {data: 'expedition_code', name: 'master_driver.expedition_code', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 
   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
       swal({
-        text: "Delete the Driver KIF WAHYUDI?",
+        text: "Delete Master Driver : " + data.driver_id + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
           delete: 'Yes, Delete It'
         }
       }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-driver') }}' + '/' + data.driver_id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
         }
       })
     });
