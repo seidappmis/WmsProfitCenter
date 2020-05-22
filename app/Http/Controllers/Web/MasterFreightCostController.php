@@ -24,7 +24,8 @@ class MasterFreightCostController extends Controller
             DB::raw('destination_cities.city_name AS destination_city_name')
           )
           ->leftjoin('destination_cities', 'destination_cities.city_code', '=',
-          'log_freight_cost.city_code');
+          'log_freight_cost.city_code')
+          ->where('log_freight_cost.area', $request->get('area'));
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)

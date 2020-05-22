@@ -86,19 +86,7 @@
                                   <th width="50px;"></th>
                                 </tr>
                             </thead>
-                            <tbody><!-- 
-                              <td>1</td>
-                              <td>KARAWANG</td>
-                              <td>ALAM RAYA SENTOSA, CV.</td>
-                              <td>LAMPUNG</td>
-                              <td>TRONTON 10 M</td>
-                              <td>0</td>
-                              <td>145,000</td>
-                              <td>3</td>
-                              <td>
-                                {!! get_button_edit(url('master-freight-cost/1')) !!}
-                                {!! get_button_delete() !!}
-                              </td> -->
+                            <tbody>
                             </tbody>
                         </table>
                       </div>
@@ -124,6 +112,7 @@
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
+            d.area = $('#area_filter').val()
           }
     },
     order: [1, 'asc'],
@@ -143,6 +132,11 @@
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
   });
+
+  $('#area_filter').change(function(event) {
+      /* Act on the event */
+      table.ajax.reload(false);
+    });
 
   // Custom search
   function filterGlobal() {
