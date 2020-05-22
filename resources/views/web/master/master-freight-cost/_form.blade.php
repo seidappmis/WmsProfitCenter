@@ -150,7 +150,7 @@
           });
           $('.select-expedition').select2({
              placeholder: '-- Expedition --',
-             ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
+             ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
           });
           $('.select-vehicle-type').select2({
              placeholder: '-- Select Vehicle --',

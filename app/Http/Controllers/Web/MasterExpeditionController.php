@@ -157,7 +157,7 @@ class MasterExpeditionController extends Controller
     }
     public function getSelect2AllExpedition(Request $request)
   {
-    $query = BranchExpedition::select(
+    $query = MasterExpedition::select(
       DB::raw("code AS id"),
       DB::raw("expedition_name AS text")
     )
