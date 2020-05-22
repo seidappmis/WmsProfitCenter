@@ -58,7 +58,7 @@ class MasterDriverController extends Controller
     {
         $request->validate([
             'expedition_code'  => 'required|max:3',
-            
+            'photo_name'         => 'image',
             'driving_license_number'  => 'required|max:50',
           ]);
           $masterDriver = new MasterDriver;
@@ -94,7 +94,6 @@ class MasterDriverController extends Controller
           $masterDriver->remarks2   = $request->input('remarks2');
           $masterDriver->remarks3   = $request->input('remarks3'); 
           $masterDriver->status_active =!empty($request->input('status_active'));
-          $masterDriver->photo_name     = $request->input('photo_name');  
 
           $masterDriver->save();
 
@@ -137,16 +136,7 @@ class MasterDriverController extends Controller
         $request->validate([
             
             'driving_license_number'  => 'required',
-            // 'driver_name'=>'required',
-            // 'driving_lisence_type'=>'required',
-            // 'ktp_no'=>'required',
-            // 'phone1'=>'required',
-            // 'phone2'=>'required',
-            // 'remarks1'=>'required',
-            // 'remarks2'=>'required',
-            // 'remarks3'=>'required',
-            // 'status_active'=>'required',
-            // 'photo_name'=>'required'
+           
             ]);
             if (!empty($request->file('photo_name'))) {
                 $photo_name = str_replace('-', '', $masterDriver->driver_id) . '.' . $request->file('photo_name')->extension();
@@ -168,7 +158,7 @@ class MasterDriverController extends Controller
           $masterDriver->remarks2   = $request->input('remarks2');
           $masterDriver->remarks3   = $request->input('remarks3'); 
           $masterDriver->status_active =!empty($request->input('status_active'));
-          $masterDriver->photo_name     = $request->input('photo_name');  
+       
 
           $masterDriver->save();
           return $masterDriver();
