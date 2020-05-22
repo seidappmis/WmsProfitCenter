@@ -30,22 +30,35 @@
     </div>
 </div>
 @endsection
-
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
 @push('script_js')
 <script type="text/javascript">
-$(document).ready(function() {
-    //Upload Foto
-    $('.dropify').dropify();
-
-    $('.select2').change(function(event) {
-      /* Act on the event */
-      if (this.value == '1') {
-          $('#detail-driver').show();
-          // console.log('tes');
-      } else if (this.value == '0') {
-        $('#detail-driver').hide();
+    $("#form-master-driver").validate({
+      submitHandler: function(form) {
+        var fd = new FormData(form);
+        $.ajax({
+          url: '{{ url('master-driver') }}',
+          type: 'POST',
+          data: fd,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false,
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-driver') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
       }
     });
-});
 </script>
 @endpush

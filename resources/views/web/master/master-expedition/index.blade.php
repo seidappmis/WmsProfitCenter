@@ -83,7 +83,7 @@
       {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
       {data: 'address', name: 'address', className: 'detail'},
       {data: 'code', name: 'code', className: 'detail'},
-      {data: 'sap_code', name: 'sap_code', className: 'detail'},
+      {data: 'sap_vendor_code', name: 'sap_vendor_code', className: 'detail'},
       // {data: 'contact_pesrson', name: 'contact_person', className: 'detail'},
       // {data: 'phone1', name: 'phone1', className: 'detail'},
       // {data: 'phone2', name: 'phone2', className: 'detail'},
@@ -113,7 +113,7 @@ table.on('click', '.btn-delete', function(event) {
 
     // Ask user confirmation to delete the data.
     swal({
-      text: "Delete thema Expedition" + data.code + "?",
+      text: "Delete thema Expedition" + data.id + "?",
       icon: 'warning',
       buttons: {
         cancel: true,
@@ -122,7 +122,7 @@ table.on('click', '.btn-delete', function(event) {
     }).then(function (confirm) { // proses confirm
       if (confirm) { // if CONFIRMED send DELETE Request to endpoint
         $.ajax({
-          url: '{{ url('master-expedition') }}' + '/' + data.code ,
+          url: '{{ url('master-expedition') }}' + '/' + data.id ,
           type: 'DELETE',
           dataType: 'json',
         })

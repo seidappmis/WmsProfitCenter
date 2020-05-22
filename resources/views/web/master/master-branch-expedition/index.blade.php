@@ -48,17 +48,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>PUTRA NAGITA PRATAMA</td>
-                                  <td></td>
-                                  <td>P13</td>
-                                  <td>ACTIVE</td>
-                                  <td>
-                                    {!! get_button_edit(url('master-branch-expedition/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr>
                               </tbody>
                           </table>
                         </div>

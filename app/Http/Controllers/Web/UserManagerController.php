@@ -18,6 +18,12 @@ class UserManagerController extends Controller
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->editColumn('status', '{{$status ? "YES" : "NO"}}')
+        ->addColumn('roles', function ($data) {
+          return $data->roles->roles_name;
+        })
+        ->addColumn('long_description', function ($data) {
+          return !empty($data->cabang) ? $data->cabang->long_description : '';
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_edit(url('user-manager/' . $data->id . '/edit'));

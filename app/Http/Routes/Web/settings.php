@@ -6,9 +6,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('user-manager/1', 'web.settings.user-manager.edit');
     Route::resource('user-manager', 'Web\UserManagerController');
 
-    Route::view('user-roles', 'web.settings.user-roles.index');
-    Route::view('user-roles/create', 'web.settings.user-roles.create');
-    Route::view('user-roles/1', 'web.settings.user-roles.edit');
+    // Route::view('user-roles', 'web.settings.user-roles.index');
+    // Route::view('user-roles/create', 'web.settings.user-roles.create');
+    // Route::view('user-roles/1', 'web.settings.user-roles.edit');
+    Route::get('user-roles/select2-roles', 'Web\UserRoleController@getSelect2Roles');
+    Route::resource('user-roles', 'Web\UserRoleController');
 
     // Route::view('master-area', 'web.settings.master-area.index');
     // Route::view('master-area/create', 'web.settings.master-area.create');
@@ -20,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::view('master-cabang/create', 'web.settings.master-cabang.create');
     //Route::view('master-cabang/1', 'web.settings.master-cabang.edit');
     Route::get('master-cabang/select2-region', 'Web\MasterCabangController@getSelect2Region');
+    Route::get('master-cabang/select2-cabang', 'Web\MasterCabangController@getSelect2Cabang');
     Route::resource('master-cabang', 'Web\MasterCabangController');
 
     // Route::view('master-user-mobile', 'web.settings.master-user-mobile.index');

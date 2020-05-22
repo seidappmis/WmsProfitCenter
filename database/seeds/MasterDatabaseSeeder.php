@@ -17,5 +17,6 @@ class MasterDatabaseSeeder extends Seeder
         $this->call(Database\Seeds\Masters\WMSModelMaterialGroupSeeder::class);
         $this->call(Database\Seeds\Masters\WMSModelTypeSeeder::class);
         $this->call(Database\Seeds\Masters\LOGRegionTableSeeder::class);
+        $this->call(Database\Seeds\Masters\LogCabangTableSeeder::class);
     }
 }

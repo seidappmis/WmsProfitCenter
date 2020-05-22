@@ -6,7 +6,7 @@ use App\Models\MasterExpedition;
 use DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 
 class MasterExpeditionController extends Controller
@@ -26,7 +26,7 @@ class MasterExpeditionController extends Controller
               ->editColumn('status_active', '{{$status_active ? "Active" : "No Active"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
-                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->code . '/edit'));
+                $action .= ' ' . get_button_edit(url('master-expedition/' . $data->id . '/edit'));
                 $action .= ' ' . get_button_delete();
                 return $action;
               });
@@ -56,19 +56,18 @@ class MasterExpeditionController extends Controller
     {
         $request->validate([
             'code'=>'required|max:3',
-            'sap_code'=>'required|max:6',
-           
+            'expedition_name'=>'required|max:100'
         ]);
 
         $masterExpedition                           = new MasterExpedition;
         $masterExpedition->code                     =$request->input('code');
         $masterExpedition->expedition_name          =$request->input('expedition_name');
-        $masterExpedition->sap_code                 =$request->input('sap_code');
+        $masterExpedition->sap_vendor_code          =$request->input('sap_vendor_code');
         $masterExpedition->address                  =$request->input('address');
         $masterExpedition->npwp                     =$request->input('npwp');
         $masterExpedition->contact_person           =$request->input('contact_person');
-        $masterExpedition->phone1                   =$request->input('phone1');
-        $masterExpedition->phone2                   =$request->input('phone2');
+        $masterExpedition->phone_number_1           =$request->input('phone_number_1');
+        $masterExpedition->phone_number_2           =$request->input('phone_number_2');
         $masterExpedition->fax_number               =$request->input('fax_number');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
@@ -114,27 +113,19 @@ class MasterExpeditionController extends Controller
          $request->validate([
             'code'=>'required|max:3',
             'expedition_name'=>'required|max:100',
-            'sap_code'=>'required|max:6',
-            'address'=>'required|max:100',
-            'npwp'=>'required|max:20',
-            'contact_person'=>'required|max:100',
-            'phone1'=>'required|max:16',
-            'phone2'=>'required|max:16',
-            'fax_number'=>'required|max:16',
-            'bank'=>'required|max:100',
-            'currency'=>'required|max:3',
           
+            
         ]);
 
         $masterExpedition                           = MasterExpedition::findorfail($id);
         $masterExpedition->code                     =$request->input('code');
         $masterExpedition->expedition_name          =$request->input('expedition_name');
-        $masterExpedition->sap_code                 =$request->input('sap_code');
+        $masterExpedition->sap_vendor_code          =$request->input('sap_vendor_code');
         $masterExpedition->address                  =$request->input('address');
         $masterExpedition->npwp                     =$request->input('npwp');
         $masterExpedition->contact_person           =$request->input('contact_person');
-        $masterExpedition->phone1                   =$request->input('phone1');
-        $masterExpedition->phone2                   =$request->input('phone2');
+        $masterExpedition->phone_number_1           =$request->input('phone_number_1');
+        $masterExpedition->phone_number_2           =$request->input('phone_number_2');
         $masterExpedition->fax_number               =$request->input('fax_number');
         $masterExpedition->bank                     =$request->input('bank');
         $masterExpedition->currency                 =$request->input('currency');
@@ -153,4 +144,25 @@ class MasterExpeditionController extends Controller
     {
         return MasterExpedition::destroy($id);
     }
+    public function getSelect2ActiveExpedition(Request $request)
+    {
+      $query = MasterDriver::select(
+        DB::raw("code AS id"),
+        DB::raw("CONCAT(code, '-', expedition_name) AS text")
+      )
+        ->where('status_active', 1)
+        ->toBase();
+  
+      return get_select2_data($request, $query);
+    }
+    public function getSelect2AllExpedition(Request $request)
+  {
+    $query = BranchExpedition::select(
+      DB::raw("code AS id"),
+      DB::raw("expedition_name AS text")
+    )
+      ->toBase();
+
+    return get_select2_data($request, $query);
+  }
 }
