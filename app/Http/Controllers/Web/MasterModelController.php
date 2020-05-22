@@ -95,6 +95,20 @@ class MasterModelController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function proses_upload(Request $request)
+    {
+        
+        $path = Storage::putFile('master/model', $request->file('file-master-model'));
+
+        return $path->save();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
