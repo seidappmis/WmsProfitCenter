@@ -5,7 +5,7 @@
             <td>
                 <div class="input-field col s12">
                     <select name="kode_cabang"  class="select2-data-ajax browser-default ">
-                        <option value="{{Auth::user()->cabang->kode_cabang}}" selected>{{Auth::user()->cabang->long_description}}</option>
+                        <option value="{{Auth::user()->cabang->kode_cabang}}" selected></option>
                     </select>
                 </div>
             </td>
@@ -121,7 +121,7 @@
       // Loading region data
       $('#form-branch-expedition [name="kode_cabang"]').select2({
          placeholder: '-- Select Branch--',
-         // ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+        //  ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
    });
 </script>

@@ -11,6 +11,6 @@ class MasterDriver extends BaseModel
    public $incrementing=false;
    public function expedition()
    {
-       return $this->belongTo('App\Models\MasterExpedition','code','expedition_name');
+       return $this->belongsTo('App\Models\MasterExpedition','expedition_code','code');
    }
 }

@@ -19,14 +19,13 @@ class MasterDriverController extends Controller
     {
         if ($request->ajax()) {
             $query = MasterDriver::select(
+                'master_driver.*',
                 DB::raw('master_expedition.expedition_name')
             )
-            ->leftjoin('master_expedition', 'master_expedition.expedition_name', '=', 'master_driver.expedition_code')
-            ;
+            ->leftjoin('master_expedition', 'master_expedition.code', '=', 'master_driver.expedition_code');
   
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
-              ->editColumn('driving_lisence_type', '{{$driving_lisence_type == 1 ? "SIM A" : "SIM B":"SIM B1"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
                 $action .= ' ' . get_button_edit(url('master-driver/' . $data->driver_id . '/edit'));
@@ -62,9 +61,28 @@ class MasterDriverController extends Controller
             'diver_id'  => 'required|max:10',
             'driving_lisence_number'  => 'required|max:50',
           ]);
-  
-          $masterDriver              = new MasterDriver;
+          $masterDriver = new MasterDriver;
+
           $masterDriver->expedition_code = $request->input('expedition_code');
+      
+          // DRIVER ID = Expedition Code - YY - nomor
+          $prefix = $masterDriver->expedition_code . '-' . date('y');
+      
+          $prefix_length = strlen($prefix);
+          $max_no        = DB::select('SELECT MAX(SUBSTR(driver_id, ?)) AS max_no FROM master_driver WHERE SUBSTR(driver_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+          $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+      
+          $driver_id = $prefix . '-' . $max_no;
+      
+          $photo_name = '';
+          if (!empty($request->file('photo_name'))) {
+            $photo_name = $masterDriver->expedition_code . date('y') . $max_no . '.' . $request->file('photo_name')->extension();
+            $path       = $request->file('photo_name')->storeAs(
+              'Photo', $photo_name
+            );
+            $masterDriver->photo_name = $photo_name;
+          }
+      
           $masterDriver->driver_id = $request->input('driver_id');
           $masterDriver->driver_name     = $request->input('driver_name');
           $masterDriver->driving_lisence_type  = $request->input('driving_lisence_type');
@@ -77,7 +95,10 @@ class MasterDriverController extends Controller
           $masterDriver->remarks3   = $request->input('remarks3'); 
           $masterDriver->status_active =!empty($request->input('status_active'));
           $masterDriver->photo_name     = $request->input('photo_name');  
-          return $masterDriver->save();
+
+          $masterDriver->save();
+
+          return $masterDriver;
     }
 
     /**
@@ -113,22 +134,28 @@ class MasterDriverController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'expedition_code'  => 'required|max:3',
-            'diver_id'  => 'required|max:10',
+            
             'driving_lisence_number'  => 'required|max:50',
-            'driver_name'=>'required',
-            'driving_lisence_type'=>'required',
-            'ktp_no'=>'required',
-            'phone1'=>'required',
-            'phone2'=>'required',
-            'remarks1'=>'required',
-            'remarks2'=>'required',
-            'remarks3'=>'required',
-            'status_active'=>'required',
-            'photo_name'=>'required'
+            // 'driver_name'=>'required',
+            // 'driving_lisence_type'=>'required',
+            // 'ktp_no'=>'required',
+            // 'phone1'=>'required',
+            // 'phone2'=>'required',
+            // 'remarks1'=>'required',
+            // 'remarks2'=>'required',
+            // 'remarks3'=>'required',
+            // 'status_active'=>'required',
+            // 'photo_name'=>'required'
+            ]);
+            if (!empty($request->file('photo_name'))) {
+                $photo_name = str_replace('-', '', $masterDriver->driver_id) . '.' . $request->file('photo_name')->extension();
+                $path       = $request->file('photo_name')->storeAs(
+                  'public/Photo', $photo_name
+                );
+                $masterDriver->photo_name = $photo_name;
 
-          ]);
-  
+            }
+
           $masterDriver              = MasterDriver::findOrFail($id);
           $masterDriver->expedition_code = $request->input('expedition_code');
           $masterDriver->driver_id = $request->input('driver_id');
@@ -143,7 +170,9 @@ class MasterDriverController extends Controller
           $masterDriver->remarks3   = $request->input('remarks3'); 
           $masterDriver->status_active =!empty($request->input('status_active'));
           $masterDriver->photo_name     = $request->input('photo_name');  
-          return $masterDriver->save();
+
+          $masterDriver->save();
+          return $masterDriver();
     }
 
     /**
@@ -156,5 +185,16 @@ class MasterDriverController extends Controller
     {
         return MasterDriver::destroy($id);
     }
+    public function getSelect2ActiveExpedition(Request $request)
+  {
+    $query = BranchDriver::select(
+      DB::raw("code AS id"),
+      DB::raw("CONCAT(code, '-', expedition_code) AS text")
+    )
+      ->where('status_active', 1)
+      ->toBase();
+
+    return get_select2_data($request, $query);
+  }
     
 }
