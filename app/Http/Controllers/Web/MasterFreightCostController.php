@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\FreightCost;
+use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MasterFreightCostController extends Controller
 {
@@ -14,7 +17,11 @@ class MasterFreightCostController extends Controller
      */
     public function index()
     {
-         return view('web.master.master-freight-cost.index');
+        //$area_master = DB::table('tr_area')->get();
+        $data  = [
+          'areas' => \App\Models\Area::all()
+        ];
+        return view('web.master.master-freight-cost.index', $data);
     }
 
     /**

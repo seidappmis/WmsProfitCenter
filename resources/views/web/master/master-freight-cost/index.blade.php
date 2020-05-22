@@ -37,10 +37,10 @@
                     <div class="app-wrapper">
                       <div class="datatable-search">
                         <select id="area_filter">
-                          <option>-- Select Area --</option>
-                          <option>KARAWANG</option>
-                          <option>SURABAYA HUB</option>
-                          <option>SWADAYA</option>
+                          <option disabled selected>-- Select Area --</option>
+                          @foreach($areas as $area)
+                          <option value="{{$area->area}}">{{$area->area}}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>

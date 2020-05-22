@@ -65,9 +65,8 @@
             <td>Type Code</td>
             <td>
                 <div class="input-field col s12">
-                    <select id="tycode" name="tycode" 
+                    <select id="tycode" name="tycode"
                     class="select2-data-ajax browser-default select-tycode">
-                      <option></option>
                       <option value="NN" 
                               disabled selected>-- Select Type --</option>
                       <option value="BR">BR</option>
@@ -99,7 +98,7 @@
                 <div class="input-field col s12">
                    <input id="start_wms"
                    type="text"
-                   class="validate"
+                   class="validate datepicker"
                    name="start_wms"
                    value="{{old('start_wms', !empty($masterCabang) ? $masterCabang->start_wms : '')}}">
                 </div>
