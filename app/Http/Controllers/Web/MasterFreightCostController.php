@@ -18,7 +18,12 @@ class MasterFreightCostController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-          $query = FreightCost::all();
+          $query = FreightCost::select(
+            'log_freight_cost.*',
+            DB::raw('destination_cities.city_name AS destination_city_name')
+          )
+          ->leftjoin('destination_cities', 'destination_cities.city_code', '=',
+          'log_freight_cost.city_code');
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)

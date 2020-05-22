@@ -52,8 +52,9 @@
                         value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
                         required
                         />
-                    <select id="current_region_input" name="current_region" style="display: none;" class="select2-data-ajax browser-default" required>
-                    </select>
+                        <p>
+                    <select id="current_region_input" name="current_region" class="select2-data-ajax browser-default" required>
+                    </select></p>
               </div>
             </td>
         </tr>
@@ -93,7 +94,7 @@
       // Loading destination Data
       $('#form-master-destination [name="cabang"]').select2({
          placeholder: '-- Select Cabang --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-region')
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
    });
 </script>
@@ -104,12 +105,10 @@
    jQuery(document).ready(function($) {
 
       // Loading region Data
-      $('.select-region').select2({
+      $('#form-master-destination [name="current_region"]').select2({
          placeholder: '-- Select Region --',
          ajax: get_select2_ajax_options('/master-cabang/select2-region')
       });
-
-      $('.select-tycode').select2();
    });
 </script>
 @endpush

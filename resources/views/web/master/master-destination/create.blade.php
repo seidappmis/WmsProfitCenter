@@ -38,6 +38,7 @@
 
 @push('script_js')
 <script type="text/javascript">
+
   $("#form-master-destination").validate({
     submitHandler: function(form) {
       $.ajax({
