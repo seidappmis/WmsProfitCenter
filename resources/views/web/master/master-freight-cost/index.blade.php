@@ -130,9 +130,9 @@
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'area', name: 'area', className: 'detail'},
-        {data: 'expedition_name', name: 'master_expedition.expedition_name', className: 'detail'},
+        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
         {data: 'destination_city_name', name: 'destination_cities.city_name', className: 'detail'},
-        {data: 'vehicle_description', name: 'vehicle_type_details.vehicle_description', className: 'detail'},
+        {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
         {data: 'ritase', name: 'ritase', className: 'detail'},
         {data: 'cbm', name: 'cbm', className: 'detail'},
         {data: 'leadtime', name: 'leadtime', className: 'detail'},

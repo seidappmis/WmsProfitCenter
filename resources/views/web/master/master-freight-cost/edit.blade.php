@@ -51,14 +51,19 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     set_initial_form_data();
+    set_format_data();
     $('.btn-save').html('Update');
   });
 
   function set_initial_form_data(){
     set_select2_value('#area', '{{$masterFreight->area}}', '{{$masterFreight->Area->area}}')
-    set_select2_value('#city_code', '{{$masterFreight->city_code}}', '{{$masterFreight->DestinationCity->city_code}}')
-    set_select2_value('#expedition_code', '{{$masterFreight->expedition_code}}', '{{$masterFreight->MasterExpedition->code}}')
-    set_select2_value('#vehicle_code_type', '{{$masterFreight->vehicle_code_type}}', '{{$masterFreight->VehicleDetail->vehicle_code_type}}')
+    set_select2_value('#city_code', '{{$masterFreight->city_code}}', '{{$masterFreight->DestinationCity->city_name}}')
+    set_select2_value('#expedition_code', '{{$masterFreight->expedition_code}}', '{{$masterFreight->MasterExpedition->expedition_name}}')
+    set_select2_value('#vehicle_code_type', '{{$masterFreight->vehicle_code_type}}', '{{$masterFreight->VehicleDetail->vehicle_desription}}')
+  };
+
+  function set_format_data(){
+    thousand_reformat('{{$masterFreight->ritase}}')
   };
 
   $("#form-master-freight").validate({
