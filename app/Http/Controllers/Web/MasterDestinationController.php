@@ -54,15 +54,25 @@ class MasterDestinationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'destination_number'  => 'required|unique:master_destination|max:10',
+            'destination_number'  => 'required|unique:master_destination|max:6',
             'description'  => 'required|max:100',
             'new_region'  => 'max:10',
+            'current_region'  => 'max:10',
+            'cabang'  => 'max:2',
+
         ]);
 
         $masterDestination            = new MasterDestination;
         $masterDestination->destination_number = $request->input('destination_number');
         $masterDestination->description = $request->input('description');
-        $masterDestination->region = $request->input('region');
+        if($request['region_type'] == 'new_region'){
+            $masterDestination->region = $request->input('new_region');  
+        } 
+        elseif ($request['region_type'] == 'current')   {
+            $masterDestination->region = $request->input('current_region');
+        }
+        $masterDestination->kode_cabang = $request->input('cabang');
+
         return $masterDestination->save();
     }
 
@@ -100,16 +110,21 @@ class MasterDestinationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            //'destination_number'  => 'required|max:8',
             'description'  => 'required|max:100',
-            'region' => 'required|max:10'
+            'new_region'  => 'max:10',
+            'current_region'  => 'max:10',
+            'cabang'  => 'max:2',
         ]);
 
         $masterDestination            = MasterDestination::findOrFail($id);
-        //$masterDestination->destination_number = $request->input('destinantion_number');
         $masterDestination->description = $request->input('description');
-        $masterDestination->region = $request->input('region');
-
+         if($request['region_type'] == 'new_region'){
+            $masterDestination->region = $request->input('new_region');  
+        } 
+        elseif ($request['region_type'] == 'current')   {
+            $masterDestination->region = $request->input('current_region');
+        }
+        $masterDestination->kode_cabang = $request->input('cabang');
 
         return $masterDestination->save();
     }
