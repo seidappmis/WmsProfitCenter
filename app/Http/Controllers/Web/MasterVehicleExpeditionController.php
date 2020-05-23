@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\MasterVehicleExpedition;
+use DataTables;
 use Illuminate\Http\Request;
+use DB;
 
 class MasterVehicleExpeditionController extends Controller
 {
@@ -14,7 +17,14 @@ class MasterVehicleExpeditionController extends Controller
      */
     public function index()
     {
-        //
+        if (request->()){
+        $query = MasterVehicleExpedion::select(
+            'MasterVahicleExpedition.*',
+            DB::raw('master_expedition.expedition_name'),
+            DB::raw('vehicle_type_details.type'),
+            DB::raw('master_destination.'),
+            )
+        }
     }
 
     /**
