@@ -75,11 +75,11 @@
           type: 'POST',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
+        .done(function(data) { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('incoming-import-oem') }}"
+              window.location.href = "{{ url('incoming-import-oem') }}" + '/' + data.arrival_no
             }) // alert success
         })
         .fail(function(xhr) {

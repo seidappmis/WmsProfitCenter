@@ -15,7 +15,7 @@ class CreateWmsMasterStorageTable extends Migration
     {
         Schema::create('wms_master_storage', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_cabang_id', 2)->nullable();
+            $table->string('kode_cabang', 2)->nullable();
             $table->string('sto_loc_code_short', 2)->nullable();
             $table->string('sto_loc_code_long', 4)->nullable();
             $table->integer('sto_type_id')->nullable();

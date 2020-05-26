@@ -4,9 +4,9 @@
 			<td>Branch</td>
 			<td>
 				<div class="input-field col s12">
-			    <select id="kode_cabang_id"
+			    <select id="kode_cabang"
                 class="select2-data-ajax browser-default select-branch"
-                name="kode_cabang_id" 
+                name="kode_cabang" 
                 required>
                     <option></option>
 			    </select>
@@ -73,7 +73,7 @@
       // Loading branch data
       $('.select-branch').select2({
          placeholder: '-- Select --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-branch')
+         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
       });
 
       // Loading storage type data

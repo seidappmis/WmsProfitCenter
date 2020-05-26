@@ -43,7 +43,7 @@
               <hr>
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
-            <div class="card-content">
+            <div class="card-content pt-0 pb-0">
                 <ul class="collapsible">
                    <li class="active">
                      <div class="collapsible-header">Add New Detail</div>
@@ -101,17 +101,44 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
   var dtdatatable = $('#data-table-section-contents').DataTable({
       "scrollX": true,
       "ordering": false,
       "paging": false,
     });
+
+  $("#form-incoming-import-oem-header").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("incoming-import-oem") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('incoming-import-oem') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+
   jQuery(document).ready(function($) {
-    set_form_data();
-});
+      set_form_data();
+  });
 
   function set_form_data() {
+    $('#form-incoming-import-oem-header .btn-save').html('Update')
     set_select2_value('#form-incoming-import-oem-header [name="vendor_name"]', '{{$incomingManualHeader->vendor_name}}', '{{$incomingManualHeader->vendor_name}}');
     $('input:radio[name="inc_type"]').filter('[value="{{$incomingManualHeader->inc_type}}"]').attr('checked', true);
     $('input:radio[name="inc_type"]').prop('disabled', true);

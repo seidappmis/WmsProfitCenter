@@ -20,10 +20,10 @@ class StorageMasterController extends Controller
         if ($request->ajax()) {
           $query = StorageMaster::select(
             'wms_master_storage.*',
-            DB::raw('cabangs.long_description AS cabang_description')
+            DB::raw('log_cabang.long_description AS cabang_description')
           )
-          ->leftjoin('cabangs', 'cabangs.kode_cabang', '=',
-          'wms_master_storage.kode_cabang_id');
+          ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=',
+          'wms_master_storage.kode_cabang');
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -58,7 +58,7 @@ class StorageMasterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_cabang_id'        => 'required',
+            'kode_cabang'        => 'required',
             'sto_loc_code_short'    => 'required',
             'sto_type_id'           => 'required',
             'total_max_pallet'      => 'required|numeric',
@@ -68,10 +68,10 @@ class StorageMasterController extends Controller
         ]);
 
         $storageMaster                     = new StorageMaster;
-        $storageMaster->kode_cabang_id     = $request->input('kode_cabang_id');
+        $storageMaster->kode_cabang     = $request->input('kode_cabang');
         $storageMaster->sto_loc_code_short = $request->input('sto_loc_code_short');
-        $cabang = \App\Models\MasterCabang::find($storageMaster->kode_cabang_id);
-        $sto_loc_code_long = $storageMaster->sto_loc_code_short . $cabang->kode_cabang;
+        // $cabang = \App\Models\MasterCabang::find($storageMaster->kode_cabang);
+        $sto_loc_code_long = $storageMaster->kode_cabang . $storageMaster->sto_loc_code_short;
         $storageMaster->sto_loc_code_long  = $sto_loc_code_long;
         $storageMaster->sto_type_id        = $request->input('sto_type_id');
         $sto_type = \App\Models\StorageType::find($storageMaster->sto_type_id);

@@ -4,6 +4,7 @@
       <td>Model</td>
       <td>
         <div class="input-field col s12">
+          <input type="hidden" name="arrival_no_header" value="{{$incomingManualHeader->arrival_no}}">
           <select name="model" required="" class="select2-data-ajax browser-default">
           </select>
         </div>
@@ -50,7 +51,7 @@
       <td>No. GR SAP</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" class="validate" disabled="">
+          <input type="text" class="validate" readonly="" name="no_gr_sap" value="{{$incomingManualHeader->no_gr_sap}}">
         </div>
       </td>
     </tr>
@@ -63,7 +64,22 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td>
+        <div class="file-field input-field">
+          <div class="btn btn-sm">
+            <span>Browse</span>
+            <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Select file Serial Number ..">
+            File Format: csv
+          </div>
+        </div>
+      </td>
+    </tr>
   </table>
+  {!! get_button_save() !!}
 </form>
 
 @push('script_js')

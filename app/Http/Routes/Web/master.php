@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('storage-master', 'web.master.storage-master.index');
     // Route::view('storage-master/create', 'web.master.storage-master.create');
     // Route::view('storage-master/1', 'web.master.storage-master.edit');
-    Route::post('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
+    Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
     Route::resource('storage-master', 'Web\StorageMasterController');
 
     // Route::view('master-model', 'web.master.master-model.index');
