@@ -12,6 +12,8 @@ class IncomingManualHeader extends BaseModel
 
   public function details()
   {
-    return $this->hasMany('App\Models\IncomingManualDetail', 'arrival_no', 'arrival_no_header');
+    return $this->hasMany('App\Models\IncomingManualDetail', 'arrival_no_header', 'arrival_no');
   }
+
+  
 }

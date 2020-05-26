@@ -132,6 +132,16 @@ class StorageMasterController extends Controller
         return StorageMaster::destroy($id);
     }
 
+    public function getSelect2Storage(Request $request)
+    {
+        $query = StorageMaster::select(
+          'id',
+          DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
+        );
+
+        return get_select2_data($request, $query);
+    }
+
     public function getSelect2StorageType(Request $request)
     {
         $query = \App\Models\StorageType::select(

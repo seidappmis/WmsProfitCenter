@@ -69,7 +69,7 @@
         <div class="file-field input-field">
           <div class="btn btn-sm">
             <span>Browse</span>
-            <input type="file">
+            <input type="file" name="file-serial-number">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Select file Serial Number ..">
@@ -94,7 +94,7 @@
 
       $('#form-incoming-import-oem-detail [name="storage_id"]').select2({
          placeholder: '-- Select Storage Location --',
-         ajax: get_select2_ajax_options('/storage-master/select2-sto-type')
+         ajax: get_select2_ajax_options('/storage-master/select2-storage')
       });
 
    });
