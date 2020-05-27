@@ -110,17 +110,17 @@ class MasterModelController extends Controller
 
       $title          = true;
       $master_models   = [];
-
       $rs_key = [];
+
+      $date = date('Y-m-d H:i:s');
 
       while (!feof($file)) {
         $row = fgetcsv($file);
         if ($title) {
           $title = false;
-          continue;
+          continue; // Skip baaris judul
         }
         $master_model = [
-          'id'                => $masterModel->id,
           'model_name'        => $row[0],
           'model_from_apbar'  => $row[1],
           'ean_code'          => $row[2],
@@ -136,6 +136,8 @@ class MasterModelController extends Controller
           'price2'            => $row[12],
           'price3'            => $row[13],
         ];
+        $master_model['created_at']   = $date;
+        $master_model['created_by']   = auth()->user()->id;
 
         $master_models[] = $master_model;
       }

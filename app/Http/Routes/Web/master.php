@@ -28,9 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-expedition/create', 'web.master.master-expedition.create');
     // Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
 
-    Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
-    Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
-    Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
+    //Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
+    //Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
+    //Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
+    Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
+
 
 
     Route::resource('master-driver', 'Web\MasterDriverController');
@@ -47,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
     // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
     // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
-    Route::resource('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
+    Route::post('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
     Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
     // Route::view('storage-master', 'web.master.storage-master.index');

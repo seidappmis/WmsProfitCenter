@@ -29,13 +29,13 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="section-data-tables"> 
+                        <div class="section-data-tables">
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>
                                   <tr>
@@ -52,19 +52,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <td>1.</td>
-                                <td>A 8218 Z</td>
-                                <td>TRONTON 8 M</td>
-                                <td>TRONTON</td>
-                                <td>EXPRESSINDO 88 NUSANTARA, PT.</td>
-                                <td>45.000</td>
-                                <td>55.000</td>
-                                <td></td>
-                                <td>ACTIVE</td>
-                                <td>
-                                  {!! get_button_edit(url('master-vehicle-expedition/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td>
                               </tbody>
                           </table>
                         </div>
@@ -82,28 +69,30 @@
 @push('script_js')
 <script type="text/javascript">
   var table = $('#data-table-simple').DataTable({
-    "scrollX": true,
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-vehicle-expedition') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'vehicle_type', name: 'vehicle_type_details.vehicle_desription ', className: 'detail'},
+        {data: 'vehicle_group', name: 'vehicle_type_groups.group_name', className: 'detail'},
+        {data: 'expedition_name', name: 'master_expedition.expedition_name', className: 'detail'},
+        {data: 'cbm_min', name: 'vehicle_type_details.cbm_min', className: 'detail'},
+        {data: 'cbm_max', name: 'vehicle_type_details.cbm_max', className: 'detail'},
+        {data: 'destination_name', name: 'master_destination.description', className: 'detail'},
+        {data: 'status_active', name: 'status_active', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
-
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Delete Vehicle Expedition Number A 8218 Z?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
-          //datatable memunculkan no data available in table
-        }
-      })
-    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -113,5 +102,37 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  table.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete Master vehicle Expedition : " + data.vehicle_number + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('master-vehicle-expedition') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 </script>
 @endpush
