@@ -58,21 +58,7 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody><!-- 
-                                <td>1</td>
-                                <td>14A20D2</td>
-                                <td></td>
-                                <td>8997401917117</td>
-                                <td>0.100</td>
-                                <td>MH</td>
-                                <td>TV</td>
-                                <td>LOCAL</td>
-                                <td>TV 14 LOCAL</td>
-                                <td>0</td>
-                                <td>
-                                  {!! get_button_edit(url('master-model/1')) !!}
-                                  {!! get_button_delete() !!}
-                                </td> -->
+                              <tbody>
                               </tbody>
                           </table>
                         </div>

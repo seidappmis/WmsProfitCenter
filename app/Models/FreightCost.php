@@ -30,7 +30,7 @@ class FreightCost extends BaseModel
      */
     public function MasterExpedition()
     {
-        return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code');
+        return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code','code');
     }
 
     /**
@@ -38,6 +38,6 @@ class FreightCost extends BaseModel
      */
     public function VehicleDetail()
     {
-        return $this->belongsTo('App\Models\VehicleDetail', 'vehicle_code_type');
+        return $this->belongsTo('App\Models\VehicleDetail', 'vehicle_code_type','vehicle_code_type');
     }
 }

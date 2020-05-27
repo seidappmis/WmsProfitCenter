@@ -34,3 +34,8 @@ function get_button_save($label = "Save"){
 function get_button_cancel($url = '#', $label = "Cancel"){
   return '<a class="waves-effect btn-flat mt-2 mb-1" href="' . $url . '">' . $label . '</a>';
 }
+
+// cancel modal
+function get_button_cancel_modal($label = "Cancel"){
+  return '<a class="modal-action modal-close waves-effect btn-flat mt-2 mb-1">' . $label . '</a>';
+}

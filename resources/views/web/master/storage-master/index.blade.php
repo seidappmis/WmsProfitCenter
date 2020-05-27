@@ -78,7 +78,7 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'kode_cabang_id', name: 'kode_cabang_id', className: 'detail'},
+        {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
         {data: 'cabang_description', name: 'cabangs.long_description', className: 'detail'},
         {data: 'sto_loc_code_long', name: 'sto_loc_code_long', className: 'detail'},
         {data: 'sto_type_desc', name: 'sto_type_desc', className: 'detail'},

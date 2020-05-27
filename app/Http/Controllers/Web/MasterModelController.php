@@ -7,6 +7,7 @@ use App\Models\MasterModel;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MasterModelController extends Controller
 {
@@ -94,6 +95,20 @@ class MasterModelController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function proses_upload(Request $request)
+    {
+        
+        $path = Storage::putFile('master/model', $request->file('file-master-model'));
+
+        return $path->save();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -171,6 +186,17 @@ class MasterModelController extends Controller
     public function destroy($id)
     {
         return MasterModel::destroy($id);
+    }
+
+    public function getSelect2Model(Request $request)
+    {
+        $query = MasterModel::select(
+          DB::raw('model_name AS id'),
+          DB::raw('model_name AS text'),
+          'wms_master_model.*'
+        );
+
+        return get_select2_data($request, $query);
     }
 
     /**

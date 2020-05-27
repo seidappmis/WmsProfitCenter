@@ -6,14 +6,14 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m3">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Incoming Import/OEM</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Incoming Import/OEM</li>
                 </ol>
             </div>
-            <div class="col s12 m2">
+            <div class="col s12 m3">
               <!---- Select ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
