@@ -139,7 +139,10 @@ class MasterModelController extends Controller
         $master_model['created_at']   = $date;
         $master_model['created_by']   = auth()->user()->id;
 
-        $master_models[] = $master_model;
+        if (!empty($master_model['model_name'])) {
+          $master_models[] = $master_model;
+        }
+
       }
       // Cek apakah data pernah diupload
       $cek_model = new MasterModel;
