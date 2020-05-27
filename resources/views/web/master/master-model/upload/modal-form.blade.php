@@ -1,16 +1,21 @@
 @push('page-modal')
 <!---- Modal Upload ----->
 <div id="modal-upload" class="modal">
-  <form id="form-menu" onsubmit="return false;" enctype="multipart/form-data">
-  <div class="modal-content">
-    <h4>Upload Model</h4>
+  <!-- <form onsubmit="return false;" enctype="multipart/form-data"> -->
+  <div class="modal-content p-0 mt-1 ml-1 mr-1">
+    <div class="row">
+      <div class="col s12 indigo">
+        <div class="modal-action modal-close">
+        <span class="white-text right">X</span>
+        </div>
+      </div>
+    </div>
     @include('web.master.master-model.upload._form')
   </div>
-  <div class="modal-footer">
+  <div class="input-field col s12 m12 ml-3 mb-2">
     {!! get_button_save('Upload') !!}
-    {!! get_button_cancel_modal() !!}
   </div>
-  </form>
+  <!-- </form> -->
 </div>
 @endpush
 
@@ -18,7 +23,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function($) {
       //Upload File
-      $('.dropify').dropify();
+      // $('.dropify').dropify();
    });
 
    $("#form-upload-master-model").validate({

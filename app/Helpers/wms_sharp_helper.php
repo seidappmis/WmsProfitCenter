@@ -36,6 +36,6 @@ function get_button_cancel($url = '#', $label = "Cancel"){
 }
 
 // cancel modal
-function get_button_cancel_modal($label = "Cancel"){
-  return '<a class="modal-action modal-close waves-effect btn-flat mt-2 mb-1">' . $label . '</a>';
-}
+// function get_button_cancel_modal($label = "Cancel"){
+//   return '<a class="modal-action modal-close waves-effect btn-flat mt-2 mb-1">' . $label . '</a>';
+// }

@@ -1,21 +1,26 @@
-<form id="form-upload-master-model">
-  <div class="row">
-	<div class="input-field">
-	  <div class="col s12 m4 l3">
+<form id="form-upload-master-model" class="mr-3 ml-3">
+  <h5>Upload Model</h5>
+  <hr>
+  <br>
+  <div class="file-field input-field">
+    <div class="row">
+	  <div class="col s12 m2 l2">
 	    <p>Data File</p>
 	  </div>
-	  <div class="col s12 m8 l9">
-	    <input type="file" required id="input-file-now" class="dropify" name="file-master-model" data-default-file="" data-height="100"/>
-	    <p>Format File : .csv</p>
+	  <div class="col s12 m10 l10">
+	  	<div class="btn btn-small waves-effect">
+	        <span>Browse</span>
+	        <input type="file" name="file-master-model">
+        </div>
+	  	<div class="file-path-wrapper">
+		    <input class="file-path validate" type="text" placeholder="Select file.."/>
+		</div>
+		<div>
+			<p>Format File : .csv</p>
+		    <p>Format Layout Column : <br/>
+		    [MODEL NAME],[EANCODE],[CBM UNIT],[MATERIAL GROUP CODE],[CATEGORY],[MODEL_TYPE],[PCS/CTN],[CTN/PLT],[MAX PALET],[DESCRIPTION],[PRICE1],[PRICE2],[PRICE3]</p>
+		</div>
 	  </div>
-   	</div>
-   	<div class="input-field">
-	  <div class="col s12 m4 l3">
-	    <p>Format Layout Column :</p>
-	  </div>
-	  <div class="col s12 m8 l9">
-	    <p>[MODEL NAME],[EANCODE],[CBM UNIT],[MATERIAL GROUP CODE],[CATEGORY],[MODEL_TYPE],[PCS/CTN],[CTN/PLT],[MAX PALET],[DESCRIPTION],[PRICE1],[PRICE2],[PRICE3]</p>
-	  </div>
-   	</div>
+    </div>
   </div>
 </form>
