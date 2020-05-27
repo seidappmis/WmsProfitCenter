@@ -65,10 +65,9 @@ class MasterDestinationController extends Controller
         $masterDestination            = new MasterDestination;
         $masterDestination->destination_number = $request->input('destination_number');
         $masterDestination->description = $request->input('description');
-        if($request['region_type'] == 'new_region'){
-            $masterDestination->region = $request->input('new_region');  
-        } 
-        elseif ($request['region_type'] == 'current')   {
+        if ($request['region_type'] == 'new_region') {
+            $masterDestination->region = $request->input('new_region');
+        } elseif ($request['region_type'] == 'current') {
             $masterDestination->region = $request->input('current_region');
         }
         $masterDestination->kode_cabang = $request->input('cabang');
@@ -118,10 +117,9 @@ class MasterDestinationController extends Controller
 
         $masterDestination            = MasterDestination::findOrFail($id);
         $masterDestination->description = $request->input('description');
-         if($request['region_type'] == 'new_region'){
-            $masterDestination->region = $request->input('new_region');  
-        } 
-        elseif ($request['region_type'] == 'current')   {
+        if ($request['region_type'] == 'new_region') {
+            $masterDestination->region = $request->input('new_region');
+        } elseif ($request['region_type'] == 'current') {
             $masterDestination->region = $request->input('current_region');
         }
         $masterDestination->kode_cabang = $request->input('cabang');
