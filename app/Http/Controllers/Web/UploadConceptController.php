@@ -29,11 +29,13 @@ class UploadConceptController extends Controller
     $rs_destination = [];
     $rs_expedition  = [];
 
+    $rs_key = [];
+
     while (!feof($file)) {
       $row = fgetcsv($file);
       if ($title) {
         $title = false;
-        continue;
+        continue; // Skip baris judul
       }
       $concept = [
         'invoice_no'        => $row[0],
@@ -75,8 +77,10 @@ class UploadConceptController extends Controller
         'code_sales'        => 'DS',
       ];
 
+      // Validasi Data Per Baris
       if (!empty($concept['invoice_no'])) {
         // kalau data ada isinya
+        $rs_key[$concept['line_no']] = $concept['invoice_no'];
 
         // find destination bila belum ada di rs_destination
         // cari di database, bila sudah ada tidak perlu cari di database
@@ -108,7 +112,26 @@ class UploadConceptController extends Controller
 
         $concepts[] = $concept;
       }
+      // Akhir validasi data per baris
     }
+
+    // VALIDASI ISI DI DATABASE
+    // Cek apa data pernah diupload;
+    $cek_concept = new Concept;
+    foreach ($rs_key as $line_no => $invoice_no) {
+      $cek_concept->orWhereColumn([
+        ['invoice_no', '=', $invoice_no],
+        ['line_no', '=', $line_no],
+      ]);
+    }
+
+    if ($cek_concept->get()->count() > 0) {
+      // kalau ada data yang sudah diupload return
+      $result['status']  = false;
+      $result['message'] = 'Data Already Upload';
+      return $result;
+    }
+    // AKHIR VALIDASI ISI DATABASE
 
     return $concepts;
 
