@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\FreightCost;
+use App\Models\Area;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,10 +40,7 @@ class MasterFreightCostController extends Controller
           return $datatables->make(true);
         }
 
-        $data  = [
-          'areas' => \App\Models\Area::all()
-        ];
-        return view('web.master.master-freight-cost.index', $data);
+        return view('web.master.master-freight-cost.index');
     }
 
     /**
@@ -111,6 +109,8 @@ class MasterFreightCostController extends Controller
 
       $title                 = true;
       $master_freight_cost   = [];
+      $rs_area               = [];
+
       $rs_key = [];
 
       $date = date('Y-m-d H:i:s');
@@ -122,7 +122,8 @@ class MasterFreightCostController extends Controller
           continue; // Skip baris judul
         }
         $freight_cost = [
-          'area'              => $row[0],
+          'area_code'         => $row[0],
+           // 'area' => $row[0], // Cari dari database
           'city_code'         => $row[1],
           'expedition_code'   => $row[2],
           'vehicle_code_type' => $row[3],
@@ -133,15 +134,35 @@ class MasterFreightCostController extends Controller
         $freight_cost['created_at']   = $date;
         $freight_cost['created_by']   = auth()->user()->id;
 
-        if (!empty($freight_cost['area'])) {
+        if (!empty($freight_cost['city_code'])) {
+            // Cari area
+            if (empty($rs_area[$freight_cost['area_code']])) {
+              $area = Area::where('code', $freight_cost['area_code'])->first();
+              if (empty($area)) {
+                $result['status']  = false;
+                $result['message'] = 'Area not found in master area !';
+                return $result;
+              }
+
+              $rs_area[$freight_cost['area_code']] = $area->area;
+            }
+             $freight_cost['area'] = $rs_area[$freight_cost['area_code']];
+
             $master_freight_cost[] = $freight_cost;
         }
 
       }
 
-      // Cek apakah data pernah diupload
+      // Cek apakah data pernah diupload tidak ada
+      // karena semua data dapat bernilai sama
 
       fclose($file);
+
+      foreach ($master_freight_cost as $key => $value) {
+        unset($value['area_code']);
+
+        $master_freight_cost[$key] = $value;
+      }
 
       FreightCost::insert($master_freight_cost);
 
