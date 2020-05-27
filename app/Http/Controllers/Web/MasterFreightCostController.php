@@ -133,7 +133,10 @@ class MasterFreightCostController extends Controller
         $freight_cost['created_at']   = $date;
         $freight_cost['created_by']   = auth()->user()->id;
 
-        $master_freight_cost[] = $freight_cost;
+        if (!empty($freight_cost['area'])) {
+            $master_freight_cost[] = $freight_cost;
+        }
+
       }
 
       // Cek apakah data pernah diupload
