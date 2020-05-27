@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
     // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
     // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
-    Route::resource('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
+    Route::post('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
     Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
     // Route::view('storage-master', 'web.master.storage-master.index');

@@ -103,9 +103,46 @@ class MasterFreightCostController extends Controller
      */
     public function proses_upload(Request $request)
     {
-        $path = Storage::putFile('master/freight-cost', $request->file('file-freight-cost'));
+      $request->validate([
+        'file-freight-cost' => 'required'
+      ]);
 
-        return $path->save();
+      $file = fopen($request->file('file-freight-cost'), "r");
+
+      $title                 = true;
+      $master_freight_cost   = [];
+      $rs_key = [];
+
+      $date = date('Y-m-d H:i:s');
+
+      while (!feof($file)) {
+        $row = fgetcsv($file);
+        if ($title) {
+          $title = false;
+          continue; // Skip baris judul
+        }
+        $freight_cost = [
+          'area'              => $row[0],
+          'city_code'         => $row[1],
+          'expedition_code'   => $row[2],
+          'vehicle_code_type' => $row[3],
+          'ritase'            => $row[4],
+          'cbm'               => $row[5],
+          'leadtime'          => $row[6],
+        ];
+        $freight_cost['created_at']   = $date;
+        $freight_cost['created_by']   = auth()->user()->id;
+
+        $master_freight_cost[] = $freight_cost;
+      }
+
+      // Cek apakah data pernah diupload
+
+      fclose($file);
+
+      FreightCost::insert($master_freight_cost);
+
+      return true;
     }
 
     /**
