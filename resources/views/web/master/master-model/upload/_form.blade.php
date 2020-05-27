@@ -8,7 +8,7 @@
 	    <p>Data File</p>
 	  </div>
 	  <div class="col s12 m10 l10">
-	  	<div class="btn btn-small waves-effect">
+	  	<div class="btn btn-small waves-effect waves-light">
 	        <span>Browse</span>
 	        <input type="file" name="file-master-model">
         </div>

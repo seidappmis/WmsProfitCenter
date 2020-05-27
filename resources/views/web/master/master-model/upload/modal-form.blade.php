@@ -19,6 +19,11 @@
 </div>
 @endpush
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -28,12 +33,22 @@
 
    $("#form-upload-master-model").validate({
       submitHandler: function(form) {
+        var fdata = new FormData(form);
         $.ajax({
           url: '{{ url("master-model/upload") }}',
           type: 'POST',
-          data: $(form).serialize(),
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
         })
-        .done(function() { // selesai dan berhasil
+        .done(function(data) { // selesai dan berhasil
+          console.log(data);
+          if (data.status == false) {
+            swal("Failed!", data.message, "warning");
+            return;
+          }
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke index
