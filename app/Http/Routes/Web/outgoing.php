@@ -12,7 +12,9 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
   Route::resource('assign-vehicles', 'Web\AssignVehicleController');
 
-  Route::view('select-gate', 'web.outgoing.select-gate.index');
+  // Route::view('select-gate', 'web.outgoing.select-gate.index');
+  Route::get('select-gate', 'Web\SelectGateController@index');
+
   Route::view('loading-process', 'web.outgoing.loading-process.index');
 
   Route::view('complete', 'web.outgoing.complete.index');

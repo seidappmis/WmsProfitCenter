@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-destination/{id}', 'web.master.master-destination.edit');
     Route::get('master-destination/select2-cabang', 'Web\MasterDestinationController@getSelect2Cabang');
     Route::get('master-destination/select2-current-region', 'Web\MasterRegionController@getSelect2CurrentRegion');
+    Route::get('master-destination/select2-destination', 'Web\MasterDestinationController@getSelect2Destination');
     Route::resource('master-destination', 'Web\MasterDestinationController');
 
     // Route::view('master-vehicle', 'web.master.master-vehicle.index');

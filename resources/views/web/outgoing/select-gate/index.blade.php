@@ -24,30 +24,36 @@
                       <ul class="collapsible m-0">
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">filter_drama</i>Loading Status Gates</div>
-                          <div class="collapsible-body">
+                          <div class="collapsible-body pt-0 pb-1">
                             <form>
                               <div class="row">
                                 <div class="input-field col s12">
-                                  <select>
-                                    <option>-Select Area-</option>
-                                    <option>KARAWANG</option>
-                                    <option>SURABAYA HUB</option>
-                                    <option>SWADAYA</option>
-                                  </select>
-                                  <label for="expedition">Area</label>
+                                  <div class="row">
+                                    <div class="col s2 m1 pt-1">
+                                      Area
+                                    </div>
+                                    <div class="col s6 m3">
+                                      <select id="filter-area" class="select2-data-ajax browser-default app-filter">
+                                      </select>
+                                    </div>
+                                  </div>
+                                  {{-- <label for="expedition">Area</label> --}}
                                 </div>
-                                <div class="row gate-row">
-                                  @push('script_css')
-                                  <style type="text/css">
-                                    .row.gate-row .col {
-                                      padding: 0 .5rem;
-                                    }
-                                    .row.gate-row .col p {
-                                      font-size: 11px;
-                                    }
-                                  </style>
-                                  @endpush
-                                  <div class="col s2 m1">
+
+                                @push('script_css')
+                                <style type="text/css">
+                                  .row.gate-row .col {
+                                    padding: 0 .5rem;
+                                  }
+                                  .row.gate-row .col p {
+                                    font-size: 11px;
+                                  }
+                                </style>
+
+                                @endpush
+                                <div id="gate-rows" class="row gate-row">
+
+                                  {{-- <div class="col s2 m1">
                                     <div class="card">
                                       <div class="card-content p-0">
                                         <p class="center-align">&nbsp;</p>
@@ -101,7 +107,8 @@
                                         <h4 class="card-title center-align mb-0">103</h4>
                                       </div>
                                     </div>
-                                  </div>
+                                  </div> --}}
+
                                 </div>
                                 <strong>
                                   <span class="green-text">Green = No Loading</span> <span class="red-text">Red = Loading</span>.
@@ -174,13 +181,42 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-1').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
+  $('#filter-area').select2({
+   placeholder: '-- Select Area --',
+   allowClear: true,
+   ajax: get_select2_ajax_options('/master-area/select2-area-only')
+});
+
+  $('#filter-area').change(function(event) {
+    /* Act on the event */
+    $.ajax({
+      url: '{{ url("select-gate") }}',
+      type: 'GET',
+      data: 'area=' + $(this).val(),
+    })
+    .done(function(data) { // selesai dan berhasil
+      $('#gate-rows').empty();
+      $.each(data, function(index, val) {
+         /* iterate through array or object */
+         var card = '';
+        card += '<div class="col s2 m1">';
+        card += '<div class="card">';
+        card += '<div class="card-content p-0">';
+        card += '<p class="center-align">&nbsp;</p>';
+        card += '<div class="center-align pt-5">';
+        card += '<i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>';
+        card += '</div>';
+        card += '<h4 class="card-title center-align mb-0">' + val.gate_number + '</h4>';
+        card += '</div>';
+        card += '</div>';
+        card += '</div>';
+
+        $('#gate-rows').append(card);
+      });
+    })
+    .fail(function(xhr) {
+        showSwalError(xhr) // Custom function to show error with sweetAlert
     });
-    var dtdatatable2 = $('#data-table-2').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
-    });
+  });
 </script>
 @endpush
