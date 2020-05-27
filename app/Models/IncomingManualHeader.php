@@ -15,5 +15,16 @@ class IncomingManualHeader extends BaseModel
     return $this->hasMany('App\Models\IncomingManualDetail', 'arrival_no_header', 'arrival_no');
   }
 
-  
+  public function serial_numbers()
+  {
+    return $this->hasManyThrough(
+      'App\Models\IncomingManualOtherSN',
+      'App\Models\IncomingManualDetail',
+      'arrival_no_header', // Foreign key on trough table...
+      'manual_id', // Foreign key on target table...
+      'arrival_no', // Local key on this table...
+      'id' // Local key on trough table...
+    );
+  }
+
 }

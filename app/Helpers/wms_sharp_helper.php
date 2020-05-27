@@ -16,13 +16,13 @@ function get_button_return($url = '#', $label = "Send Back"){
 }
 
 // edit
-function get_button_edit($url = '#', $label = "Edit"){
-  return '<a class="waves-effect  waves-light btn-small amber darken-4 btn-edit" href="' . $url . '">' . $label . '</a>';
+function get_button_edit($url = '#', $label = "Edit", $class = 'btn-edit'){
+  return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' mt-2" href="' . $url . '">' . $label . '</a>';
 }
 
 // delete, clear
 function get_button_delete($label = "Delete"){
-  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete mt-1" >' . $label . '</a>';
+  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete mt-2" >' . $label . '</a>';
 }
 
 // save, update, submit, load

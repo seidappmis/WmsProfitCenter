@@ -281,3 +281,8 @@ td, th {
     height: 2rem;
     border-bottom: 0px;
 }
+table.table-scroll-x {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}

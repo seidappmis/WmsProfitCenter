@@ -136,6 +136,37 @@
     ]
   });
 
+  dttable_incoming_detail.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dttable_incoming_detail.row(tr).data();
+      swal({
+        text: "Are you sure want to delete " + data.model + " and the details?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('incoming-import-oem', $incomingManualHeader->arrival_no) }}' + '/detail/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
+
   jQuery(document).ready(function($) {
       set_form_data();
       update_handler();
@@ -180,7 +211,7 @@
       submitHandler: function(form) {
         var fdata = new FormData(form);
         $.ajax({
-          url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
+          url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) . "/detail" }}',
           type: 'POST',
           data: fdata,
           contentType: "application/json",

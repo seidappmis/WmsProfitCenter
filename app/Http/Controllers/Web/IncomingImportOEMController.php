@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\IncomingManualDetail;
 use App\Models\IncomingManualHeader;
-use App\Models\IncomingManualOtherSN;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -26,7 +24,10 @@ class IncomingImportOEMController extends Controller
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('incoming-import-oem/' . $data->arrival_no));
-          $action .= ' ' . get_button_delete();
+          if (!$data->submit) {
+            $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         });
 
@@ -38,6 +39,19 @@ class IncomingImportOEMController extends Controller
   public function create()
   {
     return view('web.incoming.incoming-import-oem.create');
+  }
+
+  public function submitToInventory($id)
+  {
+    $incomingManualHeader = IncomingManualHeader::findOrFail($id);
+
+    $incomingManualHeader->submit      = 1;
+    $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
+    $incomingManualHeader->submit_by   = auth()->user()->id;
+
+    $incomingManualHeader->save();
+
+    return $incomingManualHeader;
   }
 
   public function show(Request $request, $id)
@@ -136,72 +150,24 @@ class IncomingImportOEMController extends Controller
 
   }
 
-  public function storeDetail(Request $request)
+  public function destroy($id)
   {
-    $request->validate([
-      'arrival_no_header' => 'required',
-    ]);
-
-    $incomingManualDetail                    = new IncomingManualDetail;
-    $incomingManualDetail->arrival_no_header = $request->input('arrival_no_header');
-    $incomingManualDetail->model             = $request->input('model');
-    $incomingManualDetail->description       = $request->input('description');
-    $incomingManualDetail->qty               = $request->input('qty');
-    $incomingManualDetail->cbm               = $request->input('cbm');
-    $incomingManualDetail->total_cbm         = $request->input('total_cbm');
-    $incomingManualDetail->no_gr_sap         = $request->input('no_gr_sap');
-    $incomingManualDetail->kode_cabang       = auth()->user()->cabang->kode_cabang;
-    $incomingManualDetail->storage_id        = $request->input('storage_id');
-
     try {
       DB::beginTransaction();
 
-      $incomingManualDetail->save();
-
-      // cek file csv serial number
-      // bila tidak kosong ambil isinya
-      if ($file_serial_number = $request->file('file-serial-number')) {
-        // Baca file csv
-        $file = fopen($file_serial_number, "r");
-
-        $serial_numbers = [];
-
-        $date = date('Y-m-d H:i:s');
-
-        // Loop data sampai baris terakhir
-        while (!feof($file)) {
-          $row = fgetcsv($file);
-
-          $serialnumber['manual_id']    = $incomingManualDetail->id;
-          $serialnumber['serialnumber'] = $row[0];
-          $serialnumber['created_at']   = $date;
-          $serialnumber['created_by']   = auth()->user()->id;
-
-          $serial_numbers[] = $serialnumber;
-        }
-
-        fclose($file);
-
-        if (count($serial_numbers) != $request->input('qty')) {
-          $result['status']  = false;
-          $result['message'] = 'Error upload Serialnumber, Total Serialnumber different with Quantity !';
-          return $result;
-        }
-
-        IncomingManualOtherSN::insert($serial_numbers);
-      }
+      $incomingManualHeader = IncomingManualHeader::findOrFail($id);
+      $incomingManualHeader->serial_numbers()->delete(); // has Many Trough details
+      $incomingManualHeader->details()->delete();
+      $incomingManualHeader->delete();
 
       DB::commit();
 
-      return $incomingManualDetail;
-
+      return true;
     } catch (Exception $e) {
       DB::rollBack();
-    }
-  }
 
-  public function destroy($id)
-  {
+      return false;
+    }
     return IncomingManualHeader::destroy($id);
   }
 }

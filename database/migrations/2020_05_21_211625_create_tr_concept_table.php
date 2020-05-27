@@ -35,6 +35,9 @@ class CreateTrConceptTable extends Migration
       $table->string('ship_to_city', 100)->nullable();
       $table->string('ship_to_district', 100)->nullable();
       $table->string('ship_to_street', 200)->nullable();
+      $table->string('sold_to_city', 100)->nullable();
+      $table->string('sold_to_district', 100)->nullable();
+      $table->string('sold_to_street', 200)->nullable();
       $table->string('remarks', 200)->nullable();
       // $table->string('created_date', 100)->nullable();
       // $table->string('created_by', 100)->nullable();

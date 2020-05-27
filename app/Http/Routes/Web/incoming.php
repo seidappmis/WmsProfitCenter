@@ -9,7 +9,9 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('incoming-import-oem', 'web.incoming.incoming-import-oem.index');
   // Route::view('incoming-import-oem/create', 'web.incoming.incoming-import-oem.create');
   // Route::view('incoming-import-oem/{id}', 'web.incoming.incoming-import-oem.view');
-  Route::post('incoming-import-oem/{id}', 'Web\IncomingImportOEMController@storeDetail');
+  Route::post('incoming-import-oem/{id}/submit-to-inventory', 'Web\IncomingImportOEMController@submitToInventory');
+  Route::post('incoming-import-oem/{id}/detail', 'Web\IncomingImportOEMDetailController@store');
+  Route::delete('incoming-import-oem/{incoming_manual_id}/detail/{detail_id}', 'Web\IncomingImportOEMDetailController@destroy');
   Route::resource('incoming-import-oem', 'Web\IncomingImportOEMController');
 
   Route::view('conform-manifest', 'web.incoming.conform-manifest.index');

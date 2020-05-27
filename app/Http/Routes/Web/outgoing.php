@@ -2,7 +2,9 @@
 
 Route::group(['middleware' => 'auth'], function () {
   // Route::view('upload-concept', 'web.outgoing.upload-concept.index');
-  Route::resource('upload-concept', 'Web\UploadConceptController');
+  Route::get('upload-concept', 'Web\UploadConceptController@index');
+  Route::post('upload-concept', 'Web\UploadConceptController@store');
+  Route::post('upload-concept/upload-csv', 'Web\UploadConceptController@uploadCsv');
 
   // Route::view('idcard-scan', 'web.outgoing.idcard-scan.index');
   Route::resource('idcard-scan', 'Web\IdCardScanController');
