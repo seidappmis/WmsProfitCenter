@@ -28,10 +28,10 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <p>Receipt No : <b class="green-text text-darken-3">ARV-WHHYP-181003-019</b class="green-text text-darken-3"></p>
-                      <p>Ticket No : <b class="green-text text-darken-3">L-TV-1810010006</b class="green-text text-darken-3"></p>
-                      <p>Warehouse : <b class="green-text text-darken-3">SHARP KARAWANG W/H</b class="green-text text-darken-3"></p>
-                      <p>Factory : <b class="green-text text-darken-3">TV</b class="green-text text-darken-3"></p>
+                      <p>Receipt No : <b class="green-text text-darken-3">ARV-WHHYP-181003-019</b></p>
+                      <p>Ticket No : <b class="green-text text-darken-3">L-TV-1810010006</b></p>
+                      <p>Warehouse : <b class="green-text text-darken-3">SHARP KARAWANG W/H</b></p>
+                      <p>Factory : <b class="green-text text-darken-3">TV</b></p>
                       <br>
                       <h4 class="card-title">List Barcode Detailed from Factory</h4>
                       <!-- <hr> -->

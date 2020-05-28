@@ -24,7 +24,7 @@ class UploadConceptController extends Controller
 
     $file = fopen($request->file('file_concept'), "r");
 
-    $title          = true;
+    $title          = true; // Untuk Penada Baris pertama adalah Judul
     $concepts       = [];
     $rs_destination = [];
     $rs_expedition  = [];
