@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Claim Notes</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Claim Insurance</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Claim Notes</li>
+                    <li class="breadcrumb-item active">Claim Insurance</li>
                 </ol>
             </div>
             <div class="col s12 m6">
@@ -22,8 +22,8 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('claim-notes/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  New Claim Note
+                <a href="{{ url('claim-insurance/create') }}" class="btn btn-large waves-effect waves-light btn-add">
+                  New Claim Insurance
                 </a>
               </div>
             </div>
@@ -42,11 +42,11 @@
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
+                                    <th>CLAIM REPORT</th>
                                     <th>BERITA ACARA</th>
-                                    <th>CLAIM NOTE</th>
-                                    <th>REPORTING DATE</th>
-                                    <th>EXPEDITION NAME</th>
-                                    <th>DESTINATION</th>
+                                    <th>BRANCH</th>
+                                    <th>KETERANGAN</th>
+                                    <th>DATE OF REPORT</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -54,10 +54,10 @@
                                 <tr>
                                   <td>1.</td>
                                   <td></td>
-                                  <td>01/Claim CB-Nittsu/Okt/2017</td>
+                                  <td>01/BA-HQ/02/2015</td>
+                                  <td></td>
+                                  <td></td>
                                   <td>13-Oct</td>
-                                  <td>NITTSU LEMO INDONESIA LOGISTIK, PT.</td>
-                                  <td>Mishandling Swadaya</td>
                                   <td>
                                     {!! get_button_view(url('claim-notes/1')) !!}
                                     {!! get_button_print() !!}

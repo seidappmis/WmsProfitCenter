@@ -2,7 +2,7 @@
 
 // view, detail, view detail
 function get_button_view($url = '#', $label = "View"){
-  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mt-2" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mt-1" href="' . $url . '">' . $label . '</a>';
 }
 
 // print
