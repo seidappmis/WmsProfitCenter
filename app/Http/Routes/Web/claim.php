@@ -11,4 +11,5 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('claim-insurance', 'web.claim.claim-insurance.index');
   Route::view('claim-insurance/create', 'web.claim.claim-insurance.create');
+  Route::view('claim-insurance/{id}', 'web.claim.claim-insurance.edit');
 });
