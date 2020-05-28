@@ -46,7 +46,7 @@ class MasterVehicleExpeditionController extends Controller
 
     public function create()
     {
-        return view('web.master.master-vehicle-expedition.index');
+        return view('web.master.master-vehicle-expedition.create');
     }
 
 

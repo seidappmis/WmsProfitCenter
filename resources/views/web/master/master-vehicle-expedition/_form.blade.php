@@ -93,7 +93,7 @@
       // Loading Expedition Data
       $('#form-master-vehicle-expedition [name="expedition_code"]').select2({
          placeholder: '-- Select Expedition --',
-         ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-active-expedition')
+         ajax: get_select2_ajax_options('/master-expedition/select2-active-expedition')
       });
 
       $('#form-master-vehicle-expedition [name="vehicle_code_type"]').select2({
