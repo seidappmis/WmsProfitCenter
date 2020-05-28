@@ -71,7 +71,7 @@ class MasterCabangController extends Controller
         $masterCabang->hq            = !empty($request->input('hq'));
         $masterCabang->region        = $request->input('region');
         $masterCabang->type          = $request->input('tycode');
-        $masterCabang->start_wms     = $request->input('start_wms');
+        $masterCabang->start_wms     = date('Y-m-d', strtotime($request->input('start_wms')));
 
         return $masterCabang->save();
     }
@@ -127,7 +127,7 @@ class MasterCabangController extends Controller
         $masterCabang->hq   = !empty($request->input('hq'));
         $masterCabang->region   = $request->input('region');
         $masterCabang->type   = $request->input('tycode');
-        $masterCabang->start_wms     = $request->input('start_wms');
+        $masterCabang->start_wms     = date('Y-m-d', strtotime($request->input('start_wms')));
 
         return $masterCabang->save();
     }

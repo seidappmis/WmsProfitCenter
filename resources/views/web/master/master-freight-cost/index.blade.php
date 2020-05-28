@@ -5,29 +5,38 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m6 mb-1">
+            <div class="col s12 m4 mb-1">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Freight Cost</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Master Freight Cost</li>
                 </ol>
             </div>
+            <div class="col s12 m2 mb-1">
+              <!---- Filter ----->
+              <div class="app-wrapper mr-2">
+                <div class="datatable-search">
+                  <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                  </select>
+                </div>
+              </div>
+            </div>
             <div class="col s12 m6 mb-1">
               <div class="display-flex">
-                <!---- Filter ----->
+                <!---- Search ----->
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
-                    <select id="area_filter"
-                            class="select2-data-ajax browser-default app-filter">
-                    </select>
+                    <i class="material-icons mr-2 search-icon">search</i>
+                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
                 <!---- Button Add ----->
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-freight-cost/create') }}">New Freight Cost</a>
               </div>
             </div>
-            <div class="col s12 m3">
-            </div>
+            <!-- <div class="col s12 m3">
+            </div> -->
         </div>
     @endcomponent
     
@@ -44,22 +53,6 @@
                     </div>
                   </li>
                 </ul>
-                </div>
-
-                <div class="row">
-                  <div class="col s12 m3"></div>
-                  <div class="col s12 m4"></div>
-                  <div class="col s12 m5">
-                    <div class="display-flex">
-                      <!---- Search ----->
-                      <div class="app-wrapper mr-2">
-                        <div class="datatable-search">
-                          <i class="material-icons mr-2 search-icon">search</i>
-                          <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 <!-- Main Table -->
