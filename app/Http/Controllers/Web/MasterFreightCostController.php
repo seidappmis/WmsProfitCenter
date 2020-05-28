@@ -22,10 +22,14 @@ class MasterFreightCostController extends Controller
         if ($request->ajax()) {
           $query = FreightCost::select(
             'log_freight_cost.*',
-            DB::raw('destination_cities.city_name AS destination_city_name')
+            DB::raw('destination_cities.city_name AS destination_city_name'),
+            DB::raw('master_expedition.expedition_name AS expedition_name'),
+            DB::raw('vehicle_type_details.vehicle_desription AS vehicle_description')
           )
           ->leftjoin('destination_cities', 'destination_cities.city_code', '=',
           'log_freight_cost.city_code')
+          ->leftjoin('master_expedition', 'master_expedition.code', '=', 'log_freight_cost.expedition_code')
+          ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'log_freight_cost.vehicle_code_type')
           ->where('log_freight_cost.area', $request->get('area'));
 
           $datatables = DataTables::of($query)
