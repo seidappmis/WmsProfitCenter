@@ -61,9 +61,12 @@ jQuery(document).ready(function($) {
     });
 
   function set_form_data() {
-    set_select2_value('#form-master-vehicle-expedition [name="expedition_code"]', '{{$masterVehicleExpedition->expedition_code}}', '{{$masterVehicleExpedition->expedition->code . '-' . $masterVehicleExpedition->expedition->expedition_name}}');
-    set_select2_value('#form-master-vehicle-expedition [name="vehicle_code_type"]', '{{$masterVehicleExpedition->vehicle_code_type}}', '{{$masterVehicleExpedition->vehicle->vehicle_desription}}');
+    set_select2_value('#form-master-vehicle-expedition [name="vehicle_code_type"]', '{{$masterVehicleExpedition->vehicle_code_type}}', '{{$masterVehicleExpedition->VehicleDetail->vehicle_desription}}');
+    set_select2_value('#form-master-vehicle-expedition [name="expedition_code"]', '{{$masterVehicleExpedition->expedition_code}}', '{{$masterVehicleExpedition->MasterExpedition->code . '-' . $masterVehicleExpedition->MasterExpedition->expedition_name}}');
+
+    @if(!empty($masterVehicleExpedition->destination_data)) // dieksekusi cuma kalau destination_data nya ada isinya
     set_select2_value('#form-master-vehicle-expedition [name="destination"]', '{{$masterVehicleExpedition->destination}}', '{{$masterVehicleExpedition->destination_data->description}}');
+    @endif
   }
 </script>
 @endpush

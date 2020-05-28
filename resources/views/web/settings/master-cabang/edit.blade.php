@@ -44,7 +44,7 @@
     });
 
     function set_initial_form_data(){
-
+        $('#tycode').val('{{$masterCabang->type}}').trigger('change')
         set_select2_value('#region', '{{$masterCabang->region}}', '{{$masterCabang->Region->region}}')
     };
 

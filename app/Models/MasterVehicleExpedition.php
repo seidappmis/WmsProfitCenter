@@ -9,19 +9,19 @@ class MasterVehicleExpedition extends Model
     //Set Table
     protected $table = "tr_vehicle_expedition";
 
-    /**
-     * Get the vehicle type.
-     */
+
     public function VehicleDetail()
     {
         return $this->belongsTo('App\Models\VehicleDetail', 'vehicle_code_type', 'vehicle_code_type');
     }
 
-    /**
-     * Get the expedition.
-     */
     public function MasterExpedition()
     {
-        return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code','code');
+        return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code', 'code');
+    }
+
+    public function destination_data()
+    {
+        return $this->belongsTo('App\Models\MasterDestination', 'destination', 'destination_number');
     }
 }
