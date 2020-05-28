@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MasterVehicleExpedition;
 use DataTables;
@@ -16,18 +15,18 @@ class MasterVehicleExpeditionController extends Controller
     {
         if ($request->ajax()) {
             $query = MasterVehicleExpedition::select(
-                'tr_master_vehicle_expedition.*',
+                'tr_vehicle_expedition.*',
                 DB::raw('vehicle_type_details.vehicle_desription as vehicle_type'),
                 DB::raw('vehicle_type_details.cbm_min'),
                 DB::raw('vehicle_type_details.cbm_max'),
                 DB::raw('vehicle_type_groups.group_name AS vehicle_group'),
-                DB::raw('wms_branch_expedition.expedition_name'),
+                DB::raw('master_expedition.expedition_name'),
                 DB::raw('master_destination.description AS destination_name')
             )
-                ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_expedition_vehicle.expedition_code')
-                ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'wms_branch_expedition_vehicle.vehicle_code_type')
+                ->leftjoin('master_expedition', 'master_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+                ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type')
                 ->leftjoin('vehicle_type_groups', 'vehicle_type_groups.id', '=', 'vehicle_type_details.vehicle_group_id')
-                ->leftjoin('master_destination', 'master_destination.destination_number', '=', 'wms_branch_expedition_vehicle.destination');
+                ->leftjoin('master_destination', 'master_destination.destination_number', '=', 'tr_vehicle_expedition.destination');
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
