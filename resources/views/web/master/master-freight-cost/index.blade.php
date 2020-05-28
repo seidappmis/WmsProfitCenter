@@ -33,17 +33,16 @@
                 <!-- Filter and Search -->
                 <div class="row">
                   <div class="col s12 m3">
+                    <div class="display-flex">
                     <!---- Search ----->
                     <div class="app-wrapper">
                       <div class="datatable-search">
-                        <select id="area_filter">
-                          <option disabled selected>-- Select Area --</option>
-                          @foreach($areas as $area)
-                          <option value="{{$area->area}}">{{$area->area}}</option>
-                          @endforeach
+                        <select id="area_filter"
+                                class="select2-data-ajax browser-default app-filter">
                         </select>
                       </div>
                     </div>
+                  </div>
                   </div>
                   <div class="col s12 m3"></div>
                   <div class="col s12 m6">
@@ -135,7 +134,13 @@
 
   $('#area_filter').change(function(event) {
       /* Act on the event */
-      table.ajax.reload(false);
+      table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    });
+
+  $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 
   // Custom search
