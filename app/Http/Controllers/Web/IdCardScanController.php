@@ -25,7 +25,7 @@ class IdCardScanController extends Controller
 
     $driver->expedition;
 
-    return $driver;
+    return ['status' => true, 'data' => $driver];
   }
 
   public function store(Request $request)

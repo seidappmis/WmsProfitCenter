@@ -102,10 +102,69 @@ class MasterModelController extends Controller
      */
     public function proses_upload(Request $request)
     {
-        
-        $path = Storage::putFile('master/model', $request->file('file-master-model'));
+      $request->validate([
+        'file-master-model' => 'required'
+      ]);
 
-        return $path->save();
+      $file = fopen($request->file('file-master-model'), "r");
+
+      $title          = true;
+      $master_models   = [];
+      $rs_key = [];
+
+      $date = date('Y-m-d H:i:s');
+
+      while (!feof($file)) {
+        $row = fgetcsv($file);
+        if ($title) {
+          $title = false;
+          continue; // Skip baaris judul
+        }
+        $master_model = [
+          'model_name'        => $row[0],
+          'model_from_apbar'  => $row[1],
+          'ean_code'          => $row[2],
+          'cbm'               => $row[3],
+          'material_group'    => $row[4],
+          'category'          => $row[5],
+          'model_type'        => $row[6],
+          'pcs_ctn'           => $row[7],
+          'ctn_plt'           => $row[8],
+          'max_pallet'        => $row[9],
+          'description'       => $row[10],
+          'price1'            => $row[11],
+          'price2'            => $row[12],
+          'price3'            => $row[13],
+        ];
+        $master_model['created_at']   = $date;
+        $master_model['created_by']   = auth()->user()->id;
+
+        if (!empty($master_model['model_name'])) {
+          $master_models[] = $master_model;
+        }
+
+      }
+      // Cek apakah data pernah diupload
+      $cek_model = new MasterModel;
+      foreach ($rs_key as $ean_code) {
+        $cek_model->orWhereColumn([
+          ['ean_code', '=', $ean_code],
+        ]);
+      }
+
+      if ($cek_model->get()->count() > 0) {
+        // kalau ada data yang sudah diupload return
+        $result['status']  = false;
+        $result['message'] = 'Data Already Upload';
+        return $result;
+      }
+      // Akhir cek data
+
+      fclose($file);
+
+      MasterModel::insert($master_models);
+
+      return true;
     }
 
     /**

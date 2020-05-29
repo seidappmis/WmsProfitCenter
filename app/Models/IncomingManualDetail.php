@@ -12,4 +12,14 @@ class IncomingManualDetail extends BaseModel
   {
     return $this->belongsTo('App\Models\IncomingManualHeader', 'arrival_no', 'arrival_no_header');
   }
+
+  public function storage()
+  {
+    return $this->belongsTo('App\Models\StorageMaster', 'storage_id', 'id');
+  }
+
+  public function serial_numbers()
+  {
+    return $this->hasMany('App\Models\IncomingManualOtherSN', 'manual_id', 'id');
+  }
 }

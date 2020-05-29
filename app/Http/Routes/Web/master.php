@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-destination/{id}', 'web.master.master-destination.edit');
     Route::get('master-destination/select2-cabang', 'Web\MasterDestinationController@getSelect2Cabang');
     Route::get('master-destination/select2-current-region', 'Web\MasterRegionController@getSelect2CurrentRegion');
+    Route::get('master-destination/select2-destination', 'Web\MasterDestinationController@getSelect2Destination');
     Route::resource('master-destination', 'Web\MasterDestinationController');
 
     // Route::view('master-vehicle', 'web.master.master-vehicle.index');
@@ -27,9 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-expedition/create', 'web.master.master-expedition.create');
     // Route::view('master-expedition/{id}', 'web.master.master-expedition.edit');
 
-    Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
-    Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
-    Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
+    //Route::view('master-vehicle-expedition', 'web.master.master-vehicle-expedition.index');
+    //Route::view('master-vehicle-expedition/create', 'web.master.master-vehicle-expedition.create');
+    //Route::view('master-vehicle-expedition/{id}', 'web.master.master-vehicle-expedition.edit');
+    Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
+
 
 
     Route::resource('master-driver', 'Web\MasterDriverController');
@@ -46,13 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::view('master-freight-cost', 'web.master.master-freight-cost.index');
     // Route::view('master-freight-cost/create', 'web.master.master-freight-cost.create');
     // Route::view('master-freight-cost/1', 'web.master.master-freight-cost.edit');
-    Route::resource('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
+    Route::post('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
     Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
     // Route::view('storage-master', 'web.master.storage-master.index');
     // Route::view('storage-master/create', 'web.master.storage-master.create');
     // Route::view('storage-master/1', 'web.master.storage-master.edit');
-    Route::post('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
+    Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
+    Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
     Route::resource('storage-master', 'Web\StorageMasterController');
 
     // Route::view('master-model', 'web.master.master-model.index');

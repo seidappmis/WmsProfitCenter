@@ -51,7 +51,6 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     set_initial_form_data();
-    set_format_data();
     $('.btn-save').html('Update');
   });
 

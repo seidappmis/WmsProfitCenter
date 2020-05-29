@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\FreightCost;
+use App\Models\Area;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,10 +22,14 @@ class MasterFreightCostController extends Controller
         if ($request->ajax()) {
           $query = FreightCost::select(
             'log_freight_cost.*',
-            DB::raw('destination_cities.city_name AS destination_city_name')
+            DB::raw('destination_cities.city_name AS destination_city_name'),
+            DB::raw('master_expedition.expedition_name AS expedition_name'),
+            DB::raw('vehicle_type_details.vehicle_desription AS vehicle_description')
           )
           ->leftjoin('destination_cities', 'destination_cities.city_code', '=',
           'log_freight_cost.city_code')
+          ->leftjoin('master_expedition', 'master_expedition.code', '=', 'log_freight_cost.expedition_code')
+          ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'log_freight_cost.vehicle_code_type')
           ->where('log_freight_cost.area', $request->get('area'));
 
           $datatables = DataTables::of($query)
@@ -39,10 +44,7 @@ class MasterFreightCostController extends Controller
           return $datatables->make(true);
         }
 
-        $data  = [
-          'areas' => \App\Models\Area::all()
-        ];
-        return view('web.master.master-freight-cost.index', $data);
+        return view('web.master.master-freight-cost.index');
     }
 
     /**
@@ -103,9 +105,72 @@ class MasterFreightCostController extends Controller
      */
     public function proses_upload(Request $request)
     {
-        $path = Storage::putFile('master/freight-cost', $request->file('file-freight-cost'));
+      $request->validate([
+        'file-freight-cost' => 'required'
+      ]);
 
-        return $path->save();
+      $file = fopen($request->file('file-freight-cost'), "r");
+
+      $title                 = true;
+      $master_freight_cost   = [];
+      $rs_area               = [];
+
+      $rs_key = [];
+
+      $date = date('Y-m-d H:i:s');
+
+      while (!feof($file)) {
+        $row = fgetcsv($file);
+        if ($title) {
+          $title = false;
+          continue; // Skip baris judul
+        }
+        $freight_cost = [
+          'area_code'         => $row[0],
+           // 'area' => $row[0], // Cari dari database
+          'city_code'         => $row[1],
+          'expedition_code'   => $row[2],
+          'vehicle_code_type' => $row[3],
+          'ritase'            => $row[4],
+          'cbm'               => $row[5],
+          'leadtime'          => $row[6],
+        ];
+        $freight_cost['created_at']   = $date;
+        $freight_cost['created_by']   = auth()->user()->id;
+
+        if (!empty($freight_cost['city_code'])) {
+            // Cari area
+            if (empty($rs_area[$freight_cost['area_code']])) {
+              $area = Area::where('code', $freight_cost['area_code'])->first();
+              if (empty($area)) {
+                $result['status']  = false;
+                $result['message'] = 'Area not found in master area !';
+                return $result;
+              }
+
+              $rs_area[$freight_cost['area_code']] = $area->area;
+            }
+             $freight_cost['area'] = $rs_area[$freight_cost['area_code']];
+
+            $master_freight_cost[] = $freight_cost;
+        }
+
+      }
+
+      // Cek apakah data pernah diupload tidak ada
+      // karena semua data dapat bernilai sama
+
+      fclose($file);
+
+      foreach ($master_freight_cost as $key => $value) {
+        unset($value['area_code']);
+
+        $master_freight_cost[$key] = $value;
+      }
+
+      FreightCost::insert($master_freight_cost);
+
+      return true;
     }
 
     /**

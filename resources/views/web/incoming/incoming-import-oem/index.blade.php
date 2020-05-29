@@ -142,6 +142,35 @@
       })
     });
 
+    table.on('click', '.btn-submit-to-inventory', function(event) {
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+      swal({
+        text: "Are you sure want to Submit to Inventory " + data.arrival_no + " and the details?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Submit It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          $.ajax({
+            url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no + '/submit-to-inventory',
+            type: 'POST',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+      
+    });
+
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
   });
@@ -161,5 +190,6 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
 </script>
 @endpush

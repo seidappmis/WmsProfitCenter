@@ -43,7 +43,7 @@
               <hr>
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
-            <div class="card-content">
+            <div class="card-content pt-0 pb-0">
                 <ul class="collapsible">
                    <li class="active">
                      <div class="collapsible-header">Add New Detail</div>
@@ -60,7 +60,7 @@
               <h4 class="card-title">Incoming Detail</h4>
               <hr>
               <form class="form-table">
-                <table id="data-table-section-contents" class="display" width="100%">
+                <table id="data-table-incoming-detail" class="display" width="100%">
                   <thead bgcolor="#344b68">
                     <tr>
                       <td data-priority="1" width="30px" class="white-text">NO.</td>
@@ -71,6 +71,7 @@
                       <td class="white-text">No. GR SAP</td>
                       <td class="white-text">Description</td>
                       <td class="white-text">Storage Location</td>
+                      <td class="white-text">Serial Number</td>
                       <td class="white-text">Created Date</td>
                       <td width="50px;"></td>
                     </tr>
@@ -101,20 +102,140 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#data-table-section-contents').DataTable({
-      "scrollX": true,
-      "ordering": false,
-      "paging": false,
+  var dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val(),
+            d.area = $('#area_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'qty', name: 'qty', className: 'detail'},
+        {data: 'cbm', name: 'cbm', className: 'detail'},
+        {data: 'total_cbm', name: 'total_cbm', className: 'detail'},
+        {data: 'no_gr_sap', name: 'no_gr_sap', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'storage_location', name: 'storage_location', className: 'detail'},
+        {data: 'serial_numbers', name: 'serial_numbers', className: 'detail'},
+        {data: 'created_at', name: 'created_at', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  dttable_incoming_detail.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dttable_incoming_detail.row(tr).data();
+      swal({
+        text: "Are you sure want to delete " + data.model + " and the details?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('incoming-import-oem', $incomingManualHeader->arrival_no) }}' + '/detail/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
     });
+
   jQuery(document).ready(function($) {
-    set_form_data();
-});
+      set_form_data();
+      update_handler();
+      add_detail_handler();
+  });
 
   function set_form_data() {
+    $('#form-incoming-import-oem-header .btn-save').html('Update')
     set_select2_value('#form-incoming-import-oem-header [name="vendor_name"]', '{{$incomingManualHeader->vendor_name}}', '{{$incomingManualHeader->vendor_name}}');
     $('input:radio[name="inc_type"]').filter('[value="{{$incomingManualHeader->inc_type}}"]').attr('checked', true);
     $('input:radio[name="inc_type"]').prop('disabled', true);
+  }
+
+  function update_handler(){
+    // PUT request to update data header
+    $("#form-incoming-import-oem-header").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              // window.location.href = "{{ url('incoming-import-oem') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+    // END PUT request
+  }
+
+  function add_detail_handler(){
+    // POST request to store detail
+    // data dikirim dalam form data 
+    $("#form-incoming-import-oem-detail").validate({
+      submitHandler: function(form) {
+        var fdata = new FormData(form);
+        $.ajax({
+          url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) . "/detail" }}',
+          type: 'POST',
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) { // selesai dan berhasil
+          console.log(data);
+          if (data.status == false) {
+            swal("Failed!", data.message, "warning");
+            return;
+          }
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok reload datatable
+              dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
   }
 </script>
 @endpush

@@ -14,111 +14,13 @@
             </div>
         </div>
     @endcomponent
-    
+
     <div class="col s12">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                    	<form class="form-table">
-                    		<h4 class="card-title">Edit Vehicle Expedition</h4>
-                    		<table>
-                    			<tr>
-                    				<td>Expedition</td>
-                    				<td>
-                    					<div class="input-field col s12">
-										<select required="">
-									        <option value="" disabled>-- Select Expedition --</option>
-									        <option value="1">BINTAN MEGAH ABADI, PT.</option>
-									        <option value="2">DUA SAMUDRA EXPRESS, CV.</option>
-									        <option value="3" selected>EXPRESSINDO 88 NUSANTARA, PT.</option>
-									    </select>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Vehicle No.</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="no" type="text" class="validate" value="A 8218 Z" required>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Vehicle Type</td>
-                    				<td>
-                    					<div class="input-field col s12">
-								        <select required="">
-									        <option value="" disabled>-- Select Vehicle --</option>
-									        <option value="1">AMBIL SENDIRI</option>
-									        <option value="2">CD 4 BAN (CDE)</option>
-									        <option value="3"  selected>TRONTON 8 M</option>
-									    </select>
-								      </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Destination</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <select>
-									        <option value="" disabled selected>-- Select Destination --</option>
-									        <option value="1">ACEH</option>
-									        <option value="2">BANDUNG</option>
-									        <option value="3">BANJARMASIN</option>
-									    </select>
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Description</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="npwp" type="text" class="validate" name="npwp">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>STNK Number</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="cp" type="text" class="validate" name="cp">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Remarks 1</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="phone1" type="number" class="validate" name="phone1">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>Remarks 2</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <input id="phone2" type="number" class="validate" name="phone2">
-									  </div>
-                    				</td>
-                    			</tr>
-                    			<tr>
-                    				<td>ACTIVE</td>
-                    				<td>
-                    					<div class="input-field col s12">
-									    <p>
-									      <label>
-									        <input type="checkbox" class="filled-in" checked="checked" />
-									        <span></span>
-									      </label>
-									    </p>
-									  </div>
-                    				</td>
-                    			</tr>
-                    		</table>
-                    		{!! get_button_save('Update') !!}
-                            {!! get_button_cancel(url('master-vehicle-expedition')) !!}
-                    	</form>
+                    	@include('web.master.master-vehicle-expedition._form')
                     </div>
                 </div>
             </div>
@@ -128,8 +30,43 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-    
+jQuery(document).ready(function($) {
+    set_form_data();
+});
+  $("#form-master-vehicle-expedition").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("master-vehicle-expedition", $masterVehicleExpedition->id) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('master-vehicle-expedition') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+
+  function set_form_data() {
+    set_select2_value('#form-master-vehicle-expedition [name="vehicle_code_type"]', '{{$masterVehicleExpedition->vehicle_code_type}}', '{{$masterVehicleExpedition->VehicleDetail->vehicle_desription}}');
+    set_select2_value('#form-master-vehicle-expedition [name="expedition_code"]', '{{$masterVehicleExpedition->expedition_code}}', '{{$masterVehicleExpedition->MasterExpedition->code . '-' . $masterVehicleExpedition->MasterExpedition->expedition_name}}');
+
+    @if(!empty($masterVehicleExpedition->destination_data)) // dieksekusi cuma kalau destination_data nya ada isinya
+    set_select2_value('#form-master-vehicle-expedition [name="destination"]', '{{$masterVehicleExpedition->destination}}', '{{$masterVehicleExpedition->destination_data->description}}');
+    @endif
+  }
 </script>
 @endpush

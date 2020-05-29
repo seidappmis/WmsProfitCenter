@@ -1,12 +1,11 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m10">
+            <div class="col s12 m6">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>View Finish Good Production</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
@@ -14,10 +13,12 @@
                     <li class="breadcrumb-item active">ARV-WHHYP-181003-019</li>
                 </ol>
             </div>
-            <div class="col s12 m2">
+            <div class="col s12 m2"></div>
+            <div class="col s12 m4">
               <div class="display-flex">
-                @component('layouts.materialize.components.back-button')
-                @endcomponent
+                 <div class="app-wrapper mr-2"></div>
+                <!---- Button Back ----->
+                <a class="btn btn-large waves-effect waves-light indigo" href="{{ url('finish-good-production') }}">Back</a>
               </div>
             </div>
         </div>
@@ -28,10 +29,10 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <p>Receipt No : <b class="green-text text-darken-3">ARV-WHHYP-181003-019</b class="green-text text-darken-3"></p>
-                      <p>Ticket No : <b class="green-text text-darken-3">L-TV-1810010006</b class="green-text text-darken-3"></p>
-                      <p>Warehouse : <b class="green-text text-darken-3">SHARP KARAWANG W/H</b class="green-text text-darken-3"></p>
-                      <p>Factory : <b class="green-text text-darken-3">TV</b class="green-text text-darken-3"></p>
+                      <p>Receipt No : <b class="green-text text-darken-3">ARV-WHHYP-181003-019</b></p>
+                      <p>Ticket No : <b class="green-text text-darken-3">L-TV-1810010006</b></p>
+                      <p>Warehouse : <b class="green-text text-darken-3">SHARP KARAWANG W/H</b></p>
+                      <p>Factory : <b class="green-text text-darken-3">TV</b></p>
                       <br>
                       <h4 class="card-title">List Barcode Detailed from Factory</h4>
                       <!-- <hr> -->

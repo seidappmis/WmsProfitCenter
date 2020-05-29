@@ -28,7 +28,12 @@ class AdminNavListComposer
       ['name' => 'incoming', 'label' => 'Incoming Import/OEM', 'url' => 'incoming-import-oem', 'icon' => 'radio_button_unchecked'],
       ['name' => 'incoming', 'label' => 'Conform Manifest', 'url' => 'conform-manifest', 'icon' => 'radio_button_unchecked'],
       ['name' => 'incoming', 'label' => 'Billing Return', 'url' => 'billing-return', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'incoming', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
+    ]];
+
+    $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
+      ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [

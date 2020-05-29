@@ -2,7 +2,9 @@
 
 Route::group(['middleware' => 'auth'], function () {
   // Route::view('upload-concept', 'web.outgoing.upload-concept.index');
-  Route::resource('upload-concept', 'Web\UploadConceptController');
+  Route::get('upload-concept', 'Web\UploadConceptController@index');
+  Route::post('upload-concept', 'Web\UploadConceptController@store');
+  Route::post('upload-concept/upload-csv', 'Web\UploadConceptController@uploadCsv');
 
   // Route::view('idcard-scan', 'web.outgoing.idcard-scan.index');
   Route::resource('idcard-scan', 'Web\IdCardScanController');
@@ -10,7 +12,9 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
   Route::resource('assign-vehicles', 'Web\AssignVehicleController');
 
-  Route::view('select-gate', 'web.outgoing.select-gate.index');
+  // Route::view('select-gate', 'web.outgoing.select-gate.index');
+  Route::get('select-gate', 'Web\SelectGateController@index');
+
   Route::view('loading-process', 'web.outgoing.loading-process.index');
 
   Route::view('complete', 'web.outgoing.complete.index');

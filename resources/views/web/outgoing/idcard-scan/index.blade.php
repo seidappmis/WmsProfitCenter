@@ -139,10 +139,10 @@
         })
         .done(function(data) { // selesai dan berhasil
           if (data.status) {
-            $('#form-id-card-scan [name="driver_id"]').val(data.driver_id)
-            $('#form-id-card-scan [name="driver_name"]').val(data.driver_name)
-            $('#form-id-card-scan [name="expedition_code"]').val(data.expedition_code)
-            $('#form-id-card-scan [name="expedition_name"]').val(data.expedition.expedition_name)
+            $('#form-id-card-scan [name="driver_id"]').val(data.data.driver_id)
+            $('#form-id-card-scan [name="driver_name"]').val(data.data.driver_name)
+            $('#form-id-card-scan [name="expedition_code"]').val(data.data.expedition_code)
+            $('#form-id-card-scan [name="expedition_name"]').val(data.data.expedition.expedition_name)
             $('#form-id-card-scan-wrapper').show();
           } else {
             swal("Failed!", data.message, "error")
