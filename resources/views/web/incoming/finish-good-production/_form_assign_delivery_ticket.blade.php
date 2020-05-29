@@ -7,11 +7,12 @@
                 <tr>
                     <td>
                     <b>Delivery Ticket| Model | Quantity | Ean | Type</b>
-                    <table>
+                    <textarea id="textarea1" style="resize: none; height: 300px;"></textarea>
+                    <!-- <table>
                         <tr>
-                            <td class="white-text" height="300">lala</td>
+                            <td class="white-text" height="300">tes</td>
                         </tr>
-                    </table>
+                    </table> -->
                     </td>
                 </tr>
             </table>
@@ -30,11 +31,12 @@
                 <tr>
                     <td>
                     <b>Delivery Ticket| Model | Quantity | Ean | Type</b>
-                    <table>
+                    <textarea id="textarea2" style="resize: none; height: 300px;"></textarea>
+                    <!-- <table>
                         <tr>
-                            <td class="white-text" height="300">tes</td>
+                            <td class="white-text" height="300"></td>
                         </tr>
-                    </table>
+                    </table> -->
                     </td>
                 </tr>
             </table>
@@ -43,8 +45,8 @@
                 <td>Storage Location</td>
                 <td>
                   <div class="input-field col s12">
-                  <select id="storage_location"
-                          name="storage_location"
+                  <select id="storage_id"
+                          name="storage_id"
                           class="select2-data-ajax browser-default select-storage-location" required>
                     <option></option>
                   </select>

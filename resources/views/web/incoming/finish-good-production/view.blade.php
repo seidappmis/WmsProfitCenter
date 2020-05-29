@@ -39,7 +39,7 @@
                       <h4 class="card-title">List Barcode Detailed from Factory</h4>
                       <!-- <hr> -->
                       <div class="section-data-tables"> 
-                        <table id="data-table-section-contents" class="display" width="100%">
+                        <table id="data-table-list-barcode" class="display" width="100%">
                             <thead>
                                 <tr>
                                   <th data-priority="1" width="30px">No.</th>
@@ -84,8 +84,10 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+    var dtdatatable = $('#data-table-list-barcode').DataTable({
+        // serverSide: true,
+        // scrollX: true,
+        responsive: true,
         order: [1, 'asc'],
     });
 </script>
