@@ -78,15 +78,19 @@ class FinishGoodController extends Controller
            $finishGoodHeader->save();
 
            // Finish Good Detail
-           $finishGoodDetail = new FinishGoodDetail;
-           $finishGoodDetail->receipt_no_header = $finishGoodHeader->receipt_no;
-           $finishGoodDetail->bar_ticket_header = ;
-           $finishGoodDetail->model = ;
-           $finishGoodDetail->quantity = ;
-           $finishGoodDetail->print_type = ;
-           $finishGoodDetail->ean_code = ;
-           $finishGoodDetail->kode_cabang = auth()->user()->cabang->kode_cabang;
-           $finishGoodDetail->storage_id = ;
+           if ($finishGoodHeader->save()) {
+               $finishGoodDetail = new FinishGoodDetail;
+               $finishGoodDetail->receipt_no_header = $finishGoodHeader->receipt_no;
+               $finishGoodDetail->bar_ticket_header = 1;
+               $finishGoodDetail->model = 1;
+               $finishGoodDetail->quantity = 1;
+               $finishGoodDetail->print_type = 1;
+               $finishGoodDetail->ean_code = 1;
+               $finishGoodDetail->kode_cabang = auth()->user()->cabang->kode_cabang;
+               $finishGoodDetail->storage_id = 1;
+
+               $finishGoodDetail->save();
+           }
 
            DB::commit();
 

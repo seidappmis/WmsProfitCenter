@@ -6,7 +6,7 @@
             <table>
                 <tr>
                     <td>
-                    <b>Delivery Ticket| Model | Quantity | Ean | Type</b>
+                    <b>Delivery Ticket | Model | Quantity | Ean | Type</b>
                     <textarea id="textarea1" class="textarea-custom"></textarea>
                     <!-- <table>
                         <tr>
@@ -30,7 +30,7 @@
             <table>
                 <tr>
                     <td>
-                    <b>Delivery Ticket| Model | Quantity | Ean | Type</b>
+                    <b>Delivery Ticket | Model | Quantity | Ean | Type</b>
                     <textarea id="textarea2" class="textarea-custom"></textarea>
                     <!-- <table>
                         <tr>
