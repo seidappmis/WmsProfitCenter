@@ -98,7 +98,7 @@
             // Loading region Data
             $('#form-master-destination [name="current_region"]').select2({
                placeholder: '-- Select Region --',
-               ajax: get_select2_ajax_options('/master-cabang/select2-region')
+               ajax: get_select2_ajax_options('/region/select2-region')
             });
         }
     });

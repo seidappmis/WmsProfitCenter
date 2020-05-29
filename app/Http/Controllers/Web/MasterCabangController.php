@@ -143,16 +143,6 @@ class MasterCabangController extends Controller
         return MasterCabang::destroy($id);
     }
 
-    public function getSelect2Region(Request $request)
-    {
-        $query = \App\Models\Region::select(
-          DB::raw('region AS id'),
-          DB::raw("region AS text")
-        );
-
-        return get_select2_data($request, $query);
-    }
-
     public function getSelect2Cabang(Request $request)
     {
         $query = MasterCabang::select(
