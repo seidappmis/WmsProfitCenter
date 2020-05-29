@@ -2,14 +2,10 @@
 
 Route::group(['middleware' => 'auth'], function () {
 
-  // Route::view('finish-good-production', 'web.incoming.finish-good-production.index');
-  // Route::view('finish-good-production/create', 'web.incoming.finish-good-production.create');
-  // Route::view('finish-good-production/{id}', 'web.incoming.finish-good-production.view');
+  // Finish Good Production
   Route::resource('finish-good-production', 'Web\FinishGoodController');
 
-  // Route::view('incoming-import-oem', 'web.incoming.incoming-import-oem.index');
-  // Route::view('incoming-import-oem/create', 'web.incoming.incoming-import-oem.create');
-  // Route::view('incoming-import-oem/{id}', 'web.incoming.incoming-import-oem.view');
+  // Incoming Import OEM
   Route::post('incoming-import-oem/{id}/submit-to-inventory', 'Web\IncomingImportOEMController@submitToInventory');
   Route::post('incoming-import-oem/{id}/detail', 'Web\IncomingImportOEMDetailController@store');
   Route::delete('incoming-import-oem/{incoming_manual_id}/detail/{detail_id}', 'Web\IncomingImportOEMDetailController@destroy');

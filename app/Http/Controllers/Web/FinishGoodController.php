@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\FinishGoodHeader;
+use App\Models\FinishGoodDetail;
+use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class FinishGoodController extends Controller
@@ -27,6 +31,19 @@ class FinishGoodController extends Controller
         return view('web.incoming.finish-good-production.create');
     }
 
+    public function submitToInventory($id)
+    {
+        $finishGoodHeader = FinishGoodHeader::findOrFail($id);
+
+        $finishGoodHeader->submit      = 1;
+        $finishGoodHeader->submit_date = date('Y-m-d H:i:s');
+        $finishGoodHeader->submit_by   = auth()->user()->id;
+
+        $finishGoodHeader->save();
+
+        return $finishGoodHeader;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +52,25 @@ class FinishGoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $finishGoodHeader = new FinishGoodHeader;
+
+        // Receipt_No => ARV-WAREHOUSE-TANGGAL-Urutan
+        $receipt_no = 'ARV' . '-WH' . 'KRW' . '-' . date('ymd') . '-';
+
+        $prefix_length = strlen($receipt_no);
+        $max_no        = DB::select('SELECT MAX(SUBSTR(receipt_no, ?)) AS max_no FROM log_finish_good_header WHERE SUBSTR(receipt_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $receipt_no])[0]->max_no;
+        $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+
+        $warehouse = 'SHARP KARAWANG W/H';
+        $supplier  = 'WM';
+        $area      = 'KARAWANG';
+
+        $finishGoodHeader->receipt_no    = $receipt_no . $max_no;
+        $finishGoodHeader->warehouse     = $warehouse;
+        $finishGoodHeader->supplier      = $supplier;
+        $finishGoodHeader->area          = $area;
+        $finishGoodHeader->kode_cabang   = auth()->user()->cabang->kode_cabang;
+        $finishGoodHeader->submit        = 0;
     }
 
     /**
@@ -44,8 +79,27 @@ class FinishGoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        // $data['finishGoodHeader'] = FinishGoodHeader::findOrFail($id);
+
+        // if ($request->ajax()) {
+        //   $query = $data['finishGoodHeader']
+        //     ->details()
+        //     ->get();
+
+        //   $datatables = DataTables::of($query)
+        //     ->addIndexColumn() //DT_RowIndex (Penomoran)
+        //     ->addColumn('action', function ($data) {
+        //       $action = '';
+        //       //$action .= ' ' . get_button_edit(url('master-area/' . $data->area . '/edit'));
+        //       //$action .= ' ' . get_button_delete();
+        //       return $action;
+        //     });
+
+        //   return $datatables->make(true);
+        // }
+        // return view('web.incoming.finish-good-production.view', $data);
         return view('web.incoming.finish-good-production.view');
     }
 

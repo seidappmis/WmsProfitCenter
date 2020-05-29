@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MasterRegionController extends Controller
+class RegionController extends Controller
 {
     //
     public function getSelect2Region(Request $request)

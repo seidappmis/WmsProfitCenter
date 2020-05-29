@@ -14,4 +14,5 @@ class FinishGoodHeader extends BaseModel
   	{
        return $this->hasMany('App\Models\FinishGoodDetail', 'receipt_no_header', 'receipt_no');
   	}
+
 }
