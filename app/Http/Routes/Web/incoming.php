@@ -2,9 +2,10 @@
 
 Route::group(['middleware' => 'auth'], function () {
 
-  Route::view('finish-good-production', 'web.incoming.finish-good-production.index');
-  Route::view('finish-good-production/create', 'web.incoming.finish-good-production.create');
-  Route::view('finish-good-production/{id}', 'web.incoming.finish-good-production.view');
+  // Route::view('finish-good-production', 'web.incoming.finish-good-production.index');
+  // Route::view('finish-good-production/create', 'web.incoming.finish-good-production.create');
+  // Route::view('finish-good-production/{id}', 'web.incoming.finish-good-production.view');
+  Route::resource('finish-good-production', 'Web\FinishGoodController');
 
   // Route::view('incoming-import-oem', 'web.incoming.incoming-import-oem.index');
   // Route::view('incoming-import-oem/create', 'web.incoming.incoming-import-oem.create');

@@ -1,27 +1,23 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m4">
+            <div class="col s12 m3">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Finish Good Production</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Finish Good Production</li>
                 </ol>
             </div>
-            <div class="col s12 m2">
-              <!---- Select ----->
-                <div class="app-wrapper">
+            <div class="col s12 m3">
+              <!---- Filter ----->
+                <div class="app-wrapper mr-2">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option selected>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -35,13 +31,13 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
+                <!---- Button Add ----->
                 <a href="{{ url('finish-good-production/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   New Incoming Finish Good
                 </a>
               </div>
             </div>
-            <div class="col s12 m3">
-            </div>
+            <div class="col s12 m3"></div>
         </div>
     @endcomponent
     
@@ -89,9 +85,18 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
-    });
+  var dtdatatable = $('#data-table-section-contents').DataTable({
+    // serverSide: true,
+    scrollX: true,
+    responsive: true,
+    order: [1, 'asc'],
+  });
+
+  // Filter Area
+  $('#area_filter').select2({
+    placeholder: '-- Select Area --',
+    allowClear: true,
+    ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
 </script>
 @endpush

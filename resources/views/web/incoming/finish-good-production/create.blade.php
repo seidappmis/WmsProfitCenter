@@ -19,12 +19,9 @@
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
-                    <select>
-      				        <option value="" disabled>-- Select Area --</option>
-      				        <option value="1" selected>KARAWANG</option>
-      				        <option value="2">SURABAYA HUB</option>
-      				        <option value="3">SWADAYA</option>
-      				      </select>
+                    <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                    </select>
                   </div>
                 </div>
                 <!---- Button Back ----->
@@ -188,7 +185,16 @@
 @push('script_js')
 <script type="text/javascript">
  	var dtdatatable = $('#data-table-section-contents').DataTable({
-      "responsive": true,
+    // serverSide: true,
+    // scrollX: true,
+    responsive: true,
+  });
+
+  // Filter Area
+  $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 </script>
 @endpush
