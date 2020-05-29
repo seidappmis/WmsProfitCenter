@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use DB;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
