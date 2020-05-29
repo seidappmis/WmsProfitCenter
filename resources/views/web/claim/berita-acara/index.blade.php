@@ -47,6 +47,7 @@
                                     <th>EXPEDITION NAME</th>
                                     <th>DRIVER</th>
                                     <th>VEHICLE NO.</th>
+                                    <th>STATUS</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -58,8 +59,20 @@
                                   <td>Expedition 1</td>
                                   <td>Driver 1</td>
                                   <td>B 1231 DE</td>
+                                  <td>PENDING</td>
                                   <td>
-                                    {!! get_button_view(url('berita-acara/1')) !!}
+                                    {!! get_button_print() !!}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>2.</td>
+                                  <td>02/BA-HQ/02/2015</td>
+                                  <td>May 21, 2020</td>
+                                  <td>Expedition 2</td>
+                                  <td>Driver 2</td>
+                                  <td>B 5486 DE</td>
+                                  <td>COMPLETE</td>
+                                  <td>
                                     {!! get_button_print() !!}
                                   </td>
                                 </tr>

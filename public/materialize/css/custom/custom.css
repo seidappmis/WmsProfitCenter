@@ -262,6 +262,11 @@ td, th {
 .form-table .label {
     padding: 0px 10px;
 }
+.form-table .file-field .btn, .form-table .file-field .btn-large, .form-table .file-field .btn-small {
+    line-height: 2rem;
+    float: left;
+    height: 2rem;
+}
 .datepicker-calendar {
     padding: 15px !important;
 }

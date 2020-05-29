@@ -117,8 +117,7 @@
         </div>  
         <div class="col s12 m10">
           <p>Format Layout coloumn :</p>
-          <p>[Plant],[D/O,Date],[Posting Date]</p>
-          <p>[Material]</p>
+          <p>[Plant],[D/O No.],[D/O Date],[Posting Date],[Item],[S/O No.],[S/O Date],[Customer Code],[Customer Name],[Material],[Delivery Quantity],[SU],[Gross Weight],[Total Weight],[Un.],[Volume],[Total Volume],[VUn]</p>
         </div>
       </div>
   </div>

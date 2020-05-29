@@ -31,6 +31,41 @@
                         </ul>
                     </div>
                 <!-- </div> -->
+                    <div class="card-content">
+                        <ul class="collapsible">
+                           <li class="">
+                               <div class="collapsible-header">Add New Detail</div>
+                               <div class="collapsible-body white pt-1 pb-1">
+                                 @include('web.claim.berita-acara._form_detail')
+                               </div>
+                           </li>
+                        </ul>
+                    </div>
+                    <div class="card-content">
+                        <ul class="collapsible">
+                           <li class="active">
+                               <div class="collapsible-header">Detail</div>
+                               <div class="collapsible-body white pt-1 pb-1">
+                                <table id="data-table-section-contents" class="display" width="100%">
+                                  <thead>
+                                      <tr>
+                                        <th data-priority="1" width="30px">No.</th>
+                                        <th>No DO</th>
+                                        <th>Model/Item No.</th>
+                                        <th>No Seri</th>
+                                        <th>Qty</th>
+                                        <th>Jenis Kerusakan</th>
+                                        <th>Keterangan</th>
+                                        <th width="50px;"></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  </tbody>
+                              </table>
+                               </div>
+                           </li>
+                        </ul>
+                    </div>
             </div>
         </div>
         <div class="content-overlay"></div>
