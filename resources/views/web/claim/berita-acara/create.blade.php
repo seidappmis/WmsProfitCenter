@@ -55,6 +55,7 @@
                                         <th>No Seri</th>
                                         <th>Qty</th>
                                         <th>Jenis Kerusakan</th>
+                                        <th>Photo</th>
                                         <th>Keterangan</th>
                                         <th width="50px;"></th>
                                       </tr>

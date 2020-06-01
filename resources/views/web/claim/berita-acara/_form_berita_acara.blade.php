@@ -75,20 +75,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
-            <td>Damaged Unit Photo</td>
-            <td>
-                <div class="file-field input-field">
-                  <div class="btn">
-                    <span>Browse</span>
-                    <input type="file">
-                  </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
-                  </div>
-                </div>
-            </td>
-        </tr>
+        
     </table>
     {!! get_button_view(url('berita-acara/1'), 'Save') !!}
     {!! get_button_cancel(url('berita-acara'), 'Back') !!}
