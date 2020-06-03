@@ -27,8 +27,6 @@
                 </a>
               </div>
             </div>
-            <div class="col s12 m3">
-            </div>
         </div>
     @endcomponent
     

@@ -13,20 +13,6 @@
                     <li class="breadcrumb-item active">Claim Notes</li>
                 </ol>
             </div>
-            {{-- <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                  </div>
-                </div>
-                <a href="{{ url('claim-notes/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  New Claim Note
-                </a>
-              </div>
-            </div> --}}
             <div class="col s12 m3">
             </div>
         </div>
@@ -39,24 +25,28 @@
                     <div class="card-content p-0">
                       <ul class="collapsible m-0">
                         <li class="active">
-                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Claim Notes Carton Box</div>
-                          <div class="collapsible-body p-0">
-                            <div class="row mb-0">
-                              <div class="col s12 offset-m6 m3">
-                                <div class="app-wrapper ml-2 mt-2 mr-2">
+                          <div class="collapsible-header p-0">
+                            <div class="row">
+                              <div class="col s12 m8">
+                                <div class="collapsible-main-header">
+                                  <i class="material-icons expand">expand_less</i>
+                                  <span>Claim Notes Carton Box</span>
+                                </div>
+                                <a href="{{ url('claim-notes/create-carton-box') }}" class="btn btn-large waves-effect waves-light btn-add right no-propagation" type="submit" name="action">
+                                  New Claim Note Carton Box
+                                </a>
+                              </div>
+                              <div class="col s12 m4">
+                                <div class="app-wrapper">
                                   <div class="datatable-search mb-0">
                                     <i class="material-icons mr-2 search-icon">search</i>
-                                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                                    <input type="text" placeholder="Search" class="app-filter no-propagation" id="global_filter">
                                   </div>
                                 </div>
                               </div>
-                              <div class="col s12 m3">
-                                <a href="{{ url('claim-notes/create-carton-box') }}" class="btn btn-large waves-effect waves-light btn-add mt-2" type="submit" name="action">
-                                  New Claim Note
-                                </a>
-                              </div>
                             </div>
-
+                          </div>
+                          <div class="collapsible-body p-0">
                             <div class="section-data-tables"> 
                               <table id="data-table-claim-notes-box" class="display" width="100%">
                                   <thead>
@@ -104,23 +94,28 @@
                     <div class="card-content p-0">
                       <ul class="collapsible m-0">
                         <li class="active">
-                          <div class="collapsible-header"><i class="material-icons">filter_drama</i>Claim Notes Unit</div>
-                          <div class="collapsible-body p-0">
-                            <div class="row mb-0">
-                              <div class="col s12 offset-m6 m3">
-                                <div class="app-wrapper ml-2 mt-2 mr-2">
+                          <div class="collapsible-header p-0">
+                            <div class="row">
+                              <div class="col s12 m8">
+                                <div class="collapsible-main-header">
+                                  <i class="material-icons expand">expand_less</i>
+                                  <span>Claim Notes Unit</span>
+                                </div>
+                                <a href="{{ url('claim-notes/create-unit') }}" class="btn btn-large waves-effect waves-light btn-add right no-propagation" type="submit" name="action">
+                                  New Claim Note Unit
+                                </a>
+                              </div>
+                              <div class="col s12 m4">
+                                <div class="app-wrapper">
                                   <div class="datatable-search mb-0">
                                     <i class="material-icons mr-2 search-icon">search</i>
-                                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                                    <input type="text" placeholder="Search" class="app-filter no-propagation" id="global_filter">
                                   </div>
                                 </div>
                               </div>
-                              <div class="col s12 m3">
-                                <a href="{{ url('claim-notes/create-unit') }}" class="btn btn-large waves-effect waves-light btn-add mt-2" type="submit" name="action">
-                                  New Claim Note
-                                </a>
-                              </div>
                             </div>
+                          </div>
+                          <div class="collapsible-body p-0">
 
                             <div class="section-data-tables"> 
                               <table id="data-table-claim-notes-unit" class="display" width="100%">

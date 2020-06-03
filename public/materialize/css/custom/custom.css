@@ -13,6 +13,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .row {
     margin-bottom: 20px;
 }
+.section {
+    padding: 0;
+}
+.sidenav li > a {
+    font-size: 13px;
+}
 .navbar .navbar-dark {
     background: linear-gradient(90deg, #25364b, #344b68);
     !important;
@@ -39,7 +45,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     color: #ffca22;
 }
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
-    background-position: center right 10px;
+    background-position: center right 5px;
 }
 .datatable-search .app-filter {
     background-color: #fff !important;
@@ -93,7 +99,24 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     color: #0b0504;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable tbody tr td:before, #main .section-data-tables .dataTables_wrapper table.dataTable tbody tr th:before {
-    left: 5px !important;
+    top: 13px !important;
+    left: 2px !important;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable th.datatable-checkbox-cell {
+    text-align: end;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody td.datatable-checkbox-cell {
+    padding: 8px 0px 8px 20px !important;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody th, #main .section-data-tables .dataTables_wrapper table.dataTable tbody td {
+    padding: 5px 5px;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable th, #main .section-data-tables .dataTables_wrapper table.dataTable td {
+    padding: 10px 5px;
+    color: #1b1818 !important;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable th.sorting, #main .section-data-tables .dataTables_wrapper table.dataTable th.sorting_desc, #main .section-data-tables .dataTables_wrapper table.dataTable th.sorting_asc {
+    padding: 10px 15px 10px 5px;
 }
 .modal .select2-container--default .select2-selection--single {
     background-color: transparent;
@@ -166,7 +189,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     transform-origin: 100% 100%;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable thead th {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable th, #main .section-data-tables .dataTables_wrapper table.dataTable td {
@@ -217,7 +240,7 @@ table .btn, table .btn-large, table .btn-small, table .btn-flat {
     text-transform: none;
 }
 td, th {
-    font-size: 13px;
+    font-size: .8em;
     color: #34363f;
 }
 .form-table th, .form-table td {
@@ -295,4 +318,29 @@ table.table-scroll-x {
     resize: none;
     height: 300px;
     border: 1px solid #e0e0e0;
+}
+.collapsible li i.expand {
+    font-size: 1.6rem;
+    display: inline-block;
+    width: 2rem;
+    margin-right: 0;
+    text-align: center;
+    position: relative;
+    top: 5px;
+}
+.collapsible li.active i.expand {
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -webkit-transform: rotate(180deg);
+    /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+.collapsible-header .row {
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 0px ;
+}
+.collapsible-header .collapsible-main-header {
+    padding: 5px;
+    display: inline-block;
 }

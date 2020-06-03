@@ -1,5 +1,5 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
+@include('web.picking.upload-do-for-picking.modal-upload-do')
 
 @section('content')
 <div class="row">
@@ -30,22 +30,29 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <div class="row">
-                            <div class="col s12 m6 mt-2">
+                        <div class="row mb-1">
+                            <div class="col s12 m6">
                               <div class="display-flex">
                                 <!---- Search ----->
                                 <!-- Modal Trigger -->
                                 <a class="waves-effect waves-light btn modal-trigger indigo btn mt-2 mr-1 mb-1" href="#modal1">Upload DO</a>
-                                {!! get_button_save('Multi Delete Selected Items') !!}
+                                {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item') !!}
                               </div>
                             </div>
                         </div>
                         
                         <div class="section-data-tables"> 
-                          <table id="multi-select" class="display" width="100%">
+                        {{-- <div class="">  --}}
+                          <table id="do-for-picking-table" class="display" width="100%">
                               <thead>
                                   <tr>
-                                    <th data-priority="1" width="30px">No.</th>
+                                    <th data-priority="1" class="datatable-checkbox-cell" width="30px">
+                                      <label>
+                                          <input type="checkbox" class="select-all" />
+                                          <span></span>
+                                      </label>
+                                    </th>
+                                    <th data-priority="2" width="30px">No.</th>
                                     <th>DELIVERY NO.</th>
                                     <th>DELIVERY ITEM</th>
                                     <th>DO DATE</th>
@@ -53,25 +60,11 @@
                                     <th>CUSTOMER NAME</th>
                                     <th>MODEL</th>
                                     <th>EAN CODE</th>
-                                    <th>QUANTITY</th>
+                                    <th>QTY</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>21600161467</td>
-                                  <td>10</td>
-                                  <td>26.11.2019</td>
-                                  <td>16A120000</td>
-                                  <td>PT.ATAKRIB GROUP</td>
-                                  <td>S1316MG-GB</td>
-                                  <td>8997878549879754</td>
-                                  <td>7</td>
-                                  <td width="50px;">
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr>
                               </tbody>
                           </table>
                         </div>
@@ -79,88 +72,155 @@
                     </div>
                 </div>
             </div>
-            <!---- Button Add ----->
-            <!-- <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
-            </div> -->
         </div>
         <div class="content-overlay"></div>
     </div>
 </div>
 @endsection
 
-@push('page-modal')
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Upload DO Picking</h4>
-      <div class="row">
-        
-        <div class="col s12 m2">
-          <p>Data File</p>
-        </div>  
-        
-        <div class="col s12 m10">
-          <div class="file-field input-field">
-            <div class="btn indigo btn">
-              <span>Browse</span>
-              <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Select File   Format File : csv">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-        <div class="col s12 m2">
-          <p></p>
-        </div>  
-        <div class="col s12 m10">
-          <p>Format Layout coloumn :</p>
-          <p>[Plant],[D/O No.],[D/O Date],[Posting Date],[Item],[S/O No.],[S/O Date],[Customer Code],[Customer Name],[Material],[Delivery Quantity],[SU],[Gross Weight],[Total Weight],[Un.],[Volume],[Total Volume],[VUn]</p>
-        </div>
-      </div>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
-    <span class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</span>
-  </div>
-</div>
-</div>
+@push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
 @endpush
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#multi-select').DataTable({
-        serverSide: false,
-        scrollX: true,
-        // responsive: true,
-        // ajax: {
-        //     url: '/',
-        //     type: 'GET',
-        //     data: function(d) {
-        //         d.search['value'] = $('#global_filter').val()
-        //       }
-        // },
-        order: [1, 'asc'],
-        // columns: [
-        //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        //     {data: 'content_title', name: 'content_title', className: 'detail'},
-        //     {data: 'video', name: 'video', className: 'detail', orderable: false, searchable: false},
-        //     {data: 'summary_title', name: 'summary_title', className: 'detail'},
-        //     {data: 'question_package_id', name: 'question_package_id', className: 'detail'},
-        //     {data: 'action', className: 'center-align'},
-        // ]
+  $("#form-upload-do-for-picking").validate({
+      submitHandler: function(form) {
+        var fdata = new FormData(form);
+        $.ajax({
+          url: '{{ url("upload-do-for-picking") }}',
+          type: 'POST',
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) { // selesai dan berhasil
+          data_concept = data;
+          if (data.status == false) {
+            $('#table-concept tbody').empty();
+            swal("Failed!", data.message, "warning");
+            return;
+          }
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              $('#concept-wrapper').show();
+              $('#table-concept tbody').empty();
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
+
+    var dtdatatable = $('#do-for-picking-table').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('upload-do-for-picking') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [2, 'asc'],
+    columns: [
+        {
+          data: 'DT_RowIndex',
+          orderable: false,
+          render: function ( data, type, row ) {
+              if ( type === 'display' ) {
+                  return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+              }
+              return data;
+          },
+          className: "datatable-checkbox-cell"
+        },
+        // {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
+        {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
+        {data: 'do_date', name: 'do_date', className: 'detail'},
+        {data: 'kode_customer', name: 'kode_customer', className: 'detail'},
+        {data: 'long_description_customer', name: 'long_description_customer', className: 'detail'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'ean_code', name: 'ean_code', className: 'detail'},
+        {data: 'quantity', name: 'quantity', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ],
+  });
+
+    jQuery(document).ready(function($) {
+      dtdatatable.ajax.reload(null, false)
+    });
+
+    set_datatables_checkbox('#do-for-picking-table', dtdatatable)
+
+    $('.btn-multi-delete-selected-item').click(function(event) {
+      /* Act on the event */
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure delete selected DO items?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        var data_do = [];
+        dtdatatable.$('input[type="checkbox"]').each(function() {
+           /* iterate through array or object */
+           if(this.checked){
+            var row = $(this).closest('tr');
+            var row_data = dtdatatable.row(row).data();
+            data_do.push(row_data);
+           }
+        });
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('upload-do-for-picking/multi-delete-selected-item') }}' ,
+            type: 'DELETE',
+            data: 'data_do=' + JSON.stringify(data_do),
+          })
+          .done(function() { // Kalau ajax nya success
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            if ($('thead input[type="checkbox"]', dtdatatable.table().container()).checked) {
+              $('thead input[type="checkbox"]', dtdatatable.table().container()).trigger('click')
+            }
+            dtdatatable.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
+    });
+
 
     dtdatatable.on('click', '.btn-edit', function(event) {
       var id = $(this).data('id');
       window.location.href = '' ;
     });
 
+    $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
     dtdatatable.on('click', '.btn-delete', function(event) {
-      var id = $(this).data('id');
       event.preventDefault();
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
@@ -175,8 +235,9 @@
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: id,
+            url: '{{ url('upload-do-for-picking') }}' ,
             type: 'DELETE',
+            data: 'invoice_no=' + data.invoice_no + '&delivery_no=' + data.delivery_no + '&delivery_items=' + data.delivery_items 
           })
           .done(function() { // Kalau ajax nya success
             swal("Good job!", "You clicked the button!", "success") // alert success

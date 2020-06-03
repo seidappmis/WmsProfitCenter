@@ -21,8 +21,8 @@ function get_button_edit($url = '#', $label = "Edit", $class = 'btn-edit'){
 }
 
 // delete, clear
-function get_button_delete($label = "Delete"){
-  return '<a class="waves-effect waves-light red darken-4 btn-small btn-delete mt-2" >' . $label . '</a>';
+function get_button_delete($label = "Delete", $class = 'btn-delete'){
+  return '<a class="waves-effect waves-light red darken-4 btn-small ' . $class . ' mt-2" >' . $label . '</a>';
 }
 
 // save, update, submit, load
