@@ -48,7 +48,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @foreach($manifestHeader->details AS $key => $manifestDetail)
                               <tr>
+                                @if($key == 0)
+                                <td rowspan="{{$manifestHeader->details->count()}}"></td>
+                                @endif
+                                <td>{{$manifestDetail->invoice_no}}</td>
+                                <td>{{$manifestDetail->line_no}}</td>
+                                <td>{{$manifestDetail->delivery_no}}</td>
+                                <td>{{$manifestDetail->delivery_items}}</td>
+                                <td>{{$manifestDetail->model}}</td>
+                                <td>{{$manifestDetail->quantity}}</td>
+                                <td>{{$manifestDetail->cbm}}</td>
+                                <td>-</td>
+                                <td><a href="#" class="btn btn-small">Overload</a></td>
+                              </tr>
+                              @endforeach
+                              {{-- <tr>
                                 <td rowspan="4">KRW-200207-023</td>
                                 <td>1000402706</td>
                                 <td>1</td>
@@ -92,14 +108,15 @@
                                 <td>2.106</td>
                                 <td>-</td>
                                 <td><a href="#" class="btn btn-small">Overload</a></td>
-                              </tr>
+                              </tr> --}}
                             </tbody>
                         </table>
                       </div>
                       <!-- datatable ends -->
-                    </div>
-                    <div class="card-content p-0">
-
+                      <div class="mt-2">
+                        {!!get_button_save('Complete', 'btn-complete')!!}
+                        {!! get_button_cancel(url('complete'), 'Back') !!}
+                      </div>
                     </div>
                 </div>
             </div>
@@ -108,3 +125,39 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.btn-complete').click(function(event) {
+      /* Act on the event */
+      swal({
+        text: "Are you sure to complete this data?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Complete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('complete/' . $manifestHeader->driver_register_id . '/complete') }}' ,
+            type: 'POST',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('complete') }}"
+            }) // alert success
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
+  });
+</script>
+@endpush

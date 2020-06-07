@@ -5,14 +5,14 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m6">
+          <div class="col s12 m5">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Complete</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                   <li class="breadcrumb-item active">Complete</li>
               </ol>
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -31,7 +31,7 @@
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                    <input type="text" placeholder="Search" class="app-filter" id="complete-filter">
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="complete-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -58,7 +58,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>Waiting D/O</td>
                                   <td>B_9168_UO<br>ANDI_</td>
@@ -80,7 +80,7 @@
                                     {!! get_button_view(url('complete/1'), 'View Detail') !!}
                                     {!! get_button_return('#', 'Back to Loading') !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -96,8 +96,39 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+    var dttable_complete
+    jQuery(document).ready(function($) {
+      
+      dttable_complete = $('#complete-table').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('complete') }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#complete-filter').val(),
+                d.area = $('#area_filter').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'status', name: 'status', className: 'detail'},
+            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
+            {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        ]
+      });
+      $("input#complete-filter").on("keyup click", function () {
+        filterManifestBranch();
+      });
     });
+
+  function filterManifestBranch(){
+    dttable_complete.search($("#complete-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

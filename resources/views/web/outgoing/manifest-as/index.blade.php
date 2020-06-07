@@ -5,14 +5,14 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m4">
+          <div class="col s12 m5">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Manifest AS</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                   <li class="breadcrumb-item active">Manifest AS</li>
               </ol>
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -25,7 +25,7 @@
                   </div>
                 </div>
           </div>
-          <div class="col s12 m6">
+          <div class="col s12 m4">
               <div class="display-flex">
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
@@ -34,10 +34,6 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  {{-- <i class="material-icons right">add</i> --}}
-                  New
-                </button>
               </div>
             </div>
       </div>
