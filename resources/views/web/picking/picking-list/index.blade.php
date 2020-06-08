@@ -84,17 +84,25 @@
               <div class="section">
                   <div class="card">
                       <div class="card-content p-0">
-                          <div class="row">
+                          <div class="row mb-1 mt-1">
                               <div class="col s12 m6 mt-0">
                                 <div class="display-flex">
                                   <!---- Search ----->
-                                  {!! get_button_view(url('picking-list/create'),'New Picking List') !!}
+                                  <a href="{{ url('picking-list/create') }}" class="btn btn-large waves-effect waves-light btn-add">New Picking List</a>
+                                </div>
+                              </div>
+                              <div class="col m6">
+                                <div class="app-wrapper ml-2 mr-2">
+                                  <div class="datatable-search mb-0">
+                                    <i class="material-icons mr-2 search-icon">search</i>
+                                    <input type="text" placeholder="Search" class="app-filter" id="picking_list_filter">
+                                  </div>
                                 </div>
                               </div>
                           </div>
 
                           <div class="section-data-tables">
-                            <table id="multi-select" class="display" width="100%">
+                            <table id="picking-list-table" class="display" width="100%">
                                 <thead>
                                     <tr>
                                       <th data-priority="1">PICKING DATE</th>
@@ -119,7 +127,7 @@
                                     <td>DO Already</td>
                                     <td>-</td>
                                     <td>
-                                      {!! get_button_edit(url('picking-list/create')) !!}
+                                      {!! get_button_edit(url('picking-list/1/edit')) !!}
                                       {!! get_button_view('Cancel') !!}
                                     </td>
                                   </tr>
@@ -141,46 +149,6 @@
 </div>
 @endsection
 
-@push('page-modal')
-<!-- Modal Structure -->
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Upload DO Picking</h4>
-      <div class="row">
-
-        <div class="col s12 m2">
-          <p>Data File</p>
-        </div>
-
-        <div class="col s12 m10">
-          <div class="file-field input-field">
-            <div class="btn indigo btn">
-              <span>Browse</span>
-              <input type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Select File   Format File : csv">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-        <div class="col s12 m2">
-          <p></p>
-        </div>
-        <div class="col s12 m10">
-          <p>Format Layout coloumn :</p>
-          <p>[Plant],[D/O,Date],[Posting Date]</p>
-          <p>[Material]</p>
-        </div>
-      </div>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn indigo">Upload</a>
-  </div>
-</div>
-</div>
-@endpush
 
 @push('script_js')
 <script type="text/javascript">
@@ -228,26 +196,29 @@
       dt_table_transporter.search($("#transporter_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 
-    var dtdatatable = $('#multi-select').DataTable({
-        serverSide: false,
+    var dtdatatable = $('#picking-list-table').DataTable({
+        serverSide: true,
         scrollX: true,
         responsive: true,
-        // ajax: {
-        //     url: '/',
-        //     type: 'GET',
-        //     data: function(d) {
-        //         d.search['value'] = $('#global_filter').val()
-        //       }
-        // },
+        ajax: {
+            url: '{{url('picking-list')}}',
+            type: 'GET',
+            data: function(d) {
+              d.search['value'] = $('#picking_list_filter').val()
+            }
+        },
         order: [1, 'asc'],
-        // columns: [
-        //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        //     {data: 'content_title', name: 'content_title', className: 'detail'},
-        //     {data: 'video', name: 'video', className: 'detail', orderable: false, searchable: false},
-        //     {data: 'summary_title', name: 'summary_title', className: 'detail'},
-        //     {data: 'question_package_id', name: 'question_package_id', className: 'detail'},
-        //     {data: 'action', className: 'center-align'},
-        // ]
+        columns: [
+            {data: 'picking_date', name: 'picking_date', className: 'detail'},
+            {data: 'picking_no', name: 'picking_no', className: 'detail'},
+            {data: 'driver_name', name: 'driver_name', className: 'detail'},
+            {data: 'city_name', name: 'city_name', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'storage_type', name: 'storage_type', className: 'detail'},
+            {data: 'do_status', name: 'do_status', className: 'detail'},
+            {data: 'lmb', name: 'lmb', className: 'detail'},
+            {data: 'action', className: 'center-align', orderable:false, searchable: false},
+        ]
     });
 
     dtdatatable.on('click', '.btn-edit', function(event) {

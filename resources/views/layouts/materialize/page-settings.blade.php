@@ -1,12 +1,25 @@
 <script type="text/javascript">
+    initiateCloseNav()
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
     $('.collapsible-header .no-propagation').click(function(e){ e.stopPropagation(); });
 
-    initiateCloseNav()
+    jQuery(document).ready(function($) {
+      // add class styling for select2
+      $.each($('select'), function(index, val) {
+         /* iterate through array or object */
+         if ($(val).is(':required')) {
+          $(val).parent().find('span.select2-selection').addClass('select2-required')
+         }
+      });
+
+      $('.datepicker').datepicker();
+    });
+
 
     // jQuery.validator.setDefaults({
     //   errorElement : 'div',
@@ -34,9 +47,6 @@
     complete: function() { alert('Closed'); } // Callback for Modal close
 });
 
-  jQuery(document).ready(function($) {
-      $('.datepicker').datepicker();
-  });
 
 function get_select2_ajax_options(url) {
   return {

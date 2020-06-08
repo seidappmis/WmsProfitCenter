@@ -16,7 +16,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .section {
     padding: 0;
 }
-.sidenav li > a {
+.sidenav li>a {
     font-size: 13px;
 }
 .navbar .navbar-dark {
@@ -99,17 +99,20 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     color: #0b0504;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable tbody tr td:before, #main .section-data-tables .dataTables_wrapper table.dataTable tbody tr th:before {
-    top: 13px !important;
+    top: 5px !important;
     left: 2px !important;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable th.datatable-checkbox-cell {
     text-align: end;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable tbody td.datatable-checkbox-cell {
-    padding: 8px 0px 8px 20px !important;
+    padding: 0px 0px 0px 20px !important;
 }
-#main .section-data-tables .dataTables_wrapper table.dataTable tbody th, #main .section-data-tables .dataTables_wrapper table.dataTable tbody td {
-    padding: 5px 5px;
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody tr {
+    line-height: 2;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody td {
+    padding: 0px 5px 2px;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable th, #main .section-data-tables .dataTables_wrapper table.dataTable td {
     padding: 10px 5px;
@@ -240,8 +243,9 @@ table .btn, table .btn-large, table .btn-small, table .btn-flat {
     text-transform: none;
 }
 td, th {
-    font-size: .8em;
+    font-size: 12px;
     color: #34363f;
+    padding: 5px 5px;
 }
 .form-table th, .form-table td {
     font-size: 14px;
@@ -270,6 +274,9 @@ td, th {
 .form-table input:required, .form-table textarea.materialize-textarea:required {
     background-color: #f5da438f;
 }
+.select2-required {
+    background-color: #f5da438f !important;
+}
 .form-table .dropdown-content li {
     min-height: 30px;
 }
@@ -289,6 +296,20 @@ td, th {
     line-height: 2rem;
     float: left;
     height: 2rem;
+}
+.form-table .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 30px;
+}
+.form-table .select2-container--default .select2-selection--single .select2-selection__arrow b {
+    left: 30%;
+    top: 31%;
+}
+.form-table .select2-container--default .select2-selection--multiple, .form-table .select2-container--default .select2-selection--single, .form-table .select2-container--default.select2-container--focus .select2-selection--multiple {
+    height: 30px;
+    border-bottom: 1px solid #d8d8d8;
+}
+.select2-results__option {
+    padding: .2rem;
 }
 .datepicker-calendar {
     padding: 15px !important;
@@ -338,9 +359,16 @@ table.table-scroll-x {
 .collapsible-header .row {
     width: 100%;
     margin-top: 7px;
-    margin-bottom: 0px ;
+    margin-bottom: 0px;
 }
 .collapsible-header .collapsible-main-header {
     padding: 5px;
     display: inline-block;
+}
+.table-pick-list-result td, .table-pick-list-result th {
+    font-size: 11px !important;
+    padding: 3px 2px !important;
+}
+.table-pick-list-result tbody tr {
+    cursor: pointer;
 }

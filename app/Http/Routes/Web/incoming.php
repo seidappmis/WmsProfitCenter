@@ -12,11 +12,16 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('incoming-import-oem', 'Web\IncomingImportOEMController');
 
   // Conform Manifest
-  Route::view('conform-manifest', 'web.incoming.conform-manifest.index');
+  Route::get('conform-manifest', 'Web\ConformManifestController@index');
+  Route::get('conform-manifest/from-manifest-hq', 'Web\ConformManifestController@listManifestHQ');
+  Route::get('conform-manifest/from-manifest-branch', 'Web\ConformManifestController@listManifestBranch');
   Route::view('conform-manifest/{id}', 'web.incoming.conform-manifest.view');
 
   // Billing Return
-  Route::view('billing-return', 'web.incoming.billing-return.index');
-  Route::view('billing-return/{id}', 'web.incoming.billing-return.view');
+  Route::get('billing-return', 'Web\BillingReturnController@index');
+  Route::get('billing-return/pending-billing-return-branch', 'Web\BillingReturnController@listPendingBillingBranch');
+  Route::get('billing-return/return-billing-branch', 'Web\BillingReturnController@listReturnBillingBranch');
+  Route::get('billing-return/{id}/view-for-submit', 'Web\BillingReturnController@showSubmit');
+  // Route::view('billing-return', 'web.incoming.billing-return.index');
 
 });

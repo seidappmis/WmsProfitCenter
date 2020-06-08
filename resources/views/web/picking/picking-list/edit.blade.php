@@ -27,7 +27,8 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>CREATE / EDIT</div>
                       <div class="collapsible-body padding-1">
                           @include('web.picking.picking-list._form_picking_list')
-                          {{-- @include('web.picking.picking-list._form_assign_item_picking') --}}
+                          @include('web.picking.picking-list._table_picking_list_detail')
+                          @include('web.picking.picking-list._form_assign_item_picking')
                       </div>
                     </li>
                   </ul>
@@ -43,31 +44,11 @@
 </div>
 @endsection
 
-@push('vendor_js')
-<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
-</script>
-@endpush
-
 @push('script_js')
 <script type="text/javascript">
-    $("#form-picking-list").validate({
-      submitHandler: function(form) {
-        $.ajax({
-          url: '{{ url("picking-list") }}',
-          type: 'POST',
-          data: $(form).serialize(),
-        })
-        .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-list') }}" + '/' + data.id + '/edit';
-            }) // alert success
-        })
-        .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
-      }
-    });
+ 	jQuery(document).ready(function($) {
+    set_select2_value('#form-picking-list [name="storage_id"]', '{{$pickinglistHeader->storage_id}}', '{{$pickinglistHeader->storage_type}}')
+    set_select2_value('#form-picking-list [name="city_code"]', '{{$pickinglistHeader->city_code}}', '{{$pickinglistHeader->city_name}}')
+  });
 </script>
 @endpush

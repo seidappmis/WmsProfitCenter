@@ -26,13 +26,13 @@ function get_button_delete($label = "Delete", $class = 'btn-delete'){
 }
 
 // save, update, submit, load
-function get_button_save($label = "Save"){
-  return '<button type="submit" class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1">' . $label . '</button>';
+function get_button_save($label = "Save", $class = 'btn-save'){
+  return '<button type="submit" class="waves-effect waves-light indigo btn-small ' . $class . '">' . $label . '</button>';
 }
 
 // cancel, back
 function get_button_cancel($url = '#', $label = "Cancel"){
-  return '<a class="waves-effect btn-flat mt-2 mb-1" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect btn-flat" href="' . $url . '">' . $label . '</a>';
 }
 
 // cancel modal

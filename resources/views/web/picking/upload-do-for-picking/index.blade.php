@@ -42,7 +42,6 @@
                         </div>
                         
                         <div class="section-data-tables"> 
-                        {{-- <div class="">  --}}
                           <table id="do-for-picking-table" class="display" width="100%">
                               <thead>
                                   <tr>
@@ -189,7 +188,7 @@
           })
           .done(function() { // Kalau ajax nya success
             swal("Good job!", "You clicked the button!", "success") // alert success
-            if ($('thead input[type="checkbox"]', dtdatatable.table().container()).checked) {
+            if ($('thead input[type="checkbox"]', dtdatatable.table().container()).attr("checked")) {
               $('thead input[type="checkbox"]', dtdatatable.table().container()).trigger('click')
             }
             dtdatatable.ajax.reload(null, false); // reload datatable

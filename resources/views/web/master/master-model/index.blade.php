@@ -7,16 +7,14 @@
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m12 mb-2">
+            <div class="col s12 m4">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Master Model</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Master Model</li>
                 </ol>
             </div>
-        </div>
-        <div class="row">
-          <div class="col s12 m7">
+          <div class="col s12 m5">
             <div class="display-flex">
               <!---- Search ----->
               <div class="app-wrapper mr-4">
