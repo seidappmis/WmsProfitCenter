@@ -82,10 +82,10 @@
                                   <td>2020-02-02</td>
                                   <td>2020-02-02</td>
                                   <th width="50px;">
-                                    {!! get_button_edit(url('stock-take-schedule/edit')) !!}
+                                    {!! get_button_edit(url('stock-take-schedule/1/edit')) !!}
                                     {!! get_button_delete() !!}
-                                    {!! get_button_view(url('stock-take-schedule/detail'), 'View Detail') !!}
-                                    {!! get_button_edit(url('#'), 'Finish') !!}
+                                    {!! get_button_view(url('stock-take-schedule/1'), 'View Detail') !!}
+                                    {!! get_button_save('Finish') !!}
                                   </th>
                                 </tr>
                               </tbody>

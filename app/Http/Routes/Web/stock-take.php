@@ -1,10 +1,8 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::view('stock-take-schedule', 'web.stock-take.stock-take-schedule.index');
-  Route::view('stock-take-schedule/create', 'web.stock-take.stock-take-schedule.create');
-  Route::view('stock-take-schedule/detail', 'web.stock-take.stock-take-schedule.detail');
-  Route::view('stock-take-schedule/edit', 'web.stock-take.stock-take-schedule.edit');
+  // Stock Take Schedule
+  Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
 
   Route::view('stock-take-create-tag', 'web.stock-take.stock-take-create-tag.index');
   Route::view('stock-take-create-tag/create', 'web.stock-take.stock-take-create-tag.create');
