@@ -108,7 +108,7 @@
                     type="text" 
                     class="validate"
                     name="phone1"
-                    value="{{old('phone1', !empty($masterDriver) ? $masterDriver->phone1 : '')}}" 
+                    value="{{old('phone1', !empty($masterDriver) ? $masterDriver->phone1 : '')}}" >
                     
                 </div>
             </td>
@@ -137,7 +137,7 @@
                     type="text" 
                     class="validate" 
                     name="remarks1"
-                    value="{{old('remarks1', !empty($masterDriver) ? $masterDriver->remarks1 : '')}}" 
+                    value="{{old('remarks1', !empty($masterDriver) ? $masterDriver->remarks1 : '')}}" >
                     
                 </div>
             </td>
@@ -149,7 +149,8 @@
                    <input id="remarks2" 
                    type="text"
                     class="validate" 
-                    name="value="{{old('remarks2', !empty($masterDriver) ? $masterDriver->remarks2 : '')}}" 
+                    name="remarks2"
+                    value="{{old('remarks2', !empty($masterDriver) ? $masterDriver->remarks2 : '')}}" >
                     
                 </div>
             </td>
@@ -162,7 +163,7 @@
                    type="text" 
                    class="validate" 
                    name="remarks3"
-                   value="{{old('remarks3', !empty($masterDriver) ? $masterDriver->remarks3 : '')}}" 
+                   value="{{old('remarks3', !empty($masterDriver) ? $masterDriver->remarks3 : '')}}" >
                     
                 </div>
             </td>

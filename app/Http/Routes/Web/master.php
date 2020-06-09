@@ -4,9 +4,10 @@ Route::group(['middleware' => 'auth'], function () {
     // Master Gate
     Route::resource('master-gate', 'Web\GateController');
 
+    // Select2 Region
+    Route::get('region/select2-region', 'Web\RegionController@getSelect2Region');
+
     // Master Destination
-    Route::get('master-destination/select2-cabang', 'Web\MasterDestinationController@getSelect2Cabang');
-    Route::get('master-destination/select2-current-region', 'Web\MasterRegionController@getSelect2CurrentRegion');
     Route::get('master-destination/select2-destination', 'Web\MasterDestinationController@getSelect2Destination');
     Route::resource('master-destination', 'Web\MasterDestinationController');
 

@@ -1,9 +1,25 @@
 <script type="text/javascript">
+    initiateCloseNav()
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $('.collapsible-header .no-propagation').click(function(e){ e.stopPropagation(); });
+
+    jQuery(document).ready(function($) {
+      // add class styling for select2
+      $.each($('select'), function(index, val) {
+         /* iterate through array or object */
+         if ($(val).is(':required')) {
+          $(val).parent().find('span.select2-selection').addClass('select2-required')
+         }
+      });
+
+      $('.datepicker').datepicker();
+    });
+
 
     // jQuery.validator.setDefaults({
     //   errorElement : 'div',
@@ -31,9 +47,6 @@
     complete: function() { alert('Closed'); } // Callback for Modal close
 });
 
-  jQuery(document).ready(function($) {
-      $('.datepicker').datepicker();
-  });
 
 function get_select2_ajax_options(url) {
   return {
@@ -86,6 +99,70 @@ function showSwalError(xhr){
 function set_select2_value(selector, id, text) {
   let val = '<option value="' + id + '" selected>' + text + '</option>';
   $(selector).append(val).trigger('change');
+}
+
+function set_datatables_checkbox(tableSelector, datatable_object) {
+  $(tableSelector + ' tbody').on('change', 'input[type="checkbox"]', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var row = $(this).closest('tr');
+    var data = datatable_object.row(row).data();
+    row.toggleClass('selected');
+
+    if ($(this).attr("checked")) {
+      $(this).attr('checked', false);
+    } else {
+      $(this).attr('checked', true);
+    }
+  });
+
+  // SElect All
+  $('thead input[type="checkbox"]', datatable_object.table().container()).on('click', function (e) {
+      if (this.checked) {
+          $(this).attr('checked', true);
+          $(tableSelector + ' tbody input[type="checkbox"]:not(:checked)').trigger('click');
+      } else {
+          $(this).attr('checked', false);
+          $(tableSelector + ' tbody input[type="checkbox"]:checked').trigger('click');
+      }
+
+      // Prevent click event from propagating to parent
+      e.stopPropagation();
+  });
+}
+$(".nav-collapsible .navbar-toggler").click(function() {
+  if (localStorage.getItem('sidenavClosed') == 1) {
+    localStorage.setItem("sidenavClosed", 0);
+  } else {
+    localStorage.setItem("sidenavClosed", 1);
+  }
+})
+function initiateCloseNav(){
+  if (localStorage.getItem('sidenavClosed') == 1) {
+    $(".sidenav-main").toggleClass("nav-expanded");
+    $("#main").toggleClass("main-full");
+    $('.nav-collapsible .navbar-toggler')
+      .children()
+      .text("radio_button_unchecked");
+   $(".sidenav-main").removeClass("nav-lock");
+   $(".navbar .nav-collapsible").removeClass("sideNav-lock");
+   if (!$(".sidenav-main.nav-collapsible").hasClass("nav-lock")) {
+       var openLength = $(".collapsible .open").children().length;
+       $(".sidenav-main.nav-collapsible, .navbar .nav-collapsible")
+          .addClass("nav-collapsed")
+          .removeClass("nav-expanded");
+       $("#slide-out > li.open > a")
+          .parent()
+          .addClass("close")
+          .removeClass("open");
+       setTimeout(function() {
+          // Open only if collapsible have the children
+          if (openLength > 1) {
+             $(".collapsible").collapsible("close", $(".collapsible .close").index());
+          }
+       }, 100);
+    }
+  }
 }
 
 </script>

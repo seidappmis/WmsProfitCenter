@@ -56,21 +56,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <td>1.</td>
-                                  <td>B 9166 BYT</td>
-                                  <td>MTM-19-001 UYE M</td>
-                                  <td>Colt Diesel 4 Wheel capacity 10 - 25 Cbm</td>
-                                  <td>25.000</td>
-                                  <td>Jakarta</td>
-                                  <td>MARC TRI MANUNGGAL, PT.</td>
-                                  <td>2020-02-06 11:27:25</td>
-                                  <td>
-                                    {!! get_button_view(url('#'),'Select DO') !!}
-                                    {!! get_button_edit() !!}
-                                    {!! get_button_delete('Is Leave') !!}
-                                  </td>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>

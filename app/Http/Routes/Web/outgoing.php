@@ -1,26 +1,33 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-  // Route::view('upload-concept', 'web.outgoing.upload-concept.index');
+  // Upload Concept
   Route::get('upload-concept', 'Web\UploadConceptController@index');
   Route::post('upload-concept', 'Web\UploadConceptController@store');
   Route::post('upload-concept/upload-csv', 'Web\UploadConceptController@uploadCsv');
 
-  // Route::view('idcard-scan', 'web.outgoing.idcard-scan.index');
+  // IDCard Scan
   Route::resource('idcard-scan', 'Web\IdCardScanController');
 
-  // Route::view('assign-vehicles', 'web.outgoing.assign-vehicles.index');
+  // Assign Vehicles
   Route::resource('assign-vehicles', 'Web\AssignVehicleController');
 
-  // Route::view('select-gate', 'web.outgoing.select-gate.index');
+  // Select Gate
   Route::get('select-gate', 'Web\SelectGateController@index');
 
   Route::view('loading-process', 'web.outgoing.loading-process.index');
 
-  Route::view('complete', 'web.outgoing.complete.index');
-  Route::view('complete/{id}', 'web.outgoing.complete.view');
+  // Route::view('complete', 'web.outgoing.complete.index');
+  Route::post('complete/{id}/complete', 'Web\CompleteController@complete');
+  Route::resource('complete', 'Web\CompleteController');
 
-  Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');
+  // Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');
+  Route::get('manifest-regular/truck-waiting-manifest', 'Web\ManifestRegularController@truckWaitingManifest');
+  Route::get('manifest-regular/{lmb_id}/create-manifest', 'Web\ManifestRegularController@createManifest');
+  Route::post('manifest-regular/{driver_register_id}/assign-do', 'Web\ManifestRegularController@assignDO');
+  Route::resource('manifest-regular', 'Web\ManifestRegularController');
+
+
   Route::view('manifest-as', 'web.outgoing.manifest-as.index');
   Route::view('update-manifest', 'web.outgoing.update-manifest.index');
   Route::view('overload-concept-or-do', 'web.outgoing.overload-concept-or-do.index');

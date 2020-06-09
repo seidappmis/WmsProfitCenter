@@ -37,7 +37,7 @@
 
                       <!-- List Barcode -->
                       <h4 class="card-title">List Barcode Detailed from Factory</h4>
-                      <!-- <hr> -->
+                      <hr>
                       <div class="section-data-tables"> 
                         <table id="data-table-list-barcode" class="display" width="100%">
                             <thead>
@@ -54,7 +54,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <tr>
+                             <!--  <tr>
                                 <td>1.</td>
                                 <td>ARV-WHHYP-181003-019</td>
                                 <td>L-TV-1810010006</td>
@@ -65,7 +65,7 @@
                                 <td>HYP-1st Class</td>
                                 <td>
                                 </td>
-                              </tr>
+                              </tr> -->
                             </tbody>
                         </table>
                       </div>
@@ -86,9 +86,28 @@
 <script type="text/javascript">
     var dtdatatable = $('#data-table-list-barcode').DataTable({
         // serverSide: true,
-        // scrollX: true,
+        scrollX: true,
         responsive: true,
-        order: [1, 'asc'],
+      //   ajax: {
+      //     url: '{{ url("finish-good-production") }}',
+      //     type: 'GET',
+      //     data: function(d) {
+      //         d.search['value'] = $('#global_filter').val(),
+      //         d.area = $('#area_filter').val()
+      //       }
+      // },
+      // order: [1, 'asc'],
+      // columns: [
+      //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+      //     {data: 'receipt_no_header', className: 'detail'},
+      //     {data: 'bar_ticket_header', className: 'detail'},
+      //     {data: 'model', className: 'detail'},
+      //     {data: 'quantity', className: 'detail'},
+      //     {data: 'ean_code', className: 'detail'},
+      //     {data: 'print_type', className: 'detail'},
+      //     {data: 'storage_id', className: 'detail'},
+      //     {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      // ]
     });
 </script>
 @endpush

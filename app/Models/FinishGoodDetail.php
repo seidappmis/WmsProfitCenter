@@ -12,4 +12,9 @@ class FinishGoodDetail extends BaseModel
   	{
        return $this->belongsTo('App\Models\FinishGoodHeader', 'receipt_no', 'receipt_no_header');
   	}
+
+  	public function storage()
+  	{
+    	return $this->belongsTo('App\Models\StorageMaster', 'storage_id', 'id');
+  	}
 }

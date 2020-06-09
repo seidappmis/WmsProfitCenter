@@ -22,12 +22,10 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('berita-acara/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                <a href="{{ url('berita-acara/create') }}" class="btn btn-large waves-effect waves-light btn-add">
                   New Berita Acara
                 </a>
               </div>
-            </div>
-            <div class="col s12 m3">
             </div>
         </div>
     @endcomponent
@@ -47,6 +45,7 @@
                                     <th>EXPEDITION NAME</th>
                                     <th>DRIVER</th>
                                     <th>VEHICLE NO.</th>
+                                    <th>STATUS</th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -58,8 +57,20 @@
                                   <td>Expedition 1</td>
                                   <td>Driver 1</td>
                                   <td>B 1231 DE</td>
+                                  <td>PENDING</td>
                                   <td>
-                                    {!! get_button_view(url('berita-acara/1')) !!}
+                                    {!! get_button_print() !!}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>2.</td>
+                                  <td>02/BA-HQ/02/2015</td>
+                                  <td>May 21, 2020</td>
+                                  <td>Expedition 2</td>
+                                  <td>Driver 2</td>
+                                  <td>B 5486 DE</td>
+                                  <td>COMPLETE</td>
+                                  <td>
                                     {!! get_button_print() !!}
                                   </td>
                                 </tr>

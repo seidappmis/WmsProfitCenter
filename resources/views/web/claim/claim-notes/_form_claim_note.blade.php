@@ -12,7 +12,7 @@
                 <input type="text" class="validate" readonly>
             </td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>Type</td>
             <td>
                 <select name="type" class="select2-data-ajax browser-default" required>
@@ -21,7 +21,7 @@
                     <option>Unit</option>
                 </select>
             </td>
-        </tr>
+        </tr> --}}
     </table>
     {!! get_button_view(url('claim-notes/1'), 'Save') !!}
     {!! get_button_cancel(url('claim-notes'), 'Back') !!}

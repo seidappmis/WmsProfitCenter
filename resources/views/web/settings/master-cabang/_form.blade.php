@@ -114,8 +114,8 @@
    jQuery(document).ready(function($) {
       // Loading region data
       $('.select-region').select2({
-         placeholder: '-- Select Region--',
-         ajax: get_select2_ajax_options('/master-cabang/select2-region')
+         placeholder: '-- Select Region --',
+         ajax: get_select2_ajax_options('/region/select2-region')
       });
 
       // Type code data
