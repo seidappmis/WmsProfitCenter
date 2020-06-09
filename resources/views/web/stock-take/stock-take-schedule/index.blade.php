@@ -16,28 +16,28 @@
 
       <div class="row">
           <div class="col s12 m3">
-            <!---- Search ----->
+            <!---- Filter Area ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
           </div>
           <div class="col s12 m3">
-            <!---- Search ----->
+            <!---- Filter Cabang/Branch ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
+                    <select id="branch_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                    </select>
+                    <!-- <select id="branch_filter">
                       <option>-Select Branch-</option>
                       <option>[JF] PT. SEID CAB. JAKARTA</option>
                       <option>[BDG] PT. SEID CAB. BANDUNG</option>
                       <option>[CRB] PT. SEID CAB. CIREBON</option>
-                    </select>
+                    </select> -->
                   </div>
                 </div>
           </div>
@@ -63,7 +63,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables">
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="data-table-stocktake-schedule" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -74,7 +74,7 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody>
+                              <tbody><!-- 
                                 <tr>
                                   <td>1.</td>
                                   <td>BTM-STO-200202-001</td>
@@ -87,7 +87,7 @@
                                     {!! get_button_view(url('stock-take-schedule/1'), 'View Detail') !!}
                                     {!! get_button_save('Finish') !!}
                                   </th>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -104,8 +104,81 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+    var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: true,
+      ajax: {
+        url: '{{ url('stock-take-schedule') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+      },
+      order: [1, 'asc'],
+      columns: [
+          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+          {data: 'sto_id', name: 'sto_id', className: 'detail'},
+          {data: 'description', name: 'description', className: 'detail'},
+          {data: 'schedule_start_date', name: 'schedule_start_date', className: 'detail'},
+          {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
+          {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
     });
+
+    dtdatatable.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+      swal({
+        text: "Delete the STO NO. " + data.sto_id + "?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('stock-take-schedule') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
+
+  // Search
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Select Area
+  $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+    });
+
+  // Select Branch/Cabang
+  $('#branch_filter').select2({
+       placeholder: '-- Select Branch --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-cabang/select2-branch')
+    });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush
