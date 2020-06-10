@@ -62,7 +62,7 @@
 
     if (stockTakeScheduleFilter.type == 'area') {
       $('#area').val(stockTakeScheduleFilter.value);
-    } else {
+    } else if (stockTakeScheduleFilter.type == 'branch'){
       $('#kode_cabang').val(stockTakeScheduleFilter.value);
       $('#desc_cabang').val(stockTakeScheduleFilter.text);
     }
