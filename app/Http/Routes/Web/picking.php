@@ -9,6 +9,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Route::view('picking-list', 'web.picking.picking-list.index');
   // Route::view('picking-list/create', 'web.picking.picking-list.create');
+  Route::get('picking-list/get-transporter-list', 'Web\PickingListController@transporterList');
+  Route::get('picking-list/transporter/{id}', 'Web\PickingListController@assignPicking');
   Route::get('picking-list/do-or-shipment-data', 'Web\PickingListController@doOrShipmentData');
   Route::post('picking-list/submit-do', 'Web\PickingListController@submitDO');
   Route::resource('picking-list', 'Web\PickingListController');

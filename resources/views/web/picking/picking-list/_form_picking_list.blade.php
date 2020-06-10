@@ -60,7 +60,7 @@
             <td></td>
         </tr>
     </table>
-    <table class="form-table">
+    <table class="form-table" id="table-expedition-detail">
         <tr>
             <td width="120px;">Expedition</td>
             <td>
@@ -151,6 +151,12 @@
   $('#form-picking-list [name="city_code"]').change(function(event) {
       var data = $(this).select2('data')[0];
       $('#form-picking-list [name="city_name"]').val(data.text);
+      // Ambil Sendiri => hide expedition detail
+      if ($(this).val() == 'AS') {
+          $('#table-expedition-detail').hide();
+      } else {
+          $('#table-expedition-detail').show();
+      }
   });
 
   $('#form-picking-list [name="expedition_code"]').select2({

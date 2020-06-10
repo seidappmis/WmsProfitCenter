@@ -20,14 +20,14 @@
             <div class="section">
               <div class="card">
                 <div class="card-content">
-                  <form>
+                  <form id="form-upload-inventory-storage">
                       <div class="row">
                         <div class="input-field col s12">
                           <div class="col s12 m4 l3">
                             <p>Data File</p>
                           </div>
                           <div class="col s12 m8 l9">
-                            <input type="file" required id="input-file-now" class="dropify" name="file" data-default-file="" data-height="150"/>
+                            <input type="file" required id="input-file-now" class="dropify" name="file_inventory_storage" data-default-file="" data-height="150"/>
                             <br>
                             <p>Format File : .csv</p>
                           </div>
@@ -56,22 +56,43 @@
 </div>
 @endsection
 
+
+@push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
-  });
-
-  //Upload File
-  $('.dropify').dropify();
-
-  $("input#global_filter").on("keyup click", function () {
-    filterGlobal();
-  });
-
-  // Custom search
-  function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
+  $("#form-upload-inventory-storage").validate({
+      submitHandler: function(form) {
+        var fdata = new FormData(form);
+        $.ajax({
+          url: '{{ url("upload-inventory-storage") }}',
+          type: 'POST',
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) { // selesai dan berhasil
+          data_concept = data;
+          if (data.status == false) {
+            $('#table-concept tbody').empty();
+            swal("Failed!", data.message, "warning");
+            return;
+          }
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              $('#concept-wrapper').show();
+              $('#table-concept tbody').empty();
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush

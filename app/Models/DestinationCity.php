@@ -9,6 +9,7 @@ class DestinationCity extends BaseModel
   // Set Table Primary Key
   // if not set default : id
   protected $primaryKey = 'city_code';
+  public $incrementing  = false;
 
   /**
      * The "type" of the auto-incrementing ID.

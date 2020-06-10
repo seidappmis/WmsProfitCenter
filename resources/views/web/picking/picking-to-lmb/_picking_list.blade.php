@@ -33,26 +33,29 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#picking-list-table').DataTable({
-        serverSide: true,
-        scrollX: true,
-        responsive: true,
-        ajax: {
-            url: '{{url('picking-to-lmb/picking-list')}}',
-            type: 'GET',
-            data: function(d) {
-              d.search['value'] = $('#picking_list_filter').val()
-            }
-        },
-        order: [0, 'asc'],
-        columns: [
-            {data: 'picking_date', name: 'picking_date', className: 'detail'},
-            {data: 'picking_no', name: 'picking_no', className: 'detail'},
-            {data: 'driver_name', name: 'driver_name', className: 'detail'},
-            {data: 'destination_name', name: 'destination_name', className: 'detail'},
-            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-            {data: 'action', className: 'center-align', orderable:false, searchable: false},
-        ]
-    });
+  var dttable_picking_list
+  jQuery(document).ready(function($) {
+     dttable_picking_list = $('#picking-list-table').DataTable({
+          serverSide: true,
+          scrollX: true,
+          responsive: true,
+          ajax: {
+              url: '{{url('picking-to-lmb/picking-list')}}',
+              type: 'GET',
+              data: function(d) {
+                d.search['value'] = $('#picking_list_filter').val()
+              }
+          },
+          order: [0, 'asc'],
+          columns: [
+              {data: 'picking_date', name: 'picking_date', className: 'detail'},
+              {data: 'picking_no', name: 'picking_no', className: 'detail'},
+              {data: 'driver_name', name: 'driver_name', className: 'detail'},
+              {data: 'destination_name', name: 'destination_name', className: 'detail'},
+              {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+              {data: 'action', className: 'center-align', orderable:false, searchable: false},
+          ]
+      });
+  });
 </script>
 @endpush

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ManualConcept;
 use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
+use App\Models\DriverRegistered;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -38,6 +39,36 @@ class PickingListController extends Controller
     }
 
     return view('web.picking.picking-list.index');
+  }
+
+  public function transporterList(Request $request)
+  {
+    if ($request->ajax()) {
+      $query = DriverRegistered::where('area', $request->input('area'))
+        ->whereNull('datetime_out')
+        ->get();
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('cbm_max', function ($data) {
+          return $data->vehicle->cbm_max;
+        })
+        ->addColumn('action', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_view(url('picking-list/transporter/' . $data->id), 'Assign Picking');
+          $action .= ' ' . get_button_edit(url('picking-list/transporter/' . $data->id . '/edit'));
+          $action .= ' ' . get_button_delete('Is Leave');
+          return $action;
+        });
+
+      return $datatables->make(true);
+    }
+  }
+
+  public function assignPicking($id){
+    $data['driverRegistered'] = DriverRegistered::findOrFail($id);
+
+    return view('web.picking.picking-list.assign-picking', $data);
   }
 
   public function create()
