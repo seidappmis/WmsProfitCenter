@@ -3,15 +3,15 @@
     <tr>
       <td>STO NO.</td>
       <td>
-        <div class="input-field col s12">
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : 'SBY-STO-2232-001')}}" required>
+        <div class="input-field col s12 m4">
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : 'SBY-STO-2232-001')}}" required disabled>
         </div>
       </td>
     </tr>
     <tr>
       <td>AREA</td>
       <td>
-        <div class="input-field col s12">
+        <div class="input-field col s12 m4">
           <input id="area" type="text" class="validate" name="area" value="{{old('area', !empty($stockTakeSchedule) ? $stockTakeSchedule->area : '')}}" disabled>
         </div>
       </td>
@@ -19,8 +19,8 @@
     <tr>
       <td>BRANCH</td>
       <td>
-        <div class="input-field col s12">
-          <input value="" id="branch" name="branch" type="text" class="validate" name="branch" value="{{old('branch', !empty($stockTakeSchedule) ? $stockTakeSchedule->location : '')}}">
+        <div class="input-field col s12 m4">
+          <input value="" id="branch" name="branch" type="text" class="validate" name="branch" value="{{old('branch', !empty($stockTakeSchedule) ? $stockTakeSchedule->location : '')}}" disabled>
         </div>
       </td>
     </tr>

@@ -14,16 +14,7 @@ class CreateLogStocktakeScheduleTable extends Migration
     public function up()
     {
         Schema::create('log_stocktake_schedule', function (Blueprint $table) {
-            $table->id();
             $table->string('sto_id', 18);
-            $table->integer('no_tag')->nullable();
-            $table->string('model', 20)->nullable();
-            $table->integer('quantity')->nullable();
-            $table->string('location', 20)->nullable();
-            $table->datetime('upload_date')->nullable();
-            $table->string('upload_by', 50)->nullable();
-            $table->datetime('input_date')->nullable();
-            $table->string('input_by', 50)->nullable();
             $table->string('description', 100)->nullable();
             $table->date('schedule_start_date')->nullable();
             $table->date('schedule_end_date')->nullable();
@@ -31,11 +22,13 @@ class CreateLogStocktakeScheduleTable extends Migration
             $table->string('results', 100)->nullable();
             $table->string('urut', 3)->nullable();
             $table->string('status', 7)->nullable();
+            $table->string('kode_cabang', 2)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
+            $table->primary('sto_id'); // add primary key
         });
     }
 

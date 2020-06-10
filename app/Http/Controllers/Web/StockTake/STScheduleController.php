@@ -65,7 +65,7 @@ class STScheduleController extends Controller
 
         $stockTakeSchedule = new StockTakeSchedule;
 
-        // sto_id = Kode Area-STO-Tanggal-Urutan
+        // sto_id = Kode Area/kode cabang-STO-Tanggal-Urutan
         $sto_id = 'SBY' . '-STO-' . date('ymd') . '-';
 
         $prefix_length = strlen($sto_id);
@@ -77,7 +77,7 @@ class STScheduleController extends Controller
         $area = 'SURABAYA';
         $stockTakeSchedule->area = $area;
 
-        $stockTakeSchedule->location = $request->input('branch');
+        // $stockTakeSchedule->location = $request->input('branch');
         $stockTakeSchedule->description = $request->input('description');
         $stockTakeSchedule->schedule_start_date = date('Y-m-d', strtotime($request->input('schedule_start_date')));
         $stockTakeSchedule->schedule_end_date = date('Y-m-d', strtotime($request->input('schedule_end_date')));
