@@ -4,7 +4,7 @@
       <td>STO NO.</td>
       <td>
         <div class="input-field col s12 m4">
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : 'KRW-STO-2232-001')}}" required readonly>
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : '')}}" required readonly>
         </div>
       </td>
     </tr>

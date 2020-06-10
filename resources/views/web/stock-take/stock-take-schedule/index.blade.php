@@ -141,7 +141,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) {
             $.ajax({
-            url: '{{ url('stock-take-schedule') }}' + '/' + data.id ,
+            url: '{{ url('stock-take-schedule') }}' + '/' + data.sto_id ,
             type: 'DELETE',
             dataType: 'json',
           })
