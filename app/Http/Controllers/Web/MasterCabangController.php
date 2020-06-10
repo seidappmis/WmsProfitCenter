@@ -153,4 +153,14 @@ class MasterCabangController extends Controller
         return get_select2_data($request, $query);
     }
 
+    public function getSelect2Branch(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("CONCAT('[', short_description, '] ', long_description) AS text")
+        )->where('hq', '!=', '1');
+
+        return get_select2_data($request, $query);
+    }
+
 }

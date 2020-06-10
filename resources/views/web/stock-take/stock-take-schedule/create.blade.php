@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Schedule</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Stock Take Schedule</li>
+                    <li class="breadcrumb-item"><a href="{{ url('stock-take-schedule') }}">Stock Take Schedule</a></li>
+                    <li class="breadcrumb-item active">Create</li>
                 </ol>
             </div>
         </div>
@@ -25,83 +26,7 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Add Stock Take Schedule</div>
                           <div class="collapsible-body">
-                          <form class="form-table">
-                            <table>
-                              <tr>
-                                <td>STO NO</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <input value="SBY-STO-2232-001" id="ston" type="text" class="validate" name="ston" required>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AREA</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <input value="SURABAYA" id="area" type="text" class="validate" name="area" disabled>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>BRANCH</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <input value="" id="branch" type="text" class="validate" name="branch" validated>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>DESCRIPTION</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                        <textarea id="desc" class="materialize-textarea"></textarea>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="label">SCHEDULE DATE</td>
-                                <td>
-                                  <div class="input-field col s6">
-                                    <div class="col s3 m2 label">
-                                      START
-                                    </div>
-                                    <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
-                                    </div>
-                                  </div>
-                                  <div class="input-field col s6">
-                                    <div class="col s3 m2 label">
-                                      END
-                                    </div>
-                                    <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class = "label">DATA FILE</td>
-                                <td>
-                                  <div class="file-field input-field">
-                                    <div class="btn indigo btn">
-                                      <span>Browse</span>
-                                      <input type="file">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                      <input class="file-path validate" type="text" placeholder="Select File       Format File : csv">
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </form>
-                            <div class="row">
-                              <div class="input-field col s12">
-                                {!! get_button_save() !!}
-                                {!! get_button_cancel(url('stock-take-schedule')) !!}
-                              </div>
-                            </div>
+                          @include('web.stock-take.stock-take-schedule._form')
                           </div>
                         </li>
                       </ul>
@@ -115,10 +40,35 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
+    });
+
+  $("#form-stock-take-schedule").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("stock-take-schedule") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+              window.location.href = "{{ url('stock-take-schedule') }}"
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
     });
 </script>
 @endpush

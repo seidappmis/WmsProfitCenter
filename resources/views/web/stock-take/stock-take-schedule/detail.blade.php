@@ -9,7 +9,8 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Schedule</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Stock Take Schedule</li>
+                    <li class="breadcrumb-item"><a href="{{ url('stock-take-schedule') }}">Stock Take Schedule</a></li>
+                    <li class="breadcrumb-item active">View Detail</li>
                 </ol>
             </div>
         </div>
@@ -32,7 +33,7 @@
                                     <div class="card">
                                         <div class="card-content p-0">
                                             <div class="section-data-tables"> 
-                                              <table id="data-table-section-contents" class="display" width="100%">
+                                              <table id="data-table-stocktake-schedule-detail" class="display" width="100%">
                                                   <thead>
                                                       <tr>
                                                         <th data-priority="1" width="30px">No.</th>
@@ -57,14 +58,14 @@
                                             </div>
                                             <!-- datatable ends -->
                                         </div>
+                                      </div>
                                     </div>
                                 </div>
+                                <div class="content-overlay"></div>
                             </div>
-                            <div class="content-overlay"></div>
-                        </div>
 
-                          <div class="row">
-                              <div class="input-field col s12">
+                            <div class="row">
+                              <div class="input-field col s12 ml-2">
                                 {!! get_button_view(url('stock-take-schedule'),'BACK') !!}
                               </div>
                             </div>
@@ -86,8 +87,11 @@
  	$('.collapsible').collapsible({
         accordion:true
     });
-  var dtdatatable = $('#data-table-section-contents').DataTable({
-      serverSide: false,
+
+  var dtdatatable = $('#data-table-stocktake-schedule-detail').DataTable({
+    serverSide: false,
+    scrollX: true,
+    responsive: true,
   });
 </script>
 @endpush
