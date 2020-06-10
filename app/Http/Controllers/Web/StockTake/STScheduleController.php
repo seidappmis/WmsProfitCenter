@@ -55,7 +55,7 @@ class STScheduleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'sto_id'                    => 'required',
+          'sto_id'                    => 'unique:log_stocktake_schedule|max:18',
           'area'                      => 'max:20',
           'branch'                    => 'max:20',
           'description'               => 'max:100',
@@ -65,8 +65,8 @@ class STScheduleController extends Controller
 
         $stockTakeSchedule = new StockTakeSchedule;
 
-        // sto_id = Kode Area/kode cabang-STO-Tanggal-Urutan
-        $sto_id = 'SBY' . '-STO-' . date('ymd') . '-';
+        // sto_id = Kode Area/short description cabang-STO-Tanggal-Urutan
+        $sto_id = 'KRW' . '-STO-' . date('ymd') . '-';
 
         $prefix_length = strlen($sto_id);
         $max_no        = DB::select('SELECT MAX(SUBSTR(sto_id, ?)) AS max_no FROM log_stocktake_schedule WHERE SUBSTR(sto_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $sto_id])[0]->max_no;
@@ -74,13 +74,12 @@ class STScheduleController extends Controller
 
         $stockTakeSchedule->sto_id = $sto_id . $max_no;
 
-        $area = 'SURABAYA';
-        $stockTakeSchedule->area = $area;
-
-        // $stockTakeSchedule->location = $request->input('branch');
+        $stockTakeSchedule->area = empty($request->input('area')) ? ' ' : $request->input('area');
+        $stockTakeSchedule->kode_cabang = $request->input('kode_cabang');
         $stockTakeSchedule->description = $request->input('description');
         $stockTakeSchedule->schedule_start_date = date('Y-m-d', strtotime($request->input('schedule_start_date')));
         $stockTakeSchedule->schedule_end_date = date('Y-m-d', strtotime($request->input('schedule_end_date')));
+        $stockTakeSchedule->urut = $max_no;
 
         return $stockTakeSchedule->save();
     }

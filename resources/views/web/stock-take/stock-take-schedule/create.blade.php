@@ -47,10 +47,27 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$('.collapsible').collapsible({
+  jQuery(document).ready(function($) {
+    $('.collapsible').collapsible({
         accordion:true
     });
 
+    setDataFromFilter();
+  });
+ 	
+
+  // data select filter from localstorage index
+  function setDataFromFilter() {
+    var stockTakeScheduleFilter = JSON.parse(localStorage.getItem('stockTakeScheduleFilter'));
+
+    if (stockTakeScheduleFilter.type == 'area') {
+      $('#area').val(stockTakeScheduleFilter.value);
+    } else {
+      $('#kode_cabang').val(stockTakeScheduleFilter.value);
+      $('#desc_cabang').val(stockTakeScheduleFilter.text);
+    }
+  }
+  
   $("#form-stock-take-schedule").validate({
       submitHandler: function(form) {
         $.ajax({
