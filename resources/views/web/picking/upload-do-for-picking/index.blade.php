@@ -35,8 +35,8 @@
                               <div class="display-flex">
                                 <!---- Search ----->
                                 <!-- Modal Trigger -->
-                                <a class="waves-effect waves-light btn modal-trigger indigo btn mt-2 mr-1 mb-1" href="#modal1">Upload DO</a>
-                                {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item') !!}
+                                <a class="waves-effect waves-light btn modal-trigger indigo btn mt-1 mr-1 " href="#modal1">Upload DO</a>
+                                {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item mt-1') !!}
                               </div>
                             </div>
                         </div>
