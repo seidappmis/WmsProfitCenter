@@ -32,12 +32,6 @@
                     <select id="branch_filter"
                           class="select2-data-ajax browser-default app-filter">
                     </select>
-                    <!-- <select id="branch_filter">
-                      <option>-Select Branch-</option>
-                      <option>[JF] PT. SEID CAB. JAKARTA</option>
-                      <option>[BDG] PT. SEID CAB. BANDUNG</option>
-                      <option>[CRB] PT. SEID CAB. CIREBON</option>
-                    </select> -->
                   </div>
                 </div>
           </div>
@@ -104,6 +98,9 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    setDataFilterToLocalStorage();
+  });
     var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
       serverSide: true,
       scrollX: true,
@@ -112,7 +109,9 @@
         url: '{{ url('stock-take-schedule') }}',
         type: 'GET',
         data: function(d) {
-            d.search['value'] = $('#global_filter').val()
+            d.search['value'] = $('#global_filter').val(),
+            d.area = $('#area_filter').val(),
+            d.branch = $('#branch_filter').val()
           }
       },
       order: [1, 'asc'],
@@ -142,7 +141,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) {
             $.ajax({
-            url: '{{ url('stock-take-schedule') }}' + '/' + data.id ,
+            url: '{{ url('stock-take-schedule') }}' + '/' + data.sto_id ,
             type: 'DELETE',
             dataType: 'json',
           })
@@ -179,6 +178,52 @@
   // Custom search
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
+  // Custom Filter
+  function setDataFilterToLocalStorage(){
+    // Filter Area change event
+    $('#area_filter').change(function(event) {
+      /* Act on the event */
+      // Cek kosong atau tidak
+      // select filter area bisa berubah kosong oleh filter branch
+      if ($(this).val() != '') {
+        // filter value
+        var stockTakeScheduleFilter = {
+          type: 'area',
+          value: $(this).val()
+        }
+        // store filter to localstorage
+        localStorage.setItem("stockTakeScheduleFilter", JSON.stringify(stockTakeScheduleFilter));
+
+        // change
+        set_select2_value('#branch_filter', '', '');
+
+        dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+      }
+    });
+
+    // filter branch change event
+    $('#branch_filter').change(function(event) {
+      /* Act on the event */
+      // Cek kosong atau tidak
+      // select filter branch bisa berubah kosong oleh filter area
+      if ($(this).val() != '') {
+        // filter value
+        var stockTakeScheduleFilter = {
+          type: 'branch',
+          value: $(this).val(),
+          text: $(this).find('option:selected').text()
+        }
+        // store filter to localstorage
+        localStorage.setItem("stockTakeScheduleFilter", JSON.stringify(stockTakeScheduleFilter));
+
+        // change
+        set_select2_value('#area_filter', '', '');
+
+        dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+      }
+    });
   }
 </script>
 @endpush
