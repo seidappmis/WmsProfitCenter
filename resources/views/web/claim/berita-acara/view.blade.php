@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                 <!-- </div> -->
-                    <div class="card-content">
+                    {{-- <div class="card-content">
                         <ul class="collapsible">
                            <li class="">
                                <div class="collapsible-header">Add New Detail</div>
@@ -40,7 +40,7 @@
                                </div>
                            </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="card-content">
                         <ul class="collapsible">
                            <li class="active">
@@ -83,6 +83,10 @@
   $('.collapsible').collapsible({
         accordion:true
     });
+
+  $('#form-berita-acara .input-field').hide()
+  $('#form-berita-acara select').attr('disabled', 'disabled');
+  $('#form-berita-acara .btn-view').hide();
 
 </script>
 @endpush
