@@ -4,7 +4,8 @@
       <td>STO NO.</td>
       <td>
         <div class="input-field col s12 m4">
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required readonly>
+          <input id="kode" name="kode" type="text" readonly>
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required>
         </div>
       </td>
     </tr>
@@ -80,6 +81,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     $('#kode_cabang').hide();
+    $('#kode').hide();
   });
 </script>
 @endpush

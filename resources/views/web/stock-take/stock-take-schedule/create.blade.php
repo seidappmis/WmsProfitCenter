@@ -61,7 +61,8 @@
     var stockTakeScheduleFilter = JSON.parse(localStorage.getItem('stockTakeScheduleFilter'));
 
     if (stockTakeScheduleFilter.type == 'area') {
-      $('#area').val(stockTakeScheduleFilter.value);
+      $('#kode').val(stockTakeScheduleFilter.value);
+      $('#area').val(stockTakeScheduleFilter.text);
     } else if (stockTakeScheduleFilter.type == 'branch'){
       $('#kode_cabang').val(stockTakeScheduleFilter.value);
       $('#desc_cabang').val(stockTakeScheduleFilter.text);

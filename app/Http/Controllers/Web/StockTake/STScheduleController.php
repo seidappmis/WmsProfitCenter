@@ -18,7 +18,9 @@ class STScheduleController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = StockTakeSchedule::all();
+            $query = StockTakeSchedule::all()
+              ->where('log_stocktake_schedule.area', $request->get('area'))
+              ->where('log_stocktake_schedule.kode_cabang', $request->get('branch'));
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -44,8 +46,8 @@ class STScheduleController extends Controller
     public function create(Request $request)
     {
         // sto_id = Kode Area/short description cabang-STO-Tanggal-Urutan
-        $kode = empty($request->input('area')) ? $request->input('kode_cabang') : $request->input('area');
-        $sto_id = $kode . '-STO-' . date('ymd') . '-';
+        // $kode = empty($request->input('area')) ? $request->input('kode_cabang') : $request->input('area');
+        $sto_id = '-STO-' . date('ymd') . '-';
 
         $prefix_length = strlen($sto_id);
         $max_no        = DB::select('SELECT MAX(SUBSTR(sto_id, ?)) AS max_no FROM log_stocktake_schedule WHERE SUBSTR(sto_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $sto_id])[0]->max_no;
@@ -76,14 +78,14 @@ class STScheduleController extends Controller
         $stockTakeSchedule = new StockTakeSchedule;
 
         // sto_id = Kode Area/short description cabang-STO-Tanggal-Urutan
-        // $kode = empty($request->input('area')) ? $request->input('kode_cabang') : $request->input('area');
-        // $sto_id = $kode . '-STO-' . date('ymd') . '-';
+        $kode = empty($request->input('area')) ? $request->input('kode_cabang') : $request->input('kode');
+        $sto_id = $kode . '-STO-' . date('ymd') . '-';
 
-        // $prefix_length = strlen($sto_id);
-        // $max_no        = DB::select('SELECT MAX(SUBSTR(sto_id, ?)) AS max_no FROM log_stocktake_schedule WHERE SUBSTR(sto_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $sto_id])[0]->max_no;
-        // $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+        $prefix_length = strlen($sto_id);
+        $max_no        = DB::select('SELECT MAX(SUBSTR(sto_id, ?)) AS max_no FROM log_stocktake_schedule WHERE SUBSTR(sto_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $sto_id])[0]->max_no;
+        $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
-        $stockTakeSchedule->sto_id = $request->input('sto_id');
+        $stockTakeSchedule->sto_id = $sto_id . $max_no;
 
         $stockTakeSchedule->area = empty($request->input('area')) ? ' ' : $request->input('area');
         $stockTakeSchedule->kode_cabang = $request->input('kode_cabang');
