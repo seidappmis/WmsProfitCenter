@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="overload-concept-or-do-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -61,7 +61,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>1000402671</td>
                                   <td>4</td>
@@ -73,7 +73,7 @@
                                   <td>TIDAK MUAT</td>
                                   <td>2020-02-06</td>
                                 </tr>
-                              </tbody>
+                              </tbody> --}}
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -89,8 +89,48 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+    var dttable_overload_concept_or_do;
+
+    jQuery(document).ready(function($) {
+  
+      dttable_overload_concept_or_do = $('#overload-concept-or-do-table').DataTable({
+          serverSide: true,
+          scrollX: true,
+          responsive: true,
+          ajax: {
+              url: "{{url('overload-concept-or-do')}}",
+              type: 'GET',
+              data: function(d) {
+                  d.search['value'] = $('#global_filter').val()
+              }
+          },
+          order: [1, 'asc'],
+          columns: [
+              { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+              { data: 'invoice_no', name: 'invoice_no', className: 'detail' },
+              { data: 'line_no', name: 'line_no', className: 'detail' },
+              { data: 'delivery_no', name: 'delivery_no', className: 'detail' },
+              { data: 'delivery_items', name: 'delivery_items', className: 'detail' },
+              { data: 'quantity', name: 'quantity', className: 'detail' },
+              { data: 'model', name: 'model', className: 'detail' },
+              { data: 'cbm', name: 'cbm', className: 'detail' },
+              { data: 'description', name: 'description', className: 'detail' },
+              { data: 'overload_date', name: 'overload_date', className: 'detail' },
+          ]
+      });
+
+      $('#area_filter').change(function(event) {
+        /* Act on the event */
+        dttable_overload_concept_or_do.ajax.reload(null, false)
+      });
+
+      $("input#global_filter").on("keyup click", function () {
+        filterGlobal();
+      });
     });
+
+    function filterGlobal() {
+      dttable_overload_concept_or_do.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

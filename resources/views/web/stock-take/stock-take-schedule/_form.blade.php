@@ -3,24 +3,26 @@
     <tr>
       <td>STO NO.</td>
       <td>
-        <div class="input-field col s12">
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : 'SBY-STO-2232-001')}}" required>
+        <div class="input-field col s12 m4">
+          <input id="kode" name="kode" type="text" readonly>
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required>
         </div>
       </td>
     </tr>
     <tr>
       <td>AREA</td>
       <td>
-        <div class="input-field col s12">
-          <input id="area" type="text" class="validate" name="area" value="{{old('area', !empty($stockTakeSchedule) ? $stockTakeSchedule->area : '')}}" disabled>
+        <div class="input-field col s12 m4">
+          <input id="area" type="text" class="validate" name="area" value="{{old('area', !empty($stockTakeSchedule) ? $stockTakeSchedule->area : '')}}" readonly>
         </div>
       </td>
     </tr>
     <tr>
       <td>BRANCH</td>
       <td>
-        <div class="input-field col s12">
-          <input value="" id="branch" name="branch" type="text" class="validate" name="branch" value="{{old('branch', !empty($stockTakeSchedule) ? $stockTakeSchedule->location : '')}}">
+        <div class="input-field col s12 m4">
+          <input id="kode_cabang" name="kode_cabang" type="text" readonly>
+          <input id="desc_cabang" name="desc_cabang" type="text" class="validate" value="{{old('branch', !empty($stockTakeSchedule) ? $stockTakeSchedule->location : ' ')}}" readonly>
         </div>
       </td>
     </tr>
@@ -74,3 +76,12 @@
   {!! get_button_save() !!}
   {!! get_button_cancel(url('stock-take-schedule')) !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#kode_cabang').hide();
+    $('#kode').hide();
+  });
+</script>
+@endpush

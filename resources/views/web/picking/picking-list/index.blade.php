@@ -162,7 +162,7 @@
     scrollX: true,
     responsive: true,
     ajax: {
-        url: '{{ url('assign-vehicles') }}',
+        url: '{{ url('picking-list/get-transporter-list') }}',
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#transporter_filter').val(),

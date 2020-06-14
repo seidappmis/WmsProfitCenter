@@ -15,7 +15,8 @@ Route::group(['middleware' => 'auth'], function () {
   // Select Gate
   Route::get('select-gate', 'Web\SelectGateController@index');
 
-  Route::view('loading-process', 'web.outgoing.loading-process.index');
+  // Route::view('loading-process', 'web.outgoing.loading-process.index');
+  Route::get('loading-process', 'Web\LoadingProcessController@index');
 
   // Route::view('complete', 'web.outgoing.complete.index');
   Route::post('complete/{id}/complete', 'Web\CompleteController@complete');
@@ -30,5 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('manifest-as', 'web.outgoing.manifest-as.index');
   Route::view('update-manifest', 'web.outgoing.update-manifest.index');
-  Route::view('overload-concept-or-do', 'web.outgoing.overload-concept-or-do.index');
+
+  // Route::view('overload-concept-or-do', 'web.outgoing.overload-concept-or-do.index');
+  Route::get('overload-concept-or-do', 'Web\OverloadConceptOrDoController@index');
 });

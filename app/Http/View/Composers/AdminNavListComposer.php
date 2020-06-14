@@ -54,6 +54,7 @@ class AdminNavListComposer
       ['name' => 'outgoing', 'label' => 'Complete', 'url' => 'complete', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Manifest Regular', 'url' => 'manifest-regular', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Manifest AS', 'url' => 'manifest-as', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Branch Manifest', 'url' => 'branch-manifest', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Update Manifest', 'url' => 'update-manifest', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Overload Concept or DO', 'url' => 'overload-concept-or-do', 'icon' => 'radio_button_unchecked'],
     ]];

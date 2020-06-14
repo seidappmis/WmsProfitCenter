@@ -88,7 +88,7 @@ class UploadConceptController extends Controller
           $destination = MasterDestination::where('description', $concept['destination_name'])->first();
           if (empty($destination)) {
             $result['status']  = false;
-            $result['message'] = 'Destination not found in master destination !';
+            $result['message'] = 'Destination ' . $concept['destination_name'] . ' not found in master destination !';
             return $result;
           }
 

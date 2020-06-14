@@ -55,7 +55,24 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @foreach($manifest->details AS $key => $detail)
                               <tr>
+                                @if($key == 0)
+                                <td rowspan="{{$manifest->details->count()}}"></td>
+                                @endif
+                                <td>{{$detail->expedition_name}}</td>
+                                <td>{{$detail->destination_city}}</td>
+                                <td>{{$detail->model}}</td>
+                                <td>{{$detail->quantity}}</td>
+                                <td>
+                                  <label>
+                                    <input type="checkbox" />
+                                    <span class="red-text"></span>
+                                  </label>
+                                </td>
+                              </tr>
+                              @endforeach
+                              {{-- <tr>
                                 <td rowspan="4">JKT-180903-053</td>
                                 <td rowspan="4">PUTRA NAGITA PRATAMA, PT.</td>
                                 <td rowspan="4">BOGOR</td>
@@ -101,7 +118,7 @@
                                     </label>
                                   </th>
                                 </td>
-                              </tr>
+                              </tr> --}}
                             </tbody>
                         </table>
                       </div>

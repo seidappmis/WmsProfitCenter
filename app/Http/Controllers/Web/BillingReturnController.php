@@ -64,7 +64,9 @@ class BillingReturnController extends Controller
 
   public function showSubmit($id)
   {
-    return view('web.incoming.billing-return.view');
+    $data['manifest'] = LogManifestHeader::findOrFail($id);
+    
+    return view('web.incoming.billing-return.view', $data);
   }
 
   public function show($id)

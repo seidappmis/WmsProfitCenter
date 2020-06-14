@@ -59,6 +59,7 @@
                                   <td>B 1231 DE</td>
                                   <td>PENDING</td>
                                   <td>
+                                    {!! get_button_view('berita-acara/1') !!}
                                     {!! get_button_print() !!}
                                   </td>
                                 </tr>
@@ -71,6 +72,7 @@
                                   <td>B 5486 DE</td>
                                   <td>COMPLETE</td>
                                   <td>
+                                    {!! get_button_view('berita-acara/1') !!}
                                     {!! get_button_print() !!}
                                   </td>
                                 </tr>

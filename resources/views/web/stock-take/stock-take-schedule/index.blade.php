@@ -32,12 +32,6 @@
                     <select id="branch_filter"
                           class="select2-data-ajax browser-default app-filter">
                     </select>
-                    <!-- <select id="branch_filter">
-                      <option>-Select Branch-</option>
-                      <option>[JF] PT. SEID CAB. JAKARTA</option>
-                      <option>[BDG] PT. SEID CAB. BANDUNG</option>
-                      <option>[CRB] PT. SEID CAB. CIREBON</option>
-                    </select> -->
                   </div>
                 </div>
           </div>
@@ -50,7 +44,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
+              <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
 
               </div>
             </div>
@@ -104,58 +98,64 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
-      serverSide: true,
-      scrollX: true,
-      responsive: true,
-      ajax: {
-        url: '{{ url('stock-take-schedule') }}',
-        type: 'GET',
-        data: function(d) {
-            d.search['value'] = $('#global_filter').val()
-          }
-      },
-      order: [1, 'asc'],
-      columns: [
-          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          {data: 'sto_id', name: 'sto_id', className: 'detail'},
-          {data: 'description', name: 'description', className: 'detail'},
-          {data: 'schedule_start_date', name: 'schedule_start_date', className: 'detail'},
-          {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
-          {data: 'action', className: 'center-align', searchable: false, orderable: false},
-      ]
-    });
+  jQuery(document).ready(function($) {
+    setDataFilterToLocalStorage();
+  });
 
-    dtdatatable.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
-      swal({
-        text: "Delete the STO NO. " + data.sto_id + "?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
+  var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+      url: '{{ url('stock-take-schedule') }}',
+      type: 'GET',
+      data: function(d) {
+          d.search['value'] = $('#global_filter').val(),
+          d.area = $('#area_filter').val(),
+          d.branch = $('#branch_filter').val()
         }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-            $.ajax({
-            url: '{{ url('stock-take-schedule') }}' + '/' + data.id ,
-            type: 'DELETE',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
-            dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
-    });
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'sto_id', name: 'sto_id', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'schedule_start_date', name: 'schedule_start_date', className: 'detail'},
+        {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  dtdatatable.on('click', '.btn-delete', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    // Ditanyain dulu usernya mau beneran delete data nya nggak.
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+    swal({
+      text: "Delete the STO NO. " + data.sto_id + "?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        delete: 'Yes, Delete It'
+      }
+    }).then(function (confirm) { // proses confirm
+      if (confirm) {
+          $.ajax({
+          url: '{{ url('stock-take-schedule') }}' + '/' + data.sto_id ,
+          type: 'DELETE',
+          dataType: 'json',
+        })
+        .done(function() {
+          swal("Good job!", "You clicked the button!", "success") // alert success
+          dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+        })
+        .fail(function() {
+          console.log("error");
+        });
+      }
+    })
+  });
 
   // Search
   $("input#global_filter").on("keyup click", function () {
@@ -166,7 +166,7 @@
   $('#area_filter').select2({
        placeholder: '-- Select Area --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+       ajax: get_select2_ajax_options('/master-area/select2-code-area')
     });
 
   // Select Branch/Cabang
@@ -178,7 +178,54 @@
 
   // Custom search
   function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
+  // Custom Filter
+  function setDataFilterToLocalStorage(){
+    // Filter Area change event
+    $('#area_filter').change(function(event) {
+      /* Act on the event */
+      // Cek kosong atau tidak
+      // select filter area bisa berubah kosong oleh filter branch
+      if ($(this).val() != '') {
+        // filter value
+        var stockTakeScheduleFilter = {
+          type: 'area',
+          value: $(this).val(),
+          text: $(this).find('option:selected').text()
+        }
+        // store filter to localstorage
+        localStorage.setItem("stockTakeScheduleFilter", JSON.stringify(stockTakeScheduleFilter));
+
+        // change
+        set_select2_value('#branch_filter', '', '');
+
+        dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+      }
+    });
+
+    // filter branch change event
+    $('#branch_filter').change(function(event) {
+      /* Act on the event */
+      // Cek kosong atau tidak
+      // select filter branch bisa berubah kosong oleh filter area
+      if ($(this).val() != '') {
+        // filter value
+        var stockTakeScheduleFilter = {
+          type: 'branch',
+          value: $(this).val(),
+          text: $(this).find('option:selected').text()
+        }
+        // store filter to localstorage
+        localStorage.setItem("stockTakeScheduleFilter", JSON.stringify(stockTakeScheduleFilter));
+
+        // change
+        set_select2_value('#area_filter', '', '');
+
+        dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+      }
+    });
   }
 </script>
 @endpush

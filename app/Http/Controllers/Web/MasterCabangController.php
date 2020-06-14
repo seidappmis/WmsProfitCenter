@@ -158,7 +158,7 @@ class MasterCabangController extends Controller
         $query = MasterCabang::select(
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT('[', short_description, '] ', long_description) AS text")
-        );
+        )->where('hq', '!=', '1');
 
         return get_select2_data($request, $query);
     }

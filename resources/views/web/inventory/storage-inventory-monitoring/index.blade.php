@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="storage-inventory-monitoring-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -45,7 +45,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <th data-priority="1" width="30px">1.</th>
                                   <th>PAL-Intransit BR</th>
                                   <th>3690</th>
@@ -55,7 +55,7 @@
                                   <th>
                                     <span class="waves-effect btn-small amber darken-4 btn-edit" href="#">View Log</span>
                                   </th>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -71,17 +71,40 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-simple').DataTable({
-    "responsive": true,
+  var table
+
+  jQuery(document).ready(function($) {
+    dttable_storage_inventory_monitoring = $('#storage-inventory-monitoring-table').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: true,
+      ajax: {
+          url: '{{ url('storage-inventory-monitoring') }}',
+          type: 'GET',
+          data: function(d) {
+              d.search['value'] = $('#storage-inventory-monitoring-filter').val()
+            }
+      },
+      order: [1, 'asc'],
+      columns: [
+          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+          {data: 'sto_type_desc', name: 'wms_master_storage.sto_type_desc', className: 'detail'},
+          {data: 'sto_loc_code_long', name: 'wms_master_storage.sto_loc_code_long', className: 'detail'},
+          {data: 'model_name', name: 'model_name', className: 'detail'},
+          {data: 'quantity_total', name: 'quantity_total', className: 'detail'},
+          {data: 'last_updated', name: 'last_updated', className: 'detail'},
+          {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
+    });
   });
 
-  $("input#global_filter").on("keyup click", function () {
+  $("input#storage-inventory-monitoring-filter").on("keyup click", function () {
     filterGlobal();
   });
 
   // Custom search
   function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      table.search($("#storage-inventory-monitoring-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 </script>
 @endpush

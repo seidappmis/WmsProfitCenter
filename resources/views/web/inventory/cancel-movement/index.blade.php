@@ -18,7 +18,7 @@
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                    <input type="text" placeholder="Search" class="app-filter" id="cancel-movement-filter">
                   </div>
                 </div>
               </div>
@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                       <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
+                          <table id="cancel-movement-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -45,7 +45,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <th>1.</th>
                                   <th>OTHERS-WHJKT-181004-001</th>
                                   <th></th>
@@ -55,7 +55,7 @@
                                   <th>
                                     <span class="waves-effect red darken-4 btn-small btn-delete">Cancel Movement</span>
                                   </th>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -71,17 +71,38 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var table = $('#data-table-simple').DataTable({
-        "responsive": true,
+    var dttable_cancel_movement
+    jQuery(document).ready(function($) {
+      
+      dttable_cancel_movement = $('#cancel-movement-table').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('cancel-movement') }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#cancel-movement-filter').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'status', name: 'status', className: 'detail'},
+            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
+            {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        ]
       });
-
-    $("input#global_filter").on("keyup click", function () {
-        filterGlobal();
+      $("input#cancel-movement-filter").on("keyup click", function () {
+        filterCancelMovement();
       });
+    });
 
-      // Custom search
-      function filterGlobal() {
-          table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-      }
+  function filterCancelMovement(){
+    dttable_cancel_movement.search($("#cancel-movement-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

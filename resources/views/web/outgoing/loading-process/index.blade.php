@@ -5,14 +5,14 @@
 
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
-          <div class="col s12 m6">
+          <div class="col s12 m5">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Loading Process</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
                   <li class="breadcrumb-item active">Loading Process</li>
               </ol>
           </div>
-          <div class="col s12 m2">
+          <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="loading-process-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th>GATE</th>
@@ -62,7 +62,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>603</td>
                                   <td>Loading Process</td>
                                   <td>BE 9387 AC BOIMIN</td>
@@ -74,7 +74,7 @@
                                   <td>-5.224</td>
                                   <td>2020-02-07 14:03:PM</td>
                                   <td></td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -91,9 +91,48 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        responsive: true
+    var dttable_loading_process
+    jQuery(document).ready(function($) {
+      
+      dttable_loading_process = $('#loading-process-table').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('loading-process') }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val(),
+                d.area = $('#area_filter').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'gate', name: 'gate', className: 'detail'},
+            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+            {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
+            {data: 'cbm', name: 'cbm', className: 'detail'},
+            {data: 'capacity', name: 'capacity', className: 'detail'},
+            {data: 'balance', name: 'balance', className: 'detail'},
+            {data: 'start_time', name: 'start_time', className: 'detail'},
+            {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        ]
+      });
+      $("input#global_filter").on("keyup click", function () {
+        filterLoadingProcess();
+      });
+
+      $('#area_filter').change(function(event) {
+        /* Act on the event */
+        filterLoadingProcess();
+      });
     });
+
+    function filterLoadingProcess(){
+    dttable_loading_process.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

@@ -11,11 +11,12 @@ Route::group(['middleware' => 'auth'], function () {
     // Master Area
     Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
     Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
+    Route::get('master-area/select2-code-area', 'Web\AreaController@getSelect2AreaCode');
     Route::resource('master-area', 'Web\AreaController');
 
     // Master Cabang
     Route::get('master-cabang/select2-cabang', 'Web\MasterCabangController@getSelect2Cabang'); // Option: HYP-PT. SEID HQ JKT
-    Route::get('master-cabang/select2-branch', 'Web\MasterCabangController@getSelect2Branch'); // Option: [HYP] PT. SEID HQ JKT
+    Route::get('master-cabang/select2-branch', 'Web\MasterCabangController@getSelect2Branch'); // Option: [JF] PT. SEID CAB. JAKARTA (Bukan HQ)
     Route::resource('master-cabang', 'Web\MasterCabangController');
 
     // Master User Mobile
