@@ -59,9 +59,9 @@
       <td class = "label">DATA FILE</td>
       <td>
         <div class="file-field input-field col s12 m5 l5">
-          <div class="btn btn-small waves-effect waves-light">
+          <div class="btn btn-sm">
             <span>Browse</span>
-            <input type="file" name="file-stock-take-schedule">
+            <input type="file" name="file-stocktake-schedule">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Select File..">
