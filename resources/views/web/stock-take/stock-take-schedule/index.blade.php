@@ -68,20 +68,7 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody><!-- 
-                                <tr>
-                                  <td>1.</td>
-                                  <td>BTM-STO-200202-001</td>
-                                  <td>Stock_Tacking_Before_Go_Live</td>
-                                  <td>2020-02-02</td>
-                                  <td>2020-02-02</td>
-                                  <th width="50px;">
-                                    {!! get_button_edit(url('stock-take-schedule/1/edit')) !!}
-                                    {!! get_button_delete() !!}
-                                    {!! get_button_view(url('stock-take-schedule/1'), 'View Detail') !!}
-                                    {!! get_button_save('Finish') !!}
-                                  </th>
-                                </tr> -->
+                              <tbody>
                               </tbody>
                           </table>
                         </div>
@@ -100,6 +87,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     setDataFilterToLocalStorage();
+    set_select_data();
   });
 
   var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
@@ -147,7 +135,7 @@
           dataType: 'json',
         })
         .done(function() {
-          swal("Good job!", "You clicked the button!", "success") // alert success
+          swal("Good job!", "STO No. " + data.sto_id + " has been deleted!", "success") // alert success
           dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
         })
         .fail(function() {
@@ -226,6 +214,17 @@
         dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
       }
     });
+  }
+
+  // data select filter from localstorage
+  function set_select_data() {
+    var stockTakeScheduleFilter = JSON.parse(localStorage.getItem('stockTakeScheduleFilter'));
+
+    if (stockTakeScheduleFilter.type == 'area') {
+      set_select2_value('#area_filter', stockTakeScheduleFilter.value, stockTakeScheduleFilter.text);
+    } else if (stockTakeScheduleFilter.type == 'branch'){
+     set_select2_value('#branch_filter', stockTakeScheduleFilter.value, stockTakeScheduleFilter.text);
+    }
   }
 </script>
 @endpush
