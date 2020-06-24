@@ -1,8 +1,8 @@
 <?php 
 
 // view, detail, view detail
-function get_button_view($url = '#', $label = "View"){
-  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 btn-view" href="' . $url . '">' . $label . '</a>';
+function get_button_view($url = '#', $label = "View", $class = "btn-view"){
+  return '<a class="waves-effect waves-light btn btn-small indigo darken-4 ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
 // print

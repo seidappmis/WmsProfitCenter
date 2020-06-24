@@ -364,6 +364,7 @@ table.table-scroll-x {
 .collapsible-header .collapsible-main-header {
     padding: 5px;
     display: inline-block;
+    min-height: 50px;
 }
 .table-pick-list-result td, .table-pick-list-result th {
     font-size: 11px !important;

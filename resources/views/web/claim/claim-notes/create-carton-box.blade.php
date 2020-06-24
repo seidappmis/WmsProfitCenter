@@ -26,18 +26,25 @@
                     <div class="card-content">
                         <ul class="collapsible">
                            <li class="active">
-                             <div class="collapsible-header">List Berita Acara</div>
-                             <div class="collapsible-body white p-0">
-                                <div class="row mb-0">
-                                  <div class="col s12 offset-m6 m6">
-                                    <div class="app-wrapper ml-2 mt-2 mr-2">
-                                      <div class="datatable-search mb-0">
-                                        <i class="material-icons mr-2 search-icon">search</i>
-                                        <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                                      </div>
+                            <div class="collapsible-header p-0">
+                              <div class="row">
+                                <div class="col s12 m8">
+                                  <div class="collapsible-main-header">
+                                    <i class="material-icons expand">expand_less</i>
+                                    <span>Outstanding List Berita Acara</span>
+                                  </div>
+                                </div>
+                                <div class="col s12 m4">
+                                  <div class="app-wrapper">
+                                    <div class="datatable-search mb-0">
+                                      <i class="material-icons mr-2 search-icon">search</i>
+                                      <input type="text" placeholder="Search" class="app-filter no-propagation" id="from-manifest-hq-filter">
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                             <div class="collapsible-body white p-0">
                                 <div class="section-data-tables"> 
                                     <table id="data-table-section-contents" class="display" width="100%">
                                       <thead>
@@ -63,11 +70,115 @@
                                             {!! get_button_view('#', 'Select') !!}
                                           </td>
                                         </tr>
+                                        <tr>
+                                          <td>2.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>3.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>4.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>5.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>6.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>7.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>8.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
                                       </tbody>
                                   </table>
+                              </div>
+                             </div>
+                           </li>
+                        </ul>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="content-overlay"></div>
+    </div>
 
-                                  <h6 class="card-title mt-2 ml-2">Berita Acara Detail</h6>
-                                  <hr>
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <!-- <div class="card"> -->
+                    <div class="card-content">
+                        <ul class="collapsible">
+                           <li class="active">
+                            <div class="collapsible-header p-0">
+                              <div class="row">
+                                <div class="col s12 m8">
+                                  <div class="collapsible-main-header">
+                                    <i class="material-icons expand">expand_less</i>
+                                    <span>Berita Acara Detail</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                             <div class="collapsible-body white p-0">
+                                <div class="section-data-tables"> 
                                   <div class="pl-2 pr-2 pb-2">
                                       <table id="data-table-section-contents" class="bordered striped" width="100%">
                                           <thead>
@@ -132,7 +243,7 @@
                                             </tr>
                                           </tbody>
                                       </table>
-                                      {!! get_button_view(url('claim-notes'), 'Save') !!}
+                                      {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
                                   </div>  
                               </div>
                              </div>
@@ -145,7 +256,7 @@
         <div class="content-overlay"></div>
     </div>
 
-    <div class="col s12">
+    {{-- <div class="col s12">
         <div class="container">
             <div class="section">
                 <!-- <div class="card"> -->
@@ -238,7 +349,7 @@
             </div>
         </div>
         <div class="content-overlay"></div>
-    </div>
+    </div> --}}
 </div>
 @endsection
 
@@ -254,6 +365,7 @@
     });
 var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+        pageLength: 5,
         order: [1, 'asc'],
     });
 </script>
