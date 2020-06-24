@@ -44,7 +44,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
+              <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-schedule/create') }}">New Stock Take Schedule</a>
 
               </div>
             </div>
@@ -68,20 +68,7 @@
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
-                              <tbody><!-- 
-                                <tr>
-                                  <td>1.</td>
-                                  <td>BTM-STO-200202-001</td>
-                                  <td>Stock_Tacking_Before_Go_Live</td>
-                                  <td>2020-02-02</td>
-                                  <td>2020-02-02</td>
-                                  <th width="50px;">
-                                    {!! get_button_edit(url('stock-take-schedule/1/edit')) !!}
-                                    {!! get_button_delete() !!}
-                                    {!! get_button_view(url('stock-take-schedule/1'), 'View Detail') !!}
-                                    {!! get_button_save('Finish') !!}
-                                  </th>
-                                </tr> -->
+                              <tbody>
                               </tbody>
                           </table>
                         </div>
@@ -100,61 +87,63 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     setDataFilterToLocalStorage();
+    set_select_data();
   });
-    var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
-      serverSide: true,
-      scrollX: true,
-      responsive: true,
-      ajax: {
-        url: '{{ url('stock-take-schedule') }}',
-        type: 'GET',
-        data: function(d) {
-            d.search['value'] = $('#global_filter').val(),
-            d.area = $('#area_filter').val(),
-            d.branch = $('#branch_filter').val()
-          }
-      },
-      order: [1, 'asc'],
-      columns: [
-          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          {data: 'sto_id', name: 'sto_id', className: 'detail'},
-          {data: 'description', name: 'description', className: 'detail'},
-          {data: 'schedule_start_date', name: 'schedule_start_date', className: 'detail'},
-          {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
-          {data: 'action', className: 'center-align', searchable: false, orderable: false},
-      ]
-    });
 
-    dtdatatable.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
-      swal({
-        text: "Delete the STO NO. " + data.sto_id + "?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
+  var dtdatatable = $('#data-table-stocktake-schedule').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+      url: '{{ url('stock-take-schedule') }}',
+      type: 'GET',
+      data: function(d) {
+          d.search['value'] = $('#global_filter').val(),
+          d.area = $('#area_filter').val(),
+          d.branch = $('#branch_filter').val()
         }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-            $.ajax({
-            url: '{{ url('stock-take-schedule') }}' + '/' + data.sto_id ,
-            type: 'DELETE',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
-            dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
-    });
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'sto_id', name: 'sto_id', className: 'detail'},
+        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'schedule_start_date', name: 'schedule_start_date', className: 'detail'},
+        {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  dtdatatable.on('click', '.btn-delete', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    // Ditanyain dulu usernya mau beneran delete data nya nggak.
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+    swal({
+      text: "Delete the STO NO. " + data.sto_id + "?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        delete: 'Yes, Delete It'
+      }
+    }).then(function (confirm) { // proses confirm
+      if (confirm) {
+          $.ajax({
+          url: '{{ url('stock-take-schedule') }}' + '/' + data.sto_id ,
+          type: 'DELETE',
+          dataType: 'json',
+        })
+        .done(function() {
+          swal("Good job!", "STO No. " + data.sto_id + " has been deleted!", "success") // alert success
+          dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+        })
+        .fail(function() {
+          console.log("error");
+        });
+      }
+    })
+  });
 
   // Search
   $("input#global_filter").on("keyup click", function () {
@@ -165,7 +154,7 @@
   $('#area_filter').select2({
        placeholder: '-- Select Area --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+       ajax: get_select2_ajax_options('/master-area/select2-code-area')
     });
 
   // Select Branch/Cabang
@@ -177,7 +166,7 @@
 
   // Custom search
   function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 
   // Custom Filter
@@ -191,7 +180,8 @@
         // filter value
         var stockTakeScheduleFilter = {
           type: 'area',
-          value: $(this).val()
+          value: $(this).val(),
+          text: $(this).find('option:selected').text()
         }
         // store filter to localstorage
         localStorage.setItem("stockTakeScheduleFilter", JSON.stringify(stockTakeScheduleFilter));
@@ -224,6 +214,17 @@
         dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
       }
     });
+  }
+
+  // data select filter from localstorage
+  function set_select_data() {
+    var stockTakeScheduleFilter = JSON.parse(localStorage.getItem('stockTakeScheduleFilter'));
+
+    if (stockTakeScheduleFilter.type == 'area') {
+      set_select2_value('#area_filter', stockTakeScheduleFilter.value, stockTakeScheduleFilter.text);
+    } else if (stockTakeScheduleFilter.type == 'branch'){
+     set_select2_value('#branch_filter', stockTakeScheduleFilter.value, stockTakeScheduleFilter.text);
+    }
   }
 </script>
 @endpush

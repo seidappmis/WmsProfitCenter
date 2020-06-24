@@ -44,7 +44,7 @@
                                                       </tr>
                                                   </thead>
                                                   <tbody>
-                                                    <tr>
+                                                    <!-- <tr>
                                                       <td>1.</td>
                                                       <td>BTM-STO-200202-001</td>
                                                       <td>27-C32B34</td>
@@ -52,7 +52,7 @@
                                                       <th width="50px;">
                                                         {!! get_button_edit(url('stock-take-schedule/edit')) !!}
                                                        </th>
-                                                    </tr>
+                                                    </tr> -->
                                                   </tbody>
                                               </table>
                                             </div>
@@ -92,6 +92,21 @@
     serverSide: false,
     scrollX: true,
     responsive: true,
+    ajax: {
+      url: '{{ url('stock-take-schedule/' . $stockTakeSchedule->sto_id) }}',
+      type: 'GET',
+      data: function(d) {
+          //
+        }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'sto_id', name: 'sto_id', className: 'detail'},
+        {data: 'material_no', name: 'material_no', className: 'detail'},
+        {data: 'qty', name: 'qty', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
   });
 </script>
 @endpush

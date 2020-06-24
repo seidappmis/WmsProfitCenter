@@ -21,7 +21,17 @@ class StockTakeSchedule extends BaseModel
     protected $keyType = 'string';
 
     public function details()
-	{
+	  {
 	    return $this->hasMany('App\Models\StockTakeScheduleDetail', 'sto_id', 'sto_id');
-	}
+	  }
+
+    public function Area()
+    {
+      return $this->belongsTo('App\Models\Area', 'area', 'area');
+    }
+
+    public function MasterCabang()
+    {
+      return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
+    }
 }

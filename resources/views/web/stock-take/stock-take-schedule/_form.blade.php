@@ -4,7 +4,8 @@
       <td>STO NO.</td>
       <td>
         <div class="input-field col s12 m4">
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : '')}}" required readonly>
+          <input id="kode" name="kode" type="text" readonly>
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required>
         </div>
       </td>
     </tr>
@@ -58,9 +59,9 @@
       <td class = "label">DATA FILE</td>
       <td>
         <div class="file-field input-field col s12 m5 l5">
-          <div class="btn btn-small waves-effect waves-light">
+          <div class="btn btn-sm">
             <span>Browse</span>
-            <input type="file" name="file-stock-take-schedule">
+            <input type="file" name="file-stocktake-schedule">
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Select File..">
@@ -80,6 +81,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     $('#kode_cabang').hide();
+    $('#kode').hide();
   });
 </script>
 @endpush

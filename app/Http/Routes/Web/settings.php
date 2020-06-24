@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Master Area
     Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
     Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
+    Route::get('master-area/select2-code-area', 'Web\AreaController@getSelect2AreaCode');
     Route::resource('master-area', 'Web\AreaController');
 
     // Master Cabang

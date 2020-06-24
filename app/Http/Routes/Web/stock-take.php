@@ -2,6 +2,8 @@
 
 Route::group(['middleware' => 'auth'], function () {
   // Stock Take Schedule
+  Route::put('stock-take-schedule/{sto_id}/view-detail/{id}', 'Web\StockTake\STScheduleDetailController@update');
+  Route::get('stock-take-schedule/{sto_id}/view-detail/{id}/edit', 'Web\StockTake\STScheduleDetailController@edit');
   Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
 
   Route::view('stock-take-create-tag', 'web.stock-take.stock-take-create-tag.index');
