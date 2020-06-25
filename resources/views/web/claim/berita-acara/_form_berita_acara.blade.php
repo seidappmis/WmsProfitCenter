@@ -39,7 +39,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-do-manifest">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -53,7 +53,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-internal-do">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -67,7 +67,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-lmb">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -77,7 +77,7 @@
         </tr>
         
     </table>
-    {!! get_button_view(url('berita-acara/1'), 'Save') !!}
+    {!! get_button_save() !!}
     {!! get_button_cancel(url('berita-acara'), 'Back') !!}
 </form>
 

@@ -20,6 +20,11 @@ class BeritaAcara extends BaseModel
      */
     protected $keyType = 'string';
 
+    public function details()
+  	{
+    	return $this->hasMany('App\Models\BeritaAcaraDetail', 'berita_acara_id', 'berita_acara_id');
+  	}
+
     public function Expedition()
     {
       return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code', 'code');

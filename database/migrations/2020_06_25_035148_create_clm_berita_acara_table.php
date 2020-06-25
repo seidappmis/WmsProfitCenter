@@ -20,7 +20,7 @@ class CreateClmBeritaAcaraTable extends Migration
             $table->string('driver_name', 50)->nullable();
             $table->string('vehicle_number', 11)->nullable();
             $table->string('do_manifest')->nullable();
-            $table->string('Internal_do')->nullable();
+            $table->string('internal_do')->nullable();
             $table->string('lmb')->nullable();
 
             $table->timestamps();

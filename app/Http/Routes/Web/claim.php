@@ -2,6 +2,7 @@
 
 Route::group(['middleware' => 'auth'], function () {
   // Berita Acara
+  Route::resource('berita-acara/{berita_acara_id}/view', 'Web\BeritaAcaraDetailController');
   Route::resource('berita-acara', 'Web\BeritaAcaraController');
   // Route::view('berita-acara', 'web.claim.berita-acara.index');
   // Route::view('berita-acara/create', 'web.claim.berita-acara.create');

@@ -24,7 +24,7 @@ class BeritaAcaraController extends Controller
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('action', function ($data) {
                     $action = '';
-                    $action .= ' ' . get_button_view(url('berita-acara/' . $data->berita_acara_id));
+                    $action .= ' ' . get_button_view(url('berita-acara/' . $data->id . '/view'));
                     $action .= ' ' . get_button_print();
                     return $action;
                 });
@@ -64,7 +64,33 @@ class BeritaAcaraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'berita_acara_id'   => 'unique:clm_berita_acara|max:20',
+          'expedition_code'   => 'required',
+          'driver_name'       => 'required',
+          'vehicle_number'    => 'required',
+        ]);
+
+        $beritaAcara                  = new BeritaAcara;
+        $beritaAcara->berita_acara_id = $request->input('berita_acara_id');
+        $beritaAcara->date_of_receipt = $request->input('date_of_receipt');
+        $beritaAcara->expedition_code = $request->input('expedition_code');
+        $beritaAcara->driver_name     = $request->input('driver_name');
+        $beritaAcara->vehicle_number  = $request->input('vehicle_number');
+
+        // File DO Manifest
+        $path = Storage::putFileAs('do-manifest/files', $request->file('file-do-manifest'), 'file');
+        $beritaAcara->do_manifest      = $path;
+
+        // File Internal DO
+        $path = Storage::putFileAs('internal-do/files', $request->file('file-internal-do'), 'file');
+        $beritaAcara->internal_do      = $path;
+
+        // File LMB
+        $path = Storage::putFileAs('lmb/files', $request->file('file-lmb'), 'file');
+        $beritaAcara->lmb              = $path;
+
+        return $beritaAcara->save();
     }
 
     /**
