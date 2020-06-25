@@ -111,4 +111,15 @@ class MasterVehicleExpeditionController extends Controller
     {
         return MasterVehicleExpedition::destroy($id);
     }
+
+    public function getSelect2VehicleNumber(Request $request)
+    {
+      $query = MasterVehicleExpedition::select(
+        DB::raw("vehicle_number AS id"),
+        DB::raw("vehicle_number AS text")
+      )
+        ->toBase();
+
+      return get_select2_data($request, $query);
+    }
 }

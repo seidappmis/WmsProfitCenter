@@ -30,12 +30,6 @@ class AdminNavListComposer
       ['name' => 'incoming', 'label' => 'Billing Return', 'url' => 'billing-return', 'icon' => 'radio_button_unchecked'],
     ]];
 
-    $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
-      ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
-    ]];
-
     $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [
       ['name' => 'other', 'label' => 'Clean Concept', 'url' => 'clean-concept', 'icon' => 'radio_button_unchecked'],
     ]];
@@ -76,6 +70,12 @@ class AdminNavListComposer
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'low_priority', 'childs' => [
       ['name' => 'report', 'label' => 'Task Notice', 'url' => 'task-notice', 'icon' => 'radio_button_unchecked'],
+    ]];
+
+    $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
+      ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
@@ -121,7 +121,7 @@ class AdminNavListComposer
       ['name' => 'master', 'label' => 'Master Expedition', 'url' => 'master-expedition', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Vehicle Expedition', 'url' => 'master-vehicle-expedition', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Driver', 'url' => 'master-driver', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'master', 'label' => 'Destionation City', 'url' => 'destination-city', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'master', 'label' => 'Destination City', 'url' => 'destination-city', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Freight Cost', 'url' => 'master-freight-cost', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Storage Master', 'url' => 'storage-master', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Model', 'url' => 'master-model', 'icon' => 'radio_button_unchecked'],

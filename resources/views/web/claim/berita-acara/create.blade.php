@@ -85,5 +85,24 @@
         accordion:true
     });
 
+  $("#form-berita-acara").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("berita-acara") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke view
+              window.location.href = "{{ url('berita-acara/') }}" + '/' + response.id + '/view'
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
 </script>
 @endpush
