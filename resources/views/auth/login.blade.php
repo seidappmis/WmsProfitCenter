@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     {{-- <a href="{{ url('dashboard') }}" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Masuk</a> --}}
-                                    <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">
+                                    <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-blue-indigo col s12">
                                         {{ __('Login') }}
                                     </button>
                                 </div>
