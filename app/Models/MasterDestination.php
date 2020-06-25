@@ -6,7 +6,7 @@ use App\BaseModel;
 
 class MasterDestination extends BaseModel
 {
-    protected $table = "master_destination";
+    protected $table = "tr_destination";
     protected $primaryKey = 'destination_number';
 
     /**
@@ -29,6 +29,6 @@ class MasterDestination extends BaseModel
      */
     public function Region()
     {
-        return $this->belongsTo('App\Models\Region', 'region');
+        return $this->belongsTo('App\Models\Region', 'region', 'region');
     }
 }

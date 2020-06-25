@@ -19,10 +19,10 @@ class MasterDriverController extends Controller
     {
         if ($request->ajax()) {
             $query = MasterDriver::select(
-                'master_driver.*',
-                DB::raw('master_expedition.expedition_name')
+                'tr_driver.*',
+                DB::raw('tr_expedition.expedition_name')
             )
-            ->leftjoin('master_expedition', 'master_expedition.code', '=', 'master_driver.expedition_code');
+            ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
   
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -59,7 +59,7 @@ class MasterDriverController extends Controller
         $request->validate([
             'expedition_code'  => 'required|max:3',
             
-            'driving_license_number'  => 'required|max:50',
+            'driving_license_no'  => 'required|max:50',
           ]);
           $masterDriver = new MasterDriver;
 
@@ -69,7 +69,7 @@ class MasterDriverController extends Controller
           $prefix = $masterDriver->expedition_code . '-' . date('y');
       
           $prefix_length = strlen($prefix);
-          $max_no        = DB::select('SELECT MAX(SUBSTR(driver_id, ?)) AS max_no FROM master_driver WHERE SUBSTR(driver_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+          $max_no        = DB::select('SELECT MAX(SUBSTR(driver_id, ?)) AS max_no FROM tr_driver WHERE SUBSTR(driver_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
           $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
       
           $driver_id = $prefix . '-' . $max_no;
@@ -86,14 +86,14 @@ class MasterDriverController extends Controller
           $masterDriver->driver_id = $request->input('driver_id');
           $masterDriver->driver_name     = $request->input('driver_name');
           $masterDriver->driving_license_type  = $request->input('driving_license_type');
-          $masterDriver->driving_license_number = $request->input('driving_license_number');
+          $masterDriver->driving_license_no = $request->input('driving_license_no');
           $masterDriver->ktp_no     = $request->input('ktp_no');
           $masterDriver->phone1   = $request->input('phone1');  
           $masterDriver->phone2   = $request->input('phone2');  
           $masterDriver->remarks1   = $request->input('remarks1');  
           $masterDriver->remarks2   = $request->input('remarks2');
           $masterDriver->remarks3   = $request->input('remarks3'); 
-          $masterDriver->status_active =!empty($request->input('status_active'));
+          $masterDriver->active_status =!empty($request->input('active_status'));
           $masterDriver->photo_name     = $request->input('photo_name');  
 
           $masterDriver->save();
@@ -136,7 +136,7 @@ class MasterDriverController extends Controller
         $masterDriver              = MasterDriver::findOrFail($id);
         $request->validate([
             
-            'driving_license_number'  => 'required',
+            'driving_license_no'  => 'required',
             // 'driver_name'=>'required',
             // 'driving_lisence_type'=>'required',
             // 'ktp_no'=>'required',
@@ -145,7 +145,7 @@ class MasterDriverController extends Controller
             // 'remarks1'=>'required',
             // 'remarks2'=>'required',
             // 'remarks3'=>'required',
-            // 'status_active'=>'required',
+            // 'active_status'=>'required',
             // 'photo_name'=>'required'
             ]);
             if (!empty($request->file('photo_name'))) {
@@ -160,14 +160,14 @@ class MasterDriverController extends Controller
           $masterDriver->driver_id = $request->input('driver_id');
           $masterDriver->driver_name     = $request->input('driver_name');
           $masterDriver->driving_license_type  = $request->input('driving_license_type');
-          $masterDriver->driving_license_number = $request->input('driving_license_number');
+          $masterDriver->driving_license_no = $request->input('driving_license_no');
           $masterDriver->ktp_no     = $request->input('ktp_no');
           $masterDriver->phone1   = $request->input('phone1');  
           $masterDriver->phone2   = $request->input('phone2');  
           $masterDriver->remarks1   = $request->input('remarks1');  
           $masterDriver->remarks2   = $request->input('remarks2');
           $masterDriver->remarks3   = $request->input('remarks3'); 
-          $masterDriver->status_active =!empty($request->input('status_active'));
+          $masterDriver->active_status =!empty($request->input('active_status'));
           $masterDriver->photo_name     = $request->input('photo_name');  
 
           $masterDriver->save();

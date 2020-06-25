@@ -5,7 +5,9 @@
       <td>
         <div class="input-field col s12">
           <input type="hidden" name="arrival_no_header" value="{{$incomingManualHeader->arrival_no}}">
-          <select name="model" required="" class="select2-data-ajax browser-default">
+          <input type="hidden" name="model">
+          <select name="model_id" required="" class="select2-data-ajax browser-default">
+            <option value=""></option>
           </select>
         </div>
       </td>
@@ -79,8 +81,7 @@
       </td>
     </tr>
   </table>
-  {!! get_button_save() !!}
-  <button class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1">Submit to Inventory</button>
+  {!! get_button_save('Save', 'btn-save mt-1') !!}
 </form>
 
 @push('script_js')
@@ -88,7 +89,7 @@
    jQuery(document).ready(function($) {
 
       // Loading Expedition Data
-      $('#form-incoming-import-oem-detail [name="model"]').select2({
+      $('#form-incoming-import-oem-detail [name="model_id"]').select2({
          placeholder: '-- Select Model --',
          ajax: get_select2_ajax_options('/master-model/select2-model')
       });
@@ -100,9 +101,10 @@
 
    });
 
-   $('#form-incoming-import-oem-detail [name="model"]').change(function(event) {
+   $('#form-incoming-import-oem-detail [name="model_id"]').change(function(event) {
      /* Act on the event */
      var data = $(this).select2('data')[0];
+     $('#form-incoming-import-oem-detail [name="model"]').val(data.model_name);
      $('#form-incoming-import-oem-detail [name="description"]').val(data.description);
      $('#form-incoming-import-oem-detail [name="cbm"]').val(data.cbm);
    });

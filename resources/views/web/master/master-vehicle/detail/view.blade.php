@@ -118,7 +118,7 @@
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
             {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
-            {data: 'vehicle_desription', name: 'vehicle_desription', className: 'detail'},
+            {data: 'vehicle_description', name: 'vehicle_description', className: 'detail'},
             {data: 'sap_description', name: 'sap_description', className: 'detail'},
             {data: 'cbm_min', name: 'cbm_min', className: 'detail'},
             {data: 'cbm_max', name: 'cbm_max', className: 'detail'},

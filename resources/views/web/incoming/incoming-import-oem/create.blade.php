@@ -21,7 +21,7 @@
                   <div class="datatable-search">
                     <select>
                       <option value="" disabled>-- Select Area --</option>
-                      <option value="1" selected>KARAWANG</option>
+                      <option value="1">KARAWANG</option>
                       <option value="2">SURABAYA HUB</option>
                       <option value="3">SWADAYA</option>
                     </select>

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use App\Models\VehicleDetail;
 use DataTables;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
 
 class VehicleDetailController extends Controller
 {
@@ -63,14 +63,14 @@ class VehicleDetailController extends Controller
    */
   public function store(Request $request, $vehicle_group_id)
   {
-    $vehicleDetail                     = new VehicleDetail;
-    $vehicleDetail->vehicle_group_id   = $vehicle_group_id;
-    $vehicleDetail->vehicle_code_type  = $request->input('vehicle_code_type');
-    $vehicleDetail->vehicle_desription = $request->input('vehicle_desription');
-    $vehicleDetail->sap_description    = $request->input('sap_description');
-    $vehicleDetail->cbm_min            = $request->input('cbm_min');
-    $vehicleDetail->cbm_max            = $request->input('cbm_max');
-    $vehicleDetail->urut               = $request->input('numb');
+    $vehicleDetail                      = new VehicleDetail;
+    $vehicleDetail->vehicle_group_id    = $vehicle_group_id;
+    $vehicleDetail->vehicle_code_type   = $request->input('vehicle_code_type');
+    $vehicleDetail->vehicle_description = $request->input('vehicle_description');
+    $vehicleDetail->sap_description     = $request->input('sap_description');
+    $vehicleDetail->cbm_min             = $request->input('cbm_min');
+    $vehicleDetail->cbm_max             = $request->input('cbm_max');
+    $vehicleDetail->urut                = $request->input('numb');
 
     return $vehicleDetail->save();
   }
@@ -111,14 +111,14 @@ class VehicleDetailController extends Controller
    */
   public function update(Request $request, $vehicle_group_id, $vehicle_detail_id)
   {
-    $vehicleDetail                     = VehicleDetail::findOrFail($vehicle_detail_id);
-    $vehicleDetail->vehicle_group_id   = $vehicle_group_id;
-    $vehicleDetail->vehicle_code_type  = $request->input('vehicle_code_type');
-    $vehicleDetail->vehicle_desription = $request->input('vehicle_desription');
-    $vehicleDetail->sap_description    = $request->input('sap_description');
-    $vehicleDetail->cbm_min            = $request->input('cbm_min');
-    $vehicleDetail->cbm_max            = $request->input('cbm_max');
-    $vehicleDetail->urut               = $request->input('numb');
+    $vehicleDetail                      = VehicleDetail::findOrFail($vehicle_detail_id);
+    $vehicleDetail->vehicle_group_id    = $vehicle_group_id;
+    $vehicleDetail->vehicle_code_type   = $request->input('vehicle_code_type');
+    $vehicleDetail->vehicle_description = $request->input('vehicle_description');
+    $vehicleDetail->sap_description     = $request->input('sap_description');
+    $vehicleDetail->cbm_min             = $request->input('cbm_min');
+    $vehicleDetail->cbm_max             = $request->input('cbm_max');
+    $vehicleDetail->urut                = $request->input('numb');
 
     return $vehicleDetail->save();
   }
@@ -142,7 +142,7 @@ class VehicleDetailController extends Controller
   {
     $query = VehicleDetail::select(
       DB::raw("vehicle_code_type AS id"),
-      DB::raw("vehicle_desription AS text")
+      DB::raw("vehicle_description AS text")
     )->toBase();
 
     return get_select2_data($request, $query);

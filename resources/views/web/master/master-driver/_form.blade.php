@@ -25,7 +25,7 @@
                         type="text" 
                         class="validate"
                         name="driver_id"
-                        value="{{old('driver_id', !empty($masterDriver) ? $masterDriver->driving_id : '')}}" 
+                        value="{{old('driver_id', !empty($masterDriver) ? $masterDriver->driver_id : '')}}" 
                         >
                 </div>
             </td>
@@ -76,11 +76,11 @@
             <td class="label">Driving Lisence No.</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="driving_license_number" 
+                    <input id="driving_license_no" 
                     type="text" 
                     class="validate" 
-                    name="driving_license_number"
-                    value="{{old('driving_license_number', !empty($masterDriver) ? $masterDriver->driving_license_number : '')}}" 
+                    name="driving_license_no"
+                    value="{{old('driving_license_no', !empty($masterDriver) ? $masterDriver->driving_license_no : '')}}" 
                     {{!empty($masterDriver) ? 'readonly' : ''}} 
                     required>
                 </div>
@@ -174,8 +174,8 @@
                 <div class="input-field col s12 mt-2">
                   <p>
                   <label>
-                    <input type="checkbox" class="filled-in" checked="checked" name="status_active"
-                    {{!empty($masterDriver) && $masterDriver->status_active ? 'checked' : ''}}/>
+                    <input type="checkbox" class="filled-in" checked="checked" name="active_status"
+                    {{!empty($masterDriver) && $masterDriver->active_status ? 'checked' : ''}}/>
                     <span></span>
                   </label>
                   </p>

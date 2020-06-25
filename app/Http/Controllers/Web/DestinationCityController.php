@@ -53,7 +53,7 @@ class DestinationCityController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'city_code'  => 'required|unique:destination_cities|max:10',
+      'city_code'  => 'required|unique:log_destination_city|max:10',
       'city_name'  => 'required|max:100',
     ]);
 

@@ -16,17 +16,17 @@ class MasterVehicleExpeditionController extends Controller
         if ($request->ajax()) {
             $query = MasterVehicleExpedition::select(
                 'tr_vehicle_expedition.*',
-                DB::raw('vehicle_type_details.vehicle_desription as vehicle_type'),
-                DB::raw('vehicle_type_details.cbm_min'),
-                DB::raw('vehicle_type_details.cbm_max'),
-                DB::raw('vehicle_type_groups.group_name AS vehicle_group'),
-                DB::raw('master_expedition.expedition_name'),
-                DB::raw('master_destination.description AS destination_name')
+                DB::raw('tr_vehicle_type_detail.vehicle_description as vehicle_type'),
+                DB::raw('tr_vehicle_type_detail.cbm_min'),
+                DB::raw('tr_vehicle_type_detail.cbm_max'),
+                DB::raw('tr_vehicle_type_group.group_name AS vehicle_group'),
+                DB::raw('tr_expedition.expedition_name'),
+                DB::raw('tr_destination.destination_description AS destination_name')
             )
-                ->leftjoin('master_expedition', 'master_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
-                ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type')
-                ->leftjoin('vehicle_type_groups', 'vehicle_type_groups.id', '=', 'vehicle_type_details.vehicle_group_id')
-                ->leftjoin('master_destination', 'master_destination.destination_number', '=', 'tr_vehicle_expedition.destination');
+                ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+                ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type')
+                ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
+                ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_vehicle_expedition.destination');
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)

@@ -8,7 +8,7 @@ class VehicleDetail extends BaseModel
 {
     //Set Table
     //if not set default : vehicledetails
-    protected $table = "vehicle_type_details";
+    protected $table = "tr_vehicle_type_detail";
 
     /**
      * Get the vehicle group that owns the vehicle detail.

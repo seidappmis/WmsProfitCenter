@@ -89,7 +89,8 @@
       </td>
     </tr>
   </table>
-  {!! get_button_save() !!}
+  {!! get_button_save('Save', 'btn-save mt-1') !!}
+  <button class="waves-effect waves-light indigo btn-small btn-submit-to-inventory mt-1 mr-1 mb-1 hide">Submit to Inventory</button>
 </form>
 @push('script_js')
 <script type="text/javascript">

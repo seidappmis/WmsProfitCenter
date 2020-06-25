@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\IncomingManualHeader;
+use App\Models\InventoryStorage;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -41,6 +42,20 @@ class IncomingImportOEMController extends Controller
     return view('web.incoming.incoming-import-oem.create');
   }
 
+  /**
+   * Submit to Inventory Function
+   *
+   * 1. UPDATE IncomingManualHeader
+   *
+   * 2. Generate data di table wms_movement_transaction_log
+   * Movement type 101 `Add Stock from OEM/IMPORT/OTHERS`
+   *
+   * 3. CREATE OR UPDATE STOCK wms_inventory_monitoring
+   *
+   *
+   * @param  [type] $id [description]
+   * @return [type]     [description]
+   */
   public function submitToInventory($id)
   {
     $incomingManualHeader = IncomingManualHeader::findOrFail($id);
@@ -49,7 +64,27 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
     $incomingManualHeader->submit_by   = auth()->user()->id;
 
-    $incomingManualHeader->save();
+    // $incomingManualHeader->save();
+
+    foreach ($incomingManualHeader->details as $key => $v_detail) {
+      // print_r($v_detail->model_data->toArray());
+      InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $v_detail->storage_id,
+          'model_name' => $v_detail->model,
+        ],
+        // Data Update
+        [
+          'ean_code'       => $v_detail->model_data->ean_code,
+          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $v_detail->qty),
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $v_detail->total_cbm),
+          'last_updated'   => date('Y-m-d H:i:s'),
+        ]
+      );
+
+      
+    }
 
     return $incomingManualHeader;
   }

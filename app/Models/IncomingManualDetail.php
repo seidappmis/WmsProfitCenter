@@ -13,6 +13,11 @@ class IncomingManualDetail extends BaseModel
     return $this->belongsTo('App\Models\IncomingManualHeader', 'arrival_no', 'arrival_no_header');
   }
 
+  public function model_data()
+  {
+    return $this->belongsTo('App\Models\MasterModel', 'model', 'model_name');
+  }
+
   public function storage()
   {
     return $this->belongsTo('App\Models\StorageMaster', 'storage_id', 'id');

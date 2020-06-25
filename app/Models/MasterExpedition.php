@@ -8,6 +8,6 @@ use App\BaseModel;
 
 class MasterExpedition extends BaseModel
 {
-    protected $table = 'master_expedition';
+    protected $table = 'tr_expedition';
    
 }
