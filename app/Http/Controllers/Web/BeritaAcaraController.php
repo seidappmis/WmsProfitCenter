@@ -7,6 +7,7 @@ use App\Models\BeritaAcara;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaAcaraController extends Controller
 {
