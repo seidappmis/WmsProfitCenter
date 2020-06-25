@@ -9,9 +9,9 @@
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google.">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>User Login | WMS Sharp</title>
-    <link rel="apple-touch-icon" href="{{url('materialize/images/favicon/apple-touch-icon-152x152.png')}}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url('materialize/images/favicon/favicon-32x32.png')}}">
+    <title>User Login | WMS SEID</title>
+    <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- BEGIN: VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{url('materialize/vendors/vendors.min.css')}}">
@@ -42,7 +42,7 @@
                             @csrf
                             <div class="row center-align">
                                 <div class="input-field col s12">
-                                    <h5 class="ml-4">WMS Sharp</h5>
+                                    <h5 class="ml-4">WMS SEID</h5>
                                 </div>
                                 <div class="col s12 center-align">
                                     @error('username')

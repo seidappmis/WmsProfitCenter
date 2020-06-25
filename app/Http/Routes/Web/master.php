@@ -22,9 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('master-expedition', 'Web\MasterExpeditionController');
 
     // Master Vehicle Expedition
+    Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicleExpeditionController@getSelect2VehicleNumber');
     Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
 
     // Master Driver
+    Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
     Route::resource('master-driver', 'Web\MasterDriverController');
 
     // Destination City

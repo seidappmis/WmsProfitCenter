@@ -184,16 +184,16 @@ class MasterDriverController extends Controller
     {
         return MasterDriver::destroy($id);
     }
-    public function getSelect2ActiveExpedition(Request $request)
-  {
-    $query = MasterDriver::select(
-      DB::raw("code AS id"),
-      DB::raw("CONCAT(code, '-', expedition_name) AS text")
-    )
-      ->where('status_active', 1)
-      ->toBase();
 
-    return get_select2_data($request, $query);
-  }
+    public function getSelect2DriverName(Request $request)
+    {
+      $query = MasterDriver::select(
+        DB::raw("driver_name AS id"),
+        DB::raw("driver_name AS text")
+      )
+        ->toBase();
+
+      return get_select2_data($request, $query);
+    }
     
 }

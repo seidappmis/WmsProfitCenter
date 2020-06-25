@@ -144,6 +144,7 @@ class MasterExpeditionController extends Controller
     {
         return MasterExpedition::destroy($id);
     }
+    
     public function getSelect2ActiveExpedition(Request $request)
     {
       $query = MasterExpedition::select(
@@ -155,14 +156,15 @@ class MasterExpeditionController extends Controller
   
       return get_select2_data($request, $query);
     }
-    public function getSelect2AllExpedition(Request $request)
-  {
-    $query = MasterExpedition::select(
-      DB::raw("code AS id"),
-      DB::raw("expedition_name AS text")
-    )
-      ->toBase();
 
-    return get_select2_data($request, $query);
-  }
+    public function getSelect2AllExpedition(Request $request)
+    {
+        $query = MasterExpedition::select(
+          DB::raw("code AS id"),
+          DB::raw("expedition_name AS text")
+        )
+          ->toBase();
+
+        return get_select2_data($request, $query);
+    }
 }

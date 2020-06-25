@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -36,7 +35,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="data-table-berita-acara" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -45,12 +44,12 @@
                                     <th>EXPEDITION NAME</th>
                                     <th>DRIVER</th>
                                     <th>VEHICLE NO.</th>
-                                    <th>STATUS</th>
+                                    <!-- <th>STATUS</th> -->
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                <!-- <tr>
                                   <td>1.</td>
                                   <td>01/BA-HQ/02/2015</td>
                                   <td>May 21, 2020</td>
@@ -75,7 +74,7 @@
                                     {!! get_button_view('berita-acara/1') !!}
                                     {!! get_button_print() !!}
                                   </td>
-                                </tr>
+                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -91,9 +90,36 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
-    });
+  var dtdatatable = $('#data-table-berita-acara').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('berita-acara') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'berita_acara_id', name: 'berita_acara_id', className: 'detail'},
+        {data: 'date_of_receipt', name: 'date_of_receipt', className: 'detail'},
+        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+        {data: 'driver_name', name: 'driver_name', className: 'detail'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush

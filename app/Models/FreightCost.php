@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\BaseModel;;
+use App\BaseModel;
 
 class FreightCost extends BaseModel
 {
