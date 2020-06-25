@@ -7,6 +7,7 @@
     });
 
     $('.collapsible-header .no-propagation').click(function(e){ e.stopPropagation(); });
+    $('.dataTable .input-filter-column').click(function(e){ e.stopPropagation(); });
 
     jQuery(document).ready(function($) {
       // add class styling for select2

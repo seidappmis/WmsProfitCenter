@@ -28,6 +28,10 @@ class MasterDatabaseSeeder extends Seeder
     $this->call(Database\Seeds\Masters\LOGDestinationCityTableSeeder::class);
     $this->call(Database\Seeds\Masters\LOGFreightCostTableSeeder::class);
     $this->call(Database\Seeds\Masters\MasterVendorTableSeeder::class);
+    $this->call(Database\Seeds\Masters\WMSBranchExpeditionTableSeeder::class);
+    $this->call(Database\Seeds\Masters\WMSBranchVehicleExpeditionTableSeeder::class);
+    $this->call(Database\Seeds\Masters\WMSBranchDriverTableSeeder::class);
+    $this->call(Database\Seeds\Masters\WMSDestinationCityBranchTableSeeder::class);
     $this->call(Database\Seeds\Masters\WMSMasterMovementTypeSeeder::class);
     $this->call(Database\Seeds\Masters\WMSMasterModelSeeder::class);
     $this->call(Database\Seeds\Masters\WMSMasterStorageTableSeeder::class);

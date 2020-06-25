@@ -62,8 +62,12 @@ jQuery(document).ready(function($) {
 
   function set_form_data() {
     set_select2_value('#form-branch-expedition-vehicle [name="expedition_code"]', '{{$branchExpeditionVehicle->expedition_code}}', '{{$branchExpeditionVehicle->expedition->code . '-' . $branchExpeditionVehicle->expedition->expedition_name}}');
+    
     set_select2_value('#form-branch-expedition-vehicle [name="vehicle_code_type"]', '{{$branchExpeditionVehicle->vehicle_code_type}}', '{{$branchExpeditionVehicle->vehicle->vehicle_desription}}');
-    set_select2_value('#form-branch-expedition-vehicle [name="destination"]', '{{$branchExpeditionVehicle->destination}}', '{{$branchExpeditionVehicle->destination_data->description}}');
+
+    @if(!empty($branchExpeditionVehicle->destination))
+    set_select2_value('#form-branch-expedition-vehicle [name="destination"]', '{{$branchExpeditionVehicle->destination}}', '{{$branchExpeditionVehicle->destination_data->destination_description}}');
+    @endif
   }
 </script>
 @endpush
