@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\IncomingManualHeader;
 use App\Models\InventoryStorage;
+use App\Models\MovementTransactionLog;
+use App\Models\MovementTransactionType;
+use App\Models\StorageMaster;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class IncomingImportOEMController extends Controller
 {
@@ -58,35 +62,69 @@ class IncomingImportOEMController extends Controller
    */
   public function submitToInventory($id)
   {
-    $incomingManualHeader = IncomingManualHeader::findOrFail($id);
+    return DB::transaction(function () use ($id) {
+      $incomingManualHeader = IncomingManualHeader::findOrFail($id);
 
-    $incomingManualHeader->submit      = 1;
-    $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
-    $incomingManualHeader->submit_by   = auth()->user()->id;
+      $incomingManualHeader->submit      = 1;
+      $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
+      $incomingManualHeader->submit_by   = auth()->user()->id;
 
-    // $incomingManualHeader->save();
+      $rs_storage = [];
 
-    foreach ($incomingManualHeader->details as $key => $v_detail) {
-      // print_r($v_detail->model_data->toArray());
-      InventoryStorage::updateOrCreate(
-        // Condition
-        [
-          'storage_id' => $v_detail->storage_id,
-          'model_name' => $v_detail->model,
-        ],
-        // Data Update
-        [
-          'ean_code'       => $v_detail->model_data->ean_code,
-          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $v_detail->qty),
-          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $v_detail->total_cbm),
-          'last_updated'   => date('Y-m-d H:i:s'),
-        ]
-      );
+      // Type 101 Action INCREASE
+      $mvt_master_id               = 3;
+      $movement_transaction_type   = MovementTransactionType::find($mvt_master_id);
+      $rs_movement_transaction_log = [];
 
-      
-    }
+      $date_now = date('Y-m-d H:i:s');
 
-    return $incomingManualHeader;
+      foreach ($incomingManualHeader->details as $key => $v_detail) {
+        // Get Storage Data
+        if (empty($rs_storage[$v_detail->storage_id])) {
+          $rs_storage[$v_detail->storage_id] = StorageMaster::find($v_detail->storage_id);
+        }
+
+        // Update Or Create Inventory Stroage data
+        InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $v_detail->storage_id,
+            'model_name' => $v_detail->model,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $v_detail->model_data->ean_code,
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $v_detail->qty),
+            'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $v_detail->total_cbm),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+        // Add Movement Transaction Log
+        $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+        $movement_transaction_log['arrival_no']            = $incomingManualHeader->arrival_no;
+        $movement_transaction_log['mvt_master_id']         = $mvt_master_id;
+        $movement_transaction_log['inventory_movement']    = 'Stock ' . $movement_transaction_type->action;
+        $movement_transaction_log['movement_code']         = $movement_transaction_type->movement_code;
+        $movement_transaction_log['transactions_desc']     = 'Add Stock from OEM/IMPORT/OTHERS';
+        $movement_transaction_log['storage_location_from'] = '';
+        $movement_transaction_log['storage_location_to']   = $rs_storage[$v_detail->storage_id]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_code'] = '& ' . $movement_transaction_log['storage_location_to'];
+        $movement_transaction_log['eancode']               = $v_detail->model_data->ean_code;
+        $movement_transaction_log['model']                 = $v_detail->model;
+        $movement_transaction_log['quantity']              = $v_detail->qty;
+        $movement_transaction_log['created_at']            = $date_now;
+        $movement_transaction_log['flow_id']               = '';
+
+        $rs_movement_transaction_log[] = $movement_transaction_log;
+      }
+
+      MovementTransactionLog::insert($rs_movement_transaction_log);
+
+      $incomingManualHeader->save();
+
+      return $incomingManualHeader;
+    });
   }
 
   public function show(Request $request, $id)

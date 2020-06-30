@@ -85,7 +85,7 @@
         {data: 'username', name: 'username', className: 'detail'},
         {data: 'first_name', name: 'first_name', className: 'detail'},
         {data: 'last_name', name: 'last_name', className: 'detail'},
-        {data: 'roles', name: 'roles', className: 'detail'},
+        {data: 'roles_name', name: 'roles_name', className: 'detail'},
         {data: 'area', name: 'area', className: 'detail'},
         {data: 'long_description', name: 'long_description', className: 'detail'},
         {data: 'status', name: 'status', className: 'detail'},

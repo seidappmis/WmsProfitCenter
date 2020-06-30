@@ -85,7 +85,7 @@ class UploadConceptController extends Controller
         // find destination bila belum ada di rs_destination
         // cari di database, bila sudah ada tidak perlu cari di database
         if (empty($rs_destination[$concept['destination_name']])) {
-          $destination = MasterDestination::where('description', $concept['destination_name'])->first();
+          $destination = MasterDestination::where('destination_description', $concept['destination_name'])->first();
           if (empty($destination)) {
             $result['status']  = false;
             $result['message'] = 'Destination ' . $concept['destination_name'] . ' not found in master destination !';

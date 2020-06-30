@@ -15,7 +15,7 @@ class AdminNavListComposer
    */
   public function __construct()
   {
-    $this->menuItems[] = ['name' => 'home', 'label' => 'Home', 'url' => 'home', 'icon' => 'account_balance'];
+    $this->menuItems[] = ['name' => '', 'label' => 'Home', 'url' => 'home', 'icon' => 'account_balance'];
 
     $this->menuItems[] = ['name' => 'dashboard', 'label' => 'Dashboard', 'url' => '#', 'icon' => 'dvr', 'childs' => [
       ['name' => 'dashboard', 'label' => 'Graphic Dashboard', 'url' => 'dashboard', 'icon' => 'radio_button_unchecked'],
@@ -34,10 +34,10 @@ class AdminNavListComposer
       ['name' => 'other', 'label' => 'Clean Concept', 'url' => 'clean-concept', 'icon' => 'radio_button_unchecked'],
     ]];
 
-     $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
-       ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
-       ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
-       ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
+    $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
+      ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => 'upload-concept', 'icon' => 'radio_button_unchecked'],
@@ -149,6 +149,33 @@ class AdminNavListComposer
    */
   public function compose(View $view)
   {
-    $view->with('navList', $this->menuItems);
+    $view->with('navList', $this->getMenu());
+  }
+
+  public function getMenu()
+  {
+    $menuItems = [];
+    $modules   = auth()->user()->modules();
+    foreach ($this->menuItems as $key => $menu) {
+      if (empty($menu['name'])) {
+        $menuItems[] = $menu;
+      }
+
+      if (!empty($menu['childs'])) {
+        $menuData           = $menu;
+        $menuData['childs'] = [];
+
+        foreach ($menu['childs'] as $key => $child_menu) {
+          if (!empty($modules[$child_menu['url']]) && $modules[$child_menu['url']]['view'] == 1 ) {
+            $menuData['childs'][] = $child_menu;
+          }
+        }
+
+        if (!empty($menuData['childs'])) {
+          $menuItems[] = $menuData;
+        }
+      }
+    }
+    return $menuItems;
   }
 }

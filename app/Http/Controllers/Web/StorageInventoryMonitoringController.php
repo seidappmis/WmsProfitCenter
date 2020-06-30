@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\InventoryStorage;
+use App\Models\MovementTransactionLog;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class StorageInventoryMonitoringController extends Controller
           $action .= ' ' . get_button_view(url('storage-inventory-monitoring/' . $data->id), 'View Log');
           return $action;
         })
-        ;
+      ;
 
       return $datatables->make(true);
     }
@@ -35,10 +36,19 @@ class StorageInventoryMonitoringController extends Controller
     return view('web.inventory.storage-inventory-monitoring.index');
   }
 
-  public function show($id)
+  public function show(Request $request, $id)
   {
     $data['inventoryStorage'] = InventoryStorage::findOrFail($id);
 
-    return view('web.inventory.storage-inventory-monitoring.view');
+    if ($request->ajax()) {
+      $query      = MovementTransactionLog::all();
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ;
+
+      return $datatables->make(true);
+    }
+
+    return view('web.inventory.storage-inventory-monitoring.view', $data);
   }
 }

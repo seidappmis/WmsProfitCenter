@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrUserRolesTable extends Migration
+class CreateTrModulesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTrUserRolesTable extends Migration
    */
   public function up()
   {
-    Schema::create('tr_user_roles', function (Blueprint $table) {
-      $table->string('roles_id', 150);
-      $table->string('roles_name', 100);
+    Schema::create('tr_modules', function (Blueprint $table) {
+      $table->id();
+      $table->string('modul_name', 255);
+      $table->string('modul_link', 255);
+      $table->string('group_name', 255);
+      $table->integer('order_menu');
       $table->timestamps();
-
-      $table->primary('roles_id'); // add primary key
     });
   }
 
@@ -29,6 +30,6 @@ class CreateTrUserRolesTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('tr_user_roles');
+    Schema::dropIfExists('tr_modules');
   }
 }

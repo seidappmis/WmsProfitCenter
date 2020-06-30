@@ -88,8 +88,8 @@
       order: [5, 'desc'],
       columns: [
           {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          {data: 'sto_type_desc', name: 'wms_master_storage.sto_type_desc', className: 'detail'},
-          {data: 'sto_loc_code_long', name: 'wms_master_storage.sto_loc_code_long', className: 'detail'},
+          {data: 'sto_type_desc', name: 'sto_type_desc', className: 'detail'},
+          {data: 'sto_loc_code_long', name: 'sto_loc_code_long', className: 'detail'},
           {data: 'model_name', name: 'model_name', className: 'detail'},
           {data: 'quantity_total', name: 'quantity_total', className: 'detail'},
           {data: 'last_updated', name: 'last_updated', className: 'detail'},

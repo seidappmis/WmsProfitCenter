@@ -11,12 +11,18 @@
 
     jQuery(document).ready(function($) {
       // add class styling for select2
-      $.each($('select'), function(index, val) {
-         /* iterate through array or object */
-         if ($(val).is(':required')) {
-          $(val).parent().find('span.select2-selection').addClass('select2-required')
-         }
+      $('select.select2-data-ajax').change(function(event) {
+        /* Act on the event */
+        $(this).parent().find('span.select2-selection').addClass('select2-required')
       });
+      setTimeout(function() {
+        $.each($('select'), function(index, val) {
+           /* iterate through array or object */
+           if ($(val).is(':required')) {
+            $(val).parent().find('span.select2-selection').addClass('select2-required')
+           }
+        });
+      }, 10);
 
       $('.datepicker').datepicker();
     });
@@ -49,14 +55,14 @@
 });
 
 
-function get_select2_ajax_options(url) {
+function get_select2_ajax_options(url, extraFilter = null) {
   return {
     url: url,
     dataType: 'json',
     type: 'get',
     delay: 250,
     data: function(params) {
-      return get_select2_search_term(params);
+      return get_select2_search_term(params, extraFilter);
     },
     processResults: function(data, params) {
       return {
@@ -70,12 +76,14 @@ function get_select2_ajax_options(url) {
   };
 }
 
-function get_select2_search_term(params){
+function get_select2_search_term(params, extraFilter){
   var search_term = {
     q: params.term || '', // search term
     page_limit: 10,
     page: params.page || 1
   };
+
+  Object.assign(search_term, extraFilter)
 
   return search_term;
 }
@@ -165,5 +173,4 @@ function initiateCloseNav(){
     }
   }
 }
-
 </script>

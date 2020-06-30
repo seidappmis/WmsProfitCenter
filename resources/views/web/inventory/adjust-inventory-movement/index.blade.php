@@ -48,7 +48,14 @@
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke index
-              window.location.href.reload
+              var qty_total = parseInt($('#form-adjust-inventory-movement [name="prev_quantity"]').val())
+              if ($('#form-adjust-inventory-movement [name="movement_code_type_action"]').val() == "INCREASE") {
+                qty_total += parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
+              } else {
+                qty_total -= parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
+              }
+              $('#form-adjust-inventory-movement [name="prev_quantity"]').val(qty_total)
+              $('#form-adjust-inventory-movement [name="quantity"]').val(0)
             }) // alert success
         })
         .fail(function(xhr) {
