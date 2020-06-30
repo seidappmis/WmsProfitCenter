@@ -9,7 +9,7 @@
             <div class="col s12 m8 l8">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Upload DO for Picking</span></h5>
                 <ol class="breadcrumbs mb-0">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Upload DO for Picking</li>
                 </ol>
             </div>
@@ -84,37 +84,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $("#form-upload-do-for-picking").validate({
-      submitHandler: function(form) {
-        var fdata = new FormData(form);
-        $.ajax({
-          url: '{{ url("upload-do-for-picking") }}',
-          type: 'POST',
-          data: fdata,
-          contentType: "application/json",
-          dataType: "json",
-          contentType: false,
-          processData: false
-        })
-        .done(function(data) { // selesai dan berhasil
-          data_concept = data;
-          if (data.status == false) {
-            $('#table-concept tbody').empty();
-            swal("Failed!", data.message, "warning");
-            return;
-          }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              $('#concept-wrapper').show();
-              $('#table-concept tbody').empty();
-            }) // alert success
-        })
-        .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
-      }
-    });
-
     var dtdatatable = $('#do-for-picking-table').DataTable({
     serverSide: true,
     scrollX: true,
@@ -155,6 +124,36 @@
 
     jQuery(document).ready(function($) {
       dtdatatable.ajax.reload(null, false)
+      $("#form-upload-do-for-picking").validate({
+        submitHandler: function(form) {
+          var fdata = new FormData(form);
+          $.ajax({
+            url: '{{ url("upload-do-for-picking") }}',
+            type: 'POST',
+            data: fdata,
+            contentType: "application/json",
+            dataType: "json",
+            contentType: false,
+            processData: false
+          })
+          .done(function(data) { // selesai dan berhasil
+            data_concept = data;
+            if (data.status == false) {
+              $('#table-concept tbody').empty();
+              swal("Failed!", data.message, "warning");
+              return;
+            }
+            swal("Good job!", "You clicked the button!", "success")
+              .then((result) => {
+                 $('#modal1').modal('close');
+                 dtdatatable.ajax.reload(null, false)
+              }) // alert success
+          })
+          .fail(function(xhr) {
+              showSwalError(xhr) // Custom function to show error with sweetAlert
+          });
+        }
+      });
     });
 
     set_datatables_checkbox('#do-for-picking-table', dtdatatable)

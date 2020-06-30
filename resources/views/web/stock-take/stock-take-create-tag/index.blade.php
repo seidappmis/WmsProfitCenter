@@ -8,7 +8,7 @@
           <div class="col s12 m6">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Create Tag</span></h5>
               <ol class="breadcrumbs mb-0">
-                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                   <li class="breadcrumb-item active">Stock Take Create Tag</li>
               </ol>
           </div>

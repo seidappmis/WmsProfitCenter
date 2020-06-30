@@ -9,7 +9,7 @@
             <div class="col s12">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Picking to LMB</span></h5>
                 <ol class="breadcrumbs mb-0">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Picking to LMB</li>
                 </ol>
             </div>
