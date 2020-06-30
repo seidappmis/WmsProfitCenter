@@ -269,4 +269,14 @@ class STScheduleController extends Controller
     return $stockTakeSchedule;
   }
 
+  public function getSelect2Schedule(Request $request)
+    {
+        $query = StockTakeSchedule::select(
+          DB::raw('sto_id AS id'),
+          DB::raw("sto_id AS text")
+        );
+
+        return get_select2_data($request, $query);
+    }
+
 }

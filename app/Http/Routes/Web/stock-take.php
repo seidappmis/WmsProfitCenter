@@ -4,17 +4,27 @@ Route::group(['middleware' => 'auth'], function () {
   // Stock Take Schedule
   Route::put('stock-take-schedule/{sto_id}/view-detail/{id}', 'Web\StockTake\STScheduleDetailController@update');
   Route::get('stock-take-schedule/{sto_id}/view-detail/{id}/edit', 'Web\StockTake\STScheduleDetailController@edit');
-  Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
   Route::put('stock-take-schedule/{sto_id}/finish', 'Web\StockTake\STScheduleController@finish');
+  Route::get('stock-take-schedule/select2-schedule', 'Web\StockTake\STScheduleController@getSelect2Schedule');
+  Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
 
-  Route::view('stock-take-create-tag', 'web.stock-take.stock-take-create-tag.index');
+  Route::get('stock-take-create-tag', 'Web\StockTakeCreateTagController@index');
+  Route::get('stock-take-create-tag/select2-no-tag-1', 'Web\StockTakeCreateTagController@getSelect2NoTag1');
+  Route::get('stock-take-create-tag/select2-no-tag-2', 'Web\StockTakeCreateTagController@getSelect2NoTag2');
+  Route::post('stock-take-create-tag', 'Web\StockTakeCreateTagController@store');
   Route::view('stock-take-create-tag/create', 'web.stock-take.stock-take-create-tag.create');
 
-  Route::view('stock-take-input-1', 'web.stock-take.stock-take-input-1.index');
+  Route::get('stock-take-input-1', 'Web\StockTakeInput1Controller@index');
+  Route::post('stock-take-input-1', 'Web\StockTakeInput1Controller@store');
+  Route::delete('stock-take-input-1/{id}', 'Web\StockTakeInput1Controller@destroy');
   Route::view('stock-take-input-1/edit', 'web.stock-take.stock-take-input-1.edit');
 
-  Route::view('stock-take-input-2', 'web.stock-take.stock-take-input-2.index');
+  Route::get('stock-take-input-2', 'Web\StockTakeInput2Controller@index');
+  Route::post('stock-take-input-2', 'Web\StockTakeInput2Controller@store');
+  Route::delete('stock-take-input-2/{id}', 'Web\StockTakeInput2Controller@destroy');
   Route::view('stock-take-input-2/edit', 'web.stock-take.stock-take-input-2.edit');
+  // Route::view('stock-take-input-2', 'web.stock-take.stock-take-input-2.index');
+  // Route::view('stock-take-input-2/edit', 'web.stock-take.stock-take-input-2.edit');
 
   Route::view('stock-take-quick-count', 'web.stock-take.stock-take-quick-count.index');
   Route::view('stock-take-compare-sap', 'web.stock-take.stock-take-compare-sap.index');

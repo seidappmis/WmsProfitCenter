@@ -34,7 +34,7 @@
             <div class="section">
               <div class="card">
                 <div class="card-content">
-                  <form>
+                  <form id="form-stock-take-create-tag">
                   <div class="row mb-5">
                     <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
@@ -43,10 +43,10 @@
                       <!---- Filter STO ID ----->
                       <div class="app-wrapper ml-3">
                         <div class="datatable-search">
-                          <select id="area_filter">
-                            <option>-Select Schedule ID-</option>
+                          <select id="sto_id" name="sto_id">
+                            {{-- <option>-Select Schedule ID-</option>
                             <option>SBY-STO-200201-001</option>
-                            <option>KRW-STO-199801-002</option>
+                            <option>KRW-STO-199801-002</option> --}}
                           </select>
                         </div>
                       </div>
@@ -115,12 +115,12 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                        {{-- <tr>
                                           <td>1.</td>
                                           <td>ES-TT8902-PK</td>
                                           <td>A</td>
                                           <td>-</td>
-                                        </tr>
+                                        </tr> --}}
                                       </tbody>
                                   </table>
                                 </div>
@@ -138,10 +138,51 @@
   </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+    });
+    jQuery(document).ready(function($) {
+      $("#form-stock-take-create-tag").validate({
+        submitHandler: function(form) {
+          var fdata = new FormData(form);
+          $.ajax({
+            url: '{{ url("stock-take-create-tag") }}',
+            type: 'POST',
+            data: fdata,
+            contentType: "application/json",
+            dataType: "json",
+            contentType: false,
+            processData: false
+          })
+          .done(function(data) { // selesai dan berhasil
+            console.log(data);
+            if (data.status == false) {
+              swal("Failed!", data.message, "warning");
+              return;
+            }
+            swal("Good job!", "You clicked the button!", "success")
+              .then((result) => {
+                // Kalau klik Ok redirect ke index
+                {{-- window.location.href = "{{ url('stock-take-create-tag') }}" --}}
+              }) // alert success
+          })
+          .fail(function(xhr) {
+              showSwalError(xhr) // Custom function to show error with sweetAlert
+          });
+        }
+      });
+    });
+    $('#sto_id').select2({
+       placeholder: '-- Select Schedule ID --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
     });
 </script>
 @endpush
