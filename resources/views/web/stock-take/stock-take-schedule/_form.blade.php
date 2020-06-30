@@ -5,7 +5,8 @@
       <td>
         <div class="input-field col s12 m4">
           <input id="kode" name="kode" type="text" readonly>
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required>
+          <input id="urut" name="urut" type="hidden" value="{{!empty($max_no) ? $max_no : ''}}" readonly>
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required readonly="">
         </div>
       </td>
     </tr>
@@ -13,7 +14,7 @@
       <td>AREA</td>
       <td>
         <div class="input-field col s12 m4">
-          <input id="area" type="text" class="validate" name="area" value="{{old('area', !empty($stockTakeSchedule) ? $stockTakeSchedule->area : '')}}" readonly>
+          <input id="area" type="text" class="validate" name="area" value="{{old('area', !empty($area) ? $area->area : '')}}" readonly>
         </div>
       </td>
     </tr>
@@ -21,8 +22,8 @@
       <td>BRANCH</td>
       <td>
         <div class="input-field col s12 m4">
-          <input id="kode_cabang" name="kode_cabang" type="text" readonly>
-          <input id="desc_cabang" name="desc_cabang" type="text" class="validate" value="{{old('branch', !empty($stockTakeSchedule) ? $stockTakeSchedule->location : ' ')}}" readonly>
+          <input id="kode_cabang" name="kode_cabang" type="text" value="{{!empty($branch) ? $branch->kode_cabang : ''}}" readonly>
+          <input id="desc_cabang" name="desc_cabang" type="text" class="validate" value="{{old('branch', !empty($branch) ? $branch->kode_cabang . ' [' . $branch->short_description . ']' . $branch->long_description : ' ')}}" readonly>
         </div>
       </td>
     </tr>
@@ -73,8 +74,8 @@
       </td>
     </tr>
   </table>
-  {!! get_button_save() !!}
-  {!! get_button_cancel(url('stock-take-schedule')) !!}
+  {!! get_button_save('Save', 'mt-1') !!}
+  {!! get_button_cancel(url('stock-take-schedule'), 'Cancel', 'mt-1') !!}
 </form>
 
 @push('script_js')

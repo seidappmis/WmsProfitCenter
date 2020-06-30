@@ -5,6 +5,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::put('stock-take-schedule/{sto_id}/view-detail/{id}', 'Web\StockTake\STScheduleDetailController@update');
   Route::get('stock-take-schedule/{sto_id}/view-detail/{id}/edit', 'Web\StockTake\STScheduleDetailController@edit');
   Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
+  Route::put('stock-take-schedule/{sto_id}/finish', 'Web\StockTake\STScheduleController@finish');
 
   Route::view('stock-take-create-tag', 'web.stock-take.stock-take-create-tag.index');
   Route::view('stock-take-create-tag/create', 'web.stock-take.stock-take-create-tag.create');

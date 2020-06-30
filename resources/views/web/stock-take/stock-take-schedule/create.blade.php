@@ -52,7 +52,7 @@
         accordion:true
     });
 
-    setDataFromFilter();
+    // setDataFromFilter();
   });
  	
 

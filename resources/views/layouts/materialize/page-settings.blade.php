@@ -13,7 +13,9 @@
       // add class styling for select2
       $('select.select2-data-ajax').change(function(event) {
         /* Act on the event */
-        $(this).parent().find('span.select2-selection').addClass('select2-required')
+           if ($(this).is(':required')) {
+            $(this).parent().find('span.select2-selection').addClass('select2-required')
+          }
       });
       setTimeout(function() {
         $.each($('select'), function(index, val) {
