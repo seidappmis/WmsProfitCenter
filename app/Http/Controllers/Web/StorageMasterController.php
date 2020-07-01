@@ -138,6 +138,7 @@ class StorageMasterController extends Controller
       'id',
       DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
     );
+    $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
     return get_select2_data($request, $query);
   }

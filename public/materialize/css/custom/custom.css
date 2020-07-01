@@ -235,6 +235,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .sidenav .collapsible-header:after {
     top: 11px;
 }
+.btn-back {
+        padding: 0 20px;
+}
 .btn-add {
     color: #1e1e1e !important;
     background: #f2ec6f;

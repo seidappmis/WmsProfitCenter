@@ -31,7 +31,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('incoming-import-oem/create') }}" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action">
+                <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action">
                   New Incoming Import/OEM
                 </a>
               </div>
@@ -92,6 +92,10 @@
     $('#area_filter').attr('disabled', 'disabled');
     set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
     @endif
+    $('.btn-add').click(function(event) {
+      /* Act on the event */
+      window.location.href = '{{url("incoming-import-oem/create?area=")}}' + $('#area_filter').val()
+    });
   });
     var table = $('#data-table-incoming-import-oem').DataTable({
     serverSide: true,

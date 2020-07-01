@@ -1,4 +1,6 @@
 <form class="form-table" id="form-incoming-import-oem-header">
+  <input type="hidden" name="area">
+  <input type="hidden" name="area_code">
   <table width="100%">
     <tr>
       <td width="25%">Arrival No</td>

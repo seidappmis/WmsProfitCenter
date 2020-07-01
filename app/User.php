@@ -62,4 +62,9 @@ class User extends Authenticatable
   {
     return $this->belongsTo('App\Models\MasterCabang', 'kode_customer', 'kode_customer');
   }
+
+  public function area_data()
+  {
+    return $this->belongsTo('App\Models\Area', 'area', 'area');
+  }
 }
