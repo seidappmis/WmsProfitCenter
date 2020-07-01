@@ -14,7 +14,7 @@ class BranchExpeditionController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = BranchExpedition::all();
+      $query = BranchExpedition::where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -124,6 +124,7 @@ class BranchExpeditionController extends Controller
       DB::raw("CONCAT(code, '-', expedition_name) AS text")
     )
       ->where('status_active', 1)
+      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
       ->toBase();
 
     return get_select2_data($request, $query);
@@ -135,6 +136,7 @@ class BranchExpeditionController extends Controller
       DB::raw("code AS id"),
       DB::raw("expedition_name AS text")
     )
+      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
       ->toBase();
 
     return get_select2_data($request, $query);

@@ -19,6 +19,7 @@ class BranchMasterDriverController extends Controller
         DB::raw('wms_branch_expedition.expedition_name')
       )
         ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_driver.expedition_code')
+        ->where('wms_branch_expedition.kode_cabang', auth()->user()->cabang->kode_cabang)
       ;
 
       $datatables = DataTables::of($query)

@@ -30,7 +30,11 @@ class MasterFreightCostController extends Controller
           'log_freight_cost.city_code')
           ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'log_freight_cost.expedition_code')
           ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'log_freight_cost.vehicle_code_type')
-          ->where('log_freight_cost.area', $request->get('area'));
+          ;
+
+          if(!empty($request->get('area'))){
+            $query->where('log_freight_cost.area', $request->get('area'));
+          }
 
           $datatables = DataTables::of($query)
             ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -144,7 +148,7 @@ class MasterFreightCostController extends Controller
               $area = Area::where('code', $freight_cost['area_code'])->first();
               if (empty($area)) {
                 $result['status']  = false;
-                $result['message'] = 'Area not found in master area !';
+                $result['message'] = 'Area ' . $freight_cost['area_code'] . ' not found in master area !';
                 return $result;
               }
 

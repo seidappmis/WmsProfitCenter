@@ -93,3 +93,12 @@ function is_file_exist_public($filepathInPublic)
     return false;
   }
 }
+
+function limit_kalimat_wrap($kalimat, $panjang_max = 100, $wrap_length = 40)
+{
+  if (strlen($kalimat) > $panjang_max) {
+    $kalimat = substr($kalimat, 0, $panjang_max)  . '...';
+    return wordwrap($kalimat,$wrap_length,"<br>\n");
+  }
+  return wordwrap($kalimat,$wrap_length,"<br>\n");
+}

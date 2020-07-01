@@ -23,13 +23,18 @@ class MasterExpeditionController extends Controller
       
             $datatables = DataTables::of($query)
               ->addIndexColumn() //DT_RowIndex (Penomoran)
+              ->editColumn('address', function($data){
+                return limit_kalimat_wrap($data->address);
+              })
               ->editColumn('status_active', '{{$status_active ? "Active" : "No Active"}}')
               ->addColumn('action', function ($data) {
                 $action = '';
                 $action .= ' ' . get_button_edit(url('master-expedition/' . $data->id . '/edit'));
                 $action .= ' ' . get_button_delete();
                 return $action;
-              });
+              })
+              ->rawColumns(['address', 'action']);
+
       
             return $datatables->make(true);
           }

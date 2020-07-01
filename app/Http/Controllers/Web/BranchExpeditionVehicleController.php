@@ -26,7 +26,9 @@ class BranchExpeditionVehicleController extends Controller
         ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_vehicle_expedition.expedition_code')
         ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'wms_branch_vehicle_expedition.vehicle_code_type')
         ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
-        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'wms_branch_vehicle_expedition.destination');
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'wms_branch_vehicle_expedition.destination')
+        ->where('wms_branch_expedition.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
