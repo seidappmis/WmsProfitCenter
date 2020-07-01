@@ -48,10 +48,6 @@
             <td>
                 <div class="input-field col s12">
                     <select name="city_code" class="select2-data-ajax browser-default" required>
-                        <option value="" disabled selected>-Select Area-</option>
-                        <option value="1">SLEMAN</option>
-                        <option value="2">YOGYA KOTA</option>
-                        <option value="3">BANTUL</option>
                     </select>
                     <input type="hidden" name="city_name" value="{{ !empty($pickinglistHeader->city_name) ? $pickinglistHeader->city_name : '' }}">
                 </div>

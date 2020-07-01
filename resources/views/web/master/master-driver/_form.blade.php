@@ -26,6 +26,7 @@
                         class="validate"
                         name="driver_id"
                         value="{{old('driver_id', !empty($masterDriver) ? $masterDriver->driver_id : '')}}" 
+                        readonly="" 
                         >
                 </div>
             </td>
