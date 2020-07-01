@@ -142,6 +142,19 @@ class StorageMasterController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2UserStorageWithoutIntransit(Request $request)
+  {
+    $query = StorageMaster::select(
+      'wms_master_storage.id',
+      DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
+    )->leftjoin('wms_storage_type', 'wms_storage_type.id', '=', 'wms_master_storage.sto_type_id');
+
+    $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+    $query->where('storage_intransit', 0);
+
+    return get_select2_data($request, $query);
+  }
+
   public function getSelect2StorageCabang(Request $request)
   {
     $query = StorageMaster::select(

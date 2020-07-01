@@ -32,6 +32,16 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     top: 31px;
     left: 52px;
 }
+.brand-sidebar .logo-wrapper a.brand-logo img {
+    height: 50px !important;
+}
+.brand-sidebar .brand-logo {
+    padding: 5px 0;
+}
+.brand-sidebar span.logo-text {
+    left: 61px;
+    font-size: 20px;
+}
 .sidenav li a.active {
     background: linear-gradient(90deg, #25364b, #344b68);
     ;

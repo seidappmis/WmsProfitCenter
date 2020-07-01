@@ -95,7 +95,7 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
+                            <tr id="input-area-wrapper">
                               <td class="label">Area</td>
                               <td>
                                 <div class="input-field col s12">
@@ -199,6 +199,11 @@
          placeholder: '-- Select Area --',
          ajax: get_select2_ajax_options('/master-area/select2-areas')
       });
+
+      @if (auth()->user()->area != 'All')
+        set_select2_value('#form-id-card-scan [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#input-area-wrapper').addClass('hide')
+      @endif
 
       $('#form-id-card-scan [name="vehicle_code_type"]').select2({
          placeholder: '-- Select Vehicle --',

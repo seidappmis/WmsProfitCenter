@@ -86,6 +86,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
   var dttable_clean_concept;
   jQuery(document).ready(function($) {
     dttable_clean_concept = $('#clean-concept-table').DataTable({
@@ -118,7 +122,7 @@
           {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
           {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
           {data: 'cbm', name: 'cbm', className: 'detail'},
-          {data: 'destination_name', name: 'master_destination.description', className: 'detail'},
+          {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
           {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
