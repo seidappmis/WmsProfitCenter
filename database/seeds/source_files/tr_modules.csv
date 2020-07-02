@@ -7,7 +7,7 @@
 8,Master Expedition,Master-expedition,Master Data,4
 9,Master Driver,Master-driver,Master Data,6
 10,Upload Concept,Upload-concept,Outgoing,1
-12,Master Vehicle Expedition,Master-vehicle,Master Data,5
+12,Master Vehicle Expedition,Master-vehicle-expedition,Master Data,5
 13,IDCard Scan,Idcard-scan,Outgoing,2
 14,Assign Vehicles,Assign-vehicles,Outgoing,3
 15,Select Gate,Select-gate,Outgoing,4

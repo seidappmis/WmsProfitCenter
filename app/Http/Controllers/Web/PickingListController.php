@@ -174,7 +174,7 @@ class PickingListController extends Controller
 
     $rs_pickinglistDetail = [];
 
-    $base_id = auth()->user()->id . 
+    $base_id = auth()->user()->id . date('YMdHis');
 
     foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
       $pickingListDetail['id']             = $base_id . $key;

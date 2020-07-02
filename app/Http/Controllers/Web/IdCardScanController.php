@@ -18,7 +18,10 @@ class IdCardScanController extends Controller
   {
     $driver = MasterDriver::findOrFail($id);
 
-    $driverRegistered = DriverRegistered::where('driver_id', $id)->first();
+    $driverRegistered = DriverRegistered::where('driver_id', $id)
+    ->whereNull('datetime_out')
+    ->first();
+
     if (!empty($driverRegistered)) {
       return ['status' => false, 'message' => 'ID Driver ' . $id . ' Already Checkin in area : ' . $driverRegistered->area . '!!'];
     }
