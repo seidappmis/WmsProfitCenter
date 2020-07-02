@@ -19,7 +19,6 @@ class UploadConceptController extends Controller
   {
     $request->validate([
       'file_concept' => 'required',
-      'area'         => 'required',
     ]);
 
     $file = fopen($request->file('file_concept'), "r");
@@ -28,6 +27,8 @@ class UploadConceptController extends Controller
     $concepts       = [];
     $rs_destination = [];
     $rs_expedition  = [];
+
+    $area = (auth()->user()->area == "All") ? $request->input('area') : auth()->user()->area;
 
     $rs_key = [];
 
@@ -73,7 +74,7 @@ class UploadConceptController extends Controller
         'ship_to_code'      => $row[26],
         'expedition_code'   => $row[27],
 
-        'area'              => $request->input('area'),
+        'area'              => $area,
         'code_sales'        => 'DS',
       ];
 

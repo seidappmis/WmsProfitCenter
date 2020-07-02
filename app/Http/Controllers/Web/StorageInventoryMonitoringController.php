@@ -13,16 +13,19 @@ class StorageInventoryMonitoringController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = InventoryStorage::all();
+      $query = InventoryStorage::select(
+        'wms_inventory_storage.*',
+        'wms_master_storage.sto_type_desc',
+        'wms_master_storage.sto_loc_code_long'
+      )
+        ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_inventory_storage.storage_id');
+
+      if (!auth()->user()->cabang->hq) {
+        $query->where('wms_master_storage.kode_cabang', auth()->user()->cabang->kode_cabang);
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('sto_type_desc', function ($data) {
-          return $data->storage->sto_type_desc;
-        })
-        ->addColumn('sto_loc_code_long', function ($data) {
-          return $data->storage->sto_loc_code_long;
-        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('storage-inventory-monitoring/' . $data->id), 'View Log');
