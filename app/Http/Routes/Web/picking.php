@@ -9,6 +9,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Route::view('picking-list', 'web.picking.picking-list.index');
   // Route::view('picking-list/create', 'web.picking.picking-list.create');
+  Route::get('picking-list/select2-driver-by-register-id', 'Web\PickingListController@getSelect2DriverByRegisterID');
+  Route::get('picking-list/select2-vehicle-number', 'Web\PickingListController@getSelect2VehicleNumber');
   Route::get('picking-list/get-transporter-list', 'Web\PickingListController@transporterList');
   Route::get('picking-list/non-assign-pickinglist', 'Web\PickingListController@getNonAssignedPicking');
   Route::get('picking-list/transporter/{id}', 'Web\PickingListController@assignPicking');

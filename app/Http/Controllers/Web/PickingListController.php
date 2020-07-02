@@ -56,6 +56,40 @@ class PickingListController extends Controller
     }
   }
 
+  public function getSelect2DriverByRegisterID(Request $request)
+  {
+    $query = DriverRegistered::select(
+      DB::raw("tr_driver_registered.driver_id AS id"),
+      DB::raw("tr_driver_registered.driver_name AS text"),
+    )
+      ->toBase()
+      ->where('id', $request->input('driver_register_id'))
+    ;
+
+    return get_select2_data($request, $query);
+  }
+
+  public function getSelect2VehicleNumber(Request $request)
+  {
+    $query = DriverRegistered::select(
+      DB::raw("tr_driver_registered.id AS driver_register_id"),
+      DB::raw("tr_driver_registered.vehicle_number AS id"),
+      DB::raw("tr_driver_registered.vehicle_number AS text"),
+      DB::raw("tr_driver_registered.driver_id"),
+      DB::raw("tr_driver_registered.driver_name")
+    )
+      ->toBase()
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'tr_driver_registered.id')
+      ->where('tr_driver_registered.area', auth()->user()->area)
+      ->where('tr_driver_registered.vehicle_code_type', $request->input('vehicle_code_type'))
+      ->where('tr_driver_registered.expedition_code', $request->input('expedition_code'))
+      ->whereNull('wms_pickinglist_header.driver_register_id')
+      ->whereNull('datetime_out')
+    ;
+
+    return get_select2_data($request, $query);
+  }
+
   public function transporterList(Request $request)
   {
     if ($request->ajax()) {
@@ -133,12 +167,6 @@ class PickingListController extends Controller
     $pickinglistHeader->id                 = $picking_no;
     $pickinglistHeader->picking_date       = date('Y-m-d H:i:s', strtotime($request->input('picking_date')));
     $pickinglistHeader->picking_no         = $picking_no;
-    $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
-    $pickinglistHeader->driver_id          = $request->input('driver_id');
-    $pickinglistHeader->driver_name        = $request->input('driver_name');
-    $pickinglistHeader->vehicle_number     = $request->input('vehicle_number');
-    $pickinglistHeader->expedition_code    = $request->input('expedition_code');
-    $pickinglistHeader->expedition_name    = $request->input('expedition_name');
     $pickinglistHeader->area               = auth()->user()->area;
     $pickinglistHeader->gate_number        = $request->input('gate_number');
     $pickinglistHeader->pdo                = $request->input('pdo');
@@ -147,11 +175,10 @@ class PickingListController extends Controller
     $pickinglistHeader->picking_urut_no    = $request->input('picking_urut_no');
     $pickinglistHeader->HQ                 = 1;
     $pickinglistHeader->kode_cabang        = $request->input('kode_cabang');
-    $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
-    $pickinglistHeader->city_code          = $request->input('city_code');
-    $pickinglistHeader->city_name          = $request->input('city_name');
     $pickinglistHeader->storage_id         = $request->input('storage_id');
     $pickinglistHeader->storage_type       = $request->input('storage_name');
+    $pickinglistHeader->city_code          = $request->input('city_code');
+    $pickinglistHeader->city_name          = $request->input('city_name');
     $pickinglistHeader->start_date         = $request->input('start_date');
     $pickinglistHeader->start_by           = $request->input('start_by');
     $pickinglistHeader->finish_date        = $request->input('finish_date');
@@ -159,6 +186,16 @@ class PickingListController extends Controller
     $pickinglistHeader->assign_driver_date = $request->input('assign_driver_date');
     $pickinglistHeader->assign_driver_by   = $request->input('assign_driver_by');
     $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
+
+    if ($pickinglistHeader->city_code != "AS") {
+      $pickinglistHeader->expedition_code    = $request->input('expedition_code');
+      $pickinglistHeader->expedition_name    = $request->input('expedition_name');
+      $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
+      $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
+      $pickinglistHeader->vehicle_number     = $request->input('vehicle_number');
+      $pickinglistHeader->driver_id          = $request->input('driver_id');
+      $pickinglistHeader->driver_name        = $request->input('driver_name');
+    }
 
     $pickinglistHeader->save();
 
@@ -242,7 +279,7 @@ class PickingListController extends Controller
 
   public function destroy($id)
   {
-    PickinglistDetail::->where('header_id', $id)->delete();
+    PickinglistDetail::where('header_id', $id)->delete();
     return PickinglistHeader::destroy($id);
   }
 
