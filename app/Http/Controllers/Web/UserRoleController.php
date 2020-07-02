@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Module;
 use App\Models\UserRole;
 use DataTables;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class UserRoleController extends Controller
 {
@@ -31,7 +33,8 @@ class UserRoleController extends Controller
 
   public function create()
   {
-    return view('web.settings.user-roles.create');
+    $data['modules'] = $this->getModules();
+    return view('web.settings.user-roles.create', $data);
   }
 
   public function store(Request $request)
@@ -41,6 +44,7 @@ class UserRoleController extends Controller
     ]);
 
     $userRole             = new UserRole;
+    $userRole->roles_id   = Uuid::uuid4()->toString();
     $userRole->roles_name = $request->input('roles_name');
     return $userRole->save();
   }
@@ -48,6 +52,15 @@ class UserRoleController extends Controller
   public function edit($id)
   {
     $data['userRole'] = UserRole::findOrFail($id);
+    $data['modules'] = $this->getModules();
+    $role_details = [];
+    foreach ($data['userRole']->details as $key => $value) {
+      $role_details[$value->modul_id] = $value;
+    }
+    $data['role_details'] = $role_details;
+    // echo "<pre>";
+    // print_r($data['role_details']);
+    // exit;
     return view('web.settings.user-roles.edit', $data);
   }
 
@@ -75,5 +88,17 @@ class UserRoleController extends Controller
     );
 
     return get_select2_data($request, $query);
+  }
+
+  protected function getModules()
+  {
+    $modules    = Module::orderBy('group_name')->get();
+    $rs_modules = [];
+
+    foreach ($modules as $key => $value) {
+      $rs_modules[$value->group_name][] = $value;
+    }
+
+    return $rs_modules;
   }
 }

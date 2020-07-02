@@ -64,7 +64,8 @@ function unformat_currency($currency)
 
 function get_select2_data($request, $query)
 {
-  $data['total_record'] = $query->count();
+  $query->having('text', 'like', "%" . $request->input('q') . "%");
+  $data['total_record'] = count($query->get());
 
   $start  = ($request->input('page') - 1) * $request->input('page_limit');
   $length = $request->input('page_limit');
@@ -74,7 +75,7 @@ function get_select2_data($request, $query)
     ->limit($length);
 
   $params = '';
-  $query->having('text', 'like', "%" . $request->input('q') . "%");
+  // $query->having('text', 'like', "%" . $request->input('q') . "%");
   // $query = $this->db->query($sql, $params);
 
   $data['more'] = $data['total_record'] > $request->input('page') * $request->input('page_limit');
@@ -91,4 +92,13 @@ function is_file_exist_public($filepathInPublic)
   } else {
     return false;
   }
+}
+
+function limit_kalimat_wrap($kalimat, $panjang_max = 100, $wrap_length = 40)
+{
+  if (strlen($kalimat) > $panjang_max) {
+    $kalimat = substr($kalimat, 0, $panjang_max)  . '...';
+    return wordwrap($kalimat,$wrap_length,"<br>\n");
+  }
+  return wordwrap($kalimat,$wrap_length,"<br>\n");
 }

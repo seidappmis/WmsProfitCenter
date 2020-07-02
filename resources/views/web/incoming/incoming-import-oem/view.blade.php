@@ -229,6 +229,8 @@
             .then((result) => {
               // Kalau klik Ok reload datatable
               dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              $("#form-incoming-import-oem-detail")[0].reset();
+              $('#form-incoming-import-oem-detail [name="model_id"]').trigger('change')
             }) // alert success
         })
         .fail(function(xhr) {

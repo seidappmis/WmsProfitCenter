@@ -78,7 +78,7 @@
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'driver_id', name: 'driver_id', className: 'detail'},
         {data: 'driver_name', name: 'driver_name', className: 'detail'},
-        {data: 'expedition_code', name: 'master_driver.expedition_code', className: 'detail'},
+        {data: 'expedition_code', name: 'tr_driver.expedition_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });

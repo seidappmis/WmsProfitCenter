@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class DestinationCityOfBranch extends Model
 {
-    protected $table = 'wms_destination_city_branch';
+    protected $table = 'wms_destinationcity_branch';
 }

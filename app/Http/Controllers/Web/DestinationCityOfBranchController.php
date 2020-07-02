@@ -18,7 +18,7 @@ class DestinationCityOfBranchController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = DestinationCityOfBranch::all();
+      $query = DestinationCityOfBranch::where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

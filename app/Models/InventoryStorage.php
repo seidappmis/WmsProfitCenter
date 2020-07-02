@@ -8,6 +8,13 @@ class InventoryStorage extends Model
 {
   protected $table = 'wms_inventory_storage';
 
+  protected $fillable = ['storage_id', 'model_name', 'ean_code', 'quantity_total', 'cbm_total', 'last_updated'];
+
+  public function storage()
+  {
+    return $this->belongsTo('App\Models\StorageMaster', 'storage_id', 'id');
+  }
+
   public static function getFullData()
   {
     return InventoryStorage::

@@ -211,6 +211,7 @@
     .done(function() { // selesai dan berhasil
       swal("Good job!", "You clicked the button!", "success")
         .then((result) => {
+          dtdatatable_picking_list_detail.ajax.reload(null, false)
           dtdatatable_do_for_picking.ajax.reload(null, false)
           dtdatatable_picking
           .rows()

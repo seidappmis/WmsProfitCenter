@@ -15,18 +15,20 @@ class BranchExpeditionVehicleController extends Controller
   {
     if ($request->ajax()) {
       $query = BranchExpeditionVehicle::select(
-        'wms_branch_expedition_vehicle.*',
-        DB::raw('vehicle_type_details.vehicle_desription as vehicle_type'),
-        DB::raw('vehicle_type_details.cbm_min'),
-        DB::raw('vehicle_type_details.cbm_max'),
-        DB::raw('vehicle_type_groups.group_name AS vehicle_group'),
+        'wms_branch_vehicle_expedition.*',
+        DB::raw('tr_vehicle_type_detail.vehicle_description as vehicle_type'),
+        DB::raw('tr_vehicle_type_detail.cbm_min'),
+        DB::raw('tr_vehicle_type_detail.cbm_max'),
+        DB::raw('tr_vehicle_type_group.group_name AS vehicle_group'),
         DB::raw('wms_branch_expedition.expedition_name'),
-        DB::raw('master_destination.description AS destination_name')
+        DB::raw('tr_destination.destination_description AS destination_name')
       )
-        ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_expedition_vehicle.expedition_code')
-        ->leftjoin('vehicle_type_details', 'vehicle_type_details.vehicle_code_type', '=', 'wms_branch_expedition_vehicle.vehicle_code_type')
-        ->leftjoin('vehicle_type_groups', 'vehicle_type_groups.id', '=', 'vehicle_type_details.vehicle_group_id')
-        ->leftjoin('master_destination', 'master_destination.destination_number', '=', 'wms_branch_expedition_vehicle.destination');
+        ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_vehicle_expedition.expedition_code')
+        ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'wms_branch_vehicle_expedition.vehicle_code_type')
+        ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'wms_branch_vehicle_expedition.destination')
+        ->where('wms_branch_expedition.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

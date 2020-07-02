@@ -114,10 +114,14 @@
 <script type="text/javascript">
   var data_concept;
   $('#form-upload-concept [name="area"]').select2({
-   placeholder: '-- Select Area --',
-   allowClear: true,
-   ajax: get_select2_ajax_options('/master-area/select2-area-only')
-});
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+  @if (auth()->user()->area != "All") 
+    set_select2_value('#form-upload-concept [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#form-upload-concept [name="area"]').attr('disabled', 'disabled');
+  @endif
   $("#form-upload-concept").validate({
       submitHandler: function(form) {
         var fdata = new FormData(form);

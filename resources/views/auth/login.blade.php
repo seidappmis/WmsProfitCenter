@@ -42,7 +42,8 @@
                             @csrf
                             <div class="row center-align">
                                 <div class="input-field col s12">
-                                    <h5 class="ml-4">WMS SEID</h5>
+                                    <img src="{{asset('app_logo.png')}}">
+                                    <h5 class="ml-4">SEID WAREHOUSE MANAGEMENT SYSTEM</h5>
                                 </div>
                                 <div class="col s12 center-align">
                                     @error('username')
@@ -82,14 +83,6 @@
                                     <button type="submit" class="btn waves-effect waves-light border-round gradient-45deg-blue-indigo col s12">
                                         {{ __('Login') }}
                                     </button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                {{-- <div class="input-field col s6 m6 l6">
-                                    <p class="margin medium-small"><a href="user-register.html">!</a></p>
-                                </div> --}}
-                                <div class="input-field col s6 m6 l6">
-                                    <p class="margin medium-small"><a href="#">Lupa password ?</a></p>
                                 </div>
                             </div>
                         </form>

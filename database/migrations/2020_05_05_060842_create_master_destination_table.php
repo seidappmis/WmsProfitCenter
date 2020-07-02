@@ -13,9 +13,9 @@ class CreateMasterDestinationTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_destination', function (Blueprint $table) {
+        Schema::create('tr_destination', function (Blueprint $table) {
             $table->string('destination_number', 6);
-            $table->string('description', 100)->nullable();
+            $table->string('destination_description', 100)->nullable();
             $table->string('region', 100)->nullable();
             $table->string('kode_cabang', 2)->nullable();
 
@@ -34,6 +34,6 @@ class CreateMasterDestinationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_destination');
+        Schema::dropIfExists('tr_destination');
     }
 }

@@ -19,6 +19,7 @@ class BranchMasterDriverController extends Controller
         DB::raw('wms_branch_expedition.expedition_name')
       )
         ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_driver.expedition_code')
+        ->where('wms_branch_expedition.kode_cabang', auth()->user()->cabang->kode_cabang)
       ;
 
       $datatables = DataTables::of($query)
@@ -44,7 +45,7 @@ class BranchMasterDriverController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'driving_lisence_no' => 'required',
+      'driving_license_no' => 'required',
       'photo_name'         => 'image',
     ]);
 
@@ -72,8 +73,8 @@ class BranchMasterDriverController extends Controller
 
     $branchDriver->driver_id            = $driver_id;
     $branchDriver->driver_name          = $request->input('driver_name');
-    $branchDriver->driving_lisence_type = $request->input('driving_lisence_type');
-    $branchDriver->driving_lisence_no   = $request->input('driving_lisence_no');
+    $branchDriver->driving_license_type = $request->input('driving_license_type');
+    $branchDriver->driving_license_no   = $request->input('driving_license_no');
     $branchDriver->ktp_no               = $request->input('ktp_no');
     $branchDriver->phone1               = $request->input('phone1');
     $branchDriver->phone2               = $request->input('phone2');
@@ -101,7 +102,7 @@ class BranchMasterDriverController extends Controller
     $branchDriver = BranchDriver::findOrFail($id);
 
     $request->validate([
-      'driving_lisence_no' => 'required',
+      'driving_license_no' => 'required',
       // 'photo_name'         => 'image',
     ]);
 
@@ -116,8 +117,8 @@ class BranchMasterDriverController extends Controller
     }
 
     $branchDriver->driver_name          = $request->input('driver_name');
-    $branchDriver->driving_lisence_type = $request->input('driving_lisence_type');
-    $branchDriver->driving_lisence_no   = $request->input('driving_lisence_no');
+    $branchDriver->driving_license_type = $request->input('driving_license_type');
+    $branchDriver->driving_license_no   = $request->input('driving_license_no');
     $branchDriver->ktp_no               = $request->input('ktp_no');
     $branchDriver->phone1               = $request->input('phone1');
     $branchDriver->phone2               = $request->input('phone2');

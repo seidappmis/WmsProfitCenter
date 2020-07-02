@@ -20,7 +20,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#picking-list-detail-table').DataTable({
+  var dtdatatable_picking_list_detail = $('#picking-list-detail-table').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,

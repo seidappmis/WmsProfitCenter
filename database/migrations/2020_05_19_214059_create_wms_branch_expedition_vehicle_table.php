@@ -13,7 +13,7 @@ class CreateWmsBranchExpeditionVehicleTable extends Migration
    */
   public function up()
   {
-    Schema::create('wms_branch_expedition_vehicle', function (Blueprint $table) {
+    Schema::create('wms_branch_vehicle_expedition', function (Blueprint $table) {
       $table->id();
       $table->string('vehicle_code_type', 6)->nullable();
       $table->string('expedition_code', 3)->nullable();
@@ -37,6 +37,6 @@ class CreateWmsBranchExpeditionVehicleTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('wms_branch_expedition_vehicle');
+    Schema::dropIfExists('wms_branch_vehicle_expedition');
   }
 }

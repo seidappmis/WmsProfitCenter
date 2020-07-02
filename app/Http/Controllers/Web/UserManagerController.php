@@ -13,17 +13,14 @@ class UserManagerController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = User::all();
+      $query = User::selectRaw('users.*, tr_user_roles.roles_name, log_cabang.long_description')
+      ->leftjoin('tr_user_roles', 'tr_user_roles.roles_id', '=', 'users.roles_id')
+      ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
+      ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->editColumn('status', '{{$status ? "YES" : "NO"}}')
-        ->addColumn('roles', function ($data) {
-          return $data->roles->roles_name;
-        })
-        ->addColumn('long_description', function ($data) {
-          return !empty($data->cabang) ? $data->cabang->long_description : '';
-        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_edit(url('user-manager/' . $data->id . '/edit'));

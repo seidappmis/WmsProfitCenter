@@ -45,7 +45,7 @@
             <td class="label">Driving License Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="driving_lisence_type">
+                    <select name="driving_license_type">
                         <option value="">-- Select Type --</option>
                         <option>SIM A</option>
                         <option>SIM B</option>
@@ -56,10 +56,10 @@
             </td>
         </tr>
         <tr>
-            <td class="label">Driving Lisence No.</td>
+            <td class="label">Driving license No.</td>
             <td>
                 <div class="input-field col s12">
-                    <input name="driving_lisence_no" id="number" type="text" class="validate" required value="{{old('driving_lisence_no', !empty($branchDriver) ? $branchDriver->driving_lisence_no : '')}}">
+                    <input name="driving_license_no" id="number" type="text" class="validate" required value="{{old('driving_license_no', !empty($branchDriver) ? $branchDriver->driving_license_no : '')}}">
                 </div>
             </td>
         </tr>

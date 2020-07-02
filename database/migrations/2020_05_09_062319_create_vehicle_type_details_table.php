@@ -13,10 +13,10 @@ class CreateVehicleTypeDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vehicle_type_details', function (Blueprint $table) {
+        Schema::create('tr_vehicle_type_detail', function (Blueprint $table) {
             $table->id();
             $table->string('vehicle_code_type', 45)->nullable();
-            $table->string('vehicle_desription', 100)->nullable();
+            $table->string('vehicle_description', 100)->nullable();
             $table->integer('vehicle_group_id')->nullable();
             $table->decimal('cbm_min', 8, 2)->nullable();
             $table->decimal('cbm_max', 8, 2)->nullable();
@@ -37,6 +37,6 @@ class CreateVehicleTypeDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehicle_type_details');
+        Schema::dropIfExists('tr_vehicle_type_detail');
     }
 }

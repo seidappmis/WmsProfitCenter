@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('manifest-regular/{driver_register_id}/assign-do', 'Web\ManifestRegularController@assignDO');
   Route::resource('manifest-regular', 'Web\ManifestRegularController');
 
+  Route::resource('branch-manifest', 'Web\ManifestRegularController');
+
 
   Route::view('manifest-as', 'web.outgoing.manifest-as.index');
   Route::view('update-manifest', 'web.outgoing.update-manifest.index');

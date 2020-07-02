@@ -13,7 +13,7 @@ class CreateWmsDestinationCityBranchTable extends Migration
    */
   public function up()
   {
-    Schema::create('wms_destination_city_branch', function (Blueprint $table) {
+    Schema::create('wms_destinationcity_branch', function (Blueprint $table) {
       $table->id();
       $table->string('kode_cabang', 2);
       $table->string('city_name', 100);
@@ -30,6 +30,6 @@ class CreateWmsDestinationCityBranchTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('wms_destination_city_branch');
+    Schema::dropIfExists('wms_destinationcity_branch');
   }
 }

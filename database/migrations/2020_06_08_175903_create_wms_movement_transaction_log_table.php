@@ -16,7 +16,7 @@ class CreateWmsMovementTransactionLogTable extends Migration
     Schema::create('wms_movement_transaction_log', function (Blueprint $table) {
       $table->string('log_id', 50);
       $table->string('arrival_no', 50)->nullable();
-      $table->string('do_manivest_no', 50)->nullable();
+      $table->string('do_manifest_no', 50)->nullable();
       $table->date('lmb_date')->nullable();
       $table->string('do_reservation_no', 20)->nullable();
       $table->integer('mvt_master_id')->nullable();

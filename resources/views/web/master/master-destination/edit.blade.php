@@ -45,7 +45,9 @@
 
     function set_initial_form_data(){
 
+      @if(!empty($masterDestination->kode_cabang))
         set_select2_value('#cabang', '{{$masterDestination->kode_cabang}}', '{{$masterDestination->MasterCabang->kode_cabang}}')
+      @endif
 
         set_select2_value('#current_region_input', '{{$masterDestination->region}}', '{{$masterDestination->Region->region}}')
     };

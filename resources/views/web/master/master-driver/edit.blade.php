@@ -39,7 +39,7 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        set_form_data();
+      set_form_data();
     });
     $("#form-master-driver").validate({
       submitHandler: function(form) {
@@ -73,4 +73,4 @@
         $('select').formSelect();
     }
 </script>
-@endpushsh
+@endpush

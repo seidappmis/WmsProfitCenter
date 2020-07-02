@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BranchExpeditionVehicle extends Model
 {
-  protected $table = "wms_branch_expedition_vehicle";
+  protected $table = "wms_branch_vehicle_expedition";
 
   public function vehicle()
   {
