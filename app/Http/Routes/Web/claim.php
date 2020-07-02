@@ -2,11 +2,9 @@
 
 Route::group(['middleware' => 'auth'], function () {
   // Berita Acara
-  Route::resource('berita-acara/{berita_acara_id}/view', 'Web\BeritaAcaraDetailController');
+  Route::post('berita-acara/{berita_acara_id}/detail', 'Web\BeritaAcaraDetailController@store');
+  Route::delete('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@destroy');
   Route::resource('berita-acara', 'Web\BeritaAcaraController');
-  // Route::view('berita-acara', 'web.claim.berita-acara.index');
-  // Route::view('berita-acara/create', 'web.claim.berita-acara.create');
-  // Route::view('berita-acara/{id}', 'web.claim.berita-acara.view');
 
   Route::view('claim-notes', 'web.claim.claim-notes.index');
   Route::view('claim-notes/create-carton-box', 'web.claim.claim-notes.create-carton-box');

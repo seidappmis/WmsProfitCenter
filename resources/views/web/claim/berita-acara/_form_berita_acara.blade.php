@@ -3,7 +3,7 @@
         <tr>
             <td>No. Berita Acara</td>
             <td>
-                <input id="berita_acara_id" name="berita_acara_id" type="text" class="validate" value="{{old('berita_acara_id', !empty($beritaAcara) ? $beritaAcara->berita_acara_id : $beritaAcaraID)}}" readonly>
+                <input id="berita_acara_no" name="berita_acara_no" type="text" class="validate" value="{{old('berita_acara_no', !empty($beritaAcara) ? $beritaAcara->berita_acara_no : $beritaAcaraNo)}}" readonly>
             </td>
         </tr>
         <tr>

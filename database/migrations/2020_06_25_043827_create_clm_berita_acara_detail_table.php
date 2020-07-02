@@ -15,7 +15,8 @@ class CreateClmBeritaAcaraDetailTable extends Migration
     {
         Schema::create('clm_berita_acara_detail', function (Blueprint $table) {
             $table->id();
-            $table->string('berita_acara_id', 18);
+            $table->string('berita_acara_no', 20);
+            $table->integer('berita_acara_id')->nullable();
             $table->string('do_no', 15)->nullable();
             $table->string('model_name', 50)->nullable();
             $table->string('serial_number', 50)->nullable();

@@ -19,54 +19,21 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                <!-- <div class="card"> -->
+                <div class="card">
                     <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="active">
-                             <div class="collapsible-header">Create Berita Acara</div>
-                             <div class="collapsible-body white pt-1 pb-1">
-                                @include('web.claim.berita-acara._form_berita_acara')
-                             </div>
-                           </li>
-                        </ul>
-                    </div>
-                <!-- </div> -->
-                    <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="">
-                               <div class="collapsible-header">Add New Detail</div>
-                               <div class="collapsible-body white pt-1 pb-1">
-                                 @include('web.claim.berita-acara._form_detail')
-                               </div>
-                           </li>
-                        </ul>
+                      <h4 class="card-title">BERITA ACARA</h4>
+                      <hr> 
+                      @include('web.claim.berita-acara._form_berita_acara')
                     </div>
                     <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="active">
-                               <div class="collapsible-header">Detail</div>
-                               <div class="collapsible-body white pt-1 pb-1">
-                                <table id="data-table-section-contents" class="display" width="100%">
-                                  <thead>
-                                      <tr>
-                                        <th data-priority="1" width="30px">No.</th>
-                                        <th>No DO</th>
-                                        <th>Model/Item No.</th>
-                                        <th>No Seri</th>
-                                        <th>Qty</th>
-                                        <th>Jenis Kerusakan</th>
-                                        <th>Photo</th>
-                                        <th>Keterangan</th>
-                                        <th width="50px;"></th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                  </tbody>
-                              </table>
-                               </div>
-                           </li>
-                        </ul>
+                      <!-- Berita Acara Detail -->
+                      <h4 class="card-title">Berita Acara Detail</h4>
+                      <hr> 
+                      <form class="form-table">
+                        <table></table>
+                      </form>
                     </div>
+                </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -87,16 +54,22 @@
 
   $("#form-berita-acara").validate({
       submitHandler: function(form) {
+        var formBiasa = $(form).serialize(); // form biasa
+        var isiForm = new FormData($(form)[0]); // form data untuk browse file
+        // console.log(formBiasa)
+        // console.log(isiForm)
         $.ajax({
           url: '{{ url("berita-acara") }}',
           type: 'POST',
-          data: $(form).serialize(),
+          data: isiForm,
+          contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+          processData: false, // NEEDED, DON'T OMIT THIS
         })
-        .done(function() { // selesai dan berhasil
+        .done(function(response) { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('berita-acara/') }}" + '/' + response.id + '/view'
+              window.location.href = "{{ url('berita-acara') }}" + '/' + response.id
             }) // alert success
         })
         .fail(function(xhr) {

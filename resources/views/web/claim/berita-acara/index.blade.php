@@ -104,7 +104,7 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'berita_acara_id', name: 'berita_acara_id', className: 'detail'},
+        {data: 'berita_acara_no', name: 'berita_acara_no', className: 'detail'},
         {data: 'date_of_receipt', name: 'date_of_receipt', className: 'detail'},
         {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
         {data: 'driver_name', name: 'driver_name', className: 'detail'},
@@ -112,6 +112,37 @@
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
+
+  dtdatatable.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+      swal({
+        text: "Are you sure want to delete " + data.berita_acara_no + " and the details?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('berita-acara') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Berita Acara with Berita Acara No. " + data.berita_acara_no + " has been deleted.", "success") // alert success
+            dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
