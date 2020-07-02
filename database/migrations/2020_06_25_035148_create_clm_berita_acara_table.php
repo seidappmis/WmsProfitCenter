@@ -14,7 +14,8 @@ class CreateClmBeritaAcaraTable extends Migration
     public function up()
     {
         Schema::create('clm_berita_acara', function (Blueprint $table) {
-            $table->string('berita_acara_id', 20);
+            $table->id();
+            $table->string('berita_acara_no', 20);
             $table->date('date_of_receipt')->nullable();
             $table->string('expedition_code', 3)->nullable();
             $table->string('driver_name', 50)->nullable();
@@ -27,7 +28,7 @@ class CreateClmBeritaAcaraTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            $table->primary('berita_acara_id'); // add primary key
+            // $table->primary('berita_acara_id'); // add primary key
         });
     }
 

@@ -95,7 +95,7 @@
         .done(function(data) { // selesai dan berhasil
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
-              // Kalau klik Ok redirect ke index
+              // Kalau klik Ok redirect ke view
               window.location.href = "{{ url('incoming-import-oem') }}" + '/' + data.arrival_no
             }) // alert success
         })

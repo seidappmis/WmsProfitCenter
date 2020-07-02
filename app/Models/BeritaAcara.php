@@ -11,18 +11,18 @@ class BeritaAcara extends BaseModel
 
     // Set Table Primary Key
   	// if not set default : id
-  	protected $primaryKey = 'berita_acara_id';
+  	// protected $primaryKey = 'berita_acara_id';
 
   	/**
      * The "type" of the auto-incrementing ID.
      *
      * @var string
      */
-    protected $keyType = 'string';
+    // protected $keyType = 'string';
 
     public function details()
   	{
-    	return $this->hasMany('App\Models\BeritaAcaraDetail', 'berita_acara_id', 'berita_acara_id');
+    	return $this->hasMany('App\Models\BeritaAcaraDetail', 'berita_acara_id');
   	}
 
     public function Expedition()
