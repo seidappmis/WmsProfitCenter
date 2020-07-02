@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-expedition', 'Web\MasterExpeditionController');
 
   // Master Vehicle Expedition
+  Route::get('master-vehicle-expedition/select2-vehicle', 'Web\MasterVehicleExpeditionController@getSelect2Vehicle');
   Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicleExpeditionController@getSelect2VehicleNumber');
   Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
 

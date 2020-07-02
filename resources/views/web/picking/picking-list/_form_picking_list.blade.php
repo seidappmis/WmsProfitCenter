@@ -61,11 +61,7 @@
             <td width="120px;">Expedition</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="expedition_code" class="select2-data-ajax browser-default">
-                        <option value="" disabled selected>-Select Area-</option>
-                        <option value="1">SLEMAN</option>
-                        <option value="2">YOGYA KOTA</option>
-                        <option value="3">BANTUL</option>
+                    <select name="expedition_code" class="select2-data-ajax browser-default" required="">
                     </select>
                 </div>
             </td>
@@ -75,10 +71,6 @@
             <td>
                 <div class="input-field col s12 m6">
                     <select name="driver_id" class="select2-data-ajax browser-default">
-                        <option value="" disabled selected>-Select Driver-</option>
-                        <option value="1">SLEMAN</option>
-                        <option value="2">YOGYA KOTA</option>
-                        <option value="3">BANTUL</option>
                     </select>
                 </div>
                 <div class="input-field col s12 m6">
@@ -90,11 +82,7 @@
             <td>Vehicle Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="vehicle_code_type" class="select2-data-ajax browser-default">
-                        <option value="" disabled selected>-Select Area-</option>
-                        <option value="1">SLEMAN</option>
-                        <option value="2">YOGYA KOTA</option>
-                        <option value="3">BANTUL</option>
+                    <select name="vehicle_code_type" class="select2-data-ajax browser-default" required="">
                     </select>
                 </div>
             </td>
@@ -106,10 +94,6 @@
             <td>
                 <div class="input-field col s12 m6">
                     <select name="vehicle_number" class="select2-data-ajax browser-default">
-                        <option value="" disabled selected>-Select Area-</option>
-                        <option value="1">SLEMAN</option>
-                        <option value="2">YOGYA KOTA</option>
-                        <option value="3">BANTUL</option>
                     </select>
                 </div>
                 <div class="input-field col s12 m6">
@@ -132,6 +116,15 @@
 <script type="text/javascript">
 
     jQuery(document).ready(function($) {
+        $('#form-picking-list [name="storage_id"]').select2({
+        placeholder: '-- Select Storage --',
+        ajax: get_select2_ajax_options('/storage-master/select2-user-storage-without-intransit')
+      })
+      $('#form-picking-list [name="storage_id"]').change(function(event) {
+          var data = $(this).select2('data')[0];
+          $('#form-picking-list [name="storage_name"]').val(data.text);
+      });
+
         @if(auth()->user()->cabang->hq)
         init_form_hq()
         @else
@@ -140,13 +133,46 @@
     });
 
     function init_form_hq(){
+      set_hq_select_ship_to_city()
+      set_hq_select_expedition()
+      set_hq_select_vehicle_type()
+      set_hq_select_vehicle_number()
+      
+    }
+
+    function set_hq_select_expedition(){
+        $('#form-picking-list [name="expedition_code"]').select2({
+            placeholder: '-- Select Expedition --',
+            ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+      })
+        $('#form-picking-list [name="expedition_code"]').change(function(event) {
+            /* Act on the event */
+            set_hq_select_ship_to_city({expedition_code: $(this).val()})
+            set_hq_select_vehicle_type({expedition_code: $(this).val()})
+            set_select2_value('#form-picking-list [name="city_code"]', '', '')
+            set_select2_value('#form-picking-list [name="vehicle_code_type"]', '', '')
+        });
+
+    }
+
+
+    function set_hq_select_vehicle_type(filter = {expedition_code: ''}) {
+        $('#form-picking-list [name="vehicle_code_type"]').select2({
+          placeholder: '-- Select Vehicle --',
+          ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle', filter)
+        })
+    }
+
+    function set_hq_select_ship_to_city(filter = {expedition_code: ''}){
+        filter.tambah_ambil_sendiri = true
       $('#form-picking-list [name="city_code"]').select2({
-        placeholder: '-- Select City --',
-        ajax: get_select2_ajax_options('/destination-city/select2-destination-city')
+        placeholder: '-- Select Destination City --',
+        allowClear: true,
+        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
       })
       $('#form-picking-list [name="city_code"]').change(function(event) {
           var data = $(this).select2('data')[0];
-          $('#form-picking-list [name="city_name"]').val(data.text);
+          $('#form-picking-list [name="city_name"]').val(data == undefined ? '' : data.text);
           // Ambil Sendiri => hide expedition detail
           if ($(this).val() == 'AS') {
               $('#table-expedition-detail').hide();
@@ -160,32 +186,25 @@
 
     }
 
-  $('#form-picking-list [name="storage_id"]').select2({
-    placeholder: '-- Select Storage --',
-    ajax: get_select2_ajax_options('/storage-master/select2-user-storage-without-intransit')
-  })
-  $('#form-picking-list [name="storage_id"]').change(function(event) {
-      var data = $(this).select2('data')[0];
-      $('#form-picking-list [name="storage_name"]').val(data.text);
-  });
+  
 
   
 
-  $('#form-picking-list [name="expedition_code"]').select2({
-    placeholder: '-- Select Expedition --',
-    ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
-  })
-  $('#form-picking-list [name="driver_id"]').select2({
-    placeholder: '-- Select Driver --',
-    ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
-  })
-  $('#form-picking-list [name="vehicle_code_type"]').select2({
-    placeholder: '-- Select Vehicle --',
-    ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
-  })
-  $('#form-picking-list [name="vehicle_number"]').select2({
-    placeholder: '-- Select Vehicle No. --',
-    ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
-  })
+  // $('#form-picking-list [name="expedition_code"]').select2({
+  //   placeholder: '-- Select Expedition --',
+  //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  // })
+  // $('#form-picking-list [name="driver_id"]').select2({
+  //   placeholder: '-- Select Driver --',
+  //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  // })
+  // $('#form-picking-list [name="vehicle_code_type"]').select2({
+  //   placeholder: '-- Select Vehicle --',
+  //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  // })
+  // $('#form-picking-list [name="vehicle_number"]').select2({
+  //   placeholder: '-- Select Vehicle No. --',
+  //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  // })
 </script>
 @endpush

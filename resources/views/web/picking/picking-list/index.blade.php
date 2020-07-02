@@ -66,20 +66,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>2020-04-27</td>
-                                    <td>162002121244</td>
-                                    <td>AD 2323 JP</td>
-                                    <td>WONOGIRI</td>
-                                    <td>PUTRA NAGITA PRATAMA</td>
-                                    <td>[1601]YGY 1st Class</td>
-                                    <td>DO Already</td>
-                                    <td>-</td>
-                                    <td>
-                                      {!! get_button_edit(url('picking-list/1/edit')) !!}
-                                      {!! get_button_view('Cancel') !!}
-                                    </td>
-                                  </tr>
                                 </tbody>
                             </table>
                           </div>
@@ -134,7 +120,9 @@
     });
 
     dtdatatable.on('click', '.btn-delete', function(event) {
-      var id = $(this).data('id');
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+      id = data.id
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
@@ -150,7 +138,7 @@
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: id,
+            url: '{{url('picking-list')}}' + '/' + id,
             type: 'DELETE',
           })
           .done(function() { // Kalau ajax nya success

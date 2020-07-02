@@ -179,10 +179,16 @@ class MasterExpeditionController extends Controller
     )
       ->toBase();
 
+    if ($request->input('tambah_ambil_sendiri')) {
+      $ambil_sendiri = DB::table('tr_vehicle_type_detail')->selectRaw('"AS" as id, "Ambil Sendiri" AS `text` ');
+      $query->union($ambil_sendiri);
+    }
+
     $query->leftjoin('log_destination_city', 'log_destination_city.city_code', '=', 'log_freight_cost.city_code')
       ->where('expedition_code', $request->input('expedition_code'))
+      ->where('area', auth()->user()->area)
       ->groupBy('log_freight_cost.city_code')
-      ->orderBy('city_name');
+      ->orderBy('text');
 
     return get_select2_data($request, $query);
   }

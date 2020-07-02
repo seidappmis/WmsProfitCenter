@@ -240,6 +240,12 @@ class PickingListController extends Controller
     return true;
   }
 
+  public function destroy($id)
+  {
+    PickinglistDetail::->where('header_id', $id)->delete();
+    return PickinglistHeader::destroy($id);
+  }
+
   public function edit($id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);

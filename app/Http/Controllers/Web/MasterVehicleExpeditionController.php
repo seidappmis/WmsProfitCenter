@@ -129,4 +129,21 @@ class MasterVehicleExpeditionController extends Controller
 
     return get_select2_data($request, $query);
   }
+
+  public function getSelect2Vehicle(Request $request)
+  {
+    $query = MasterVehicleExpedition::select(
+      DB::raw("tr_vehicle_expedition.vehicle_code_type AS id"),
+      DB::raw("vehicle_description AS text"),
+    )->toBase();
+
+    $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
+
+    $query->where('expedition_code', $request->input('expedition_code'));
+
+    $query->groupBy('tr_vehicle_expedition.vehicle_code_type');
+    $query->orderBy('vehicle_number');
+
+    return get_select2_data($request, $query);
+  }
 }
