@@ -146,6 +146,11 @@
        ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
+
   // Custom search
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();

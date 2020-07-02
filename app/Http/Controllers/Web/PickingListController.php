@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\DriverRegistered;
 use App\Models\ManualConcept;
 use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
-use App\Models\DriverRegistered;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -41,18 +41,34 @@ class PickingListController extends Controller
     return view('web.picking.picking-list.index');
   }
 
+  public function getNonAssignedPicking(Request $request)
+  {
+    if ($request->ajax()) {
+      $query = PickinglistHeader::has('details')
+        ->where('area', auth()->user()->area)
+        ->whereNull('driver_register_id')
+        ->get();
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ;
+      return $datatables->make(true);
+    }
+  }
+
   public function transporterList(Request $request)
   {
     if ($request->ajax()) {
-      $query = DriverRegistered::where('area', $request->input('area'))
+      $query = DriverRegistered::select('tr_driver_registered.*', 'tr_vehicle_type_detail.cbm_max')
+        ->toBase()->where('tr_driver_registered.area', $request->input('area'))
+        ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_driver_registered.vehicle_code_type')
+        ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'tr_driver_registered.id')
+        ->whereNull('wms_pickinglist_header.driver_register_id')
         ->whereNull('datetime_out')
         ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('cbm_max', function ($data) {
-          return $data->vehicle->cbm_max;
-        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('picking-list/transporter/' . $data->id), 'Assign Picking');
@@ -65,10 +81,35 @@ class PickingListController extends Controller
     }
   }
 
-  public function assignPicking($id){
+  public function assignPicking($id)
+  {
     $data['driverRegistered'] = DriverRegistered::findOrFail($id);
 
     return view('web.picking.picking-list.assign-picking', $data);
+  }
+
+  public function storeAssignPicking(Request $request, $id)
+  {
+    $driverRegistered = DriverRegistered::findOrFail($id);
+
+    foreach (json_decode($request->input('data_picking'), true) as $key => $value) {
+      $picking = PickinglistHeader::find($value['id']);
+
+      $picking->driver_register_id = $id;
+      $picking->driver_id          = $driverRegistered->driver_id;
+      $picking->driver_name        = $driverRegistered->driver_name;
+      $picking->vehicle_number     = $driverRegistered->vehicle_number;
+      $picking->expedition_code    = $driverRegistered->expedition_code;
+      $picking->expedition_name    = $driverRegistered->expedition_name;
+      $picking->gate_number        = $request->input('gate_number');
+      $picking->destination_number = $request->input('destination_number');
+      $picking->destination_name   = $request->input('destination_name');
+      $picking->city_code          = $request->input('city_code');
+      $picking->city_name          = $request->input('city_name');
+
+      $picking->save();
+
+    }
   }
 
   public function create()
@@ -204,6 +245,13 @@ class PickingListController extends Controller
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
 
     return view('web.picking.picking-list.edit', $data);
+  }
+
+  public function editTransporter($id)
+  {
+    $data['driverRegistered'] = DriverRegistered::findOrFail($id);
+
+    return view('web.picking.picking-list.edit_transporter', $data);
   }
 
 }

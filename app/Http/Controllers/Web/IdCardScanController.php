@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MasterDriver;
 use App\Models\DriverRegistered;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class IdCardScanController extends Controller
 {
@@ -40,7 +41,7 @@ class IdCardScanController extends Controller
     $storeDateTime = date('Y-m-d H:i:s');
 
     $driverRegistered                      = new DriverRegistered;
-    $driverRegistered->id                  = $storeDateTime;
+    $driverRegistered->id                  = Uuid::uuid4();;
     $driverRegistered->driver_id           = $request->input('driver_id');
     $driverRegistered->driver_name         = $request->input('driver_name');
     $driverRegistered->expedition_code     = $request->input('expedition_code');

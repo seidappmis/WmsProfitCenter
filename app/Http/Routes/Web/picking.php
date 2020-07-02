@@ -10,7 +10,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('picking-list', 'web.picking.picking-list.index');
   // Route::view('picking-list/create', 'web.picking.picking-list.create');
   Route::get('picking-list/get-transporter-list', 'Web\PickingListController@transporterList');
+  Route::get('picking-list/non-assign-pickinglist', 'Web\PickingListController@getNonAssignedPicking');
   Route::get('picking-list/transporter/{id}', 'Web\PickingListController@assignPicking');
+  Route::post('picking-list/transporter/{id}', 'Web\PickingListController@storeAssignPicking');
+  Route::get('picking-list/transporter/{id}/edit', 'Web\PickingListController@editTransporter');
   Route::get('picking-list/do-or-shipment-data', 'Web\PickingListController@doOrShipmentData');
   Route::post('picking-list/submit-do', 'Web\PickingListController@submitDO');
   Route::resource('picking-list', 'Web\PickingListController');

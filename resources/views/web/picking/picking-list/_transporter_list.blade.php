@@ -91,6 +91,37 @@
     ]
   });
 
+  dt_table_transporter.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dt_table_transporter.row(tr).data();
+      swal({
+        text: "Are you sure No. " + data.vehicle_number + " has living?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+            $.ajax({
+            url: '{{ url('assign-vehicles') }}' + '/' + data.id ,
+            type: 'DELETE',
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "Vehicle No. " + data.vehicle_number + " has been deleted.", "success") // alert success
+            dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
+
   $('#area_filter').change(function(event) {
     /* Act on the event */
     dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload

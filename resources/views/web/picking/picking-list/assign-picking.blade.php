@@ -48,29 +48,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('.btn-save').html('Update');
-    });
 
-
-  $("#form-master-vendor").validate({
-      submitHandler: function(form) {
-        $.ajax({
-          url: '{{ url("master-vendor/") }}',
-          type: 'PUT',
-          data: $(form).serialize(),
-        })
-        .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-vendor') }}"
-            }) // alert success
-        })
-        .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
-      }
-    });
 </script>
 @endpush

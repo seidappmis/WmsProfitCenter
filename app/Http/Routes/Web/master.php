@@ -3,6 +3,7 @@ use App\Http\Middleware\OnlyBranchAccess;
 
 Route::group(['middleware' => 'auth'], function () {
   // Master Gate
+  Route::get('master-gate/select2-free-gate', 'Web\GateController@getSelect2FreeGate');
   Route::resource('master-gate', 'Web\GateController');
 
   // Select2 Region
@@ -20,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Master Expedition
   Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
   Route::get('master-expedition/select2-all-expedition', 'Web\MasterExpeditionController@getSelect2AllExpedition');
+  Route::get('master-expedition/select2-expedition-destination-city', 'Web\MasterExpeditionController@getSelect2ExpeditionDestinationCity');
   Route::resource('master-expedition', 'Web\MasterExpeditionController');
 
   // Master Vehicle Expedition
