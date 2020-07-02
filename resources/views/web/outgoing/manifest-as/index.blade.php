@@ -17,10 +17,10 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      <option>-Select Area-</option>
+                      {{-- <option>-Select Area-</option>
                       <option>KARAWANG</option>
                       <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -85,6 +85,18 @@
 <script type="text/javascript">
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+    });
+    $('#area_filter').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+    jQuery(document).ready(function($) {
+      @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
+      
     });
 </script>
 @endpush

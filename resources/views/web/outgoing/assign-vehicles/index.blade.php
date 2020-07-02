@@ -72,6 +72,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
     var table = $('#data-table-assign-vehicles').DataTable({
     serverSide: true,
     scrollX: true,

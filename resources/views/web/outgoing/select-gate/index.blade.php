@@ -52,63 +52,6 @@
 
                                 @endpush
                                 <div id="gate-rows" class="row gate-row">
-
-                                  {{-- <div class="col s2 m1">
-                                    <div class="card">
-                                      <div class="card-content p-0">
-                                        <p class="center-align">&nbsp;</p>
-                                        <div class="center-align pt-5">
-                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
-                                        </div>
-                                        <h4 class="card-title center-align mb-0">101</h4>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col s2 m1">
-                                    <div class="card">
-                                      <div class="card-content p-0">
-                                        <p class="center-align">&nbsp;</p>
-                                        <div class="center-align pt-5">
-                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
-                                        </div>
-                                        <h4 class="card-title center-align mb-0">102</h4>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col s2 m1">
-                                    <div class="card">
-                                      <div class="card-content p-0">
-                                        <p class="center-align">&nbsp;B 9875 UEI</p>
-                                        <div class="center-align pt-5">
-                                          <i class="material-icons red-text" style="font-size: 60px;">directions_bus</i>
-                                        </div>
-                                        <h4 class="card-title center-align mb-0">103</h4>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col s2 m1">
-                                    <div class="card">
-                                      <div class="card-content p-0">
-                                        <p class="center-align">&nbsp;</p>
-                                        <div class="center-align pt-5">
-                                          <i class="material-icons green-text" style="font-size: 60px;">directions_bus</i>
-                                        </div>
-                                        <h4 class="card-title center-align mb-0">102</h4>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="col s2 m1">
-                                    <div class="card">
-                                      <div class="card-content p-0">
-                                        <p class="center-align">&nbsp;B 9875 UEI</p>
-                                        <div class="center-align pt-5">
-                                          <i class="material-icons red-text" style="font-size: 60px;">directions_bus</i>
-                                        </div>
-                                        <h4 class="card-title center-align mb-0">103</h4>
-                                      </div>
-                                    </div>
-                                  </div> --}}
-
                                 </div>
                                 <strong>
                                   <span class="green-text">Green = No Loading</span> <span class="red-text">Red = Loading</span>.
@@ -149,7 +92,7 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
+                                   {{--  <tr>
                                       <td>1.</td>
                                       <td>Waiting Loading</td>
                                       <td>B 9101 UEI SANIKIN</td>
@@ -160,7 +103,7 @@
                                       <td>65.000</td>
                                       <td>1.315</td>
                                       <td></td>
-                                    </tr>
+                                    </tr> --}}
                                   </tbody>
                               </table>
                             </div>
@@ -186,6 +129,13 @@
    allowClear: true,
    ajax: get_select2_ajax_options('/master-area/select2-area-only')
 });
+
+  jQuery(document).ready(function($) {
+    @if (auth()->user()->area != 'All')
+      set_select2_value('#filter-area', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+      $('#filter-area').attr('disabled','disabled')
+    @endif
+  });
 
   $('#filter-area').change(function(event) {
     /* Act on the event */
