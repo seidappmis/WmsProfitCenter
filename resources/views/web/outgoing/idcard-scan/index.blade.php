@@ -54,19 +54,7 @@
                               <td class="label">Vehicle No.</td>
                               <td>
                                 <div class="input-field col s12">
-                                  <select required="" name="vehicle_number">
-                                    <option value="">-Select Vehicle-</option>
-                                    <option value="B 9010 GB">B 9010 GB</option>
-                                    <option value="B 9033 SYK">B 9033 SYK</option>
-                                    <option value="B 9035 ML">B 9035 ML</option>
-                                    <option value="B 9051 BN">B 9051 BN</option>
-                                    <option value="B 9089 UIW">B 9089 UIW</option>
-                                    <option value="B 9110 KA">B 9110 KA</option>
-                                    <option value="B 9132 BEI">B 9132 BEI</option>
-                                    <option value="B 9132 LS">B 9132 LS</option>
-                                    <option value="B 9143 JS">B 9143 JS</option>
-                                    <option value="B 9184 BEK">B 9184 BEK</option>
-                                    <option value="B 9185 BEK">B 9185 BEK</option>
+                                  <select required="" name="vehicle_number" class="select2-data-ajax browser-default ">
                                   </select>
                                 </div>
                               </td>
@@ -83,7 +71,7 @@
                             </tr>
                             <tr>
                               <td class="label">Capacity (CBM)</td>
-                              <td>55.000 to 65.000</td>
+                              <td><span id="text-cbm-min"></span> to <span id="text-cbm-max"></span></td>
                             </tr>
                             <tr>
                               <td class="label">Destination</td>
@@ -129,6 +117,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    set_select2_vehicle_number()
+    
+  });
     $('#search-driver-id').keyup(function(event) {
       /* Act on the event */
       if ($(this).val().length == 10) {
@@ -143,8 +135,15 @@
             $('#form-id-card-scan [name="driver_name"]').val(data.data.driver_name)
             $('#form-id-card-scan [name="expedition_code"]').val(data.data.expedition_code)
             $('#form-id-card-scan [name="expedition_name"]').val(data.data.expedition.expedition_name)
+            set_select2_value('#form-id-card-scan [name="destination_number"]', '', '')
+            set_select2_vehicle_number({expedition_code: data.data.expedition_code})
+            set_select2_value('#form-id-card-scan [name="vehicle_number"]', '', '')
+            set_select2_value('#form-id-card-scan [name="vehicle_code_type"]', '', '')
+            $('#text-cbm-min').text('')
+            $('#text-cbm-max').text('')
             $('#form-id-card-scan-wrapper').show();
           } else {
+            $('#form-id-card-scan-wrapper').hide();
             swal("Failed!", data.message, "error")
           }
         })
@@ -205,10 +204,37 @@
         $('#input-area-wrapper').addClass('hide')
       @endif
 
-      $('#form-id-card-scan [name="vehicle_code_type"]').select2({
-         placeholder: '-- Select Vehicle --',
-         ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
-      });
     });
+
+    function set_select2_vehicle_number(filter = {expedition_code: ''}){
+      $('#form-id-card-scan [name="vehicle_number"]').select2({
+         placeholder: '-- Select Vehicle Number --',
+         ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number', filter)
+      });
+
+      $('#form-id-card-scan [name="vehicle_number"]').change(function(event) {
+        /* Act on the event */
+        var data = $(this).select2('data')[0]
+        set_select2_vehicle_code_type({vehicle_group_id: data.vehicle_group_id})
+        $('#text-cbm-min').text(data.cbm_min)
+        $('#text-cbm-max').text(data.cbm_max)
+        if (data.vehicle_code_type != undefined) {
+          set_select2_value('#form-id-card-scan [name="vehicle_code_type"]', data.vehicle_code_type, data.vehicle_description)
+        }
+      });
+    }
+
+    function set_select2_vehicle_code_type(filter = {vehicle_group_id: ''}){
+      $('#form-id-card-scan [name="vehicle_code_type"]').select2({
+         placeholder: '-- Select Vehicle Type --',
+         ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle', filter)
+      });
+      $('#form-id-card-scan [name="vehicle_code_type"]').change(function(event) {
+        /* Act on the event */
+        var data = $(this).select2('data')[0]
+        $('#text-cbm-min').text(data.cbm_min)
+        $('#text-cbm-max').text(data.cbm_max)
+      });
+    }
 </script>
 @endpush

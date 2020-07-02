@@ -142,8 +142,14 @@ class VehicleDetailController extends Controller
   {
     $query = VehicleDetail::select(
       DB::raw("vehicle_code_type AS id"),
-      DB::raw("vehicle_description AS text")
+      DB::raw("vehicle_description AS text"),
+      'cbm_min',
+      'cbm_max'
     )->toBase();
+
+    if (!empty($request->input('vehicle_group_id'))) {
+      $query->where('vehicle_group_id', $request->input('vehicle_group_id'));
+    }
 
     return get_select2_data($request, $query);
   }
