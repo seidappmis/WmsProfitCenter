@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\DestinationCityOfBranch;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class DestinationCityOfBranchController extends Controller
@@ -116,5 +117,25 @@ class DestinationCityOfBranchController extends Controller
   public function destroy($id)
   {
     return DestinationCityOfBranch::destroy($id);
+  }
+
+  public function getSelect2(Request $request)
+  {
+    $query = DestinationCityOfBranch::select(
+      'id',
+      DB::raw("city_name AS text"),
+    )
+      ->toBase()
+    ;
+
+    if ($request->input('tambah_ambil_sendiri')) {
+      $ambil_sendiri = DB::table('tr_vehicle_type_detail')->selectRaw('"AS" as id, "Ambil Sendiri" AS `text` ');
+      $query->union($ambil_sendiri);
+    }
+
+    $query->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+      ->orderBy('text');
+
+    return get_select2_data($request, $query);
   }
 }

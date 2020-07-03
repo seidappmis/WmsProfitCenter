@@ -71,12 +71,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('master-branch-expedition', 'Web\BranchExpeditionController');
 
     // Branch Expedition Vehicle
+    Route::get('branch-expedition-vehicle/select2-vehicle-number', 'Web\BranchExpeditionVehicleController@getSelect2VehicleNumber');
+    Route::get('branch-expedition-vehicle/select2-vehicle', 'Web\BranchExpeditionVehicleController@getSelect2Vehicle');
     Route::resource('branch-expedition-vehicle', 'Web\BranchExpeditionVehicleController');
 
     // Branch Master Driver
+    Route::get('branch-master-driver/select2', 'Web\BranchMasterDriverController@select2');
     Route::resource('branch-master-driver', 'Web\BranchMasterDriverController');
 
     // Destination City of Branch
+    Route::get('destination-city-of-branch/select2', 'Web\DestinationCityOfBranchController@getSelect2');
     Route::resource('destination-city-of-branch', 'Web\DestinationCityOfBranchController');
   });
 });

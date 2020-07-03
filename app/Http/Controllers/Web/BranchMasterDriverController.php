@@ -150,4 +150,17 @@ class BranchMasterDriverController extends Controller
 
     return get_select2_data($request, $query);
   }
+
+  public function select2(Request $request)
+  {
+    $query = BranchDriver::select(
+      DB::raw("driver_id AS id"),
+      DB::raw("driver_name AS text")
+    )
+      ->where('active_status', 1)
+      ->where('expedition_code', $request->input('expedition_code'))
+      ->toBase();
+
+    return get_select2_data($request, $query);
+  }
 }

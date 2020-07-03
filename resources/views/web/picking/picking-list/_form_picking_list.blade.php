@@ -73,6 +73,7 @@
                 <div class="input-field col s12 m6">
                     <select name="driver_id" class="select2-data-ajax browser-default">
                     </select>
+                    <input type="hidden" name="driver_name">
                 </div>
                 <div class="input-field col s12 m6">
                     <input value="" id="notag" type="text" class="validate" name="notag">
@@ -148,6 +149,11 @@
             placeholder: '-- Select Driver --',
             ajax: get_select2_ajax_options('/picking-list/select2-driver-by-register-id', filter)
           })
+        $('#form-picking-list [name="driver_id"]').change(function(event) {
+            /* Act on the event */
+            var data = $(this).select2('data')[0]
+            $('#form-picking-list [name="driver_name"]').val(data.text)
+        });
     }
 
     function set_hq_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
@@ -216,7 +222,90 @@
     }
 
     function init_form_branch(){
+      set_branch_select_ship_to_city()
+      set_branch_select_expedition()
+      set_branch_select_vehicle_type()
+      $('#form-picking-list [name="vehicle_number"]').attr('required', 'required');
+      set_branch_select_vehicle_number()
+      $('#form-picking-list [name="driver_id"]').attr('required', 'required');
+      set_branch_select_driver_name()
+    }
 
+    function set_branch_select_driver_name(filter = {expedition_code: ''}){
+        $('#form-picking-list [name="driver_id"]').select2({
+            placeholder: '-- Select Driver --',
+            ajax: get_select2_ajax_options('/branch-master-driver/select2', filter)
+          })
+
+        $('#form-picking-list [name="driver_id"]').change(function(event) {
+            /* Act on the event */
+            var data = $(this).select2('data')[0]
+            $('#form-picking-list [name="driver_name"]').val(data.text)
+        });
+    }
+
+    function set_branch_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
+        $('#form-picking-list [name="vehicle_number"]').select2({
+            placeholder: '-- Select Vehicle No. --',
+            ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle-number', filter)
+          })
+        $('#form-picking-list [name="vehicle_number"]').change(function(event) {
+            /* Act on the event */
+            var data = $(this).select2('data')[0]
+            set_select2_value('#form-picking-list [name="driver_id"]', '', '')
+            set_branch_select_driver_name({expedition_code: data.expedition_code})
+            // set_select2_value('#form-picking-list [name="driver_id"]', data.driver_id, data.driver_name)
+        });
+    }
+
+    function set_branch_select_expedition(){
+        $('#form-picking-list [name="expedition_code"]').select2({
+            placeholder: '-- Select Expedition --',
+            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition')
+      })
+        $('#form-picking-list [name="expedition_code"]').change(function(event) {
+            /* Act on the event */
+            var data = $(this).select2('data')[0]
+            // set_branch_select_ship_to_city({expedition_code: $(this).val()})
+            set_branch_select_vehicle_type({expedition_code: $(this).val()})
+            // set_select2_value('#form-picking-list [name="city_code"]', '', '')
+            set_select2_value('#form-picking-list [name="vehicle_code_type"]', '', '')
+            $('#form-picking-list [name="expedition_name"]').val(data.text)
+        });
+
+    }
+
+
+    function set_branch_select_vehicle_type(filter = {expedition_code: ''}) {
+        $('#form-picking-list [name="vehicle_code_type"]').select2({
+          placeholder: '-- Select Vehicle --',
+          ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle', filter)
+        })
+
+        $('#form-picking-list [name="vehicle_code_type"]').change(function(event) {
+            /* Act on the event */
+            set_select2_value('#form-picking-list [name="vehicle_number"]', '', '')
+            set_branch_select_vehicle_number({vehicle_code_type: $(this).val(), expedition_code: $('#form-picking-list [name="expedition_code"]').val()})
+        });
+    }
+
+    function set_branch_select_ship_to_city(filter = {expedition_code: ''}){
+        filter.tambah_ambil_sendiri = true
+      $('#form-picking-list [name="city_code"]').select2({
+        placeholder: '-- Select Destination City --',
+        allowClear: true,
+        ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+      })
+      $('#form-picking-list [name="city_code"]').change(function(event) {
+          var data = $(this).select2('data')[0];
+          $('#form-picking-list [name="city_name"]').val(data == undefined ? '' : data.text);
+          // Ambil Sendiri => hide expedition detail
+          if ($(this).val() == 'AS') {
+              $('#table-expedition-detail').hide();
+          } else {
+              $('#table-expedition-detail').show();
+          }
+      });
     }
 
   

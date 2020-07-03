@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\DriverRegistered;
 use App\Models\ManualConcept;
+use App\Models\Concept;
 use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
 use DataTables;
@@ -173,8 +174,8 @@ class PickingListController extends Controller
     $pickinglistHeader->destination_number = $request->input('destination_number');
     $pickinglistHeader->destination_name   = $request->input('destination_name');
     $pickinglistHeader->picking_urut_no    = $request->input('picking_urut_no');
-    $pickinglistHeader->HQ                 = 1;
-    $pickinglistHeader->kode_cabang        = $request->input('kode_cabang');
+    $pickinglistHeader->HQ                 = auth()->user()->cabang->hq;
+    $pickinglistHeader->kode_cabang        = auth()->user()->cabang->kode_cabang;
     $pickinglistHeader->storage_id         = $request->input('storage_id');
     $pickinglistHeader->storage_type       = $request->input('storage_name');
     $pickinglistHeader->city_code          = $request->input('city_code');
@@ -226,7 +227,11 @@ class PickingListController extends Controller
 
   public function doOrShipmentData(Request $request)
   {
-    $query = ManualConcept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+    if (auth()->user()->cabang->hq) {
+      $query = Concept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+    } else {
+      $query = ManualConcept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+    }
 
     foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
       $query->whereRaw('CONCAT(invoice_no, delivery_no, delivery_items) != ?', [$value]);

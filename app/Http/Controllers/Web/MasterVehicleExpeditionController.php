@@ -142,7 +142,7 @@ class MasterVehicleExpeditionController extends Controller
     $query->where('expedition_code', $request->input('expedition_code'));
 
     $query->groupBy('tr_vehicle_expedition.vehicle_code_type');
-    $query->orderBy('vehicle_number');
+    $query->orderBy('vehicle_description');
 
     return get_select2_data($request, $query);
   }
