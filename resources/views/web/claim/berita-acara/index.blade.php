@@ -113,6 +113,34 @@
     ]
   });
 
+  dtdatatable.on('click', '.btn-print', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+    swal({
+      text: "Are you sure want to print Berita Acara No. " + data.berita_acara_no + " and the details?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        delete: 'Yes, Print It'
+      }
+    }).then(function (confirm) { // proses confirm
+      if (confirm) {
+        $.ajax({
+          url: '{{ url('berita-acara') }}' + '/' + data.id + '/print',
+          type: 'GET',
+          dataType: 'json',
+        })
+        .done(function() {
+          swal("Good job!", "Berita Acara No. " + data.berita_acara_no + " has been printed.", "success") // alert success
+          // table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+        })
+        .fail(function() {
+          console.log("error");
+        });
+      }
+    })
+  });
+
   dtdatatable.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */

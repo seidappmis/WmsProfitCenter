@@ -46,7 +46,7 @@
                             </div>
                              <div class="collapsible-body white p-0">
                                 <div class="section-data-tables"> 
-                                    <table id="data-table-section-contents" class="display" width="100%">
+                                    <table id="data-table-list-berita-acara" class="display" width="100%">
                                       <thead>
                                           <tr>
                                             <th data-priority="1" width="30px">NO.</th>
@@ -59,7 +59,7 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                           <td>1.</td>
                                           <td>01/BA-HQ/02/2015</td>
                                           <td>May 21, 2020</td>
@@ -146,7 +146,7 @@
                                           <td>
                                             {!! get_button_view('#', 'Select') !!}
                                           </td>
-                                        </tr>
+                                        </tr> -->
                                       </tbody>
                                   </table>
                               </div>
@@ -180,7 +180,7 @@
                              <div class="collapsible-body white p-0">
                                 <div class="section-data-tables"> 
                                   <div class="pl-2 pr-2 pb-2">
-                                      <table id="data-table-section-contents" class="bordered striped" width="100%">
+                                      <table id="data-table-detail-berita-acara" class="bordered striped" width="100%">
                                           <thead>
                                               <tr>
                                                 <th data-priority="1" width="30px">No.</th>
@@ -201,7 +201,7 @@
                                               </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td>1.</td>
                                                 <td>01/BA-HQ/02/2015</td>
                                                 <td>Expedition 1</td>
@@ -240,7 +240,7 @@
                                                   </div>
                                                 </td>
                                                 <td>12.000.000</td>
-                                            </tr>
+                                            </tr> -->
                                           </tbody>
                                       </table>
                                       {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
@@ -360,13 +360,60 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $('.collapsible').collapsible({
+  $(document).ready(function() {
+    $('.collapsible').collapsible({
         accordion:true
     });
-var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        pageLength: 5,
-        order: [1, 'asc'],
+  });
+
+  var dtdatatable = $('#data-table-list-berita-acara').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    pageLength: 5,
+    ajax: {
+        url: '{{ url('claim-notes/create-carton-box') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'berita_acara_no', name: 'berita_acara_no', className: 'detail'},
+        {data: 'date_of_receipt', name: 'date_of_receipt', className: 'detail'},
+        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+        {data: 'driver_name', name: 'driver_name', className: 'detail'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  dtdatatable.on('click', '.btn-select', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // select row-copier row, clone it, and append to second table body
+      var tr = $(this).closest("tr").clone();
+      tr.find(".btn-select").text("Remove");
+      $("#data-table-detail-berita-acara tbody").append(tr);
     });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
+  // var dtdatatable = $('#data-table-detail-berita-acara').DataTable({
+  //   serverSide: false,
+  //   scrollX: true,
+  //   responsive: true,
+  //   paging: false,
+  //   order: [1, 'asc'],
+  // });
 </script>
 @endpush

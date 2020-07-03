@@ -8,6 +8,7 @@ use DataTables;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class BeritaAcaraController extends Controller
 {
@@ -56,6 +57,25 @@ class BeritaAcaraController extends Controller
         ];
 
         return view('web.claim.berita-acara.create', $data);
+    }
+
+    /**
+     * Print preview.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function printView($id)
+    {
+        // Data from database
+        $data['beritaAcara'] = BeritaAcara::findOrFail($id);
+
+        $config = [
+            'format' => 'A4-L', // Landscape
+        ];
+
+        $pdf = PDF::loadview('web.claim.berita-acara.print',$data,[],$config);
+
+        return $pdf->stream();
     }
 
     /**

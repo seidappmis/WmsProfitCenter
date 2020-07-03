@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
