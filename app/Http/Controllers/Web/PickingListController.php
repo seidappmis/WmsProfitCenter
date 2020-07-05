@@ -291,7 +291,7 @@ class PickingListController extends Controller
       $pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
       $pickingListDetail['code_sales']     = $value['code_sales'];
       $pickingListDetail['remarks']        = $value['remarks'];
-      $pickingListDetail['kode_customer']  = $value['kode_customer'];
+      $pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
 
       $rs_pickinglistDetail[] = $pickingListDetail;
     }

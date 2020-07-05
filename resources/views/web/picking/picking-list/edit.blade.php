@@ -48,11 +48,13 @@
 <script type="text/javascript">
  	jQuery(document).ready(function($) {
     set_select2_value('#form-picking-list [name="storage_id"]', '{{$pickinglistHeader->storage_id}}', '{{$pickinglistHeader->storage_type}}')
+    @if ($pickinglistHeader->city_code != 'AS')
     set_select2_value('#form-picking-list [name="expedition_code"]', '{{$pickinglistHeader->expedition_code}}', '{{$pickinglistHeader->expedition_name}}')
-    set_select2_value('#form-picking-list [name="city_code"]', '{{$pickinglistHeader->city_code}}', '{{$pickinglistHeader->city_name}}')
     set_select2_value('#form-picking-list [name="vehicle_code_type"]', '{{$pickinglistHeader->vehicle_code_type}}', '{{$pickinglistHeader->vehicle->vehicle_description}}')
     set_select2_value('#form-picking-list [name="vehicle_number"]', '{{$pickinglistHeader->vehicle_number}}', '{{$pickinglistHeader->vehicle_number}}')
     set_select2_value('#form-picking-list [name="driver_id"]', '{{$pickinglistHeader->driver_id}}', '{{$pickinglistHeader->driver_name}}')
+    @endif
+    set_select2_value('#form-picking-list [name="city_code"]', '{{$pickinglistHeader->city_code}}', '{{$pickinglistHeader->city_name}}')
   });
 </script>
 @endpush
