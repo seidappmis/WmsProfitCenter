@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('picking-list/transporter/{id}/edit', 'Web\PickingListController@editTransporter');
   Route::get('picking-list/do-or-shipment-data', 'Web\PickingListController@doOrShipmentData');
   Route::post('picking-list/submit-do', 'Web\PickingListController@submitDO');
+  Route::delete('picking-list/detail/{id}', 'Web\PickingListController@destroyDetail');
   Route::resource('picking-list', 'Web\PickingListController');
 
   // Route::view('picking-to-lmb', 'web.picking.picking-to-lmb.index');

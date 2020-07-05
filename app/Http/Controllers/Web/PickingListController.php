@@ -307,6 +307,11 @@ class PickingListController extends Controller
     return PickinglistHeader::destroy($id);
   }
 
+  public function destroyDetail($id)
+  {
+     return PickinglistDetail::destroy($id);
+  }
+
   public function edit($id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
