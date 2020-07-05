@@ -194,7 +194,7 @@
     $.ajax({
       url: '{{ url("upload-concept") }}',
       type: 'POST',
-      data: 'data_concept=' + JSON.stringify(data_concept),
+      data: {data_concept: JSON.stringify(data_concept)},
     })
     .done(function() { // selesai dan berhasil
       swal("Good job!", "You clicked the button!", "success")

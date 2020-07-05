@@ -64,51 +64,6 @@
                                 <td><a href="#" class="btn btn-small">Overload</a></td>
                               </tr>
                               @endforeach
-                              {{-- <tr>
-                                <td rowspan="4">KRW-200207-023</td>
-                                <td>1000402706</td>
-                                <td>1</td>
-                                <td>2101447957</td>
-                                <td>10</td>
-                                <td>ES-T65MW-BK</td>
-                                <td>6</td>
-                                <td>2.106</td>
-                                <td>-</td>
-                                <td><a href="#" class="btn btn-small">Overload</a></td>
-                              </tr>
-                              <tr>
-                                <td>1000402706</td>
-                                <td>1</td>
-                                <td>2101447957</td>
-                                <td>10</td>
-                                <td>ES-T65MW-BK</td>
-                                <td>6</td>
-                                <td>2.106</td>
-                                <td>-</td>
-                                <td><a href="#" class="btn btn-small">Overload</a></td>
-                              </tr>
-                              <tr>
-                                <td>1000402706</td>
-                                <td>1</td>
-                                <td>2101447957</td>
-                                <td>10</td>
-                                <td>ES-T65MW-BK</td>
-                                <td>6</td>
-                                <td>2.106</td>
-                                <td>-</td>
-                                <td><a href="#" class="btn btn-small">Overload</a></td>
-                              </tr>
-                              <tr>
-                                <td>1000402706</td>
-                                <td>1</td>
-                                <td>2101447957</td>
-                                <td>10</td>
-                                <td>ES-T65MW-BK</td>
-                                <td>6</td>
-                                <td>2.106</td>
-                                <td>-</td>
-                                <td><a href="#" class="btn btn-small">Overload</a></td>
-                              </tr> --}}
                             </tbody>
                         </table>
                       </div>

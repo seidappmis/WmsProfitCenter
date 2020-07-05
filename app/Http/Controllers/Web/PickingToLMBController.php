@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
+use App\Models\MasterModel;
+use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
 use DataTables;
-use DB;
 use Illuminate\Http\Request;
 
 class PickingToLMBController extends Controller
@@ -55,10 +56,10 @@ class PickingToLMBController extends Controller
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
 
     $lmbHeader                           = new LMBHeader;
-    $lmbHeader->driver_register_id       = '2020-05-29 04:59:19';
+    $lmbHeader->driver_register_id       = $request->input('driver_register_id');
     $lmbHeader->lmb_date                 = date('Y-m-d');
-    $lmbHeader->do_reservation_no        = '';
-    $lmbHeader->pdo                      = '';
+    // $lmbHeader->do_reservation_no        = '';
+    // $lmbHeader->pdo                      = '';
     $lmbHeader->expedition_code          = $picking->expedition_code;
     $lmbHeader->expedition_name          = $picking->expedition_name;
     $lmbHeader->driver_id                = $picking->driver_id;
@@ -104,6 +105,9 @@ class PickingToLMBController extends Controller
     $serial_numbers = [];
     $scan_summaries = [];
 
+    $rs_models               = [];
+    $rs_picking_list_details = [];
+
     $rs_key = [];
 
     while (!feof($file)) {
@@ -121,19 +125,47 @@ class PickingToLMBController extends Controller
       // Validasi Data Per Baris
       if (!empty($serial_number['picking_id'])) {
         // kalau data ada isinya
-        $serial_number['model']       = 'LC-24LE170I';
-        $serial_number['delivery_no'] = 'LC-24LE170I';
+
+        if (empty($rs_models[$serial_number['ean_code']])) {
+          $model = MasterModel::where('ean_code', $serial_number['ean_code'])->first();
+          if (empty($model)) {
+            $result['status']  = false;
+            $result['message'] = 'Model ' . $serial_number['ean_code'] . ' not found in master model !';
+            return $result;
+          }
+          $rs_models[$serial_number['ean_code']] = $model;
+        }
+
+        if (empty($rs_picking_list_details[$serial_number['ean_code']])) {
+          $picking_detail = PickinglistDetail::select('wms_pickinglist_detail.*')
+            ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+            ->where('ean_code', $serial_number['ean_code'])
+            ->where('picking_no', $serial_number['picking_id'])
+            ->first();
+
+          if (empty($picking_detail)) {
+            $result['status']  = false;
+            $result['message'] = 'Ean ' . $serial_number['ean_code'] . ' not found in picking_list !';
+            return $result;
+          }
+          $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
+        }
+
+        $serial_number['model']       = $rs_models[$serial_number['ean_code']]->model_name;
+        $serial_number['delivery_no'] = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
+        $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->header->driver_register_id;
 
         if (empty($scan_summaries[$serial_number['ean_code']])) {
           $scan_summaries[$serial_number['ean_code']] = [
-            'model'             => 'XXX',
+            'model'             => $rs_models[$serial_number['ean_code']]->model_name,
             'quantity_scan'     => 0,
-            'quantity_picking'  => 0,
-            'quantity_existing' => 0,
+            'quantity_picking'  => $rs_picking_list_details[$serial_number['ean_code']]->quantity,
+            'quantity_existing' => $rs_picking_list_details[$serial_number['ean_code']]->quantity,
           ];
         }
 
         $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
+        $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
 
         $serial_numbers[] = $serial_number;
       }
@@ -157,6 +189,15 @@ class PickingToLMBController extends Controller
     LMBDetail::insert($data_serial_numbers);
 
     return true;
+  }
+
+  public function destroyLmbDetail(Request $request)
+  {
+    return LMBDetail::where('ean_code', $request->input('ean_code'))
+      ->where('serial_number', $request->input('serial_number'))
+      ->where('picking_id', $request->input('picking_id'))
+      ->delete()
+    ;
   }
 
   public function pickingListIndex(Request $request)

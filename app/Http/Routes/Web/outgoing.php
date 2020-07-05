@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('manifest-regular/{driver_register_id}/assign-do', 'Web\ManifestRegularController@assignDO');
   Route::resource('manifest-regular', 'Web\ManifestRegularController');
 
-  Route::resource('branch-manifest', 'Web\ManifestRegularController');
+  Route::resource('branch-manifest', 'Web\BranchManifestController');
 
 
   Route::get('manifest-as/lmb-waiting-manifest', 'Web\ManifestASController@lmbWaitingManifest');

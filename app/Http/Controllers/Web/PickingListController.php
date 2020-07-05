@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Concept;
 use App\Models\DriverRegistered;
 use App\Models\ManualConcept;
-use App\Models\Concept;
+use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class PickingListController extends Controller
 {
@@ -189,13 +191,17 @@ class PickingListController extends Controller
     $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
 
     if ($pickinglistHeader->city_code != "AS") {
+      $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
       $pickinglistHeader->expedition_code    = $request->input('expedition_code');
       $pickinglistHeader->expedition_name    = $request->input('expedition_name');
       $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
-      $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
       $pickinglistHeader->vehicle_number     = $request->input('vehicle_number');
       $pickinglistHeader->driver_id          = $request->input('driver_id');
       $pickinglistHeader->driver_name        = $request->input('driver_name');
+    }
+
+    if ($pickinglistHeader->city_code == "AS" || !auth()->user()->cabang->hq) {
+      $pickinglistHeader->driver_register_id = Uuid::uuid4();
     }
 
     $pickinglistHeader->save();
@@ -257,9 +263,22 @@ class PickingListController extends Controller
 
     $rs_pickinglistDetail = [];
 
-    $base_id = auth()->user()->id . date('YMdHis');
+    $base_id   = auth()->user()->id . date('YMdHis');
+    $rs_models = [];
 
     foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+      if (empty($value['ean_code'])) {
+        if (empty($rs_models[$value['model']])) {
+          $model = MasterModel::where('model_name', $value['model'])->first();
+          if (empty($model)) {
+            $result['status']  = false;
+            $result['message'] = 'Model ' . $value['model'] . ' not found in master model !';
+            return $result;
+          }
+          $rs_models[$value['model']] = $model;
+        }
+      }
+
       $pickingListDetail['id']             = $base_id . $key;
       $pickingListDetail['header_id']      = $request->input('picking_id');
       $pickingListDetail['invoice_no']     = $value['invoice_no'];
@@ -269,7 +288,7 @@ class PickingListController extends Controller
       $pickingListDetail['model']          = $value['model'];
       $pickingListDetail['quantity']       = $value['quantity'];
       $pickingListDetail['cbm']            = $value['cbm'];
-      $pickingListDetail['ean_code']       = $value['ean_code'];
+      $pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
       $pickingListDetail['code_sales']     = $value['code_sales'];
       $pickingListDetail['remarks']        = $value['remarks'];
       $pickingListDetail['kode_customer']  = $value['kode_customer'];

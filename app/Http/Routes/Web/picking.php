@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('picking-to-lmb/upload', 'Web\PickingToLMBController@upload');
   Route::post('picking-to-lmb/store-scan', 'Web\PickingToLMBController@storeScan');
   Route::get('picking-to-lmb/picking-list', 'Web\PickingToLMBController@pickingListIndex');
+  Route::delete('picking-to-lmb/picking-list', 'Web\PickingToLMBController@destroyLmbDetail');
   Route::get('picking-to-lmb/picking-list/{id}', 'Web\PickingToLMBController@pickingListCreate');
   Route::post('picking-to-lmb/{id}/send-manifest', 'Web\PickingToLMBController@sendManifest');
   Route::resource('picking-to-lmb', 'Web\PickingToLMBController');

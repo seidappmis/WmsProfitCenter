@@ -1,4 +1,5 @@
 <form class="form-table" id="form-picking-to-lmb">
+  <input type="hidden" name="driver_register_id" value="{{$picking->driver_register_id}}">
     <table class="mb-1">
         <tr>
             <td width="30%">Picking No.</td>
@@ -118,6 +119,39 @@
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ],
   });
+
+    dtdatatable_serial_number.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = dtdatatable_serial_number.row(tr).data();
+
+      // Ask user confirmation to delete the data.
+      swal({
+        text: "Delete the this item ?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+          $.ajax({
+            url: '{{ url('picking-to-lmb/picking-list') }}',
+            type: 'DELETE',
+            data: 'ean_code=' + data.ean_code + '&serial_number=' + data.serial_number + '&picking_id=' + data.picking_id ,
+            dataType: 'json',
+          })
+          .done(function() {
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            dtdatatable_serial_number.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          })
+          .fail(function() {
+            console.log("error");
+          });
+        }
+      })
+    });
 
      $("#form-picking-to-lmb").validate({
       submitHandler: function(form) {
