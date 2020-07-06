@@ -6,6 +6,11 @@
         }
     });
 
+    $.extend(true, $.fn.dataTable.defaults, {
+        "pageLength": 15,
+        "searchDelay": 1000,
+    });
+
     $('.collapsible-header .no-propagation').click(function(e){ e.stopPropagation(); });
     $('.dataTable .input-filter-column').click(function(e){ e.stopPropagation(); });
 

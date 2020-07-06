@@ -13,20 +13,21 @@
                 </ol>
             </div>
             <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                <div class="display-flex">
+                  <!---- Search ----->
+                  <div class="app-wrapper mr-2">
+                    <div class="datatable-search">
+                      <i class="material-icons mr-2 search-icon">search</i>
+                      <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                    </div>
                   </div>
-                </div>
-                <!---- Button Add ----->
+                  <!---- Button Add ----->
+              </div>
+          </div>
+            <div class="col s12 m3">
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a>
             </div>
-            <div class="col s12 m3">
-            </div>
-        </div>
+          </div>
     @endcomponent
     
     <div class="col s12">

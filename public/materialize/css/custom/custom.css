@@ -54,6 +54,15 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 #breadcrumbs-wrapper .breadcrumbs .active {
     color: #ffca22;
 }
+#breadcrumbs-wrapper .row {
+    margin-bottom: 0;
+}
+#breadcrumbs-wrapper .breadcrumbs {
+    margin: 5px 0;
+}
+#breadcrumbs-wrapper .row .col{
+    margin-top: 2px;
+}
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
     background-position: center right 5px;
 }
