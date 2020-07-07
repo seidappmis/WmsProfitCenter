@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -22,13 +21,17 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('claim-insurance/create') }}" class="btn btn-large waves-effect waves-light btn-add">
-                  New Claim Insurance
-                </a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+            <a href="{{ url('claim-insurance/create') }}" class="btn btn-large waves-effect waves-light btn-add">
+              New Claim Insurance
+            </a>
+          </div>
         </div>
     @endcomponent
     

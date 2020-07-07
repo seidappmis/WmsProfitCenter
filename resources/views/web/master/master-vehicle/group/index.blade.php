@@ -21,12 +21,17 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle/create') }}">New Vehicle Group</a>
             </div>
             <div class="col s12 m3">
             </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m4">
+           <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle/create') }}">New Vehicle Group</a>
+        </div>
+      </div>
     @endcomponent
     
     <div class="col s12">
@@ -56,7 +61,6 @@
         </div>
         <div class="content-overlay"></div>
     </div>
-</div>
 @endsection
 
 @push('script_js')

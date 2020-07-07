@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -14,17 +13,14 @@
                 </ol>
             </div>
             <div class="col s12 m3">
-                <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
+              <!---- Filter ----->
+              <div class="app-wrapper mr-2">
+                <div class="datatable-search">
+                  <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                  </select>
                 </div>
+              </div>
             </div>
             <div class="col s12 m5">
               <div class="display-flex">
@@ -221,5 +217,11 @@
   function filterGlobal() {
       dttable_clean_concept.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+$('#area_filter').select2({
+   placeholder: '-- Select Area --',
+   allowClear: true,
+   ajax: get_select2_ajax_options('/master-area/select2-area-only')
+});
 </script>
 @endpush

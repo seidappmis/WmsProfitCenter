@@ -22,23 +22,12 @@
             </ol>
         </div>
         <div class="col s12 m3">
-            <!---- Search ----->
-            <div class="app-wrapper">
+            <!---- Filter ----->
+            <div class="app-wrapper mr-2">
                 <div class="datatable-search">
-                    <select id="area_filter">
-                        <option>
-                            -- Select Cabang --
-                        </option>
-                        <option>
-                            PT. SEID HQ JKT
-                        </option>
-                        <option>
-                            PT. SEID CAB. JAKARTA
-                        </option>
-                        <option>
-                            PT. SEID CAB. BANDUNG
-                        </option>
-                    </select>
+                  <select id="cabang_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                  </select>
                 </div>
             </div>
         </div>
@@ -51,14 +40,17 @@
                             search
                         </i>
                         <input class="app-filter" id="global_filter" placeholder="Search" type="text">
-                        </input>
                     </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-user-mobile/create') }}">
-                    New User Mobile
-                </a>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m4">
+            <!---- Button Add ----->
+            <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-user-mobile/create') }}">
+                New User Mobile
+            </a>
         </div>
     </div>
     @endcomponent
@@ -68,7 +60,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables">
-                            <table class="display" id="data-table-simple" width="100%">
+                            <table class="display" id="data-table-user-mobile" width="100%">
                                 <thead>
                                     <tr>
                                         <th data-priority="1" width="30px">
@@ -104,7 +96,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var table = $('#data-table-simple').DataTable({
+    var table = $('#data-table-user-mobile').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
@@ -113,6 +105,7 @@
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
+            d.cabang = $('#cabang_filter').val()
           }
     },
     order: [1, 'asc'],
@@ -165,5 +158,16 @@
   function filterGlobal() {
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  $('#cabang_filter').change(function(event) {
+      /* Act on the event */
+      table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    });
+
+  $('#cabang_filter').select2({
+       placeholder: '-- Select Cabang --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-cabang/select2-cabang-only')
+    });
 </script>
 @endpush

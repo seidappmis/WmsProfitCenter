@@ -143,6 +143,16 @@ class MasterCabangController extends Controller
         return MasterCabang::destroy($id);
     }
 
+    public function getSelect2CabangOnly(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("long_description AS text")
+        );
+
+        return get_select2_data($request, $query);
+    }
+
     public function getSelect2Cabang(Request $request)
     {
         $query = MasterCabang::select(

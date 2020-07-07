@@ -21,11 +21,11 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a>
               </div>
             </div>
             <div class="col s12 m3">
+              <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a>
             </div>
         </div>
     @endcomponent

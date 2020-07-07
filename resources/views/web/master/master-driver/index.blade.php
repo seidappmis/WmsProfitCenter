@@ -21,10 +21,10 @@
                       <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                     </div>
                   </div>
-                  <!---- Button Add ----->
               </div>
           </div>
             <div class="col s12 m3">
+                <!---- Button Add ----->
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a>
             </div>
           </div>

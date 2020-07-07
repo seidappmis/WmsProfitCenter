@@ -14,7 +14,7 @@ class StorageMaster extends BaseModel
      */
     public function MasterCabang()
     {
-        return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang_id');
+        return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
     }
 
     /**

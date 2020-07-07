@@ -45,10 +45,13 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-              <span class="btn btn-large waves-effect waves-light btn-add">New Stock Take Schedule</span>
-
               </div>
             </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m4">
+            <span class="btn btn-large waves-effect waves-light btn-add">New Stock Take Schedule</span>
+        </div>
       </div>
   @endcomponent
 
