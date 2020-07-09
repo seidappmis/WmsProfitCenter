@@ -395,3 +395,6 @@ table.table-scroll-x {
 .table-pick-list-result tbody tr {
     cursor: pointer;
 }
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody {
+    height: auto;
+}
