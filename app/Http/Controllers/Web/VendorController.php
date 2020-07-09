@@ -148,6 +148,8 @@ class VendorController extends Controller
       DB::raw("vendor_name AS text")
     )->toBase();
 
+    $query->orderBy('text');
+
     return get_select2_data($request, $query);
   }
 }
