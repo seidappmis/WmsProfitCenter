@@ -154,7 +154,8 @@
         card += '<div class="card-content p-0">';
         card += '<p class="center-align">&nbsp;</p>';
         card += '<div class="center-align pt-5">';
-        card += '<i class="material-icons ' + (val.vehicle_number != null ? 'red-text' : 'green-text') + '" style="font-size: 60px;">directions_bus</i>';
+        card += '<i class="fa fa-truck ' + (val.vehicle_number != null ? 'red-text' : 'green-text') + '" style="font-size: 40px;"></i>';
+        // card += '<i class="material-icons ' + (val.vehicle_number != null ? 'red-text' : 'green-text') + '" style="font-size: 60px;">directions_bus</i>';
         card += '</div>';
         card += '<h4 class="card-title center-align mb-0">' + val.gate_number + '</h4>';
         card += '</div>';

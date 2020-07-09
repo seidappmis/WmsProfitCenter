@@ -51,7 +51,7 @@ class MasterVehicleExpeditionController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'vehicle_number' => 'required',
+      'vehicle_number' => 'required|unique:tr_vehicle_expedition',
     ]);
 
     $masterVehicleExpedition = new MasterVehicleExpedition;
@@ -122,7 +122,7 @@ class MasterVehicleExpeditionController extends Controller
     $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
 
     if (!empty($request->input('expedition_code'))) {
-        $query->where('expedition_code', $request->input('expedition_code'));
+      $query->where('expedition_code', $request->input('expedition_code'));
     }
 
     $query->orderBy('vehicle_number');

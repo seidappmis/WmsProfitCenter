@@ -25,6 +25,8 @@ class StorageMasterController extends Controller
         ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=',
           'wms_master_storage.kode_cabang');
 
+      $query->where('wms_master_storage.kode_cabang', auth()->user()->cabang->kode_cabang);
+
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('action', function ($data) {

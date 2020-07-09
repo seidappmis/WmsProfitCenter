@@ -77,7 +77,7 @@
             d.search['value'] = $('#global_filter').val()
           }
     },
-    order: [1, 'asc'],
+    order: [2, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'city_code', name: 'city_code', className: 'detail'},

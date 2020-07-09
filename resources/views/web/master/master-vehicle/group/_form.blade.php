@@ -7,6 +7,7 @@
                 type="text" 
                 class="validate"
                 name="group_name"
+                required="" 
                 value="{{old('group_name', !empty($vehicleGroup) ? $vehicleGroup->group_name : '')}}">
             </td>
         </tr>

@@ -160,6 +160,8 @@ class MasterCabangController extends Controller
           DB::raw("CONCAT(short_description, '-', long_description) AS text")
         );
 
+        $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+
         return get_select2_data($request, $query);
     }
 

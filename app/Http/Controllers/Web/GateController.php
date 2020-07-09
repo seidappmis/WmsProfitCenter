@@ -18,7 +18,11 @@ class GateController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = Gate::all();
+      $query = Gate::select('gate_number', 'description', 'area');
+
+      if (auth()->user()->area != "All") {
+        $query->where('area', auth()->user()->area);
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

@@ -56,7 +56,7 @@ class VehicleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-          'group_name'  => 'max:45',
+          'group_name'  => 'required|max:45',
         ]);
 
         $vehicleGroup             = new Vehicle;

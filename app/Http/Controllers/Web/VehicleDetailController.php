@@ -145,7 +145,8 @@ class VehicleDetailController extends Controller
       DB::raw("vehicle_description AS text"),
       'cbm_min',
       'cbm_max'
-    )->toBase();
+    )->toBase()
+    ->orderBy('text');
 
     if (!empty($request->input('vehicle_group_id'))) {
       $query->where('vehicle_group_id', $request->input('vehicle_group_id'));
