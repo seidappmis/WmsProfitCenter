@@ -3,34 +3,34 @@
         <tr>
             <td>No. Berita Acara</td>
             <td>
-                <input type="text" class="validate" readonly>
+                <input id="berita_acara_no" name="berita_acara_no" type="text" class="validate" value="{{old('berita_acara_no', !empty($beritaAcara) ? $beritaAcara->berita_acara_no : $beritaAcaraNo)}}" readonly>
             </td>
         </tr>
         <tr>
             <td>Tanggal Terima</td>
             <td>
-                <input type="text" class="validate" readonly>
+                <input id="date_of_receipt" name="date_of_receipt" type="text" class="validate" value="{{old('date_of_receipt', !empty($beritaAcara) ? $beritaAcara->date_of_receipt : $dateOfReceipt)}}" readonly>
             </td>
         </tr>
         <tr>
             <td>Expedition</td>
             <td>
-                <select name="expedition" class="select2-data-ajax browser-default" required>
-                    </select>
+                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Driver</td>
             <td>
-                <select name="driver" class="select2-data-ajax browser-default" required>
-                    </select>
+                <select id="driver_name" name="driver_name" class="select2-data-ajax browser-default" required>
+                </select>
             </td>
         </tr>
         <tr>
             <td>Vehicle Number</td>
             <td>
-                <select name="vehicle_number" class="select2-data-ajax browser-default" required>
-                    </select>
+                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" required>
+                </select>
             </td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-do-manifest">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -53,7 +53,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-internal-do">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -67,7 +67,7 @@
                 <div class="file-field input-field">
                   <div class="btn">
                     <span>Browse</span>
-                    <input type="file">
+                    <input type="file" name="file-lmb">
                   </div>
                   <div class="file-path-wrapper">
                     <input class="file-path validate" type="text">
@@ -77,20 +77,23 @@
         </tr>
         
     </table>
-    {!! get_button_view(url('berita-acara/1'), 'Save') !!}
+    {!! get_button_save() !!}
     {!! get_button_cancel(url('berita-acara'), 'Back') !!}
 </form>
 
 @push('script_js')
 <script type="text/javascript">
-  $('#form-berita-acara [name="expedition"]').select2({
-    placeholder: '-- Select Expedition --'
+  $('#form-berita-acara [name="expedition_code"]').select2({
+    placeholder: '-- Select Expedition --',
+    ajax: get_select2_ajax_options('/master-expedition/select2-active-expedition')
   })
-  $('#form-berita-acara [name="driver"]').select2({
-    placeholder: '-- Select Driver --'
+  $('#form-berita-acara [name="driver_name"]').select2({
+    placeholder: '-- Select Driver --',
+    ajax: get_select2_ajax_options('/master-driver/select2-driver-name')
   })
   $('#form-berita-acara [name="vehicle_number"]').select2({
-    placeholder: '-- Select Vehicle Number --'
+    placeholder: '-- Select Vehicle Number --',
+    ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number')
   })
 </script>
 @endpush

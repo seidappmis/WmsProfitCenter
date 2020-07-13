@@ -13,7 +13,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('adjust-inventory-movement', 'Web\AdjustInventoryMovementController@store');
 
 
-  Route::view('transfer-sloc', 'web.inventory.transfer-sloc.index');
+  Route::get('transfer-sloc', 'Web\TransferSlocController@index');
+  Route::post('transfer-sloc', 'Web\TransferSlocController@store');
+  Route::get('transfer-sloc/select2-storage-location', 'Web\TransferSlocController@getSelect2StorageLocation');
 
   // Route::view('cancel-movement', 'web.inventory.cancel-movement.index');
   Route::get('cancel-movement', 'Web\CancelMovementController@index');

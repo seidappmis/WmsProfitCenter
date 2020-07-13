@@ -100,6 +100,7 @@ function submit_scan_data(){
         .then((result) => {
           $('#table-serial-number tbody').empty();
           $('#upload-serial-number-wrapper').hide();
+          dttable_picking_list.ajax.reload(null, false)
         }) // alert success
     })
     .fail(function(xhr) {

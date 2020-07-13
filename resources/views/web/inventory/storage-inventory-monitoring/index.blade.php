@@ -18,7 +18,7 @@
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
                     <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                    <input type="text" placeholder="Search" class="app-filter" id="storage-inventory-monitoring-filter">
                   </div>
                 </div>
               </div>
@@ -85,11 +85,11 @@
               d.search['value'] = $('#storage-inventory-monitoring-filter').val()
             }
       },
-      order: [1, 'asc'],
+      order: [5, 'desc'],
       columns: [
           {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          {data: 'sto_type_desc', name: 'wms_master_storage.sto_type_desc', className: 'detail'},
-          {data: 'sto_loc_code_long', name: 'wms_master_storage.sto_loc_code_long', className: 'detail'},
+          {data: 'sto_type_desc', name: 'sto_type_desc', className: 'detail'},
+          {data: 'sto_loc_code_long', name: 'sto_loc_code_long', className: 'detail'},
           {data: 'model_name', name: 'model_name', className: 'detail'},
           {data: 'quantity_total', name: 'quantity_total', className: 'detail'},
           {data: 'last_updated', name: 'last_updated', className: 'detail'},
@@ -104,7 +104,7 @@
 
   // Custom search
   function filterGlobal() {
-      table.search($("#storage-inventory-monitoring-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      dttable_storage_inventory_monitoring.search($("#storage-inventory-monitoring-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 </script>
 @endpush

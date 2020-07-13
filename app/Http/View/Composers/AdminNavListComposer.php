@@ -15,7 +15,7 @@ class AdminNavListComposer
    */
   public function __construct()
   {
-    $this->menuItems[] = ['name' => 'home', 'label' => 'Home', 'url' => 'home', 'icon' => 'account_balance'];
+    $this->menuItems[] = ['name' => '', 'label' => 'Home', 'url' => 'home', 'icon' => 'account_balance'];
 
     $this->menuItems[] = ['name' => 'dashboard', 'label' => 'Dashboard', 'url' => '#', 'icon' => 'dvr', 'childs' => [
       ['name' => 'dashboard', 'label' => 'Graphic Dashboard', 'url' => 'dashboard', 'icon' => 'radio_button_unchecked'],
@@ -30,20 +30,14 @@ class AdminNavListComposer
       ['name' => 'incoming', 'label' => 'Billing Return', 'url' => 'billing-return', 'icon' => 'radio_button_unchecked'],
     ]];
 
-    $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
-      ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
-    ]];
-
     $this->menuItems[] = ['name' => 'other', 'label' => 'Others', 'url' => '#', 'icon' => 'assessment', 'childs' => [
       ['name' => 'other', 'label' => 'Clean Concept', 'url' => 'clean-concept', 'icon' => 'radio_button_unchecked'],
     ]];
 
-     $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
-       ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
-       ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
-       ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
+    $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
+      ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => 'upload-concept', 'icon' => 'radio_button_unchecked'],
@@ -76,6 +70,12 @@ class AdminNavListComposer
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Return', 'url' => '#', 'icon' => 'low_priority', 'childs' => [
       ['name' => 'report', 'label' => 'Task Notice', 'url' => 'task-notice', 'icon' => 'radio_button_unchecked'],
+    ]];
+
+    $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
+      ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
     ]];
 
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
@@ -121,7 +121,7 @@ class AdminNavListComposer
       ['name' => 'master', 'label' => 'Master Expedition', 'url' => 'master-expedition', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Vehicle Expedition', 'url' => 'master-vehicle-expedition', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Driver', 'url' => 'master-driver', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'master', 'label' => 'Destionation City', 'url' => 'destination-city', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'master', 'label' => 'Destination City', 'url' => 'destination-city', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Freight Cost', 'url' => 'master-freight-cost', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Storage Master', 'url' => 'storage-master', 'icon' => 'radio_button_unchecked'],
       ['name' => 'master', 'label' => 'Master Model', 'url' => 'master-model', 'icon' => 'radio_button_unchecked'],
@@ -149,6 +149,33 @@ class AdminNavListComposer
    */
   public function compose(View $view)
   {
-    $view->with('navList', $this->menuItems);
+    $view->with('navList', $this->getMenu());
+  }
+
+  public function getMenu()
+  {
+    $menuItems = [];
+    $modules   = auth()->user()->modules();
+    foreach ($this->menuItems as $key => $menu) {
+      if (empty($menu['name'])) {
+        $menuItems[] = $menu;
+      }
+
+      if (!empty($menu['childs'])) {
+        $menuData           = $menu;
+        $menuData['childs'] = [];
+
+        foreach ($menu['childs'] as $key => $child_menu) {
+          if (!empty($modules[$child_menu['url']]) && $modules[$child_menu['url']]['view'] == 1 ) {
+            $menuData['childs'][] = $child_menu;
+          }
+        }
+
+        if (!empty($menuData['childs'])) {
+          $menuItems[] = $menuData;
+        }
+      }
+    }
+    return $menuItems;
   }
 }

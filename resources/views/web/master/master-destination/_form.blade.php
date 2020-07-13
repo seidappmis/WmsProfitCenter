@@ -21,11 +21,11 @@
             <td>
                 <div class="input-field col s12">
                     <input
-                        id="description"
+                        id="destination_description"
                         type="text"
                         class="validate"
-                        name="description"
-                        value="{{old('description', !empty($masterDestination) ? $masterDestination->description : '')}}"
+                        name="destination_description"
+                        value="{{old('destination_description', !empty($masterDestination) ? $masterDestination->destination_description : '')}}"
                         />
               </div>
             </td>

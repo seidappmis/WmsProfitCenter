@@ -21,12 +21,16 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-branch-expedition/create') }}">New Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+            <!---- Button Modal Add ----->
+            <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-branch-expedition/create') }}">New Expedition</a>
+          </div>
         </div>
     @endcomponent
     
@@ -64,7 +68,10 @@
 
 @push('script_js')
 <script type="text/javascript">
- var table = $('#data-table-simple').DataTable({
+ var table;
+
+ jQuery(document).ready(function($) {
+   table = $('#data-table-simple').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
@@ -81,21 +88,12 @@
         {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
         {data: 'address', name: 'address', className: 'detail'},
         {data: 'code', name: 'code', className: 'detail'},
-        {data: 'status_active', name: 'status', className: 'detail'},
+        {data: 'status_active', name: 'status_active', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
 
-  $("input#global_filter").on("keyup click", function () {
-    filterGlobal();
-  });
-
-  // Custom search
-  function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
-
-  table.on('click', '.btn-delete', function(event) {
+   table.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
       var tr = $(this).parent().parent();
@@ -126,5 +124,16 @@
         }
       })
     });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+ });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
 </script>
 @endpush

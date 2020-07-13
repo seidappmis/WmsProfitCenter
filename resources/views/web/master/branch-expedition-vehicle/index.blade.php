@@ -21,12 +21,16 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Modal Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-expedition-vehicle/create') }}">New Vehicle Expedition</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+            <!---- Button Modal Add ----->
+            <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-expedition-vehicle/create') }}">New Vehicle Expedition</a>
+          </div>
         </div>
     @endcomponent
     
@@ -83,12 +87,12 @@
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
-        {data: 'vehicle_type', name: 'vehicle_type_details.vehicle_desription ', className: 'detail'},
-        {data: 'vehicle_group', name: 'vehicle_type_groups.group_name', className: 'detail'},
+        {data: 'vehicle_type', name: 'tr_vehicle_type_detail.vehicle_description ', className: 'detail'},
+        {data: 'vehicle_group', name: 'tr_vehicle_type_group.group_name', className: 'detail'},
         {data: 'expedition_name', name: 'wms_branch_expedition.expedition_name', className: 'detail'},
-        {data: 'cbm_min', name: 'vehicle_type_details.cbm_min', className: 'detail'},
-        {data: 'cbm_max', name: 'vehicle_type_details.cbm_max', className: 'detail'},
-        {data: 'destination_name', name: 'master_destination.description', className: 'detail'},
+        {data: 'cbm_min', name: 'tr_vehicle_type_detail.cbm_min', className: 'detail'},
+        {data: 'cbm_max', name: 'tr_vehicle_type_detail.cbm_max', className: 'detail'},
+        {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
         {data: 'status_active', name: 'status_active', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]

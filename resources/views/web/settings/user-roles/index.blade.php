@@ -21,12 +21,16 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter"> -->
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-roles/create') }}">New Roles</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-roles/create') }}">New Roles</a>
+          </div>
         </div>
     @endcomponent
     

@@ -32,6 +32,16 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     top: 31px;
     left: 52px;
 }
+.brand-sidebar .logo-wrapper a.brand-logo img {
+    height: 50px !important;
+}
+.brand-sidebar .brand-logo {
+    padding: 5px 0;
+}
+.brand-sidebar span.logo-text {
+    left: 61px;
+    font-size: 20px;
+}
 .sidenav li a.active {
     background: linear-gradient(90deg, #25364b, #344b68);
     ;
@@ -43,6 +53,15 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 #breadcrumbs-wrapper .breadcrumbs .active {
     color: #ffca22;
+}
+#breadcrumbs-wrapper .row {
+    margin-bottom: 0;
+}
+#breadcrumbs-wrapper .breadcrumbs {
+    margin: 5px 0;
+}
+#breadcrumbs-wrapper .row .col{
+    margin-top: 2px;
 }
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
     background-position: center right 5px;
@@ -225,6 +244,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .sidenav .collapsible-header:after {
     top: 11px;
 }
+.btn-back {
+        padding: 0 20px;
+}
 .btn-add {
     color: #1e1e1e !important;
     background: #f2ec6f;
@@ -364,6 +386,7 @@ table.table-scroll-x {
 .collapsible-header .collapsible-main-header {
     padding: 5px;
     display: inline-block;
+    min-height: 50px;
 }
 .table-pick-list-result td, .table-pick-list-result th {
     font-size: 11px !important;
@@ -371,4 +394,7 @@ table.table-scroll-x {
 }
 .table-pick-list-result tbody tr {
     cursor: pointer;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody {
+    height: auto;
 }

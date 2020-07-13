@@ -8,7 +8,7 @@
           <div class="col s12 m5">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Assign Vehicles</span></h5>
               <ol class="breadcrumbs mb-0">
-                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                   <li class="breadcrumb-item active">Assign Vehicles</li>
               </ol>
           </div>
@@ -72,6 +72,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
     var table = $('#data-table-assign-vehicles').DataTable({
     serverSide: true,
     scrollX: true,

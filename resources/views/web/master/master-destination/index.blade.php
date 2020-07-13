@@ -21,11 +21,11 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a>
               </div>
             </div>
             <div class="col s12 m3">
+              <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a>
             </div>
         </div>
     @endcomponent
@@ -77,7 +77,7 @@
       columns :[
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'destination_number', name: 'destination_number', className: 'detail'},
-        {data: 'description', name: 'description', className: 'detail'},
+        {data: 'destination_description', name: 'destination_description', className: 'detail'},
         {data: 'region', name: 'region', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]

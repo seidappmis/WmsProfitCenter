@@ -31,6 +31,7 @@
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2-materialize.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/dropify/css/dropify.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('css/font-awesome.min.css') }}">
   @stack('vendor_css')
 
   <!-- END: VENDOR CSS-->
@@ -62,9 +63,8 @@
 
   <footer class="page-footer footer footer-static footer-dark gradient-shadow navbar-border navbar-shadow">
     <div class="footer-copyright">
-      <div class="container"><span>&copy; 2019 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-            target="_blank">WMS SEID</a> All rights reserved.</span><span class="right hide-on-small-only">Design and
-          Developed by <a href="https://pixinvent.com/">WMS SEID</a></span></div>
+      <div class="container"><span>&copy; 2020 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
+            target="_blank">WMS SEID</a> All rights reserved.</span><span class="right hide-on-small-only">SEID :: Warehouse Management System</a></span></div>
     </div>
   </footer>
 

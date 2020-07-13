@@ -1,15 +1,21 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::view('berita-acara', 'web.claim.berita-acara.index');
-  Route::view('berita-acara/create', 'web.claim.berita-acara.create');
-  Route::view('berita-acara/{id}', 'web.claim.berita-acara.view');
+  // Berita Acara
+  Route::get('berita-acara/{id}/print', 'Web\BeritaAcaraController@printView');
+  Route::post('berita-acara/{berita_acara_id}/detail', 'Web\BeritaAcaraDetailController@store');
+  Route::delete('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@destroy');
+  Route::resource('berita-acara', 'Web\BeritaAcaraController');
 
-  Route::view('claim-notes', 'web.claim.claim-notes.index');
-  Route::view('claim-notes/create-carton-box', 'web.claim.claim-notes.create-carton-box');
-  Route::view('claim-notes/create-unit', 'web.claim.claim-notes.create-unit');
+  // Claim Notes
+  Route::get('claim-notes', 'Web\ClaimNoteController@index');
+  Route::get('claim-notes/carton-box', 'Web\ClaimNoteController@listCartonBox');
+  Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
+  Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
+  Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
   Route::view('claim-notes/{id}', 'web.claim.claim-notes.view');
 
+  // Claim Insurance
   Route::view('claim-insurance', 'web.claim.claim-insurance.index');
   Route::view('claim-insurance/create', 'web.claim.claim-insurance.create');
   Route::view('claim-insurance/{id}', 'web.claim.claim-insurance.edit');

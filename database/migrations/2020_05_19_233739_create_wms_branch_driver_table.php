@@ -17,8 +17,8 @@ class CreateWmsBranchDriverTable extends Migration
       $table->string('driver_id', 10);
       $table->string('driver_name', 100)->nullable();
       $table->string('expedition_code', 3)->nullable();
-      $table->string('driving_lisence_type', 50)->nullable();
-      $table->string('driving_lisence_no', 50);
+      $table->string('driving_license_type', 50)->nullable();
+      $table->string('driving_license_no', 50);
       $table->string('ktp_no', 50)->nullable();
       $table->string('phone1', 16)->nullable();
       $table->string('phone2', 16)->nullable();

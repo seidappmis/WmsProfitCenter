@@ -14,9 +14,9 @@ class OverloadConceptOrDoController extends Controller
     if ($request->ajax()) {
       $query = Concept::selectRaw('
           tr_concept.*,
-          master_destination.description AS destination_name
+          tr_destination.destination_description AS destination_name
         ')
-        ->leftjoin('master_destination', 'master_destination.destination_number', '=', 'tr_concept.destination_number')
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->where('area', $request->input('area'))
       ;
 

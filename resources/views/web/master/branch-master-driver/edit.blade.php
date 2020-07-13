@@ -70,7 +70,7 @@
     function set_form_data(){
         set_select2_value('#form-branch-master-driver [name="expedition_code"]', '{{$branchDriver->expedition_code}}', '{{$branchDriver->expedition->expedition_name}}');
         $('#form-branch-master-driver [name="expedition_code"]').attr('disabled', 'disabled');
-        $('#form-branch-master-driver [name="driving_lisence_type"]').val('{{$branchDriver->driving_lisence_type}}').trigger('change')
+        $('#form-branch-master-driver [name="driving_license_type"]').val('{{$branchDriver->driving_license_type}}').trigger('change')
         $('select').formSelect();
     }
 </script>

@@ -1,19 +1,18 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
 
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
-            <div class="col s12 m3">
+            <div class="col s12 {{auth()->user()->cabang->hq ? 'm3' : 'm6'}}">
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Incoming Import/OEM</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item active">Incoming Import/OEM</li>
                 </ol>
             </div>
-            <div class="col s12 m3">
+            <div class="col s12 m3 {{auth()->user()->cabang->hq ? '' : 'hide'}}">
               <!---- Select ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -31,7 +30,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <a href="{{ url('incoming-import-oem/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action">
                   New Incoming Import/OEM
                 </a>
               </div>
@@ -87,6 +86,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    @if(auth()->user()->cabang->hq AND auth()->user()->area != 'All')
+    $('#area_filter').attr('disabled', 'disabled');
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    @endif
+    $('.btn-add').click(function(event) {
+      /* Act on the event */
+      window.location.href = '{{url("incoming-import-oem/create?area=")}}' + $('#area_filter').val()
+    });
+  });
     var table = $('#data-table-incoming-import-oem').DataTable({
     serverSide: true,
     scrollX: true,
@@ -178,6 +187,11 @@
   $('#area_filter').change(function(event) {
     /* Act on the event */
     table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    if ($(this).val() == null) {
+      $('.btn-add').addClass('hide');
+    } else {
+      $('.btn-add').removeClass('hide');
+    }
   });
 
   $('#area_filter').select2({

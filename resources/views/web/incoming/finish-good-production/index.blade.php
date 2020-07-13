@@ -31,13 +31,17 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a href="{{ url('finish-good-production/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                  New Incoming Finish Good
-                </a>
               </div>
             </div>
             <div class="col s12 m3"></div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+            <!---- Button Add ----->
+            <a href="{{ url('finish-good-production/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+              New Incoming Finish Good
+            </a>
+          </div>
         </div>
     @endcomponent
     
@@ -98,5 +102,14 @@
     allowClear: true,
     ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
+
+  jQuery(document).ready(function($) {
+    @if (auth()->user()->area != 'All')
+      set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+      $('#area_filter').attr('disabled','disabled')
+    @endif
+    
+  });
+
 </script>
 @endpush

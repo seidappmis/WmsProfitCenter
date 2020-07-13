@@ -15,7 +15,7 @@ class CreateTrUserRolesDetailTable extends Migration
   {
     Schema::create('tr_user_roles_detail', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('roles_id');
+      $table->string('roles_id', 150);
       $table->integer('modul_id');
       $table->tinyInteger('view')->default(0);
       $table->tinyInteger('edit')->default(0);

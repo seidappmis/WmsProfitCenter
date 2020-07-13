@@ -13,19 +13,19 @@ class CreateMasterDriverTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_driver', function (Blueprint $table) {
+        Schema::create('tr_driver', function (Blueprint $table) {
             $table->string('expedition_code')->nullable();
             $table->string('driver_id',10);
             $table->string('driver_name')->nullable();
             $table->string('driving_license_type')->nullable();
-            $table->string('driving_license_number');
+            $table->string('driving_license_no');
             $table->string('ktp_no')->nullable();
             $table->string('phone1')->nullable();
             $table->string('phone2')->nullable();
             $table->string('remarks1')->nullable();
             $table->string('remarks2')->nullable();
             $table->string('remarks3')->nullable();
-            $table->tinyInteger('status_active');
+            $table->tinyInteger('active_status');
             $table->string('photo_name')->nullable();
             $table->timestamps();
             $table->integer('created_by')->nullable();
@@ -42,6 +42,6 @@ class CreateMasterDriverTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_driver');
+        Schema::dropIfExists('tr_driver');
     }
 }

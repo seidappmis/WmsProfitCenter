@@ -21,77 +21,42 @@
                 <div class="card">
                   <div class="card-content p-1">
                     <!-- Sloc From -->
+                    <form class="form-table" id="form-transfer-sloc">
                     <ul class="collapsible">
                      <li class="active">
                        <div class="collapsible-header">SLoc From <i class="material-icons"></i></div>
                        <div class="collapsible-body">
                         <div class="row">
                           <div class="col s12">
-                            {{-- <table id="borderd-table" class="bordered" width="100%">
-                              <thead></thead>
-                              <tbody>
-                                <tr>
-                                  <td>Storage Type</td>
-                                  <td><div class="input-field col m6 s12">
-                                    <select>
-                                        <option value="" disabled selected>-- Select Type --</option>
-                                        <option>1st Class</option>
-                                        <option>Return All</option>
-                                        <option>2nd Class Insurance</option>
-                                    </select>
-                                  </div></td>
-                                </tr>
-                                <tr>
-                                  <td>Storage Location</td>
-                                  <td><div class="input-field m6 col s12">
-                                    <select>
-                                      <option value="" disabled selected>-- Select Location --</option>
-                                    </select>
-                                  </div></td>
-                                </tr>
-                                <tr>
-                                  <td>Model</td>
-                                  <td><div class="input-field m6 col s12"><input id="model" type="text" class="validate" name="model" required></div></td>
-                                </tr>
-                                <tr>
-                                  <td>Available QTY</td>
-                                  <td><div class="input-field m6 col s12"><input id="aqty" type="text" class="validate " name="aqty" disabled></div></td>
-                                </tr>
-                                <tr>
-                                  <td>QTY</td>
-                                  <td><div class="input-field m6 col s12"><input id="qty" type="text" class="validate" name="qty" required></div></td>
-                                </tr>
-                              </tbody>
-                            </table> --}}
-                            <form class="form-table">
                               <table>
                                 <tr>
-                                  <td>Storage Type</td>
+                                  <td width="30%">Storage Type</td>
                                   <td><div class="input-field col m6 s12">
-                                    <select>
-                                        <option value="" disabled selected>-- Select Type --</option>
-                                        <option>1st Class</option>
-                                        <option>Return All</option>
-                                        <option>2nd Class Insurance</option>
+                                    <select name="sloc_from_storage_type" class="select2-data-ajax browser-default" required="">
                                     </select>
                                   </div></td>
                                 </tr>
                                 <tr>
                                   <td>Storage Location</td>
                                   <td><div class="input-field m6 col s12">
-                                    <select>
-                                      <option value="" disabled selected>-- Select Location --</option>
+                                    <select name="sloc_from" class="select2-data-ajax browser-default" required="">
                                     </select>
                                   </div></td>
                                 </tr>
                                 
                                 <tr>
                                   <td>Model</td>
-                                  <td><div class="input-field m6 col s12"><input id="model" type="text" class="validate" name="model" required></div></td>
+                                  <td><div class="input-field m6 col s12">
+                                    <select name="model" class="select2-data-ajax browser-default" required disabled="">
+                                    </select>
+                                    <input type="hidden" name="model_name">
+                                    <input type="hidden" name="ean_code">
+                                    <input type="hidden" name="cbm">
+                                  </div></td>
                                 </tr>
                                 <tr>
                                   <td>Available QTY</td>
-                                  <td><div class="input-field m6 col s12"><input id="aqty" type="text" class="validate " name="aqty" disabled></div></td>
+                                  <td><div class="input-field m6 col s12"><input id="prev_quantity" type="text" class="validate " name="prev_quantity" readonly=""></div></td>
                                 </tr>
                                 <tr>
                                   <td>QTY</td>
@@ -99,7 +64,6 @@
                                 </tr>
                               </table>
                              
-                            </form>
                           </div>
                        </div>
                       </div>
@@ -112,30 +76,23 @@
                        <div class="collapsible-body">
                         <div class="row">
                           <div class="col s12">
-                          <form class="form-table">
                             <table>
                               <tr>
-                                <td>Storage Type</td>
+                                <td width="30%">Storage Type</td>
                                 <td><div class="input-field col m6 s12">
-                                  <select>
-                                      <option value="" disabled selected>-- Select Type --</option>
-                                      <option>1st Class</option>
-                                      <option>Return All</option>
-                                      <option>2nd Class Insurance</option>
+                                  <select name="sloc_to_storage_type" class="select2-data-ajax browser-default" required="">
                                   </select>
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Storage Location</td>
                                 <td><div class="input-field m6 col s12">
-                                  <select>
-                                    <option value="" disabled selected>-- Select Location --</option>
+                                  <select name="sloc_to" class="select2-data-ajax browser-default" required="">
                                   </select>
                                 </div></td>
                               </tr>
                             </table>
                            
-                          </form>
                           <div class="row">
                             <div class="input-field col s12 m6">
                               <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
@@ -147,6 +104,7 @@
                        </div>
                      </li>
                     </ul>
+                    </form>
                   </div>
                 </div>
             </div>
@@ -156,8 +114,99 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+
 @push('script_js')
 <script type="text/javascript">
-  
+  jQuery(document).ready(function($) {
+    setSelect2SlocFromStorageType()
+    setSelect2SlocFromStorageLocation()
+    setSelect2SlocToStorageType()
+    setSelect2SlocToStorageLocation()
+    set_select2_model()
+    $("#form-transfer-sloc").validate({
+      submitHandler: function(form) {
+        $.ajax({
+          url: '{{ url("transfer-sloc") }}',
+          type: 'POST',
+          data: $(form).serialize(),
+        })
+        .done(function() { // selesai dan berhasil
+          swal("Good job!", "You clicked the button!", "success")
+            .then((result) => {
+              // Kalau klik Ok redirect ke index
+            }) // alert success
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+  });
+
+  function set_select2_model(filter = {sloc: null}){
+    $('#form-transfer-sloc [name="model"] option').remove()
+    $('#form-transfer-sloc [name="model"]').select2({
+       placeholder: '-- Select Model --',
+       ajax: get_select2_ajax_options('/master-model/select2-model-sloc', filter)
+    });
+    $('#form-transfer-sloc [name="model"]').change(function(event) {
+      /* Act on the event */
+      var data = $(this).select2('data')[0];
+      $('#form-transfer-sloc [name="prev_quantity"]').val(data.quantity_total)
+      $('#form-transfer-sloc [name="model_name"]').val(data.model_name)
+      $('#form-transfer-sloc [name="ean_code"]').val(data.ean_code)
+      $('#form-transfer-sloc [name="cbm"]').val(data.cbm)
+    });
+  }
+
+  function setSelect2SlocFromStorageType(){
+    $('#form-transfer-sloc [name="sloc_from_storage_type"]').select2({
+       placeholder: '-- Select Type --',
+       ajax: get_select2_ajax_options('/storage-master/select2-sto-type')
+    });
+    $('#form-transfer-sloc [name="sloc_from_storage_type"]').change(function(event) {
+      /* Act on the event */
+      setSelect2SlocFromStorageLocation({sloc_type: $(this).val()})
+      set_select2_value('#form-transfer-sloc [name="sloc_from"]', '', '')
+      set_select2_value('#form-transfer-sloc [name="sloc_to"]', '', '')
+    });
+  }
+
+  function setSelect2SlocFromStorageLocation(filter = {sloc_type: null}){
+    $('#form-transfer-sloc [name="sloc_from"]').select2({
+       placeholder: '-- Select Location --',
+       ajax: get_select2_ajax_options('/transfer-sloc/select2-storage-location', filter)
+    });
+    $('#form-transfer-sloc [name="sloc_from"]').change(function(event) {
+      /* Act on the event */
+      $('#form-transfer-sloc [name="model"]').removeAttr('disabled')
+      set_select2_value('#form-transfer-sloc [name="model"]', '', '')
+      set_select2_model({sloc: $(this).val()})
+      setSelect2SlocToStorageLocation({sloc_type: $('#form-transfer-sloc [name="sloc_to_storage_type"]').val(), sloc_from: $('#form-transfer-sloc [name="sloc_from"]').val()})
+    });
+  }
+
+  function setSelect2SlocToStorageType(){
+    $('#form-transfer-sloc [name="sloc_to_storage_type"]').select2({
+       placeholder: '-- Select Type --',
+       ajax: get_select2_ajax_options('/storage-master/select2-sto-type')
+    });
+    $('#form-transfer-sloc [name="sloc_to_storage_type"]').change(function(event) {
+      /* Act on the event */
+      setSelect2SlocToStorageLocation({sloc_type: $(this).val(), sloc_from: $('#form-transfer-sloc [name="sloc_from"]').val()})
+    });
+  }
+
+  function setSelect2SlocToStorageLocation(filter = {sloc_type: null}){
+    $('#form-transfer-sloc [name="sloc_to"]').select2({
+       placeholder: '-- Select Location --',
+       ajax: get_select2_ajax_options('/transfer-sloc/select2-storage-location', filter)
+    });
+  }
 </script>
 @endpush

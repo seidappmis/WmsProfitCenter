@@ -54,8 +54,8 @@ class MasterDestinationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'destination_number'  => 'required|unique:master_destination|max:6',
-            'description'  => 'required|max:100',
+            'destination_number'  => 'required|unique:tr_destination|max:6',
+            'destination_description'  => 'required|max:100',
             'new_region'  => 'max:10',
             'current_region'  => 'max:10',
             'cabang'  => 'max:2',
@@ -64,7 +64,7 @@ class MasterDestinationController extends Controller
 
         $masterDestination            = new MasterDestination;
         $masterDestination->destination_number = $request->input('destination_number');
-        $masterDestination->description = $request->input('description');
+        $masterDestination->destination_description = $request->input('destination_description');
         if ($request['region_type'] == 'new_region') {
             $masterDestination->region = $request->input('new_region');
         } elseif ($request['region_type'] == 'current') {
@@ -109,14 +109,14 @@ class MasterDestinationController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'description'  => 'required|max:100',
+            'destination_description'  => 'required|max:100',
             'new_region'  => 'max:10',
             'current_region'  => 'max:10',
             'cabang'  => 'max:2',
         ]);
 
         $masterDestination            = MasterDestination::findOrFail($id);
-        $masterDestination->description = $request->input('description');
+        $masterDestination->destination_description = $request->input('destination_description');
         if ($request['region_type'] == 'new_region') {
             $masterDestination->region = $request->input('new_region');
         } elseif ($request['region_type'] == 'current') {
@@ -142,7 +142,7 @@ class MasterDestinationController extends Controller
     {
         $query = MasterDestination::select(
             DB::raw("destination_number AS id"),
-            DB::raw("description AS text")
+            DB::raw("destination_description AS text")
         );
 
         return get_select2_data($request, $query);

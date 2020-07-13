@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-
+    
     <div class="col s12">
         <div class="">
             <div class="section">
@@ -94,7 +94,7 @@
             <div class="section">
                 <div class="card m-0">
                     <div class="card-content">
-                        <h4 class="header m-0">Loading Status</h4>
+                        <h4 class="header m-0">List Of Vehicle That Already Standby</h4>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <div class="section">
                 <div class="card m-0">
                     <div class="card-content">
-                        <h4 class="header m-0">Loading Status</h4>
+                        <h4 class="header m-0">Delivery Order List</h4>
                         <table>
                             <thead>
                                 <tr>

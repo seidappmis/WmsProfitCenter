@@ -13,20 +13,21 @@
                 </ol>
             </div>
             <div class="col s12 m6">
-              <div class="display-flex">
-                <!---- Search ----->
-                <div class="app-wrapper mr-2">
-                  <div class="datatable-search">
-                    <i class="material-icons mr-2 search-icon">search</i>
-                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                <div class="display-flex">
+                  <!---- Search ----->
+                  <div class="app-wrapper mr-2">
+                    <div class="datatable-search">
+                      <i class="material-icons mr-2 search-icon">search</i>
+                      <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                    </div>
                   </div>
-                </div>
+              </div>
+          </div>
+            <div class="col s12 m3">
                 <!---- Button Add ----->
                 <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a>
             </div>
-            <div class="col s12 m3">
-            </div>
-        </div>
+          </div>
     @endcomponent
     
     <div class="col s12">
@@ -78,7 +79,7 @@
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'driver_id', name: 'driver_id', className: 'detail'},
         {data: 'driver_name', name: 'driver_name', className: 'detail'},
-        {data: 'expedition_code', name: 'master_driver.expedition_code', className: 'detail'},
+        {data: 'expedition_code', name: 'tr_driver.expedition_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });

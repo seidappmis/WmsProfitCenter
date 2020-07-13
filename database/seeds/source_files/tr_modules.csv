@@ -1,0 +1,90 @@
+1,User Manager,user-manager,Setting,1
+2,User Roles,user-roles,Setting,2
+3,Master Area,Master-area,Setting,3
+4,Master Gate,Master-gate,Master Data,1
+6,Master Destination,Master-destination,Master Data,2
+7,Master Vehicle,Master-vehicle,Master Data,3
+8,Master Expedition,Master-expedition,Master Data,4
+9,Master Driver,Master-driver,Master Data,6
+10,Upload Concept,Upload-concept,Outgoing,1
+12,Master Vehicle Expedition,Master-vehicle-expedition,Master Data,5
+13,IDCard Scan,Idcard-scan,Outgoing,2
+14,Assign Vehicles,Assign-vehicles,Outgoing,3
+15,Select Gate,Select-gate,Outgoing,4
+16,Graphic Dashboard,dashboard,Dashboard,1
+17,Loading Process,Loading-process,Outgoing,5
+18,Complete,complete,Outgoing,6
+19,Trucking Monitor,Trucking-monitor,Dashboard,3
+20,Report Master,Report-master,Reports,1
+21,Standby Driver List,Standby-driver-list,Reports,3
+22,Concept or DO Outstanding List,Concept-or-do-outstanding-list,Reports,4
+23,Clean Concept,Clean-concept,Others,1
+24,Loading Status List,Loading-status-list,Reports,4
+26,Graphic Dashboard 2,dashboard2,Dashboard,2
+28,Master Cabang,Master-cabang,Setting,4
+29,Destination City,Destination-city,Master Data,8
+31,Report Concept Coming VS Actual Loading,Report-concept-coming-vs-actual-loading,Reports,5
+32,Report Loading Lead Time,Report-loading-lead-time,Reports,6
+33,Master Freight Cost,Master-freight-cost,Master Data,9
+34,Manifest Reguler,Manifest-regular,Outgoing,7
+35,Report Loading Summary,Report-loading-summary,Reports,7
+36,Report KPi Expeditions ,Report-kpi-expeditions,Reports,8
+37,Stock Take Schedule,Stock-take-schedule,Stock Take,1
+38,Finish Good Production,Finish-good-production,Incoming,1
+41,Stock Take Create Tag,Stock-take-create-tag,Stock Take,2
+42,Stock Take Input 1,Stock-take-input-1,Stock Take,3
+43,Stock Take Input 2,Stock-take-input-2,Stock Take,4
+44,Stock Take Quick Count,Stock-take-quick-count,Stock Take,5
+45,Stock Take Compare SAP,Stock-take-compare-sap,Stock Take,6
+46,Incoming Import/OEM,Incoming-import-oem,Incoming,2
+47,Overload Concept or DO,Overload-concept-or-do,Outgoing,11
+49,List Of Unconfirm DO,List-of-unconfirm-do,Invoicing,1
+50,Conform Manifest,Conform-manifest,Incoming,2
+51,Summary Incoming Report,Summary-incoming-report,Reports,9
+52,Receipt Invoice,Receipt-invoice,Invoicing,3
+54,List Of SO,List-of-so,Return,2
+55,Task Notice,Task-notice,Return,1
+56,Manifest AS,Manifest-as,Outgoing,8
+57,Summary Outgoing Report,Summary-outgoing-report,Reports,10
+58,Report Master Freight Cost,Report-master-freight-cost,Reports,11
+59,ModulName,ModulLink,GroupName,NULL
+60,Summary Freight Cost Report Per Manifest,Summary-freight-cost-report-per-manifest,Reports,12
+61,Summary Freight Cost Report Per Region,Summary-freight-cost-report-per-region,Reports,13
+62,Report Overload Concept or DO,Report-overload-concept-or-do,Reports,14
+63,Receipt Invoice Accounting,Receipt-invoice-accounting,Invoicing,4
+64,Report Master Users,Report-master-users,Reports,1
+65,Summary Task Notice,Summary-task-notice,Reports,14
+66,Concept Issue,Concept-issue,Reports,5
+68,Storage Master,Storage-master,Master Data,10
+70,Picking List,Picking-list,Picking,8
+71,Master Model,Master-model,Master Data,11
+72,Upload DO for Picking,Upload-do-for-picking,Picking,2
+73,Master Vendor,Master-vendor,Master Data,12
+75,Master Model Exception,Master-model-exception,Master Data,13
+76,Master User Mobile,Master-user-mobile,Setting,5
+77,Picking to LMB,Picking-to-lmb,Picking,9
+78,Report User Mobile,Report-user-mobile,Reports,15
+79,Branch Manifest,Branch-manifest,Outgoing,9
+80,Master Branch Expedition,Master-branch-expedition,Master Data,15
+81,Branch Expedition Vehicle,Branch-expedition-vehicle,Master Data,16
+82,Branch Master Driver,Branch-master-driver,Master Data,17
+83,Update Manifest,Update-manifest,Outgoing,10
+84,Summary Freight Cost Analysis,Summary-freight-cost-analysis,Invoicing,5
+85,Summary LMB Report,Summary-lmb-report,Reports,16
+87,Storage Inventory Monitoring,Storage-inventory-monitoring,Inventory,1
+88,Report Inventory Movement,Report-inventory-movement,Reports,17
+89,Report Stock Inventory,Report-stock-inventory,Reports,18
+90,Serial Number Trace,Serial-number-trace,Reports,19
+91,Report Occupancy,Report-occupancy,Reports,20
+92,Summary WH Transporter Report,Summary-wh-transporter-report,Reports,21
+93,Upload Inventory Storage,Upload-inventory-storage,Inventory,2
+94,Destination City of Branch,Destination-city-of-branch,Master Data,18
+95,Adjust Inventory Movement,Adjust-inventory-movement,Inventory,3
+96,Transfer SLoc,Transfer-sloc,Inventory,4
+97,Cancel Movement,Cancel-movement,Inventory,5
+98,Branch Invoicing,Branch-invoicing,Invoicing,6
+99,Summary DO Confirmed,Summary-do-confirmed,Reports,22
+100,Billing Return,Billing-return,Incoming,4
+101,Berita Acara,Berita-acara,Claim,1
+102,Claim Notes,Claim-notes,Claim,2
+103,Claim Insurance,Claim-insurance,Claim,3

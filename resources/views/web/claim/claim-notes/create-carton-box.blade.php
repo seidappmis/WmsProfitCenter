@@ -26,20 +26,27 @@
                     <div class="card-content">
                         <ul class="collapsible">
                            <li class="active">
-                             <div class="collapsible-header">List Berita Acara</div>
-                             <div class="collapsible-body white p-0">
-                                <div class="row mb-0">
-                                  <div class="col s12 offset-m6 m6">
-                                    <div class="app-wrapper ml-2 mt-2 mr-2">
-                                      <div class="datatable-search mb-0">
-                                        <i class="material-icons mr-2 search-icon">search</i>
-                                        <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                                      </div>
+                            <div class="collapsible-header p-0">
+                              <div class="row">
+                                <div class="col s12 m8">
+                                  <div class="collapsible-main-header">
+                                    <i class="material-icons expand">expand_less</i>
+                                    <span>Outstanding List Berita Acara</span>
+                                  </div>
+                                </div>
+                                <div class="col s12 m4">
+                                  <div class="app-wrapper">
+                                    <div class="datatable-search mb-0">
+                                      <i class="material-icons mr-2 search-icon">search</i>
+                                      <input type="text" placeholder="Search" class="app-filter no-propagation" id="from-manifest-hq-filter">
                                     </div>
                                   </div>
                                 </div>
+                              </div>
+                            </div>
+                             <div class="collapsible-body white p-0">
                                 <div class="section-data-tables"> 
-                                    <table id="data-table-section-contents" class="display" width="100%">
+                                    <table id="data-table-list-berita-acara" class="display" width="100%">
                                       <thead>
                                           <tr>
                                             <th data-priority="1" width="30px">NO.</th>
@@ -52,7 +59,7 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                           <td>1.</td>
                                           <td>01/BA-HQ/02/2015</td>
                                           <td>May 21, 2020</td>
@@ -63,13 +70,117 @@
                                             {!! get_button_view('#', 'Select') !!}
                                           </td>
                                         </tr>
+                                        <tr>
+                                          <td>2.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>3.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>4.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>5.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>6.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>7.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>8.</td>
+                                          <td>01/BA-HQ/02/2015</td>
+                                          <td>May 21, 2020</td>
+                                          <td>Expedition 1</td>
+                                          <td>Driver 1</td>
+                                          <td>B 1231 DE</td>
+                                          <td>
+                                            {!! get_button_view('#', 'Select') !!}
+                                          </td>
+                                        </tr> -->
                                       </tbody>
                                   </table>
+                              </div>
+                             </div>
+                           </li>
+                        </ul>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="content-overlay"></div>
+    </div>
 
-                                  <h6 class="card-title mt-2 ml-2">Berita Acara Detail</h6>
-                                  <hr>
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <!-- <div class="card"> -->
+                    <div class="card-content">
+                        <ul class="collapsible">
+                           <li class="active">
+                            <div class="collapsible-header p-0">
+                              <div class="row">
+                                <div class="col s12 m8">
+                                  <div class="collapsible-main-header">
+                                    <i class="material-icons expand">expand_less</i>
+                                    <span>Berita Acara Detail</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                             <div class="collapsible-body white p-0">
+                                <div class="section-data-tables"> 
                                   <div class="pl-2 pr-2 pb-2">
-                                      <table id="data-table-section-contents" class="bordered striped" width="100%">
+                                      <table id="data-table-detail-berita-acara" class="bordered striped" width="100%">
                                           <thead>
                                               <tr>
                                                 <th data-priority="1" width="30px">No.</th>
@@ -90,27 +201,23 @@
                                               </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                                <td>1.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD001</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                            </tr>
-                                            <tr>
+                                            <!-- <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr> -->
+                                            <!-- <tr>
                                                 <td>2.</td>
                                                 <td>01/BA-HQ/02/2015</td>
                                                 <td>Expedition 1</td>
@@ -129,10 +236,10 @@
                                                   </div>
                                                 </td>
                                                 <td>12.000.000</td>
-                                            </tr>
+                                            </tr> -->
                                           </tbody>
                                       </table>
-                                      {!! get_button_view(url('claim-notes'), 'Save') !!}
+                                      {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
                                   </div>  
                               </div>
                              </div>
@@ -145,7 +252,7 @@
         <div class="content-overlay"></div>
     </div>
 
-    <div class="col s12">
+    {{-- <div class="col s12">
         <div class="container">
             <div class="section">
                 <!-- <div class="card"> -->
@@ -238,7 +345,7 @@
             </div>
         </div>
         <div class="content-overlay"></div>
-    </div>
+    </div> --}}
 </div>
 @endsection
 
@@ -249,12 +356,88 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $('.collapsible').collapsible({
+  $(document).ready(function() {
+    $('.collapsible').collapsible({
         accordion:true
     });
-var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        order: [1, 'asc'],
+  });
+
+  var dtdatatable_berita_acara = $('#data-table-list-berita-acara').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    pageLength: 5,
+    ajax: {
+        url: '{{ url('claim-notes/create-carton-box') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'berita_acara_no', name: 'berita_acara_no', className: 'detail'},
+        {data: 'date_of_receipt', name: 'date_of_receipt', className: 'detail'},
+        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+        {data: 'driver_name', name: 'driver_name', className: 'detail'},
+        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+    ]
+  });
+
+  dtdatatable_berita_acara.on('click', '.btn-select', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = dtdatatable_berita_acara.row(tr).data();
+
+      dtdatatable_berita_acara_detail.row.add(data).draw();
+      dtdatatable_berita_acara.ajax.reload(null, false);
     });
+
+  $("input#global_filter").on("keyup click", function () {
+    filterGlobal();
+  });
+
+  // Custom search
+  function filterGlobal() {
+      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
+  var dtdatatable_berita_acara_detail = $('#data-table-detail-berita-acara').DataTable({
+    serverSide: false,
+    scrollX: true,
+    responsive: true,
+    paging: false,
+    ordering: false,
+    searching: false,
+    info:     false,
+    data: [],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'berita_acara_no', className: 'detail'},
+        {data: 'expedition_code', className: 'detail'},
+        {data: 'driver_name', className: 'detail'},
+        {data: 'vehicle_number', className: 'detail'},
+        {data: 'destination', className: 'detail'},
+        {data: 'do_no', className: 'detail'},
+        {data: 'model_name', className: 'detail'},
+        {data: 'serial_number', className: 'detail'},
+        {data: 'qty', className: 'detail'},
+        {data: 'location', className: 'detail'},
+        {data: 'description', className: 'detail'},
+        {data: 'price',
+         render: function(data, type, row){
+            if ( type === 'display' ) {
+                      return '<div class="form-table"><input placeholder="Price" id="first_name" type="text" class="validate"></div>';
+            }
+            return data;
+         },
+         className: 'detail'},
+        {data: 'total', className: 'detail'},
+        // {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
+  });
 </script>
 @endpush

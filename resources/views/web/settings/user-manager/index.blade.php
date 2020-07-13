@@ -21,12 +21,16 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-manager/create') }}">New User</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('user-manager/create') }}">New User</a>
+          </div>
         </div>
     @endcomponent
     
@@ -85,7 +89,7 @@
         {data: 'username', name: 'username', className: 'detail'},
         {data: 'first_name', name: 'first_name', className: 'detail'},
         {data: 'last_name', name: 'last_name', className: 'detail'},
-        {data: 'roles', name: 'roles', className: 'detail'},
+        {data: 'roles_name', name: 'roles_name', className: 'detail'},
         {data: 'area', name: 'area', className: 'detail'},
         {data: 'long_description', name: 'long_description', className: 'detail'},
         {data: 'status', name: 'status', className: 'detail'},

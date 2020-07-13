@@ -6,33 +6,33 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDestinationCitiesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('destination_cities', function (Blueprint $table) {
-            // $table->id();
-            $table->string('city_code', 10);
-            $table->string('city_name', 100)->nullable();
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('log_destination_city', function (Blueprint $table) {
+      // $table->id();
+      $table->string('city_code', 10);
+      $table->string('city_name', 100)->nullable();
 
-            $table->timestamps();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+      $table->timestamps();
+      $table->integer('created_by')->nullable();
+      $table->integer('updated_by')->nullable();
 
-            $table->primary('city_code'); // add primary key
-        });
-    }
+      $table->primary('city_code'); // add primary key
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('destination_cities');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('log_destination_city');
+  }
 }

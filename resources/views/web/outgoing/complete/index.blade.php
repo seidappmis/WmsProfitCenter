@@ -8,7 +8,7 @@
           <div class="col s12 m5">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Complete</span></h5>
               <ol class="breadcrumbs mb-0">
-                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                   <li class="breadcrumb-item active">Complete</li>
               </ol>
           </div>
@@ -17,10 +17,10 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      <option>-Select Area-</option>
+                      {{-- <option>-Select Area-</option>
                       <option>KARAWANG</option>
                       <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -97,7 +97,17 @@
 @push('script_js')
 <script type="text/javascript">
     var dttable_complete
+    $('#area_filter').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
     jQuery(document).ready(function($) {
+
+      @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
       
       dttable_complete = $('#complete-table').DataTable({
         serverSide: true,

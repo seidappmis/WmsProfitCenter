@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -14,17 +13,14 @@
                 </ol>
             </div>
             <div class="col s12 m3">
-                <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
+              <!---- Filter ----->
+              <div class="app-wrapper mr-2">
+                <div class="datatable-search">
+                  <select id="area_filter"
+                          class="select2-data-ajax browser-default app-filter">
+                  </select>
                 </div>
+              </div>
             </div>
             <div class="col s12 m5">
               <div class="display-flex">
@@ -86,6 +82,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
   var dttable_clean_concept;
   jQuery(document).ready(function($) {
     dttable_clean_concept = $('#clean-concept-table').DataTable({
@@ -118,7 +118,7 @@
           {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
           {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
           {data: 'cbm', name: 'cbm', className: 'detail'},
-          {data: 'destination_name', name: 'master_destination.description', className: 'detail'},
+          {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
           {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
@@ -217,5 +217,11 @@
   function filterGlobal() {
       dttable_clean_concept.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+$('#area_filter').select2({
+   placeholder: '-- Select Area --',
+   allowClear: true,
+   ajax: get_select2_ajax_options('/master-area/select2-area-only')
+});
 </script>
 @endpush

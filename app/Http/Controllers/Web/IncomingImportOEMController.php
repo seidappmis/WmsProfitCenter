@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\IncomingManualHeader;
+use App\Models\InventoryStorage;
+use App\Models\MovementTransactionLog;
+use App\Models\MovementTransactionType;
+use App\Models\StorageMaster;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class IncomingImportOEMController extends Controller
 {
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = IncomingManualHeader::where('area', $request->input('area'))
-        ->get();
+      $query = IncomingManualHeader::where('area', $request->input('area'));
+
+      if (!auth()->user()->cabang->hq) {
+        $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -36,22 +45,94 @@ class IncomingImportOEMController extends Controller
     return view('web.incoming.incoming-import-oem.index');
   }
 
-  public function create()
+  public function create(Request $request)
   {
-    return view('web.incoming.incoming-import-oem.create');
+    $data         = [];
+    if (auth()->user()->cabang->hq) {
+      $data['area'] = Area::findOrFail($request->get('area'));
+    }
+    return view('web.incoming.incoming-import-oem.create', $data);
   }
 
+  /**
+   * Submit to Inventory Function
+   *
+   * 1. UPDATE IncomingManualHeader
+   *
+   * 2. Generate data di table wms_movement_transaction_log
+   * Movement type 101 `Add Stock from OEM/IMPORT/OTHERS`
+   *
+   * 3. CREATE OR UPDATE STOCK wms_inventory_monitoring
+   *
+   *
+   * @param  [type] $id [description]
+   * @return [type]     [description]
+   */
   public function submitToInventory($id)
   {
-    $incomingManualHeader = IncomingManualHeader::findOrFail($id);
+    return DB::transaction(function () use ($id) {
+      $incomingManualHeader = IncomingManualHeader::findOrFail($id);
 
-    $incomingManualHeader->submit      = 1;
-    $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
-    $incomingManualHeader->submit_by   = auth()->user()->id;
+      $incomingManualHeader->submit      = 1;
+      $incomingManualHeader->submit_date = date('Y-m-d H:i:s');
+      $incomingManualHeader->submit_by   = auth()->user()->id;
 
-    $incomingManualHeader->save();
+      $rs_storage = [];
 
-    return $incomingManualHeader;
+      // Type 101 Action INCREASE
+      $mvt_master_id               = 3;
+      $movement_transaction_type   = MovementTransactionType::find($mvt_master_id);
+      $rs_movement_transaction_log = [];
+
+      $date_now = date('Y-m-d H:i:s');
+
+      foreach ($incomingManualHeader->details as $key => $v_detail) {
+        // Get Storage Data
+        if (empty($rs_storage[$v_detail->storage_id])) {
+          $rs_storage[$v_detail->storage_id] = StorageMaster::find($v_detail->storage_id);
+        }
+
+        // Update Or Create Inventory Stroage data
+        InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $v_detail->storage_id,
+            'model_name' => $v_detail->model,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $v_detail->model_data->ean_code,
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $v_detail->qty),
+            'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $v_detail->total_cbm),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+        // Add Movement Transaction Log
+        $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+        $movement_transaction_log['arrival_no']            = $incomingManualHeader->arrival_no;
+        $movement_transaction_log['mvt_master_id']         = $mvt_master_id;
+        $movement_transaction_log['inventory_movement']    = 'Stock ' . $movement_transaction_type->action;
+        $movement_transaction_log['movement_code']         = $movement_transaction_type->movement_code;
+        $movement_transaction_log['transactions_desc']     = 'Add Stock from OEM/IMPORT/OTHERS';
+        $movement_transaction_log['storage_location_from'] = '';
+        $movement_transaction_log['storage_location_to']   = $rs_storage[$v_detail->storage_id]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_code'] = '& ' . $movement_transaction_log['storage_location_to'];
+        $movement_transaction_log['eancode']               = $v_detail->model_data->ean_code;
+        $movement_transaction_log['model']                 = $v_detail->model;
+        $movement_transaction_log['quantity']              = $v_detail->qty;
+        $movement_transaction_log['created_at']            = $date_now;
+        $movement_transaction_log['flow_id']               = '';
+
+        $rs_movement_transaction_log[] = $movement_transaction_log;
+      }
+
+      MovementTransactionLog::insert($rs_movement_transaction_log);
+
+      $incomingManualHeader->save();
+
+      return $incomingManualHeader;
+    });
   }
 
   public function show(Request $request, $id)
@@ -93,7 +174,8 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader = new IncomingManualHeader;
 
     // Arrival_No => TIPE-WAREHOUSE-TANGGAL-Urutan
-    $arrival_no = $request->input('inc_type') . '-WHKRW-' . date('ymd') . '-';
+    $wh_name    = !empty($request->input('area_code')) ? $request->input('area_code') : auth()->user()->cabang->short_description;
+    $arrival_no = $request->input('inc_type') . '-WH' . $wh_name . '-' . date('ymd') . '-';
 
     $prefix_length = strlen($arrival_no);
     $max_no        = DB::select('SELECT MAX(SUBSTR(arrival_no, ?)) AS max_no FROM log_incoming_manual_header WHERE SUBSTR(arrival_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $arrival_no])[0]->max_no;
@@ -103,9 +185,9 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->po                  = $request->input('po');
     $incomingManualHeader->invoice_no          = $request->input('invoice_no');
     $incomingManualHeader->no_gr_sap           = $request->input('no_gr_sap');
-    $incomingManualHeader->document_date       = date('Y-m-d', strtotime($request->input('document_date')));
+    $incomingManualHeader->document_date       = !empty($request->input('document_date')) ? date('Y-m-d', strtotime($request->input('document_date'))) : date('Y-m-d');
     $incomingManualHeader->vendor_name         = $request->input('vendor_name');
-    $incomingManualHeader->actual_arrival_date = date('Y-m-d', strtotime($request->input('actual_arrival_date')));
+    $incomingManualHeader->actual_arrival_date = !empty($request->input('actual_arrival_date')) ? date('Y-m-d', strtotime($request->input('actual_arrival_date'))) : date('Y-m-d');
     $incomingManualHeader->expedition_name     = $request->input('expedition_name');
     $incomingManualHeader->container_no        = $request->input('container_no');
     $incomingManualHeader->area                = $request->input('area');

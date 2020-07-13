@@ -14,10 +14,11 @@ class CreateTrUserRolesTable extends Migration
   public function up()
   {
     Schema::create('tr_user_roles', function (Blueprint $table) {
-      $table->integer('roles_id')->autoIncrement();
+      $table->string('roles_id', 150);
       $table->string('roles_name', 100);
       $table->timestamps();
 
+      $table->primary('roles_id'); // add primary key
     });
   }
 

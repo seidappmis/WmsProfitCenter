@@ -21,12 +21,16 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('destination-city/create') }}">New Destination</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('destination-city/create') }}">New Destination</a>
+          </div>
         </div>
     @endcomponent
     
@@ -57,7 +61,6 @@
         </div>
         <div class="content-overlay"></div>
     </div>
-</div>
 @endsection
 
 
@@ -74,7 +77,7 @@
             d.search['value'] = $('#global_filter').val()
           }
     },
-    order: [1, 'asc'],
+    order: [2, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'city_code', name: 'city_code', className: 'detail'},

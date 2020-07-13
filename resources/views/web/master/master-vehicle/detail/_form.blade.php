@@ -10,8 +10,8 @@
         <tr>
             <td>Description</td>
             <td>
-                <input id="vehicle_desription" name="vehicle_desription" type="text" class="validate"
-                value="{{old('vehicle_desription', !empty($vehicleDetail) ? $vehicleDetail->vehicle_desription : '')}}">
+                <input id="vehicle_description" name="vehicle_description" type="text" class="validate"
+                value="{{old('vehicle_description', !empty($vehicleDetail) ? $vehicleDetail->vehicle_description : '')}}">
             </td>
         </tr>
         <tr>

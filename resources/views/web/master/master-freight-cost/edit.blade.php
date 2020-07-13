@@ -58,7 +58,7 @@
     set_select2_value('#area', '{{$masterFreight->area}}', '{{$masterFreight->Area->area}}')
     set_select2_value('#city_code', '{{$masterFreight->city_code}}', '{{$masterFreight->DestinationCity->city_name}}')
     set_select2_value('#expedition_code', '{{$masterFreight->expedition_code}}', '{{$masterFreight->MasterExpedition->expedition_name}}')
-    set_select2_value('#vehicle_code_type', '{{$masterFreight->vehicle_code_type}}', '{{$masterFreight->VehicleDetail->vehicle_desription}}')
+    set_select2_value('#vehicle_code_type', '{{$masterFreight->vehicle_code_type}}', '{{$masterFreight->VehicleDetail->vehicle_description}}')
   };
 
   function set_format_data(){

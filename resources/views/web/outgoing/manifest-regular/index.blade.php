@@ -8,7 +8,7 @@
           <div class="col s12 m9">
               <h5 class="breadcrumbs-title mt-0 mb-0"><span>Manifest Regular</span></h5>
               <ol class="breadcrumbs mb-0">
-                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                   <li class="breadcrumb-item active">Manifest Regular</li>
               </ol>
           </div>
@@ -17,10 +17,10 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      <option>-Select Area-</option>
+                      {{-- <option>-Select Area-</option>
                       <option>KARAWANG</option>
                       <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -36,3 +36,18 @@
 </div>
 @endsection
 
+@push('script_js')
+<script type="text/javascript">
+  $('#area_filter').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+  jQuery(document).ready(function($) {
+    @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
+  });
+</script>
+@endpush

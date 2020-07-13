@@ -20,7 +20,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#picking-list-detail-table').DataTable({
+  var dtdatatable_picking_list_detail = $('#picking-list-detail-table').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
@@ -42,6 +42,42 @@
         {data: 'ean_code', name: 'ean_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ],
+  });
+
+  dtdatatable_picking_list_detail.on('click', '.btn-delete', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+     var tr = $(this).parent().parent();
+      var data = dtdatatable_picking_list_detail.row(tr).data();
+      id = data.id
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        title: "Are you sure?",
+        text: "You will not be able to recover this imaginary file!",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{url('picking-list/detail')}}' + '/' + id,
+            type: 'DELETE',
+          })
+          .done(function() { // Kalau ajax nya success
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            dtdatatable_picking_list_detail.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+
+        }
+      })
   });
 </script>
 @endpush

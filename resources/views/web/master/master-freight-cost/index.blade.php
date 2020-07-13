@@ -31,15 +31,19 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-freight-cost/create') }}">New Freight Cost</a>
               </div>
             </div>
             <div class="col s12 m3">
             </div>
         </div>
+        <div class="row">
+          <div class="col s12 m4">
+                <!---- Button Add ----->
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-freight-cost/create') }}">New Freight Cost</a>
+          </div>
+        </div>
     @endcomponent
-    
+    <div class="row">
     <div class="col s12">
         <div class="container">
             <div class="section">
@@ -66,13 +70,13 @@
                                   <th>Origin Area</th>
                                   <th class="center-align">
                                   Transporter
-                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  <p><input type="text" class="input-filter-column" id="filter-transporter"></p>
                                   </th>
                                   <th class="center-align"> Destination
-                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  <p><input type="text" class="input-filter-column" id="filter-destination"></p>
                                   </th>
                                   <th class="center-align">Truck Type
-                                  <p><input type="text" class="app-filter" id="global_filter"></p>
+                                  <p><input type="text" class="input-filter-column" id="filter-truck-type"></p>
                                   </th>
                                   <th>Ritase</th>
                                   <th>CBM <p>(M3)</p></th>
@@ -106,6 +110,9 @@
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
+            d.columns[2]['search']['value'] = $('#filter-transporter').val()
+            d.columns[3]['search']['value'] = $('#filter-destination').val()
+            d.columns[4]['search']['value'] = $('#filter-truck-type').val()
             d.area = $('#area_filter').val()
           }
     },
@@ -113,15 +120,20 @@
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'area', name: 'area', className: 'detail'},
-        {data: 'expedition_name', name: 'master_expedition.expedition_name', className: 'detail'},
-        {data: 'destination_city_name', name: 'destination_cities.city_name', className: 'detail'},
-        {data: 'vehicle_description', name: 'vehicle_type_details.vehicle_desription', className: 'detail'},
+        {data: 'expedition_name', name: 'tr_expedition.expedition_name', className: 'detail'},
+        {data: 'destination_city_name', name: 'log_destination_city.city_name', className: 'detail'},
+        {data: 'vehicle_description', name: 'tr_vehicle_type_detail.vehicle_description', className: 'detail'},
         {data: 'ritase', name: 'ritase', className: 'detail'},
         {data: 'cbm', name: 'cbm', className: 'detail'},
         {data: 'leadtime', name: 'leadtime', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
+
+  // Filter event handler
+    $( table.table().container() ).on( 'keyup', 'thead input', function () {
+      table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    } );
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
@@ -137,6 +149,11 @@
        allowClear: true,
        ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
+
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
 
   // Custom search
   function filterGlobal() {

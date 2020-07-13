@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\BaseModel;
+use Illuminate\Database\Eloquent\Model;
 
-class StockTakeInput2 extends BaseModel
+class StockTakeInput2 extends Model
 {
-    //Set Table
-    protected $table = "log_stocktake_input2"
+  //Set Table
+  protected $table = "log_stocktake_input2";
+  public $timestamps = false;
 }

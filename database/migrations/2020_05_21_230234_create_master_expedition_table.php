@@ -13,7 +13,7 @@ class CreateMasterExpeditionTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_expedition', function (Blueprint $table) {
+        Schema::create('tr_expedition', function (Blueprint $table) {
             $table->id();
             $table->string('expedition_name', 100)->nullable();
             $table->string('npwp', 20)->nullable();
@@ -43,6 +43,6 @@ class CreateMasterExpeditionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_expedition');
+        Schema::dropIfExists('tr_expedition');
     }
 }
