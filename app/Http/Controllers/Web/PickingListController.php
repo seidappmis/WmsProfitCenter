@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
 use App\Models\DriverRegistered;
+use App\Models\InventoryStorage;
 use App\Models\ManualConcept;
 use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
@@ -241,7 +242,15 @@ class PickingListController extends Controller
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
-        ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+      // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
+      // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+      ;
+
+      if ($request->input('filter_type') == 'shipment') {
+        $query->where('tr_concept.invoice_no', $request->input('do_or_shipment'));
+      } else {
+        $query->where('tr_concept.delivery_no', $request->input('do_or_shipment'));
+      }
 
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
         $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
@@ -277,19 +286,22 @@ class PickingListController extends Controller
       'picking_id' => 'required',
     ]);
 
+    $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
+    // echo $pickinglistHeader->storage_id;
+    // exit;
+
     $rs_pickinglistDetail = [];
 
-    $base_id   = auth()->user()->id . date('YMdHis');
-    $rs_models = [];
+    $base_id              = auth()->user()->id . date('YMdHis');
+    $rs_models            = [];
+    $rs_inventory_storage = [];
 
     foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
       if (empty($value['ean_code'])) {
         if (empty($rs_models[$value['model']])) {
           $model = MasterModel::where('model_name', $value['model'])->first();
           if (empty($model)) {
-            $result['status']  = false;
-            $result['message'] = 'Model ' . $value['model'] . ' not found in master model !';
-            return $result;
+            return sendError('Model ' . $value['model'] . ' not found in master model !');
           }
           $rs_models[$value['model']] = $model;
         }
@@ -309,12 +321,30 @@ class PickingListController extends Controller
       $pickingListDetail['remarks']        = $value['remarks'];
       $pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
 
+      // Check Inventory Storage
+      if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
+        $inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
+          ->where('storage_id', $pickinglistHeader->storage_id)
+          ->first();
+
+        if (empty($inventoryStorage)) {
+          return sendError('Model ' . $value['model'] . ' not exist in storage !');
+        }
+        $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
+      }
+
+      $rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
+
+      if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
+        return sendError('The quantity of ' . $value['model'] . ' models in storage is insufficient!');
+      }
+
       $rs_pickinglistDetail[] = $pickingListDetail;
     }
 
     PickinglistDetail::insert($rs_pickinglistDetail);
 
-    return true;
+    return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
   }
 
   public function destroy($id)

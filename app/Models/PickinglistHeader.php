@@ -23,6 +23,10 @@ class PickinglistHeader extends Model
     return $this->belongsTo('App\Models\VehicleDetail', 'vehicle_code_type', 'vehicle_code_type');
   }
 
+  public function gate(){
+    return $this->belongsTo('App\Models\Gate', 'gate_number', 'gate_number');
+  }
+
   public static function noLMBPickingList()
   {
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')

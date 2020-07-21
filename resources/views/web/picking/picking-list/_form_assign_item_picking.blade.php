@@ -6,7 +6,7 @@
 </style>
 @endpush
 
-<div class="assign-item-picking-wrapper">
+<div class="assign-item-picking-wrapper mt-3">
   <h4 class="card-title">Assign Item Picking</h4>
   <hr>
 
@@ -18,10 +18,14 @@
           <hr>
           <div class="row pl-2 mb-0 form-table">
             <div class="input-field col s3">
+                <input id="filter-type" type="hidden" class="validate" name="filter-type" value="do">
                 <input id="filter-do-or-shipment" type="text" class="validate" name="filter-do-or-shipment" required>
             </div>
             <div class="col s9">
-              <span class="waves-effect waves-light btn btn-small indigo darken-4 btn-view ml-2" id="btn-search-do-shipment">Search DO or Shipment</span>
+              <span class="waves-effect waves-light btn btn-small indigo darken-4 btn-view ml-2" id="btn-search-do">Search DO</span>
+              @if(auth()->user()->cabang->hq)
+              <span class="waves-effect waves-light btn btn-small indigo darken-4 btn-view ml-2" id="btn-search-shipment">Search Shipment</span>
+              @endif
             </div>
           </div>
           <span class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mt-2" onclick="multiPickSelectedItems(this)">Multi Pick Selected Items</span> 
@@ -116,8 +120,15 @@
       dtdatatable_do_for_picking.ajax.reload(null, false)
     });
 
-    $('#btn-search-do-shipment').click(function(event) {
+    $('#btn-search-do').click(function(event) {
       /* Act on the event */
+      $('#filter-type').val('do')
+      dtdatatable_do_for_picking.ajax.reload(null, false)
+    });
+
+    $('#btn-search-shipment').click(function(event) {
+      /* Act on the event */
+      $('#filter-type').val('shipment')
       dtdatatable_do_for_picking.ajax.reload(null, false)
     });
 
@@ -134,6 +145,7 @@
           });
           d.selected_list = JSON.stringify(selected_list)
           d.do_or_shipment = $('#filter-do-or-shipment').val()
+          d.filter_type = $('#filter-type').val()
         }
       },
       columns: [
@@ -208,16 +220,20 @@
       type: 'POST',
       data: {picking_id: "{{$pickinglistHeader->id}}", selected_list: JSON.stringify(selected_list)},
     })
-    .done(function() { // selesai dan berhasil
-      swal("Good job!", "You clicked the button!", "success")
-        .then((result) => {
-          dtdatatable_picking_list_detail.ajax.reload(null, false)
-          dtdatatable_do_for_picking.ajax.reload(null, false)
-          dtdatatable_picking
-          .rows()
-          .remove()
-          .draw();
-        }) // alert success
+    .done(function(result) { // selesai dan berhasil
+      if (result.status) {
+        swal("Good job!", result.message, "success")
+          .then((result) => {
+            dtdatatable_picking_list_detail.ajax.reload(null, false)
+            dtdatatable_do_for_picking.ajax.reload(null, false)
+            dtdatatable_picking
+            .rows()
+            .remove()
+            .draw();
+          }) // alert success
+        } else {
+          swal('Warning!', result.message, 'warning')
+        }
     })
     .fail(function(xhr) {
         showSwalError(xhr) // Custom function to show error with sweetAlert

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gate;
-use DB;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class GateController extends Controller
@@ -131,10 +131,14 @@ class GateController extends Controller
   public function getSelect2FreeGate(Request $request)
   {
     $query = Gate::select(
-      DB::raw('gate_number AS id'),
-      DB::raw("CONCAT(gate_number, '|', description) AS text")
-    );
-    $query->where('area', auth()->user()->area);
+      DB::raw('tr_gate.gate_number AS id'),
+      DB::raw("CONCAT(tr_gate.gate_number, '|', tr_gate.description) AS text")
+    )->leftjoin('wms_pickinglist_header', function ($join) use ($request) {
+        $join->on('wms_pickinglist_header.gate_number', '=', 'tr_gate.gate_number')
+        ;
+      });
+    $query->whereNull('wms_pickinglist_header.id');
+    $query->where('tr_gate.area', auth()->user()->area);
 
     return get_select2_data($request, $query);
   }

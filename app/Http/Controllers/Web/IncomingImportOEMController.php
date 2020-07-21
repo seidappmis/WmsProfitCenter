@@ -36,6 +36,8 @@ class IncomingImportOEMController extends Controller
           if (!$data->submit) {
             $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
             $action .= ' ' . get_button_delete();
+          } else {
+            $action .= ' ' . get_button_print();
           }
           return $action;
         });
@@ -47,7 +49,7 @@ class IncomingImportOEMController extends Controller
 
   public function create(Request $request)
   {
-    $data         = [];
+    $data = [];
     if (auth()->user()->cabang->hq) {
       $data['area'] = Area::findOrFail($request->get('area'));
     }
@@ -123,6 +125,7 @@ class IncomingImportOEMController extends Controller
         $movement_transaction_log['quantity']              = $v_detail->qty;
         $movement_transaction_log['created_at']            = $date_now;
         $movement_transaction_log['flow_id']               = '';
+        $movement_transaction_log['kode_cabang']           = auth()->user()->cabang->kode_cabang;
 
         $rs_movement_transaction_log[] = $movement_transaction_log;
       }
@@ -165,7 +168,6 @@ class IncomingImportOEMController extends Controller
 
       return $datatables->make(true);
     }
-
 
     return view('web.incoming.incoming-import-oem.view', $data);
   }
@@ -227,7 +229,7 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->area                = $request->input('area');
     $incomingManualHeader->inc_type            = $request->input('inc_type');
     $incomingManualHeader->kode_cabang         = auth()->user()->cabang->kode_cabang;
-    $incomingManualHeader->submit              = 0;
+    // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');
     // $incomingManualHeader->submit_by           = $request->input('submit_by');
 

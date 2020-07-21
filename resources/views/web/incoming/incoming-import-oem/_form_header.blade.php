@@ -105,6 +105,7 @@
       });
 
       @if(!empty($incomingManualHeader) && !$incomingManualHeader->submit)
+      $('#form-incoming-import-oem-detail').removeClass('hide');
       $('.btn-submit-to-inventory').removeClass('hide');
       $('.btn-submit-to-inventory').click(function(event) {
         /* Act on the event */
@@ -124,7 +125,7 @@
             })
             .done(function() {
               swal("Good job!", "Incoming with Arrival No. {{$incomingManualHeader->arrival_no}} has been submited to inventory.", "success") // alert success
-              window.location.reload;  // (null, false) => user paging is not reset on reload
+              window.location.reload();  // (null, false) => user paging is not reset on reload
             })
             .fail(function() {
               console.log("error");

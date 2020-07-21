@@ -44,7 +44,7 @@ class StorageInventoryMonitoringController extends Controller
     $data['inventoryStorage'] = InventoryStorage::findOrFail($id);
 
     if ($request->ajax()) {
-      $query      = MovementTransactionLog::all();
+      $query      = MovementTransactionLog::where('eancode', $data['inventoryStorage']->ean_code);
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
       ;

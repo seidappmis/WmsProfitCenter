@@ -1,4 +1,4 @@
-<form class="form-table" id="form-incoming-import-oem-detail">
+<form class="form-table hide" id="form-incoming-import-oem-detail">
   <table width="100%">
     <tr>
       <td>Model</td>

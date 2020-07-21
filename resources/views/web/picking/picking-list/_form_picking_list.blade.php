@@ -23,7 +23,15 @@
             <td>Gate#</td>
             <td>
                 <div class="input-field col s12">
-                    <input type="text" class="validate" name="gate_number" value="{{ !empty($pickinglistHeader->gate_number) ? $pickinglistHeader->gate_number : '' }}" {{ !empty($pickinglistHeader->gate_number) ? 'readonly' : 'required' }} >
+                  <div>
+                    <input id="input-gate-number" type="text" class="validate" name="gate_number" value="{{ !empty($pickinglistHeader->gate_number) ? $pickinglistHeader->gate_number : '' }}" {{ !empty($pickinglistHeader->gate_number) ? 'readonly' : 'required' }} >
+                  </div>
+                    <div class="hide">
+                      <select id="select-gate-number"
+                              name="gate_number"
+                              class="select2-data-ajax browser-default">
+                      </select>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -84,7 +92,7 @@
             <td>Vehicle Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="vehicle_code_type" class="select2-data-ajax browser-default" required="">
+                    <select name="vehicle_code_type" class="select2-data-ajax browser-default">
                     </select>
                 </div>
             </td>
@@ -136,6 +144,10 @@
     });
 
     function init_form_hq(){
+      $('#select-gate-number').select2({
+         placeholder: '-- Select Gate --',
+         ajax: get_select2_ajax_options('/master-gate/select2-free-gate')
+      });
       set_hq_select_ship_to_city()
       set_hq_select_expedition()
       set_hq_select_vehicle_type()
@@ -214,9 +226,13 @@
           $('#form-picking-list [name="city_name"]').val(data == undefined ? '' : data.text);
           // Ambil Sendiri => hide expedition detail
           if ($(this).val() == 'AS') {
-              $('#table-expedition-detail').hide();
+            $('#select-gate-number').parent().addClass('hide')
+            $('#input-gate-number').parent().removeClass('hide')
+            $('#table-expedition-detail').hide();
           } else {
-              $('#table-expedition-detail').show();
+            $('#select-gate-number').parent().removeClass('hide')
+            $('#input-gate-number').parent().addClass('hide')
+            $('#table-expedition-detail').show();
           }
       });
     }
