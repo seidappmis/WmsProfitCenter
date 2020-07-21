@@ -29,7 +29,11 @@ class PickingListController extends Controller
           return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
         })
         ->addColumn('lmb', function ($data) {
-          return '-';
+          $lmb = $data->lmb_details->count() > 0 ? "Loading Process" : '-';
+          if (!empty($data->lmb_header) && $data->lmb_header->send_manifest) {
+            $lmb = 'LMB Send Manifest';
+          }
+          return $lmb;
         })
         ->addColumn('action', function ($data) {
           $action = '';
@@ -213,14 +217,14 @@ class PickingListController extends Controller
   public function show(Request $request, $id)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::findOrFail($id)->details()
+      $query = PickinglistHeader::findOrFail($id)->detailWithLMB()
         ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('quantity_in_lmb', function ($data) {
-          return '-';
-        })
+      // ->addColumn('quantity_in_lmb', function ($data) {
+      //   return '-';
+      // })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_delete('Delete');

@@ -55,9 +55,9 @@ class PickingToLMBController extends Controller
 
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
 
-    $lmbHeader                           = new LMBHeader;
-    $lmbHeader->driver_register_id       = $request->input('driver_register_id');
-    $lmbHeader->lmb_date                 = date('Y-m-d');
+    $lmbHeader                     = new LMBHeader;
+    $lmbHeader->driver_register_id = $request->input('driver_register_id');
+    $lmbHeader->lmb_date           = date('Y-m-d');
     // $lmbHeader->do_reservation_no        = '';
     // $lmbHeader->pdo                      = '';
     $lmbHeader->expedition_code          = $picking->expedition_code;
@@ -101,7 +101,7 @@ class PickingToLMBController extends Controller
 
     $file = fopen($request->file('file_scan'), "r");
 
-    $title          = true; // Untuk Penada Baris pertama adalah Judul
+    // $title          = true; // Untuk Penada Baris pertama adalah Judul
     $serial_numbers = [];
     $scan_summaries = [];
 
@@ -112,10 +112,10 @@ class PickingToLMBController extends Controller
 
     while (!feof($file)) {
       $row = fgetcsv($file);
-      if ($title) {
-        $title = false;
-        continue; // Skip baris judul
-      }
+      // if ($title) {
+      //   $title = false;
+      //   continue; // Skip baris judul
+      // }
       $serial_number = [
         'picking_id'    => $row[0],
         'ean_code'      => $row[1],
@@ -151,8 +151,9 @@ class PickingToLMBController extends Controller
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
         }
 
-        $serial_number['model']       = $rs_models[$serial_number['ean_code']]->model_name;
-        $serial_number['delivery_no'] = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
+        $serial_number['model']              = $rs_models[$serial_number['ean_code']]->model_name;
+        $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
+        $serial_number['invoice_no']         = $rs_picking_list_details[$serial_number['ean_code']]->invoice_no;
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->header->driver_register_id;
 
         if (empty($scan_summaries[$serial_number['ean_code']])) {

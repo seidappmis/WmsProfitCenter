@@ -37,13 +37,13 @@
                           </tr>
                           <tr>
                             <td>Picking No</td>
-                            <td>{{$lmbHeader->lmb_date}}</td>
+                            <td>{{$lmbHeader->picking->picking_no}}</td>
                             <td>Vehicle No</td>
-                            <td>{{$lmbHeader->expedition_name}}</td>
+                            <td>{{$lmbHeader->vehicle_number}}</td>
                           </tr>
                           <tr>
                             <td>Ship to City</td>
-                            <td>{{$lmbHeader->lmb_date}}</td>
+                            <td>{{$lmbHeader->picking->city_name}}</td>
                             <td></td>
                             <td></td>
                           </tr>
