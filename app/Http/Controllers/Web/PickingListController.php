@@ -238,7 +238,13 @@ class PickingListController extends Controller
 
   public function doOrShipmentData(Request $request)
   {
-    if (auth()->user()->cabang->hq) {
+    $request->validate([
+      'picking_id' => 'required',
+    ]);
+
+    $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
+
+    if (auth()->user()->cabang->hq && $pickinglistHeader->city_code != "AS") {
       // HQ ambil dari Concept
       $query = Concept::select('tr_concept.*')
         ->leftjoin('wms_pickinglist_detail', function ($join) {
@@ -262,10 +268,23 @@ class PickingListController extends Controller
 
     } else {
       // Cabang Ambil Dari Upload DO for Picking
-      $query = ManualConcept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+      $query = ManualConcept::select('wms_manual_concept.*')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+      // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+      ;
+
+      if ($request->input('filter_type') == 'shipment') {
+        $query->where('wms_manual_concept.invoice_no', $request->input('do_or_shipment'));
+      } else {
+        $query->where('wms_manual_concept.delivery_no', $request->input('do_or_shipment'));
+      }
 
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
-        $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
+        $query->whereRaw('CONCAT(wms_manual_concept.invoice_no, wms_manual_concept.delivery_no, wms_manual_concept.delivery_items) != ?', [$value]);
       }
 
     }

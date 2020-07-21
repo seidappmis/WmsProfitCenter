@@ -146,6 +146,7 @@
           d.selected_list = JSON.stringify(selected_list)
           d.do_or_shipment = $('#filter-do-or-shipment').val()
           d.filter_type = $('#filter-type').val()
+          d.picking_id = '{{$pickinglistHeader->id}}'
         }
       },
       columns: [
