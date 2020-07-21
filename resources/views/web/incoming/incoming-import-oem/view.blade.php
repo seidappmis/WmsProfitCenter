@@ -10,7 +10,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('incoming-import-oem') }}">Incoming Import/OEM</a></li>
-                    <li class="breadcrumb-item active">OEM-WHKRW-200206-005</li>
+                    <li class="breadcrumb-item active">{{$incomingManualHeader->arrival_no}}</li>
                 </ol>
             </div>
             <div class="col s12 m2"></div>
@@ -19,11 +19,7 @@
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
-                    <select>
-                      <option value="" disabled>-- Select Area --</option>
-                      <option value="1" selected>KARAWANG</option>
-                      <option value="2">SURABAYA HUB</option>
-                      <option value="3">SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -45,7 +41,7 @@
             </div>
             <div class="card-content pt-0 pb-0">
                 <ul class="collapsible">
-                   <li class="active">
+                   <li class="">
                      <div class="collapsible-header">Add New Detail</div>
                      <div class="collapsible-body white pt-1">
                           @include('web.incoming.incoming-import-oem._form_detail')
@@ -108,6 +104,20 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    @if(auth()->user()->cabang->hq)
+      $('#area_filter').select2({
+         placeholder: '-- Select Area --',
+         allowClear: true,
+         ajax: get_select2_ajax_options('/master-area/select2-area-only')
+      });
+      $('#area_filter').attr('disabled', 'disabled');
+      set_select2_value('#area_filter', '{{$incomingManualHeader->area}}', '{{$incomingManualHeader->area}}')
+      $("#form-incoming-import-oem-header [name='area']").val('{{$incomingManualHeader->area}}')
+    @else
+    $('.area-wrapper').hide()
+    @endif
+  });
   var dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
     serverSide: true,
     scrollX: true,

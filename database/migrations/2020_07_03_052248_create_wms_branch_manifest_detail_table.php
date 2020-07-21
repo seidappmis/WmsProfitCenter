@@ -59,7 +59,7 @@ class CreateWmsBranchManifestDetailTable extends Migration
             $table->integer('delivery_items')->nullable();
             $table->tinyInteger('do_reject');
 
-            $table->primary('id');
+            // $table->primary('id');
         });
     }
 

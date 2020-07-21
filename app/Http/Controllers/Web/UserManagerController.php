@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\UsersGrantCabang;
 use App\User;
 use DataTables;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ class UserManagerController extends Controller
   {
     if ($request->ajax()) {
       $query = User::selectRaw('users.*, tr_user_roles.roles_name, log_cabang.long_description')
-      ->leftjoin('tr_user_roles', 'tr_user_roles.roles_id', '=', 'users.roles_id')
-      ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
-      ->get();
+        ->leftjoin('tr_user_roles', 'tr_user_roles.roles_id', '=', 'users.roles_id')
+        ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
+        ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -88,9 +89,39 @@ class UserManagerController extends Controller
     return $user->save();
   }
 
+  public function grantCabang(Request $request, $id)
+  {
+    $request->validate([
+      'kode_cabang_grant' => ['required'],
+    ]);
+
+    $user = User::findOrFail($id);
+
+    if (UsersGrantCabang::where('kode_cabang_grant', $request->input('kode_cabang_grant'))->where('userid', $user->username)->first()) {
+      return sendError('Grant Cabang Exist');
+    }
+
+    $usersGrantCabang                    = new UsersGrantCabang;
+    $usersGrantCabang->userid            = $user->username;
+    $usersGrantCabang->kode_cabang_grant = $request->input('kode_cabang_grant');
+
+    $usersGrantCabang->save();
+
+    $usersGrantCabang->cabang;
+
+    return sendSuccess("Add Grant Branch Success!", $usersGrantCabang);
+  }
+
   public function destroy($id)
   {
     return User::destroy($id);
+  }
+
+  public function destroyGrantCabang($id, $kode_cabang_grant)
+  {
+    $user = User::findOrFail($id);
+
+    return UsersGrantCabang::where('kode_cabang_grant', $kode_cabang_grant)->where('userid', $user->username)->delete();
   }
 
 }

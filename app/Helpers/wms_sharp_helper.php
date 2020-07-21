@@ -32,7 +32,7 @@ function get_button_save($label = "Save", $class = 'btn-save'){
 
 // cancel, back
 function get_button_cancel($url = '#', $label = "Cancel", $class = ''){
-  return '<a class="waves-effect btn-flat btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light indigo btn-small btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
 // cancel modal

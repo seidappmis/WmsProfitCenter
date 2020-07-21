@@ -67,4 +67,9 @@ class User extends Authenticatable
   {
     return $this->belongsTo('App\Models\Area', 'area', 'area');
   }
+
+  public function grantCabangs()
+  {
+    return $this->hasMany('App\Models\UsersGrantCabang', 'userid', 'username');
+  }
 }

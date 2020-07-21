@@ -17,10 +17,6 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      {{-- <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -33,7 +29,7 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      asdf
+
                     </div>
                 </div>
             </div>

@@ -142,6 +142,8 @@ class IncomingImportOEMController extends Controller
     if ($request->ajax()) {
       $query = $data['incomingManualHeader']
         ->details()
+        ->select('log_incoming_manual_detail.*', 'log_incoming_manual_header.submit')
+        ->leftjoin('log_incoming_manual_header', 'log_incoming_manual_header.arrival_no', '=', 'log_incoming_manual_detail.arrival_no_header')
         ->get();
 
       $datatables = DataTables::of($query)
@@ -154,13 +156,16 @@ class IncomingImportOEMController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit(url('incoming-import-oem/' . $data->id));
-          $action .= ' ' . get_button_delete();
+          if (!$data->submit) {
+            $action .= ' ' . get_button_edit(url('incoming-import-oem/' . $data->id));
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         });
 
       return $datatables->make(true);
     }
+
 
     return view('web.incoming.incoming-import-oem.view', $data);
   }

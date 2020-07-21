@@ -234,14 +234,30 @@ class PickingListController extends Controller
   public function doOrShipmentData(Request $request)
   {
     if (auth()->user()->cabang->hq) {
-      $query = Concept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+      // HQ ambil dari Concept
+      $query = Concept::select('tr_concept.*')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+
+      foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+        $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
+      }
+
     } else {
+      // Cabang Ambil Dari Upload DO for Picking
       $query = ManualConcept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+
+      foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+        $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
+      }
+
     }
 
-    foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
-      $query->whereRaw('CONCAT(invoice_no, delivery_no, delivery_items) != ?', [$value]);
-    }
+    // return $query->get();
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -309,7 +325,7 @@ class PickingListController extends Controller
 
   public function destroyDetail($id)
   {
-     return PickinglistDetail::destroy($id);
+    return PickinglistDetail::destroy($id);
   }
 
   public function edit($id)
