@@ -145,6 +145,8 @@ class MasterDestinationController extends Controller
             DB::raw("destination_description AS text")
         );
 
+        $query->orderBy('destination_description');
+
         return get_select2_data($request, $query);
     }
 }

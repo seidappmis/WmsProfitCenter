@@ -143,9 +143,11 @@ class PickingListController extends Controller
       $picking->vehicle_number     = $driverRegistered->vehicle_number;
       $picking->expedition_code    = $driverRegistered->expedition_code;
       $picking->expedition_name    = $driverRegistered->expedition_name;
+      $picking->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+      $picking->vehicle_number     = $driverRegistered->vehicle_number;
       $picking->gate_number        = $request->input('gate_number');
-      $picking->destination_number = $request->input('destination_number');
-      $picking->destination_name   = $request->input('destination_name');
+      $picking->destination_number = $driverRegistered->destination_number;
+      $picking->destination_name   = $driverRegistered->destination_name;
       $picking->city_code          = $request->input('city_code');
       $picking->city_name          = $request->input('city_name');
 

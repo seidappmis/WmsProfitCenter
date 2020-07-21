@@ -60,6 +60,7 @@
       @if (!empty($pickinglistHeader->vehicle_code_type))
       set_select2_value('#form-picking-list [name="vehicle_code_type"]', '{{$pickinglistHeader->vehicle_code_type}}', '{{$pickinglistHeader->vehicle->vehicle_description}}')
       @endif
+      set_select2_value('#form-picking-list [name="destination_number"]', '{{$pickinglistHeader->destination_number}}', '{{$pickinglistHeader->destination_name}}')
 
       set_select2_value('#form-picking-list [name="vehicle_number"]', '{{$pickinglistHeader->vehicle_number}}', '{{$pickinglistHeader->vehicle_number}}')
       set_select2_value('#form-picking-list [name="driver_id"]', '{{$pickinglistHeader->driver_id}}', '{{$pickinglistHeader->driver_name}}')

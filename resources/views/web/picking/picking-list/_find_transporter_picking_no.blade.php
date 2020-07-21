@@ -8,6 +8,8 @@
 </div>
 <form class="form-table" id="form-assign-picking">
   <input type="hidden" name="city_name">
+  <input type="hidden" name="destination_number" value="{{$driverRegistered->destination_number}}">
+  <input type="hidden" name="destination_name" value="{{$driverRegistered->destination_name}}">
   <table class="form-table">
     <tr>
       <td width="20%">Gate</td>
