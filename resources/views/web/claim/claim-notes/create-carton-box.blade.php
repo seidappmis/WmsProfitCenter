@@ -202,26 +202,22 @@
                                           </thead>
                                           <tbody>
                                             <!-- <tr>
-                                                <td>1.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD001</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                            </tr>
-                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr> -->
+                                            <!-- <tr>
                                                 <td>2.</td>
                                                 <td>01/BA-HQ/02/2015</td>
                                                 <td>Expedition 1</td>
@@ -366,7 +362,7 @@
     });
   });
 
-  var dtdatatable = $('#data-table-list-berita-acara').DataTable({
+  var dtdatatable_berita_acara = $('#data-table-list-berita-acara').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
@@ -390,13 +386,14 @@
     ]
   });
 
-  dtdatatable.on('click', '.btn-select', function(event) {
+  dtdatatable_berita_acara.on('click', '.btn-select', function(event) {
       event.preventDefault();
       /* Act on the event */
-      // select row-copier row, clone it, and append to second table body
-      var tr = $(this).closest("tr").clone();
-      tr.find(".btn-select").text("Remove");
-      $("#data-table-detail-berita-acara tbody").append(tr);
+      var tr = $(this).parent().parent();
+      var data = dtdatatable_berita_acara.row(tr).data();
+
+      dtdatatable_berita_acara_detail.row.add(data).draw();
+      dtdatatable_berita_acara.ajax.reload(null, false);
     });
 
   $("input#global_filter").on("keyup click", function () {
@@ -408,12 +405,39 @@
       table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 
-  // var dtdatatable = $('#data-table-detail-berita-acara').DataTable({
-  //   serverSide: false,
-  //   scrollX: true,
-  //   responsive: true,
-  //   paging: false,
-  //   order: [1, 'asc'],
-  // });
+  var dtdatatable_berita_acara_detail = $('#data-table-detail-berita-acara').DataTable({
+    serverSide: false,
+    scrollX: true,
+    responsive: true,
+    paging: false,
+    ordering: false,
+    searching: false,
+    info:     false,
+    data: [],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'berita_acara_no', className: 'detail'},
+        {data: 'expedition_code', className: 'detail'},
+        {data: 'driver_name', className: 'detail'},
+        {data: 'vehicle_number', className: 'detail'},
+        {data: 'destination', className: 'detail'},
+        {data: 'do_no', className: 'detail'},
+        {data: 'model_name', className: 'detail'},
+        {data: 'serial_number', className: 'detail'},
+        {data: 'qty', className: 'detail'},
+        {data: 'location', className: 'detail'},
+        {data: 'description', className: 'detail'},
+        {data: 'price',
+         render: function(data, type, row){
+            if ( type === 'display' ) {
+                      return '<div class="form-table"><input placeholder="Price" id="first_name" type="text" class="validate"></div>';
+            }
+            return data;
+         },
+         className: 'detail'},
+        {data: 'total', className: 'detail'},
+        // {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
+  });
 </script>
 @endpush
