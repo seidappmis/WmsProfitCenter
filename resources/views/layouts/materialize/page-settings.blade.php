@@ -114,6 +114,15 @@ function showSwalError(xhr){
   swal(xhr.responseJSON.message, errorDetail, "error")
 }
 
+function showSwalAutoClose(title, message){
+  swal({
+    title: title,
+    text: message,
+    timer: 1500,
+    buttons: false
+  })
+}
+
 function set_select2_value(selector, id, text) {
   let val = '<option value="' + id + '" selected>' + text + '</option>';
   $(selector).append(val).trigger('change');

@@ -43,7 +43,7 @@ class AdminNavListComposer
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => 'upload-concept', 'icon' => 'radio_button_unchecked'],
       // ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => 'assign-vehicles', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Select Gate', 'url' => 'select-gate', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Gate Status', 'url' => 'select-gate', 'icon' => 'radio_button_unchecked'],
       // ['name' => 'outgoing', 'label' => 'Loading Process', 'url' => 'loading-process', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Complete', 'url' => 'complete', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Manifest Regular', 'url' => 'manifest-regular', 'icon' => 'radio_button_unchecked'],

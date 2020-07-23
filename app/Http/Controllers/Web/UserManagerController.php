@@ -49,6 +49,7 @@ class UserManagerController extends Controller
 
     $user                = new User;
     $user->username      = $request->input('username');
+    $user->roles_id      = $request->input('roles_id');
     $user->first_name    = $request->input('first_name');
     $user->last_name     = $request->input('last_name');
     $user->password      = Hash::make($request->input('password'));
@@ -76,6 +77,7 @@ class UserManagerController extends Controller
 
     $user             = User::findOrFail($id);
     $user->username   = $request->input('username');
+    $user->roles_id   = $request->input('roles_id');
     $user->first_name = $request->input('first_name');
     $user->last_name  = $request->input('last_name');
     if (!empty($request->input('password'))) {

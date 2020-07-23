@@ -44,19 +44,22 @@
                           <span>Current</span>
                         </label>
                     </p>
-                    <input
-                        id="new_region_input"
-                        type="text"
-                        class="validate"
-                        name="new_region"
-                        value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
-                        required
-                        />
-                    <select id="current_region_input"
-                            name="current_region"
-                            style="display: none;"
-                            class="select2-data-ajax browser-default select-region" required>
-                    </select>
+                    <div class="new-region-wrapper">
+                        <input
+                            id="new_region_input"
+                            type="text"
+                            class="validate"
+                            name="new_region"
+                            value="{{old('region', !empty($masterDestination) ? $masterDestination->region : '')}}"
+                            required
+                            />
+                    </div>
+                    <div class="current-region-wrapper hide">
+                        <select id="current_region_input"
+                                name="current_region"
+                                class="select2-data-ajax browser-default select-region" required>
+                        </select>
+                    </div>
               </div>
             </td>
         </tr>
@@ -89,11 +92,11 @@
     $('#form-master-destination [name="region_type"]').change(function(event) {
         /* Act on the event */
         if ($(this).val() == 'new_region') {
-            $('#new_region_input').show();
-            $('#current_region_input').hide();
+            $('.new-region-wrapper').removeClass('hide');
+            $('.current-region-wrapper').addClass('hide');
         } else {
-            $('#new_region_input').hide();
-            $('#current_region_input').show();
+            $('.new-region-wrapper').addClass('hide');
+            $('.current-region-wrapper').removeClass('hide');
 
             // Loading region Data
             $('#form-master-destination [name="current_region"]').select2({

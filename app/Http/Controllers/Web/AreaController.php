@@ -54,7 +54,7 @@ class AreaController extends Controller
   {
     $request->validate([
       'area' => 'unique:tr_area|max:20',
-      'code' => 'max:3',
+      'code' => 'unique:tr_area|max:3',
     ]);
 
     $masterArea       = new Area;

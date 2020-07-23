@@ -83,7 +83,7 @@
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
-        {data: 'cabang_description', name: 'cabangs.long_description', className: 'detail'},
+        {data: 'cabang_description', name: 'log_cabang.long_description', className: 'detail'},
         {data: 'sto_loc_code_long', name: 'sto_loc_code_long', className: 'detail'},
         {data: 'sto_type_desc', name: 'sto_type_desc', className: 'detail'},
         {data: 'total_max_pallet', name: 'total_max_pallet', className: 'detail'},

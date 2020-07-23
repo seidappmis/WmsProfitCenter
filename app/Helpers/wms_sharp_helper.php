@@ -26,12 +26,12 @@ function get_button_delete($label = "Delete", $class = 'btn-delete'){
 }
 
 // save, update, submit, load
-function get_button_save($label = "Save", $class = 'btn-save'){
+function get_button_save($label = "Save", $class = 'btn-save mt-2'){
   return '<button type="submit" class="waves-effect waves-light indigo btn-small ' . $class . '">' . $label . '</button>';
 }
 
 // cancel, back
-function get_button_cancel($url = '#', $label = "Cancel", $class = ''){
+function get_button_cancel($url = '#', $label = "Cancel", $class = 'mt-2'){
   return '<a class="waves-effect waves-light indigo btn-small btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 

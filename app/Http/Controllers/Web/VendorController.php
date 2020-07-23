@@ -27,7 +27,8 @@ class VendorController extends Controller
           $action .= ' ' . get_button_edit(url('master-vendor/' . $data->vendor_code . '/edit'));
           $action .= ' ' . get_button_delete();
           return $action;
-        });
+        })
+        ;
 
       return $datatables->make(true);
     }

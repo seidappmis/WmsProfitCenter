@@ -9,7 +9,9 @@
                     type="text" 
                     class="validate" 
                     name="area" 
-                    value="{{old('area', !empty($masterArea) ? $masterArea->area : '')}}">
+                    value="{{old('area', !empty($masterArea) ? $masterArea->area : '')}}"
+                    required
+                    >
                 </div>
             </td>
         </tr>

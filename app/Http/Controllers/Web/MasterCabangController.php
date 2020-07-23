@@ -55,7 +55,7 @@ class MasterCabangController extends Controller
     {
         $request->validate([
             'kode_customer'  => 'required|unique:log_cabang|max:8',
-            'kode_cabang'    => 'required|max:2',
+            'kode_cabang'    => 'required|unique:log_cabang|max:2',
             'sdes'  => 'max:3',
             'ldes'  => 'max:100',
             'region'  => 'max:100',

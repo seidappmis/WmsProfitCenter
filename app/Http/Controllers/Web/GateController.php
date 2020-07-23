@@ -18,7 +18,7 @@ class GateController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = Gate::select('gate_number', 'description', 'area');
+      $query = Gate::select('id', 'gate_number', 'description', 'area');
 
       if (auth()->user()->area != "All") {
         $query->where('area', auth()->user()->area);
@@ -62,12 +62,22 @@ class GateController extends Controller
       'area'        => 'required|max:20',
     ]);
 
+    if (
+      Gate::where('gate_number', $request->input('gate_number'))
+      ->where('area', $request->input('area'))
+      ->first()
+    ) {
+      return sendError('Gate ' . $request->input('gate_number') . ' already exist in ' . $request->input('area') . '!');
+    }
+
     $masterGate              = new Gate;
     $masterGate->gate_number = $request->input('gate_number');
     $masterGate->description = $request->input('description');
     $masterGate->area        = $request->input('area');
 
-    return $masterGate->save();
+    $masterGate->save();
+
+    return sendSuccess('Success add gate ' . $masterGate->area, $masterGate);
   }
 
   /**
@@ -134,9 +144,9 @@ class GateController extends Controller
       DB::raw('tr_gate.gate_number AS id'),
       DB::raw("CONCAT(tr_gate.gate_number, '|', tr_gate.description) AS text")
     )->leftjoin('wms_pickinglist_header', function ($join) use ($request) {
-        $join->on('wms_pickinglist_header.gate_number', '=', 'tr_gate.gate_number')
-        ;
-      });
+      $join->on('wms_pickinglist_header.gate_number', '=', 'tr_gate.gate_number')
+      ;
+    });
     $query->whereNull('wms_pickinglist_header.id');
     $query->where('tr_gate.area', auth()->user()->area);
 

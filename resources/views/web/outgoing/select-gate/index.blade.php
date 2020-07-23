@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m4">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Select Gate</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Gate Status</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Select Gate</li>
+                    <li class="breadcrumb-item active">Gate Status</li>
                 </ol>
             </div>
         </div>
