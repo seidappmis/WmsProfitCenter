@@ -160,7 +160,7 @@
       });
       $('#select-cabang').select2({
          placeholder: '-- Select Branch --',
-         ajax: get_select2_ajax_options('/user-manager/select2-all-cabang')
+         ajax: get_select2_ajax_options('/user-manager/select2-all-cabang', {user_id: "{{!empty($user) ? $user->username : ''}}"})
       });
       @if(!empty($user))
       $('#btn-add-branch').click(function(event) {

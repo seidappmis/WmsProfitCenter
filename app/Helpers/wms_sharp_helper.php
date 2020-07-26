@@ -6,8 +6,8 @@ function get_button_view($url = '#', $label = "View", $class = "btn-view"){
 }
 
 // print
-function get_button_print($url = '#', $label = "Print"){
-  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print" href="' . $url . '">' . $label . '</a>';
+function get_button_print($url = '#', $label = "Print", $class = "btn-print"){
+  return '<a class="waves-effect waves-light btn btn-small green darken-4 ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
 // send back

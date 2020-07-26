@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\MasterCabang;
 use App\Models\UsersGrantCabang;
+use DB;
 use App\User;
 use DataTables;
 use Illuminate\Http\Request;
@@ -124,6 +126,22 @@ class UserManagerController extends Controller
     $user = User::findOrFail($id);
 
     return UsersGrantCabang::where('kode_cabang_grant', $kode_cabang_grant)->where('userid', $user->username)->delete();
+  }
+
+  public function getSelect2AllCabang(Request $request)
+  {
+    $query = MasterCabang::select(
+      DB::raw('kode_cabang AS id'),
+      DB::raw("CONCAT('[', short_description, '] - ', long_description) AS text")
+    )->leftjoin('wms_users_grant_cabang', function($join) use ($request){
+      $join->on('log_cabang.kode_cabang', '=', 'wms_users_grant_cabang.kode_cabang_grant');
+      $join->where('wms_users_grant_cabang.userid', $request->input('user_id'));
+    });
+
+    $query->whereNull('wms_users_grant_cabang.userid');
+    $query->orderBy('text');
+
+    return get_select2_data($request, $query);
   }
 
 }

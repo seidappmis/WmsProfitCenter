@@ -4,6 +4,7 @@ Route::group(['middleware' => 'auth'], function () {
   // User Manager
   Route::post('user-manager/{id}/grant-cabang', 'Web\UserManagerController@grantCabang');
   Route::delete('user-manager/{id}/grant-cabang/{kode_cabang_grant}', 'Web\UserManagerController@destroyGrantCabang');
+  Route::get('user-manager/select2-all-cabang', 'Web\UserManagerController@getSelect2AllCabang');
   Route::resource('user-manager', 'Web\UserManagerController');
 
   // User ROles

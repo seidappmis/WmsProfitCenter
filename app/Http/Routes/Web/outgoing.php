@@ -30,10 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::resource('branch-manifest', 'Web\BranchManifestController');
 
-
   Route::get('manifest-as/lmb-waiting-manifest', 'Web\ManifestASController@lmbWaitingManifest');
   Route::resource('manifest-as', 'Web\ManifestASController');
-  Route::view('update-manifest', 'web.outgoing.update-manifest.index');
+
+  Route::get('update-manifest', 'Web\UpdateManifestController@index');
+  Route::post('update-manifest', 'Web\UpdateManifestController@show');
 
   // Route::view('overload-concept-or-do', 'web.outgoing.overload-concept-or-do.index');
   Route::get('overload-concept-or-do', 'Web\OverloadConceptOrDoController@index');

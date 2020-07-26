@@ -11,10 +11,10 @@ class UsersTableSeeder extends Seeder
    */
   public function run()
   {
-    // $this->seedModuls();
-    // $this->seedUserRoles();
-    // $this->seedUserRolesDetail();
-    // $this->seedUsers();
+    $this->seedModuls();
+    $this->seedUserRoles();
+    $this->seedUserRolesDetail();
+    $this->seedUsers();
     $this->call(Database\Seeds\Masters\WMSUsersGrantCabang::class);
     // DB::table('tr_user_roles')->insert([
     //   [
