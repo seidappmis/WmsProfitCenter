@@ -157,10 +157,13 @@ class IncomingImportOEMController extends Controller
         ->addColumn('serial_numbers', function ($data) {
           return $data->storage->serial_numbers;
         })
+        ->editColumn('created_at', function ($data) {
+          return $data->created_at;
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           if (!$data->submit) {
-            $action .= ' ' . get_button_edit(url('incoming-import-oem/' . $data->id));
+            $action .= ' ' . get_button_edit('#', 'Edit');
             $action .= ' ' . get_button_delete();
           }
           return $action;

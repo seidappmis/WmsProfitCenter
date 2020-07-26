@@ -16,7 +16,12 @@ class IncomingImportOEMDetailController extends Controller
       'arrival_no_header' => 'required',
     ]);
 
-    $incomingManualDetail                    = new IncomingManualDetail;
+    if (!empty($request->input('id'))) {
+      $incomingManualDetail = IncomingManualDetail::findOrFail($request->input('id'));
+    } else {
+      $incomingManualDetail                    = new IncomingManualDetail;
+    }
+
     $incomingManualDetail->arrival_no_header = $request->input('arrival_no_header');
     $incomingManualDetail->model             = $request->input('model');
     $incomingManualDetail->description       = $request->input('description');
@@ -57,9 +62,7 @@ class IncomingImportOEMDetailController extends Controller
         fclose($file);
 
         if (count($serial_numbers) != $request->input('qty')) {
-          $result['status']  = false;
-          $result['message'] = 'Error upload Serialnumber, Total Serialnumber different with Quantity !';
-          return $result;
+          return sendError('Error upload Serialnumber, Total Serialnumber different with Quantity !');
         }
 
         IncomingManualOtherSN::insert($serial_numbers);
@@ -67,7 +70,9 @@ class IncomingImportOEMDetailController extends Controller
 
       DB::commit();
 
-      return $incomingManualDetail;
+      $message = !empty($request->input('id')) ? 'Data Update Successfully!' : 'Data Created Successfully!';
+
+      return sendSuccess($message, $incomingManualDetail);
 
     } catch (Exception $e) {
       DB::rollBack();

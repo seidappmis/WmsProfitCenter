@@ -40,7 +40,7 @@
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
             <div class="card-content pt-0 pb-0">
-                <ul class="collapsible">
+                <ul class="collapsible" id="collapsible-detail">
                    <li class="">
                      <div class="collapsible-header">Add New Detail</div>
                      <div class="collapsible-body white pt-1">
@@ -121,7 +121,7 @@
   var dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
     serverSide: true,
     scrollX: true,
-    responsive: true,
+    responsive: false,
     ajax: {
         url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
         type: 'GET',
@@ -146,6 +146,21 @@
     ]
   });
 
+  dttable_incoming_detail.on('click', '.btn-edit', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dttable_incoming_detail.row(tr).data();
+    set_select2_value($('#form-incoming-import-oem-detail [name="storage_id"]'), data.storage_id, data.storage_location)
+    set_select2_value($('#form-incoming-import-oem-detail [name="model_id"]'), data.model, data.model)
+    $('#form-incoming-import-oem-detail [name="id"]').val(data.id);
+    $('#form-incoming-import-oem-detail [name="model"]').val(data.model_name);
+    $('#form-incoming-import-oem-detail [name="description"]').val(data.description);
+    $('#form-incoming-import-oem-detail [name="cbm"]').val(data.cbm);
+    $('#form-incoming-import-oem-detail [name="no_gr_sap"]').val(data.no_gr_sap);
+    $('#form-incoming-import-oem-detail [name="qty"]').val(data.qty).trigger('change');
+    $('#form-incoming-import-oem-detail [name="model"]').val(data.model);
+    $('#collapsible-detail').collapsible('open');
+  })
+
   dttable_incoming_detail.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -167,7 +182,8 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            showSwalAutoClose('',  "Incoming detail has been deleted.")
+            // swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
             dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -199,12 +215,8 @@
           type: 'PUT',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              // window.location.href = "{{ url('incoming-import-oem') }}"
-            }) // alert success
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('', result.message)
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
@@ -235,13 +247,12 @@
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok reload datatable
-              dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-              $("#form-incoming-import-oem-detail")[0].reset();
-              $('#form-incoming-import-oem-detail [name="model_id"]').trigger('change')
-            }) // alert success
+          showSwalAutoClose('', data.message)
+          dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          $("#form-incoming-import-oem-detail")[0].reset();
+          $('#form-incoming-import-oem-detail [name="id"]').val('');
+          set_select2_value('#form-incoming-import-oem-detail [name="model_id"]', '', '')
+          set_select2_value('#form-incoming-import-oem-detail [name="storage_id"]', '', '')
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

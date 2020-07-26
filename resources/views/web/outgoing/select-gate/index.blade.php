@@ -66,7 +66,7 @@
             </div>
             </div>
         </div>
-        <div class="col s12">
+        {{-- <div class="col s12">
         <div class="container">
             <div class="section pt-0">
                 <div class="card">
@@ -92,18 +92,6 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                   {{--  <tr>
-                                      <td>1.</td>
-                                      <td>Waiting Loading</td>
-                                      <td>B 9101 UEI SANIKIN</td>
-                                      <td>Jakarta-Manado <br>Jakarta-Manado</td>
-                                      <td>WINDU JAYA UTAMA, PT.</td>
-                                      <td>CONT 40 (HC)</td>
-                                      <td>63.685</td>
-                                      <td>65.000</td>
-                                      <td>1.315</td>
-                                      <td></td>
-                                    </tr> --}}
                                   </tbody>
                               </table>
                             </div>
@@ -116,7 +104,7 @@
                 </div>
             </div>
             </div>
-        </div>
+        </div> --}}
         <div class="content-overlay"></div>
     </div>
 </div>
