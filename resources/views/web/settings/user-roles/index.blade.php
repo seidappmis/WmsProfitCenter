@@ -121,8 +121,8 @@
             type: 'DELETE',
             dataType: 'json',
           })
-          .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+          .done(function(result) {
+            showSwalAutoClose("Success", result.message);
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {

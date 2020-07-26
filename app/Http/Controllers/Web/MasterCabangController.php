@@ -150,6 +150,8 @@ class MasterCabangController extends Controller
           DB::raw("long_description AS text")
         );
 
+        $query->orderBy('text');
+
         return get_select2_data($request, $query);
     }
 
@@ -160,6 +162,8 @@ class MasterCabangController extends Controller
           DB::raw("CONCAT('[', short_description, '] - ', long_description) AS text")
         );
 
+        $query->orderBy('text');
+
         return get_select2_data($request, $query);
     }
 
@@ -169,6 +173,8 @@ class MasterCabangController extends Controller
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT(short_description, '-', long_description) AS text")
         );
+
+        $query->orderBy('text');
 
         $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
@@ -181,6 +187,8 @@ class MasterCabangController extends Controller
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT('[', short_description, '] ', long_description) AS text")
         )->where('hq', '!=', '1');
+
+        $query->orderBy('text');
 
         return get_select2_data($request, $query);
     }

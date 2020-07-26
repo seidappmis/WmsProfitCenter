@@ -148,7 +148,7 @@
       // Loading region data
       $('#form-user-manager [name="kode_customer"]').select2({
          placeholder: '-- Select Branch--',
-         ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+         ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
       });
       $('#form-user-manager [name="roles_id"]').select2({
          placeholder: '-- Select Role --',
@@ -156,11 +156,11 @@
       });
       $('#form-user-manager [name="area"]').select2({
          placeholder: '-- Select Area --',
-         ajax: get_select2_ajax_options('/master-area/select2-areas')
+         ajax: get_select2_ajax_options('/master-area/select2-areas-all')
       });
       $('#select-cabang').select2({
          placeholder: '-- Select Branch --',
-         ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+         ajax: get_select2_ajax_options('/user-manager/select2-all-cabang')
       });
       @if(!empty($user))
       $('#btn-add-branch').click(function(event) {
