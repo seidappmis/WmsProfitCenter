@@ -18,6 +18,7 @@ class SelectGateController extends Controller
           ;
         })
         ->whereRaw('tr_gate.area = ?', [$request->input('area')])
+        ->orderBy('tr_gate.gate_number')
         ->get();
 
       return $gates;

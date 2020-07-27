@@ -57,12 +57,9 @@
           type: 'POST',
           data: $(form).serialize(),
         })
-        .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-list') }}" + '/' + data.id + '/edit';
-            }) // alert success
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('Success', result.message)
+          window.location.href = "{{ url('picking-list') }}" + '/' + result.data.id + '/edit';
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\MasterDriver;
 use App\Models\DriverRegistered;
+use App\Models\MasterDriver;
+use App\Models\MasterVehicleExpedition;
+use DB;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
@@ -20,8 +22,8 @@ class IdCardScanController extends Controller
     $driver = MasterDriver::findOrFail($id);
 
     $driverRegistered = DriverRegistered::where('driver_id', $id)
-    ->whereNull('datetime_out')
-    ->first();
+      ->whereNull('datetime_out')
+      ->first();
 
     if (!empty($driverRegistered)) {
       return ['status' => false, 'message' => 'ID Driver ' . $id . ' Already Checkin in area : ' . $driverRegistered->area . '!!'];
@@ -41,7 +43,7 @@ class IdCardScanController extends Controller
     $storeDateTime = date('Y-m-d H:i:s');
 
     $driverRegistered                      = new DriverRegistered;
-    $driverRegistered->id                  = Uuid::uuid4();;
+    $driverRegistered->id                  = Uuid::uuid4();
     $driverRegistered->driver_id           = $request->input('driver_id');
     $driverRegistered->driver_name         = $request->input('driver_name');
     $driverRegistered->expedition_code     = $request->input('expedition_code');
@@ -62,5 +64,28 @@ class IdCardScanController extends Controller
     $driverRegistered->save();
 
     return $driverRegistered;
+  }
+
+  public function getSelect2VehicleNumber(Request $request)
+  {
+    $query = MasterVehicleExpedition::select(
+      DB::raw("vehicle_number AS id"),
+      DB::raw("vehicle_number AS text"),
+      'tr_vehicle_type_detail.vehicle_description',
+      'tr_vehicle_type_detail.vehicle_code_type',
+      'tr_vehicle_type_detail.vehicle_group_id',
+      'tr_vehicle_type_detail.cbm_min',
+      'tr_vehicle_type_detail.cbm_max'
+    )->toBase();
+
+    $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
+
+    if (!empty($request->input('expedition_code'))) {
+      $query->where('expedition_code', $request->input('expedition_code'));
+    }
+
+    $query->orderBy('vehicle_number');
+
+    return get_select2_data($request, $query);
   }
 }

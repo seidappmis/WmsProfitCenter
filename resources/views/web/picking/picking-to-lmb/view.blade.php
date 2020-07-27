@@ -50,7 +50,7 @@
                         </table>
                         {!! get_button_save('Send Manifest', 'btn-send-manifest ' . ($lmbHeader->send_manifest ? 'hide' : '')) !!}
                         {!! get_button_save('Print', 'btn-print-manifest ' . ($lmbHeader->send_manifest ? '' : 'hide')) !!}
-                        {!! get_button_cancel(url('picking-to-lmb'), 'Back') !!}
+                        {!! get_button_cancel(url('picking-to-lmb'), 'Back', '') !!}
 
                         <hr>
                         
@@ -95,6 +95,17 @@
 </div>
 @endsection
 
+@push('page-modal')
+<!-- Modal Structure -->
+<div id="modal-send-manifest" class="modal">
+  <form id="form-send-manifest">
+  <div class="modal-content">
+    @include('web.picking.picking-to-lmb._modal_send_manifest')
+  </div>
+  </form>
+</div>
+@endpush
+
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
 </script>
@@ -104,21 +115,38 @@
 <script type="text/javascript">
    $('.btn-send-manifest').click(function(event) {
      /* Act on the event */
-     $.ajax({
+      $.ajax({
+        url: '{{ url("picking-to-lmb/" . $lmbHeader->driver_register_id) }}',
+        type: 'GET',
+      })
+      .done(function(result) { // selesai dan berhasil
+
+        $('#modal-send-manifest').modal('open')
+      })
+      .fail(function(xhr) {
+          showSwalError(xhr) // Custom function to show error with sweetAlert
+      });
+   });
+
+   $('#form-send-manifest').validate({
+    submitHandler: function(form) {
+      $.ajax({
           url: '{{ url("picking-to-lmb/" . $lmbHeader->driver_register_id . "/send-manifest") }}',
           type: 'POST',
         })
-        .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              $('.btn-send-manifest').hide();
-              $('.btn-print-manifest').removeClass('hide');
-            }) // alert success
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('Success', result.message)
+          // swal("Good job!", "You clicked the button!", "success")
+          //   .then((result) => {
+          //     // Kalau klik Ok redirect ke index
+          //   }) // alert success
+          $('.btn-send-manifest').hide();
+          $('.btn-print-manifest').removeClass('hide');
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
-   });
+    }
+   })
 </script>
 @endpush

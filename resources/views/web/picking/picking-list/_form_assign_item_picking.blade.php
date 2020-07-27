@@ -73,6 +73,17 @@
   </table>
 </div>
 
+@push('page-modal')
+<!-- Modal Structure -->
+<div id="modal-split-concept" class="modal">
+  <form id="form-split-concept">
+  <div class="modal-content">
+    @include('web.picking.picking-list._form_split_concept')
+  </div>
+  </form>
+</div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
   var dtdatatable_picking;
@@ -161,14 +172,14 @@
             },
             className: "datatable-checkbox-cell"
           },
-          {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
-          {data: 'quantity', name: 'quantity', className: 'detail'},
-          {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
-          {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
-          {data: 'model', name: 'model', className: 'detail'},
-          {data: 'quantity', name: 'quantity', className: 'detail'},
-          {data: 'cbm', name: 'cbm', className: 'detail'},
-          {data: 'action', name: 'action', className: 'detail'},
+          {data: 'invoice_no', className: 'detail'},
+          {data: 'line_no', className: 'detail'},
+          {data: 'delivery_no', className: 'detail'},
+          {data: 'delivery_items', className: 'detail'},
+          {data: 'model', className: 'detail'},
+          {data: 'quantity', className: 'detail'},
+          {data: 'cbm', className: 'detail'},
+          {data: 'action', className: 'detail'},
       ]
     });
 
@@ -185,6 +196,35 @@
       dtdatatable_picking.row.add(data).draw()
       dtdatatable_do_for_picking.ajax.reload(null, false)
     })
+
+    dtdatatable_do_for_picking.on('click', '.btn-split', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = dtdatatable_do_for_picking.row(tr).data();
+      console.log(data)
+      var row = '<tr>';
+      row += '<td>' + data.invoice_no + '</td>';
+      row += '<td>' + data.line_no + '</td>';
+      row += '<td>' + data.delivery_no + '</td>';
+      row += '<td>' + data.delivery_items + '</td>';
+      row += '<td>' + data.quantity + '</td>';
+      row += '<td>' + data.cbm + '</td>';
+      row += '<td><input type="text" name="total_split" value="2"></td>';
+      row += '<td><span class="waves-effect waves-light indigo btn-small btn-run-split-concept" onclick="runSplitConceptTable(this)">Run</span></td>';
+      row += '</tr>';
+
+      $('#form-split-concept [name="invoice_no"]').val(data.invoice_no)
+      $('#form-split-concept [name="line_no"]').val(data.line_no)
+      $('#form-split-concept [name="quantity"]').val(data.quantity)
+      $('#text-split-cbm-per-item').text(data.cbm/data.quantity)
+
+      $('#item-split-table tbody').empty();
+      $('#item-split-table tbody').append(row);
+      runSplitConceptTable($('.btn-run-split-concept'))
+      $('#modal-split-concept').modal('open')
+    });
+
   });
 
   function multiPickSelectedItems(ths){

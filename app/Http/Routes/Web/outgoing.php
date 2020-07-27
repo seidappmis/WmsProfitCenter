@@ -7,6 +7,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('upload-concept/upload-csv', 'Web\UploadConceptController@uploadCsv');
 
   // IDCard Scan
+  Route::get('idcard-scan/select2-vehicle-number', 'Web\IdCardScanController@getSelect2VehicleNumber');
   Route::resource('idcard-scan', 'Web\IdCardScanController');
 
   // Assign Vehicles

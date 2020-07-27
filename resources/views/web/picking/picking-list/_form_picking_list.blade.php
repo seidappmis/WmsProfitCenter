@@ -84,7 +84,7 @@
                     <input type="hidden" name="driver_name">
                 </div>
                 <div class="input-field col s12 m6">
-                    <input value="" id="notag" type="text" class="validate" name="notag">
+                    <input value="" id="driver_name" type="text" class="validate" name="driver_name">
                 </div>
             </td>
         </tr>
@@ -92,7 +92,7 @@
             <td>Vehicle Type</td>
             <td>
                 <div class="input-field col s12">
-                    <select name="vehicle_code_type" class="select2-data-ajax browser-default">
+                    <select name="vehicle_code_type" class="select2-data-ajax browser-default" required="">
                     </select>
                 </div>
             </td>
@@ -118,7 +118,7 @@
                     </select>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input value="" id="notag" type="text" class="validate" name="notag">
+                    <input value="" id="vehicle_number" type="text" class="validate" name="vehicle_number">
                 </div>
             </td>
             <td></td>
@@ -174,6 +174,8 @@
       set_hq_select_vehicle_type()
       set_hq_select_vehicle_number()
       set_hq_select_driver_name()
+      $('#select-gate-number').parent().removeClass('hide')
+      $('#input-gate-number').parent().addClass('hide')
 
       $('#form-picking-list [name="driver_id"]').change(function(event) {
           /* Act on the event */
@@ -181,7 +183,7 @@
           $('#form-picking-list [name="driver_name"]').val(data.text)
       });
 
-      $('#form-picking-list [name="vehicle_number"]').change(function(event) {
+      $('#form-picking-list select[name="vehicle_number"]').change(function(event) {
           /* Act on the event */
           var data = $(this).select2('data')[0]
           $('#form-picking-list [name="driver_register_id"]').val(data.driver_register_id)
@@ -202,7 +204,7 @@
 
       $('#form-picking-list [name="vehicle_code_type"]').change(function(event) {
           /* Act on the event */
-          set_select2_value('#form-picking-list [name="vehicle_number"]', '', '')
+          set_select2_value('#form-picking-list select[name="vehicle_number"]', '', '')
           set_hq_select_vehicle_number({vehicle_code_type: $(this).val(), expedition_code: $('#form-picking-list [name="expedition_code"]').val()})
       });
 
@@ -212,13 +214,9 @@
         // Ambil Sendiri => hide expedition detail
         if ($(this).val() == 'AS') {
           set_select2_value('#form-picking-list [name="destination_number"]', '', '')
-          $('#select-gate-number').parent().addClass('hide')
-          $('#input-gate-number').parent().removeClass('hide')
           $('#table-expedition-detail').hide();
         } else {
           $('.destination-input-wrapper').removeClass('hide');
-          $('#select-gate-number').parent().removeClass('hide')
-          $('#input-gate-number').parent().addClass('hide')
           $('#table-expedition-detail').show();
         }
     });
@@ -234,7 +232,7 @@
     }
 
     function set_hq_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
-        $('#form-picking-list [name="vehicle_number"]').select2({
+        $('#form-picking-list select[name="vehicle_number"]').select2({
             placeholder: '-- Select Vehicle No. --',
             ajax: get_select2_ajax_options('/picking-list/select2-vehicle-number', filter)
           })
@@ -268,7 +266,7 @@
       set_branch_select_ship_to_city()
       set_branch_select_expedition()
       set_branch_select_vehicle_type()
-      $('#form-picking-list [name="vehicle_number"]').attr('required', 'required');
+      $('#form-picking-list select[name="vehicle_number"]').attr('required', 'required');
       set_branch_select_vehicle_number()
       $('#form-picking-list [name="driver_id"]').attr('required', 'required');
       set_branch_select_driver_name()
@@ -278,7 +276,7 @@
           var data = $(this).select2('data')[0]
           $('#form-picking-list [name="driver_name"]').val(data.text)
       });
-      $('#form-picking-list [name="vehicle_number"]').change(function(event) {
+      $('#form-picking-list select[name="vehicle_number"]').change(function(event) {
           /* Act on the event */
           var data = $(this).select2('data')[0]
           set_select2_value('#form-picking-list [name="driver_id"]', '', '')
@@ -296,7 +294,7 @@
       });
       $('#form-picking-list [name="vehicle_code_type"]').change(function(event) {
           /* Act on the event */
-          set_select2_value('#form-picking-list [name="vehicle_number"]', '', '')
+          set_select2_value('#form-picking-list select[name="vehicle_number"]', '', '')
           set_branch_select_vehicle_number({vehicle_code_type: $(this).val(), expedition_code: $('#form-picking-list [name="expedition_code"]').val()})
       });
       $('#form-picking-list [name="city_code"]').change(function(event) {
@@ -319,7 +317,7 @@
     }
 
     function set_branch_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
-        $('#form-picking-list [name="vehicle_number"]').select2({
+        $('#form-picking-list select[name="vehicle_number"]').select2({
             placeholder: '-- Select Vehicle No. --',
             ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle-number', filter)
           })
@@ -365,7 +363,7 @@
   //   placeholder: '-- Select Vehicle --',
   //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
   // })
-  // $('#form-picking-list [name="vehicle_number"]').select2({
+  // $('#form-picking-list select[name="vehicle_number"]').select2({
   //   placeholder: '-- Select Vehicle No. --',
   //   ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
   // })
