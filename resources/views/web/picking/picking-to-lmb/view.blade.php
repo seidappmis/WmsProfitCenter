@@ -142,6 +142,7 @@
           //   }) // alert success
           $('.btn-send-manifest').hide();
           $('.btn-print-manifest').removeClass('hide');
+          $('#modal-send-manifest').modal('close')
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

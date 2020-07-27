@@ -36,13 +36,13 @@
                               </tr>
                           </thead>
                           <tbody>
-                            <tr>
+                            {{-- <tr>
                               <td>JKT-180903-053</td>
                               <td>PUTRA NAGITA PRATAMA, PT.</td>
                               <td>BOGOR</td>
                               <td>-</td>
                               <td>{!! get_button_view(url('conform-manifest/1'), 'View for Conform') !!}</td>
-                            </tr>
+                            </tr> --}}
                           </tbody>
                       </table>
                     </div>

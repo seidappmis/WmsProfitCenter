@@ -28,7 +28,9 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Detail</div>
                       <div class="collapsible-body padding-1">
                         @include('web.outgoing.manifest-regular._form_manifest')
+                        @if($lmbHeader->do_details->count() > 0) 
                         @include('web.outgoing.manifest-regular._form_assign_do')
+                        @endif
                       </div>
                     </li>
                   </ul>
@@ -51,6 +53,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+    set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+  });
     $("#form-assign-do").validate({
       submitHandler: function(form) {
         var selected_list = [];
@@ -59,16 +65,17 @@
           selected_list.push(row_data);
         });
         $.ajax({
-          url: '{{ url("manifest-regular/" . $manifestHeader->driver_register_id . "/assign-do") }}',
+          url: '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/assign-do") }}',
           type: 'POST',
           data: $(form).serialize() + '&selected_list=' + JSON.stringify(selected_list),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('manifest-regular') }}";
-            }) // alert success
+          window.location.href = '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/edit") }}'
+          // swal("Good job!", "You clicked the button!", "success")
+          //   .then((result) => {
+          //     // Kalau klik Ok redirect ke index
+          //     window.location.href = "{{ url('manifest-regular') }}";
+          //   }) // alert success
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

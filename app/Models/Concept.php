@@ -14,4 +14,5 @@ class Concept extends Model
   {
     return $this->belongsTo('App\Models\MasterDestination', 'destination_number', 'destination_number');
   }
+
 }

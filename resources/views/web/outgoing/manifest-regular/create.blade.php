@@ -61,7 +61,7 @@
           swal("Good job!", "You clicked the button!", "success")
             .then((result) => {
               // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('manifest-regular') }}" + '/' + data.driver_register_id + '/edit';
+              window.location.href = "{{ url('manifest-regular') }}" + '/' + data.do_manifest_no + '/edit';
             }) // alert success
         })
         .fail(function(xhr) {

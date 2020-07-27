@@ -1,6 +1,7 @@
 <h4 class="card-title mt-2">Assign DO</h4>
 <hr>
 <form class="form-table" id="form-assign-do">
+  <input type="hidden" name="do_manifest_no" value="{{$manifestHeader->do_manifest_no}}">
     <table>
         <tr>
             <td width="45%" style="vertical-align: top;">
@@ -40,7 +41,7 @@
                 <td>DO Internal</td>
                 <td>
                   <div class="input-field col s12">
-                  <input type="text" name="do_internal" class="validate" required="">
+                  <input type="text" name="do_internal" class="validate">
                   </div> 
                 </td>
             </tr>
@@ -48,7 +49,7 @@
                 <td>Reservasi No</td>
                 <td>
                   <div class="input-field col s12">
-                  <input type="text" name="reservasi_no" class="validate" required="">
+                  <input type="text" name="reservasi_no" class="validate">
                   </div> 
                 </td>
             </tr>
@@ -121,12 +122,11 @@
           $(this).toggleClass('selected');
         });
 
-      // Storage Location
-      $('#form-assign-do [name="ship_to"]').select2({
-         placeholder: '-- Select Ship City --',
-         allowClear: true,
-         ajax: get_select2_ajax_options('/storage-master/select2-storage')
-      });
+        $('#form-assign-do [name="ship_to"]').select2({
+        placeholder: '-- Select Ship to City --',
+        allowClear: true,
+        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}'})
+      })
    });
 
    function pickRowData(){

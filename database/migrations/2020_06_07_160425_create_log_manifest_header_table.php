@@ -59,7 +59,7 @@ class CreateLogManifestHeaderTable extends Migration
       $table->integer('created_by')->nullable();
       $table->integer('updated_by')->nullable();
 
-      $table->primary('driver_register_id');
+      $table->primary('do_manifest_no');
     });
   }
 

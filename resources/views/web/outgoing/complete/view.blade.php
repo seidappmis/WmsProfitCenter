@@ -51,7 +51,7 @@
                               @foreach($manifestHeader->details AS $key => $manifestDetail)
                               <tr>
                                 @if($key == 0)
-                                <td rowspan="{{$manifestHeader->details->count()}}"></td>
+                                <td rowspan="{{$manifestHeader->details->count()}}">{{$manifestDetail->do_manifest_no}}</td>
                                 @endif
                                 <td>{{$manifestDetail->invoice_no}}</td>
                                 <td>{{$manifestDetail->line_no}}</td>
@@ -61,7 +61,9 @@
                                 <td>{{$manifestDetail->quantity}}</td>
                                 <td>{{$manifestDetail->cbm}}</td>
                                 <td>-</td>
-                                <td><a href="#" class="btn btn-small">Overload</a></td>
+                                <td>
+                                  {{-- <a href="#" class="btn btn-small">Overload</a> --}}
+                                </td>
                               </tr>
                               @endforeach
                             </tbody>
@@ -70,7 +72,7 @@
                       <!-- datatable ends -->
                       <div class="mt-2">
                         {!!get_button_save('Complete', 'btn-complete')!!}
-                        {!! get_button_cancel(url('complete'), 'Back') !!}
+                        {!! get_button_cancel(url('complete'), 'Back', '') !!}
                       </div>
                     </div>
                 </div>

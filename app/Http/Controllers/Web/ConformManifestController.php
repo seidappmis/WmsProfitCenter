@@ -17,7 +17,11 @@ class ConformManifestController extends Controller
   public function listManifestHQ(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = LogManifestHeader::select(
+        'log_manifest_header.*'
+      )->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
+      ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
+      ->groupBy('log_manifest_header.do_manifest_no');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -41,7 +45,7 @@ class ConformManifestController extends Controller
   public function listManifestBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = LogManifestHeader::where('do_manifest_no', 'safd');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

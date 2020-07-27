@@ -53,6 +53,26 @@ class PickingToLMBController extends Controller
       return sendSuccess('Seat Loading Quantity', $details);
     }
 
+    $data['rs_loading_quantity'] = $data['lmbHeader']
+      ->details()
+      ->selectRaw('
+        wms_lmb_detail.invoice_no,
+        wms_lmb_detail.delivery_no,
+        wms_lmb_detail.model,
+        COUNT(serial_number) AS qty_loading,
+        wms_lmb_detail.code_sales,
+        wms_pickinglist_detail.quantity
+      ')
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_lmb_detail.picking_id')
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+        $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
+      })
+      ->groupBy('delivery_no', 'model')
+      ->get();
+    ;
+
     return view('web.picking.picking-to-lmb.view', $data);
   }
 
