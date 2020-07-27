@@ -11,7 +11,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('finish-good-production') }}">Conform Manifest</a></li>
-                    <li class="breadcrumb-item active">ARV-WHHYP-181003-019</li>
+                    <li class="breadcrumb-item active">{{$manifestHeader->do_manifest_no}}</li>
                 </ol>
             </div>
             <div class="col s12 m2">
@@ -79,7 +79,25 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @foreach($manifestHeader->details AS $key => $manifestDetail)
                               <tr>
+                                <td>{{ $manifestDetail->do_manifest_no }}</td>
+                                <td>{{ $manifestDetail->expedition_name }}</td>
+                                <td>{{ $manifestHeader->city_name }}</td>
+                                <td>{{ $manifestDetail->delivery_no }}</td>
+                                <td>{{ $manifestDetail->internal_do }}</td>
+                                <td>{{ $manifestDetail->model }}</td>
+                                <td>{{ $manifestDetail->quantity }}</td>
+                                <td>{{ $manifestDetail->ship_to }}</td>
+                                <td>
+                                  <label>
+                                      <input type="checkbox" />
+                                      <span class="red-text"></span>
+                                    </label>
+                                </td>
+                              </tr>
+                              @endforeach
+                              {{-- <tr>
                                 <td rowspan="4">JKT-180903-053</td>
                                 <td rowspan="4">PUTRA NAGITA PRATAMA, PT.</td>
                                 <td rowspan="4">BOGOR</td>
@@ -136,7 +154,7 @@
                                     </label>
                                   </th>
                                 </td>
-                              </tr>
+                              </tr> --}}
                             </tbody>
                         </table>
                       </div>

@@ -20,8 +20,8 @@ class ConformManifestController extends Controller
       $query = LogManifestHeader::select(
         'log_manifest_header.*'
       )->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
-      ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
-      ->groupBy('log_manifest_header.do_manifest_no');
+        ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('log_manifest_header.do_manifest_no');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -33,7 +33,7 @@ class ConformManifestController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->driver_register_id), 'View for Conform');
+          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View for Conform');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -57,7 +57,7 @@ class ConformManifestController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->driver_register_id), 'View for Conform');
+          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View for Conform');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -65,4 +65,12 @@ class ConformManifestController extends Controller
       return $datatables->make(true);
     }
   }
+
+  public function viewForConform($id)
+  {
+    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    
+    return view('web.incoming.conform-manifest.view', $data);
+  }
+
 }

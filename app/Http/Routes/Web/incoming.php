@@ -15,7 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('conform-manifest', 'Web\ConformManifestController@index');
   Route::get('conform-manifest/from-manifest-hq', 'Web\ConformManifestController@listManifestHQ');
   Route::get('conform-manifest/from-manifest-branch', 'Web\ConformManifestController@listManifestBranch');
-  Route::view('conform-manifest/{id}', 'web.incoming.conform-manifest.view');
+  Route::get('conform-manifest/{id}', 'Web\ConformManifestController@viewForConform');
 
   // Billing Return
   Route::get('billing-return', 'Web\BillingReturnController@index');
