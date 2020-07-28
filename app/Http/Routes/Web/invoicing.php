@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::view('list-of-unconfirm-do', 'web.invoicing.list-of-unconfirm-do.index');
+  Route::get('list-of-unconfirm-do', 'Web\ListOfUnconfirmDOController@index');
 
   Route::view('receipt-invoice', 'web.invoicing.receipt-invoice.index');
   Route::view('receipt-invoice/create', 'web.invoicing.receipt-invoice.create');
