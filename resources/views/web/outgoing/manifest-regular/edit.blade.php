@@ -28,6 +28,7 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Detail</div>
                       <div class="collapsible-body padding-1">
                         @include('web.outgoing.manifest-regular._form_manifest')
+                        @include('web.outgoing.manifest-regular._list_do')
                         @if($lmbHeader->do_details->count() > 0) 
                         @include('web.outgoing.manifest-regular._form_assign_do')
                         @endif

@@ -28,23 +28,23 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <div class="row">
+                      <div class="row mb-0">
                         <div class="col s12 m3">
                           <a class="waves-effect waves-light btn blue darken-2">Hold/Transit</a>
                           <div class="input-field col s12">
-                            <input id="delivery" type="text" class="validate" name="delivery" required>
+                            <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
                             <label for="delivery"></label>
                           </div>
                         </div>
                         <div class="col s12 m4 p-0">
                           <a class="waves-effect waves-light btn blue darken-2">Conform</a>
-                          <div class="row">
+                          <div class="row mb-0">
                             <div class="input-field col s12 m6">
-                              <input id="delivery" type="text" class="validate" name="delivery" required>
+                              <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
                               <label for="delivery">Arrival Date</label>
                             </div>
                             <div class="input-field col s12 m6">
-                              <input id="delivery" type="text" class="validate" name="delivery" required>
+                              <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
                               <label for="delivery">Unloading Date</label>
                             </div>
                           </div>

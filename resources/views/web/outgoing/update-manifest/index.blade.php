@@ -70,10 +70,7 @@
         set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
         $('#area_filter').attr('disabled','disabled')
       @endif
-    $('.btn-search-manifest').click(function(event) {
-      /* Act on the event */
-     
-    });
+
     $("#form-search-manifest").validate({
       submitHandler: function(form) {
         $.ajax({
@@ -83,6 +80,18 @@
         })
         .done(function(result) { // selesai dan berhasil
           if (result.status) {
+            var manifestHeader = result.data.logManifestHeader;
+            $('#form-update-manifest [name="do_manifest_no"]').val(manifestHeader.do_manifest_no);
+            $('#form-update-manifest [name="do_manifest_date"]').val(manifestHeader.do_manifest_date);
+            $('#form-update-manifest [name="vehicle_number"]').val(manifestHeader.vehicle_number);
+            $('#form-update-manifest [name="expedition_name"]').val(manifestHeader.expedition_name);
+            $('#form-update-manifest [name="driver_name"]').val(manifestHeader.driver_name);
+            $('#form-update-manifest [name="vehicle_description"]').val(manifestHeader.vehicle_description);
+            $('#form-update-manifest [name="city_name"]').val(manifestHeader.city_name);
+            $('#form-update-manifest [name="container_no"]').val(manifestHeader.container_no);
+            $('#form-update-manifest [name="seal_no"]').val(manifestHeader.seal_no);
+            $('#form-update-manifest [name="pdo_no"]').val(manifestHeader.pdo_no);
+
             $('#form-search-manifest').addClass('hide');
             $('.form-update-manifest-wrapper').removeClass('hide');
           } else {
