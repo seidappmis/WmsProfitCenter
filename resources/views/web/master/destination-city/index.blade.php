@@ -117,7 +117,13 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            swal({
+              icon: "success",
+              title: "Good job!",
+              text: "You clicked the button!",
+              timer: 1000,
+              buttons: false
+            }) // alert success
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {

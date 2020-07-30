@@ -38,6 +38,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
  	$("#form-destination-city").validate({
       submitHandler: function(form) {
         $.ajax({
@@ -46,7 +50,13 @@
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
+          swal({
+            icon: "success",
+            title: "Good job!",
+            text: "You clicked the button!",
+            timer: 1000,
+            buttons: false
+          })
             .then((result) => { 
               // Kalau klik Ok redirect ke index
               window.location.href = "{{ url('destination-city') }}"
