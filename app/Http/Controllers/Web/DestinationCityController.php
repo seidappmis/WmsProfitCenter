@@ -53,8 +53,8 @@ class DestinationCityController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'city_code'  => 'required|unique:log_destination_city|max:10',
-      'city_name'  => 'required|max:100',
+      'city_code'  => 'required|unique:log_destination_city|digits_between:1,10',
+      'city_name'  => 'required|alpha|max:100',
     ]);
 
     $destinationCity            = new DestinationCity;
@@ -98,8 +98,8 @@ class DestinationCityController extends Controller
   public function update(Request $request, $id)
   {
     $request->validate([
-      'city_code'  => 'required|max:10',
-      'city_name'  => 'required|max:100',
+      'city_code'  => 'required|digits_between:1,10',
+      'city_name'  => 'required|alpha|max:100',
     ]);
 
     $destinationCity            = DestinationCity::findOrFail($id);

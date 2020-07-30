@@ -54,7 +54,7 @@ class DestinationCityOfBranchController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'city_name' => 'required|max:100',
+      'city_name' => 'required|alpha|max:100',
     ]);
 
     $destinationCity              = new DestinationCityOfBranch;
@@ -98,7 +98,7 @@ class DestinationCityOfBranchController extends Controller
   public function update(Request $request, $id)
   {
     $request->validate([
-      'city_name' => 'required|max:100',
+      'city_name' => 'required|alpha|max:100',
     ]);
 
     $destinationCity = DestinationCityOfBranch::findOrFail($id);
