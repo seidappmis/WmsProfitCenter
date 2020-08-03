@@ -1,10 +1,11 @@
-<form class="form-table" id="form-incoming-import-oem-detail">
+<form class="form-table hide" id="form-incoming-import-oem-detail">
   <table width="100%">
     <tr>
-      <td>Model</td>
+      <td width="50%">Model</td>
       <td>
         <div class="input-field col s12">
           <input type="hidden" name="arrival_no_header" value="{{$incomingManualHeader->arrival_no}}">
+          <input type="hidden" name="id">
           <input type="hidden" name="model">
           <select name="model_id" required="" class="select2-data-ajax browser-default">
             <option value=""></option>
@@ -16,7 +17,7 @@
   <br>
   <table width="100%">
     <tr>
-      <td>Description</td>
+      <td width="50%">Description</td>
       <td>
         <div class="input-field col s12">
           <input type="text" class="validate" name="description">
@@ -30,7 +31,7 @@
             <td>Qty</td>
             <td>
               <div class="input-field col s12">
-                <input type="text" class="validate" name="qty" required>
+                <input type="number" class="validate" name="qty" min="1" required>
               </div>
             </td>
             <td>CBM</td>
@@ -109,10 +110,18 @@
      $('#form-incoming-import-oem-detail [name="cbm"]').val(data.cbm);
    });
    $('#form-incoming-import-oem-detail [name="qty"]').keyup(function(event) {
-     var cbm = $('#form-incoming-import-oem-detail [name="cbm"]').val();
-     var total_cbm = 0;
-     total_cbm = $(this).val()*cbm;
-     $('#form-incoming-import-oem-detail [name="total_cbm"]').val(total_cbm);
+     countTotalCbm(this)
    });
+
+   $('#form-incoming-import-oem-detail [name="qty"]').change(function(event) {
+     countTotalCbm(this)
+   });
+
+   function countTotalCbm(ths){
+    var cbm = $('#form-incoming-import-oem-detail [name="cbm"]').val();
+     var total_cbm = 0;
+     total_cbm = ($(ths).val()*cbm).toFixed(3);
+     $('#form-incoming-import-oem-detail [name="total_cbm"]').val(total_cbm);
+   }
 </script>
 @endpush

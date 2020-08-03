@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\MasterDriver;
+use App\Models\MasterExpedition;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,6 +112,7 @@ class MasterDriverController extends Controller
   {
     $request->validate([
       'expedition_code'    => 'required|max:3',
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     /**
@@ -153,8 +155,15 @@ class MasterDriverController extends Controller
           $masterDriver->save();
           return $masterDriver();
 =======
+=======
+>>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
       'driving_license_no' => 'required|max:50',
     ]);
+
+    if (!MasterExpedition::where('code', $request->input('expedition_code'))->first()->status_active) {
+      return sendError('Expedition inactive!');
+    }
+
     $masterDriver = new MasterDriver;
 
     $masterDriver->expedition_code = $request->input('expedition_code');
@@ -193,7 +202,7 @@ class MasterDriverController extends Controller
 
     $masterDriver->save();
 
-    return $masterDriver;
+    return sendSuccess('Driver successfull add!', $masterDriver);
   }
 
   /**
@@ -251,7 +260,7 @@ class MasterDriverController extends Controller
       $masterDriver->photo_name = $photo_name;
 
     }
-    $masterDriver->expedition_code      = $request->input('expedition_code');
+    // $masterDriver->expedition_code      = $request->input('expedition_code');
     $masterDriver->driver_id            = $request->input('driver_id');
     $masterDriver->driver_name          = $request->input('driver_name');
     $masterDriver->driving_license_type = $request->input('driving_license_type');
@@ -266,7 +275,7 @@ class MasterDriverController extends Controller
     $masterDriver->photo_name           = $request->input('photo_name');
 
     $masterDriver->save();
-    return $masterDriver();
+    return $masterDriver;
   }
 
   /**

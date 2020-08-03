@@ -38,7 +38,7 @@ class CreateWmsBranchManifestHeaderTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            $table->string('vehicle_description', 150)->nullable();
+            // $table->string('vehicle_description', 150)->nullable();
             $table->string('kode_cabang', 20)->nullable();
             $table->tinyInteger('status_complete');
             $table->integer('urut_manifest');

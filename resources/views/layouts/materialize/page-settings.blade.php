@@ -111,7 +111,21 @@ function showSwalError(xhr){
        /* iterate through array or object */
        errorDetail += val[0];
   });
-  swal(xhr.responseJSON.message, errorDetail, "error")
+  swal({
+    title: xhr.responseJSON.message,
+    text: errorDetail,
+    timer: 1500,
+    buttons: false
+  })
+}
+
+function showSwalAutoClose(title, message){
+  swal({
+    title: title,
+    text: message,
+    timer: 1500,
+    buttons: false
+  })
 }
 
 function set_select2_value(selector, id, text) {

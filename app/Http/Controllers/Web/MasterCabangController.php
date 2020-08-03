@@ -55,7 +55,7 @@ class MasterCabangController extends Controller
     {
         $request->validate([
             'kode_customer'  => 'required|unique:log_cabang|max:8',
-            'kode_cabang'    => 'required|max:2',
+            'kode_cabang'    => 'required|unique:log_cabang|max:2',
             'sdes'  => 'max:3',
             'ldes'  => 'max:100',
             'region'  => 'max:100',
@@ -150,6 +150,20 @@ class MasterCabangController extends Controller
           DB::raw("long_description AS text")
         );
 
+        $query->orderBy('text');
+
+        return get_select2_data($request, $query);
+    }
+
+    public function getSelect2AllCabang(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("CONCAT('[', short_description, '] - ', long_description) AS text")
+        );
+
+        $query->orderBy('text');
+
         return get_select2_data($request, $query);
     }
 
@@ -159,6 +173,8 @@ class MasterCabangController extends Controller
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT(short_description, '-', long_description) AS text")
         );
+
+        $query->orderBy('text');
 
         $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
@@ -171,6 +187,8 @@ class MasterCabangController extends Controller
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT('[', short_description, '] ', long_description) AS text")
         )->where('hq', '!=', '1');
+
+        $query->orderBy('text');
 
         return get_select2_data($request, $query);
     }

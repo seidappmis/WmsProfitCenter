@@ -6,8 +6,8 @@ function get_button_view($url = '#', $label = "View", $class = "btn-view"){
 }
 
 // print
-function get_button_print($url = '#', $label = "Print"){
-  return '<a class="waves-effect waves-light btn btn-small green darken-4 btn-print" href="' . $url . '">' . $label . '</a>';
+function get_button_print($url = '#', $label = "Print", $class = "btn-print"){
+  return '<a class="waves-effect waves-light btn btn-small green darken-4 ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
 // send back
@@ -26,13 +26,13 @@ function get_button_delete($label = "Delete", $class = 'btn-delete'){
 }
 
 // save, update, submit, load
-function get_button_save($label = "Save", $class = 'btn-save'){
+function get_button_save($label = "Save", $class = 'btn-save mt-2'){
   return '<button type="submit" class="waves-effect waves-light indigo btn-small ' . $class . '">' . $label . '</button>';
 }
 
 // cancel, back
-function get_button_cancel($url = '#', $label = "Cancel", $class = ''){
-  return '<a class="waves-effect btn-flat btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
+function get_button_cancel($url = '#', $label = "Cancel", $class = 'mt-2'){
+  return '<a class="waves-effect waves-light indigo btn-small btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
 // cancel modal

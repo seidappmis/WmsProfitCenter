@@ -67,7 +67,9 @@
     });
 
     function set_form_data(){
+      @if(!empty($masterDriver->expedition_code))
         set_select2_value('#form-master-driver [name="expedition_code"]', '{{$masterDriver->expedition_code}}', '{{$masterDriver->expedition->expedition_name}}');
+        @endif
         $('#form-master-driver [name="expedition_code"]').attr('disabled', 'disabled');
         $('#form-master-driver [name="driving_license_type"]').val('{{$masterDriver->driving_license_type}}').trigger('change')
         $('select').formSelect();

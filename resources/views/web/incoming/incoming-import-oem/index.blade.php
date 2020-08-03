@@ -30,12 +30,12 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="col s12 m6">
                 <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action">
                   New Incoming Import/OEM
                 </a>
-              </div>
-            </div>
-            <div class="col s12 m3">
             </div>
         </div>
     @endcomponent
@@ -108,7 +108,7 @@
             d.area = $('#area_filter').val()
           }
     },
-    order: [1, 'asc'],
+    order: [1, 'desc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'arrival_no', name: 'arrival_no', className: 'detail'},
@@ -169,7 +169,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.", "success") // alert success
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {

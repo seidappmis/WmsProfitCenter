@@ -97,8 +97,25 @@ function is_file_exist_public($filepathInPublic)
 function limit_kalimat_wrap($kalimat, $panjang_max = 100, $wrap_length = 40)
 {
   if (strlen($kalimat) > $panjang_max) {
-    $kalimat = substr($kalimat, 0, $panjang_max)  . '...';
-    return wordwrap($kalimat,$wrap_length,"<br>\n");
+    $kalimat = substr($kalimat, 0, $panjang_max) . '...';
+    return wordwrap($kalimat, $wrap_length, "<br>\n");
   }
-  return wordwrap($kalimat,$wrap_length,"<br>\n");
+  return wordwrap($kalimat, $wrap_length, "<br>\n");
+}
+
+function sendError($message)
+{
+  return [
+    'status'  => false,
+    'message' => $message,
+  ];
+}
+
+function sendSuccess($message, $data)
+{
+  return [
+    'status'  => true,
+    'message' => $message,
+    'data'    => $data,
+  ];
 }

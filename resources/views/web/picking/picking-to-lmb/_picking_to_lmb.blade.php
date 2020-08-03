@@ -33,7 +33,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#picking-to-lmb-table').DataTable({
+  var dtdatatable_picking_to_lmb = $('#picking-to-lmb-table').DataTable({
         serverSide: true,
         scrollX: true,
         responsive: true,
@@ -54,5 +54,40 @@
             {data: 'action', className: 'center-align', orderable:false, searchable: false},
         ]
     });
+  dtdatatable_picking_to_lmb.on('click', '.btn-delete', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var tr = $(this).parent().parent();
+      var data = dtdatatable_picking_to_lmb.row(tr).data();
+      id = data.driver_register_id
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      swal({
+        title: "Are you sure?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Cancel It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{url('picking-to-lmb')}}' + '/' + id,
+            type: 'DELETE',
+          })
+          .done(function() { // Kalau ajax nya success
+            swal("Good job!", "You clicked the button!", "success") // alert success
+            dtdatatable_picking_to_lmb.ajax.reload(null, false); // reload datatable
+            dttable_picking_list.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+
+        }
+      })
+  });
 </script>
 @endpush

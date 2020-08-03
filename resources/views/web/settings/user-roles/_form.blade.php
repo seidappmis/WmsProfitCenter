@@ -12,7 +12,7 @@
     <!-- Check All -->
     <div class="row">
         <div class="input-field col s12 mb-2">
-            <label><input class="filled-in" type="checkbox" onClick="toggle(this)" /><span>Check All</span></label>
+            <label><input id="checkbox-check-all" class="filled-in" type="checkbox"/><span>Check All</span></label>
         </div>
     </div>
     <!-- Table Group Dashboard-->
@@ -32,7 +32,7 @@
                     <div class="input-field col s12 center-align">
                         <p>
                             <label>
-                                <input type="checkbox" class="filled-in" name="foo" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->view) ? 'checked' : ''}} />
+                                <input type="checkbox" class="filled-in" name="view[{{$module->id}}]" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->view) ? 'checked' : ''}} />
                                 <span></span>
                             </label>
                         </p>
@@ -42,7 +42,7 @@
                     <div class="input-field col s12 center-align">
                         <p>
                             <label>
-                                <input type="checkbox" class="filled-in" name="foo" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->edit) ? 'checked' : ''}} />
+                                <input type="checkbox" class="filled-in" name="edit[{{$module->id}}]" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->edit) ? 'checked' : ''}} />
                                 <span></span>
                             </label>
                         </p>
@@ -52,7 +52,7 @@
                     <div class="input-field col s12 center-align">
                         <p>
                             <label>
-                                <input type="checkbox" class="filled-in" name="foo" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->delete) ? 'checked' : ''}} />
+                                <input type="checkbox" class="filled-in" name="delete[{{$module->id}}]" {{(!empty($role_details[$module->id]) && $role_details[$module->id]->delete) ? 'checked' : ''}} />
                                 <span></span>
                             </label>
                         </p>
@@ -66,3 +66,26 @@
     {!! get_button_save('Save', 'mt-1') !!}
     {!! get_button_cancel(url('user-roles'), 'Cancel', 'mt-1') !!}
 </form>
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#checkbox-check-all').click(function(event) {
+            /* Act on the event */
+            var check_all = $(this).is(':checked');
+            $.each($('#form-user-roles [type="checkbox"]'), function(index, val) {
+                 /* iterate through array or object */
+                 if (check_all) {
+                    if ($(val).is(':checked') != check_all) {
+                        $(val).trigger('click');
+                    }
+                 } else {
+                    if ($(val).is(':checked') != check_all) {
+                        $(val).trigger('click');
+                    }
+                }
+            });
+        });
+    });
+</script>
+@endpush

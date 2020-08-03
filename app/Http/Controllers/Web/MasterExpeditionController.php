@@ -59,7 +59,7 @@ class MasterExpeditionController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'code'            => 'required|max:3',
+      'code'            => 'required|max:3|min:3',
       'expedition_name' => 'required|max:100',
     ]);
 

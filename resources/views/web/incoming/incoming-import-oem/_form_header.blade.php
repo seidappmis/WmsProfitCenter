@@ -92,7 +92,7 @@
     </tr>
   </table>
   {!! get_button_save('Save', 'btn-save mt-1') !!}
-  <button class="waves-effect waves-light indigo btn-small btn-submit-to-inventory mt-1 mr-1 mb-1 hide">Submit to Inventory</button>
+  <span class="waves-effect waves-light indigo btn-small btn-submit-to-inventory mt-1 mr-1 hide">Submit to Inventory</span>
 </form>
 @push('script_js')
 <script type="text/javascript">
@@ -103,6 +103,37 @@
          placeholder: '-- Select Vendor Name --',
          ajax: get_select2_ajax_options('/master-vendor/select2-vendor-name')
       });
+
+      @if(!empty($incomingManualHeader) && !$incomingManualHeader->submit)
+      $('#form-incoming-import-oem-detail').removeClass('hide');
+      $('.btn-submit-to-inventory').removeClass('hide');
+      $('.btn-submit-to-inventory').click(function(event) {
+        /* Act on the event */
+        swal({
+          text: "Are you sure want to Submit to Inventory {{$incomingManualHeader->arrival_no}} and the details?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Submit It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) {
+            $.ajax({
+              url: '{{ url('incoming-import-oem') }}' + '/{{$incomingManualHeader->arrival_no}}/submit-to-inventory',
+              type: 'POST',
+              dataType: 'json',
+            })
+            .done(function() {
+              swal("Good job!", "Incoming with Arrival No. {{$incomingManualHeader->arrival_no}} has been submited to inventory.", "success") // alert success
+              window.location.reload();  // (null, false) => user paging is not reset on reload
+            })
+            .fail(function() {
+              console.log("error");
+            });
+          }
+        })
+      });
+      @endif
 
    });
 </script>

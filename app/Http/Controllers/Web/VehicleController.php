@@ -121,10 +121,14 @@ class VehicleController extends Controller
 
         $vehicleGroup = Vehicle::find($id);
 
+        if ($vehicleGroup->details()->count() > 0) {
+            return sendError('This vehicle category group has details!');
+        }
+
         return DB::transaction(function () use($vehicleGroup){
             $vehicleGroup->details()->delete();
             $vehicleGroup->delete();
-            return 1;
+            return sendSuccess('Vehicle Group deleted.', $vehicleGroup);
         });
     }
 }

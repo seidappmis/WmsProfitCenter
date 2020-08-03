@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
 use App\Models\DriverRegistered;
+use App\Models\InventoryStorage;
 use App\Models\ManualConcept;
 use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
@@ -28,7 +29,11 @@ class PickingListController extends Controller
           return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
         })
         ->addColumn('lmb', function ($data) {
-          return '-';
+          $lmb = $data->lmb_details->count() > 0 ? "Loading Process" : '-';
+          if (!empty($data->lmb_header) && $data->lmb_header->send_manifest) {
+            $lmb = 'LMB Send Manifest';
+          }
+          return $lmb;
         })
         ->addColumn('action', function ($data) {
           $action = '';
@@ -138,9 +143,11 @@ class PickingListController extends Controller
       $picking->vehicle_number     = $driverRegistered->vehicle_number;
       $picking->expedition_code    = $driverRegistered->expedition_code;
       $picking->expedition_name    = $driverRegistered->expedition_name;
+      $picking->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+      $picking->vehicle_number     = $driverRegistered->vehicle_number;
       $picking->gate_number        = $request->input('gate_number');
-      $picking->destination_number = $request->input('destination_number');
-      $picking->destination_name   = $request->input('destination_name');
+      $picking->destination_number = $driverRegistered->destination_number;
+      $picking->destination_name   = $driverRegistered->destination_name;
       $picking->city_code          = $request->input('city_code');
       $picking->city_name          = $request->input('city_name');
 
@@ -212,14 +219,14 @@ class PickingListController extends Controller
   public function show(Request $request, $id)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::findOrFail($id)->details()
+      $query = PickinglistHeader::findOrFail($id)->detailWithLMB()
         ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('quantity_in_lmb', function ($data) {
-          return '-';
-        })
+      // ->addColumn('quantity_in_lmb', function ($data) {
+      //   return '-';
+      // })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_delete('Delete');
@@ -233,15 +240,58 @@ class PickingListController extends Controller
 
   public function doOrShipmentData(Request $request)
   {
-    if (auth()->user()->cabang->hq) {
-      $query = Concept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+    $request->validate([
+      'picking_id' => 'required',
+    ]);
+
+    $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
+
+    if (auth()->user()->cabang->hq && $pickinglistHeader->city_code != "AS") {
+      // HQ ambil dari Concept
+      $query = Concept::select('tr_concept.*')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+      // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
+      // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+      ;
+
+      if ($request->input('filter_type') == 'shipment') {
+        $query->where('tr_concept.invoice_no', $request->input('do_or_shipment'));
+      } else {
+        $query->where('tr_concept.delivery_no', $request->input('do_or_shipment'));
+      }
+
+      foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+        $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
+      }
+
     } else {
-      $query = ManualConcept::whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")');
+      // Cabang Ambil Dari Upload DO for Picking
+      $query = ManualConcept::select('wms_manual_concept.*')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+      // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+      ;
+
+      if ($request->input('filter_type') == 'shipment') {
+        $query->where('wms_manual_concept.invoice_no', $request->input('do_or_shipment'));
+      } else {
+        $query->where('wms_manual_concept.delivery_no', $request->input('do_or_shipment'));
+      }
+
+      foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+        $query->whereRaw('CONCAT(wms_manual_concept.invoice_no, wms_manual_concept.delivery_no, wms_manual_concept.delivery_items) != ?', [$value]);
+      }
+
     }
 
-    foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
-      $query->whereRaw('CONCAT(invoice_no, delivery_no, delivery_items) != ?', [$value]);
-    }
+    // return $query->get();
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -261,19 +311,22 @@ class PickingListController extends Controller
       'picking_id' => 'required',
     ]);
 
+    $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
+    // echo $pickinglistHeader->storage_id;
+    // exit;
+
     $rs_pickinglistDetail = [];
 
-    $base_id   = auth()->user()->id . date('YMdHis');
-    $rs_models = [];
+    $base_id              = auth()->user()->id . date('YMdHis');
+    $rs_models            = [];
+    $rs_inventory_storage = [];
 
     foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
       if (empty($value['ean_code'])) {
         if (empty($rs_models[$value['model']])) {
           $model = MasterModel::where('model_name', $value['model'])->first();
           if (empty($model)) {
-            $result['status']  = false;
-            $result['message'] = 'Model ' . $value['model'] . ' not found in master model !';
-            return $result;
+            return sendError('Model ' . $value['model'] . ' not found in master model !');
           }
           $rs_models[$value['model']] = $model;
         }
@@ -293,12 +346,30 @@ class PickingListController extends Controller
       $pickingListDetail['remarks']        = $value['remarks'];
       $pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
 
+      // Check Inventory Storage
+      if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
+        $inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
+          ->where('storage_id', $pickinglistHeader->storage_id)
+          ->first();
+
+        if (empty($inventoryStorage)) {
+          return sendError('Model ' . $value['model'] . ' not exist in storage !');
+        }
+        $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
+      }
+
+      $rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
+
+      if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
+        return sendError('The quantity of ' . $value['model'] . ' models in storage is insufficient!');
+      }
+
       $rs_pickinglistDetail[] = $pickingListDetail;
     }
 
     PickinglistDetail::insert($rs_pickinglistDetail);
 
-    return true;
+    return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
   }
 
   public function destroy($id)
@@ -309,7 +380,7 @@ class PickingListController extends Controller
 
   public function destroyDetail($id)
   {
-     return PickinglistDetail::destroy($id);
+    return PickinglistDetail::destroy($id);
   }
 
   public function edit($id)

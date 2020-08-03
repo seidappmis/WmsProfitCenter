@@ -7,10 +7,10 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m4">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Select Gate</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Gate Status</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Select Gate</li>
+                    <li class="breadcrumb-item active">Gate Status</li>
                 </ol>
             </div>
         </div>
@@ -66,7 +66,7 @@
             </div>
             </div>
         </div>
-        <div class="col s12">
+        {{-- <div class="col s12">
         <div class="container">
             <div class="section pt-0">
                 <div class="card">
@@ -92,18 +92,6 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                   {{--  <tr>
-                                      <td>1.</td>
-                                      <td>Waiting Loading</td>
-                                      <td>B 9101 UEI SANIKIN</td>
-                                      <td>Jakarta-Manado <br>Jakarta-Manado</td>
-                                      <td>WINDU JAYA UTAMA, PT.</td>
-                                      <td>CONT 40 (HC)</td>
-                                      <td>63.685</td>
-                                      <td>65.000</td>
-                                      <td>1.315</td>
-                                      <td></td>
-                                    </tr> --}}
                                   </tbody>
                               </table>
                             </div>
@@ -116,7 +104,7 @@
                 </div>
             </div>
             </div>
-        </div>
+        </div> --}}
         <div class="content-overlay"></div>
     </div>
 </div>
@@ -152,7 +140,7 @@
         card += '<div class="col s2 m1">';
         card += '<div class="card">';
         card += '<div class="card-content p-0">';
-        card += '<p class="center-align">&nbsp;</p>';
+        card += '<p class="center-align">&nbsp; ' + (val.driver_id != null ? val.driver_id : '') + ' </p>';
         card += '<div class="center-align pt-5">';
         card += '<i class="fa fa-truck ' + (val.vehicle_number != null ? 'red-text' : 'green-text') + '" style="font-size: 40px;"></i>';
         // card += '<i class="material-icons ' + (val.vehicle_number != null ? 'red-text' : 'green-text') + '" style="font-size: 60px;">directions_bus</i>';

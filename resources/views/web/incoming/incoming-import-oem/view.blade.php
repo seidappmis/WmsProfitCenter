@@ -10,7 +10,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('incoming-import-oem') }}">Incoming Import/OEM</a></li>
-                    <li class="breadcrumb-item active">OEM-WHKRW-200206-005</li>
+                    <li class="breadcrumb-item active">{{$incomingManualHeader->arrival_no}}</li>
                 </ol>
             </div>
             <div class="col s12 m2"></div>
@@ -19,11 +19,7 @@
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
                   <div class="datatable-search">
-                    <select>
-                      <option value="" disabled>-- Select Area --</option>
-                      <option value="1" selected>KARAWANG</option>
-                      <option value="2">SURABAYA HUB</option>
-                      <option value="3">SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -44,8 +40,8 @@
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
             <div class="card-content pt-0 pb-0">
-                <ul class="collapsible">
-                   <li class="active">
+                <ul class="collapsible" id="collapsible-detail">
+                   <li class="">
                      <div class="collapsible-header">Add New Detail</div>
                      <div class="collapsible-body white pt-1">
                           @include('web.incoming.incoming-import-oem._form_detail')
@@ -108,10 +104,24 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    @if(auth()->user()->cabang->hq)
+      $('#area_filter').select2({
+         placeholder: '-- Select Area --',
+         allowClear: true,
+         ajax: get_select2_ajax_options('/master-area/select2-area-only')
+      });
+      $('#area_filter').attr('disabled', 'disabled');
+      set_select2_value('#area_filter', '{{$incomingManualHeader->area}}', '{{$incomingManualHeader->area}}')
+      $("#form-incoming-import-oem-header [name='area']").val('{{$incomingManualHeader->area}}')
+    @else
+    $('.area-wrapper').hide()
+    @endif
+  });
   var dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
     serverSide: true,
     scrollX: true,
-    responsive: true,
+    responsive: false,
     ajax: {
         url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
         type: 'GET',
@@ -136,6 +146,21 @@
     ]
   });
 
+  dttable_incoming_detail.on('click', '.btn-edit', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dttable_incoming_detail.row(tr).data();
+    set_select2_value($('#form-incoming-import-oem-detail [name="storage_id"]'), data.storage_id, data.storage_location)
+    set_select2_value($('#form-incoming-import-oem-detail [name="model_id"]'), data.model, data.model)
+    $('#form-incoming-import-oem-detail [name="id"]').val(data.id);
+    $('#form-incoming-import-oem-detail [name="model"]').val(data.model_name);
+    $('#form-incoming-import-oem-detail [name="description"]').val(data.description);
+    $('#form-incoming-import-oem-detail [name="cbm"]').val(data.cbm);
+    $('#form-incoming-import-oem-detail [name="no_gr_sap"]').val(data.no_gr_sap);
+    $('#form-incoming-import-oem-detail [name="qty"]').val(data.qty).trigger('change');
+    $('#form-incoming-import-oem-detail [name="model"]').val(data.model);
+    $('#collapsible-detail').collapsible('open');
+  })
+
   dttable_incoming_detail.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -157,7 +182,8 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
+            showSwalAutoClose('',  "Incoming detail has been deleted.")
+            // swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
             dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -189,12 +215,8 @@
           type: 'PUT',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              // window.location.href = "{{ url('incoming-import-oem') }}"
-            }) // alert success
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('', result.message)
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
@@ -225,13 +247,12 @@
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok reload datatable
-              dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-              $("#form-incoming-import-oem-detail")[0].reset();
-              $('#form-incoming-import-oem-detail [name="model_id"]').trigger('change')
-            }) // alert success
+          showSwalAutoClose('', data.message)
+          dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          $("#form-incoming-import-oem-detail")[0].reset();
+          $('#form-incoming-import-oem-detail [name="id"]').val('');
+          set_select2_value('#form-incoming-import-oem-detail [name="model_id"]', '', '')
+          set_select2_value('#form-incoming-import-oem-detail [name="storage_id"]', '', '')
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

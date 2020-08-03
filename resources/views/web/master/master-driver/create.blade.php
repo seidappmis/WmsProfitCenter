@@ -48,12 +48,12 @@
           contentType: false,
           processData: false,
         })
-        .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
+        .done(function(result) { // selesai dan berhasil
+          if (result.status) {
               window.location.href = "{{ url('master-driver') }}"
-            }) // alert success
+            } else {
+              showSwalAutoClose('Warning', result.message)
+            }
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

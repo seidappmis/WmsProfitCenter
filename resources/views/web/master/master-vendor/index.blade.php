@@ -75,7 +75,7 @@
   var table = $('#data-table-master-vendor').DataTable({
     serverSide: true,
     scrollX: true,
-    responsive: true,
+    responsive: false,
     ajax: {
         url: '{{ url('master-vendor') }}',
         type: 'GET',

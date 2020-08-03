@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
     $this->seedUserRoles();
     $this->seedUserRolesDetail();
     $this->seedUsers();
+    $this->call(Database\Seeds\Masters\WMSUsersGrantCabang::class);
     // DB::table('tr_user_roles')->insert([
     //   [
     //     'roles_id'   => 1,

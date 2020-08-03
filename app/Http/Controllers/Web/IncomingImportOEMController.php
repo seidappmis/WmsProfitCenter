@@ -36,6 +36,8 @@ class IncomingImportOEMController extends Controller
           if (!$data->submit) {
             $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
             $action .= ' ' . get_button_delete();
+          } else {
+            $action .= ' ' . get_button_print();
           }
           return $action;
         });
@@ -47,7 +49,7 @@ class IncomingImportOEMController extends Controller
 
   public function create(Request $request)
   {
-    $data         = [];
+    $data = [];
     if (auth()->user()->cabang->hq) {
       $data['area'] = Area::findOrFail($request->get('area'));
     }
@@ -123,6 +125,7 @@ class IncomingImportOEMController extends Controller
         $movement_transaction_log['quantity']              = $v_detail->qty;
         $movement_transaction_log['created_at']            = $date_now;
         $movement_transaction_log['flow_id']               = '';
+        $movement_transaction_log['kode_cabang']           = auth()->user()->cabang->kode_cabang;
 
         $rs_movement_transaction_log[] = $movement_transaction_log;
       }
@@ -142,6 +145,8 @@ class IncomingImportOEMController extends Controller
     if ($request->ajax()) {
       $query = $data['incomingManualHeader']
         ->details()
+        ->select('log_incoming_manual_detail.*', 'log_incoming_manual_header.submit')
+        ->leftjoin('log_incoming_manual_header', 'log_incoming_manual_header.arrival_no', '=', 'log_incoming_manual_detail.arrival_no_header')
         ->get();
 
       $datatables = DataTables::of($query)
@@ -152,10 +157,15 @@ class IncomingImportOEMController extends Controller
         ->addColumn('serial_numbers', function ($data) {
           return $data->storage->serial_numbers;
         })
+        ->editColumn('created_at', function ($data) {
+          return $data->created_at;
+        })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit(url('incoming-import-oem/' . $data->id));
-          $action .= ' ' . get_button_delete();
+          if (!$data->submit) {
+            $action .= ' ' . get_button_edit('#', 'Edit');
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         });
 
@@ -222,7 +232,7 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->area                = $request->input('area');
     $incomingManualHeader->inc_type            = $request->input('inc_type');
     $incomingManualHeader->kode_cabang         = auth()->user()->cabang->kode_cabang;
-    $incomingManualHeader->submit              = 0;
+    // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');
     // $incomingManualHeader->submit_by           = $request->input('submit_by');
 

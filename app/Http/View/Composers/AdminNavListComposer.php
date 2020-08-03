@@ -36,15 +36,15 @@ class AdminNavListComposer
 
     $this->menuItems[] = ['name' => 'picking', 'label' => 'Picking', 'url' => '#', 'icon' => 'rv_hookup', 'childs' => [
       ['name' => 'picking', 'label' => 'Upload DO for Picking', 'url' => 'upload-do-for-picking', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'IDCard Scan', 'url' => 'idcard-scan', 'icon' => 'radio_button_unchecked'],
       ['name' => 'picking', 'label' => 'Picking List', 'url' => 'picking-list', 'icon' => 'radio_button_unchecked'],
       ['name' => 'picking', 'label' => 'Picking to LMB', 'url' => 'picking-to-lmb', 'icon' => 'radio_button_unchecked'],
     ]];
     $this->menuItems[] = ['name' => 'outgoing', 'label' => 'Outgoing', 'url' => '#', 'icon' => 'looks', 'childs' => [
       ['name' => 'outgoing', 'label' => 'Upload Concept', 'url' => 'upload-concept', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'IDCard Scan', 'url' => 'idcard-scan', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => 'assign-vehicles', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Select Gate', 'url' => 'select-gate', 'icon' => 'radio_button_unchecked'],
-      ['name' => 'outgoing', 'label' => 'Loading Process', 'url' => 'loading-process', 'icon' => 'radio_button_unchecked'],
+      // ['name' => 'outgoing', 'label' => 'Assign Vehicles', 'url' => 'assign-vehicles', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'outgoing', 'label' => 'Gate Status', 'url' => 'select-gate', 'icon' => 'radio_button_unchecked'],
+      // ['name' => 'outgoing', 'label' => 'Loading Process', 'url' => 'loading-process', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Complete', 'url' => 'complete', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Manifest Regular', 'url' => 'manifest-regular', 'icon' => 'radio_button_unchecked'],
       ['name' => 'outgoing', 'label' => 'Manifest AS', 'url' => 'manifest-as', 'icon' => 'radio_button_unchecked'],
@@ -166,7 +166,7 @@ class AdminNavListComposer
         $menuData['childs'] = [];
 
         foreach ($menu['childs'] as $key => $child_menu) {
-          if (!empty($modules[$child_menu['url']]) && $modules[$child_menu['url']]['view'] == 1 ) {
+          if (!empty($modules[$child_menu['url']]) && $modules[$child_menu['url']]['view'] == 1) {
             $menuData['childs'][] = $child_menu;
           }
         }

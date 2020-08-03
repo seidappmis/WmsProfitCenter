@@ -54,7 +54,7 @@ class AreaController extends Controller
   {
     $request->validate([
       'area' => 'unique:tr_area|max:20',
-      'code' => 'max:3',
+      'code' => 'unique:tr_area|max:3',
     ]);
 
     $masterArea       = new Area;
@@ -135,6 +135,16 @@ class AreaController extends Controller
     if (auth()->user()->area != "All") {
       $query->where('area', auth()->user()->area);
     }
+
+    return get_select2_data($request, $query);
+  }
+
+  public function getSelect2AreaAll(Request $request)
+  {
+    $query = Area::select(
+      DB::raw('area AS id'),
+      DB::raw('area AS text')
+    );
 
     return get_select2_data($request, $query);
   }
