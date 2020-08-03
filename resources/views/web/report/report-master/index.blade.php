@@ -32,7 +32,7 @@
                                       <option>- Select Master -</option>
                                       <option>Master Cabang</option>
                                       <option>Master Destination</option>
-                                      <option>Master Destination</option>
+                                      <option>Master Destination City</option>
                                       <option>Master Driver</option>
                                       <option>Master Expedition</option>
                                       <option>Master Gate</option>
@@ -76,22 +76,6 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     $('#form-report-master [name="report-master"]').val('{{$report_master_value}}');
-    // $("#form-report-master").validate({
-    //   submitHandler: function(form) {
-    //     $.ajax({
-    //       url: '{{ url('report-master') }}',
-    //       type: 'GET',
-    //       data: $(form).serialize(),
-    //       dataType: "html",
-    //     })
-    //     .done(function(result) { // selesai dan berhasil
-
-    //     })
-    //     .fail(function(xhr) {
-    //         showSwalError(xhr) // Custom function to show error with sweetAlert
-    //     });
-    //   }
-    // });
   });
 </script>
 @endpush
