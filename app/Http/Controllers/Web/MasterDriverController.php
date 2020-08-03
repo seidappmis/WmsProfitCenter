@@ -21,7 +21,7 @@ class MasterDriverController extends Controller
     if ($request->ajax()) {
       $query = MasterDriver::select(
         'tr_driver.*',
-        DB::raw('tr_expedition.expedition_name')
+        DB::raw('tr_expedition.expedition_name as expedition_name')
       )
         ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
 
