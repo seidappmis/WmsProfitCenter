@@ -15,9 +15,11 @@ class SelectGateController extends Controller
       $gates = Gate::select(DB::raw('tr_gate.*, wms_pickinglist_header.vehicle_number, wms_pickinglist_header.driver_id'))
         ->leftjoin('wms_pickinglist_header', function ($join) use ($request) {
           $join->on('wms_pickinglist_header.gate_number', '=', 'tr_gate.gate_number')
+            ->where('wms_pickinglist_header.area', $request->input('area'))
           ;
         })
         ->whereRaw('tr_gate.area = ?', [$request->input('area')])
+        ->orderBy('tr_gate.gate_number')
         ->get();
 
       return $gates;

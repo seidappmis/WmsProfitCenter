@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -22,22 +21,22 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                        <form class="form-table">
+                        <form class="form-table" id="form-report-master">
                             <table>
                               <tr>
                                 <td>Report Master</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select class="select2 browser-default">
+                                    <select class="select2 browser-default" name="report-master" required>
                                       <option>- Select Master -</option>
                                       <option>Master Cabang</option>
                                       <option>Master Destination</option>
-                                      <option>Master Destination</option>
+                                      <option>Master Destination City</option>
                                       <option>Master Driver</option>
                                       <option>Master Expedition</option>
                                       <option>Master Gate</option>
                                       <option>Master Vehicle</option>
-                                      <option>Master Vehicle</option>
+                                      <option>Master Vehicle Expedition</option>
                                       <option>Master Vendor</option>
                                       <option>Master Model</option>
                                     </select>
@@ -47,49 +46,18 @@
                               
                             </table>
                             <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              <button type="submit" class="waves-effect waves-light indigo btn mb-1">Submit</button>
                             </div>
                           </form>
-                          
-                          <br><br>
-                         
-                          
                     </div>
                    
                 </div>
                 <div class="card">
                   <div class="card-content">
-                    <Form class="form-table">
-                      <table id="data-table-simple" class="display" width="100%">
-                          <thead>
-                              <tr>
-                                <th>KODE CUSTOMER</th>
-                                <th>KODE CABANG</th>
-                                <th>SORT DESTINATION</th>
-                                <th>LONG DESTINATION</th>
-                                <th>TYPE</th>
-                                <th>REGION</th>
-                                
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                            <td>1000000</td>
-                            <td>10</td>
-                            <td>HYP</td>
-                            <td>PY.HEID HQ JKT</td>
-                            <td>BR</td>
-                            <td>JABODETABEK</td>
-                          </tbody>
-                        </tr>
-                      </table>
-                    </Form>
-                        
-                        <br><br>
-                       
-                        
+                    @if(!empty($report_view_name))
+                    @include($report_view_name)
+                    @endif
                   </div>
-                 
               </div>
             </div>
         </div>
@@ -98,3 +66,15 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#form-report-master [name="report-master"]').val('{{$report_master_value}}');
+  });
+</script>
+@endpush

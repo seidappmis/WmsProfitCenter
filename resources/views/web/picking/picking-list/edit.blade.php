@@ -52,6 +52,10 @@
     $('#form-picking-list [name="expedition_code"]').attr('disabled', 'disabled');
     $('#form-picking-list [name="city_code"]').attr('disabled', 'disabled');
     $('#form-picking-list [name="vehicle_code_type"]').attr('disabled', 'disabled');
+    $('#form-picking-list [name="destination_number"]').attr('disabled', 'disabled');
+    $('#form-picking-list [name="driver_id"]').attr('disabled', 'disabled');
+    $('#form-picking-list [name="vehicle_number"]').attr('disabled', 'disabled');
+    $('#form-picking-list [name="driver_name"]').attr('disabled', 'disabled');
     $('#select-gate-number').attr('disabled', 'disabled');
     @if ($pickinglistHeader->city_code != 'AS')
       set_select2_value('#form-picking-list [name="expedition_code"]', '{{$pickinglistHeader->expedition_code}}', '{{$pickinglistHeader->expedition_name}}')

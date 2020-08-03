@@ -1,4 +1,5 @@
 <div class="form-update-manifest-wrapper hide">
+  <form id="form-update-manifest">
   <table class="">
     <thead>
       <tr>
@@ -11,37 +12,37 @@
           <table width="100%" class="form-table">
             <tr>
               <td width="20%">Manifest No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no" disabled></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_no" disabled></div></td>
               <td width="20%">Manifest Date</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no" disabled></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_date" disabled></div></td>
             </tr>
             <tr>
               <td width="20%">Vehicle No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_number"></div></td>
               <td width="20%">Expedition</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="expedition_name" disabled></div></td>
             </tr>
             <tr>
               <td width="20%">Driver Name</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no" disabled></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="driver_name" disabled></div></td>
               <td width="20%">Vehicle Type</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_description" disabled></div></td>
             </tr>
             <tr>
               <td width="20%">Destination City</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="city_name" disabled></div></td>
               <td width="20%">Container No</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="container_no"></div></td>
             </tr>
             <tr>
               <td width="20%">Seal No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="seal_no"></div></td>
               <td width="20%">Checker</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="checker"></div></td>
             </tr>
             <tr>
               <td width="20%">PDO No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="manifest_no"></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="pdo_no"></div></td>
             </tr>
           </table>
           {!!get_button_save('Update')!!}
@@ -51,6 +52,7 @@
       </tr>
     </tbody>
   </table>
+</form>
   <h6 class="card-header">Total Manifest : 1</h6>
   <h5 class="card-header">List DO</h5>
   <hr>

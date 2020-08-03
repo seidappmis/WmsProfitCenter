@@ -22,10 +22,10 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-                <button class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('list-of-unconfirm-do/export-to-excel') }}">
                   {{-- <i class="material-icons right">add</i> --}}
                   Export to Excel
-                </button>
+                </a>
               </div>
             </div>
             <div class="col s12 m3">
@@ -57,7 +57,47 @@
                                   </tr>
                               </thead>
                               <tbody>
+                                @foreach($rs_unconfirmManifesDetail AS $key => $unconfirmManifest)
+                                  <tr class="grey lighten-2">
+                                    <td colspan="12">{{ $unconfirmManifest['manifest']->do_manifest_no }} - {{ $unconfirmManifest['manifest']->expedition_name }} - {{ $unconfirmManifest['manifest']->city_name }}</td>
+                                  </tr>
+                                  @foreach($unconfirmManifest['detail'] AS $key => $detail)
+                                    <td>{{ $detail->invoice_no }}</td>
+                                    <td>{{ $detail->delivery_no }}</td>
+                                    <td>{{ $detail->do_internal }}</td>
+                                    <td>{{ $detail->model }}</td>
+                                    <td>{{ $detail->quantity }}</td>
+                                    <td>{{ $detail->cbm }}</td>
+                                    <td>{{ $detail->ship_to }}</td>
+                                    <td>{{ $detail->city_name }}</td>
+                                    <td>{{ $detail->do_type }}</td>
+                                    <td>{{ $detail->do_manifest_date }}</td>
+                                    <td>{{ $detail->do_manifest_date }}</td>
+                                    <td>{{ $detail->lead_time }}</td>
+                                  @endforeach
+                                @endforeach
+                               {{--  @foreach($unconfirmManifesDetail AS $key => $detail)
+                                @if($key == 0)
                                 <tr class="grey lighten-2">
+                                  <td colspan="12">{{ $detail->do_manifest_no }} - {{ $detail->expedition_name }} - {{ $detail->city_name }}</td>
+                                </tr>
+                                @endif
+                                <tr>
+                                  <td>{{ $detail->invoice_no }}</td>
+                                  <td>{{ $detail->delivery_no }}</td>
+                                  <td>{{ $detail->do_internal }}</td>
+                                  <td>{{ $detail->model }}</td>
+                                  <td>{{ $detail->quantity }}</td>
+                                  <td>{{ $detail->cbm }}</td>
+                                  <td>{{ $detail->ship_to }}</td>
+                                  <td>{{ $detail->city_name }}</td>
+                                  <td>{{ $detail->do_type }}</td>
+                                  <td>{{ $detail->do_manifest_date }}</td>
+                                  <td>{{ $detail->do_manifest_date }}</td>
+                                  <td>{{ $detail->lead_time }}</td>
+                                </tr>
+                                @endforeach --}}
+                                {{-- <tr class="grey lighten-2">
                                   <td colspan="12">JKT-180903-035-MARC TRI MANUNGGAL, PT. - Jakarta</td>
                                 </tr>
                                 <tr>
@@ -132,7 +172,7 @@
                                   <td>2018-09-03</td>
                                   <td>2018-09-04</td>
                                   <td>1</td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -148,11 +188,11 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        scrollX: true,
-        responsive: true,
-        order: [1, 'asc'],
-    });
+    // var dtdatatable = $('#data-table-section-contents').DataTable({
+    //     serverSide: false,
+    //     scrollX: true,
+    //     responsive: true,
+    //     order: [1, 'asc'],
+    // });
 </script>
 @endpush

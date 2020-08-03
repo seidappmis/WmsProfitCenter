@@ -25,6 +25,16 @@ class PickingListController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('driver_name', function ($data) {
+          $driver_name = '';
+          if (!empty($data->vehicle_number)) {
+            $driver_name .= $data->vehicle_number . '<br>';
+          }
+
+          $driver_name .= $data->driver_name;
+
+          return $driver_name;
+        })
         ->addColumn('do_status', function ($data) {
           return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
         })
@@ -37,11 +47,15 @@ class PickingListController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit(url('picking-list/' . $data->id . '/edit'));
-          $action .= ' ' . get_button_delete('Cancel');
+          if ($data->lmb_details->count() == 0) {
+            $action .= ' ' . get_button_edit(url('picking-list/' . $data->id . '/edit'));
+            $action .= ' ' . get_button_delete('Cancel');
+          } else {
+            $action .= ' ' . get_button_view(url('picking-list/' . $data->id));
+          }
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['driver_name', 'do_status', 'action']);
 
       return $datatables->make(true);
     }
@@ -150,6 +164,8 @@ class PickingListController extends Controller
       $picking->destination_name   = $driverRegistered->destination_name;
       $picking->city_code          = $request->input('city_code');
       $picking->city_name          = $request->input('city_name');
+      $picking->assign_driver_date = date('Y-m-d H:i:s');
+      $picking->assign_driver_by   = auth()->user()->username;
 
       $picking->save();
 
@@ -175,10 +191,10 @@ class PickingListController extends Controller
     $picking_no = $prefix . $max_no;
 
     $pickinglistHeader->id                 = $picking_no;
-    $pickinglistHeader->picking_date       = date('Y-m-d H:i:s', strtotime($request->input('picking_date')));
+    $pickinglistHeader->picking_date       = date('Y-m-d H:i:s');
     $pickinglistHeader->picking_no         = $picking_no;
     $pickinglistHeader->area               = auth()->user()->area;
-    $pickinglistHeader->gate_number        = $request->input('gate_number');
+    $pickinglistHeader->gate_number        = !empty($request->input('gate_number')) ? $request->input('gate_number') : 0;
     $pickinglistHeader->pdo                = $request->input('pdo');
     $pickinglistHeader->destination_number = $request->input('destination_number');
     $pickinglistHeader->destination_name   = $request->input('destination_name');
@@ -205,6 +221,10 @@ class PickingListController extends Controller
       $pickinglistHeader->vehicle_number     = $request->input('vehicle_number');
       $pickinglistHeader->driver_id          = $request->input('driver_id');
       $pickinglistHeader->driver_name        = $request->input('driver_name');
+    } else {
+      $pickinglistHeader->expedition_code = 'AS';
+      $pickinglistHeader->expedition_name = 'Ambil Sendiri';
+
     }
 
     if ($pickinglistHeader->city_code == "AS" || !auth()->user()->cabang->hq) {
@@ -213,13 +233,73 @@ class PickingListController extends Controller
 
     $pickinglistHeader->save();
 
-    return $pickinglistHeader;
+    return sendSuccess('Create New Pickinglist no ' . $pickinglistHeader->picking_no . ' success', $pickinglistHeader);
+  }
+
+  public function splitConcept(Request $request)
+  {
+    $total_quantity_split = 0;
+
+    $maxConcept = Concept::select(
+      DB::raw('MAX(line_no) AS max_line_no'),
+      DB::raw('MAX(delivery_items) AS max_delivery_items')
+    )
+      ->where('invoice_no', $request->input('invoice_no'))
+      ->first();
+
+    $max_line_no        = $maxConcept->max_line_no;
+    $max_delivery_items = $maxConcept->max_delivery_items;
+
+    $concept = Concept::where('invoice_no', $request->input('invoice_no'))
+      ->where('line_no', $request->input('line_no'))->first();
+
+    $rs_split_concept = [];
+    $dateTime         = date('Y-m-d H:i:s');
+
+    foreach ($request->input('quantity_split') as $key => $value) {
+      $total_quantity_split += $value;
+
+      $split_concept = $concept->toArray();
+      $max_line_no++;
+      $max_delivery_items += 10;
+
+      $split_concept['line_no']        = $max_line_no;
+      $split_concept['delivery_items'] = $max_delivery_items;
+      $split_concept['cbm']            = ($split_concept['cbm'] / $concept->quantity * $value);
+      $split_concept['quantity']       = $value;
+      $split_concept['split_by']       = auth()->user()->username;
+      $split_concept['split_date']     = $dateTime;
+
+      $rs_split_concept[] = $split_concept;
+
+    }
+
+    if ($total_quantity_split != $request->input('quantity')) {
+      return sendError('Error : Total Quantity is different from Parent Quantity !');
+    }
+
+    try {
+      DB::beginTransaction();
+      Concept::where('invoice_no', $request->input('invoice_no'))
+        ->where('line_no', $request->input('line_no'))->delete();
+      Concept::insert($rs_split_concept);
+      DB::commit();
+
+      return sendSuccess('Concept has been split', $concept);
+    } catch (Throwable $e) {
+      DB::rollBack();
+    }
+
+    return $rs_split_concept;
+
   }
 
   public function show(Request $request, $id)
   {
+    $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+
     if ($request->ajax()) {
-      $query = PickinglistHeader::findOrFail($id)->detailWithLMB()
+      $query = $data['pickinglistHeader']->detailWithLMB()
         ->get();
 
       $datatables = DataTables::of($query)
@@ -229,13 +309,17 @@ class PickingListController extends Controller
       // })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_delete('Delete');
+          if ($data->quantity_in_lmb == 0) {
+            $action .= ' ' . get_button_delete('Delete');
+          }
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
 
       return $datatables->make(true);
     }
+
+    return view('web.picking.picking-list.view', $data);
   }
 
   public function doOrShipmentData(Request $request)
@@ -270,7 +354,10 @@ class PickingListController extends Controller
 
     } else {
       // Cabang Ambil Dari Upload DO for Picking
-      $query = ManualConcept::select('wms_manual_concept.*')
+      $query = ManualConcept::select(
+        'wms_manual_concept.*',
+        DB::raw('"" AS line_no')
+      )
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
@@ -361,7 +448,7 @@ class PickingListController extends Controller
       $rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
 
       if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
-        return sendError('The quantity of ' . $value['model'] . ' models in storage is insufficient!');
+        return sendError('Quantity of model ' . $value['model'] . ' is defisit !');
       }
 
       $rs_pickinglistDetail[] = $pickingListDetail;

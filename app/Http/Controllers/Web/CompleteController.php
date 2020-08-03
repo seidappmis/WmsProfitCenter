@@ -37,15 +37,23 @@ class CompleteController extends Controller
 
   public function show($id)
   {
-    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    $data['manifestHeader'] = LogManifestHeader::where('driver_register_id', $id)->first();
+
+    if (empty($data['manifestHeader'])) {
+      abort(404);
+    }
 
     return view('web.outgoing.complete.view', $data);
   }
 
   public function complete($id)
   {
-    $manifestHeader                  = LogManifestHeader::findOrFail($id);
-    
+    $manifestHeader                  = LogManifestHeader::where('driver_register_id', $id)->first();
+
+    if (empty($manifestHeader)) {
+      abort(404);
+    }
+
     $manifestHeader->status_complete = 1;
     $manifestHeader->save();
 

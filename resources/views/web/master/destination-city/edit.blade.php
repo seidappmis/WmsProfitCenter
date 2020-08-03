@@ -38,6 +38,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.btn-save').html('Update');
+    });
+
  	$("#form-destination-city").validate({
       submitHandler: function(form) {
         $.ajax({
@@ -45,12 +49,9 @@
           type: 'PUT',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => { 
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('destination-city') }}"
-            }) // alert success
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('Success', 'City code have been updated!'); // alert success
+          window.location.href = "{{ url('destination-city') }}"
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

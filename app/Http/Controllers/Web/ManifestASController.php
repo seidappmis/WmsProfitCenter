@@ -39,7 +39,7 @@ class ManifestASController extends Controller
   public function lmbWaitingManifest(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBHeader::noManifestLMBHeader()->get();
+      $query = LMBHeader::noManifestLMBHeader()->where('wms_lmb_header.expedition_code', '=', 'AS')->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
+use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use App\Models\MovementTransactionLog;
 use App\Models\PickinglistDetail;
@@ -43,9 +44,34 @@ class PickingToLMBController extends Controller
     return view('web.picking.picking-to-lmb.index');
   }
 
-  public function show($id)
+  public function show(Request $request, $id)
   {
     $data['lmbHeader'] = LMBHeader::findOrFail($id);
+
+    if ($request->ajax()) {
+      $details = $data['lmbHeader']->details;
+      return sendSuccess('Seat Loading Quantity', $details);
+    }
+
+    $data['rs_loading_quantity'] = $data['lmbHeader']
+      ->details()
+      ->selectRaw('
+        wms_lmb_detail.invoice_no,
+        wms_lmb_detail.delivery_no,
+        wms_lmb_detail.model,
+        COUNT(serial_number) AS qty_loading,
+        wms_lmb_detail.code_sales,
+        wms_pickinglist_detail.quantity
+      ')
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_lmb_detail.picking_id')
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+        $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
+      })
+      ->groupBy('delivery_no', 'model')
+      ->get();
+    ;
 
     return view('web.picking.picking-to-lmb.view', $data);
   }
@@ -65,18 +91,26 @@ class PickingToLMBController extends Controller
     $lmbHeader->lmb_date           = date('Y-m-d');
     // $lmbHeader->do_reservation_no        = '';
     // $lmbHeader->pdo                      = '';
-    $lmbHeader->expedition_code          = $picking->expedition_code;
-    $lmbHeader->expedition_name          = $picking->expedition_name;
-    $lmbHeader->driver_id                = $picking->driver_id;
-    $lmbHeader->driver_name              = $picking->driver_name;
-    $lmbHeader->vehicle_number           = $picking->vehicle_number;
-    $lmbHeader->destination_number       = $picking->destination_number;
-    $lmbHeader->destination_name         = $picking->destination_name;
-    $lmbHeader->kode_cabang              = $picking->kode_cabang;
-    $lmbHeader->short_description_cabang = $picking->short_description_cabang;
+    $lmbHeader->expedition_code    = $picking->expedition_code;
+    $lmbHeader->expedition_name    = $picking->expedition_name;
+    $lmbHeader->driver_id          = $picking->driver_id;
+    $lmbHeader->driver_name        = $picking->driver_name;
+    $lmbHeader->vehicle_number     = $picking->vehicle_number;
+    $lmbHeader->destination_number = $picking->destination_number;
+    $lmbHeader->destination_name   = $picking->destination_name;
+    $lmbHeader->kode_cabang        = $picking->kode_cabang;
+
+    $cabang = MasterCabang::where('kode_cabang', $lmbHeader->kode_cabang)->first();
+
+    $lmbHeader->short_description_cabang = $cabang->short_description;
     $lmbHeader->seal_no                  = $request->input('seal_no');
     $lmbHeader->container_no             = $request->input('container_no');
     $lmbHeader->send_manifest            = 0;
+
+    if ($picking->expedition_code == 'AS') {
+      $lmbHeader->destination_number = $picking->expedition_code;
+      $lmbHeader->destination_name   = $picking->expedition_name;
+    }
     // $lmbHeader->start_date               = '';
     // $lmbHeader->finish_date              = '';
     // $lmbHeader->finish_by                = '';
@@ -291,6 +325,8 @@ class PickingToLMBController extends Controller
         $serial_number['city_name']          = $rs_picking_list_details[$serial_number['ean_code']]->header->city_name;
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->header->driver_register_id;
 
+        $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
+
         if (empty($scan_summaries[$serial_number['ean_code']])) {
           $scan_summaries[$serial_number['ean_code']] = [
             'model'             => $rs_models[$serial_number['ean_code']]->model_name,
@@ -347,6 +383,9 @@ class PickingToLMBController extends Controller
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ->editColumn('destination_name', function ($data) {
+        return $data->expedition_code == 'AS' ? "Ambil Sendiri" : $data->destination_name;
+      })
       ->addColumn('do_status', function ($data) {
         return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
       })

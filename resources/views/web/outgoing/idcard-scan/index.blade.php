@@ -209,7 +209,7 @@
     function set_select2_vehicle_number(filter = {expedition_code: ''}){
       $('#form-id-card-scan [name="vehicle_number"]').select2({
          placeholder: '-- Select Vehicle Number --',
-         ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number', filter)
+         ajax: get_select2_ajax_options('/idcard-scan/select2-vehicle-number', filter)
       });
 
       $('#form-id-card-scan [name="vehicle_number"]').change(function(event) {

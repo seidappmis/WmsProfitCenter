@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LogManifestHeader extends Model
 {
   protected $table      = 'log_manifest_header';
-  protected $primaryKey = 'driver_register_id';
+  protected $primaryKey = 'do_manifest_no';
   public $incrementing  = false;
 
   public function details()
@@ -28,6 +28,8 @@ class LogManifestHeader extends Model
   {
     if ($this->details->count() == 0) {
       return 'DO Items Not Found';
+    } elseif ($this->status_complete) {
+      return 'Complete';
     }
   }
 

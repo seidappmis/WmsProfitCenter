@@ -30,7 +30,7 @@ class CreateWmsLmbDetailTable extends Migration
       $table->integer('created_by')->nullable();
       $table->integer('updated_by')->nullable();
 
-      $table->primary('serial_number');
+      $table->primary(['serial_number', 'delivery_no', 'model']);
     });
   }
 
