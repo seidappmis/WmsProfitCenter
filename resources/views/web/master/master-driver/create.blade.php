@@ -30,10 +30,12 @@
     </div>
 </div>
 @endsection
+
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
 </script>
 @endpush
+
 @push('script_js')
 <script type="text/javascript">
     $("#form-master-driver").validate({

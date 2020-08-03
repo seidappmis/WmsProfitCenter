@@ -117,11 +117,11 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'City code '+ data.city_code +' have been deleted!'); // alert success
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
-          .fail(function() {
-            console.log("error");
+          .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
           });
         }
       })
