@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -37,7 +36,7 @@
                                       <option>Master Expedition</option>
                                       <option>Master Gate</option>
                                       <option>Master Vehicle</option>
-                                      <option>Master Vehicle</option>
+                                      <option>Master Vehicle Expedition</option>
                                       <option>Master Vendor</option>
                                       <option>Master Model</option>
                                     </select>

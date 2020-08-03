@@ -3,12 +3,27 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\VehicleDetail;
+use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class ReportMasterController extends Controller
 {
   public function index(Request $request)
   {
+    if ($request->ajax()) {
+        $query = VehicleDetail::select('tr_vehicle_type_detail.*',
+          DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
+      )
+      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id');
+
+       $datatables = DataTables::of($query);
+
+       return $datatables->make(true);
+    }
+
+
     $reportView = $this->getReportView($request);
 
     $data['report_master_value'] = $request->input('report-master');
@@ -29,6 +44,30 @@ class ReportMasterController extends Controller
         break;
       case 'Master Destination':
         $view['name'] = 'web.report.report-master._master_destination';
+        break;
+      case 'Master Destination City':
+        $view['name'] = 'web.report.report-master._master_destination_city';
+        break;
+      case 'Master Driver':
+        $view['name'] = 'web.report.report-master._master_driver';
+        break;
+      case 'Master Expedition':
+        $view['name'] = 'web.report.report-master._master_expedition';
+        break;
+      case 'Master Gate':
+        $view['name'] = 'web.report.report-master._master_gate';
+        break;
+      case 'Master Model':
+        $view['name'] = 'web.report.report-master._master_model';
+        break;
+      case 'Master Vehicle':
+        $view['name'] = 'web.report.report-master._master_vehicle';
+        break;
+       case 'Master Vehicle Expedition':
+        $view['name'] = 'web.report.report-master._master_vehicle_expedition';
+        break;
+      case 'Master Vendor':
+        $view['name'] = 'web.report.report-master._master_vendor';
         break;
 
       default:
