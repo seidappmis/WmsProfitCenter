@@ -4,7 +4,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-master', 'Web\ReportMasterController@index');
   Route::get('report-master/export', 'Web\ReportMasterController@export');
 
-  Route::view('report-master-users', 'web.report.report-master-users.index');
+  Route::get('report-master-users', 'Web\ReportMasterUserController@index');
+
   Route::view('standby-driver-list', 'web.report.standby-driver-list.index');
   Route::view('concept-or-do-outstanding-list', 'web.report.concept-or-do-outstanding-list.index');
   Route::view('loading-status-list', 'web.report.loading-status-list.index');

@@ -41,7 +41,6 @@
         url: '{{ url('master-cabang') }}',
         type: 'GET',
     },
-    // order: [1, 'asc'],
     columns: [
         {data: 'kode_customer', className: 'detail'},
         {data: 'kode_cabang', className: 'detail'},

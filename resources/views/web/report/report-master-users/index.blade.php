@@ -26,7 +26,7 @@
                   <div class="datatable-search">
                     <div class="datatable-search mb-0">
                       <i class="material-icons mr-2 search-icon">search</i>
-                      <input type="text" placeholder="Search" class="app-filter" id="transporter_filter">
+                      <input type="text" placeholder="Search" class="app-filter" id="report-user-filter">
                     </div>
                   </div>
                 </div>
@@ -37,109 +37,18 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-                {{-- <div class="card ">
-                    <div class="card-content">
-                        <form class="form-table">
-                            <table>
-                              <tr>
-                                <td>Area</td>
-                                <td>
-                                  <div class="input-field col s12">
-                                    <select class="select2 browser-default">
-                                      <option>- Select Area -</option>
-                                      <option>KARAWANG</option>
-                                      <option>SURABAYA HUB</option>
-                                      <option>SWADAYA</option>
-                                      
-                                    </select>
-                                  </div>
-                                </td>
-                              </tr>
-                              
-                            </table>
-                            <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                            </div>
-                          </form>
-                          <br>
-                         
-                    </div>
-                </div> --}}
                 <div class="card">
-                  <div class="card-content p-3">
-                      <form class="form-table">
-                          <table id="data-table-simple" class="display centered" width="100%">
+                  <div class="card-content">
+                        <table id="data-table-report-master-user" class="display" width="100%">
                             <thead>
-                              <tr>
-                                <th>USER ID</th>
-                                <th>USER NAME</th>
-                                <th>AREA</th>
-                                <th>STATUS</th>
-                                <th>LAST UPDATE</th>
-                               
-                                
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <td>mgt9</td>
-                            <td>Bejo Nugroh </td>
-                            <td>KARAWANG</td>
-                            <td>Enabled</td>
-                            <td>24-08-2018 08:28:35</td>
-                           
-                          </tbody>
-                          
-                          </table>
-                          <table id="data-table-simple" class="display centered" width="100%">
-                            <thead>
-                              <tr>
-                                <th colspan="2">MODUL</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                                
-                              </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Dashboard</td>
-                              <td>Grapihic Dashboard </td>
-                              <td>NO</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                            </tr>
-                            <tr>
-                              <td>Dashboard</td>
-                              <td>Grapihic Dashboard 2</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                            </tr>
-                            <tr>
-                              <td>Dashboard</td>
-                              <td>Trucking Monitor </td>
-                              <td>NO</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                            </tr>
-                            <tr>
-                              <td>Group Name</td>
-                              <td>ModulName </td>
-                              <td>NO</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                            </tr>
-                            <tr>
-                              <td>Incoming</td>
-                              <td>Comform Impor </td>
-                              <td>NO</td>
-                              <td>NO</td>
-                              <td>NO</td>
-                            </tr>
-                          </tbody>
-                          
-                          </table>
-                      </form>
+                                <tr>
+                                  <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <!-- datatable ends -->
                    </div>
                </div>
                   
@@ -162,5 +71,52 @@
     set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
     $('#area_filter').attr('disabled','disabled')
   @endif
+
+  var table;
+
+  jQuery(document).ready(function($) {
+    table = $('#data-table-report-master-user').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      pageLength: 1,
+      scrollY: '60vh',
+      buttons: [
+              {
+                  text: 'PDF',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-master/export?file_type=pdf')}}" + '&report-master=' + $('#report-master-value').val();
+                  }
+              },
+               {
+                  text: 'EXCEL',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-master/export?file_type=xls')}}" + '&report-master=' + $('#report-master-value').val();
+                  }
+              }
+          ],
+      ajax: {
+          url: '{{ url('report-master-users') }}',
+          type: 'GET',
+          data: function(d) {
+            d.area = $('#area_filter').val()
+            d.search['value'] = $('#report-user-filter').val()
+          }
+      },
+      columns: [
+          {data: 'username', className: 'detail'},
+      ]
+    });
+
+    $("#area_filter").on("change", function () {
+      filterGlobal()
+    });
+     $("#report-user-filter").on("keyup click", function () {
+      filterGlobal();
+    });
+  });
+  function filterGlobal(){
+    table.ajax.reload(null, false);
+  }
 </script>
 @endpush
