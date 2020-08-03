@@ -20,6 +20,7 @@
     serverSide: true,
     scrollX: true,
     dom: 'Bfrtip',
+    scrollY: '60vh',
     buttons: [
             {
                 text: 'PDF',
