@@ -85,13 +85,13 @@
               {
                   text: 'PDF',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-master/export?file_type=pdf')}}" + '&report-master=' + $('#report-master-value').val();
+                      window.location.href = "{{url('report-master-users/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
                   }
               },
                {
                   text: 'EXCEL',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-master/export?file_type=xls')}}" + '&report-master=' + $('#report-master-value').val();
+                      window.location.href = "{{url('report-master-users/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
                   }
               }
           ],
