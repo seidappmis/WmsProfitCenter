@@ -5,6 +5,7 @@
           <th>DRIVER ID</th>
           <th>DRIVER NAME</th>
           <th>KTP NO</th>
+          <th>DRIVING LICENSE TYPE</th>
           <th>DRIVING LICENSE NO</th>
           <th>PHONE NO</th>
           <th>EXPEDITION</th>
@@ -43,6 +44,7 @@
         {data: 'driver_id', className: 'detail'},
         {data: 'driver_name', className: 'detail'},
         {data: 'ktp_no', className: 'detail'},
+        {data: 'driving_license_type', className: 'detail'},
         {data: 'driving_license_no', className: 'detail'},
         {data: 'phone1', className: 'detail'},
         {data: 'expedition_name', className: 'detail'},

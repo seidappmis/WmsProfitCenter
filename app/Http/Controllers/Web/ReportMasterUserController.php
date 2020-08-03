@@ -31,6 +31,46 @@ class ReportMasterUserController extends Controller
     return view('web.report.report-master-users.index');
   }
 
+  public function export(Request $request)
+  {
+    $query = User::selectRaw('users.*, tr_user_roles.roles_name, log_cabang.long_description')
+      ->leftjoin('tr_user_roles', 'tr_user_roles.roles_id', '=', 'users.roles_id')
+      ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
+      ->where('area', $request->input('area'))
+      ->get();
+
+    $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+    foreach ($query as $key => $value) {
+      $reader->setSheetIndex($key);
+
+      // echo $value->username . '<br>';
+      $spreadsheet = $reader->loadFromString($this->getUserTableData($value), $spreadsheet);
+
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+    }
+
+    $title = 'ReportMasterUsers';
+
+    if ($request->input('file_type') == 'pdf') {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      header('Cache-Control: max-age=0');
+    } else {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+    }
+
+    $writer->save("php://output");
+  }
+
   protected function getUserTableData($data)
   {
     $table = '';
@@ -46,7 +86,7 @@ class ReportMasterUserController extends Controller
 
     $table .= '<tr style="border: 1px solid black;">';
     $table .= '<td style="border: 1px solid black;">' . $data->username . '</td>';
-    $table .= '<td style="border: 1px solid black;">' . $data->first_name . ' ' . $data->last_name . '</td>';
+    $table .= '<td style="border: 1px solid black;">' . (str_replace('&', '_', $data->first_name) . ' ' . $data->last_name) . '</td>';
     $table .= '<td style="border: 1px solid black;">' . $data->area . '</td>';
     $table .= '<td style="border: 1px solid black;">' . ($data->status ? 'Enabled' : 'Disabled') . '</td>';
     $table .= '<td style="border: 1px solid black;">' . $data->updated_at . '</td>';
