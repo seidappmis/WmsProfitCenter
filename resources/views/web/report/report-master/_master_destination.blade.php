@@ -1,6 +1,6 @@
 {{-- <div class="section-data-tables">  --}}
   <input type="hidden" id="report-master-value" value="{{$report_master_value}}">
-  <table id="data-table-master-cabang" class="display" width="100%">
+  <table id="data-table-master-destination" class="display" width="100%">
       <thead>
           <tr>
             <th>DESTINATION NUMBER</th>
@@ -16,7 +16,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table = $('#data-table-master-cabang').DataTable({
+  var table = $('#data-table-master-destination').DataTable({
     serverSide: true,
     scrollX: true,
     dom: 'Bfrtip',
