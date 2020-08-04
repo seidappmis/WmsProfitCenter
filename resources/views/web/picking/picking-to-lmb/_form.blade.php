@@ -15,6 +15,7 @@
               </div>
             </td>
         </tr>
+        @if(auth()->user()->cabang->hq)
         <tr>
             <td>No. Seal</td>
             <td>
@@ -41,6 +42,7 @@
               </div>
             </td>
         </tr>
+        @endif
     </table>
     {!! get_button_save() !!}
     {!! get_button_cancel(url('picking-to-lmb'), 'Back') !!}

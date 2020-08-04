@@ -121,7 +121,7 @@ class BranchExpeditionController extends Controller
   {
     $query = BranchExpedition::select(
       DB::raw("code AS id"),
-      DB::raw("CONCAT(code, '-', expedition_name) AS text")
+      DB::raw("expedition_name AS text")
     )
       ->where('status_active', 1)
       ->where('kode_cabang', auth()->user()->cabang->kode_cabang)

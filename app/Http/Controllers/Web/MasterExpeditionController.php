@@ -152,7 +152,7 @@ class MasterExpeditionController extends Controller
   {
     $query = MasterExpedition::select(
       DB::raw("code AS id"),
-      DB::raw("CONCAT(code, '-', expedition_name) AS text")
+      DB::raw("expedition_name AS text")
     )
       ->where('status_active', 1)
       ->toBase();

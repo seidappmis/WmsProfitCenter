@@ -159,6 +159,7 @@ class BranchMasterDriverController extends Controller
     )
       ->where('active_status', 1)
       ->where('expedition_code', $request->input('expedition_code'))
+      ->orderBy('text')
       ->toBase();
 
     return get_select2_data($request, $query);

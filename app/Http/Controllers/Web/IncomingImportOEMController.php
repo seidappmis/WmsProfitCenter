@@ -30,17 +30,42 @@ class IncomingImportOEMController extends Controller
         ->addColumn('status', function ($data) {
           return ($data->details->count() == 0) ? 'Items not found' : 'Total Items ' . $data->details->count();
         })
-        ->addColumn('action', function ($data) {
+        ->addColumn('action_view', function ($data) {
+          $action = get_button_view(url('incoming-import-oem/' . $data->arrival_no));
+          return $action;
+        })
+        ->addColumn('action_submit_to_inventory', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('incoming-import-oem/' . $data->arrival_no));
           if (!$data->submit) {
-            $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
-            $action .= ' ' . get_button_delete();
-          } else {
-            $action .= ' ' . get_button_print();
+            $action = get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
           }
           return $action;
-        });
+        })
+        ->addColumn('action_delete', function ($data) {
+          $action = '';
+          if (!$data->submit) {
+            $action = get_button_delete();
+          }
+          return $action;
+        })
+        ->addColumn('action_print', function ($data) {
+          $action = '';
+          $action = get_button_print();
+          return $action;
+        })
+      // ->addColumn('action_view', function ($data) {
+      //   $action = '';
+      //   $action .= ' ' . get_button_view(url('incoming-import-oem/' . $data->arrival_no));
+      //   if (!$data->submit) {
+      //     $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
+      //     $action .= ' ' . get_button_delete();
+      //   } else {
+      //     $action .= ' ' . get_button_print();
+      //   }
+      //   return $action;
+      // })
+        ->rawColumns(['action_view', 'action_submit_to_inventory', 'action_delete', 'action_print'])
+      ;
 
       return $datatables->make(true);
     }

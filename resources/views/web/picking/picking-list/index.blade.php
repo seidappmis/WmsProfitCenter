@@ -100,7 +100,7 @@
               d.search['value'] = $('#picking_list_filter').val()
             }
         },
-        order: [1, 'asc'],
+        order: [1, 'desc'],
         columns: [
             {data: 'picking_date', name: 'picking_date', className: 'detail'},
             {data: 'picking_no', name: 'picking_no', className: 'detail'},
@@ -111,7 +111,21 @@
             {data: 'do_status', name: 'do_status', className: 'detail'},
             {data: 'lmb', name: 'lmb', className: 'detail'},
             {data: 'action', className: 'center-align', orderable:false, searchable: false},
-        ]
+        ],
+        'createdRow': function(row, data, dataIndex){
+         // Use empty value in the "Office" column
+         // as an indication that grouping with COLSPAN is needed
+         if(data.city_code === 'AS'){
+            // Add COLSPAN attribute
+            $('td:eq(2)', row).attr('colspan', 3);
+            $('td:eq(2)', row).addClass('center-align');
+
+            // Hide required number of columns
+            // next to the cell with COLSPAN attribute
+            $('td:eq(3)', row).css('display', 'none');
+            $('td:eq(4)', row).css('display', 'none');
+         }
+      }   
     });
 
     dtdatatable.on('click', '.btn-edit', function(event) {
