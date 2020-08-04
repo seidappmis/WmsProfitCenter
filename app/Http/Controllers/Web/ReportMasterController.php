@@ -289,13 +289,15 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('A' . $row, $driver->driver_id);
       $sheet->setCellValue('B' . $row, $driver->driver_name);
       $sheet->setCellValue('C' . $row, $driver->ktp_no);
+      $sheet->getStyle('C' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('D' . $row, $driver->driving_license_type);
       $sheet->setCellValue('E' . $row, $driver->driving_license_no);
+      $sheet->getStyle('E' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('F' . $row, $driver->expedition_code);
       $sheet->setCellValue('G' . $row, $driver->expedition_name);
       $sheet->setCellValue('H' . $row, $driver->phone1);
       $sheet->setCellValue('I' . $row, $driver->phone2);
-      $sheet->setCellValue('J' . $row, $driver->active_status);
+      $sheet->setCellValue('J' . $row, '=IF('. $driver->active_status .'=1,"Active","No Active")');
       $row++;
     }
 
@@ -356,11 +358,13 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('D' . $row, $expedition->address);
       $sheet->setCellValue('E' . $row, $expedition->contact_person);
       $sheet->setCellValue('F' . $row, $expedition->phone_number_1);
+      $sheet->getStyle('F' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('G' . $row, $expedition->phone_number_2);
+      $sheet->getStyle('G' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('H' . $row, $expedition->fax_number);
       $sheet->setCellValue('I' . $row, $expedition->bank);
       $sheet->setCellValue('J' . $row, $expedition->currency);
-      $sheet->setCellValue('K' . $row, $expedition->status_active);
+      $sheet->setCellValue('K' . $row, '=IF('. $expedition->status_active .'=1,"Active","No Active")');
       $row++;
     }
 
@@ -524,7 +528,7 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('F' . $row, $vehicleExpedition->remark1);
       $sheet->setCellValue('G' . $row, $vehicleExpedition->remark2);
       $sheet->setCellValue('H' . $row, $vehicleExpedition->remark3);
-      $sheet->setCellValue('I' . $row, $vehicleExpedition->status_active);
+      $sheet->setCellValue('I' . $row, '=IF('. $vehicleExpedition->status_active .'=1,"Active","No Active")');
       $row++;
     }
 
