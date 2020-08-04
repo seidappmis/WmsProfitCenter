@@ -34,60 +34,7 @@ class MasterDriverController extends Controller
           return $action;
         });
 
-<<<<<<< HEAD
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'expedition_code'  => 'required|max:3',
-            'photo_name'         => 'image',
-            'driving_license_number'  => 'required|max:50',
-          ]);
-          $masterDriver = new MasterDriver;
-
-          $masterDriver->expedition_code = $request->input('expedition_code');
-      
-          // DRIVER ID = Expedition Code - YY - nomor
-          $prefix = $masterDriver->expedition_code . '-' . date('y');
-      
-          $prefix_length = strlen($prefix);
-          $max_no        = DB::select('SELECT MAX(SUBSTR(driver_id, ?)) AS max_no FROM master_driver WHERE SUBSTR(driver_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
-          $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
-      
-          $driver_id = $prefix . '-' . $max_no;
-      
-          $photo_name = '';
-          if (!empty($request->file('photo_name'))) {
-            $photo_name = $masterDriver->expedition_code . date('y') . $max_no . '.' . $request->file('photo_name')->extension();
-            $path       = $request->file('photo_name')->storeAs(
-              'Photo', $photo_name
-            );
-            $masterDriver->photo_name = $photo_name;
-          }
-      
-          $masterDriver->driver_id = $request->input('driver_id');
-          $masterDriver->driver_name     = $request->input('driver_name');
-          $masterDriver->driving_license_type  = $request->input('driving_license_type');
-          $masterDriver->driving_license_number = $request->input('driving_license_number');
-          $masterDriver->ktp_no     = $request->input('ktp_no');
-          $masterDriver->phone1   = $request->input('phone1');  
-          $masterDriver->phone2   = $request->input('phone2');  
-          $masterDriver->remarks1   = $request->input('remarks1');  
-          $masterDriver->remarks2   = $request->input('remarks2');
-          $masterDriver->remarks3   = $request->input('remarks3'); 
-          $masterDriver->status_active =!empty($request->input('status_active'));
-
-          $masterDriver->save();
-
-          return $masterDriver;
-=======
       return $datatables->make(true);
->>>>>>> b84cfcaab36325d4e49c4ea26f9b6d5be76fb2e2
     }
     return view('web.master.master-driver.index');
   }
