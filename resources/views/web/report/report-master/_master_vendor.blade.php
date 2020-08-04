@@ -6,9 +6,9 @@
             <th>VENDOR NAME</th>
             <th>DESCRIPTION</th>
             <th>VENDOR ADDRESS</th>
-            <!-- <th>CONTACT PERSON NAME</th>
+            <th>CONTACT PERSON NAME</th>
             <th>CONTACT PERSON PHONE</th>
-            <th>CONTACT PERSON EMAIL</th> -->
+            <th>CONTACT PERSON EMAIL</th>
         </tr>
     </thead>
     <tbody>
@@ -39,14 +39,15 @@
         url: '{{ url('master-vendor') }}',
         type: 'GET',
     },
+    order: [1, 'asc'],
     columns: [
         {data: 'vendor_code', className: 'detail'},
         {data: 'vendor_name', className: 'detail'},
         {data: 'description', className: 'detail'},
         {data: 'vendor_address', className: 'detail'},
-        // {data: 'contact_person_name', className: 'detail'},
-        // {data: 'contact_person_phone', className: 'detail'},
-        // {data: 'contact_person_email', className: 'detail'},
+        {data: 'contact_person_name', className: 'detail'},
+        {data: 'contact_person_phone', className: 'detail'},
+        {data: 'contact_person_email', className: 'detail'},
     ]
   });
 </script>

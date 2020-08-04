@@ -27,6 +27,7 @@ class MasterDriverController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('active_status', '{{$active_status ? "Active" : "No Active"}}')
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_edit(url('master-driver/' . $data->driver_id . '/edit'));

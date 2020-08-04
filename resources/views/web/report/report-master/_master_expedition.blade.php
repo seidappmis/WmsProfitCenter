@@ -2,10 +2,16 @@
 <table id="data-table-master-expedition" class="display" width="100%">
     <thead>
         <tr>
+          <th>CODE</th>
+          <th>SAP VENDOR CODE</th>
           <th>NAME</th>
           <th>ADDRESS</th>
-          <th>CODE</th>
-          <th>SAP VENDOR NAME</th>
+          <th>CONTACT PERSON</th>
+          <th>PHONE NUMBER 1</th>
+          <th>PHONE NUMBER 2</th>
+          <th>FAX NUMBER</th>
+          <th>BANK</th>
+          <th>CURRENCY</th>
           <th>STATUS</th>
         </tr>
     </thead>
@@ -19,6 +25,7 @@
     serverSide: true,
     scrollX: true,
     dom: 'Bfrtip',
+    // scrollY: '60vh',
     buttons: [
             {
                 text: 'PDF',
@@ -38,10 +45,16 @@
         type: 'GET',
     },
     columns: [
-        {data: 'expedition_name', className: 'detail'},
-        {data: 'address', className: 'detail'},
         {data: 'code', className: 'detail'},
         {data: 'sap_vendor_code', className: 'detail'},
+        {data: 'expedition_name', className: 'detail'},
+        {data: 'address', className: 'detail'},
+        {data: 'contact_person', className: 'detail'},
+        {data: 'phone_number_1', className: 'detail'},
+        {data: 'phone_number_2', className: 'detail'},
+        {data: 'fax_number', className: 'detail'},
+        {data: 'bank', className: 'detail'},
+        {data: 'currency', className: 'detail'},
         {data: 'status_active', className: 'detail'},
     ]
   });

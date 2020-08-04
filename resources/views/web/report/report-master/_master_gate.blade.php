@@ -2,9 +2,9 @@
 <table id="data-table-master-gate" class="display" width="100%">
     <thead>
         <tr>
-          <th>GATE</th>
-          <th>DESCRIPTION</th>
           <th>AREA</th>
+          <th>GATE NUMBER</th>
+          <th>DESCRIPTION</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +17,7 @@
     serverSide: true,
     scrollX: true,
     dom: 'Bfrtip',
+    // scrollY: '60vh',
     buttons: [
             {
                 text: 'PDF',
@@ -35,10 +36,11 @@
         url: '{{ url('master-gate') }}',
         type: 'GET',
     },
+    order: [[0, 'asc'], [1, 'asc']],
     columns: [
+        {data: 'area', className: 'detail'},
         {data: 'gate_number', className: 'detail'},
         {data: 'description', className: 'detail'},
-        {data: 'area', className: 'detail'},
     ]
   });
 </script>

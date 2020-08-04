@@ -7,8 +7,11 @@
           <th>KTP NO</th>
           <th>DRIVING LICENSE TYPE</th>
           <th>DRIVING LICENSE NO</th>
-          <th>PHONE NO</th>
-          <th>EXPEDITION</th>
+          <th>EXPEDITION CODE</th>
+          <th>EXPEDITION NAME</th>
+          <th>PHONE 1</th>
+          <th>PHONE 2</th>
+          <th>STATUS</th>
         </tr>
     </thead>
     <tbody>
@@ -40,14 +43,18 @@
         url: '{{ url('master-driver') }}',
         type: 'GET',
     },
+    order: [[5, 'asc'], [6, 'asc']],
     columns: [
         {data: 'driver_id', className: 'detail'},
         {data: 'driver_name', className: 'detail'},
         {data: 'ktp_no', className: 'detail'},
         {data: 'driving_license_type', className: 'detail'},
         {data: 'driving_license_no', className: 'detail'},
-        {data: 'phone1', className: 'detail'},
+        {data: 'expedition_code', className: 'detail'},
         {data: 'expedition_name', className: 'detail'},
+        {data: 'phone1', className: 'detail'},
+        {data: 'phone2', className: 'detail'},
+        {data: 'active_status', className: 'detail'},
     ]
   });
 </script>
