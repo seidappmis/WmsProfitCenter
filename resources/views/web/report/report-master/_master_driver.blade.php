@@ -51,7 +51,7 @@
         {data: 'driving_license_type', className: 'detail'},
         {data: 'driving_license_no', className: 'detail'},
         {data: 'expedition_code', className: 'detail'},
-        {data: 'expedition_name', className: 'detail'},
+        {data: 'expedition_name', name:'tr_expedition.expedition_name', className: 'detail'},
         {data: 'phone1', className: 'detail'},
         {data: 'phone2', className: 'detail'},
         {data: 'active_status', className: 'detail'},
