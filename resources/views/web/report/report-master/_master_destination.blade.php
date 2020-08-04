@@ -38,6 +38,7 @@
         url: '{{ url('master-destination') }}',
         type: 'GET',
     },
+    order: [[2, 'asc'], [1, 'asc']],
     columns: [
         {data: 'destination_number', name: 'destination_number', className: 'detail'},
         {data: 'destination_description', name: 'destination_description', className: 'detail'},

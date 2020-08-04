@@ -2,13 +2,14 @@
 <table id="data-table-master-vehicle-expedition" class="display" width="100%">
     <thead>
         <tr>
-            <th>VEHICLE NO</th>
-            <th>VEHICLE TYPE</th>
-            <th>VEHICLE GROUP</th>
+            <th>CODE</th>
             <th>EXPEDITION NAME</th>
-            <th>CBM MIN</th>
-            <th>CBM MAX</th>
+            <th>VEHICLE NO</th>
             <th>DESTINATION</th>
+            <th>DESCRIPTION</th>
+            <th>REMARKS 1</th>
+            <th>REMARKS 2</th>
+            <th>REMARKS 3</th>
             <th>STATUS</th>
         </tr>
     </thead>
@@ -40,14 +41,16 @@
         url: '{{ url('master-vehicle-expedition') }}',
         type: 'GET',
     },
+    order: [[0, 'asc'], [1, 'asc']],  
     columns: [
-        {data: 'vehicle_number', className: 'detail'},
-        {data: 'vehicle_type', className: 'detail'},
-        {data: 'vehicle_group', className: 'detail'},
+        {data: 'expedition_code', className: 'detail'},
         {data: 'expedition_name', className: 'detail'},
-        {data: 'cbm_min', className: 'detail'},
-        {data: 'cbm_max', className: 'detail'},
-        {data: 'destination_name',  className: 'detail'},
+        {data: 'vehicle_number', className: 'detail'},
+        {data: 'destination_name', className: 'detail'},
+        {data: 'vehicle_detail_description', className: 'detail'},
+        {data: 'remark1', className: 'detail'},
+        {data: 'remark2',  className: 'detail'},
+        {data: 'remark3',  className: 'detail'},
         {data: 'status_active', className: 'detail'},
     ]
   });

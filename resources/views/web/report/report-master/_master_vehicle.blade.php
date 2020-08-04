@@ -2,10 +2,10 @@
 <table id="data-table-master-vehicle" class="display" width="100%">
     <thead>
         <tr>
-            <th>CODE TYPE</th>
-            <th>VEHICLE GROUP</th>
-            <th>DESCRIPTION</th>
-            <th>SAP DESCRIPTION</th>
+            <th>GROUP NAME</th>
+            <th>VEHICLE CODE</th>
+            <th>VEHICLE DESCRIPTION</th>
+            <th>VEHICLE SAP DESCRIPTION</th>
             <th>CBM MIN</th>
             <th>CBM MAX</th>
         </tr>
@@ -38,9 +38,10 @@
         url: '{{ url('report-master') }}',
         type: 'GET',
     },
+    order: [[0, 'asc'], [1, 'asc']],
     columns: [
-        {data: 'vehicle_code_type', className: 'detail'},
         {data: 'vehicle_group', name: 'tr_vehicle_type_group.group_name', className: 'detail'},
+        {data: 'vehicle_code_type', className: 'detail'},
         {data: 'vehicle_description', className: 'detail'},
         {data: 'sap_description', className: 'detail'},
         {data: 'cbm_min', className: 'detail'},
