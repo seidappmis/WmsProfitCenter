@@ -134,7 +134,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     line-height: 2;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable tbody td {
-    padding: 0px 5px 2px;
+    padding: 0px 2px 2px;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable th {
     padding: 10px 5px;
@@ -269,7 +269,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     background-color: #0a035e80;
 }
 table .btn, table .btn-large, table .btn-small, table .btn-flat {
-    padding: 0 .6rem;
+    padding: 0 .3rem;
     text-transform: none;
 }
 td, th {
@@ -277,6 +277,12 @@ td, th {
     color: #34363f;
     padding: 5px 5px;
 }
+
+th {
+    color: #ffffff !important;
+    background-color: #1d3046;
+}
+
 .form-table th, .form-table td {
     font-size: 14px;
     padding: 0 !important;

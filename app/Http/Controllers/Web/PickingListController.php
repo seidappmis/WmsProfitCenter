@@ -36,7 +36,7 @@ class PickingListController extends Controller
           if ($data->city_code == 'AS') {
             $driver_name = $data->city_name;
           }
-          
+
           return $driver_name;
         })
         ->addColumn('do_status', function ($data) {
@@ -486,6 +486,37 @@ class PickingListController extends Controller
     $data['driverRegistered'] = DriverRegistered::findOrFail($id);
 
     return view('web.picking.picking-list.edit_transporter', $data);
+  }
+
+  public function export(Request $request, $id)
+  {
+    if ($request->input('filetype') == 'html') {
+      return view('web.picking.picking-list._print');
+    }
+
+    // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("templates/picking_list.xlsx");
+    // $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+
+    // $spreadsheet = $reader->load(view('web.picking.picking-list._print'));
+
+    $title = 'PICKING LIST';
+
+    if ($request->input('filetype') == 'pdf') {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      header('Cache-Control: max-age=0');
+    } elseif ($request->input('filetype') == 'xls') {
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+    } else {
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
+      $hdr = $writer->generateHTMLHeader();
+echo $writer->generateHTMLFooter();
+    }
+
+    $writer->save("php://output");
   }
 
 }
