@@ -1,5 +1,4 @@
 @extends('layouts.materialize.index')
-{{-- @include('admin.materi.modal_form_materi') --}}
 
 @section('content')
 <div class="row">
@@ -37,50 +36,18 @@
     <div class="col s12">
         <div class="container">
             <div class="section">
-              <d{{-- iv class="card ">
-                <div class="card-content">
-                    <form class="form-table">
-                        <table>
-                          <tr>
-                            <td>Area</td>
-                            <td>
-                              <div class="input-field col s12">
-                                <select class="select2 browser-default">
-                                  <option>- Select Area -</option>
-                                  <option>ALL</option>
-                                  <option>KARAWANG</option>
-                                  <option>SURABAYA HUB</option>
-                                  <option>SWADAYA</option>
-                                  
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                        <div class="input-field col s12">
-                          <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                        </div>
-                      </form>
-                      <br>
-                </div>
-              </div --}}>
               <div class="card ">
-                <div class="card-content p-0">
-                  <div class="section-data-tables">
-                      <table id="data-table-transporter-list" class="display" width="100%">
-                        <thead>
-                            <tr>
-                              <th width="30px">NO</th>
-                              <th>VEHICLE NUMBER</th>
-                              <th>DRIVER ID</th>
-                              <th>DRIVER NAME</th>
-                              <th>VEHICLE DESCRIPTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="card-content">
+                  <table id="data-table-standby-driver-list" class="display" width="100%">
+                    <thead>
+                        <tr>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- datatable ends -->
               </div>
               </div>
             </div>
@@ -95,18 +62,36 @@
   $('#area_filter').select2({
      placeholder: '-- Select Area --',
      allowClear: true,
-     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+     ajax: get_select2_ajax_options('/master-area/select2-areas-all')
   });
   @if (auth()->user()->area != 'All')
     set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
     $('#area_filter').attr('disabled','disabled')
   @endif
-  var dt_table_transporter;
+
+  var dt_table_driver_list;
+
   jQuery(document).ready(function($) {
-     dt_table_transporter = $('#data-table-transporter-list').DataTable({
+     dt_table_driver_list = $('#data-table-standby-driver-list').DataTable({
       serverSide: true,
       scrollX: true,
-      responsive: true,
+      dom: 'Brtip',
+      pageLength: 1,
+      scrollY: '60vh',
+      buttons: [
+              {
+                  text: 'PDF',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-master-users/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+                  }
+              },
+               {
+                  text: 'EXCEL',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-master-users/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+                  }
+              }
+          ],
       ajax: {
           url: '{{ url('picking-list/get-transporter-list') }}',
           type: 'GET',
