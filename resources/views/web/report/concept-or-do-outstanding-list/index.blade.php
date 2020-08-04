@@ -22,17 +22,13 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <form class="form-table">
+                        <form id="form-report-outstanding-list" class="form-table">
                             <table>
                               <tr style="background-color: darkgray">
                                 <td>Area</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select>
-                                      <option value="" disabled selected>-Select Area-</option>
-                                      <option value="1">KARAWANG</option>
-                                      <option value="2">SURABAYA HUB</option>
-                                      <option value="3">SWADAYA</option>
+                                    <select name="area" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -45,20 +41,7 @@
                                 <td>Branch</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select>
-                                      <option value="" disabled selected>-Select Branch-</option>
-                                      <option value="1">PT. SAID CAB. JAKARTA</option>
-                                      <option value="2">PT. SAID CAB. BANDNG</option>
-                                      <option value="3">PT. SAID CAB. CIREBON</option>
-                                      <option value="3">PT. SAID CAB. SEMARNG</option>
-                                      <option value="3">PT. SAID CAB. YOGYAKARTA</option>
-                                      <option value="3">PT. SAID CAB. PURWOKERTO</option>
-                                      <option value="3">PT. SAID CAB. KEDIRI</option>
-                                      <option value="3">PT. SAID CAB. SURABAYA</option>
-                                      <option value="3">PT. SAID CAB. DENPASAT</option>
-                                      <option value="3">PT. SAID CAB. SAMARINDA</option>
-                                      <option value="3">PT. SAID CAB. BANJARMASIN</option>
-
+                                    <select name="cabang" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -66,24 +49,20 @@
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
-                                  <input id="model" type="text" class="validate" name="model" required>
+                                  <input id="model" type="text" class="validate" name="shipment_no">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Do NO</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="aqty" disabled>
+                                  <input id="aqty" type="text" class="validate " name="do_no">
                                 </div></td>
                               </tr>
                               <tr>
-                                <td>Expediotion</td>
+                                <td>Expedition</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select>
-                                      <option value="" disabled selected>-All-</option>
-                                      <option value="1">JAKARTA-JEMBER</option>
-                                      <option value="2">JAKARTA-KARAWANG</option>
-                                      <option value="3">JAKARTA-KEDIRI</option>
+                                    <select name="expedition" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -112,12 +91,13 @@
                               <tr>
                                 <td>Vahicle Type</td>
                                 <td><div class="input-field col s12">
-                                  <input id="" type="text" class="validate" name="model" required>
+                                  <select name="vehicle_type" class="select2-data-ajax browser-default">
+                                    </select>
                                 </div></td>
                               </tr>
                             </table>
                             <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1 ml-1">Submit</button>
                             </div>
                           </form>
                     </div>
@@ -128,3 +108,27 @@
     </div>
 </div>
 @endsection
+@push('script_js')
+<script type="text/javascript">
+  $('#form-report-outstanding-list [name="area"]').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+  $('#form-report-outstanding-list [name="cabang"]').select2({
+     placeholder: '-- Select Branch --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+  });
+  $('#form-report-outstanding-list [name="expedition"]').select2({
+     placeholder: '-- All --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+  $('#form-report-outstanding-list [name="vehicle_type"]').select2({
+     placeholder: '-- All --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+</script>
+@endpush

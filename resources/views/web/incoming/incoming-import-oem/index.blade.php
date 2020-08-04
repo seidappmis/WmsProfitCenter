@@ -55,7 +55,10 @@
                                     <th>VENDOR NAME</th>
                                     <th>STATUS</th>
                                     <th>DOCUMENT DATE</th>
-                                    <th width="50px;"></th>
+                                    <th width="2px;"></th>
+                                    <th width="2px;"></th>
+                                    <th width="2px;"></th>
+                                    <th width="2px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -99,7 +102,7 @@
     var table = $('#data-table-incoming-import-oem').DataTable({
     serverSide: true,
     scrollX: true,
-    responsive: true,
+    responsive: false,
     ajax: {
         url: '{{ url('incoming-import-oem') }}',
         type: 'GET',
@@ -116,7 +119,10 @@
         {data: 'vendor_name', name: 'vendor_name', className: 'detail'},
         {data: 'status', name: 'status', className: 'detail'},
         {data: 'document_date', name: 'document_date', className: 'detail'},
-        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        {data: 'action_view', className: 'center-align', searchable: false, orderable: false},
+        {data: 'action_submit_to_inventory', className: 'center-align', searchable: false, orderable: false},
+        {data: 'action_delete', className: 'center-align', searchable: false, orderable: false},
+        {data: 'action_print', className: 'center-align', searchable: false, orderable: false},
     ]
   });
 

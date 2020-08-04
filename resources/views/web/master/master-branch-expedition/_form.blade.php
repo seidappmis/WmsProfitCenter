@@ -38,7 +38,7 @@
             <td>INITIAL</td>
             <td>
                 <div class="input-field col s12">
-                    <input name="initial" id="initial" type="text" class="validate" value="{{old('initial', !empty($branchExpedition) ? $branchExpedition->initial : '')}}" required>
+                    <input name="initial" id="initial" type="text" class="validate" maxlength="1" value="{{old('initial', !empty($branchExpedition) ? $branchExpedition->initial : '')}}" required>
                 </div>
             </td>
         </tr>

@@ -33,6 +33,10 @@ class PickingListController extends Controller
 
           $driver_name .= $data->driver_name;
 
+          if ($data->city_code == 'AS') {
+            $driver_name = $data->city_name;
+          }
+          
           return $driver_name;
         })
         ->addColumn('do_status', function ($data) {
