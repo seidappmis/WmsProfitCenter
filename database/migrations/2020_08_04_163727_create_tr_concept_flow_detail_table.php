@@ -28,7 +28,7 @@ class CreateTrConceptFlowDetailTable extends Migration
             $table->boolean('overload');
             $table->string('remarks', 200)->nullable();
 
-            $table->primary('invoice_no');
+            $table->primary(['invoice_no', 'line_no']);
         });
     }
 
