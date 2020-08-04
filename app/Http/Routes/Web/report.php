@@ -8,7 +8,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-master-users/export', 'Web\ReportMasterUserController@export');
 
   Route::view('standby-driver-list', 'web.report.standby-driver-list.index');
-  Route::view('concept-or-do-outstanding-list', 'web.report.concept-or-do-outstanding-list.index');
+
+  Route::get('concept-or-do-outstanding-list', 'Web\ConceptOrDOOutstandingListController@index');
+
   Route::view('loading-status-list', 'web.report.loading-status-list.index');
   Route::view('report-concept-coming-vs-actual-loading', 'web.report.report-concept-coming-vs-actual-loading.index');
   Route::view('concept-issue', 'web.report.concept-issue.index');
