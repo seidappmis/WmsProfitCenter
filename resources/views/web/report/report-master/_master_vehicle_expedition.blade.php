@@ -44,9 +44,9 @@
     order: [[0, 'asc'], [1, 'asc']],  
     columns: [
         {data: 'expedition_code', className: 'detail'},
-        {data: 'expedition_name', className: 'detail'},
+        {data: 'expedition_name', name:'tr_expedition.expedition_name', className: 'detail'},
         {data: 'vehicle_number', className: 'detail'},
-        {data: 'destination_name', className: 'detail'},
+        {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
         {data: 'vehicle_detail_description', className: 'detail'},
         {data: 'remark1', className: 'detail'},
         {data: 'remark2',  className: 'detail'},

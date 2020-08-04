@@ -279,9 +279,10 @@ class ReportMasterController extends Controller
 
     $data = \App\Models\MasterDriver::select(
         'tr_driver.*',
-        DB::raw('tr_expedition.expedition_name')
+        DB::raw('tr_expedition.expedition_name as expedition_name')
       )
-        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
+        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code')
+        ->get();
 
     $row = 2;
     foreach ($data as $key => $driver) {
@@ -451,7 +452,8 @@ class ReportMasterController extends Controller
     $data = \App\Models\VehicleDetail::select('tr_vehicle_type_detail.*',
           DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
       )
-      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id');
+      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
+      ->get();
 
     $row = 2;
     foreach ($data as $key => $vehicle) {
@@ -505,7 +507,12 @@ class ReportMasterController extends Controller
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
     $sheet->getStyle('A1:I1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
 
-    $data = \App\Models\MasterVehicleExpedition::all();
+    $data = \App\Models\MasterVehicleExpedition::select(
+        'tr_vehicle_expedition.*',
+        DB::raw('tr_expedition.expedition_name as expedition_name')
+      )
+        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+        ->get();
 
     $row = 2;
     foreach ($data as $key => $vehicleExpedition) {
