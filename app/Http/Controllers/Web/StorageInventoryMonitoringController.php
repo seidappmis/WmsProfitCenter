@@ -47,6 +47,9 @@ class StorageInventoryMonitoringController extends Controller
       $query      = MovementTransactionLog::where('eancode', $data['inventoryStorage']->ean_code);
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('created_at', function($data){
+          return $data->created_at;
+        })
       ;
 
       return $datatables->make(true);

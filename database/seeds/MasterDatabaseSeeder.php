@@ -18,6 +18,7 @@ class MasterDatabaseSeeder extends Seeder
     $this->call(Database\Seeds\Masters\TRExpeditionTableSeeder::class);
     $this->call(Database\Seeds\Masters\TRVehicleExpeditionTableSeeder::class);
     $this->call(Database\Seeds\Masters\TRDriverTableSeeder::class);
+    $this->call(Database\Seeds\Masters\TRWorkflowTableSeeder::class);
     $this->call(Database\Seeds\Masters\TRDestinationTableSeeder::class);
     $this->call(Database\Seeds\Masters\WMSStorageTypesTableSeeder::class);
     $this->call(Database\Seeds\Masters\WMSModelCategorySeeder::class);
