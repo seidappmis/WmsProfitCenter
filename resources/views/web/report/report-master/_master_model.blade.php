@@ -3,14 +3,18 @@
     <thead>
         <tr>
             <th>MODEL NAME</th>
-            <th>MODEL BPROD</th>
             <th>EAN CODE</th>
             <th>CBM</th>
             <th>MATERIAL GROUP</th>
             <th>CATEGORY</th>
             <th>TYPE</th>
-            <th>DESCRIPTION</th>
+            <th>PIECES/CARTON</th>
+            <th>CARTON/PALET</th>
             <th>PALET</th>
+            <th>DESCRIPTION</th>
+            <th>PRICE 1</th>
+            <th>PRICE 2</th>
+            <th>PRICE 3</th>
         </tr>
     </thead>
     <tbody>
@@ -43,14 +47,18 @@
     },
     columns: [
         {data: 'model_name', className: 'detail'},
-        {data: 'model_from_apbar', className: 'detail'},
         {data: 'ean_code', className: 'detail'},
         {data: 'cbm', className: 'detail'},
         {data: 'material_group_description', className: 'detail'},
         {data: 'category', className: 'detail'},
         {data: 'model_type', className: 'detail'},
-        {data: 'description', className: 'detail'},
+        {data: 'pcs_ctn', className: 'detail'},
+        {data: 'ctn_plt', className: 'detail'},
         {data: 'max_pallet', className: 'detail'},
+        {data: 'description', className: 'detail'},
+        {data: 'price1', className: 'detail'},
+        {data: 'price2', className: 'detail'},
+        {data: 'price3', className: 'detail'},
     ]
   });
 </script>
