@@ -71,5 +71,6 @@
     @endif
     set_select2_value('#form-picking-list [name="city_code"]', '{{$pickinglistHeader->city_code}}', '{{$pickinglistHeader->city_name}}')
   });
+
 </script>
 @endpush

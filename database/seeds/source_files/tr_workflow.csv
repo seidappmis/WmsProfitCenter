@@ -1,0 +1,6 @@
+1,1,Waiting Truck,existing concept but no truck for loading concept,0,NULL
+2,2,Waiting Concept,existing truck but no concept available,0,NULL
+3,3,Waiting Loading,between concept and trucks already sync but not yet entered loading gate,0,Assign Vehicles
+4,4,Loading Process,truck loading process,0,Select Gate
+5,5,Waiting D/O,"truck finish loading, driver waiting LMB (laporan Muat Barang) before out from warehouse",0,Loading Process
+6,6,Complete,Finish,1,Complete

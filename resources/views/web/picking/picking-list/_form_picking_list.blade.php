@@ -127,17 +127,40 @@
     </table>
     <div class="row pl-1">
         <div class="input-field col s12">
+          @if(empty($pickinglistHeader))
             {!! get_button_save('Save') !!}
+          @else
+            {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
+          @endif
             {!! get_button_cancel(url('picking-list'),'Back') !!}
         </div>
     </div>
 </form>
 
+@push('page-modal')
+<!-- Modal Structure -->
+  <div id="modal-print" class="modal modal-fixed-footer" style="width: 90%;">
+    <div class="modal-content" style="height: 90vh;">
+      <h4>
+      Print Pickinglist
+      <a href="{{ url('picking-list/123/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+      <a href="{{ url('picking-list/123/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+    </h4>
+      <iframe id="frame" src="" width="100%" height="300">
+     </iframe>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
 
     jQuery(document).ready(function($) {
-        $('#form-picking-list [name="storage_id"]').select2({
+      init_btn_print();
+      $('#form-picking-list [name="storage_id"]').select2({
         placeholder: '-- Select Storage --',
         ajax: get_select2_ajax_options('/storage-master/select2-user-storage-without-intransit')
       })
@@ -152,6 +175,14 @@
         init_form_branch()
         @endif
     });
+
+    function init_btn_print(){
+      $('.btn-print').click(function(event) {
+        /* Act on the event */
+        $('#modal-print').modal('open');
+        $('#frame').attr("src", "{{ url('picking-list/123/export?filetype=html') }}");
+      });
+    }
 
     function init_form_hq(){
       $('.destination-input-wrapper').removeClass('hide');
