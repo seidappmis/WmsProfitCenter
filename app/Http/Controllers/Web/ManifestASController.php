@@ -24,12 +24,22 @@ class ManifestASController extends Controller
         ->addColumn('status', function ($data) {
           return $data->status();
         })
-        ->addColumn('action', function ($data) {
+        ->addColumn('actionEdit', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('manifest-as/' . $data->driver_register_id . '/edit'), 'View');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->addColumn('actionDelete', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_delete();
+          return $action;
+        })
+        ->addColumn('actionPrint', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_print();
+          return $action;
+        })
+        ->rawColumns(['do_status', 'actionEdit', 'actionDelete', 'actionPrint']);
 
       return $datatables->make(true);
     }
