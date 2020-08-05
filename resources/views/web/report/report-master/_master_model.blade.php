@@ -49,7 +49,7 @@
         {data: 'model_name', className: 'detail'},
         {data: 'ean_code', className: 'detail'},
         {data: 'cbm', className: 'detail'},
-        {data: 'material_group_description', className: 'detail'},
+        {data: 'material_group_description', name: 'wms_model_material_group.description', className: 'detail'},
         {data: 'category', className: 'detail'},
         {data: 'model_type', className: 'detail'},
         {data: 'pcs_ctn', className: 'detail'},

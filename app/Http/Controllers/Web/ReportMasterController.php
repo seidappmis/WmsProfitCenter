@@ -279,22 +279,25 @@ class ReportMasterController extends Controller
 
     $data = \App\Models\MasterDriver::select(
         'tr_driver.*',
-        DB::raw('tr_expedition.expedition_name')
+        DB::raw('tr_expedition.expedition_name as expedition_name')
       )
-        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
+        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code')
+        ->get();
 
     $row = 2;
     foreach ($data as $key => $driver) {
       $sheet->setCellValue('A' . $row, $driver->driver_id);
       $sheet->setCellValue('B' . $row, $driver->driver_name);
       $sheet->setCellValue('C' . $row, $driver->ktp_no);
+      $sheet->getStyle('C' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('D' . $row, $driver->driving_license_type);
       $sheet->setCellValue('E' . $row, $driver->driving_license_no);
+      $sheet->getStyle('E' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('F' . $row, $driver->expedition_code);
       $sheet->setCellValue('G' . $row, $driver->expedition_name);
       $sheet->setCellValue('H' . $row, $driver->phone1);
       $sheet->setCellValue('I' . $row, $driver->phone2);
-      $sheet->setCellValue('J' . $row, $driver->active_status);
+      $sheet->setCellValue('J' . $row, '=IF('. $driver->active_status .'=1,"Active","No Active")');
       $row++;
     }
 
@@ -355,11 +358,13 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('D' . $row, $expedition->address);
       $sheet->setCellValue('E' . $row, $expedition->contact_person);
       $sheet->setCellValue('F' . $row, $expedition->phone_number_1);
+      $sheet->getStyle('F' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('G' . $row, $expedition->phone_number_2);
+      $sheet->getStyle('G' . $row)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER);
       $sheet->setCellValue('H' . $row, $expedition->fax_number);
       $sheet->setCellValue('I' . $row, $expedition->bank);
       $sheet->setCellValue('J' . $row, $expedition->currency);
-      $sheet->setCellValue('K' . $row, $expedition->status_active);
+      $sheet->setCellValue('K' . $row, '=IF('. $expedition->status_active .'=1,"Active","No Active")');
       $row++;
     }
 
@@ -451,7 +456,8 @@ class ReportMasterController extends Controller
     $data = \App\Models\VehicleDetail::select('tr_vehicle_type_detail.*',
           DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
       )
-      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id');
+      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
+      ->get();
 
     $row = 2;
     foreach ($data as $key => $vehicle) {
@@ -505,7 +511,12 @@ class ReportMasterController extends Controller
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
     $sheet->getStyle('A1:I1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
 
-    $data = \App\Models\MasterVehicleExpedition::all();
+    $data = \App\Models\MasterVehicleExpedition::select(
+        'tr_vehicle_expedition.*',
+        DB::raw('tr_expedition.expedition_name as expedition_name')
+      )
+        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+        ->get();
 
     $row = 2;
     foreach ($data as $key => $vehicleExpedition) {
@@ -517,7 +528,7 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('F' . $row, $vehicleExpedition->remark1);
       $sheet->setCellValue('G' . $row, $vehicleExpedition->remark2);
       $sheet->setCellValue('H' . $row, $vehicleExpedition->remark3);
-      $sheet->setCellValue('I' . $row, $vehicleExpedition->status_active);
+      $sheet->setCellValue('I' . $row, '=IF('. $vehicleExpedition->status_active .'=1,"Active","No Active")');
       $row++;
     }
 
