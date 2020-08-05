@@ -34,7 +34,7 @@
                                 <table class="display" id="lmb_waiting_manifest" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>NO</th>
+                                            <th width="10px">NO</th>
                                             <th>LMB Date</th>
                                             <th>Picking No</th>
                                             <th>Vehicle</th>
@@ -73,9 +73,9 @@ jQuery(document).ready(function($) {
               d.search['value'] = $('#lmb_waiting_manifest_filter').val()
           }
       },
-      order: [0, 'asc'],
+      order: [1, 'desc'],
       columns: [
-          { data: 'vehicle_number', name: 'vehicle_number', className: 'detail' },
+          { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           { data: 'driver_name', name: 'driver_name', className: 'detail' },
           { data: 'expedition_name', name: 'expedition_name', className: 'detail' },
           { data: 'destination_name', name: 'destination_name', className: 'detail' },
