@@ -27,7 +27,7 @@
                   <table id="data_manifest_normal_table" class="display" width="100%">
                     <thead>
                       <tr>
-                        <th>No.</th>
+                        <th width="10px">No.</th>
                         <th>Manifest</th>
                         <th>Remarks 1</th>
                         <th>Remarks 2</th>
