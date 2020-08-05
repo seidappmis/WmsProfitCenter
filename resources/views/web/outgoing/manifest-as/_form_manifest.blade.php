@@ -36,19 +36,18 @@
                         type="text" 
                         class="validate" 
                         name="seal_no" 
-                        value=""
+                        value="{{ !empty($manifestHeader) ? $manifestHeader->seal_no : '' }}"
                         />
               </div>
             </td>
             <td width="20%">Checker</td>
             <td width="30%">
                 <div class="input-field col s12">
-                    <input type="hidden" name="expedition_code" value="{{$lmbHeader->expedition_code}}">
                     <input 
                         type="text" 
                         class="validate" 
                         name="checker" 
-                        value=""
+                        value="{{ !empty($manifestHeader) ? $manifestHeader->checker : '' }}"
                         />
               </div>
             </td>
@@ -61,7 +60,7 @@
                         type="text" 
                         class="validate" 
                         name="pdo_no" 
-                        value=""
+                        value="{{ !empty($manifestHeader) ? $manifestHeader->pdo_no : '' }}"
                         />
               </div>
             </td>
