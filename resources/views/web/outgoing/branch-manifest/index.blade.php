@@ -28,8 +28,8 @@
       </div>
   @endcomponent
 <div class="col s12">
-  @include('web.outgoing.manifest-regular._truck_waiting_manifest')
-  @include('web.outgoing.manifest-regular._data_manifest_normal')
+  @include('web.outgoing.branch-manifest._truck_waiting_manifest')
+  @include('web.outgoing.branch-manifest._data_manifest_normal')
 
     <div class="content-overlay"></div>
   </div>

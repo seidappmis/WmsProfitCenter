@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\LMBHeader;
+use App\Models\WMSBranchManifestHeader;
+use DataTables;
+use DB;
 
 class BranchManifestController extends Controller
 {
     public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = WMSBranchManifestHeader::all();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -69,7 +73,7 @@ class BranchManifestController extends Controller
       'driver_register_id' => 'required',
     ]);
 
-    $manifestHeader = new LogManifestHeader;
+    $manifestHeader = new WMSBranchManifestHeader;
 
     // DO MANIFEST NO => KODEAREA-ymd-URUT
     $prefix = auth()->user()->area . '-' . date('ymd');
@@ -129,7 +133,7 @@ class BranchManifestController extends Controller
 
   public function edit($id)
   {
-    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
     $data['lmbHeader']      = $data['manifestHeader']->lmb;
     $data['doData']         = [];
 
@@ -138,7 +142,7 @@ class BranchManifestController extends Controller
 
   public function assignDO(Request $request, $id)
   {
-    $manifestHeader = LogManifestHeader::findOrFail($id);
+    $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
 
     return $manifestHeader;
   }

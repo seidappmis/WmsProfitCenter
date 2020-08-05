@@ -26,7 +26,7 @@ class ManifestASController extends Controller
         })
         ->addColumn('actionEdit', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('manifest-as/' . $data->driver_register_id . '/edit'), 'View');
+          $action .= ' ' . get_button_view(url('manifest-as/' . $data->do_manifest_no . '/edit'), 'View');
           return $action;
         })
         ->addColumn('actionDelete', function ($data) {
