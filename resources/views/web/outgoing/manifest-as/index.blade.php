@@ -29,7 +29,7 @@
   @endcomponent
 <div class="col s12">
   @include('web.outgoing.manifest-as._lmb_waiting_manifest')
-  {{-- @include('web.outgoing.manifest-as._data_manifest_normal') --}}
+  @include('web.outgoing.manifest-as._data_manifest_as')
 
     <div class="content-overlay"></div>
   </div>

@@ -54,7 +54,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>KRW-FAKTUR-200207-N03</td>
                                   <td>026/II/DIST.LOG/KU.SEID/20</td>
@@ -65,7 +65,7 @@
                                     {!! get_button_view(url('receipt-invoice/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>

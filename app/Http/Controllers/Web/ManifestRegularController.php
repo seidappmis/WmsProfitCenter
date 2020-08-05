@@ -17,7 +17,7 @@ class ManifestRegularController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = LogManifestHeader::where('city_name', '<>', 'Ambil Sendiri');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

@@ -14,7 +14,7 @@ class ManifestASController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = LogManifestHeader::where('city_name', '=', 'Ambil Sendiri');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -55,5 +55,12 @@ class ManifestASController extends Controller
 
       return $datatables->make(true);
     }
+  }
+
+  public function createManifest($lmb_id)
+  {
+    $data['lmbHeader'] = LMBHeader::find($lmb_id);
+
+    return view('web.outgoing.manifest-as.create', $data);
   }
 }
