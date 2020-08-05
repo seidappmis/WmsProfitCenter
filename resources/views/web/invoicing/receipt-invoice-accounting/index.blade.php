@@ -52,7 +52,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                               {{--  <tr>
                                   <td>1</td>
                                   <td>2017-11-28</td>
                                   <td>2017-11-28 09:14:19</td>
@@ -61,7 +61,7 @@
                                      {!! get_button_view(url('receipt-invoice-accounting/1')) !!}
                                     {!! get_button_delete() !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>

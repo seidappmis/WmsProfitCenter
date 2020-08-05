@@ -45,7 +45,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>116/HYPER/RT/MAR/2018</td>
                                   <td>999/HYPER/III/2018</td>
@@ -55,7 +55,7 @@
                                     
                                   </td>
                                   <td></td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>

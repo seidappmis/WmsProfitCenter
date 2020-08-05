@@ -9,7 +9,7 @@
                   <div class="col s12 m8">
                     <div class="collapsible-main-header">
                       <i class="material-icons expand">expand_less</i>
-                      <span>Data Manifest Normal</span>
+                      <span>Data Manifest AS</span>
                     </div>
                   </div>
                   <div class="col s12 m4">
@@ -27,14 +27,15 @@
                   <table id="data_manifest_normal_table" class="display" width="100%">
                     <thead>
                       <tr>
-                        <th>NO.</th>
-                        <th>MANIFEST</th>
-                        <th>EXPEDITION</th>
-                        <th>DESTINATION</th>
-                        <th>VEHICLE NO</th>
-                        <th>PICKING NO</th>
-                        <th>STATUS</th>
-                        <th width="50px;"></th>
+                        <th>No.</th>
+                        <th>Manifest</th>
+                        <th>Remarks 1</th>
+                        <th>Remarks 2</th>
+                        <th>Picking No</th>
+                        <th>Status</th>
+                        <th width="5px;"></th>
+                        <th width="5px;"></th>
+                        <th width="5px;"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,7 +62,7 @@ jQuery(document).ready(function($) {
       scrollX: true,
       responsive: true,
       ajax: {
-          url: "{{url('manifest-regular')}}",
+          url: "{{url('manifest-as')}}",
           type: 'GET',
           data: function(d) {
               d.search['value'] = $('#data_manifest_normal_filter').val()
@@ -73,10 +74,11 @@ jQuery(document).ready(function($) {
           { data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail' },
           { data: 'expedition_name', name: 'expedition_name', className: 'detail' },
           { data: 'city_name', name: 'city_name', className: 'detail' },
-          { data: 'vehicle_number', name: 'vehicle_number', className: 'detail' },
           { data: 'picking_no', name: 'picking_no', className: 'detail' },
           { data: 'status', name: 'status', className: 'detail' },
-          { data: 'action', className: 'center-align', orderable: false, searchable: false },
+          { data: 'actionEdit', className: 'center-align', orderable: false, searchable: false },
+          { data: 'actionDelete', className: 'center-align', orderable: false, searchable: false },
+          { data: 'actionPrint', className: 'center-align', orderable: false, searchable: false },
       ]
   });
 });

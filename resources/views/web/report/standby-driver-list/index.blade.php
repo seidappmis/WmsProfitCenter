@@ -41,7 +41,20 @@
                   <table id="data-table-standby-driver-list" class="display" width="100%">
                     <thead>
                         <tr>
-                          <th></th>
+                          <th>NO</th>
+                          <th>VEHICLE NUMBER</th>
+                          <th>DRIVER ID</th>
+                          <th>DRIVER NAME</th>
+                          <th>VEHICLE DESCRIPTION</th>
+                          <th>CBM MAX</th>
+                          <th>VEHICLE CODE TYPE</th>
+                          <th>DESTINATION NUMBER</th>
+                          <th>DESTINATION</th>
+                          <th>EXPEDITION CODE</th>
+                          <th>SAP VENDOR CODE</th>
+                          <th>TRANSPORTER</th>
+                          <th>CHECKIN TIME</th>
+                          <th>AREA</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,6 +120,15 @@
           {data: 'driver_id', name: 'driver_id', className: 'detail'},
           {data: 'driver_name', name: 'driver_name', className: 'detail'},
           {data: 'vehicle_description', name: 'vehicle_description', className: 'detail'},
+          {data: 'cbm_max', name: 'cbm_max', className: 'detail'},
+          {data: 'vehicle_code_type', name: 'vehicle_code_type', className: 'detail'},
+          {data: 'destination_number', name: 'destination_number', className: 'detail'},
+          {data: 'destination_name', name: 'destination_name', className: 'detail'},
+          {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+          {data: 'sap_vendor_code', name: 'sap_vendor_code', className: 'detail'},
+          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+          {data: 'created_at', name: 'created_at', className: 'detail'},
+          {data: 'area', name: 'area', className: 'detail'},
       ]
     });
 
