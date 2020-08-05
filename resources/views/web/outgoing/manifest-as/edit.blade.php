@@ -29,9 +29,6 @@
                       <div class="collapsible-body padding-1">
                         @include('web.outgoing.manifest-as._form_manifest')
                         {{-- @include('web.outgoing.manifest-as._list_do') --}}
-                        @if($lmbHeader->do_details->count() > 0) 
-                        {{-- @include('web.outgoing.manifest-as._form_assign_do') --}}
-                        @endif
                       </div>
                     </li>
                   </ul>

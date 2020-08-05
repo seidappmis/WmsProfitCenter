@@ -72,8 +72,8 @@ jQuery(document).ready(function($) {
       columns: [
           { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           { data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail' },
-          { data: 'expedition_name', name: 'expedition_name', className: 'detail' },
-          { data: 'city_name', name: 'city_name', className: 'detail' },
+          { data: 'seal_no', name: 'seal_no', className: 'detail' },
+          { data: 'pdo_no', name: 'pdo_no', className: 'detail' },
           { data: 'picking_no', name: 'picking_no', className: 'detail' },
           { data: 'status', name: 'status', className: 'detail' },
           { data: 'actionEdit', className: 'center-align', orderable: false, searchable: false },
