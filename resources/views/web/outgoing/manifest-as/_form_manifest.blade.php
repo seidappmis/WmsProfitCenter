@@ -35,7 +35,7 @@
                     <input 
                         type="text" 
                         class="validate" 
-                        name="vehicle_number" 
+                        name="seal_no" 
                         value=""
                         />
               </div>
@@ -47,7 +47,7 @@
                     <input 
                         type="text" 
                         class="validate" 
-                        name="expedition_name" 
+                        name="checker" 
                         value=""
                         />
               </div>
@@ -55,18 +55,15 @@
         </tr>
         <tr>
             <td width="20%">Remarks 2</td>
-            <td width="30%">
+            <td width="30%" colspan="3">
                 <div class="input-field col s12">
                     <input 
                         type="text" 
                         class="validate" 
-                        name="driver_name" 
+                        name="pdo_no" 
                         value=""
                         />
               </div>
-            </td>
-            <td width="20%"></td>
-            <td width="30%">
             </td>
         </tr>
     </table>
