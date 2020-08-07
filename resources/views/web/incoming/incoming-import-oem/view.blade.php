@@ -59,17 +59,17 @@
                 <table id="data-table-incoming-detail" class="display" width="100%">
                   <thead bgcolor="#344b68">
                     <tr>
-                      <td data-priority="1" width="30px" class="white-text">NO.</td>
-                      <td class="white-text">Model</td>
-                      <td class="white-text">Quantity</td>
-                      <td class="white-text">CBM</td>
-                      <td class="white-text">Total CBM</td>
-                      <td class="white-text">No. GR SAP</td>
-                      <td class="white-text">Description</td>
-                      <td class="white-text">Storage Location</td>
-                      <td class="white-text">Serial Number</td>
-                      <td class="white-text">Created Date</td>
-                      <td width="50px;"></td>
+                      <th data-priority="1" width="30px" class="white-text">NO.</th>
+                      <th class="white-text">Model</th>
+                      <th class="white-text">Quantity</th>
+                      <th class="white-text">CBM</th>
+                      <th class="white-text">Total CBM</th>
+                      <th class="white-text">No. GR SAP</th>
+                      <th class="white-text">Description</th>
+                      <th class="white-text">Storage Location</th>
+                      <th class="white-text">Serial Number</th>
+                      <th class="white-text">Created Date</th>
+                      <th width="50px;"></th>
                     </tr>
                   </thead>
                   <tbody>
