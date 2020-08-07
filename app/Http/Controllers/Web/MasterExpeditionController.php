@@ -61,6 +61,7 @@ class MasterExpeditionController extends Controller
     $request->validate([
       'code'            => 'required|max:3|min:3',
       'expedition_name' => 'required|max:100',
+      'sap_vendor_code' => 'unique:tr_expedition',
     ]);
 
     $masterExpedition                  = new MasterExpedition;

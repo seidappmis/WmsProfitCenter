@@ -32,6 +32,7 @@
       }, 10);
 
       $('.datepicker').datepicker({
+        autoClose: true,
         format: 'yyyy-mm-dd'
       });
     });

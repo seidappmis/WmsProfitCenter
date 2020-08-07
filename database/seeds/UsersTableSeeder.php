@@ -47,16 +47,16 @@ class UsersTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $user['username']      = $row[0];
-      $user['first_name']    = $row[1];
-      $user['last_name']     = $row[2];
-      $user['password']      = $password;
-      $user['roles_id']      = $row[4];
-      $user['status']        = $row[5];
-      $user['area']          = $row[6];
-      $user['kode_customer'] = $row[9];
+      if (!empty($row[0])) {
+        $user['username']      = $row[0];
+        $user['first_name']    = $row[1];
+        $user['last_name']     = $row[2];
+        $user['password']      = $password;
+        $user['roles_id']      = $row[4];
+        $user['status']        = $row[5];
+        $user['area']          = $row[6];
+        $user['kode_customer'] = $row[9];
 
-      if (!empty($user['username'])) {
         $tr_users[] = $user;
       }
     }
@@ -75,10 +75,10 @@ class UsersTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $user_role['roles_id']   = $row[0];
-      $user_role['roles_name'] = $row[1];
+      if (!empty($row[0])) {
+        $user_role['roles_id']   = $row[0];
+        $user_role['roles_name'] = $row[1];
 
-      if (!empty($user_role['roles_id'])) {
         $tr_user_roles[] = $user_role;
       }
     }
@@ -97,14 +97,15 @@ class UsersTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $user_role['id']       = $row[0];
-      $user_role['roles_id'] = $row[1];
-      $user_role['modul_id'] = $row[2];
-      $user_role['view']     = $row[3];
-      $user_role['edit']     = $row[4];
-      $user_role['delete']   = $row[5];
+      if (!empty($row[0])) {
 
-      if (!empty($user_role['id'])) {
+        $user_role['id']       = $row[0];
+        $user_role['roles_id'] = $row[1];
+        $user_role['modul_id'] = $row[2];
+        $user_role['view']     = $row[3];
+        $user_role['edit']     = $row[4];
+        $user_role['delete']   = $row[5];
+
         $tr_user_roles_detail[] = $user_role;
       }
     }
@@ -123,13 +124,14 @@ class UsersTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $modul['id']         = $row[0];
-      $modul['modul_name'] = $row[1];
-      $modul['modul_link'] = strtolower($row[2]);
-      $modul['group_name'] = $row[3];
-      $modul['order_menu'] = $row[4];
+      if (!empty($row[0])) {
 
-      if (!empty($modul['id'])) {
+        $modul['id']         = $row[0];
+        $modul['modul_name'] = $row[1];
+        $modul['modul_link'] = strtolower($row[2]);
+        $modul['group_name'] = $row[3];
+        $modul['order_menu'] = $row[4];
+
         $tr_modules[] = $modul;
       }
     }
