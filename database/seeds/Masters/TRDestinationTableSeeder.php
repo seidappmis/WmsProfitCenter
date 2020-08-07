@@ -20,12 +20,12 @@ class TRDestinationTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $destination['destination_number']      = $row[0];
-      $destination['destination_description'] = $row[1];
-      $destination['region']                  = $row[2];
-      $destination['kode_cabang']             = ($row[7] == 'NULL') ? NULL : $row[7];
+      if (!empty($row[0])) {
+        $destination['destination_number']      = $row[0];
+        $destination['destination_description'] = $row[1];
+        $destination['region']                  = $row[2];
+        $destination['kode_cabang']             = ($row[7] == 'NULL') ? null : $row[7];
 
-      if (!empty($destination['destination_number'])) {
         $tr_destinations[] = $destination;
       }
     }

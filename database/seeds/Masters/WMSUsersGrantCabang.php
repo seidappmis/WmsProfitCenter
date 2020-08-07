@@ -20,11 +20,10 @@ class WMSUsersGrantCabang extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $users_grant_cabang['userid']            = $row[0];
-      $users_grant_cabang['kode_cabang_grant'] = $row[1];
-
-      if (!empty($users_grant_cabang['userid'])) {
-        $users_grant_cabangs[] = $users_grant_cabang;
+      if (!empty($row[0])) {
+        $users_grant_cabang['userid']            = $row[0];
+        $users_grant_cabang['kode_cabang_grant'] = $row[1];
+        $users_grant_cabangs[]                   = $users_grant_cabang;
       }
     }
 

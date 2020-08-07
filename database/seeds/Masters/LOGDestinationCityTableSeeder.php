@@ -20,10 +20,11 @@ class LOGDestinationCityTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $destination_city['city_code'] = $row[0];
-      $destination_city['city_name'] = $row[1];
+      if (!empty($row[0])) {
 
-      if (!empty($destination_city['city_code'])) {
+        $destination_city['city_code'] = $row[0];
+        $destination_city['city_name'] = $row[1];
+
         $log_destination_citys[] = $destination_city;
       }
     }

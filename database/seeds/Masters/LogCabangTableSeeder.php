@@ -20,15 +20,15 @@ class LogCabangTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $cabang['kode_customer']     = $row[0];
-      $cabang['kode_cabang']       = $row[1];
-      $cabang['short_description'] = $row[2];
-      $cabang['long_description']  = $row[3];
-      $cabang['type']              = $row[4];
-      $cabang['region']            = $row[9];
-      $cabang['hq']                = $row[10];
+      if (!empty($row[0])) {
+        $cabang['kode_customer']     = $row[0];
+        $cabang['kode_cabang']       = $row[1];
+        $cabang['short_description'] = $row[2];
+        $cabang['long_description']  = $row[3];
+        $cabang['type']              = $row[4];
+        $cabang['region']            = $row[9];
+        $cabang['hq']                = $row[10];
 
-      if (!empty($cabang['kode_customer'])) {
         $log_cabangs[] = $cabang;
       }
     }

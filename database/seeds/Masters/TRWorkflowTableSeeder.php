@@ -20,14 +20,15 @@ class TRWorkflowTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $workflow['id']                         = $row[0];
-      $workflow['step_number']                = $row[1];
-      $workflow['step_description']           = $row[2];
-      $workflow['step_condition_explanation'] = $row[3];
-      $workflow['finished']                   = $row[4];
-      $workflow['formname']                   = $row[5];
+      if (!empty($row[0])) {
 
-      if (!empty($workflow['id'])) {
+        $workflow['id']                         = $row[0];
+        $workflow['step_number']                = $row[1];
+        $workflow['step_description']           = $row[2];
+        $workflow['step_condition_explanation'] = $row[3];
+        $workflow['finished']                   = $row[4];
+        $workflow['formname']                   = $row[5];
+
         $workflows[] = $workflow;
       }
     }
