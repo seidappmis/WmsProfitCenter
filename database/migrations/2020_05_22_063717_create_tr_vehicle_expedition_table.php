@@ -21,6 +21,7 @@ class CreateTrVehicleExpeditionTable extends Migration
             $table->string('vehicle_detail_description', 100)->nullable();
             $table->string('remark1', 100)->nullable();
             $table->string('remark2', 100)->nullable();
+            $table->string('remark3', 100)->nullable();
             $table->string('stnk_number', 100)->nullable();
             $table->string('destination', 50)->nullable();
              $table->tinyInteger('status_active')->nullable();
