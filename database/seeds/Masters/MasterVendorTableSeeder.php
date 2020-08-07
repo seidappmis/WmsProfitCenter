@@ -20,15 +20,15 @@ class MasterVendorTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $vendor['vendor_code']          = $row[0];
-      $vendor['vendor_name']          = $row[1];
-      $vendor['description']          = $row[2];
-      $vendor['vendor_address']       = $row[3];
-      $vendor['contact_person_name']  = $row[4];
-      $vendor['contact_person_phone'] = $row[5];
-      $vendor['contact_person_email'] = $row[6];
+      if (!empty($row[0])) {
+        $vendor['vendor_code']          = $row[0];
+        $vendor['vendor_name']          = $row[1];
+        $vendor['description']          = $row[2];
+        $vendor['vendor_address']       = $row[3];
+        $vendor['contact_person_name']  = $row[4];
+        $vendor['contact_person_phone'] = $row[5];
+        $vendor['contact_person_email'] = $row[6];
 
-      if (!empty($vendor['vendor_code'])) {
         $master_vendors[] = $vendor;
       }
     }

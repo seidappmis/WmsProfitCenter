@@ -20,17 +20,17 @@ class TRVehicleTypeDetailTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $vehicle_type_detail['id']                  = $row[0];
-      $vehicle_type_detail['vehicle_code_type']   = $row[1];
-      $vehicle_type_detail['vehicle_description'] = $row[2];
-      $vehicle_type_detail['vehicle_group_id']    = $row[3];
-      $vehicle_type_detail['cbm_min']             = $row[4];
-      $vehicle_type_detail['cbm_max']             = $row[5];
-      $vehicle_type_detail['sap_description']     = $row[6];
-      $vehicle_type_detail['vehicle_merk']        = $row[11];
-      $vehicle_type_detail['urut']                = $row[12];
+      if (!empty($row[0])) {
+        $vehicle_type_detail['id']                  = $row[0];
+        $vehicle_type_detail['vehicle_code_type']   = $row[1];
+        $vehicle_type_detail['vehicle_description'] = $row[2];
+        $vehicle_type_detail['vehicle_group_id']    = $row[3];
+        $vehicle_type_detail['cbm_min']             = $row[4];
+        $vehicle_type_detail['cbm_max']             = $row[5];
+        $vehicle_type_detail['sap_description']     = $row[6];
+        $vehicle_type_detail['vehicle_merk']        = $row[11];
+        $vehicle_type_detail['urut']                = $row[12];
 
-      if (!empty($vehicle_type_detail['id'])) {
         $tr_vehicle_type_details[] = $vehicle_type_detail;
       }
     }

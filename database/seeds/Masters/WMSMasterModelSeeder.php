@@ -20,23 +20,24 @@ class WMSMasterModelSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $model['id']               = $row[0];
-      $model['model_name']       = $row[1];
-      $model['ean_code']         = $row[2];
-      $model['cbm']              = $row[3];
-      $model['material_group']   = $row[4];
-      $model['category']         = $row[5];
-      $model['model_type']       = $row[6];
-      $model['pcs_ctn']          = $row[7];
-      $model['ctn_plt']          = $row[8];
-      $model['max_pallet']       = $row[9];
-      $model['description']      = $row[10];
-      $model['price1']           = $row[15];
-      $model['price2']           = $row[16];
-      $model['price3']           = $row[17];
-      $model['model_from_apbar'] = $row[18];
+      if (!empty($row[0])) {
 
-      if (!empty($model['id'])) {
+        $model['id']               = $row[0];
+        $model['model_name']       = $row[1];
+        $model['ean_code']         = $row[2];
+        $model['cbm']              = $row[3];
+        $model['material_group']   = $row[4];
+        $model['category']         = $row[5];
+        $model['model_type']       = $row[6];
+        $model['pcs_ctn']          = $row[7];
+        $model['ctn_plt']          = $row[8];
+        $model['max_pallet']       = $row[9];
+        $model['description']      = $row[10];
+        $model['price1']           = $row[15];
+        $model['price2']           = $row[16];
+        $model['price3']           = $row[17];
+        $model['model_from_apbar'] = $row[18];
+
         $master_models[] = $model;
       }
     }

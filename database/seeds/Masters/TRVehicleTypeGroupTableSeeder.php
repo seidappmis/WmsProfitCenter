@@ -20,10 +20,10 @@ class TRVehicleTypeGroupTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $vehicle_type_group['id']         = $row[0];
-      $vehicle_type_group['group_name'] = $row[1];
+      if (!empty($row[0])) {
+        $vehicle_type_group['id']         = $row[0];
+        $vehicle_type_group['group_name'] = $row[1];
 
-      if (!empty($vehicle_type_group['id'])) {
         $tr_vehicle_type_groups[] = $vehicle_type_group;
       }
     }

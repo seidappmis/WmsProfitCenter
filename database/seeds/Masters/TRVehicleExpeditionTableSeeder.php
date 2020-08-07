@@ -20,18 +20,19 @@ class TRVehicleExpeditionTableSeeder extends Seeder
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $vehicle['id']                         = $row[0];
-      $vehicle['vehicle_code_type']          = $row[1];
-      $vehicle['expedition_code']            = $row[2];
-      $vehicle['vehicle_number']             = $row[3];
-      $vehicle['vehicle_detail_description'] = $row[4];
-      $vehicle['remark1']                    = $row[9];
-      $vehicle['remark2']                    = $row[10];
-      $vehicle['remark3']                    = $row[11];
-      $vehicle['destination']                = $row[12];
-      $vehicle['status_active']              = $row[13];
+      if (!empty($row[0])) {
 
-      if (!empty($vehicle['id'])) {
+        $vehicle['id']                         = $row[0];
+        $vehicle['vehicle_code_type']          = $row[1];
+        $vehicle['expedition_code']            = $row[2];
+        $vehicle['vehicle_number']             = $row[3];
+        $vehicle['vehicle_detail_description'] = $row[4];
+        $vehicle['remark1']                    = $row[9];
+        $vehicle['remark2']                    = $row[10];
+        $vehicle['remark3']                    = $row[11];
+        $vehicle['destination']                = $row[12];
+        $vehicle['status_active']              = $row[13];
+
         $tr_vehicle_expeditions[] = $vehicle;
       }
     }
