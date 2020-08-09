@@ -8,6 +8,7 @@
             <th>MODEL</th>
             <th>QTY</th>
             <th>QTY IN LMB</th>
+            <th>CBM</th>
             <th>EAN CODE</th>
             <th width="50px;"></th>
           </tr>
@@ -39,6 +40,7 @@
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'quantity', name: 'quantity', className: 'detail'},
         {data: 'quantity_in_lmb', name: 'quantity_in_lmb', className: 'detail'},
+        {data: 'cbm', name: 'ean_code', className: 'detail'},
         {data: 'ean_code', name: 'ean_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ],

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Concept;
 use App\Models\MasterDestination;
 use App\Models\MasterExpedition;
+use App\Models\MasterCabang;
 use Illuminate\Http\Request;
 
 class UploadConceptController extends Controller
@@ -27,6 +28,7 @@ class UploadConceptController extends Controller
     $concepts       = [];
     $rs_destination = [];
     $rs_expedition  = [];
+    $rs_code_sales  = [];
 
     $area = (auth()->user()->area == "All") ? $request->input('area') : auth()->user()->area;
 
@@ -82,6 +84,14 @@ class UploadConceptController extends Controller
       if (!empty($concept['invoice_no'])) {
         // kalau data ada isinya
         $rs_key[$concept['line_no']] = $concept['invoice_no'];
+
+        if (empty($rs_code_sales[$concept['ship_to_code']])) {
+          $cabang = MasterCabang::where('kode_customer', $concept['ship_to_code'])->first();
+
+          $rs_code_sales[$concept['ship_to_code']] = empty($cabang) ? 'DS' : 'BR';
+        }
+
+        $concept['code_sales'] = $rs_code_sales[$concept['ship_to_code']];
 
         // find destination bila belum ada di rs_destination
         // cari di database, bila sudah ada tidak perlu cari di database
