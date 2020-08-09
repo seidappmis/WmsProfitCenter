@@ -160,7 +160,19 @@ class MasterCabangController extends Controller
         $query = MasterCabang::select(
           DB::raw('kode_cabang AS id'),
           DB::raw("CONCAT('[', short_description, '] - ', long_description) AS text")
-        );
+        )->toBase();
+
+        $query->orderBy('text');
+
+        return get_select2_data($request, $query);
+    }
+
+    public function getSelect2AllCabangIdKodeCustomer(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_customer AS id'),
+          DB::raw("CONCAT('[', short_description, '] - ', long_description) AS text")
+        )->toBase();
 
         $query->orderBy('text');
 

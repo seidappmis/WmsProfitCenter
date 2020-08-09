@@ -148,7 +148,7 @@
       // Loading region data
       $('#form-user-manager [name="kode_customer"]').select2({
          placeholder: '-- Select Branch--',
-         ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+         ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang-id-kode-customer')
       });
       $('#form-user-manager [name="roles_id"]').select2({
          placeholder: '-- Select Role --',

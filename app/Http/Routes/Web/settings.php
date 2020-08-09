@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Master Cabang
   Route::get('master-cabang/select2-cabang-only', 'Web\MasterCabangController@getSelect2CabangOnly'); // Option: PT. SEID HQ JKT
+  Route::get('master-cabang/select2-all-cabang-id-kode-customer', 'Web\MasterCabangController@getSelect2AllCabangIdKodeCustomer'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-all-cabang', 'Web\MasterCabangController@getSelect2AllCabang'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-cabang', 'Web\MasterCabangController@getSelect2Cabang'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-branch', 'Web\MasterCabangController@getSelect2Branch'); // Option: [JF] PT. SEID CAB. JAKARTA (Bukan HQ)
