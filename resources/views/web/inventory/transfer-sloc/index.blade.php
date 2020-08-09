@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                   <td>Available QTY</td>
-                                  <td><div class="input-field m6 col s12"><input id="prev_quantity" type="text" class="validate " name="prev_quantity" readonly=""></div></td>
+                                  <td><div class="input-field m6 col s12"><input id="prev_quantity" type="text" class="validate " name="prev_quantity" readonly="readonly"></div></td>
                                 </tr>
                                 <tr>
                                   <td>QTY</td>

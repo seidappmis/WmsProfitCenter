@@ -104,11 +104,11 @@
                                 <label for="first_name">Kwitansi No.</label>
                             </div>
                             <div class="input-field col s3">
-                                <input id="name" type="text" placeholder="" readonly="">
+                                <input id="name" type="text" placeholder="" readonly="readonly">
                                 <label for="first_name">Receipt ID.</label>
                             </div>
                             <div class="input-field col s3">
-                                <input id="name" type="text" placeholder="" readonly="">
+                                <input id="name" type="text" placeholder="" readonly="readonly">
                                 <label for="first_name">Receipt No.</label>
                             </div>
                           </div>
@@ -124,11 +124,11 @@
                                 <label for="first_name">PPn 10% (B)</label>
                             </div>
                             <div class="input-field col s2">
-                                <input id="name" type="text" placeholder="" readonly="">
+                                <input id="name" type="text" placeholder="" readonly="readonly">
                                 <label for="first_name">Amount Invoice (X)</label>
                             </div>
                             <div class="input-field col s2">
-                                <input id="name" type="text" placeholder="" readonly="">
+                                <input id="name" type="text" placeholder="" readonly="readonly">
                                 <label for="first_name">Amount Invoice + PPn(B+X)</label>
                             </div>
                           </div>

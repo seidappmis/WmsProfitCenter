@@ -68,8 +68,8 @@
       </td>
       <td>
         <div class="input-field col s12">
-          <input id="ritase_cbm_input" type="text" name="ritase_cbm_input" class="validate" value="{{old('cbm', !empty($masterFreight) ? $masterFreight->ritase : '')}}" required>
-          <input id="ritasecbm_input" type="text" name="ritasecbm_input" class="validate" value="0.000">
+          <input id="ritase_cbm_input" type="number" min="0" name="ritase_cbm_input" class="validate" value="{{old('cbm', !empty($masterFreight) ? $masterFreight->ritase : '')}}" required>
+          <input id="ritasecbm_input" type="number" min="0" name="ritasecbm_input" class="validate" value="0.000">
         </div>
       </td>
     </tr>

@@ -38,7 +38,7 @@
                           <table class="form-table">
                             <tr>
                               <td width="20%" class="label">Driver Name</td>
-                              <td><input type="text" name="driver_name" readonly=""></td>
+                              <td><input type="text" name="driver_name" readonly="readonly"></td>
                               <td width="30%" rowspan="7" class="center-align">
                                 <img src="{{asset('images/profil.png')}}" width="120px">
                               </td>
@@ -47,7 +47,7 @@
                               <td class="label">Transporter</td>
                               <td>
                                 <input type="hidden" name="expedition_code">
-                                <input type="text" name="expedition_name" readonly="">
+                                <input type="text" name="expedition_name" readonly="readonly">
                               </td>
                             </tr>
                             <tr>

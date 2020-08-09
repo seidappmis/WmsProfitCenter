@@ -39,7 +39,7 @@
               <hr>
               @include('web.incoming.incoming-import-oem._form_header')
             </div>
-            <div class="card-content pt-0 pb-0">
+            <div class="card-content pt-0 pb-0" id="add-detail-wrapper">
                 <ul class="collapsible" id="collapsible-detail">
                    <li class="">
                      <div class="collapsible-header">Add New Detail</div>

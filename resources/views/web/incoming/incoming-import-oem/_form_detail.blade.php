@@ -37,13 +37,13 @@
             <td>CBM</td>
             <td>
               <div class="input-field col s12">
-                <input type="text" class="validate" name="cbm" readonly>
+                <input type="text" class="validate" name="cbm" readonly="readonly">
               </div>
             </td>
             <td>Total CBM</td>
             <td>
               <div class="input-field col s12">
-                <input type="text" class="validate" name="total_cbm" readonly>
+                <input type="text" class="validate" name="total_cbm" readonly="readonly">
               </div>
             </td>
           </tr>
@@ -54,7 +54,7 @@
       <td>No. GR SAP</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" class="validate" readonly="" name="no_gr_sap" value="{{$incomingManualHeader->no_gr_sap}}">
+          <input type="text" class="validate" readonly="readonly" name="no_gr_sap" value="{{$incomingManualHeader->no_gr_sap}}">
         </div>
       </td>
     </tr>

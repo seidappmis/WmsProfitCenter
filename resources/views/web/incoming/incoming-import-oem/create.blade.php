@@ -93,11 +93,12 @@
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('incoming-import-oem') }}" + '/' + data.arrival_no
-            }) // alert success
+          showSwalAutoClose('Success', 'Create Manual Incoming success')
+          window.location.href = "{{ url('incoming-import-oem') }}" + '/' + data.arrival_no
+          // swal("Good job!", "You clicked the button!", "success")
+          //   .then((result) => {
+          //     // Kalau klik Ok redirect ke view
+          //   }) // alert success
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

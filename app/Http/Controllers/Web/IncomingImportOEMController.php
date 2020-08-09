@@ -27,8 +27,11 @@ class IncomingImportOEMController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('document_date', function($data){
+          return format_tanggal_wms($data->document_date);
+        })
         ->addColumn('status', function ($data) {
-          return ($data->details->count() == 0) ? 'Items not found' : 'Total Items ' . $data->details->count();
+          return ($data->details->count() == 0) ? '<span class="red-text">Items not found</span>' : 'Total Items ' . $data->details->count();
         })
         ->addColumn('action_view', function ($data) {
           $action = get_button_view(url('incoming-import-oem/' . $data->arrival_no));
@@ -36,7 +39,7 @@ class IncomingImportOEMController extends Controller
         })
         ->addColumn('action_submit_to_inventory', function ($data) {
           $action = '';
-          if (!$data->submit) {
+          if (!$data->submit && $data->details->count() > 0) {
             $action = get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
           }
           return $action;
@@ -53,18 +56,7 @@ class IncomingImportOEMController extends Controller
           $action = get_button_print();
           return $action;
         })
-      // ->addColumn('action_view', function ($data) {
-      //   $action = '';
-      //   $action .= ' ' . get_button_view(url('incoming-import-oem/' . $data->arrival_no));
-      //   if (!$data->submit) {
-      //     $action .= ' ' . get_button_edit('#', 'Submit to Inventory', 'btn-submit-to-inventory');
-      //     $action .= ' ' . get_button_delete();
-      //   } else {
-      //     $action .= ' ' . get_button_print();
-      //   }
-      //   return $action;
-      // })
-        ->rawColumns(['action_view', 'action_submit_to_inventory', 'action_delete', 'action_print'])
+        ->rawColumns(['action_view', 'action_submit_to_inventory', 'action_delete', 'action_print', 'status'])
       ;
 
       return $datatables->make(true);

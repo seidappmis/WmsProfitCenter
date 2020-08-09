@@ -30,7 +30,7 @@
     <tr>
       <td>AVAILABLE QTY</td>
       <td><div class="input-field col s12">
-        <input id="prev_quantity" type="text" class="validate" name="prev_quantity" value="0" readonly="">
+        <input id="prev_quantity" type="text" class="validate" name="prev_quantity" value="0" readonly="readonly">
       </div></td>
     </tr>
     <tr>

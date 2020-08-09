@@ -38,7 +38,7 @@
       <td>PO</td>
       <td>
         <div class="input-field col s12">
-          <input name="po" type="text" class="validate" value="{{!empty($incomingManualHeader) ? $incomingManualHeader->po : ''}}" required>
+          <input name="po" type="text" class="validate" value="{{!empty($incomingManualHeader) ? $incomingManualHeader->po : ''}}" required="required">
         </div>
       </td>
       <td>Vendor Name</td>
@@ -106,7 +106,9 @@
 
       @if(!empty($incomingManualHeader) && !$incomingManualHeader->submit)
       $('#form-incoming-import-oem-detail').removeClass('hide');
+      @if($incomingManualHeader->details->count() > 0)
       $('.btn-submit-to-inventory').removeClass('hide');
+      @endif
       $('.btn-submit-to-inventory').click(function(event) {
         /* Act on the event */
         swal({
@@ -124,7 +126,9 @@
               dataType: 'json',
             })
             .done(function() {
-              swal("Good job!", "Incoming with Arrival No. {{$incomingManualHeader->arrival_no}} has been submited to inventory.", "success") // alert success
+              // Data has been Transfered on Storage
+              showSwalAutoClose('Success', 'Data has been Transfered on Storage');
+              {{-- swal("Good job!", "Incoming with Arrival No. {{$incomingManualHeader->arrival_no}} has been submited to inventory.", "success") // alert success --}}
               window.location.reload();  // (null, false) => user paging is not reset on reload
             })
             .fail(function() {
@@ -133,7 +137,11 @@
           }
         })
       });
+      @elseif(!empty($incomingManualHeader) && $incomingManualHeader->submit)
+      $('.btn-save').addClass('hide');
+      $('#add-detail-wrapper').addClass('hide')
       @endif
+
 
    });
 </script>

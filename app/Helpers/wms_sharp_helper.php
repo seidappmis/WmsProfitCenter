@@ -42,6 +42,11 @@ function get_button_cancel($url = '#', $label = "Cancel", $class = 'mt-2')
   return '<a class="waves-effect waves-light indigo btn-small btn-cancel ' . $class . '" href="' . $url . '">' . $label . '</a>';
 }
 
+function format_tanggal_wms($date)
+{
+  return date('d-M-Y', strtotime($date));
+}
+
 function getPHPSpreadsheetTitleStyle()
 {
   $style = [

@@ -6,7 +6,7 @@
         <div class="input-field col s12 m4">
           <input id="kode" name="kode" type="text" readonly>
           <input id="urut" name="urut" type="hidden" value="{{!empty($max_no) ? $max_no : ''}}" readonly>
-          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required readonly="">
+          <input id="sto_id" type="text" class="validate" name="sto_id" value="{{old('sto_id', !empty($stockTakeSchedule) ? $stockTakeSchedule->sto_id : $stoScheduleID)}}" required readonly="readonly">
         </div>
       </td>
     </tr>

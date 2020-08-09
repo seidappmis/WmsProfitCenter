@@ -21,13 +21,12 @@ class MasterDriverController extends Controller
     if ($request->ajax()) {
       $query = MasterDriver::select(
         'tr_driver.*',
-        DB::raw('tr_expedition.expedition_name as expedition_name')
+        DB::raw('tr_expedition.expedition_name')
       )
         ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->editColumn('active_status', '{{$active_status ? "Active" : "No Active"}}')
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_edit(url('master-driver/' . $data->driver_id . '/edit'));
@@ -60,51 +59,6 @@ class MasterDriverController extends Controller
   {
     $request->validate([
       'expedition_code'    => 'required|max:3',
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {   
-        $masterDriver              = MasterDriver::findOrFail($id);
-        $request->validate([
-            
-            'driving_license_number'  => 'required',
-           
-            ]);
-            if (!empty($request->file('photo_name'))) {
-                $photo_name = str_replace('-', '', $masterDriver->driver_id) . '.' . $request->file('photo_name')->extension();
-                $path       = $request->file('photo_name')->storeAs(
-                  'public/Photo', $photo_name
-                );
-                $masterDriver->photo_name = $photo_name;
-
-            }
-          $masterDriver->expedition_code = $request->input('expedition_code');
-          $masterDriver->driver_id = $request->input('driver_id');
-          $masterDriver->driver_name     = $request->input('driver_name');
-          $masterDriver->driving_license_type  = $request->input('driving_license_type');
-          $masterDriver->driving_license_number = $request->input('driving_license_number');
-          $masterDriver->ktp_no     = $request->input('ktp_no');
-          $masterDriver->phone1   = $request->input('phone1');  
-          $masterDriver->phone2   = $request->input('phone2');  
-          $masterDriver->remarks1   = $request->input('remarks1');  
-          $masterDriver->remarks2   = $request->input('remarks2');
-          $masterDriver->remarks3   = $request->input('remarks3'); 
-          $masterDriver->status_active =!empty($request->input('status_active'));
-       
-
-          $masterDriver->save();
-          return $masterDriver();
-=======
-=======
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
       'driving_license_no' => 'required|max:50',
     ]);
 
@@ -132,7 +86,6 @@ class MasterDriverController extends Controller
         'Photo', $photo_name
       );
       $masterDriver->photo_name = $photo_name;
->>>>>>> b84cfcaab36325d4e49c4ea26f9b6d5be76fb2e2
     }
 
     $masterDriver->driver_id            = $driver_id;
