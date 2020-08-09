@@ -56,7 +56,7 @@ class MasterDestinationController extends Controller
   {
     $request->validate([
       'destination_number'      => 'required|unique:tr_destination|max:6',
-      'destination_description' => 'required|max:100',
+      'destination_description' => 'max:100',
       'new_region'              => 'max:10',
       'current_region'          => 'max:10',
       'cabang'                  => 'max:2',

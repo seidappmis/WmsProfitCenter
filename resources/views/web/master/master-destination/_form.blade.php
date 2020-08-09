@@ -69,7 +69,7 @@
                 <div class="input-field col s12">
                     <select id="cabang"
                     name="cabang"
-                    class="select2-data-ajax browser-default select-cabang" required>
+                    class="select2-data-ajax browser-default select-cabang">
                     </select>
               </div>
             </td>
