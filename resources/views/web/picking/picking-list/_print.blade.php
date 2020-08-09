@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-  <style type="text/css">
-    table {
-      font-family: courier New;
-      font-size: 10pt;
-    }
-    .border-bottom {
-      border: 1pt none Black;
-      border-bottom: 1pt solid Black;
-    }
-    .border-top {
-      border-top: 1pt solid Black;
-    }
-    .title {
-      font-size: 12pt;
-      font-weight: 700;
-    }
-  </style>
-</head>
-<body>
-
 <table>
   <tr>
     <td style="text-align: center;">
@@ -74,25 +50,25 @@
             <table width="100%">
               <tr><td colspan="4" class="border-bottom">&nbsp;</td></tr>
               <tr>
-                <td class="border-bottom" style="text-align: center;">MODEL NAME</td>
+                <td class="border-bottom" style="text-align: center;" colspan="3">MODEL NAME</td>
                 <td class="border-bottom" style="text-align: center;">EAN CODE</td>
                 <td class="border-bottom" style="text-align: center;">QUANTITY</td>
                 <td class="border-bottom" style="text-align: center;">CBM</td>
               </tr>
               <tr>
-                <td style="text-align: center;">2T-C32BA1I</td>
+                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
                 <td style="text-align: center;">4974019102764</td>
                 <td style="text-align: center;">28</td>
                 <td style="text-align: center;">1.344</td>
               </tr>
               <tr>
-                <td style="text-align: center;">2T-C32BA1I</td>
+                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
                 <td style="text-align: center;">4974019102764</td>
                 <td style="text-align: center;">28</td>
                 <td style="text-align: center;">1.344</td>
               </tr>
               <tr>
-                <td style="text-align: center;">2T-C32BA1I</td>
+                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
                 <td style="text-align: center;">4974019102764</td>
                 <td style="text-align: center;">28</td>
                 <td style="text-align: center;">1.344</td>
@@ -133,5 +109,3 @@
     </td>
   </tr>
 </table>
-</body>
-</html>

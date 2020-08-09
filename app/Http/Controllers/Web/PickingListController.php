@@ -495,10 +495,18 @@ class PickingListController extends Controller
       return view('web.picking.picking-list._print');
     }
 
-    // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("templates/picking_list.xlsx");
-    // $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+    $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
     // $spreadsheet = $reader->load(view('web.picking.picking-list._print'));
+    $spreadsheet = $reader->loadFromString(view('web.picking.picking-list._print'), $spreadsheet);
+
+    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
 
     $title = 'PICKING LIST';
 
@@ -513,8 +521,8 @@ class PickingListController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
     } else {
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-      $hdr = $writer->generateHTMLHeader();
-echo $writer->generateHTMLFooter();
+      $hdr    = $writer->generateHTMLHeader();
+      echo $writer->generateHTMLFooter();
     }
 
     $writer->save("php://output");
