@@ -1090,7 +1090,6 @@
                 "md",
                 "parser"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
@@ -1118,12 +1117,6 @@
                 }
             ],
             "time": "2020-05-04T22:15:21+00:00"
-=======
-            "time": "2020-06-27T12:50:08+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-19T22:47:30+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "league/flysystem",
@@ -1207,8 +1200,6 @@
                 "sftp",
                 "storage"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://offset.earth/frankdejonge",
@@ -1216,11 +1207,6 @@
                 }
             ],
             "time": "2020-04-16T13:21:26+00:00"
-=======
-            "time": "2020-05-18T15:13:39+00:00"
-=======
-            "time": "2020-07-26T07:20:36+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "maennchen/zipstream-php",
@@ -1446,7 +1432,6 @@
                 "vector"
             ],
             "time": "2019-10-06T11:29:25+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
         },
         {
             "name": "monolog/monolog",
@@ -1596,7 +1581,6 @@
                 "php",
                 "utf-8"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://www.paypal.me/mpdf",
@@ -1604,9 +1588,6 @@
                 }
             ],
             "time": "2020-05-25T09:08:39+00:00"
-=======
-            "time": "2020-07-15T09:48:00+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "myclabs/deep-copy",
@@ -1779,8 +1760,6 @@
                 "datetime",
                 "time"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://opencollective.com/Carbon",
@@ -1792,12 +1771,6 @@
                 }
             ],
             "time": "2020-04-20T15:05:43+00:00"
-=======
-            "time": "2020-07-04T12:29:56+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-08-04T19:12:46+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "nikic/php-parser",
@@ -2909,8 +2882,6 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -2926,12 +2897,6 @@
                 }
             ],
             "time": "2020-03-30T11:42:42+00:00"
-=======
-            "time": "2020-06-15T12:59:21+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-06T13:23:11+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/css-selector",
@@ -2984,7 +2949,6 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3000,8 +2964,6 @@
                 }
             ],
             "time": "2020-03-27T16:56:45+00:00"
-=======
-            "time": "2020-05-20T17:43:50+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3052,7 +3014,6 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "time": "2020-06-06T08:49:21+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
         },
         {
             "name": "symfony/error-handler",
@@ -3109,8 +3070,6 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3126,12 +3085,6 @@
                 }
             ],
             "time": "2020-03-30T14:14:32+00:00"
-=======
-            "time": "2020-05-30T20:35:19+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-23T08:36:24+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3203,8 +3156,6 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3220,12 +3171,6 @@
                 }
             ],
             "time": "2020-03-27T16:56:45+00:00"
-=======
-            "time": "2020-05-20T17:43:50+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-06-18T18:24:02+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3336,7 +3281,6 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3352,9 +3296,6 @@
                 }
             ],
             "time": "2020-03-27T16:56:45+00:00"
-=======
-            "time": "2020-05-20T17:43:50+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
         },
         {
             "name": "symfony/http-foundation",
@@ -3415,8 +3356,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3432,12 +3371,6 @@
                 }
             ],
             "time": "2020-04-18T20:50:06+00:00"
-=======
-            "time": "2020-06-15T06:52:54+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-23T10:04:31+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/http-kernel",
@@ -3536,8 +3469,6 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3553,12 +3484,6 @@
                 }
             ],
             "time": "2020-04-28T18:53:25+00:00"
-=======
-            "time": "2020-06-15T13:51:38+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-24T04:22:56+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/mime",
@@ -3621,8 +3546,6 @@
                 "mime",
                 "mime-type"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3638,12 +3561,6 @@
                 }
             ],
             "time": "2020-04-17T03:29:44+00:00"
-=======
-            "time": "2020-06-09T15:07:35+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-23T10:04:31+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4333,8 +4250,6 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4350,12 +4265,6 @@
                 }
             ],
             "time": "2020-04-15T15:59:10+00:00"
-=======
-            "time": "2020-05-30T20:35:19+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-23T08:36:24+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/routing",
@@ -4433,8 +4342,6 @@
                 "uri",
                 "url"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4450,12 +4357,6 @@
                 }
             ],
             "time": "2020-04-21T21:02:50+00:00"
-=======
-            "time": "2020-06-10T11:49:58+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-06-18T18:24:02+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/service-contracts",
@@ -4666,8 +4567,6 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4683,12 +4582,6 @@
                 }
             ],
             "time": "2020-04-12T16:45:47+00:00"
-=======
-            "time": "2020-05-30T20:35:19+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-06-30T17:42:22+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "symfony/translation-contracts",
@@ -4825,8 +4718,6 @@
                 "debug",
                 "dump"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -4842,12 +4733,6 @@
                 }
             ],
             "time": "2020-04-12T16:45:47+00:00"
-=======
-            "time": "2020-05-30T20:35:19+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-06-24T13:36:18+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -4960,8 +4845,6 @@
                 "env",
                 "environment"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -4973,12 +4856,6 @@
                 }
             ],
             "time": "2020-05-02T14:08:57+00:00"
-=======
-            "time": "2020-06-07T18:25:35+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
-=======
-            "time": "2020-07-14T19:22:52+00:00"
->>>>>>> 806a70bc662a4868959af544cfcb9f5e213e55de
         },
         {
             "name": "voku/portable-ascii",
@@ -5097,7 +4974,6 @@
                 "jquery",
                 "laravel"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://www.paypal.me/yajra",
@@ -5109,9 +4985,6 @@
                 }
             ],
             "time": "2020-04-23T01:21:11+00:00"
-=======
-            "time": "2020-06-17T03:08:37+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
         }
     ],
     "packages-dev": [
@@ -6288,7 +6161,6 @@
                 "testing",
                 "xunit"
             ],
-<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
@@ -6300,9 +6172,6 @@
                 }
             ],
             "time": "2020-04-23T04:39:42+00:00"
-=======
-            "time": "2020-06-22T07:06:58+00:00"
->>>>>>> 11a016eea11ee0315173aff913aa0d86feb55902
         },
         {
             "name": "scrivo/highlight.php",

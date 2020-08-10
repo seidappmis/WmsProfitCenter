@@ -201,4 +201,21 @@ class MasterDriverController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2DriverExpedition(Request $request)
+  {
+    $query = MasterDriver::select(
+      DB::raw("driver_name AS id"),
+      DB::raw("driver_name AS text"),
+      'tr_expedition.code'
+    )->toBase();
+
+    $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
+
+    $query->where('expedition_code', $request->input('expedition_code'));
+
+    $query->orderBy('driver_name');
+
+    return get_select2_data($request, $query);
+  }
+
 }

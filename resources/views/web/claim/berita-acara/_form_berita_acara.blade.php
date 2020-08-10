@@ -17,6 +17,7 @@
             <td>
                 <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
                 </select>
+                <input type="hidden" name="expedition_name">
             </td>
         </tr>
         <tr>
@@ -83,17 +84,39 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $('#form-berita-acara [name="expedition_code"]').select2({
-    placeholder: '-- Select Expedition --',
-    ajax: get_select2_ajax_options('/master-expedition/select2-active-expedition')
-  })
-  $('#form-berita-acara [name="driver_name"]').select2({
-    placeholder: '-- Select Driver --',
-    ajax: get_select2_ajax_options('/master-driver/select2-driver-name')
-  })
-  $('#form-berita-acara [name="vehicle_number"]').select2({
-    placeholder: '-- Select Vehicle Number --',
-    ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number')
-  })
+  set_select2_expedition()
+  set_select2_driver()
+  set_select2_vehicle_number()
+
+  $('#form-berita-acara [name="expedition_code"]').change(function(event) {
+      /* Act on the event */
+      var data = $(this).select2('data')[0]
+      set_select2_driver({expedition_code: $(this).val()})
+      set_select2_vehicle_number({expedition_code: $(this).val()})
+      set_select2_value('#form-berita-acara [name="driver_name"]', '', '')
+      set_select2_value('#form-berita-acara [name="vehicle_number"]', '', '')
+      $('#form-berita-acara [name="expedition_name"]').val(data.text)
+   });
+
+  function set_select2_expedition(){
+        $('#form-berita-acara [name="expedition_code"]').select2({
+            placeholder: '-- Select Expedition --',
+            ajax: get_select2_ajax_options('/master-expedition/select2-active-expedition')
+        })
+    }
+
+  function set_select2_driver(filter = {expedition_code: ''}){
+        $('#form-berita-acara [name="driver_name"]').select2({
+            placeholder: '-- Select Driver --',
+            ajax: get_select2_ajax_options('/master-driver/select2-driver-expedition', filter)
+          })
+    }
+
+    function set_select2_vehicle_number(filter = {expedition_code: ''}){
+        $('#form-berita-acara [name="vehicle_number"]').select2({
+            placeholder: '-- Select Vehicle Number --',
+            ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number', filter)
+          })
+    }
 </script>
 @endpush
