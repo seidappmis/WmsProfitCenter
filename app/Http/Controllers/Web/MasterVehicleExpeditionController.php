@@ -116,10 +116,13 @@ class MasterVehicleExpeditionController extends Controller
       'tr_vehicle_type_detail.vehicle_code_type',
       'tr_vehicle_type_detail.vehicle_group_id',
       'tr_vehicle_type_detail.cbm_min',
-      'tr_vehicle_type_detail.cbm_max'
+      'tr_vehicle_type_detail.cbm_max',
+      'tr_expedition.code'
     )->toBase();
 
     $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
+    $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code');
+
 
     if (!empty($request->input('expedition_code'))) {
       $query->where('expedition_code', $request->input('expedition_code'));

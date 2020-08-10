@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
 
   // Master Driver
+  Route::get('master-driver/select2-driver-expedition', 'Web\MasterDriverController@getSelect2DriverExpedition');
   Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
   Route::resource('master-driver', 'Web\MasterDriverController');
 
