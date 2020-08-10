@@ -137,31 +137,17 @@
     </div>
 </form>
 
-@push('page-modal')
-<!-- Modal Structure -->
-  <div id="modal-print" class="modal modal-fixed-footer" style="min-width: 80%; min-height: 85%; height: 85%;">
-    <div class="modal-content" style="height: 90vh;">
-      <h4>
-      Print Pickinglist
-      <span class="right">
-        <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
-        <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=pdf') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
-      </span>
-    </h4>
-      <iframe id="frame" src="" width="100%" height="83%">
-     </iframe>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-    </div>
-  </div>
-@endpush
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Pickinglist',
+  'url' => 'picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export',
+  'trigger' => '.btn-print'
+  ])
 
 @push('script_js')
 <script type="text/javascript">
 
     jQuery(document).ready(function($) {
-      init_btn_print();
       $('#form-picking-list [name="storage_id"]').select2({
         placeholder: '-- Select Storage --',
         ajax: get_select2_ajax_options('/storage-master/select2-user-storage-without-intransit')
@@ -177,14 +163,6 @@
         init_form_branch()
         @endif
     });
-
-    function init_btn_print(){
-      $('.btn-print').click(function(event) {
-        /* Act on the event */
-        $('#modal-print').modal('open');
-        $('#frame').attr("src", "{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=html') }}");
-      });
-    }
 
     function init_form_hq(){
       $('.destination-input-wrapper').removeClass('hide');

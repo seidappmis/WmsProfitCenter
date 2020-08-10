@@ -48,7 +48,7 @@
                 <td></td>
                 <td></td>
                 <td style="text-align: right;">SHIPMENT NO :</td>
-                <td>1130110259</td>
+                <td style="text-align: left;">1130110259</td>
               </tr>
               <tr>
                 <td style="text-align: right;">CUSTOMER :</td>
@@ -57,7 +57,7 @@
                 <td></td>
                 <td></td>
                 <td style="text-align: right;">GATE# :</td>
-                <td>0</td>
+                <td style="text-align: left;">0</td>
               </tr>
               <tr>
                 <td style="text-align: right;">SHIP TO :</td>
@@ -78,13 +78,19 @@
         <tr>
           <td>
             <table width="100%">
+              
+              {{-- Judul Tabel --}}
               <tr><td colspan="7" style="border-bottom: 1pt solid #000000;">&nbsp;</td></tr>
               <tr>
-                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">MODEL NAME</td>
-                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2">EAN CODE</td>
-                <td style="text-align: center; border-bottom: 1pt solid #000000;">QUANTITY</td>
-                <td style="text-align: center; border-bottom: 1pt solid #000000;">CBM</td>
+                <td style="text-align: center;" colspan="3">MODEL NAME</td>
+                <td style="text-align: center;" colspan="2">EAN CODE</td>
+                <td style="text-align: center;">QUANTITY</td>
+                <td style="text-align: center;">CBM</td>
               </tr>
+              <tr>
+                <td colspan="7" style="border-top: 1pt solid #000000; height: 2px;"></td>
+              </tr>
+              {{-- AKHIR Judul Tabel --}}
 
               @php
               $total_quantity = 0;
