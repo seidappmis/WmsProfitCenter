@@ -491,8 +491,10 @@ class PickingListController extends Controller
 
   public function export(Request $request, $id)
   {
+    $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+
     if ($request->input('filetype') == 'html') {
-      return view('web.picking.picking-list._print');
+      return view('web.picking.picking-list._print', $data);
     }
 
     $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();

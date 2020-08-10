@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    table {
+      font-family: courier New;
+      font-size: 10pt;
+    }
+    .border-bottom {
+      border: 1pt none Black;
+      border-bottom: 1pt solid Black;
+    }
+    .border-top {
+      border-top: 1pt solid Black;
+    }
+    .title {
+      font-size: 12pt;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
 <table>
   <tr>
     <td style="text-align: center;">
@@ -12,11 +35,11 @@
             <table width="100%">
               <tr>
                 <td style="text-align: right;">DATE OF DESPATCH :</td>
-                <td>27/07/2020</td>
+                <td>{{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
                 <td></td>
                 <td></td>
                 <td style="text-align: right;">DATE :</td>
-                <td>27/07/2020</td>
+                <td>{{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
               </tr>
               <tr>
                 <td style="text-align: right;">SHARP WAREHOUSE :</td>
@@ -36,11 +59,11 @@
               </tr>
               <tr>
                 <td style="text-align: right;">SHIP TO :</td>
-                <td>Ambil Sendiri</td>
+                <td>{{$pickinglistHeader->city_name}}</td>
                 <td></td>
                 <td></td>
                 <td style="text-align: right;">ORDER NO :</td>
-                <td><strong>1120200727004</strong></td>
+                <td><strong>{{$pickinglistHeader->picking_no}}</strong></td>
               </tr>
             </table>
           </td>
@@ -48,31 +71,31 @@
         <tr>
           <td>
             <table width="100%">
-              <tr><td colspan="4" class="border-bottom">&nbsp;</td></tr>
+              <tr><td colspan="6" class="border-bottom">&nbsp;</td></tr>
               <tr>
                 <td class="border-bottom" style="text-align: center;" colspan="3">MODEL NAME</td>
                 <td class="border-bottom" style="text-align: center;">EAN CODE</td>
                 <td class="border-bottom" style="text-align: center;">QUANTITY</td>
                 <td class="border-bottom" style="text-align: center;">CBM</td>
               </tr>
+
+              @php
+              $total_quantity = 0;
+              $total_cbm = 0;
+              @endphp
+
+              @foreach($pickinglistHeader->details AS $key => $detail)
+              @php
+              $total_quantity += $detail->quantity;
+              $total_cbm += $detail->cbm;
+              @endphp
               <tr>
-                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
-                <td style="text-align: center;">4974019102764</td>
-                <td style="text-align: center;">28</td>
-                <td style="text-align: center;">1.344</td>
+                <td style="text-align: center;" colspan="3">{{$detail->model}}</td>
+                <td style="text-align: center;">{{$detail->ean_code}}</td>
+                <td style="text-align: center;">{{$detail->quantity}}</td>
+                <td style="text-align: center;">{{$detail->cbm}}</td>
               </tr>
-              <tr>
-                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
-                <td style="text-align: center;">4974019102764</td>
-                <td style="text-align: center;">28</td>
-                <td style="text-align: center;">1.344</td>
-              </tr>
-              <tr>
-                <td style="text-align: center;" colspan="3">2T-C32BA1I</td>
-                <td style="text-align: center;">4974019102764</td>
-                <td style="text-align: center;">28</td>
-                <td style="text-align: center;">1.344</td>
-              </tr>
+              @endforeach
             </table>
           </td>
         </tr>
@@ -87,8 +110,8 @@
           <td style="width: 50mm;">PICKED BY</td>
           <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
           <td>GRAND TOTAL</td>
-          <td>28</td>
-          <td>1.344</td>
+          <td>{{$total_quantity}}</td>
+          <td>{{$total_cbm}}</td>
         </tr>
         <tr>
           <td>PACKED BY</td>
@@ -109,3 +132,5 @@
     </td>
   </tr>
 </table>
+</body>
+</html>

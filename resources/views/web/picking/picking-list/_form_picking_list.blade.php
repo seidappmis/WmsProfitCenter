@@ -143,8 +143,8 @@
     <div class="modal-content" style="height: 90vh;">
       <h4>
       Print Pickinglist
-      <a href="{{ url('picking-list/123/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
-      <a href="{{ url('picking-list/123/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+      <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+      <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=pdf') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
     </h4>
       <iframe id="frame" src="" width="100%" height="300">
      </iframe>
@@ -180,7 +180,7 @@
       $('.btn-print').click(function(event) {
         /* Act on the event */
         $('#modal-print').modal('open');
-        $('#frame').attr("src", "{{ url('picking-list/123/export?filetype=html') }}");
+        $('#frame').attr("src", "{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=html') }}");
       });
     }
 
