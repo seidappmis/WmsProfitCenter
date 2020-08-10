@@ -92,8 +92,8 @@
               <tr>
                 <td style="text-align: center;" colspan="3">{{$detail->model}}</td>
                 <td style="text-align: center;">{{$detail->ean_code}}</td>
-                <td style="text-align: center;">{{$detail->quantity}}</td>
-                <td style="text-align: center;">{{$detail->cbm}}</td>
+                <td style="text-align: center; width: 30mm;">{{$detail->quantity}}</td>
+                <td style="text-align: center; width: 30mm;">{{$detail->cbm}}</td>
               </tr>
               @endforeach
             </table>
@@ -110,9 +110,9 @@
           <td style="width: 30mm;">PICKED BY</td>
           <td></td>
           <td></td>
-          <td>GRAND TOTAL</td>
-          <td style="text-align: center;">{{$total_quantity}}</td>
-          <td style="text-align: center;">{{$total_cbm}}</td>
+          <td colspan="2">GRAND TOTAL</td>
+          <td style="text-align: center; width: 30mm;">{{$total_quantity}}</td>
+          <td style="text-align: center; width: 30mm;">{{$total_cbm}}</td>
         </tr>
         <tr>
           <td></td>
@@ -132,13 +132,25 @@
         <tr>
           <td rowspan="2">CHECKED BY</td>
           <td></td>
-          <td style="width: 10mm; padding-left: 5mm;">SIGN</td>
+          <td style="width: 10mm; padding-left: 5mm;" rowspan="2">SIGN</td>
           <td></td>
-          <td>SIGNATURE</td>
-          <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
+          <td style="width: 20mm;">SIGNATURE</td>
+          <td class="border-bottom" colspan="2">&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr>
           <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="border-bottom" style="width: 40mm;">&nbsp;&nbsp;&nbsp;</td>
+          <td>OP.CODE</td>
+        </tr>
+        <tr>
+          <td colspan="5"></td>
+          <td>KOR</td>
+          <td>VERIFIED</td>
         </tr>
       </table>
     </td>
