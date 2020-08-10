@@ -493,41 +493,50 @@ class PickingListController extends Controller
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
 
+    $view_print  = view('web.picking.picking-list._print', $data);
+    $title = 'picking_list';
+
     if ($request->input('filetype') == 'html') {
-      return view('web.picking.picking-list._print', $data);
-    }
 
-    $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      // request HTML View
+      return $view_print;
 
-    // $spreadsheet = $reader->load(view('web.picking.picking-list._print'));
-    $spreadsheet = $reader->loadFromString(view('web.picking.picking-list._print'), $spreadsheet);
-
-    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-    $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-
-    $title = 'PICKING LIST';
-
-    if ($request->input('filetype') == 'pdf') {
-      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
-      header('Content-Type: application/pdf');
-      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
-      header('Cache-Control: max-age=0');
     } elseif ($request->input('filetype') == 'xls') {
+
+      // Request FILE EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+      // $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
-    } else {
-      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Html($spreadsheet);
-      $hdr    = $writer->generateHTMLHeader();
-      echo $writer->generateHTMLFooter();
-    }
 
-    $writer->save("php://output");
+      $writer->save("php://output");
+
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+
+      $writer->save("php://output");
+    }
   }
 
 }
