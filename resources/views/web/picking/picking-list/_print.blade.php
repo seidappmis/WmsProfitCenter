@@ -2,23 +2,7 @@
 <html>
 <head>
   <title></title>
-  <style type="text/css">
-    table {
-      font-family: courier New;
-      font-size: 10pt;
-    }
-    .border-bottom {
-      border: 1pt none Black;
-      border-bottom: 1pt solid Black;
-    }
-    .border-top {
-      border-top: 1pt solid Black;
-    }
-    .title {
-      font-size: 12pt;
-      font-weight: 700;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
 </head>
 <body>
 <table>
@@ -26,6 +10,7 @@
     <td style="text-align: center;">
       <div class="title">PICKING LIST</div>
     </td>
+    <td style="height: 10mm;">&nbsp;</td>
   </tr>
   <tr>
     <td>
@@ -64,6 +49,10 @@
                 <td></td>
                 <td style="text-align: right;">ORDER NO :</td>
                 <td><strong>{{$pickinglistHeader->picking_no}}</strong></td>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+                <td style="text-align: center;" colspan="2"><div class="barcode">{{$pickinglistHeader->picking_no}}</div></td>
               </tr>
             </table>
           </td>
@@ -116,7 +105,7 @@
         </tr>
         <tr>
           <td></td>
-          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+          <td class="border-bottom" style="width: 32mm;">&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr>
           <td rowspan="2">PACKED BY</td>
@@ -127,7 +116,7 @@
           <td></td>
         </tr>
         <tr>
-          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+          <td class="border-bottom" style="width: 32mm;">&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr>
           <td rowspan="2">CHECKED BY</td>
@@ -138,7 +127,7 @@
           <td class="border-bottom" colspan="2">&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr>
-          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+          <td class="border-bottom" style="width: 32mm;">&nbsp;&nbsp;&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -149,8 +138,8 @@
         </tr>
         <tr>
           <td colspan="5"></td>
-          <td>KOR</td>
-          <td>VERIFIED</td>
+          <td style="text-align: center;">KOR</td>
+          <td style="text-align: center;">VERIFIED</td>
         </tr>
       </table>
     </td>

@@ -1,0 +1,26 @@
+@font-face {
+  font-family: CCode39;
+  src: url(/fonts/ConnectCode39.ttf);
+}
+body {
+    background-color: #fff;
+}
+table {
+    font-family: courier New;
+    font-size: 10pt;
+}
+.border-bottom {
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+}
+.border-top {
+    border-top: 1pt solid Black;
+}
+.title {
+    font-size: 12pt;
+    font-weight: 700;
+}
+.barcode {
+  font-family: CCode39;
+  font-size: 11pt;
+}

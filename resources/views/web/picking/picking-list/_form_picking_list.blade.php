@@ -139,14 +139,16 @@
 
 @push('page-modal')
 <!-- Modal Structure -->
-  <div id="modal-print" class="modal modal-fixed-footer" style="width: 90%;">
+  <div id="modal-print" class="modal modal-fixed-footer" style="min-width: 80%; min-height: 85%; height: 85%;">
     <div class="modal-content" style="height: 90vh;">
       <h4>
       Print Pickinglist
-      <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
-      <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=pdf') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+      <span class="right">
+        <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=xls') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+        <a href="{{ url('picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export?filetype=pdf') }}" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+      </span>
     </h4>
-      <iframe id="frame" src="" width="100%" height="300">
+      <iframe id="frame" src="" width="100%" height="83%">
      </iframe>
     </div>
     <div class="modal-footer">
