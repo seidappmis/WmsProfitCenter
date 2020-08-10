@@ -105,28 +105,40 @@
   <tr>
     <td>
       <table style="width: 210.0003mm;">
-        <tr><td class="border-top" colspan="6">&nbsp;</td></tr>
+        <tr><td class="border-top" colspan="7">&nbsp;</td></tr>
         <tr>
-          <td style="width: 50mm;">PICKED BY</td>
-          <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
+          <td style="width: 30mm;">PICKED BY</td>
+          <td></td>
+          <td></td>
           <td>GRAND TOTAL</td>
-          <td>{{$total_quantity}}</td>
-          <td>{{$total_cbm}}</td>
+          <td style="text-align: center;">{{$total_quantity}}</td>
+          <td style="text-align: center;">{{$total_cbm}}</td>
         </tr>
         <tr>
-          <td>PACKED BY</td>
-          <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
+          <td></td>
+          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">PACKED BY</td>
+          <td>&nbsp;</td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
         </tr>
         <tr>
-          <td>CHECKED BY</td>
-          <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
-          <td>SIGN</td>
-          <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
+          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">CHECKED BY</td>
+          <td></td>
+          <td style="width: 10mm; padding-left: 5mm;">SIGN</td>
+          <td></td>
           <td>SIGNATURE</td>
           <td class="border-bottom">&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="border-bottom" style="width: 30mm;">&nbsp;&nbsp;&nbsp;</td>
         </tr>
       </table>
     </td>
