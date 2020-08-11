@@ -66,10 +66,10 @@
               {{-- Judul Tabel --}}
               <tr><td colspan="7" style="border-bottom: 1pt solid #000000;">&nbsp;</td></tr>
               <tr>
-                <td style="text-align: center;" colspan="3">MODEL NAME</td>
-                <td style="text-align: center;" colspan="2">EAN CODE</td>
-                <td style="text-align: center;">QUANTITY</td>
-                <td style="text-align: center;">CBM</td>
+                <td style="text-align: center;  width: 85mm;" colspan="3">MODEL NAME</td>
+                <td style="text-align: center;  width: 50mm;" colspan="2">EAN CODE</td>
+                <td style="text-align: center;  width: 30mm;">QUANTITY</td>
+                <td style="text-align: center;  width: 30mm;">CBM</td>
               </tr>
               <tr>
                 <td colspan="7" style="border-top: 1pt solid #000000; height: 2px;"></td>
@@ -87,10 +87,10 @@
               $total_cbm += $detail->cbm;
               @endphp
               <tr>
-                <td style="text-align: center; width: 85mm;" colspan="3">{{$detail->model}}</td>
-                <td style="text-align: center; width: 50mm;" colspan="2">{{$detail->ean_code}}</td>
-                <td style="text-align: center; width: 30mm;">{{$detail->quantity}}</td>
-                <td style="text-align: center; width: 30mm;">{{$detail->cbm}}</td>
+                <td style="text-align: center;" colspan="3">{{$detail->model}}</td>
+                <td style="text-align: center;" colspan="2">{{$detail->ean_code}}</td>
+                <td style="text-align: center;">{{$detail->quantity}}</td>
+                <td style="text-align: center;">{{$detail->cbm}}</td>
               </tr>
               @endforeach
             </table>
