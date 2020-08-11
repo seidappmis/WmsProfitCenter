@@ -15,7 +15,7 @@
         <tr>
             <td>Expedition</td>
             <td>
-                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
+                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" >
                 </select>
                 <input type="hidden" name="expedition_name">
             </td>
@@ -23,14 +23,14 @@
         <tr>
             <td>Driver</td>
             <td>
-                <select id="driver_name" name="driver_name" class="select2-data-ajax browser-default" required>
+                <select id="driver_name" name="driver_name" class="select2-data-ajax browser-default" >
                 </select>
             </td>
         </tr>
         <tr>
             <td>Vehicle Number</td>
             <td>
-                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" required>
+                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" >
                 </select>
             </td>
         </tr>

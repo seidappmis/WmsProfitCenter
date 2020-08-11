@@ -13,4 +13,9 @@ class BeritaAcaraDetail extends BaseModel
     {
         return $this->belongsTo('App\Models\BeritaAcara');
     }
+
+    public function Model()
+    {
+        return $this->belongsTo('App\Models\MasterModel', 'model_name', 'model_name');
+    }
 }

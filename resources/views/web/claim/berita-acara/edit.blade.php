@@ -29,11 +29,11 @@
                       <!-- Berita Acara Detail -->
                       <h4 class="card-title">Berita Acara Detail</h4>
                       <hr> 
-                      <!-- Add Detail -->
+                      <!-- Detail -->
                       <div class="card-content p-0">
                         <ul class="collapsible">
                            <li class="active">
-                               <div class="collapsible-header">Add New Detail</div>
+                               <div class="collapsible-header">Edit Detail</div>
                                <div class="collapsible-body white pt-1 pb-1">
                                  @include('web.claim.berita-acara._form_detail')
                                </div>
@@ -82,7 +82,7 @@
     });
 
     set_form_data();
-    add_detail_handler();
+    edit_detail_handler();
   });
 
   var dtdatatable_detail = $('#data-table-berita-acara-detail').DataTable({
@@ -150,22 +150,23 @@
     $('#form-berita-acara .input-field').hide();
     $('#form-berita-acara select').attr('disabled', 'disabled');
     $('#form-berita-acara .btn-save').hide();
-    $('#form-berita-acara-detail .btn-cancel').hide();
+    $('#form-berita-acara-detail .btn-save').html('Update Detail');
     set_select2_value('#form-berita-acara [name="expedition_code"]', '{{$beritaAcara->expedition_code}}', '{{$beritaAcara->Expedition->expedition_name}}');
     set_select2_value('#form-berita-acara [name="driver_name"]', '{{$beritaAcara->driver_name}}', '{{$beritaAcara->driver_name}}');
     set_select2_value('#form-berita-acara [name="vehicle_number"]', '{{$beritaAcara->vehicle_number}}', '{{$beritaAcara->Vehicle->vehicle_number}}');
+    set_select2_value('#form-berita-acara-detail [name="model_name"]', '{{$beritaAcaraDetail->model_name}}', '{{$beritaAcaraDetail->Model->model_name}}');
   }
 
-  function add_detail_handler(){
-    // POST request to store detail
+  function edit_detail_handler(){
+    // PUT request to update detail
     // data dikirim dalam form data 
     $("#form-berita-acara-detail").validate({
       submitHandler: function(form) {
         var formBiasa = $(form).serialize(); // form biasa
         var isiForm = new FormData($(form)[0]); // form data untuk browse file
         $.ajax({
-          url: '{{ url("berita-acara/". $beritaAcara->id . "/detail") }}',
-          type: 'POST',
+          url: '{{ url("berita-acara/". $beritaAcara->id . "/detail/" . $beritaAcaraDetail->id ) }}',
+          type: 'PUT',
           data: isiForm,
           contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
           processData: false, // NEEDED, DON'T OMIT THIS
@@ -174,18 +175,14 @@
           swal({
             icon: "success",
             title: "Good job!",
-            text: "Detail has been created!",
+            text: "Detail has been edited!",
             timer: 1500,
             buttons: false
           })
             .then((result) => {
-              // Kalau klik Ok reload datatable
-              dtdatatable_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-              $('#form-berita-acara-detail')[0].reset(); // reset form
-              $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
-              $('.collapsible').collapsible({
-                  accordion:false
-              });
+              // Kalau klik Ok redirect ke index
+               dtdatatable_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              
             }) // alert success
         })
         .fail(function(xhr) {
