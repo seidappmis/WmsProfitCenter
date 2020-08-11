@@ -211,7 +211,11 @@ class MasterDriverController extends Controller
 
     $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
 
-    $query->where('expedition_code', $request->input('expedition_code'));
+     if (!empty($request->input('expedition_code'))) {
+      $query->where('expedition_code', $request->input('expedition_code'));
+    }
+
+    // $query->where('expedition_code', $request->input('expedition_code'));
 
     $query->orderBy('driver_name');
 
