@@ -247,6 +247,16 @@ class MasterModelController extends Controller
     return MasterModel::destroy($id);
   }
 
+   public function getSelect2Model2(Request $request)
+  {
+    $query = MasterModel::select(
+      DB::raw('model_name AS id'),
+      DB::raw('model_name AS text')
+    )->toBase();
+
+    return get_select2_data($request, $query);
+  }
+
   public function getSelect2Model(Request $request)
   {
     $query = MasterModel::select(

@@ -53,32 +53,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <!-- <tr>
-                                  <td>1.</td>
-                                  <td>01/BA-HQ/02/2015</td>
-                                  <td>May 21, 2020</td>
-                                  <td>Expedition 1</td>
-                                  <td>Driver 1</td>
-                                  <td>B 1231 DE</td>
-                                  <td>PENDING</td>
-                                  <td>
-                                    {!! get_button_view('berita-acara/1') !!}
-                                    {!! get_button_print() !!}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>2.</td>
-                                  <td>02/BA-HQ/02/2015</td>
-                                  <td>May 21, 2020</td>
-                                  <td>Expedition 2</td>
-                                  <td>Driver 2</td>
-                                  <td>B 5486 DE</td>
-                                  <td>COMPLETE</td>
-                                  <td>
-                                    {!! get_button_view('berita-acara/1') !!}
-                                    {!! get_button_print() !!}
-                                  </td>
-                                </tr> -->
                               </tbody>
                           </table>
                         </div>
@@ -110,7 +84,7 @@
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'berita_acara_no', name: 'berita_acara_no', className: 'detail'},
         {data: 'date_of_receipt', name: 'date_of_receipt', className: 'detail'},
-        {data: 'expedition_code', name: 'expedition_code', className: 'detail'},
+        {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
         {data: 'driver_name', name: 'driver_name', className: 'detail'},
         {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},

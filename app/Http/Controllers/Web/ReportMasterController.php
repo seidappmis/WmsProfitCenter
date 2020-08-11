@@ -13,14 +13,15 @@ class ReportMasterController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-        $query = VehicleDetail::select('tr_vehicle_type_detail.*',
-          DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
+      $query = VehicleDetail::select(
+        'tr_vehicle_type_detail.*',
+        DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
       )
-      ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id');
+        ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id');
 
-       $datatables = DataTables::of($query);
+      $datatables = DataTables::of($query);
 
-       return $datatables->make(true);
+      return $datatables->make(true);
     }
 
 
@@ -63,7 +64,7 @@ class ReportMasterController extends Controller
       case 'Master Vehicle':
         $view['name'] = 'web.report.report-master._master_vehicle';
         break;
-       case 'Master Vehicle Expedition':
+      case 'Master Vehicle Expedition':
         $view['name'] = 'web.report.report-master._master_vehicle_expedition';
         break;
       case 'Master Vendor':
@@ -139,7 +140,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('F1', 'REGION');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterCabang::all();
 
@@ -187,7 +188,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('C1', 'REGION');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:C1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:C1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterDestination::all();
 
@@ -228,7 +229,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('B1', 'CITY NAME');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:B1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:B1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\DestinationCity::all();
 
@@ -275,14 +276,14 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('J1', 'STATUS');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:J1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:J1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterDriver::select(
-        'tr_driver.*',
-        DB::raw('tr_expedition.expedition_name as expedition_name')
-      )
-        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code')
-        ->get();
+      'tr_driver.*',
+      DB::raw('tr_expedition.expedition_name as expedition_name')
+    )
+      ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code')
+      ->get();
 
     $row = 2;
     foreach ($data as $key => $driver) {
@@ -297,7 +298,7 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('G' . $row, $driver->expedition_name);
       $sheet->setCellValue('H' . $row, $driver->phone1);
       $sheet->setCellValue('I' . $row, $driver->phone2);
-      $sheet->setCellValue('J' . $row, '=IF('. $driver->active_status .'=1,"Active","No Active")');
+      $sheet->setCellValue('J' . $row, '=IF(' . $driver->active_status . '=1,"Active","No Active")');
       $row++;
     }
 
@@ -346,7 +347,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('K1', 'STATUS');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:K1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:K1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterExpedition::all();
 
@@ -364,7 +365,7 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('H' . $row, $expedition->fax_number);
       $sheet->setCellValue('I' . $row, $expedition->bank);
       $sheet->setCellValue('J' . $row, $expedition->currency);
-      $sheet->setCellValue('K' . $row, '=IF('. $expedition->status_active .'=1,"Active","No Active")');
+      $sheet->setCellValue('K' . $row, '=IF(' . $expedition->status_active . '=1,"Active","No Active")');
       $row++;
     }
 
@@ -406,7 +407,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('C1', 'DESCRIPTION');;
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:C1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:C1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\Gate::all();
 
@@ -451,11 +452,12 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('F1', 'CBM MAX');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
-    $data = \App\Models\VehicleDetail::select('tr_vehicle_type_detail.*',
-          DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
-      )
+    $data = \App\Models\VehicleDetail::select(
+      'tr_vehicle_type_detail.*',
+      DB::raw('tr_vehicle_type_group.group_name as vehicle_group')
+    )
       ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
       ->get();
 
@@ -509,14 +511,14 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('I1', 'STATUS');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:I1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:I1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterVehicleExpedition::select(
-        'tr_vehicle_expedition.*',
-        DB::raw('tr_expedition.expedition_name as expedition_name')
-      )
-        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
-        ->get();
+      'tr_vehicle_expedition.*',
+      DB::raw('tr_expedition.expedition_name as expedition_name')
+    )
+      ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+      ->get();
 
     $row = 2;
     foreach ($data as $key => $vehicleExpedition) {
@@ -528,7 +530,7 @@ class ReportMasterController extends Controller
       $sheet->setCellValue('F' . $row, $vehicleExpedition->remark1);
       $sheet->setCellValue('G' . $row, $vehicleExpedition->remark2);
       $sheet->setCellValue('H' . $row, $vehicleExpedition->remark3);
-      $sheet->setCellValue('I' . $row, '=IF('. $vehicleExpedition->status_active .'=1,"Active","No Active")');
+      $sheet->setCellValue('I' . $row, '=IF(' . $vehicleExpedition->status_active . '=1,"Active","No Active")');
       $row++;
     }
 
@@ -572,7 +574,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('G1', 'CONTACT PERSON EMAIL');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:G1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:G1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\Vendor::all();
 
@@ -629,7 +631,7 @@ class ReportMasterController extends Controller
     $sheet->setCellValue('J1', 'DESCRIPTION');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
-    $sheet->getStyle('A1:J1')->applyFromArray(getPHPSpreadsheetTitleStyle()); 
+    $sheet->getStyle('A1:J1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = \App\Models\MasterModel::all();
 

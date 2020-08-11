@@ -48,9 +48,14 @@
 
 @push('script_js')
 <script type="text/javascript">
-  $('.collapsible').collapsible({
+  jQuery(document).ready(function($) {
+    $('.collapsible').collapsible({
         accordion:true
     });
+
+    $('#form-berita-acara select').attr('required', 'required');
+    
+  });
 
   $("#form-berita-acara").validate({
       submitHandler: function(form) {

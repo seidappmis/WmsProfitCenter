@@ -4,6 +4,8 @@ Route::group(['middleware' => 'auth'], function () {
   // Berita Acara
   Route::get('berita-acara/{id}/print', 'Web\BeritaAcaraController@printView');
   Route::post('berita-acara/{berita_acara_id}/detail', 'Web\BeritaAcaraDetailController@store');
+  Route::put('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@update');
+  Route::get('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}/edit', 'Web\BeritaAcaraDetailController@edit');
   Route::delete('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@destroy');
   Route::resource('berita-acara', 'Web\BeritaAcaraController');
 

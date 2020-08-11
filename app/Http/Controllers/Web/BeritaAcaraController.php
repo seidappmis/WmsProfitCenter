@@ -20,7 +20,12 @@ class BeritaAcaraController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = BeritaAcara::all();
+            $query = BeritaAcara::select(
+                'clm_berita_acara.*',
+                DB::raw('tr_expedition.expedition_name AS expedition_name')
+            )
+            ->leftjoin('tr_expedition', 'tr_expedition.code', '=',
+          'clm_berita_acara.expedition_code');
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -45,10 +50,11 @@ class BeritaAcaraController extends Controller
     public function create(Request $request)
     {
         // No. Berita Acara : No.urut/BA-Kode cabang/Bulan/Tahun
-        $berita_acara_no = '/BA-' . 'HQ' . '/' . date('m') . '/' . date('yy');
+        $kode_cabang = auth()->user()->cabang->short_description;
+        $berita_acara_no = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
 
         $prefix_length = strlen($berita_acara_no);
-        $max_no        = DB::select('SELECT MAX(SUBSTR(berita_acara_no, ?)) AS max_no FROM clm_berita_acara WHERE SUBSTR(berita_acara_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $berita_acara_no])[0]->max_no;
+        $max_no        = DB::select('SELECT MAX(SUBSTR(berita_acara_no, 1, 2)) AS max_no FROM clm_berita_acara WHERE SUBSTR(berita_acara_no,1,1) = 0 ', [$prefix_length+ 2, $prefix_length, $berita_acara_no])[0]->max_no;
         $max_no        = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
 
         $data = [
@@ -84,9 +90,9 @@ class BeritaAcaraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $berita_acara_id)
     {
-        $data['beritaAcara'] = BeritaAcara::findOrFail($id);
+        $data['beritaAcara'] = BeritaAcara::findOrFail($berita_acara_id);
 
         if ($request->ajax()) {
           $query = $data['beritaAcara']
@@ -97,7 +103,7 @@ class BeritaAcaraController extends Controller
             ->addIndexColumn() //DT_RowIndex (Penomoran)
             ->addColumn('action', function ($data) {
               $action = '';
-              $action .= ' ' . get_button_edit(url('berita-acara/' . $data->id));
+              $action .= ' ' . get_button_edit(url('berita-acara/' . $data->berita_acara_id . '/detail/' . $data->id . '/edit'));
               $action .= ' ' . get_button_delete();
               return $action;
             });
@@ -134,19 +140,26 @@ class BeritaAcaraController extends Controller
         $beritaAcara->vehicle_number  = $request->input('vehicle_number');
 
         // File DO Manifest
-        $name = $request->file('file-do-manifest')->getClientOriginalName();
-        $path = Storage::putFileAs('do-manifest/files', $request->file('file-do-manifest'), $name);
-        $beritaAcara->do_manifest      = $path;
-
+        if ($request->hasFile('file-do-manifest')) {
+            $name = $request->file('file-do-manifest')->getClientOriginalName();
+            $path = Storage::putFileAs('do-manifest/files', $request->file('file-do-manifest'), $name);
+            $beritaAcara->do_manifest      = $path;
+        }
+        
         // File Internal DO
-        $name = $request->file('file-internal-do')->getClientOriginalName();
-        $path = Storage::putFileAs('internal-do/files', $request->file('file-internal-do'), $name);
-        $beritaAcara->internal_do      = $path;
+        if ($request->hasFile('file-internal-do')) {
+            $name = $request->file('file-internal-do')->getClientOriginalName();
+            $path = Storage::putFileAs('internal-do/files', $request->file('file-internal-do'), $name);
+            $beritaAcara->internal_do      = $path;
+        }
+        
 
         // File LMB
-        $name = $request->file('file-lmb')->getClientOriginalName();
-        $path = Storage::putFileAs('lmb/files', $request->file('file-lmb'), $name);
-        $beritaAcara->lmb              = $path;
+        if ($request->hasFile('file-lmb')) {
+            $name = $request->file('file-lmb')->getClientOriginalName();
+            $path = Storage::putFileAs('lmb/files', $request->file('file-lmb'), $name);
+            $beritaAcara->lmb              = $path;
+        }
 
         $beritaAcara->save();
 

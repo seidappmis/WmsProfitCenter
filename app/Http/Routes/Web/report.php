@@ -7,6 +7,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-master-users', 'Web\ReportMasterUserController@index');
   Route::get('report-master-users/export', 'Web\ReportMasterUserController@export');
 
+  Route::get('report-user-mobile', 'Web\ReportMasterUserMobileController@index');
+  Route::get('report-user-mobile/export', 'Web\ReportMasterUserMobileController@export');
+
   Route::view('standby-driver-list', 'web.report.standby-driver-list.index');
 
   Route::get('concept-or-do-outstanding-list', 'Web\ConceptOrDOOutstandingListController@index');
@@ -24,7 +27,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
   Route::view('report-overload-concept-or-do', 'web.report.report-overload-concept-or-do.index');
   Route::view('summary-task-notice', 'web.report.summary-task-notice.index');
+
   Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
+
   Route::view('summary-lmb-report', 'web.report.summary-lmb-report.index');
   Route::view('report-inventory-movement', 'web.report.report-inventory-movement.index');
   Route::view('report-stock-inventory', 'web.report.report-stock-inventory.index');

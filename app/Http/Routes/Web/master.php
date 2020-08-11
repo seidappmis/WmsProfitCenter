@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
   Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
   Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
+  Route::get('master-model/select2-model2', 'Web\MasterModelController@getSelect2Model2');
   Route::get('master-model/select2-model-sloc', 'Web\MasterModelController@getSelect2ModelSloc');
   Route::post('master-model/upload', 'Web\MasterModelController@proses_upload');
   Route::resource('master-model', 'Web\MasterModelController');

@@ -15,7 +15,7 @@
         <tr>
             <td>Expedition</td>
             <td>
-                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
+                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" >
                 </select>
                 <input type="hidden" name="expedition_name">
             </td>
@@ -23,14 +23,14 @@
         <tr>
             <td>Driver</td>
             <td>
-                <select id="driver_name" name="driver_name" class="select2-data-ajax browser-default" required>
+                <select id="driver_name" name="driver_name" class="select2-data-ajax browser-default" >
                 </select>
             </td>
         </tr>
         <tr>
             <td>Vehicle Number</td>
             <td>
-                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" required>
+                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" >
                 </select>
             </td>
         </tr>
@@ -84,35 +84,35 @@
 
 @push('script_js')
 <script type="text/javascript">
-  set_select2_expedition()
-  set_select2_driver()
-  set_select2_vehicle_number()
+  set_select_expedition()
+  set_select_driver()
+  set_select_vehicle_number()
 
   $('#form-berita-acara [name="expedition_code"]').change(function(event) {
       /* Act on the event */
       var data = $(this).select2('data')[0]
-      set_select2_driver({expedition_code: $(this).val()})
-      set_select2_vehicle_number({expedition_code: $(this).val()})
-      set_select2_value('#form-berita-acara [name="driver_name"]', '', '')
-      set_select2_value('#form-berita-acara [name="vehicle_number"]', '', '')
+      set_select_driver({expedition_code: $(this).val()})
+      set_select_vehicle_number({expedition_code: $(this).val()})
+      // set_select2_value('#form-berita-acara [name="driver_name"]', '', '')
+      // set_select2_value('#form-berita-acara [name="vehicle_number"]', '', '')
       $('#form-berita-acara [name="expedition_name"]').val(data.text)
    });
 
-  function set_select2_expedition(){
+  function set_select_expedition(){
         $('#form-berita-acara [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
             ajax: get_select2_ajax_options('/master-expedition/select2-active-expedition')
         })
     }
 
-  function set_select2_driver(filter = {expedition_code: ''}){
+  function set_select_driver(filter = {expedition_code: ''}){
         $('#form-berita-acara [name="driver_name"]').select2({
             placeholder: '-- Select Driver --',
             ajax: get_select2_ajax_options('/master-driver/select2-driver-expedition', filter)
           })
     }
 
-    function set_select2_vehicle_number(filter = {expedition_code: ''}){
+    function set_select_vehicle_number(filter = {expedition_code: ''}){
         $('#form-berita-acara [name="vehicle_number"]').select2({
             placeholder: '-- Select Vehicle Number --',
             ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number', filter)
