@@ -511,7 +511,7 @@ class PickingListController extends Controller
 
       // Set warna background putih
       $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
-      // Set Font 
+      // Set Font
       $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFont()->setName('courier New');
 
       // Atur lebar kolom
@@ -532,16 +532,15 @@ class PickingListController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
-      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
-      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
-      header('Content-Type: application/pdf');
-      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      $mpdf->Output($title . '.pdf', "D");
 
-      $writer->save("php://output");
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
     }
   }
 
