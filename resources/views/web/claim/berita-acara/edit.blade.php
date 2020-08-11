@@ -162,14 +162,14 @@
     // data dikirim dalam form data 
     $("#form-berita-acara-detail").validate({
       submitHandler: function(form) {
-        var formBiasa = $(form).serialize(); // form biasa
-        var isiForm = new FormData($(form)[0]); // form data untuk browse file
+        // var formBiasa = $(form).serialize(); // form biasa
+        // var isiForm = new FormData($(form)[0]); // form data untuk browse file
         $.ajax({
           url: '{{ url("berita-acara/". $beritaAcara->id . "/detail/" . $beritaAcaraDetail->id ) }}',
           type: 'PUT',
-          data: isiForm,
-          contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-          processData: false, // NEEDED, DON'T OMIT THIS
+          data:  $(form).serialize(),
+          // contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+          // processData: false, // NEEDED, DON'T OMIT THIS
         })
         .done(function(data) { // selesai dan berhasil
           swal({
@@ -181,8 +181,8 @@
           })
             .then((result) => {
               // Kalau klik Ok redirect ke index
-               dtdatatable_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-              
+              // dtdatatable_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              window.location.href = "{{ url('berita-acara/' . $beritaAcara->id ) }}"
             }) // alert success
         })
         .fail(function(xhr) {

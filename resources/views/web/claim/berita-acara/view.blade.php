@@ -183,9 +183,6 @@
               dtdatatable_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
               $('#form-berita-acara-detail')[0].reset(); // reset form
               $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
-              $('.collapsible').collapsible({
-                  accordion:false
-              });
             }) // alert success
         })
         .fail(function(xhr) {
