@@ -42,11 +42,6 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     left: 61px;
     font-size: 20px;
 }
-.sidenav li a.active {
-    background: linear-gradient(90deg, #25364b, #344b68);
-    ;
-    box-shadow: 3px 3px 20px 0 rgb(44, 63, 87);
-}
 .content-wrapper-before {
     background: linear-gradient(90deg, #25364b, #344b68);
     ;
@@ -428,23 +423,27 @@ input:not([type]):disabled, input:not([type])[readonly='readonly'], input[type=t
     color: #000;
 }
 .sidenav {
-    background: #91c1d8;
+    background: #D9E9E8;
 }
 .sidenav li {
-    background-color: #91c1d8;
+    background-color: #D9E9E8;
 }
 .sidenav li a {
     color: rgba(0, 0, 0, 1);
 }
 .sidenav li.open, .sidenav li:not(.active).open {
-    background: #61899cd6;
+    background: #bbd6d4;
 }
-.sidenav li.open ul li{
-    background: #abc4d0f0;
+.sidenav li.open ul li {
+    background: #c1d2d1;
 }
 .brand-sidebar {
-    background: #5f8ba0;
+    background: #a9b9b8;
 }
 .sidenav .collapsible-header:after {
     color: #4a4a4a;
+}
+.sidenav li a.active {
+    background: linear-gradient(90deg, #4c948f, #5e7a88);
+    box-shadow: 3px 3px 20px 0 rgb(65 108 121);
 }
