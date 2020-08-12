@@ -6,6 +6,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('finish-good-production', 'Web\FinishGoodController');
 
   // Incoming Import OEM
+  Route::get('incoming-import-oem/{id}/export', 'Web\IncomingImportOEMController@export');
   Route::post('incoming-import-oem/{id}/submit-to-inventory', 'Web\IncomingImportOEMController@submitToInventory');
   Route::post('incoming-import-oem/{id}/detail', 'Web\IncomingImportOEMDetailController@store');
   Route::delete('incoming-import-oem/{incoming_manual_id}/detail/{detail_id}', 'Web\IncomingImportOEMDetailController@destroy');
