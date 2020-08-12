@@ -510,9 +510,9 @@ class PickingListController extends Controller
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
       // Set warna background putih
-      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
-      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFont()->setName('courier New');
+      $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
       $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);

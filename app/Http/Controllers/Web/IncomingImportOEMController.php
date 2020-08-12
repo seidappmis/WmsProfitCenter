@@ -27,7 +27,7 @@ class IncomingImportOEMController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->editColumn('document_date', function($data){
+        ->editColumn('document_date', function ($data) {
           return format_tanggal_wms($data->document_date);
         })
         ->addColumn('status', function ($data) {
@@ -247,7 +247,7 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->expedition_name     = $request->input('expedition_name');
     $incomingManualHeader->container_no        = $request->input('container_no');
     $incomingManualHeader->area                = $request->input('area');
-    $incomingManualHeader->inc_type            = $request->input('inc_type');
+    // $incomingManualHeader->inc_type            = $request->input('inc_type');
     $incomingManualHeader->kode_cabang         = auth()->user()->cabang->kode_cabang;
     // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');
@@ -282,10 +282,10 @@ class IncomingImportOEMController extends Controller
 
   public function export(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['incomingManualHeader'] = IncomingManualHeader::findOrFail($id);
+    $data['request'] = $request->all();
 
-    // $view_print = view('web.picking.picking-list._print', $data);
-    $view_print = view('web.incoming.incoming-import-oem._print');
+    $view_print = view('web.incoming.incoming-import-oem._print', $data);
     $title      = 'picking_list';
 
     if ($request->input('filetype') == 'html') {
