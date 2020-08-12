@@ -286,7 +286,7 @@ class IncomingImportOEMController extends Controller
     $data['request'] = $request->all();
 
     $view_print = view('web.incoming.incoming-import-oem._print', $data);
-    $title      = 'picking_list';
+    $title      = 'Incoming Import OEM';
 
     if ($request->input('filetype') == 'html') {
 
