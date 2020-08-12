@@ -87,6 +87,46 @@
 </div>
 @endsection
 
+@push('page-modal')
+<div id="modal-form-print" class="modal" style="">
+    <div class="modal-content">
+      <form id="form-print">
+        <input type="" name="arrival_no">
+        <table>
+          <tr>
+            <td width="100px">Transfer By</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="transfer_by">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">Checked By</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="checked_by">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">Locate</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="locate">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview btn green darken-4">Print Report</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
@@ -156,6 +196,26 @@
           });
         }
       })
+    });
+
+    table.on('click', '.btn-print', function(event) {
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+      $('#form-print [name="arrival_no"]').val(data.arrival_no)
+      $('#modal-form-print').modal('open')
+    })
+
+    {{-- Load Modal Print --}}
+    @include('layouts.materialize.components.modal-print', [
+      'title' => 'Print',
+    ])
+
+    $('.btn-show-print-preview').click(function(event) {
+      /* Act on the event */
+      initPrintPreviewPrint(
+        '{{url("incoming-import-oem")}}' + '/' + $('#form-print [name="arrival_no"]').val() + '/export',
+        $('#form-print').serialize()
+      )
     });
 
     table.on('click', '.btn-submit-to-inventory', function(event) {
