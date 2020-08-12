@@ -36,7 +36,7 @@ class ManifestASController extends Controller
         })
         ->addColumn('actionPrint', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_print();
+          $action .= ' ' . get_button_print(url('manifest-as/' . $data->do_manifest_no . '/export'));
           return $action;
         })
         ->rawColumns(['do_status', 'actionEdit', 'actionDelete', 'actionPrint']);
@@ -144,5 +144,56 @@ class ManifestASController extends Controller
     $data['doData']         = [];
 
     return view('web.outgoing.manifest-as.edit', $data);
+  }
+
+  public function export(Request $request, $id)
+  {
+    $view_print = view('web.outgoing.manifest-as.print');
+    $title      = 'do_manifest_as';
+
+    if ($request->input('filetype') == 'html') {
+      // Request HTML View
+      return $view_print;
+
+    } else if ($request->input('filetype') == 'xls'){
+      // Request File EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      // Set warna background putih
+      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      
+      // Set Font
+      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFont()->setName('courier New');
+
+      // Atur lebar kolom
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+      $writer->save("php://output");
+
+    } else if ($request->input('filetype') == 'pdf'){
+      // Request File PDF
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+
+      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+
+      $mpdf->Output($title . '.pdf', "D");
+
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
+    }
   }
 }

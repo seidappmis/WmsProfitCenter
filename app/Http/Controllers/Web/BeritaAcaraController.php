@@ -143,14 +143,14 @@ class BeritaAcaraController extends Controller
         if ($request->hasFile('file-do-manifest')) {
             $name = $request->file('file-do-manifest')->getClientOriginalName();
             $path = Storage::putFileAs('do-manifest/files', $request->file('file-do-manifest'), $name);
-            $beritaAcara->do_manifest      = $path;
+            $beritaAcara->do_manifest  = $path;
         }
         
         // File Internal DO
         if ($request->hasFile('file-internal-do')) {
             $name = $request->file('file-internal-do')->getClientOriginalName();
             $path = Storage::putFileAs('internal-do/files', $request->file('file-internal-do'), $name);
-            $beritaAcara->internal_do      = $path;
+            $beritaAcara->internal_do   = $path;
         }
         
 
@@ -158,8 +158,10 @@ class BeritaAcaraController extends Controller
         if ($request->hasFile('file-lmb')) {
             $name = $request->file('file-lmb')->getClientOriginalName();
             $path = Storage::putFileAs('lmb/files', $request->file('file-lmb'), $name);
-            $beritaAcara->lmb              = $path;
+            $beritaAcara->lmb             = $path;
         }
+
+        $beritaAcara->kode_cabang         = auth()->user()->cabang->short_description;
 
         $beritaAcara->save();
 
