@@ -69,11 +69,21 @@ class ClaimNoteController extends Controller
     public function createCartonBox(Request $request)
     {
         if ($request->ajax()) {
-            $query = BeritaAcara::select('clm_berita_acara.*', 'clm_berita_acara_detail.do_no', 'clm_berita_acara_detail.model_name', 'clm_berita_acara_detail.serial_number', 'clm_berita_acara_detail.qty', 'clm_berita_acara_detail.description')
-                ->leftjoin('clm_berita_acara_detail', 'clm_berita_acara_detail.berita_acara_id', '=', 'clm_berita_acara.id');
+            $query = BeritaAcara::select('clm_berita_acara.*', 'clm_berita_acara_detail.do_no', 'clm_berita_acara_detail.model_name', 'clm_berita_acara_detail.serial_number', 'clm_berita_acara_detail.qty', 'clm_berita_acara_detail.description', 'tr_expedition.expedition_name', 'tr_vehicle_expedition.destination')
+                ->leftjoin('clm_berita_acara_detail', 'clm_berita_acara_detail.berita_acara_id', '=', 'clm_berita_acara.id')
+                ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'clm_berita_acara.expedition_code')
+                ->leftjoin('tr_vehicle_expedition', 'tr_vehicle_expedition.vehicle_number', '=', 'clm_berita_acara.vehicle_number');
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
+                ->addColumn('location', function ($data) {
+                    $location = $data->kode_cabang == null || 'HQ'? 'WH Return' : 'WH Branch';
+                    return $location;
+                })
+                ->addColumn('total', function ($data) {
+                    $total = 'total price test';
+                    return $total;
+                })
                 ->addColumn('action', function ($data) {
                     $action = '';
                     $action .= ' ' . get_button_view('#', 'Select', 'btn-select');
