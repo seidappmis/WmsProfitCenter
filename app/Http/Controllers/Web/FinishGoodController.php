@@ -164,4 +164,67 @@ class FinishGoodController extends Controller
     {
         //
     }
+
+    public function export(Request $request, $id)
+  {
+    // $data['incomingManualHeader'] = IncomingManualHeader::findOrFail($id);
+    // $data['request'] = $request->all();
+
+    $view_print = view('web.incoming.finish-good-production._print');
+    $title      = 'Finish Good Production';
+
+    if ($request->input('filetype') == 'html') {
+
+      // request HTML View
+      return $view_print;
+
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // Request FILE EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      // Set warna background putih
+      $spreadsheet->getActiveSheet()->getStyle('A1:M1000')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      // Set Font
+      $spreadsheet->getActiveSheet()->getStyle('A1:M1000')->getFont()->setName('courier New');
+
+      // Atur lebar kolom
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(2);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      // $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(2);
+      $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+      $writer->save("php://output");
+
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+
+      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+
+      $mpdf->Output($title . '.pdf', "D");
+
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
+    }
+  }
 }
