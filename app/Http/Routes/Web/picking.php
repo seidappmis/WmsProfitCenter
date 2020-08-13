@@ -31,5 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
   Route::delete('picking-to-lmb/picking-list', 'Web\PickingToLMBController@destroyLmbDetail');
   Route::get('picking-to-lmb/picking-list/{id}', 'Web\PickingToLMBController@pickingListCreate');
   Route::post('picking-to-lmb/{id}/send-manifest', 'Web\PickingToLMBController@sendManifest');
+  Route::get('picking-to-lmb/{id}/export', 'Web\PickingToLMBController@export');
   Route::resource('picking-to-lmb', 'Web\PickingToLMBController');
 });
