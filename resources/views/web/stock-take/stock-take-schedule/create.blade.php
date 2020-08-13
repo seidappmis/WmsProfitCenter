@@ -82,16 +82,13 @@
           processData: false
         })
         .done(function(data) { // selesai dan berhasil
-          console.log(data);
+          // console.log(data);
           if (data.status == false) {
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('stock-take-schedule') }}"
-            }) // alert success
+          showSwalAutoClose('Success', 'Stock Take Schedule Success')
+          window.location.href = "{{ url('stock-take-schedule') }}"
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
