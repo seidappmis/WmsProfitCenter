@@ -15,7 +15,7 @@
 
                             <tr>
                                 <td colspan="12"
-                                    style="text-align: left; font-size: 12pt; padding-bottom: 6px; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    style="text-align: left; font-size: 12pt; padding-bottom: 6px; padding-left: 3rem; ">
                                     <strong>PT. SHARP
                                         ELECTRONICS INDONESIA</strong>
                                 </td>
@@ -27,8 +27,7 @@
                             </tr>
 
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     JL. HARAPAN RAYA LOT LL 1&2
                                     , KAWASAN INDUSTRI KIIC
                                 </td>
@@ -39,8 +38,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     DESA SIRNABAYA, KEC. TELUK
                                     JAMBE TIMUR, KARAWANG 41361, JAWA BARAT
                                 </td>
@@ -51,8 +49,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     PHONE : (0267)8468388
                                 </td>
                                 <td colspan="12"
@@ -61,8 +58,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem;">
                                     FAX : (0267)8468205
                                 </td>
                                 <td colspan="12"
@@ -71,8 +67,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     KARAWANG 41361
                                 </td>
                                 <td colspan="12"
@@ -81,8 +76,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     INDONESIA
                                 </td>
                                 <td colspan="12"
@@ -91,8 +85,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="12"
@@ -102,7 +95,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4"
-                                    style="text-align: center; font-size: 14pt; width: 40mm; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    style="text-align: center; font-size: 14pt; width: 40mm; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="4"
@@ -128,7 +121,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4"
-                                    style="text-align: center; font-size: 14pt; width: 40mm; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    style="text-align: center; font-size: 14pt; width: 40mm; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="4" style="text-align: center; font-size: 10pt; ">
@@ -151,8 +144,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="12"
@@ -161,8 +153,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="12"
@@ -171,7 +162,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="3" style="padding-left: 3rem; ">
                                     Telah Terima dari
                                 </td>
                                 <td style="width: 5mm;">:</td>
@@ -183,8 +174,7 @@
                                 <td colspan="8">GEMA SARANA TRANSPORTASI, PT.</td>
                             </tr>
                             <tr>
-                                <td colspan="12"
-                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
                                     &nbsp;
                                 </td>
                                 <td colspan="12"
@@ -193,7 +183,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
+                                <td colspan="3" style="padding-left: 3rem; ">
                                     Nota / Kwitansi No. / Tgl
                                 </td>
                                 <td style="width: 5mm;">:</td>
@@ -204,6 +194,174 @@
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="8">INV/SHARP-JKT/XII-19/110</td>
                             </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="padding-left: 3rem; ">
+                                    Keterangan
+                                </td>
+                                <td style="width: 5mm;">:</td>
+                                <td colspan="8" style="width: 40mm;">&nbsp;</td>
+                                <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
+                                    Keterangan
+                                </td>
+                                <td style="width: 5mm;">:</td>
+                                <td colspan="8" style="width: 40mm;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="padding-left: 3rem; ">
+                                    Sebesar
+                                </td>
+                                <td style="width: 5mm;">:</td>
+                                <td colspan="8" style="width: 40mm;">&nbsp;</td>
+                                <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
+                                    Sebesar
+                                </td>
+                                <td style="width: 5mm;">:</td>
+                                <td colspan="8" style="width: 40mm;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
+                                    &nbsp;
+                                </td>
+                                <td colspan="12"
+                                    style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="padding-left: 3rem; ">
+                                    Catatan
+                                </td>
+                                <td rowspan="10" style="width: 5mm;">&nbsp;</td>
+                                <td colspan="8" style="text-align: center">Karawang,
+                                    .......................................
+                                </td>
+                                <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
+                                    Catatan
+                                </td>
+                                <td rowspan="10" style="width: 5mm;">&nbsp;</td>
+                                <td colspan="8" style="text-align: center">Karawang,
+                                    .......................................
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="9" colspan="3" style="vertical-align: top; padding-left: 3rem; ">
+                                    Kembali tgl : ...............................
+                                </td>
+
+                                <td colspan="8" style="text-align: center">Yang Menerima,
+                                </td>
+                                <td rowspan="9" colspan="3"
+                                    style="vertical-align: top; padding-left: 3rem; border-left: 1pt dotted black;">
+                                    Kembali tgl : ...............................
+                                </td>
+
+                                <td colspan="8" style="text-align: center">Yang Menerima,
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style="text-align: center">&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style="text-align: center">
+                                    (.....................................................)
+                                </td>
+
+                                <td colspan="8" style="text-align: center">
+                                    (.....................................................)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" style=" height: 5mm;text-align: center">&nbsp;
+                                </td>
+
+                                <td colspan="8" style=" height: 5mm;text-align: center">&nbsp;
+                                </td>
+                            </tr>
+
                         </table>
                     </td>
                 </tr>
