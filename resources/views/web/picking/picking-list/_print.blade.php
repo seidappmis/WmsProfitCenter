@@ -3,7 +3,7 @@
 <table style="font-family: courier New; font-size: 10pt;">
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
+      <table style="font-family: courier New; font-size: 10pt; width: 210.0003mm;">
         <tr>
           <td>
             <table width="100%">

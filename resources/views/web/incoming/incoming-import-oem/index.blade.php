@@ -91,7 +91,7 @@
 <div id="modal-form-print" class="modal" style="">
     <div class="modal-content">
       <form id="form-print">
-        <input type="" name="arrival_no">
+        <input type="hidden" name="arrival_no">
         <table>
           <tr>
             <td width="100px">Transfer By</td>
