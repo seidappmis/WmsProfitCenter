@@ -156,9 +156,9 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="3" style="text-align: center; width: 70mm;">(&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)</td>
-                <td colspan="8" style="text-align: center; width: 70mm;">(&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)</td>
-                <td colspan="6" style="text-align: center; width: 70mm;">(&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)</td>
+                <td colspan="3" style="text-align: center; width: 70mm;">(................................)</td>
+                <td colspan="8" style="text-align: center; width: 70mm;">(................................)</td>
+                <td colspan="6" style="text-align: center; width: 70mm;">(................................)</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
