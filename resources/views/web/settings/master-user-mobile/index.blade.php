@@ -48,9 +48,9 @@
     <div class="row">
         <div class="col s12 m4">
             <!---- Button Add ----->
-            <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-user-mobile/create') }}">
+            <span class="btn btn-large waves-effect waves-light btn-add" onclick="createUserMobile()">
                 New User Mobile
-            </a>
+            </span>
         </div>
     </div>
     @endcomponent
@@ -169,5 +169,9 @@
        allowClear: true,
        ajax: get_select2_ajax_options('/master-cabang/select2-cabang-only')
     });
+
+    function createUserMobile() {
+        window.location.href = "{{ url('master-user-mobile/create') }}" + '?cabang=' + $('#cabang_filter').val()
+    }
 </script>
 @endpush
