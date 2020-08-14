@@ -5,6 +5,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('list-of-unconfirm-do/export-to-excel', 'Web\ListOfUnconfirmDOController@exportToExcel');
 
     Route::get('receipt-invoice/{id}/export-receipt-no', 'Web\ReceiptInvoiceController@exportReceiptNo');
+    Route::get('receipt-invoice/{id}/export-receipt-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
+
     Route::view('receipt-invoice', 'web.invoicing.receipt-invoice.index');
     Route::view('receipt-invoice/create', 'web.invoicing.receipt-invoice.create');
     Route::view('receipt-invoice/{id}', 'web.invoicing.receipt-invoice.view');

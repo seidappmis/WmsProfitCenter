@@ -6,7 +6,12 @@
                 <tr>
                     <td>
                         <table width="100%" style="font-size: 9pt;">
-
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
                             <tr>
                                 <td colspan="24">
                                     &nbsp;
@@ -28,12 +33,12 @@
 
                             <tr>
                                 <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
-                                    JL. HARAPAN RAYA LOT LL 1&2
+                                    JL. HARAPAN RAYA LOT LL 1&amp;2
                                     , KAWASAN INDUSTRI KIIC
                                 </td>
                                 <td colspan="12"
                                     style="text-align: left; font-size: 10pt; padding-left: 3rem; border-left: 1pt dotted black;">
-                                    JL. HARAPAN RAYA LOT LL 1&2
+                                    JL. HARAPAN RAYA LOT LL 1&amp;2
                                     , KAWASAN INDUSTRI KIIC
                                 </td>
                             </tr>
