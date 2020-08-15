@@ -144,4 +144,17 @@ class UserManagerController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2AllUser(Request $request)
+  {
+    $query = User::select(
+      DB::raw('id AS id'),
+      DB::raw("username AS text")
+    )->toBase();
+
+    $query->orderBy('text');
+
+    return get_select2_data($request, $query);
+  }
+
+  
 }

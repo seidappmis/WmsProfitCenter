@@ -1,10 +1,16 @@
 <form class="form-table" id="form-user-mobile">
+    @php
+        echo !empty($abc) ? $abc : '';
+    @endphp
     <table>
         <tr>
             <td>User</td>
             <td>
                 <div class="input-field col s12">
-                    <input id="user" type="text" class="validate" name="userid" value="{{old('userid', !empty($userMobile) ? $userMobile->userid : '')}}" required>
+                    {{-- <input id="user" type="text" class="validate" name="userid" value="{{old('userid', !empty($userMobile) ? $userMobile->userid : '')}}" required> --}}
+                    <select name="userid" id="" class="select2-data-ajax browser-default">
+
+                    </select>
                 </div>
             </td>
         </tr>
@@ -37,3 +43,15 @@
     {!! get_button_save() !!}
     {!! get_button_cancel(url('master-user-mobile')) !!}
 </form>
+
+@push('script_js')
+<script>
+    $('#form-user-mobile [name="userid"]').select2({
+         placeholder: '-- Select Users--',
+         ajax: get_select2_ajax_options('/master-user-mobile/select2-all-user-with-usernameid', {
+             kode_cabang: "{{!empty($cabang) ? $cabang : ''}}"
+         })
+      });
+</script>
+    
+@endpush

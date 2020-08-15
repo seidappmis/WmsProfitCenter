@@ -5,6 +5,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('user-manager/{id}/grant-cabang', 'Web\UserManagerController@grantCabang');
   Route::delete('user-manager/{id}/grant-cabang/{kode_cabang_grant}', 'Web\UserManagerController@destroyGrantCabang');
   Route::get('user-manager/select2-all-cabang', 'Web\UserManagerController@getSelect2AllCabang');
+  Route::get('user-manager/select2-all-user', 'Web\UserManagerController@getSelect2AllUser');
+  Route::get('user-manager/select2-all-user-with-usernameid', 'Web\UserManagerController@getSelect2AllUserWithUsernameId');
   Route::resource('user-manager', 'Web\UserManagerController');
 
   // User ROles
@@ -27,5 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('master-cabang', 'Web\MasterCabangController');
 
   // Master User Mobile
+
+  Route::get('master-user-mobile/select2-all-user-with-usernameid', 'Web\MasterUserMobileController@getSelect2AllUserWithUsernameId');
+
   Route::resource('master-user-mobile', 'Web\MasterUserMobileController');
 });
