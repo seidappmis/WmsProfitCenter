@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('report-overload-concept-or-do', 'web.report.report-overload-concept-or-do.index');
   Route::view('summary-task-notice', 'web.report.summary-task-notice.index');
 
-  Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
+  // Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
 
   Route::view('summary-lmb-report', 'web.report.summary-lmb-report.index');
   Route::view('report-inventory-movement', 'web.report.report-inventory-movement.index');

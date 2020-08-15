@@ -113,8 +113,13 @@ class MasterUserMobileController extends Controller
     $query = User::select(
       DB::raw('username AS id'),
       DB::raw("username AS text")
-    )->toBase();
+    )
+    ->toBase()
+    ->leftjoin('wms_user_scanner','wms_user_scanner.userid','=','users.username')
+    ->whereRaw('isnull(wms_user_scanner.userid)')
+    ;
 
+    //filter cabang
     if(!empty($request->input('kode_cabang'))){
       $query->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer');
       $query->where('kode_cabang', $request->input('kode_cabang'));
