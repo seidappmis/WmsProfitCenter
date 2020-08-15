@@ -3,6 +3,7 @@
 Route::group(['middleware' => 'auth'], function () {
 
   // Finish Good Production
+  Route::get('finish-good-production/{id}/export', 'Web\FinishGoodController@export');
   Route::resource('finish-good-production', 'Web\FinishGoodController');
 
   // Incoming Import OEM

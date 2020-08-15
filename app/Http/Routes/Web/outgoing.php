@@ -26,10 +26,12 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');
   Route::get('manifest-regular/truck-waiting-manifest', 'Web\ManifestRegularController@truckWaitingManifest');
   Route::get('manifest-regular/{lmb_id}/create-manifest', 'Web\ManifestRegularController@createManifest');
+  Route::get('manifest-regular/{lmb_id}/export', 'Web\ManifestRegularController@export');
   Route::post('manifest-regular/{driver_register_id}/assign-do', 'Web\ManifestRegularController@assignDO');
   Route::resource('manifest-regular', 'Web\ManifestRegularController');
 
   Route::get('branch-manifest/truck-waiting-manifest', 'Web\BranchManifestController@truckWaitingManifest');
+  Route::get('branch-manifest/{id}/export', 'Web\BranchManifestController@export');
   Route::resource('branch-manifest', 'Web\BranchManifestController');
 
   // Manifest AS

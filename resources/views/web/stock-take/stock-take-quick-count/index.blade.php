@@ -23,33 +23,30 @@
               <div class="card">
                 <div class="card-content">
 
-                  <div class="row mb-5">
+                  <div class="row">
                     <div class="col s12 m2 pt-2">
                         <p>Periode STO</p>
                     </div>
                     <div class="col s12 m4">
                       <!---- Search ----->
-                          <div class="app-wrapper">
-                            <div class="datatable-search">
-                              <select id="area_filter">
-                                <option>-Select Schedule ID-</option>
-                                <option>SBY-STO-200201-001</option>
-                                <option>KRW-STO-199801-002</option>
+                      <div class="app-wrapper">
+                          <div class="datatable-search">
+                              <select class="select2-data-ajax browser-default" id="sto_id" name="sto_id" required="">
                               </select>
-                            </div>
                           </div>
+                      </div>
                     </div>
                     <div class="col s12 m6">
 
                     </div>
                   </div>
 
-                  <div class="row mb-2">
+                  <div class="row">
                     <div class="col s12 m2">
                         <p>Periode</p>
                     </div>
                     <div class="col s12 m4">
-                        <p>2019-09-01 S/D 2020-09-10 </p>
+                        <p id="text-stocktake-periode"></p>
                     </div>
                     <div class="col s12 m6">
 
@@ -59,7 +56,7 @@
                         <p>Description</p>
                     </div>
                     <div class="col s12 m4">
-                        <p>Stock Tackling Fiscal 19F</p>
+                        <p id="text-stocktake-description"></p>
                     </div>
                     <div class="col s12 m6">
 
@@ -67,11 +64,10 @@
 
                   </div>
 
-                  <div class="row mb-5">
+                  <div class="row">
                     <div class="col s12">
-                    {!! get_button_save('Load') !!}
+                    {!! get_button_save('Load', 'btn-load') !!}
                     </div>
-
                   </div>
 
 
@@ -168,8 +164,5 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-    });
 </script>
 @endpush

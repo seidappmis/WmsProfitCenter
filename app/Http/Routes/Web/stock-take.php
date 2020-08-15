@@ -26,6 +26,10 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('stock-take-input-2', 'web.stock-take.stock-take-input-2.index');
   // Route::view('stock-take-input-2/edit', 'web.stock-take.stock-take-input-2.edit');
 
-  Route::view('stock-take-quick-count', 'web.stock-take.stock-take-quick-count.index');
+  // Route::view('stock-take-quick-count', 'web.stock-take.stock-take-quick-count.index');
+  Route::get('stock-take-quick-count', 'Web\StockTakeQuickCountController@index');
+  Route::get('stock-take-quick-count/{id}/export', 'Web\StockTakeQuickCountController@export');
+
+
   Route::view('stock-take-compare-sap', 'web.stock-take.stock-take-compare-sap.index');
 });

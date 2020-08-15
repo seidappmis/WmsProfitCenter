@@ -148,34 +148,47 @@ class ManifestASController extends Controller
 
   public function export(Request $request, $id)
   {
-    $view_print = view('web.outgoing.manifest-as.print');
-    $title      = 'do_manifest_as';
+    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+
+    $view_print = view('web.outgoing.manifest-as._print');
+    $title      = 'Manifest AS';
 
     if ($request->input('filetype') == 'html') {
-      // Request HTML View
+
+      // request HTML View
       return $view_print;
 
-    } else if ($request->input('filetype') == 'xls'){
-      // Request File EXCEL
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
       // Set warna background putih
-      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
-      
+      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
-      $spreadsheet->getActiveSheet()->getStyle('A1:G1000')->getFont()->setName('courier New');
+      $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(5);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -183,8 +196,9 @@ class ManifestASController extends Controller
 
       $writer->save("php://output");
 
-    } else if ($request->input('filetype') == 'pdf'){
-      // Request File PDF
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
