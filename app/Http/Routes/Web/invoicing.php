@@ -11,12 +11,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('receipt-invoice/{id}/export-receipt-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
 
 
-    Route::view('receipt-invoice-accounting/create', 'web.invoicing.receipt-invoice-accounting.create');
-    Route::view('receipt-invoice-accounting', 'web.invoicing.receipt-invoice-accounting.index');
-    Route::view('receipt-invoice-accounting/{id}', 'web.invoicing.receipt-invoice-accounting.view');
+    Route::get('receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@index');
+    Route::get('receipt-invoice-accounting/create', 'Web\ReceiptInvoiceAccountingController@create');
+    Route::get('receipt-invoice-accounting/{id}', 'Web\ReceiptInvoiceAccountingController@show');
 
-    Route::view('branch-invoicing', 'web.invoicing.branch-invoicing.index');
-    Route::view('branch-invoicing/create', 'web.invoicing.branch-invoicing.create');
+    Route::get('branch-invoicing', 'Web\BranchInvoicingController@index');
+    Route::get('branch-invoicing/create', 'Web\BranchInvoicingController@create');
 
-    Route::view('summary-freight-cost-analysis', 'web.invoicing.summary-freight-cost-analysis.index');
+    Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
 });

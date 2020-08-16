@@ -138,6 +138,11 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
@@ -156,6 +161,11 @@
     $('#form-summary-freight-cost-analysis [name="status"]').select2({
         placeholder: '-- All --',
       })
+
+    $("#form-summary-freight-cost-analysis").validate({
+      submitHandler: function(form) {
+      }
+    });
   });
 </script>
 @endpush
