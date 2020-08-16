@@ -27,7 +27,8 @@
                                        <td>Cabang</td>
                                        <td>
                                          <div class="input-field col s4">
-                                           <select name="" id="">                                 
+                                           <select name="" id="cabang_filter"class="select2-data-ajax browser-default app-filter" >
+                                                                              
                                            </select>
        
                                          </div>
@@ -97,13 +98,13 @@
               {
                   text: 'PDF',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-user-mobile/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+                      window.location.href = "{{url('report-user-mobile/export?file_type=pdf')}}" + '&cabang=' + $('#cabang_filter').val();
                   }
               },
                {
                   text: 'EXCEL',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-user-mobile/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+                      window.location.href = "{{url('report-user-mobile/export?file_type=xls')}}" + '&cabang=' + $('#cabang_filter').val();
                   }
               }
           ],
@@ -111,7 +112,7 @@
           url: '{{ url('report-user-mobile') }}',
           type: 'GET',
           data: function(d) {
-            d.area = $('#area_filter').val()
+            d.cabang = $('#cabang_filter').val()
             d.search['value'] = $('#report-user-filter').val()
           }
       },
@@ -119,6 +120,12 @@
           {data: 'tabeldata', className: 'detail'},
       ]
     });
+    $('#cabang_filter').select2({
+       placeholder: '-- Select Cabang --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-cabang/select2-cabang-only')
+    });
+
 
     })
   </script>

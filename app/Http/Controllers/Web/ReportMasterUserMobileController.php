@@ -17,7 +17,7 @@ class ReportMasterUserMobileController extends Controller
             $query = UserScanner::select('wms_user_scanner.*','users.first_name','users.status')
             ->leftjoin ('users','users.username','=', 'wms_user_scanner.userid')
             ->leftjoin ('log_cabang','log_cabang.kode_customer','=', 'users.kode_customer')
-            // ->where ('kode_cabang', $request->input('cabang'))
+            ->where ('kode_cabang', $request->input('cabang'))
             ;
 
             $tabeldata ='';

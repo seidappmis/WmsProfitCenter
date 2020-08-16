@@ -31,6 +31,5 @@ Route::group(['middleware' => 'auth'], function () {
   // Master User Mobile
 
   Route::get('master-user-mobile/select2-all-user-with-usernameid', 'Web\MasterUserMobileController@getSelect2AllUserWithUsernameId');
-
   Route::resource('master-user-mobile', 'Web\MasterUserMobileController');
 });
