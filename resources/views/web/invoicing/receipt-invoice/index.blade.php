@@ -54,18 +54,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <td>1.</td>
-                                  <td>KRW-FAKTUR-200207-N03</td>
-                                  <td>026/II/DIST.LOG/KU.SEID/20</td>
-                                  <td>2020-02-07</td>
-                                  <td>18578523</td>
-                                  <td>WALUYO LINTAS NUSANTARA, PT.</td>
-                                  <td>
-                                    {!! get_button_view(url('receipt-invoice/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -74,7 +62,6 @@
                 </div>
             </div>
             <!---- Button Add ----->
-            {{-- <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a> --}}
             </div>
         </div>
         <div class="content-overlay"></div>

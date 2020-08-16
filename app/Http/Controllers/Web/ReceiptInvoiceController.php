@@ -4,9 +4,39 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\InvoiceReceiptHeader;
+use DataTables;
 
 class ReceiptInvoiceController extends Controller
 {
+    public function index(Request $request){
+        if ($request->ajax()) {
+            $query = InvoiceReceiptHeader::all()
+            ;
+
+            $datatables = DataTables::of($query)
+                ->addIndexColumn() //DT_RowIndex (Penomoran)
+                ->addColumn('action_view', function ($data) {
+                  return get_button_view(url('receipt-invoice/' . $data->id));
+                })
+                ->addColumn('action_delete', function ($data) {
+                  return get_button_delete();
+                })
+                ->rawColumns(['action_view', 'action_delete']);
+
+              return $datatables->make(true);
+        }
+        return view('web.invoicing.receipt-invoice.index');
+    }
+
+    public function create(){
+        return view('web.invoicing.receipt-invoice.create');
+    }
+
+    public function show($id){
+        return view('web.invoicing.receipt-invoice.view');
+    }
+
     public function exportReceiptNo(Request $request, $id)
     {
         $view_print = view('web.invoicing.receipt-invoice._print_receipt_no');

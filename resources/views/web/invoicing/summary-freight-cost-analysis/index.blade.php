@@ -21,26 +21,13 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <form class="form-table">
+                      <form class="form-table" id="form-summary-freight-cost-analysis">
                         <table>
                           <tr>
                             <td>Expedition</td>
                             <td>
                               <div class="input-field col s12">
-                                <select required="">
-                                  <option value="">-All-</option>
-                                  <option value="BMA">BINTAN MEGAH ABADI, PT.</option>
-                                  <option value="DSE">DUA SAMUDERA EXPRESS, CV.</option>
-                                  <option value="DSE">DUA SAMUDRA EXPRESS, CV.</option>
-                                  <option value="DSL">DUA SAMUDRA LOGISTIK, PT.</option>
-                                  <option value="DPE">DUNIA PARCEL EXPRESS, PT.</option>
-                                  <option value="E8T">EXPRESSINDO 88 NUSANTARA, PT.</option>
-                                  <option value="GCL">GCL LOGISTIK INDONESIA, PT.</option>
-                                  <option value="GST">GEMA SARANA TRANSPORTASI, PT.</option>
-                                  <option value="JTT">JASA TRANS TIRTA, PT.</option>
-                                  <option value="KFF">KARURA FREIGHT FORWARDING DAN LOGISTICS, PT.</option>
-                                  <option value="KYU">KARYA UTAMA, CV.</option>
-                                  <option value="KIT">KUNCI INTI TRANSINDO, PT.</option>
+                                <select name="expedition_code" class="select2-data-ajax browser-default" required="">
                                 </select>
                               </div>
                             </td>
@@ -109,11 +96,7 @@
                             <td>Destination</td>
                             <td>
                               <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">JAKARTA-JEMBER</option>
-                                  <option value="2">JAKARTA-KARAWANG</option>
-                                  <option value="3">JAKARTA-KEDIRI</option>
+                                <select name="destination_number" class="select2-data-ajax browser-default">
                                 </select>
                               </div>
                             </td>
@@ -122,11 +105,7 @@
                             <td>Region</td>
                             <td>
                               <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-All-</option>
-                                  <option value="1">JABODETABEK</option>
-                                  <option value="2">JAWA</option>
-                                  <option value="3">KALIMANTAN</option>
+                                <select name="region" class="select2-data-ajax browser-default">
                                 </select>
                               </div>
                             </td>
@@ -135,7 +114,7 @@
                             <td>Status</td>
                             <td>
                               <div class="input-field col s12">
-                                <select>
+                                <select name="status" class="select2-data-ajax browser-default">
                                   <option value="" disabled selected>-All-</option>
                                   <option value="1">UNRECEIPT</option>
                                   <option value="2">DRAFT UNRECEIPT</option>
@@ -161,11 +140,22 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        scrollX: true,
-        responsive: true,
-        order: [1, 'asc'],
-    });
+  jQuery(document).ready(function($) {
+    $('#form-summary-freight-cost-analysis [name="expedition_code"]').select2({
+        placeholder: '-- Select Expedition --',
+        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+    })
+    $('#form-summary-freight-cost-analysis [name="destination_number"]').select2({
+        placeholder: '-- All --',
+        ajax: get_select2_ajax_options('/master-destination/select2-destination')
+    })
+    $('#form-summary-freight-cost-analysis [name="region"]').select2({
+        placeholder: '-- All --',
+        ajax: get_select2_ajax_options('/region/select2-region')
+    })
+    $('#form-summary-freight-cost-analysis [name="status"]').select2({
+        placeholder: '-- All --',
+      })
+  });
 </script>
 @endpush
