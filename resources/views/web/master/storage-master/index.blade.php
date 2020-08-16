@@ -121,9 +121,13 @@
             type: 'DELETE',
             dataType: 'json',
           })
-          .done(function() {
-            showSwalAutoClose('Success', 'Data deleted.')
-            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+          .done(function(result) {
+            if (result.status) {
+              showSwalAutoClose('Success', 'Data deleted.')
+              table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+            } else {
+              showSwalAutoClose('Warning', result.message)
+            }
           })
           .fail(function() {
             console.log("error");

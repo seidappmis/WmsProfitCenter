@@ -64,9 +64,6 @@ class StorageMasterController extends Controller
       'sto_loc_code_short' => 'required',
       'sto_type_id'        => 'required',
       'total_max_pallet'   => 'required|numeric',
-      'used_space'         => 'numeric',
-      'space_wh'           => 'numeric',
-      'hand_pallet_space'  => 'numeric',
     ]);
 
     $storageMaster                     = new StorageMaster;
@@ -121,6 +118,30 @@ class StorageMasterController extends Controller
   public function update(Request $request, $id)
   {
 
+    $request->validate([
+      'kode_cabang'        => 'required',
+      'sto_loc_code_short' => 'required',
+      'sto_type_id'        => 'required',
+      'total_max_pallet'   => 'required|numeric',
+    ]);
+
+    $storageMaster                     = StorageMaster::findOrFail($id);
+    $storageMaster->kode_cabang        = $request->input('kode_cabang');
+    $storageMaster->sto_loc_code_short = $request->input('sto_loc_code_short');
+    
+    $sto_loc_code_long                = $storageMaster->kode_cabang . $storageMaster->sto_loc_code_short;
+    $storageMaster->sto_loc_code_long = $sto_loc_code_long;
+    $storageMaster->sto_type_id       = $request->input('sto_type_id');
+    $sto_type                         = \App\Models\StorageType::find($storageMaster->sto_type_id);
+    $sto_type_desc                    = $sto_type->storage_type;
+    $storageMaster->sto_type_desc     = $sto_type_desc;
+    $storageMaster->total_max_pallet  = $request->input('total_max_pallet');
+    $storageMaster->used_space        = $request->input('used_space');
+    $storageMaster->space_wh          = $request->input('space_wh');
+    $storageMaster->hand_pallet_space = $request->input('hand_pallet_space');
+
+    return $storageMaster->save();
+
   }
 
   /**
@@ -131,7 +152,13 @@ class StorageMasterController extends Controller
    */
   public function destroy($id)
   {
-    return StorageMaster::destroy($id);
+    $storage = StorageMaster::findOrFail($id);
+    // return $storage->inventoryStorage;
+    if ($storage->isUsed()) {
+      return sendError('Cannot be delete, used by another data');
+    }
+    $storage->delete();
+    return sendSuccess('Storage deleted.', $storage);
   }
 
   public function getSelect2Storage(Request $request)

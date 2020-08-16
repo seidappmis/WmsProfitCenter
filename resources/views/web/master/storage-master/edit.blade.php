@@ -40,7 +40,32 @@
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         set_initial_form_data();
+        @if ($storageMaster->isUsed())
         $('.btn-save').hide();
+     	swal({
+            text: 'Cannot be update, used by another data',
+            icon: 'warning'
+          })
+        @endif
+
+        $("#form-storage-master").validate({
+          submitHandler: function(form) {
+            setLoading(true); // Disable Button when ajax post data
+            $.ajax({
+              url: '{{ url("storage-master/" . $storageMaster->id ) }}',
+              type: 'PUT',
+              data: $(form).serialize(),
+            })
+            .done(function() { // selesai dan berhasil
+                showSwalAutoClose('Success', 'Data updated.')
+              window.location.href = "{{ url('storage-master') }}"
+            })
+            .fail(function(xhr) {
+                setLoading(false); // Enable Button when failed
+                showSwalError(xhr) // Custom function to show error with sweetAlert
+            });
+          }
+        });
     });
 
     function set_initial_form_data(){
@@ -49,9 +74,5 @@
         set_select2_value('#sto_type_id', '{{$storageMaster->sto_type_id}}', '{{$storageMaster->StorageType->storage_type}}');
     };
 
- 	swal({
-    text: 'Cannot be update, used by another data',
-    icon: 'warning'
-  })
 </script>
 @endpush
