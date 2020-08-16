@@ -100,8 +100,14 @@ function get_select2_search_term(params, extraFilter){
 
 function setLoading(state = true){
     if (state) {
+        $('.btn').addClass('disabled')
+        $('.btn-small').addClass('disabled')
+        $('.btn-save').addClass('disabled')
         $('.submit-btn').addClass('disabled');
     } else {
+        $('.btn').removeClass('disabled')
+        $('.btn-small').removeClass('disabled')
+        $('.btn-save').removeClass('disabled')
         $('.submit-btn').removeClass('disabled');
     }
 }

@@ -39,19 +39,18 @@
 <script type="text/javascript">
     $("#form-master-vehicle-expedition").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-vehicle-expedition") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle-expedition') }}"
-            }) // alert success
+            showSwalAutoClose('Success', 'Data Created.')
+          window.location.href = "{{ url('master-vehicle-expedition') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

@@ -40,6 +40,7 @@
 <script type="text/javascript">
     $("#form-master-driver").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fd = new FormData(form);
         $.ajax({
           url: '{{ url('master-driver') }}',
@@ -54,11 +55,13 @@
           if (result.status) {
               window.location.href = "{{ url('master-driver') }}"
             } else {
+              setLoading(false); // Enable Button when failed
               showSwalAutoClose('Warning', result.message)
             }
         })
         .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
+          setLoading(false); // Enable Button when failed
+          showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });

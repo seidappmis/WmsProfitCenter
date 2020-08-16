@@ -77,19 +77,18 @@
     // VEHICLE GROUP CATEGORY
     $("#form-vehicle-group").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-vehicle/" . $vehicleGroup->id) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "Vehicle Group Category has been change", "success")
-            .then((result) => { 
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
-            }) // alert success
+          showSwalAutoClose("Success", 'Data Created.')
+          window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
@@ -98,19 +97,18 @@
     // DETAIL
     $("#form-vehicle-detail").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-vehicle/" . $vehicleGroup->id . "/detail") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
-            }) // alert success
+          showSwalAutoClose("Success", 'Data Created.')
+          window.location.href = "{{ url('master-vehicle/' . $vehicleGroup->id . '/detail') }}"
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

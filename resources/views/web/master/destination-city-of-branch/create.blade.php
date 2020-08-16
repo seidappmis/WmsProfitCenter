@@ -47,13 +47,11 @@
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('destination-city-of-branch') }}"
-            }) // alert success
+            showSwalAutoClose('Success', 'Destination City Created')
+          window.location.href = "{{ url('destination-city-of-branch') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

@@ -41,25 +41,18 @@
 
   $("#form-master-destination").validate({
     submitHandler: function(form) {
+      setLoading(true); // Disable Button when ajax post data
       $.ajax({
         url: '{{ url("master-destination") }}',
         type: 'POST',
         data: $(form).serialize(),
       })
       .done(function() { // selesai dan berhasil
-        swal({
-          icon: "success",
-          title: "Good job!",
-          text: "You clicked the button!",
-          timer: 1000,
-          buttons: false
-        })
-          .then((result) => {
-            // Kalau klik Ok redirect ke index
-            window.location.href = "{{ url('master-destination') }}"
-          }) // alert success
+        showSwalAutoClose('Success', 'Data Created')
+        window.location.href = "{{ url('master-destination') }}"
       })
       .fail(function(xhr) {
+        setLoading(false); // Enable Button when failed
           showSwalError(xhr) // Custom function to show error with sweetAlert
       });
     }

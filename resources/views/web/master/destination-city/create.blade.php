@@ -40,6 +40,7 @@
 <script type="text/javascript">
     $("#form-destination-city").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("destination-city") }}',
           type: 'POST',
@@ -50,6 +51,7 @@
           window.location.href = "{{ url('destination-city') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

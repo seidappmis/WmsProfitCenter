@@ -71,7 +71,7 @@
                                 <div class="col s12 m12 l12 ml-2 mt-1">
                                     <p>
                                         <label>
-                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}/>
+                                            <input type="checkbox" name="remember" id="remember" checked />
                                             <span>Ingat saya</span>
                                         </label>
                                     </p>

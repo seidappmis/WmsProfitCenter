@@ -35,6 +35,7 @@
 
    $("#form-upload-freight-cost").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fdata = new FormData(form);
         $.ajax({
           url: '{{ url("master-freight-cost/upload") }}',
@@ -48,17 +49,16 @@
         .done(function(data) { // selesai dan berhasil
           console.log(data);
           if (data.status == false) {
+            setLoading(false); // Enable Button when failed
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-freight-cost') }}"
-            }) // alert success
+          showSwalAutoClose('Success', 'Data Uploaded')
+          window.location.href = "{{ url('master-freight-cost') }}"
         })
         .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
+          setLoading(false); // Enable Button when failed
+          showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });

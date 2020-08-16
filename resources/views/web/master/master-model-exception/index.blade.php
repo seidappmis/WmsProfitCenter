@@ -99,19 +99,18 @@
 
   $("#form-model-exception").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-model-exception") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-model-exception') }}"
-            }) // alert success
+          showSwalAutoClose('Success', 'Data Created')
+          window.location.href = "{{ url('master-model-exception') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
@@ -148,7 +147,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Data Deleted.')
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
