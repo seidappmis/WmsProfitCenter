@@ -18,6 +18,9 @@ class ReportMasterUserMobileController extends Controller
             ->leftjoin ('users','users.username','=', 'wms_user_scanner.userid')
             ->leftjoin ('log_cabang','log_cabang.kode_customer','=', 'users.kode_customer')
             ->where ('kode_cabang', $request->input('cabang'))
+            ->where ('roles_id',$request->input('role'))
+            ->where ('status',$request->input('userStatus'))
+
             ;
 
             $tabeldata ='';
