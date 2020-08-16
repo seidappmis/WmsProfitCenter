@@ -14,10 +14,17 @@ class CleanConceptController extends Controller
     if ($request->ajax()) {
       $query = Concept::selectRaw('
           tr_concept.*,
-          tr_destination.destination_description AS destination_name
+          tr_destination.destination_description AS destination_name,
+          COUNT(tr_concept.line_no) AS total_do_items
         ')
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->where('area', $request->input('area'))
+        ->groupBy('invoice_no', 'delivery_no')
       ;
 
       $datatables = DataTables::of($query)
@@ -37,7 +44,7 @@ class CleanConceptController extends Controller
   public function destroy(Request $request)
   {
     return Concept::where('invoice_no', $request->input('invoice_no'))
-      ->where('line_no', $request->input('line_no'))
+      ->where('delivery_no', $request->input('delivery_no'))
       ->delete();
   }
 
@@ -47,7 +54,7 @@ class CleanConceptController extends Controller
 
     foreach ($data_concept as $key => $value) {
       Concept::where('invoice_no', $value['invoice_no'])
-        ->where('line_no', $value['line_no'])
+        ->where('delivery_no', $value['delivery_no'])
         ->delete();
     }
 

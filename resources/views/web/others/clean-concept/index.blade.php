@@ -120,7 +120,7 @@
           {data: 'cbm', name: 'cbm', className: 'detail'},
           {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
+          {data: 'total_do_items', name: 'total_do_items', className: 'detail center-align'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ],
     });
@@ -198,7 +198,7 @@
           $.ajax({
             url: '{{ url('clean-concept') }}',
             type: 'DELETE',
-            data: 'invoice_no=' + data.invoice_no + '&line_no=' + data.line_no
+            data: 'invoice_no=' + data.invoice_no + '&delivery_no=' + data.delivery_no
           })
           .done(function() { // Kalau ajax nya success
             showSwalAutoClose('Success', 'Data deleted.')
