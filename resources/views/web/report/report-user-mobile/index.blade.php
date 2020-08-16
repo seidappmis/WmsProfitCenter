@@ -114,7 +114,7 @@
           data: function(d) {
             d.cabang = $('#cabang_filter').val()
             d.role =$('#role').val()
-            d.userStatus =$('#role').val()
+            d.userStatus =$('#userStatus').val()
             d.search['value'] = $('#report-user-filter').val()
           }
       },
