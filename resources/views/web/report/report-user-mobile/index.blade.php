@@ -22,21 +22,12 @@
                 <div class="card">
                     <div class="card-content ">
                         <form class="form-table">
-                               <table>
+                               <table id="" class="display" width="100%">
                                    <tr>
                                        <td>Cabang</td>
                                        <td>
                                          <div class="input-field col s4">
-                                           <select name="" id="">
-                                             
-                                             <option value="1">PT. SEID HG JKT</option>
-                                             <option value="2">PT. SEID CAB. JAKARTA</option>
-                                             <option value="3">PT. SEID CAB. SAMARINDA</option>
-                                             <option value="3">PT. SEID CAB. MANADO</option>
-                                             <option value="3">PT. SEID CAB. KARAWANG</option>
-                                             <option value="3">PT. SEID CAB. HG</option>
-                                             <option value="3">PT. SEID CAB. BATAM</option>
-                                  
+                                           <select name="" id="">                                 
                                            </select>
        
                                          </div>
@@ -50,8 +41,6 @@
                                               <option value="" disabled selected>-All-</option>
                                               <option value="1">Admin</option>
                                               <option value="2">User</option>
-                                              
-                                               
                                             </select>
         
                                           </div>
@@ -69,9 +58,6 @@
                                           </div>
                                         </td>
                                       </tr>
-                                  
-                                  
-                                 
                                </table>
                                <br>
                                <div class="input-field col s12">
@@ -81,8 +67,60 @@
                       </div>
                 </div>
             </div>
+            <div class="secion">
+              <div class="card">
+                <div class="card-conten">
+                  <table id="master-user-mobile" width="100%">
+                    <thead>
+                      <tr><th></th></tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
         </div>
         <div class="content-overlay"></div>
     </div>
 </div>
 @endsection
+@push('script_js')
+  <script>
+    var table_user_mobile;
+    jQuery(document).ready(function($){
+      table_user_mobile = $('#master-user-mobile').DataTable({
+        serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      // pageLength: 1,
+      scrollY: '60vh',
+      buttons: [
+              {
+                  text: 'PDF',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-user-mobile/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+                  }
+              },
+               {
+                  text: 'EXCEL',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('report-user-mobile/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+                  }
+              }
+          ],
+      ajax: {
+          url: '{{ url('report-user-mobile') }}',
+          type: 'GET',
+          data: function(d) {
+            d.area = $('#area_filter').val()
+            d.search['value'] = $('#report-user-filter').val()
+          }
+      },
+      columns: [
+          {data: 'tabeldata', className: 'detail'},
+      ]
+    });
+
+    })
+  </script>
+    
+@endpush

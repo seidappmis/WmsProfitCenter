@@ -156,5 +156,21 @@ class UserManagerController extends Controller
     return get_select2_data($request, $query);
   }
 
-  
+  public function getSelect2AllUserWithUsernameId(Request $request)
+  {
+    $query = User::select(
+      DB::raw('username AS id'),
+      DB::raw("username AS text")
+    )->toBase();
+
+    if(!empty($request->input('kode_cabang'))){
+      $query->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer');
+      $query->where('kode_cabang', $request->input('kode_cabang'));
+    }
+      
+
+    $query->orderBy('text');
+
+    return get_select2_data($request, $query);
+  }
 }
