@@ -164,7 +164,7 @@
             data: 'data_concept=' + JSON.stringify(data_concept),
           })
           .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'selected data deleted.')
             if ($('thead input[type="checkbox"]', dttable_clean_concept.table().container()).attr("checked")) {
               $('thead input[type="checkbox"]', dttable_clean_concept.table().container()).trigger('click')
             }
@@ -201,7 +201,7 @@
             data: 'invoice_no=' + data.invoice_no + '&line_no=' + data.line_no
           })
           .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Data deleted.')
             dttable_clean_concept.ajax.reload(null, false); // reload datatable
           })
           .fail(function() { // Kalau ajax nya gagal

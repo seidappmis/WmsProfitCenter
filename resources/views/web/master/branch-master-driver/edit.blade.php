@@ -44,6 +44,7 @@
     });
     $("#form-branch-master-driver").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fd = new FormData(form);
         $.ajax({
           url: '{{ url('branch-master-driver', $branchDriver->driver_id) }}',
@@ -55,13 +56,11 @@
           processData: false,
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('branch-master-driver') }}"
-            }) // alert success
+          showSwalAutoClose('Success', 'Data Updated')
+          window.location.href = "{{ url('branch-master-driver') }}"
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

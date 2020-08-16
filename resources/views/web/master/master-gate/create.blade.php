@@ -40,6 +40,7 @@
 <script type="text/javascript">
     $("#form-master-gate").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-gate") }}',
           type: 'POST',
@@ -49,10 +50,12 @@
             if (result.status) {
               window.location.href = "{{ url('master-gate') }}"
             } else {
+              setLoading(false); // Enable Button failed
               showSwalAutoClose('Warning', result.message)
             }
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

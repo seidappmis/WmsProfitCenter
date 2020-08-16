@@ -40,6 +40,7 @@
 <script type="text/javascript">
     $("#form-branch-master-driver").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fd = new FormData(form);
         $.ajax({
           url: '{{ url('branch-master-driver') }}',
@@ -51,14 +52,12 @@
           processData: false,
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('branch-master-driver') }}"
-            }) // alert success
+          showSwalAutoClose('Success', 'Branch Driver Created')
+          window.location.href = "{{ url('branch-master-driver') }}"
         })
         .fail(function(xhr) {
-            showSwalError(xhr) // Custom function to show error with sweetAlert
+          setLoading(false); // Enable Button when failed
+          showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });

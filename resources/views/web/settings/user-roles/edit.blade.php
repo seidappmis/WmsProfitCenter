@@ -43,6 +43,7 @@
 
     $("#form-user-roles").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("user-roles/" . $userRole->roles_id) }}',
           type: 'PUT',
@@ -55,6 +56,7 @@
           }
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

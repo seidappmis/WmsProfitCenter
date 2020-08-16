@@ -40,19 +40,18 @@
 <script type="text/javascript">
  	$("#form-storage-master").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("storage-master") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('storage-master') }}"
-            }) // alert success
+            showSwalAutoClose('Success', 'Data created.')
+          window.location.href = "{{ url('storage-master') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

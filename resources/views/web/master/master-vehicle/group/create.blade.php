@@ -51,19 +51,18 @@
 
     $("#form-vehicle-group").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-vehicle") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function(response) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke view
-              window.location.href = "{{ url('master-vehicle/') }}" + '/' + response.id + '/detail'
-            }) // alert success
+            showSwalAutoClose('Success', 'Data Created')
+          window.location.href = "{{ url('master-vehicle/') }}" + '/' + response.id + '/detail'
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

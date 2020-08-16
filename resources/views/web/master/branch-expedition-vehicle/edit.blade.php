@@ -42,19 +42,18 @@ jQuery(document).ready(function($) {
 });
   $("#form-branch-expedition-vehicle").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("branch-expedition-vehicle", $branchExpeditionVehicle->id) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('branch-expedition-vehicle') }}"
-            }) // alert success
+          showSwalAutoClose('Warning', 'Data Updated')
+          window.location.href = "{{ url('branch-expedition-vehicle') }}"
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

@@ -51,19 +51,18 @@
 
  	$("#form-master-gate").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("master-gate/" . $masterGate->id) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => { 
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('master-gate') }}"
-            }) // alert success
+          showSwalAutoClose('Gate created.')
+          window.location.href = "{{ url('master-gate') }}"
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

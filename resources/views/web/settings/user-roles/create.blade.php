@@ -39,6 +39,7 @@
 <script type="text/javascript">
     $("#form-user-roles").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("user-roles") }}',
           type: 'POST',
@@ -51,6 +52,7 @@
           }
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
