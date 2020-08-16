@@ -16,6 +16,9 @@ class CancelMovementController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('picking_no', function ($data) {
+          return '';
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_delete('Cancel Movement');

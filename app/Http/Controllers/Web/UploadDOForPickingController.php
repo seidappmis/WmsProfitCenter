@@ -49,28 +49,28 @@ class UploadDOForPickingController extends Controller
         continue; // Skip baris judul
       }
 
-      $do = [];
 
-      $do['invoice_no']                = $row[5];
-      $do['delivery_no']               = $row[1];
-      $do['delivery_items']            = $row[4];
-      $do['do_date']                   = $row[2];
-      $do['kode_customer']             = $row[7];
-      $do['long_description_customer'] = $row[8];
-      $do['model']                     = $row[9];
-      // $do['ean_code']                  = '';
-      $do['quantity'] = $row[10];
-      $do['cbm']      = $row[15];
-      // $do['code_sales']  = 'DS';
-      $do['area']        = auth()->user()->area;
-      $do['kode_cabang'] = auth()->user()->cabang->kode_cabang;
-      // $do['split_date']                = '';
-      // $do['split_by']                  = '';
-      $do['remarks']    = '-';
-      $do['created_by'] = auth()->user()->id;
-      $do['created_at'] = date('Y-m-d H:i:s');
+      if (!empty($row[5])) {
+        $do = [];
 
-      if (!empty($do['invoice_no'])) {
+        $do['invoice_no']                = $row[5];
+        $do['delivery_no']               = $row[1];
+        $do['delivery_items']            = $row[4];
+        $do['do_date']                   = $row[2];
+        $do['kode_customer']             = $row[7];
+        $do['long_description_customer'] = $row[8];
+        $do['model']                     = $row[9];
+        // $do['ean_code']                  = '';
+        $do['quantity'] = $row[10];
+        $do['cbm']      = $row[15];
+        // $do['code_sales']  = 'DS';
+        $do['area']        = auth()->user()->area;
+        $do['kode_cabang'] = auth()->user()->cabang->kode_cabang;
+        // $do['split_date']                = '';
+        // $do['split_by']                  = '';
+        $do['remarks']    = '-';
+        $do['created_by'] = auth()->user()->id;
+        $do['created_at'] = date('Y-m-d H:i:s');
 
         if (empty($rs_model[$do['model']])) {
           $model = MasterModel::where('model_name', $do['model'])->first();
@@ -80,7 +80,6 @@ class UploadDOForPickingController extends Controller
 
         if (empty($rs_code_sales[$do['kode_customer']])) {
           $cabang = MasterCabang::where('kode_customer', $do['kode_customer'])->first();
-
           $rs_code_sales[$do['kode_customer']] = empty($cabang) ? 'DS' : 'BR';
         }
 

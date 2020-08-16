@@ -43,6 +43,9 @@
                                     </select>
                                   </div></td>
                                 </tr>
+                                <tr id="add-model-wrapper" class="hide">
+                                  <td colspan="2"><span class="waves-effect waves-light indigo btn-small mt-1 mb-1" id="btn-add-model">Add Model</span></td>
+                                </tr>
                                 
                                 <tr>
                                   <td>Model</td>
@@ -63,7 +66,9 @@
                                   <td><div class="input-field m6 col s12"><input id="qty" type="text" class="validate" name="qty" required></div></td>
                                 </tr>
                               </table>
-                             
+                              <table>
+                                
+                              </table>
                           </div>
                        </div>
                       </div>
@@ -136,6 +141,9 @@
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
+          set_select2_value('#form-transfer-sloc [name="sloc_from"]', '', '')
+          set_select2_value('#form-transfer-sloc [name="sloc_to"]', '', '')
+          $(form)[0].reset()
           showSwalAutoClose('Success', 'Transfer successfully.')
         })
         .fail(function(xhr) {

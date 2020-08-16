@@ -77,11 +77,11 @@
         order: [1, 'asc'],
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-            {data: 'status', name: 'status', className: 'detail'},
-            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
-            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
-            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-            {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
+            {data: 'arrival_no', className: 'detail'},
+            {data: 'do_manifest_no', className: 'detail'},
+            {data: 'picking_no', className: 'detail'},
+            {data: 'storage_location_from', className: 'detail'},
+            {data: 'storage_location_to', className: 'detail'},
             {data: 'action', className: 'center-align', searchable: false, orderable: false},
         ]
       });

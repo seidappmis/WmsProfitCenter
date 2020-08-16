@@ -42,11 +42,17 @@ class UploadInventoryStorageController extends Controller
         continue; // Skip baris judul
       }
 
-      $sto_loc_code_long = $row[0];
-      $model_name        = $row[1];
-      $quantity          = $row[2];
 
-      if (!empty($sto_loc_code_long)) {
+      if (!empty($row[0])) {
+
+        $sto_loc_code_long = $row[0];
+        $model_name        = $row[1];
+        $quantity          = $row[2];
+        
+        if ($quantity < 0) {
+          return sendError('Model ' . $model_name . ' quantity ' . $quantity . '.');
+        }
+
         if (empty($rs_storage[$sto_loc_code_long])) {
           $storage = StorageMaster::where('sto_loc_code_long', $sto_loc_code_long)->first();
           if (empty($storage)) {

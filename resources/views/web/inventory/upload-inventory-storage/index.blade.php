@@ -79,9 +79,9 @@
         })
         .done(function(data) { // selesai dan berhasil
           data_concept = data;
+          setLoading(false); // Enable Button when failed
           if (data.status == false) {
             $('#table-concept tbody').empty();
-            setLoading(false); // Enable Button when failed
             swal("Failed!", data.message, "warning");
             return;
           }
