@@ -21,28 +21,46 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content ">
-                        <form class="form-table">
+                        <form class="form-table" id="form-summary-task-notice">
                                <table>
                                    <tr>
-                                       <td>Area</td>
-                                       <td>
-                                         <div class="input-field col s4">
-                                           <select name="" id="">
-                                             <option value="" disabled selected>-Select Area-</option>
-                                             <option value="1">KARAWANG</option>
-                                             <option value="2">SURABAYA HUB</option>
-                                             <option value="3">SWADAYA</option>
-                                              
-                                           </select>
-       
-                                         </div>
-                                       </td>
-                                     </tr>
-                                 
+                                     <td width="20%">Area</td>
+                                     <td>
+                                       <div class="input-field col s4">
+                                         <select id="area"
+                                                name="area"
+                                                class="select2-data-ajax browser-default">
+                                        </select>
+                                       </div>
+                                     </td>
+                                   </tr>
+                                   <tr>
+                                     <td width="20%">No Document</td>
+                                     <td>
+                                       <div class="input-field col s4">
+                                         <input type="text" name="">
+                                       </div>
+                                     </td>
+                                   </tr>
+                                   <tr>
+                                     <td width="20%">Upload Date</td>
+                                     <td>
+                                       <div class="input-field col 12">
+                                         <table>
+                                           <tr>
+                                             <td>START :</td>
+                                             <td><input type="text" name="" class="validate datepicker"></td>
+                                             <td>END :</td>
+                                             <td><input type="text" name="" class="validate datepicker"></td>
+                                           </tr>
+                                         </table>
+                                       </div>
+                                     </td>
+                                   </tr>
                                </table>
                                
                                <div class="input-field col s12">
-                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                 <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
                                </div>
                             </form>
                       </div>
@@ -53,3 +71,19 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#form-summary-task-notice [name="area"]').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+    });
+    @if (auth()->user()->area != 'All')
+      set_select2_value('#form-summary-task-notice [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+      $('#form-summary-task-notice [name="area"]').attr('disabled','disabled')
+    @endif
+  });
+</script>
+@endpush

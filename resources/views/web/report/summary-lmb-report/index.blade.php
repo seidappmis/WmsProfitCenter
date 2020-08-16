@@ -21,20 +21,17 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content ">
-                        <form class="form-table">
+                        <form class="form-table" id="form-summary-lmb-report">
                                <table>
                                    <tr>
                                        <td>Branch</td>
                                        <td>
-                                         <div class="input-field col s4">
-                                           <select name="" id="" required>
-                                             <option value="" disabled selected >-Select Area-</option>
-                                             <option value="1" >KARAWANG</option>
-                                             <option value="2">SURABAYA HUB</option>
-                                             <option value="3">SWADAYA</option>
-                                              
-                                           </select>
-       
+                                         <div class="input-field col s5">
+                                           <select id="kode_cabang"
+                                                name="kode_cabang"
+                                                class="select2-data-ajax browser-default"
+                                                required="">
+                                          </select>
                                          </div>
                                        </td>
                                      </tr>
@@ -95,7 +92,7 @@
                                </table>
                               
                                <div class="input-field col s12">
-                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                 <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
                                </div>
                             </form>
                       </div>
@@ -106,3 +103,20 @@
     </div>
 </div>
 @endsection
+
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#form-summary-lmb-report [name="kode_cabang"]').select2({
+       placeholder: '-- Select Branch --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang-id-kode-customer')
+    });
+  });
+</script>
+@endpush

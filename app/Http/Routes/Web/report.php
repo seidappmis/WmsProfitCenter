@@ -26,14 +26,23 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
   Route::view('report-overload-concept-or-do', 'web.report.report-overload-concept-or-do.index');
-  Route::view('summary-task-notice', 'web.report.summary-task-notice.index');
+
+
+  Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');
 
   // Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
 
-  Route::view('summary-lmb-report', 'web.report.summary-lmb-report.index');
-  Route::view('report-inventory-movement', 'web.report.report-inventory-movement.index');
-  Route::view('report-stock-inventory', 'web.report.report-stock-inventory.index');
-  Route::view('serial-number-trace', 'web.report.serial-number-trace.index');
+  /*
+  Summary LMB REPORT
+   */
+  Route::get('summary-lmb-report', 'Web\SummaryLMBReportController@index');
+
+  Route::get('report-inventory-movement', 'Web\ReportInventoryMovementController@index');
+
+  Route::get('report-stock-inventory', 'Web\ReportStockInventoryController@index');
+
+  Route::get('serial-number-trace', 'Web\SerialNumberTraceController@index');
+
   Route::view('report-occupancy', 'web.report.report-occupancy.index');
   Route::view('summary-wh-transporter-report', 'web.report.summary-wh-transporter-report.index');
   Route::view('summary-do-confirmed', 'web.report.summary-do-confirmed.index');

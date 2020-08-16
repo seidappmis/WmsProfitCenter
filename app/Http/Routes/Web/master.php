@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Master Model Exception
   Route::resource('master-model-exception', 'Web\ModelExceptionController');
+  Route::get('movement-type/select2', 'Web\MovementTypeController@getSelect2');
 
   Route::middleware([OnlyBranchAccess::class])->group(function () {
     // Master Branch Expedition
@@ -84,5 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Destination City of Branch
     Route::get('destination-city-of-branch/select2', 'Web\DestinationCityOfBranchController@getSelect2');
     Route::resource('destination-city-of-branch', 'Web\DestinationCityOfBranchController');
+
+
   });
 });

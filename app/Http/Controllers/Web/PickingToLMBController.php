@@ -71,7 +71,6 @@ class PickingToLMBController extends Controller
       })
       ->groupBy('delivery_no', 'model')
       ->get();
-    ;
 
     return view('web.picking.picking-to-lmb.view', $data);
   }
@@ -267,8 +266,9 @@ class PickingToLMBController extends Controller
     $file = fopen($request->file('file_scan'), "r");
 
     // $title          = true; // Untuk Penada Baris pertama adalah Judul
-    $serial_numbers = [];
-    $scan_summaries = [];
+    $serial_numbers                 = [];
+    $scan_summaries                 = [];
+    $model_not_exist_in_pickinglist = [];
 
     $rs_models               = [];
     $rs_picking_list_details = [];
@@ -344,8 +344,9 @@ class PickingToLMBController extends Controller
       // Akhir validasi data per baris
     }
 
-    $result['serial_numbers'] = $serial_numbers;
-    $result['scan_summaries'] = $scan_summaries;
+    $result['serial_numbers']                 = $serial_numbers;
+    $result['scan_summaries']                 = $scan_summaries;
+    $result['model_not_exist_in_pickinglist'] = $model_not_exist_in_pickinglist;
 
     return $result;
   }
