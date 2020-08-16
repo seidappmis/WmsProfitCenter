@@ -21,7 +21,7 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content ">
-                        <form class="form-table">
+                        <form class="form-table" id="form-filter-report">
                                <table id="" class="display" width="100%">
                                    <tr>
                                        <td>Cabang</td>
@@ -84,10 +84,22 @@
     </div>
 </div>
 @endsection
+
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
   <script>
     var table_user_mobile;
     jQuery(document).ready(function($){
+      // reloadtable
+      $('#form-filter-report').validate({
+        submitHandler: function(form){
+          table_user_mobile.ajax.reload(null, false);
+        }
+      })
       table_user_mobile = $('#master-user-mobile').DataTable({
         serverSide: true,
       scrollX: true,
