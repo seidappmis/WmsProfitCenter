@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserScanner;
 use DB;
 use App\User;
+use App\Models\MasterCabang;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,12 @@ class ReportMasterUserMobileController extends Controller
             ->where ('kode_cabang', $request->input('cabang'))
             ->where ('roles_id',$request->input('role'))
             ->where ('status',$request->input('userStatus'))
-
             ;
+
+            if(!empty($request->input('role')))
+                $query->where ('roles_id',$request->input('role'));
+            if(!empty($request->input('userStatus')))
+                $query->where('status',$request->input('userStatus'));
 
             $tabeldata ='';
             $tabeldata .= '<h4 style="text-align: center;">Report User Mobile</h4>';

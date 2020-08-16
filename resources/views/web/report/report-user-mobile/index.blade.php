@@ -38,7 +38,7 @@
                                         <td>User Role</td>
                                         <td>
                                           <div class="input-field col s4">
-                                            <select name="" id="">
+                                            <select name="" id="role">
                                               <option value="" disabled selected>-All-</option>
                                               <option value="1">Admin</option>
                                               <option value="2">User</option>
@@ -50,7 +50,7 @@
                                         <td>User Status</td>
                                         <td>
                                           <div class="input-field col s4">
-                                            <select name="" id="">
+                                            <select name="" id="userStatus">
                                               <option value="" disabled selected>-All-</option>
                                               <option value="1">Not Active</option>
                                               <option value="2">Active</option>
@@ -113,6 +113,8 @@
           type: 'GET',
           data: function(d) {
             d.cabang = $('#cabang_filter').val()
+            d.role =$('#role').val()
+            d.userStatus =$('#role').val()
             d.search['value'] = $('#report-user-filter').val()
           }
       },
