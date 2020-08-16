@@ -67,22 +67,21 @@
           }
           data_serial_numbers = data.serial_numbers;
           data_scan_summaries = data.scan_summaries;
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              $('#upload-serial-number-wrapper').show();
-              $('#table-serial-number tbody').empty();
-              $.each(data_scan_summaries, function(index, val) {
-                 /* iterate through array or object */
-                 var row = '<tr>';
-                 row += '<td>' + val.model + '</td>';
-                 row += '<td>' + val.quantity_scan + '</td>';
-                 row += '<td>' + val.quantity_picking + '</td>';
-                 row += '<td>' + val.quantity_existing + '</td>';
-                 row += '</tr>';
 
-                 $('#table-serial-number tbody').append(row);
-              });
-            }) // alert success
+          showSwalAutoClose('Success', 'Data uploaded.')
+          $('#upload-serial-number-wrapper').show();
+          $('#table-serial-number tbody').empty();
+          $.each(data_scan_summaries, function(index, val) {
+             /* iterate through array or object */
+             var row = '<tr>';
+             row += '<td>' + val.model + '</td>';
+             row += '<td>' + val.quantity_scan + '</td>';
+             row += '<td>' + val.quantity_picking + '</td>';
+             row += '<td>' + val.quantity_existing + '</td>';
+             row += '</tr>';
+
+             $('#table-serial-number tbody').append(row);
+          });
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
@@ -96,12 +95,10 @@ function submit_scan_data(){
       data: 'data_serial_numbers=' + JSON.stringify(data_serial_numbers),
     })
     .done(function() { // selesai dan berhasil
-      swal("Good job!", "You clicked the button!", "success")
-        .then((result) => {
-          $('#table-serial-number tbody').empty();
-          $('#upload-serial-number-wrapper').hide();
-          dttable_picking_list.ajax.reload(null, false)
-        }) // alert success
+      showSwalAutoClose('Success', 'Data submited.')
+      $('#table-serial-number tbody').empty();
+      $('#upload-serial-number-wrapper').hide();
+      dttable_picking_list.ajax.reload(null, false)
     })
     .fail(function(xhr) {
         showSwalError(xhr) // Custom function to show error with sweetAlert
