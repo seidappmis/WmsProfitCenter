@@ -15,13 +15,20 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('picking-list/{picking_no}', function ($picking_no) {
-  $pickingList = \App\Models\PickinglistHeader::where('picking_no', $picking_no)->with('details')->first();
+  $pickingList = \App\Models\PickinglistHeader::where('picking_no', $picking_no)
+    ->first();
 
   if (empty($pickingList)) {
     return sendError('Picking List Not Found !');
   }
 
-  return sendSuccess('Picing List Found.', $pickingList);
+  $data['picking_list'] = [
+    'picking_no'   => $pickingList->picking_no,
+    'picking_date' => $pickingList->picking_date,
+  ];
+  $data['details'] = $pickingList->details;
+
+  return sendSuccess('Picing List Found.', $data);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
