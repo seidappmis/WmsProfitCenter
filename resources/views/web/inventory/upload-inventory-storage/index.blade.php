@@ -66,6 +66,7 @@
 <script type="text/javascript">
   $("#form-upload-inventory-storage").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fdata = new FormData(form);
         $.ajax({
           url: '{{ url("upload-inventory-storage") }}',
@@ -80,16 +81,16 @@
           data_concept = data;
           if (data.status == false) {
             $('#table-concept tbody').empty();
+            setLoading(false); // Enable Button when failed
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              $('#concept-wrapper').show();
-              $('#table-concept tbody').empty();
-            }) // alert success
+          showSwalAutoClose('Success', 'Data uploaded.')
+          $('#concept-wrapper').show();
+          $('#table-concept tbody').empty();
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

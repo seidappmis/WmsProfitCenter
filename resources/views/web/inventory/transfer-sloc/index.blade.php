@@ -136,10 +136,7 @@
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-            }) // alert success
+          showSwalAutoClose('Success', 'Transfer successfully.')
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

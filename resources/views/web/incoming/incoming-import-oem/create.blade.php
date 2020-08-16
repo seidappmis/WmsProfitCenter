@@ -87,6 +87,7 @@
     @endif
     $("#form-incoming-import-oem-header").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("incoming-import-oem") }}',
           type: 'POST',
@@ -95,12 +96,9 @@
         .done(function(data) { // selesai dan berhasil
           showSwalAutoClose('Success', 'Create Manual Incoming success')
           window.location.href = "{{ url('incoming-import-oem') }}" + '/' + data.arrival_no
-          // swal("Good job!", "You clicked the button!", "success")
-          //   .then((result) => {
-          //     // Kalau klik Ok redirect ke view
-          //   }) // alert success
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

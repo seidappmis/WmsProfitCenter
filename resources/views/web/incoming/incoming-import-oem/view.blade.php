@@ -183,7 +183,6 @@
           })
           .done(function() {
             showSwalAutoClose('',  "Incoming detail has been deleted.")
-            // swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
             dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -210,15 +209,17 @@
     // PUT request to update data header
     $("#form-incoming-import-oem-header").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function(result) { // selesai dan berhasil
-          showSwalAutoClose('', result.message)
+          showSwalAutoClose('Success', result.message)
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
@@ -231,6 +232,7 @@
     // data dikirim dalam form data 
     $("#form-incoming-import-oem-detail").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fdata = new FormData(form);
         $.ajax({
           url: '{{ url("incoming-import-oem", $incomingManualHeader->arrival_no) . "/detail" }}',
@@ -242,7 +244,9 @@
           processData: false
         })
         .done(function(data) { // selesai dan berhasil
-          console.log(data);
+          // console.log(data);
+          setLoading(false); // Enable Button when failed
+          
           if (data.status == false) {
             swal("Failed!", data.message, "warning");
             return;
@@ -255,6 +259,7 @@
           set_select2_value('#form-incoming-import-oem-detail [name="storage_id"]', '', '')
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

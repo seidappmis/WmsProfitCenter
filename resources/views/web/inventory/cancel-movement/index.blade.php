@@ -45,17 +45,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <th>1.</th>
-                                  <th>OTHERS-WHJKT-181004-001</th>
-                                  <th></th>
-                                  <th></th>
-                                  <th></th>
-                                  <th>1001</th>
-                                  <th>
-                                    <span class="waves-effect red darken-4 btn-small btn-delete">Cancel Movement</span>
-                                  </th>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>

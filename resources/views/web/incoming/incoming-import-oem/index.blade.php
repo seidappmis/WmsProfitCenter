@@ -62,18 +62,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <td>1.</td>
-                                  <td>OEM-WHKRW-200206-005  </td>
-                                  <td>H022202002</td>
-                                  <td>FUJISEI PLASTIK SEITEK,PT.</td>
-                                  <td>Total Items 1</td>
-                                  <td>06-Feb-2020</td>
-                                  <td>
-                                    {!! get_button_view(url('incoming-import-oem/1')) !!}
-                                    {!! get_button_print() !!}
-                                  </td>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -188,7 +176,6 @@
           })
           .done(function() {
             showSwalAutoClose('Success', "Incoming with Arrival No. " + data.arrival_no + " has been deleted.")
-            // swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been deleted.", "success") // alert success
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {

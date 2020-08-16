@@ -39,26 +39,25 @@
 <script type="text/javascript">
     $("#form-adjust-inventory-movement").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("adjust-inventory-movement") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              var qty_total = parseInt($('#form-adjust-inventory-movement [name="prev_quantity"]').val())
-              if ($('#form-adjust-inventory-movement [name="movement_code_type_action"]').val() == "INCREASE") {
-                qty_total += parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
-              } else {
-                qty_total -= parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
-              }
-              $('#form-adjust-inventory-movement [name="prev_quantity"]').val(qty_total)
-              $('#form-adjust-inventory-movement [name="quantity"]').val(0)
-            }) // alert success
+          showSwalAutoClose('Success', 'Adjust success.')
+          var qty_total = parseInt($('#form-adjust-inventory-movement [name="prev_quantity"]').val())
+          if ($('#form-adjust-inventory-movement [name="movement_code_type_action"]').val() == "INCREASE") {
+            qty_total += parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
+          } else {
+            qty_total -= parseInt($('#form-adjust-inventory-movement [name="quantity"]').val())
+          }
+          $('#form-adjust-inventory-movement [name="prev_quantity"]').val(qty_total)
+          $('#form-adjust-inventory-movement [name="quantity"]').val(0)
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
