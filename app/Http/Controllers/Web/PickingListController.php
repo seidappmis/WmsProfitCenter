@@ -30,7 +30,7 @@ class PickingListController extends Controller
           if (!empty($data->vehicle_number)) {
             $driver_name .= $data->vehicle_number . '<br>';
           } else {
-            $driver_name .= '<span class="red-text">No Vehicle Number</span>';
+            $driver_name .= '<span class="red-text">No Vehicle<br>Number</span>';
           }
 
           $driver_name .= $data->driver_name;

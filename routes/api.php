@@ -23,6 +23,7 @@ Route::get('picking-list/{picking_no}', function ($picking_no) {
   }
 
   $data['picking_list'] = [
+    'id'           => $pickingList->id,
     'picking_no'   => $pickingList->picking_no,
     'picking_date' => $pickingList->picking_date,
   ];
