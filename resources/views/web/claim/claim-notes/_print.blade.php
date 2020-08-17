@@ -45,10 +45,30 @@
 						{{-- Table --}}
 						<table width="100%" style="border-collapse: collapse;">
 							<tr>
-								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;"><strong>Plant No :</strong></td>
-								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
-								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Name :</strong></td>
-								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Mould Name :</strong></td>
+								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;">
+									<table width="100%" style="border-collapse: collapse;">
+										<tr>
+											<td><strong>Plant No :</strong></td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;">
+									<table width="100%" style="border-collapse: collapse;">
+										<tr>
+											<td><strong>Part Code :</strong></td>
+											<td style="border-left: 1pt solid #000000;"><strong>Part Name:</strong></td>
+											<td style="border-left: 1pt solid #000000;"><strong>Mould Name :</strong></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr>
+								<td>
+									Reason:
+								</td>
 							</tr>
 						</table>
 					</td>
