@@ -125,6 +125,7 @@
   $("#form-upload-concept").validate({
       submitHandler: function(form) {
         var fdata = new FormData(form);
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("upload-concept/upload-csv") }}',
           type: 'POST',
@@ -135,74 +136,74 @@
           processData: false
         })
         .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Enable Button when failed
           data_concept = data;
           if (data.status == false) {
             $('#table-concept tbody').empty();
             swal("Failed!", data.message, "warning");
             return;
           }
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              $('#concept-wrapper').show();
-              $('#table-concept tbody').empty();
-              $.each(data, function(index, val) {
-                 /* iterate through array or object */
-                 var row = '<tr>';
-                 row += '<td>' + val.invoice_no + '</td>';
-                 row += '<td>' + val.line_no + '</td>';
-                 row += '<td>' + val.output_date + '</td>';
-                 row += '<td>' + val.output_time + '</td>';
-                 row += '<td>' + val.destination_name + '</td>';
-                 row += '<td>' + val.vehicle_code_type + '</td>';
-                 row += '<td>' + val.expedition_name + '</td>';
-                 row += '<td>' + val.car_no + '</td>';
-                 row += '<td>' + val.cont_no + '</td>';
-                 row += '<td>' + val.checkin_date + '</td>';
-                 row += '<td>' + val.checkin_time + '</td>';
-                 row += '<td>' + val.delivery_no + '</td>';
-                 row += '<td>' + val.delivery_items + '</td>';
-                 row += '<td>' + val.model + '</td>';
-                 row += '<td>' + val.quantity + '</td>';
-                 row += '<td>' + val.cbm + '</td>';
-                 row += '<td>' + val.ship_to + '</td>';
-                 row += '<td>' + val.sold_to + '</td>';
-                 row += '<td>' + val.ship_to_city + '</td>';
-                 row += '<td>' + val.ship_to_district + '</td>';
-                 row += '<td>' + val.ship_to_street + '</td>';
-                 row += '<td>' + val.sold_to_city + '</td>';
-                 row += '<td>' + val.sold_to_district + '</td>';
-                 row += '<td>' + val.sold_to_street + '</td>';
-                 row += '<td>' + val.remarks + '</td>';
-                 row += '<td>' + val.area + '</td>';
-                 row += '<td>' + val.sold_to_code + '</td>';
-                 row += '<td>' + val.ship_to_code + '</td>';
-                 row += '<td>' + val.expedition_code + '</td>';
-                 row += '<td>' + val.code_sales + '</td>';
-                 row += '</tr>';
+          showSwalAutoClose("Success", 'Data uploaded.')
+          $('#concept-wrapper').show();
+          $('#table-concept tbody').empty();
+          $.each(data, function(index, val) {
+             /* iterate through array or object */
+             var row = '<tr>';
+             row += '<td>' + val.invoice_no + '</td>';
+             row += '<td>' + val.line_no + '</td>';
+             row += '<td>' + val.output_date + '</td>';
+             row += '<td>' + val.output_time + '</td>';
+             row += '<td>' + val.destination_name + '</td>';
+             row += '<td>' + val.vehicle_code_type + '</td>';
+             row += '<td>' + val.expedition_name + '</td>';
+             row += '<td>' + val.car_no + '</td>';
+             row += '<td>' + val.cont_no + '</td>';
+             row += '<td>' + val.checkin_date + '</td>';
+             row += '<td>' + val.checkin_time + '</td>';
+             row += '<td>' + val.delivery_no + '</td>';
+             row += '<td>' + val.delivery_items + '</td>';
+             row += '<td>' + val.model + '</td>';
+             row += '<td>' + val.quantity + '</td>';
+             row += '<td>' + val.cbm + '</td>';
+             row += '<td>' + val.ship_to + '</td>';
+             row += '<td>' + val.sold_to + '</td>';
+             row += '<td>' + val.ship_to_city + '</td>';
+             row += '<td>' + val.ship_to_district + '</td>';
+             row += '<td>' + val.ship_to_street + '</td>';
+             row += '<td>' + val.sold_to_city + '</td>';
+             row += '<td>' + val.sold_to_district + '</td>';
+             row += '<td>' + val.sold_to_street + '</td>';
+             row += '<td>' + val.remarks + '</td>';
+             row += '<td>' + val.area + '</td>';
+             row += '<td>' + val.sold_to_code + '</td>';
+             row += '<td>' + val.ship_to_code + '</td>';
+             row += '<td>' + val.expedition_code + '</td>';
+             row += '<td>' + val.code_sales + '</td>';
+             row += '</tr>';
 
-                 $('#table-concept tbody').append(row);
-              });
-            }) // alert success
+             $('#table-concept tbody').append(row);
+          });
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });
 
   function submit_concept(){
+    setLoading(true); // Disable Button when ajax post data
     $.ajax({
       url: '{{ url("upload-concept") }}',
       type: 'POST',
       data: {data_concept: JSON.stringify(data_concept)},
     })
     .done(function() { // selesai dan berhasil
-      swal("Good job!", "You clicked the button!", "success")
-        .then((result) => {
-          window.location.href = "{{ url('upload-concept') }}"
-        }) // alert success
+      showSwalAutoClose("Success", "")
+      window.location.href = "{{ url('upload-concept') }}"
     })
     .fail(function(xhr) {
+      setLoading(false); // Enable Button when failed
         showSwalError(xhr) // Custom function to show error with sweetAlert
     });
   }

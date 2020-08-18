@@ -97,19 +97,18 @@
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) {
+          setLoading(true); // Disable Button when ajax post data
             $.ajax({
             url: '{{ url('complete/' . $manifestHeader->driver_register_id . '/complete') }}' ,
             type: 'POST',
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('complete') }}"
-            }) // alert success
+            showSwalAutoClose("Success", "Data completed.")
+            window.location.href = "{{ url('complete') }}"
           })
           .fail(function() {
+            setLoading(false); // Enable Button when failed
             console.log("error");
           });
         }
