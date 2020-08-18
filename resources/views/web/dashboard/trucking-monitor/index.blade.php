@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
+                                <tr>
                                     <td>Waiting D/O</td>
                                     <td>SBY-200207-001</td>
                                     <td>L 9624_VZ</td>
@@ -80,7 +80,7 @@
                                     <td>PICK UP</td>
                                     <td>SMALL TRUCK</td>
                                     <td>7.000</td>
-                                </tr> --}}
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +120,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
+                                <tr>
                                     <td>1000307683</td>
                                     <td>2800076697</td>
                                     <td>1</td>
@@ -137,7 +137,7 @@
                                     <td>SURABAYA HUB-KEDIRI</td>
                                     <td>TRISILA, CV.</td>
                                     <td>2018-05-16 14:47:40</td>
-                                </tr> --}}
+                                </tr>
                             </tbody>
                         </table>
                     </div>
