@@ -441,9 +441,9 @@ class PickingToLMBController extends Controller
 
   public function export(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['lmbHeader'] = PickinglistHeader::findOrFail($id);
 
-    $view_print = view('web.picking.picking-to-lmb._print');
+    $view_print = view('web.picking.picking-to-lmb._print', $data);
     $title      = 'Picking List LMB';
 
     if ($request->input('filetype') == 'html') {

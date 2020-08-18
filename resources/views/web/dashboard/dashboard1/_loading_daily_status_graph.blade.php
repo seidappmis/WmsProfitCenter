@@ -22,7 +22,7 @@
       ]
     },
     yAxis: { min: 0, title: { text: '' } },
-    series: [{ data: [], name: 'CBM of Truck' }, { data: [], name: 'CBM of Concept' }]
+    series: [{ data: cbm_of_truck, name: 'CBM of Truck' }, { data: cbm_of_concept, name: 'CBM of Concept' }]
   });
 </script>
 @endpush
