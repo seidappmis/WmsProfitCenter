@@ -34,7 +34,6 @@ class TaskNoticeController extends Controller
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
       $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
       $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(5);
