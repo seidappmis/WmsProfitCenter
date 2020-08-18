@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
 
-<table style="font-family: Arial Narrow; font-size: 10pt; border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000;">
+<table style="font-family: Arial Narrow; font-size: 10pt; border-collapse: collapse; border: 2px solid #000000;">
 	<tr>
 		<td>
 			<table style="width: 210.0003mm;">

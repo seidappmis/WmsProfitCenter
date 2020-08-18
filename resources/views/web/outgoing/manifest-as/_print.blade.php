@@ -54,7 +54,7 @@
         <tr>
           <td>
             {{-- Main Table --}}
-            <table  width="100%" style="font-size: 8pt; border-collapse: collapse;">
+            <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
               {{-- Table Head --}}
               <tr>
                 <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Ship To</strong></td>
