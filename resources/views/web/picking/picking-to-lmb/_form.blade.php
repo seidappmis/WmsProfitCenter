@@ -189,7 +189,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Item deleted.')
             dtdatatable_serial_number.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -207,11 +207,8 @@
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
-            }) // alert success
+          showSwalAutoClose('Success', 'Data created.')
+          window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert
