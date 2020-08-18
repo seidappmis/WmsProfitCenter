@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    {{-- <tr>
+    <tr>
       <td>TRAILER</td>
       <td>1</td>
       <td>0</td>
@@ -58,7 +58,7 @@
       <td>0</td>
       <td>0</td>
       <td>0</td>
-    </tr> --}}
+    </tr>
   </tbody>
   <tfoot>
     <tr>
