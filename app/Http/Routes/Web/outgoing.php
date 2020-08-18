@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('manifest-regular', 'Web\ManifestRegularController');
 
   Route::get('branch-manifest/truck-waiting-manifest', 'Web\BranchManifestController@truckWaitingManifest');
+  Route::get('branch-manifest/{lmb_id}/create-manifest', 'Web\BranchManifestController@createManifest');
   Route::get('branch-manifest/{id}/export', 'Web\BranchManifestController@export');
   Route::resource('branch-manifest', 'Web\BranchManifestController');
 
