@@ -122,6 +122,50 @@
     ],
   });
 
+    set_datatables_checkbox('#serial-number-table', dtdatatable_serial_number)
+
+    $('.btn-multi-delete-selected-item').click(function(event) {
+      /* Act on the event */
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure delete selected item?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        var data_serial_number = [];
+        dtdatatable_serial_number.$('input[type="checkbox"]').each(function() {
+           /* iterate through array or object */
+           if(this.checked){
+            var row = $(this).closest('tr');
+            var row_data = dtdatatable_serial_number.row(row).data();
+            data_serial_number.push(row_data);
+           }
+        });
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('picking-to-lmb/picking-list/multi-delete-selected-item') }}' ,
+            type: 'DELETE',
+            data: 'data_serial_number=' + JSON.stringify(data_serial_number),
+          })
+          .done(function() { // Kalau ajax nya success
+            showSwalAutoClose('Success', 'selected data deleted.')
+            if ($('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).attr("checked")) {
+              $('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).trigger('click')
+            }
+            dtdatatable_serial_number.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
+    });
+
     dtdatatable_serial_number.on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -145,7 +189,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Item deleted.')
             dtdatatable_serial_number.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -163,11 +207,8 @@
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
-            }) // alert success
+          showSwalAutoClose('Success', 'Data created.')
+          window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

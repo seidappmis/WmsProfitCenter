@@ -143,11 +143,9 @@
               swal("Failed!", data.message, "warning");
               return;
             }
-            swal("Good job!", "You clicked the button!", "success")
-              .then((result) => {
-                 $('#modal1').modal('close');
-                 dtdatatable.ajax.reload(null, false)
-              }) // alert success
+            showSwalAutoClose('Success', 'Data uploaded.')
+           $('#modal1').modal('close');
+           dtdatatable.ajax.reload(null, false)
           })
           .fail(function(xhr) {
               showSwalError(xhr) // Custom function to show error with sweetAlert
@@ -186,7 +184,7 @@
             data: 'data_do=' + JSON.stringify(data_do),
           })
           .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Selected data deleted.')
             if ($('thead input[type="checkbox"]', dtdatatable.table().container()).attr("checked")) {
               $('thead input[type="checkbox"]', dtdatatable.table().container()).trigger('click')
             }
@@ -238,7 +236,7 @@
             data: 'invoice_no=' + data.invoice_no + '&delivery_no=' + data.delivery_no + '&delivery_items=' + data.delivery_items 
           })
           .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Data deleted.')
             dtdatatable.ajax.reload(null, false); // reload datatable
           })
           .fail(function() { // Kalau ajax nya gagal

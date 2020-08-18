@@ -79,8 +79,8 @@ class PickingToLMBController extends Controller
   {
     $request->validate([
       'picking_no'   => 'required',
-      'seal_no'      => 'required',
-      'container_no' => 'required',
+      // 'seal_no'      => 'required',
+      // 'container_no' => 'required',
     ]);
 
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
@@ -378,6 +378,19 @@ class PickingToLMBController extends Controller
     ;
   }
 
+  public function destroySelectedLmbDetail(Request $request){
+    $data_serial_number = json_decode($request->input('data_serial_number'), true);
+
+    foreach ($data_serial_number as $key => $value) {
+      LMBDetail::where('ean_code', $value['ean_code'])
+      ->where('serial_number', $value['serial_number'])
+      ->where('picking_id', $value['picking_id'])
+      ->delete();
+    }
+
+    return true;
+  }
+
   public function pickingListIndex(Request $request)
   {
     $query = PickinglistHeader::noLMBPickingList()->get();
@@ -428,9 +441,9 @@ class PickingToLMBController extends Controller
 
   public function export(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['lmbHeader'] = LMBHeader::findOrFail($id);
 
-    $view_print = view('web.picking.picking-to-lmb._print');
+    $view_print = view('web.picking.picking-to-lmb._print', $data);
     $title      = 'Picking List LMB';
 
     if ($request->input('filetype') == 'html') {

@@ -106,6 +106,13 @@
 </div>
 @endpush
 
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Picking to LMB',
+  'url' => 'picking-to-lmb/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'trigger' => '.btn-print-manifest'
+  ])
+
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
 </script>

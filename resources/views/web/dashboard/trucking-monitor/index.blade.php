@@ -89,24 +89,59 @@
         </div>
     </div>
 
-    <div class="col s12 m6">
+    <div class="col s12 m6 mt-2">
         <div class="">
             <div class="section">
                 <div class="card m-0">
                     <div class="card-content">
                         <h4 class="header m-0">List Of Vehicle That Already Standby</h4>
+                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>VEHICLE NO</th>
+                                    <th>TC NUMBER</th>
+                                    <th>DRIVER NAME</th>
+                                    <th>EXPEDITON NAME</th>
+                                    <th>VEHICLE DESC</th>
+                                    <th>DESTINATION</th>
+                                    <th>UPLOAD DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1000307683</td>
+                                    <td>2800076697</td>
+                                    <td>1</td>
+                                    <td>4.42</td>
+                                    <td>SURABAYA HUB-SURABAYA</td>
+                                    <td>MILLENNIUM TRANS BAHARI, PT.</td>
+                                    <td>2018-05-11 10:25:50</td>
+                                </tr>
+                                <tr>
+                                    <td>1000308448</td>
+                                    <td>2800076904</td>
+                                    <td>2</td>
+                                    <td>2.295</td>
+                                    <td>SURABAYA HUB-KEDIRI</td>
+                                    <td>TRISILA, CV.</td>
+                                    <td>2018-05-16 14:47:40</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col s12 m6">
+    <div class="col s12 m6 mt-2">
         <div class="">
             <div class="section">
                 <div class="card m-0">
                     <div class="card-content">
                         <h4 class="header m-0">Delivery Order List</h4>
+                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
                         <table>
                             <thead>
                                 <tr>

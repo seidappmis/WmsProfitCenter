@@ -263,15 +263,13 @@
     })
     .done(function(result) { // selesai dan berhasil
       if (result.status) {
-        swal("Good job!", result.message, "success")
-          .then((result) => {
-            dtdatatable_picking_list_detail.ajax.reload(null, false)
-            dtdatatable_do_for_picking.ajax.reload(null, false)
-            dtdatatable_picking
-            .rows()
-            .remove()
-            .draw();
-          }) // alert success
+        showSwalAutoClose('Success', result.message);
+        dtdatatable_picking_list_detail.ajax.reload(null, false)
+        dtdatatable_do_for_picking.ajax.reload(null, false)
+        dtdatatable_picking
+        .rows()
+        .remove()
+        .draw();
         } else {
           swal('Warning!', result.message, 'warning')
         }
