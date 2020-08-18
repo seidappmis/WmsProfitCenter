@@ -57,6 +57,7 @@
   });
     $("#form-assign-do").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var selected_list = [];
         dtdatatable_submit_to_logsys.$('tr').each(function() {
           var row_data = dtdatatable_submit_to_logsys.row(this).data()
@@ -69,13 +70,9 @@
         })
         .done(function(data) { // selesai dan berhasil
           window.location.href = '{{ url("manifest-as/" . $manifestHeader->do_manifest_no . "/edit") }}'
-          // swal("Good job!", "You clicked the button!", "success")
-          //   .then((result) => {
-          //     // Kalau klik Ok redirect ke index
-          //     window.location.href = "{{ url('manifest-as') }}";
-          //   }) // alert success
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

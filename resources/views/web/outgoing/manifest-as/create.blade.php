@@ -52,19 +52,18 @@
 <script type="text/javascript">
     $("#form-manifest").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("manifest-as") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('manifest-as') }}" + '/' + data.do_manifest_no + '/edit';
-            }) // alert success
+          showSwalAutoClose("Success", "Data manifest created")
+          window.location.href = "{{ url('manifest-as') }}" + '/' + data.do_manifest_no + '/edit';
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

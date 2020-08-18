@@ -65,6 +65,7 @@
           var row_data = dtdatatable_submit_to_logsys.row(this).data()
           selected_list.push(row_data);
         });
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/assign-do") }}',
           type: 'POST',
@@ -72,13 +73,9 @@
         })
         .done(function(data) { // selesai dan berhasil
           window.location.href = '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/edit") }}'
-          // swal("Good job!", "You clicked the button!", "success")
-          //   .then((result) => {
-          //     // Kalau klik Ok redirect ke index
-          //     window.location.href = "{{ url('manifest-regular') }}";
-          //   }) // alert success
         })
         .fail(function(xhr) {
+          setLoading(true); // Disable Button when ajax post data
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

@@ -9,7 +9,7 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Manifest</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('manifest-regular') }}">Manifest Regular</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('branch-manifest') }}">Manifest Regular</a></li>
                     <li class="breadcrumb-item active">Create Manifest</li>
                 </ol>
             </div>
@@ -27,7 +27,7 @@
                     <li class="active">
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Detail</div>
                       <div class="collapsible-body padding-1">
-                        @include('web.outgoing.manifest-regular._form_manifest')
+                        @include('web.outgoing.branch-manifest._form_manifest')
                       </div>
                     </li>
                   </ul>
@@ -52,19 +52,18 @@
 <script type="text/javascript">
     $("#form-manifest").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
-          url: '{{ url("manifest-regular") }}',
+          url: '{{ url("branch-manifest") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('manifest-regular') }}" + '/' + data.do_manifest_no + '/edit';
-            }) // alert success
+          showSwalAutoClose("Data manifest created.")
+          window.location.href = "{{ url('branch-manifest') }}" + '/' + data.do_manifest_no + '/edit';
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
