@@ -48,12 +48,14 @@
 <script type="text/javascript">
   $("#form-split-concept").validate({
     submitHandler: function(form) {
+      setLoading(true); // Disable Button when ajax post data
       $.ajax({
         url: '{{ url("picking-list/split-concept") }}',
         type: 'POST',
         data: $(form).serialize(),
       })
       .done(function(result) { // selesai dan berhasil
+        setLoading(false); // Enable Button when failed
         if (result.status) {
           showSwalAutoClose('Success', result.message)
           $('#modal-split-concept').modal('close')
@@ -63,6 +65,7 @@
         }
       })
       .fail(function(xhr) {
+        setLoading(false); // Enable Button when failed
           showSwalError(xhr) // Custom function to show error with sweetAlert
       });
     }

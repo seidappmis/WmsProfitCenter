@@ -83,17 +83,15 @@
     });
     $("#form-assign-vehicle").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("assign-vehicles", $driverRegistered->id) }}',
           type: 'PUT',
           data: $(form).serialize(),
         })
         .done(function() { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-list') }}"
-            }) // alert success
+          showSwalAutoClose("Success", "")
+          window.location.href = "{{ url('picking-list') }}"
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

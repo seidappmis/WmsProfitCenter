@@ -201,6 +201,7 @@
 
      $("#form-picking-to-lmb").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("picking-to-lmb") }}',
           type: 'POST',
@@ -211,6 +212,7 @@
           window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

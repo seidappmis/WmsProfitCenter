@@ -137,21 +137,19 @@
 
    $('#form-send-manifest').validate({
     submitHandler: function(form) {
+      setLoading(true); // Disable Button when ajax post data
       $.ajax({
           url: '{{ url("picking-to-lmb/" . $lmbHeader->driver_register_id . "/send-manifest") }}',
           type: 'POST',
         })
         .done(function(result) { // selesai dan berhasil
           showSwalAutoClose('Success', result.message)
-          // swal("Good job!", "You clicked the button!", "success")
-          //   .then((result) => {
-          //     // Kalau klik Ok redirect ke index
-          //   }) // alert success
           $('.btn-send-manifest').hide();
           $('.btn-print-manifest').removeClass('hide');
           $('#modal-send-manifest').modal('close')
         })
         .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
     }

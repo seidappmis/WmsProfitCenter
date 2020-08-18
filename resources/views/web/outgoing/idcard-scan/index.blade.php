@@ -150,7 +150,8 @@
         .fail(function(xhr) {
           $('#form-id-card-scan-wrapper').hide();
           
-          swal("Not Found!", "Driver not found/not active in master driver", "error")
+          showSwalAutoClose('Not Found!', "Driver not found/not active in master driver");
+          // swal("Not Found!", "Driver not found/not active in master driver", "error")
             // showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
