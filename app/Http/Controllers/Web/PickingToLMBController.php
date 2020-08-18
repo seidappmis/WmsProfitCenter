@@ -79,8 +79,8 @@ class PickingToLMBController extends Controller
   {
     $request->validate([
       'picking_no'   => 'required',
-      'seal_no'      => 'required',
-      'container_no' => 'required',
+      // 'seal_no'      => 'required',
+      // 'container_no' => 'required',
     ]);
 
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
