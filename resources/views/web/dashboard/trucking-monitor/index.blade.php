@@ -95,6 +95,7 @@
                 <div class="card m-0">
                     <div class="card-content">
                         <h4 class="header m-0">List Of Vehicle That Already Standby</h4>
+                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
                         <table>
                             <thead>
                                 <tr>
@@ -140,6 +141,7 @@
                 <div class="card m-0">
                     <div class="card-content">
                         <h4 class="header m-0">Delivery Order List</h4>
+                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
                         <table>
                             <thead>
                                 <tr>
