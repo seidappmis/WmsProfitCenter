@@ -337,7 +337,7 @@
     function set_branch_select_expedition(){
         $('#form-picking-list [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
-            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition')
+            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
       })
     }
 

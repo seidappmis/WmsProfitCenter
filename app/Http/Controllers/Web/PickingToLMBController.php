@@ -378,6 +378,19 @@ class PickingToLMBController extends Controller
     ;
   }
 
+  public function destroySelectedLmbDetail(Request $request){
+    $data_serial_number = json_decode($request->input('data_serial_number'), true);
+
+    foreach ($data_serial_number as $key => $value) {
+      LMBDetail::where('ean_code', $value['ean_code'])
+      ->where('serial_number', $value['serial_number'])
+      ->where('picking_id', $value['picking_id'])
+      ->delete();
+    }
+
+    return true;
+  }
+
   public function pickingListIndex(Request $request)
   {
     $query = PickinglistHeader::noLMBPickingList()->get();
