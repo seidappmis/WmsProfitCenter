@@ -10,6 +10,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('berita-acara', 'Web\BeritaAcaraController');
 
   // Claim Notes
+  Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
   Route::get('claim-notes', 'Web\ClaimNoteController@index');
   Route::get('claim-notes/carton-box', 'Web\ClaimNoteController@listCartonBox');
   Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
