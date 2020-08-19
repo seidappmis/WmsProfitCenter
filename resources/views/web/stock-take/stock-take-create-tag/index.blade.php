@@ -79,7 +79,7 @@
                   <div class="row">
                     <div class="col s12 m6 mb-2">
                         {!! get_button_save('Submit') !!}
-                        {!! get_button_print() !!}
+                        {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
                     </div>
                   </div>
                   </form>
