@@ -9,31 +9,33 @@ use DataTables;
 
 class ReceiptInvoiceController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         if ($request->ajax()) {
-            $query = InvoiceReceiptHeader::all()
-            ;
+            $query = InvoiceReceiptHeader::all();
 
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('action_view', function ($data) {
-                  return get_button_view(url('receipt-invoice/' . $data->id));
+                    return get_button_view(url('receipt-invoice/' . $data->id));
                 })
                 ->addColumn('action_delete', function ($data) {
-                  return get_button_delete();
+                    return get_button_delete();
                 })
                 ->rawColumns(['action_view', 'action_delete']);
 
-              return $datatables->make(true);
+            return $datatables->make(true);
         }
         return view('web.invoicing.receipt-invoice.index');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('web.invoicing.receipt-invoice.create');
     }
 
-    public function show($id){
+    public function show($id)
+    {
         return view('web.invoicing.receipt-invoice.view');
     }
 
@@ -127,30 +129,30 @@ class ReceiptInvoiceController extends Controller
             $spreadsheet->getActiveSheet()->getStyle('A1:X1000')->getFont()->setName('courier New');
 
             // Atur lebar kolom
-            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(2.5);
-            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(11);
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(6);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(1);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(3);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(2.3);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10.3);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10.3);
+            $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(6.2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(14);
+            $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+            $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(13);
+            $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(12);
+            $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(13.7);
             $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(2.5);
-            $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('V')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('W')->setWidth(11);
-            $spreadsheet->getActiveSheet()->getColumnDimension('X')->setWidth(11);
+            $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(12.4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(17.4);
+            $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(15.5);
+            $spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(10.8);
+            $spreadsheet->getActiveSheet()->getColumnDimension('T')->setWidth(26);
+            $spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(17.5);
+            $spreadsheet->getActiveSheet()->getColumnDimension('V')->setWidth(14.1);
+            $spreadsheet->getActiveSheet()->getColumnDimension('W')->setWidth(6.7);
+            $spreadsheet->getActiveSheet()->getColumnDimension('X')->setWidth(8.2);
 
             $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

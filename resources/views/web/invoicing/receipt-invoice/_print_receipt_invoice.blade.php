@@ -73,107 +73,110 @@
                             <tr>
                                 <td colspan="22">
                                     {{-- Main Table --}}
-                                    <table width="100%" class="main-table-border"
-                                        style="border-collapse: collapse; font-size: 9pt;">
+                                    {{-- <table width="100%" class="main-table-border"
+                                        style="border-collapse: collapse; font-size: 9pt;"> --}}
+                                    <table width="100%" style="border-collapse: collapse; font-size: 9pt;">
 
 
                                         {{-- Table Head --}}
                                         <tr>
                                             <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; border: 1pt solid black;">
                                                 <strong>No.</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 60mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 60mm;border: 1pt solid black;">
                                                 <strong>NO MANIFEST</strong>
 
                                             </td>
                                             <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>TANGGAL</strong>
 
                                             </td>
                                             <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>TUJUAN</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>KENDARAAN</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>NO POLISI</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>RITASE</strong>
 
                                             </td>
-                                            <td style="text-align: center; vertical-align: top; font-size: 10pt;">
+                                            <td
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 <strong>CBM</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>RITASE2</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>MULTIDROP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>UNLOADING</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>OVERSTAY</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;border: 1pt solid black;">
                                                 <strong>NO DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;border: 1pt solid black;">
                                                 <strong>TGL DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;border: 1pt solid black;">
                                                 <strong>SHIP TO</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 70mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 70mm;border: 1pt solid black;">
                                                 <strong>SHIP TO DETAIL</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;border: 1pt solid black;">
                                                 <strong>ACC CODE</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt; width: 40mm;border: 1pt solid black;">
                                                 <strong>MODEL</strong>
 
                                             </td>
-                                            <td style="text-align: center; vertical-align: top; font-size: 10pt;">
+                                            <td
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 <strong>QTY</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>TOTAL CBM</strong>
 
                                             </td>
@@ -182,403 +185,639 @@
 
                                         <tr>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;">1
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
+                                                1
 
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 KRW-191213-029
                                             </td>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 SERANG
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 TRONTON 9 M
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 B 9610 BYW
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 4541204
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 150000
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="6" style="text-align: right; font-size: 10pt;"><strong>SUB
+                                            <td colspan="6"
+                                                style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>SUB
                                                     TOTAL</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;"><strong>203</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;"><strong>60,333</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>203</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>60,333</strong></td>
                                         </tr>
                                         <tr>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;">1
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
+                                                1
 
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 KRW-191213-029
                                             </td>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
                                             <td rowspan="6" colspan="2"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 SERANG
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 TRONTON 9 M
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 B 9610 BYW
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 4541204
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 150000
                                             </td>
                                             <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;">
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;">
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 10pt;">
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="6" style="text-align: right; font-size: 10pt;"><strong>SUB
+                                            <td colspan="6"
+                                                style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>SUB
                                                     TOTAL</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;"><strong>203</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;"><strong>60,333</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>203</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>60,333</strong></td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td colspan="20" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Total
+                                                Freight
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                2,433,680
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                1,933,680
+
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                500,000
+
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                            <td colspan="8" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Tax
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Grand
+                                                Total
+                                            </td>
+                                            <td style="text-align: right;border: 1pt solid black;">
+                                                4.564.373
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td colspan="23" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="6" style="text-align: center;border: 1pt solid black;">BR
+                                            </td>
+                                            <td colspan="4" style="text-align: center;border: 1pt solid black;">DS
+                                            </td>
+                                            <td colspan="4" style="text-align: center;border: 1pt solid black;">Total
+                                            </td>
+                                            <td colspan="4" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="3" style="text-align: center;border: 1pt solid black;">FREIGHT
+                                                COST
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            </td>
+
+                                            <td style="text-align: center;border: 1pt solid black;">FREIGHT COST
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">FREIGHT COST
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            </td>
+                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            </td>
+                                            <td colspan="4" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="3" style="text-align: left; border: 1pt solid black;">
+                                                Dec19-SRG-BR
+                                            </td>
+                                            <td colspan="3" style="text-align: right;border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td colspan="4" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="3" style="text-align: left;border: 1pt solid black;">
+                                                Dec19-SRG-BR
+                                            </td>
+                                            <td colspan="3" style="text-align: right;border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td colspan="4" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="3" style="text-align: left; border: 1pt solid black;">
+                                                Dec19-SRG-BR
+                                            </td>
+                                            <td colspan="3" style="text-align: right;border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">5.888.888
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td style="text-align: right; border: 1pt solid black;">0
+                                            </td>
+                                            <td colspan="4" style="text-align: center; ">
+                                                &nbsp;
+                                            </td>
                                         </tr>
 
 
@@ -587,6 +826,27 @@
                                     </table>
                                 </td>
                             </tr>
+
+                            {{-- <tr>
+
+                                <td colspan="23">
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7">
+                                    &nbsp;
+                                </td>
+                                <td rowspan="3" style="text-align: center; border: 1pt solid #000000;">Total Freight
+                                </td>
+                                <td style="text-align: left; font-size: 10pt;">
+                                    Total Freight
+                                </td>
+
+                            </tr> --}}
+
+
+
 
 
 
