@@ -143,6 +143,7 @@
           type: 'POST',
         })
         .done(function(result) { // selesai dan berhasil
+          setLoading(false); // Enable Button when failed
           showSwalAutoClose('Success', result.message)
           $('.btn-send-manifest').hide();
           $('.btn-print-manifest').removeClass('hide');
