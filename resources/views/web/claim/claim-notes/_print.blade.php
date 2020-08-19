@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
 
-<table style="font-family: Arial Narrow; font-size: 10pt;  border-collapse: collapse;">
+<table style="font-family: Arial Narrow; font-size: 9pt;  border-collapse: collapse;">
 	<tr>
 		<td>
 			<table style="width: 210.0003mm; border-collapse: collapse; border: 2px solid #000000;">
@@ -44,77 +44,98 @@
 						<table width="100%" style="border-collapse: collapse;">
 							{{-- Head --}}
 							<tr>
-								<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;  width: 80mm;"><strong>Plan No :</strong></td>
+								<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;"><strong>Plan No :</strong></td>
                 				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
+                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 45mm;"><strong>Part Name :</strong></td>
+                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 45mm;"><strong>Mould Name :</strong></td>
 							</tr>
 							{{-- Body --}}
 							<tr>
-								<td style="border-top: 2pt solid #000000;">Reason :</td>
-                				<td style="border-top: 2pt solid #000000; border-left: 1pt solid #000000;">Claim Amount :</td>
+								<td colspan="2" style="border-top: 2pt solid #000000;">&nbsp;</td>
+                				<td colspan="3" style="border-top: 2pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
-								<td><strong>Claim Carton Box :</strong></td>
+								<td colspan="2">Reason :</td>
+                				<td colspan="3" style="border-left: 1pt solid #000000;">Claim Amount :</td>
+							</tr>
+							<tr>
+								<td><strong>&nbsp; &nbsp; &nbsp; Claim Carton Box :</strong></td>
+								<td>&nbsp;</td>
                 				<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Wet Carton Box</td>
                 				<td style="border-left: 1pt solid #000000;">Material Cost Amount</td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Damage Carton Box</td>
                 				<td style="border-left: 1pt solid #000000;">F/G Sales Price Amount</td>
 							</tr>
 							<tr>
-								<td><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
+								<td><strong>&nbsp; &nbsp; &nbsp; Claim Unit : &nbsp; 2 Unit</strong></td>
+								<td>&nbsp;</td>
                 				<td style="border-left: 1pt solid #000000;">Man Power Cost</td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Damaged</td>
                 				<td style="border-left: 1pt solid #000000;">Other Cost</td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Scratched</td>
                 				<td style="border-left: 1pt solid #000000;">Claim Cost (1+2+3+4)</td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Dented</td>
                 				<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Broken</td>
                 				<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
+								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Other Problem</td>
                 				<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
+								<td>&nbsp;</td>
 								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td><strong>Remarks :</strong></td>
-								<td style="border-left: 1pt solid #000000;"></td>
-							</tr>
-							<tr>
+								<td><strong>&nbsp; &nbsp; &nbsp; Remarks :</strong></td>
 								<td>&nbsp;</td>
 								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td style="border-left: 1pt solid #000000;"></td>
-							</tr>
-							<tr>
 								<td>&nbsp;</td>
 								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
+								<td>&nbsp;</td>
 								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td style="border-bottom: 2pt solid #000000;">&nbsp;</td>
-                				<td style="border-left: 1pt solid #000000; border-bottom: 2pt solid #000000; font-size: 8pt;">Note: Prices are subject to change without priot notice</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border-bottom: 2pt solid #000000;">&nbsp;</td>
+                				<td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 2pt solid #000000; font-size: 7pt;">Note: Prices are subject to change without prior notice</td>
 							</tr>
 							<tr>
 								<td style="border-bottom: 2pt solid #000000;"><strong>Total Claim Amount</strong></td>
