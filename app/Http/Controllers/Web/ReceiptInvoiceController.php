@@ -152,7 +152,7 @@ class ReceiptInvoiceController extends Controller
             $spreadsheet->getActiveSheet()->getColumnDimension('U')->setWidth(17.5);
             $spreadsheet->getActiveSheet()->getColumnDimension('V')->setWidth(14.1);
             $spreadsheet->getActiveSheet()->getColumnDimension('W')->setWidth(6.7);
-            $spreadsheet->getActiveSheet()->getColumnDimension('X')->setWidth(8.2);
+            $spreadsheet->getActiveSheet()->getColumnDimension('X')->setWidth(12);
 
             $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
