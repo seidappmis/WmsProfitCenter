@@ -22,7 +22,7 @@ class PickingToLMBController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBHeader::all();
+      $query = LMBHeader::where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

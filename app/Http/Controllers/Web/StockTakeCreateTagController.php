@@ -6,12 +6,30 @@ use App\Http\Controllers\Controller;
 use App\Models\StockTakeInput1;
 use App\Models\StockTakeInput2;
 use DB;
+use DataTables;
 use Illuminate\Http\Request;
 
 class StockTakeCreateTagController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
+    if ($request->ajax()) {
+      $query = StockTakeInput1::
+        where('sto_id', $request->input('sto_id'))
+        ;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('action', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_edit('#input-wrapper');
+          // $action .= ' ' . get_button_delete();
+          return $action;
+        });
+
+      return $datatables->make(true);
+    }
+
     return view('web.stock-take.stock-take-create-tag.index');
   }
 
@@ -40,8 +58,8 @@ class StockTakeCreateTagController extends Controller
 
       $stockTakeInput['sto_id']      = $request->input('sto_id');
       $stockTakeInput['no_tag']      = $row[0];
-      $stockTakeInput['model']       = $row[0];
-      $stockTakeInput['location']    = $row[1];
+      $stockTakeInput['model']       = $row[1];
+      $stockTakeInput['location']    = $row[2];
       $stockTakeInput['upload_date'] = $date;
       $stockTakeInput['upload_by']   = auth()->user()->id;
 
