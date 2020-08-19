@@ -61,6 +61,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 td, th {
     border-radius: 0;
 }
+table.dataTable {
+    border-collapse: collapse;
+}
 table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
     background-position: center right 5px;
 }
@@ -85,6 +88,9 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable thead th {
     min-width: 40px;
+}
+#main .section-data-tables .dataTables_wrapper table.dataTable tbody td {
+    border: 1px solid #8e8e8e !important;
 }
 #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current, #main .section-data-tables .dataTables_wrapper #page-length-option_paginate .paginate_button.current:hover {
     border: 1px solid #2c4058;
