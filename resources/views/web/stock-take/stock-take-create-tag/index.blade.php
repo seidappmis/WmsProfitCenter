@@ -149,12 +149,11 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-    });
+    var dtdatatable;
     jQuery(document).ready(function($) {
       $("#form-stock-take-create-tag").validate({
         submitHandler: function(form) {
+          setLoading(true); // Disable Button when ajax post data
           var fdata = new FormData(form);
           $.ajax({
             url: '{{ url("stock-take-create-tag") }}',
@@ -182,11 +181,38 @@
           });
         }
       });
+
+      dtdatatable = $('#data-table-section-contents').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('stock-take-create-tag') }}',
+            type: 'GET',
+            data: function(d) {
+                d.sto_id = $('#sto_id').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'no_tag', name: 'no_tag', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'location', name: 'location', className: 'detail'},
+        ]
+      });
+
     });
+
     $('#sto_id').select2({
        placeholder: '-- Select Schedule ID --',
        allowClear: true,
        ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
     });
+
+    $('#sto_id').change(function(event) {
+        /* Act on the event */
+        dtdatatable.ajax.reload(null, false)
+      });
 </script>
 @endpush
