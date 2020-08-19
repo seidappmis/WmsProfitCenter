@@ -127,6 +127,11 @@ class BranchExpeditionController extends Controller
       ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
       ->toBase();
 
+    if ($request->input('onetime')) {
+      $onetime = DB::table('wms_branch_expedition')->selectRaw('"ONE TIME" as id, "ONE TIME" AS `text` ');
+      $query->union($onetime);
+    }
+
     return get_select2_data($request, $query);
   }
 

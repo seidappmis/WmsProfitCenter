@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {{-- <tr>
                                     <td>CBM OF CONCEPT</td>
                                     <td>4504</td>
                                     <td>512</td>
@@ -66,7 +66,7 @@
                                     <td>617</td>
                                     <td>0</td>
                                     <td>5576</td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>
@@ -86,7 +86,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {{-- <tr>
                                     <td>CBM TOTAL</td>
                                     <td>4504</td>
                                     <td>112</td>
@@ -99,7 +99,7 @@
                                     <td>19</td>
                                     <td>56</td>
                                     <td>216</td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>

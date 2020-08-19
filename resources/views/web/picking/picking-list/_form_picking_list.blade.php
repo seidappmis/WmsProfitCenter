@@ -84,7 +84,7 @@
                     <input type="hidden" name="driver_name">
                 </div>
                 <div class="input-field col s12 m6">
-                    <input value="" id="driver_name" type="text" class="validate" name="driver_name">
+                    <input value="" id="driver_name" type="text" class="validate" name="driver_name_text">
                 </div>
             </td>
         </tr>
@@ -118,7 +118,7 @@
                     </select>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input value="" id="vehicle_number" type="text" class="validate" name="vehicle_number">
+                    <input value="" id="vehicle_number" type="text" class="validate" name="vehicle_number_text">
                 </div>
             </td>
             <td></td>
@@ -337,7 +337,7 @@
     function set_branch_select_expedition(){
         $('#form-picking-list [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
-            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition')
+            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
       })
     }
 

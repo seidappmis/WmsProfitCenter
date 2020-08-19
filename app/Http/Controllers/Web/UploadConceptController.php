@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\MasterCabang;
 use App\Models\MasterDestination;
 use App\Models\MasterExpedition;
-use App\Models\MasterCabang;
 use Illuminate\Http\Request;
 
 class UploadConceptController extends Controller
@@ -128,20 +128,24 @@ class UploadConceptController extends Controller
 
     // VALIDASI ISI DI DATABASE
     // Cek apa data pernah diupload;
-    $cek_concept = new Concept;
+    // return $rs_key;
     foreach ($rs_key as $line_no => $invoice_no) {
-      $cek_concept->orWhereColumn([
-        ['invoice_no', '=', $invoice_no],
-        ['line_no', '=', $line_no],
-      ]);
+      // return $invoice_no;
+      $cek_concept = Concept::where('invoice_no', $invoice_no)
+        ->where('line_no', $line_no);
+      // $cek_concept->orWhereColumn([
+      //   ['invoice_no', '=', $invoice_no],
+      //   ['line_no', '=', $line_no],
+      // ]);
+      // return $cek_concept->get();
+      if ($cek_concept->get()->count() > 0) {
+        // kalau ada data yang sudah diupload return
+        $result['status']  = false;
+        $result['message'] = 'Data Already Upload';
+        return $result;
+      }
     }
 
-    if ($cek_concept->get()->count() > 0) {
-      // kalau ada data yang sudah diupload return
-      $result['status']  = false;
-      $result['message'] = 'Data Already Upload';
-      return $result;
-    }
     // AKHIR VALIDASI ISI DATABASE
 
     return $concepts;

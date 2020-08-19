@@ -21,6 +21,7 @@ class PickingListController extends Controller
   {
     if ($request->ajax()) {
       $query = PickinglistHeader::where('area', auth()->user()->area)
+        ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
         ->get();
 
       $datatables = DataTables::of($query)

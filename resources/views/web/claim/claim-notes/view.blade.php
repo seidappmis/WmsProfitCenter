@@ -59,7 +59,7 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
+                                        {{-- <tr>
                                           <td>1.</td>
                                           <td>01/BA-HQ/02/2015</td>
                                           <td>May 21, 2020</td>
@@ -146,7 +146,7 @@
                                           <td>
                                             {!! get_button_view('#', 'Select') !!}
                                           </td>
-                                        </tr>
+                                        </tr> --}}
                                       </tbody>
                                   </table>
                               </div>

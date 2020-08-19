@@ -52,19 +52,18 @@
 <script type="text/javascript">
     $("#form-picking-list").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         $.ajax({
           url: '{{ url("picking-list") }}',
           type: 'POST',
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          swal("Good job!", "You clicked the button!", "success")
-            .then((result) => {
-              // Kalau klik Ok redirect ke index
-              window.location.href = "{{ url('picking-list') }}" + '/' + data.id + '/edit';
-            }) // alert success
+          showSwalAutoClose("Success", "Data Created.")
+          window.location.href = "{{ url('picking-list') }}" + '/' + data.id + '/edit';
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }

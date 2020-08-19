@@ -12,7 +12,7 @@
                   <li class="breadcrumb-item active">Stock Take Schedule</li>
               </ol>
           </div>
-          <div class="col s12 m3">
+          <div class="col s12 m3 area-filter-wrapper">
             <!---- Filter Area ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -23,7 +23,7 @@
                   </div>
                 </div>
           </div>
-          <div class="col s12 m3">
+          <div class="col s12 m3 branch-filter-wrapper">
             <!---- Filter Cabang/Branch ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -33,7 +33,7 @@
                   </div>
                 </div>
           </div>
-          <div class="col s12 m3">
+          <div class="col s12 m3 global-filter-wrapper">
               <div class="display-flex">
                 <!---- Search ----->
                 <div class="app-wrapper mr-2">
@@ -89,6 +89,21 @@
 <script type="text/javascript">
   var dtdatatable;
   jQuery(document).ready(function($) {
+    @if (auth()->user()->cabang->hq && auth()->user()->area != "All")
+    set_select2_value('#area_filter', '{{auth()->user()->area_data->code}}', '{{auth()->user()->area}}');
+    $('#area_filter').attr('disabled', 'disabled');
+    $('.branch-filter-wrapper').addClass('hide')
+    
+    $('.global-filter-wrapper').removeClass('m3')
+    $('.global-filter-wrapper').addClass('m6')
+    @elseif(!auth()->user()->cabang->hq)
+    set_select2_value('#branch_filter', '{{auth()->user()->cabang->kode_cabang}}', '{{auth()->user()->cabang->long_description}}')
+    $('.global-filter-wrapper').removeClass('m3')
+    $('.global-filter-wrapper').addClass('m6')
+
+    $('#branch_filter').attr('disabled', 'disabled');
+    $('.area-filter-wrapper').addClass('hide')
+    @endif
     dtdatatable = $('#data-table-stocktake-schedule').DataTable({
       serverSide: true,
       scrollX: true,

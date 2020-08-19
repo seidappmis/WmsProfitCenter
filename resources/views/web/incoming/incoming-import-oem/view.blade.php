@@ -176,16 +176,19 @@
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) {
+          setLoading(true); // Disable Button when ajax post data
             $.ajax({
             url: '{{ url('incoming-import-oem', $incomingManualHeader->arrival_no) }}' + '/detail/' + data.id ,
             type: 'DELETE',
             dataType: 'json',
           })
           .done(function() {
+            setLoading(false); // Enable Button when failed
             showSwalAutoClose('',  "Incoming detail has been deleted.")
             dttable_incoming_detail.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
+            setLoading(false); // Enable Button when failed
             console.log("error");
           });
         }
@@ -216,6 +219,7 @@
           data: $(form).serialize(),
         })
         .done(function(result) { // selesai dan berhasil
+          setLoading(false); // Enable Button when failed
           showSwalAutoClose('Success', result.message)
         })
         .fail(function(xhr) {

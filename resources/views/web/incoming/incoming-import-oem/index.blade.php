@@ -223,7 +223,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.", "success") // alert success
+            showSwalAutoClose("Success", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.")
             table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
           })
           .fail(function() {

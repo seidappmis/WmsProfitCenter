@@ -49,6 +49,7 @@
 
     $("#form-upload-scan-serial-number").validate({
       submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
         var fdata = new FormData(form);
         $.ajax({
           url: '{{ url("picking-to-lmb/upload") }}',
@@ -60,6 +61,7 @@
           processData: false
         })
         .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Enable Button when failed
           if (data.status == false) {
             $('#table-serial-number tbody').empty();
             swal("Failed!", data.message, "warning");
@@ -84,23 +86,27 @@
           });
         })
         .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });
 function submit_scan_data(){
+  setLoading(true); // Disable Button when ajax post data
     $.ajax({
       url: '{{ url("picking-to-lmb/store-scan") }}',
       type: 'POST',
       data: 'data_serial_numbers=' + JSON.stringify(data_serial_numbers),
     })
     .done(function() { // selesai dan berhasil
+      setLoading(false); // Enable Button when failed
       showSwalAutoClose('Success', 'Data submited.')
       $('#table-serial-number tbody').empty();
       $('#upload-serial-number-wrapper').hide();
       dttable_picking_list.ajax.reload(null, false)
     })
     .fail(function(xhr) {
+      setLoading(false); // Enable Button when failed
         showSwalError(xhr) // Custom function to show error with sweetAlert
     });
   }

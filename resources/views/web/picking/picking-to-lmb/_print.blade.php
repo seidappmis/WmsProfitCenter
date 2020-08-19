@@ -38,15 +38,15 @@
                                 <td colspan="6" style="width: 60mm;">8/12/2020 3:43:45 PM</td>
                                 <td colspan="2" style="width: 40mm;">No. Mobil/Jenis</td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="3">BK 9471 EN/TRONTON 11 M</td>
+                                <td colspan="3">{{$lmbHeader->vehicle_number}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">Expedisi</td>
                                 <td>:</td>
-                                <td colspan="6">SEJAHTERA BERSAMA TRANSINDO,</td>
+                                <td colspan="6">{{$lmbHeader->expedition_name}}</td>
                                 <td colspan="2">No. Container</td>
                                 <td>:</td>
-                                <td colspan="3">ini no container</td>
+                                <td colspan="3">{{$lmbHeader->container_no}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">Tujuan</td>
@@ -54,7 +54,7 @@
                                 <td colspan="6">Jakarta-Medan</td>
                                 <td colspan="2">No. Seal</td>
                                 <td>:</td>
-                                <td colspan="3">ini no seal</td>
+                                <td colspan="3">{{$lmbHeader->seal_no}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">Lokasi Gudang</td>
@@ -62,7 +62,7 @@
                                 <td colspan="6">JKT</td>
                                 <td colspan="2">No. Picking</td>
                                 <td>:</td>
-                                <td colspan="3"><strong>1120200727002</strong></td>
+                                <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>

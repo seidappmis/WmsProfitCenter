@@ -44,11 +44,17 @@
     });
 
     function set_initial_form_data(){
+        @if (!empty($masterModel->material_group))
         set_select2_value('#material_group', '{{$masterModel->material_group}}', '{{$masterModel->ModelMaterialGroup->description}}');
+        @endif
 
+        @if (!empty($masterModel->category))
         set_select2_value('#category', '{{$masterModel->category}}', '{{$masterModel->ModelCategory->category_name}}');
+        @endif
 
+        @if (!empty($masterModel->model_type))
         set_select2_value('#model_type', '{{$masterModel->model_type}}', '{{$masterModel->ModelType->model_type}}');
+        @endif
     };
 
     $("#form-master-model").validate({

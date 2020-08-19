@@ -48,9 +48,6 @@
                       <div class="app-wrapper ml-3">
                         <div class="datatable-search">
                           <select id="sto_id" name="sto_id">
-                            {{-- <option>-Select Schedule ID-</option>
-                            <option>SBY-STO-200201-001</option>
-                            <option>KRW-STO-199801-002</option> --}}
                           </select>
                         </div>
                       </div>
@@ -79,7 +76,7 @@
                   <div class="row">
                     <div class="col s12 m6 mb-2">
                         {!! get_button_save('Submit') !!}
-                        {!! get_button_print() !!}
+                        {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
                     </div>
                   </div>
                   </form>
@@ -149,12 +146,11 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-    });
+    var dtdatatable;
     jQuery(document).ready(function($) {
       $("#form-stock-take-create-tag").validate({
         submitHandler: function(form) {
+          setLoading(true); // Disable Button when ajax post data
           var fdata = new FormData(form);
           $.ajax({
             url: '{{ url("stock-take-create-tag") }}',
@@ -166,27 +162,53 @@
             processData: false
           })
           .done(function(data) { // selesai dan berhasil
-            console.log(data);
+            setLoading(false);
             if (data.status == false) {
-              swal("Failed!", data.message, "warning");
+              showSwalAutoClose('Failed !', data.message)
+              // swal("Failed!", data.message, "warning");
               return;
             }
-            swal("Good job!", "You clicked the button!", "success")
-              .then((result) => {
-                // Kalau klik Ok redirect ke index
-                {{-- window.location.href = "{{ url('stock-take-create-tag') }}" --}}
-              }) // alert success
+            showSwalAutoClose("Success", data.message)
+            dtdatatable.ajax.reload(null, false)
           })
           .fail(function(xhr) {
+              setLoading(false);
               showSwalError(xhr) // Custom function to show error with sweetAlert
           });
         }
       });
+
+      dtdatatable = $('#data-table-section-contents').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('stock-take-create-tag') }}',
+            type: 'GET',
+            data: function(d) {
+                d.sto_id = $('#sto_id').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'no_tag', name: 'no_tag', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'location', name: 'location', className: 'detail'},
+        ]
+      });
+
     });
+
     $('#sto_id').select2({
        placeholder: '-- Select Schedule ID --',
        allowClear: true,
        ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
     });
+
+    $('#sto_id').change(function(event) {
+        /* Act on the event */
+        dtdatatable.ajax.reload(null, false)
+      });
 </script>
 @endpush
