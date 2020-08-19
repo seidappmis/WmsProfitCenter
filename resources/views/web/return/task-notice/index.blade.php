@@ -45,17 +45,19 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
+                                <tr>
                                   <td>1.</td>
                                   <td>116/HYPER/RT/MAR/2018</td>
                                   <td>999/HYPER/III/2018</td>
                                   <td></td>
                                   <td>2018-03-14</td>
                                   <td>
-                                    
+                                    {!!get_button_view(url('task-notice/1'))!!}
+                                    {!!get_button_print('#', 'Print ST', 'btn-print-st')!!}
+                                    {!!get_button_print('#', 'Print DO Return', 'btn-print-do-return')!!}
                                   </td>
                                   <td></td>
-                                </tr> --}}
+                                </tr>
                               </tbody>
                           </table>
                         </div>
@@ -90,7 +92,7 @@
       }).then(function (confirm) { // proses confirm
         if (confirm) {
           $(".btn-delete").closest("tr").remove();
-          swal("Good job!", "You clicked the button!", "success") // alert success
+          showSwalAutoClose('Success', 'Data deleted')
           //datatable memunculkan no data available in table
         }
       })
