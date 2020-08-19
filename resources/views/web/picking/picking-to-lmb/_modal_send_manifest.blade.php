@@ -28,11 +28,11 @@
           <td>{{$loading->qty_loading}}</td>
           <td>
             @php
-            if ($loading->quantity_loading < $loading->quantity) {
+            if ($loading->quantity < $loading->qty_loading) {
               echo "OVERLOAD";
-            } elseif ($loading->quantity_loading < $loading->quantity && $lmbHeader->expedition_code != 'AS') {
+            } elseif ($loading->quantity < $loading->qty_loading && $lmbHeader->expedition_code != 'AS') {
               echo "OK";
-            } elseif ($loading->quantity_loading < $loading->quantity && $lmbHeader->expedition_code == 'AS'){
+            } elseif ($loading->quantity < $loading->qty_loading && $lmbHeader->expedition_code == 'AS'){
               $allowSubmit = false;
               echo "QTY MUST BE SAME IN PICKING AND LMB";
             }
