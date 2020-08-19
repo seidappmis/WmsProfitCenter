@@ -162,7 +162,7 @@
             processData: false
           })
           .done(function(data) { // selesai dan berhasil
-            setLoading(true); // Disable Button when ajax post data
+            setLoading(false);
             if (data.status == false) {
               showSwalAutoClose('Failed !', data.message)
               // swal("Failed!", data.message, "warning");
@@ -172,6 +172,7 @@
             dtdatatable.ajax.reload(null, false)
           })
           .fail(function(xhr) {
+              setLoading(false);
               showSwalError(xhr) // Custom function to show error with sweetAlert
           });
         }
