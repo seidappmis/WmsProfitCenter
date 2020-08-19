@@ -48,9 +48,6 @@
                       <div class="app-wrapper ml-3">
                         <div class="datatable-search">
                           <select id="sto_id" name="sto_id">
-                            {{-- <option>-Select Schedule ID-</option>
-                            <option>SBY-STO-200201-001</option>
-                            <option>KRW-STO-199801-002</option> --}}
                           </select>
                         </div>
                       </div>
