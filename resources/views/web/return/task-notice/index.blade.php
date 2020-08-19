@@ -71,6 +71,15 @@
 </div>
 @endsection
 
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print ST',
+])
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print DO Return',
+])
+
 @push('script_js')
 <script type="text/javascript">
   var table = $('#data-table-simple').DataTable({
@@ -97,6 +106,16 @@
         }
       })
     });
+
+  table.on('click', '.btn-print-st', function(event) {
+      initPrintPreviewPrintST(
+        '{{url("task-notice")}}' + '/123/export-st')
+    })
+
+  table.on('click', '.btn-print-do-return', function(event) {
+      initPrintPreviewPrintDOReturn(
+        '{{url("task-notice")}}' + '/123/export-do-return')
+    })
 
   $("input#global_filter").on("keyup click", function () {
     filterGlobal();
