@@ -165,16 +165,14 @@
             processData: false
           })
           .done(function(data) { // selesai dan berhasil
-            console.log(data);
+            setLoading(true); // Disable Button when ajax post data
             if (data.status == false) {
-              swal("Failed!", data.message, "warning");
+              showSwalAutoClose('Failed !', data.message)
+              // swal("Failed!", data.message, "warning");
               return;
             }
-            swal("Good job!", "You clicked the button!", "success")
-              .then((result) => {
-                // Kalau klik Ok redirect ke index
-                {{-- window.location.href = "{{ url('stock-take-create-tag') }}" --}}
-              }) // alert success
+            showSwalAutoClose("Success", data.message)
+            dtdatatable.ajax.reload(null, false)
           })
           .fail(function(xhr) {
               showSwalError(xhr) // Custom function to show error with sweetAlert
