@@ -27,7 +27,7 @@
               </tr>
               <tr>
                 <td style="text-align: right;">SHARP WAREHOUSE :</td>
-                <td>SEID W/H JKT</td>
+                <td>SEID W/H {{auth()->user()->cabang->short_description}}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
