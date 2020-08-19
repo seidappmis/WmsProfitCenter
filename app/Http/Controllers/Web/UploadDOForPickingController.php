@@ -8,13 +8,23 @@ use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use DataTables;
 use Illuminate\Http\Request;
+use DB;
 
 class UploadDOForPickingController extends Controller
 {
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = ManualConcept::where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query = ManualConcept::select(
+        'wms_manual_concept.*',
+        DB::raw('"" AS line_no')
+      )
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+        })
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        ->where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
