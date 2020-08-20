@@ -77,6 +77,28 @@
                       </div>
                 </div>
             </div>
+            <div class="secion">
+              <div class="card">
+                <div class="card-conten">
+                  <div class="section-data-tables"> 
+                          <table id="data-stock-invetory" class="display" width="100%">
+                              <thead>
+                                  <tr>
+                                    <th data-priority="1" width="30px">NO.</th>
+                                    <th>Branch Code</th>
+                                    <th>Branch</th>
+                                    <th>Model</th>
+                                    <th>Sloc</th>
+                                    <th>Qty</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                        </div>
+                </div>
+              </div>
+            </div>
         </div>
         <div class="content-overlay"></div>
     </div>
