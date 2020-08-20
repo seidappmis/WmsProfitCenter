@@ -46,8 +46,8 @@
 							<tr>
 								<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;"><strong>Plan No :</strong></td>
                 				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
-                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 45mm;"><strong>Part Name :</strong></td>
-                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 45mm;"><strong>Mould Name :</strong></td>
+                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 40mm;"><strong>Part Name :</strong></td>
+                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 40mm;"><strong>Mould Name :</strong></td>
 							</tr>
 							{{-- Body --}}
 							<tr>
@@ -69,9 +69,19 @@
                 				<td style="border-left: 1pt solid #000000;">Material Cost Amount</td>
 							</tr>
 							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Damage Carton Box</td>
                 				<td style="border-left: 1pt solid #000000;">F/G Sales Price Amount</td>
+							</tr>
+							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td><strong>&nbsp; &nbsp; &nbsp; Claim Unit : &nbsp; 2 Unit</strong></td>
@@ -81,12 +91,22 @@
 							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Damaged</td>
-                				<td style="border-left: 1pt solid #000000;">Other Cost</td>
+                				<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;">Other Cost</td>
 							</tr>
 							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Scratched</td>
-                				<td style="border-left: 1pt solid #000000;">Claim Cost (1+2+3+4)</td>
+                				<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;">Claim Cost (1+2+3+4)</td>
 							</tr>
 							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
@@ -94,9 +114,19 @@
                 				<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
 								<td>Unit of F/G Broken</td>
                 				<td style="border-left: 1pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td style="height: 2px;"></td>
+								<td>&nbsp;</td>
+								<td style="border-left: 1pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td style="border: 1pt solid #000000; width: 5mm;"></td>
