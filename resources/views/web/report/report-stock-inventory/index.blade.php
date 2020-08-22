@@ -81,7 +81,7 @@
               <div class="card">
                 <div class="card-conten">
                   <div class="section-data-tables"> 
-                          <table id="data-stock-invetory" class="display" width="100%">
+                          <table id="data-stock-inventory" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -139,5 +139,30 @@
        ajax: get_select2_ajax_options('/storage-master/select2-storage-cabang', filter)
     });
   }
+
+  var table = $('#table-stock-inventori').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('master-cabang') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
+        {data: 'long_description', name: 'ldes', className: 'detail'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'ean_code', name: 'ean_code', className: 'detail'},
+        {data: 'quality_total', name: 'quality_total', className: 'detail'},
+       
+  });
+
+ 
+
 </script>
 @endpush
