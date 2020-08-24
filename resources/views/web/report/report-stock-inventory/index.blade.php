@@ -145,7 +145,7 @@
     scrollX: true,
     responsive: true,
     ajax: {
-        url: '{{ url('master-cabang') }}',
+        url: '{{ url('report-stock-inventory') }}',
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
@@ -159,7 +159,7 @@
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'ean_code', name: 'ean_code', className: 'detail'},
         {data: 'quality_total', name: 'quality_total', className: 'detail'},
-       
+       ]
   });
 
  
