@@ -134,6 +134,8 @@
                         class="validate" 
                         name="seal_no" 
                         value="{{$lmbHeader->seal_no}}"
+                        readonly="" 
+                        disabled="" 
                         />
               </div>
             </td>
@@ -156,6 +158,8 @@
                         type="text" 
                         class="validate" 
                         name="pdo_no" 
+                        readonly="" 
+                        disabled="" 
                         />
               </div>
             </td>
@@ -167,6 +171,13 @@
     {!! get_button_print() !!}
     {!! get_button_cancel(url('manifest-regular'), 'Back', '') !!}
 </form>
+
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Manifest',
+  'url' => 'branch-manifest/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'trigger' => '.btn-print'
+  ])
 
 @push('script_js')
 <script type="text/javascript">

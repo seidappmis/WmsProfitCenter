@@ -20,34 +20,34 @@
               <tr>
                 <td>Manifest No.</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 90mm;"><strong>BDG-191228-012</strong></td>
+                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
                 <td colspan="2">Vehicle</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>D 8410 FE &nbsp;&nbsp;&nbsp; CD 6 BAN (CDD)</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->vehicle_number : ''}} {{!empty($branchManifestHeader) ? $branchManifestHeader->vehicle_description : ''}}</strong></td>
               </tr>
               <tr>
                 <td>Date</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 90mm;"><strong>28-December-2019</strong></td>
+                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_date : ''}}</strong></td>
                 <td colspan="2">Expedition Name</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>PUTRA NAGITA PRATAMA</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
               </tr>
               <tr>
                 <td>Destination</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 90mm;"><strong>Tasikmalaya</strong></td>
+                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
                 <td colspan="2">Container No.</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>ini no container</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
               </tr>
               <tr>
                 <td>Picking No</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 90mm;"><strong>1320191223003</strong></td>
+                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
                 <td colspan="2">PDO. No</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>ini no PDO</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>

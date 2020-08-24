@@ -12,19 +12,6 @@
                   <li class="breadcrumb-item active">Branch Manifest</li>
               </ol>
           </div>
-          {{-- <div class="col s12 m3">
-            <!---- Search ----->
-                <div class="app-wrapper">
-                  <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
-                    </select>
-                  </div>
-                </div>
-          </div> --}}
       </div>
   @endcomponent
 <div class="col s12">

@@ -103,7 +103,7 @@ class BranchManifestController extends Controller
     $manifestHeader->seal_no                     = $request->input('seal_no');
     $manifestHeader->checker                     = $request->input('checker');
     $manifestHeader->pdo_no                      = $request->input('pdo_no');
-    $manifestHeader->area                        = auth()->user()->area;
+    // $manifestHeader->area                        = auth()->user()->area;
     $manifestHeader->status_complete             = 0;
     $manifestHeader->urut_manifest               = 1;
     $manifestHeader->tcs                         = 0;
@@ -123,8 +123,8 @@ class BranchManifestController extends Controller
     $manifestHeader->manifest_resend             = 0;
     $manifestHeader->r_from_manifest             = $request->input('r_from_manifest');
     $manifestHeader->r_driver_register_id        = $request->input('r_driver_register_id');
-    $manifestHeader->r_create_date               = $request->input('r_create_date');
-    $manifestHeader->r_create_by                 = $request->input('r_create_by');
+    $manifestHeader->r_created_date               = $request->input('r_create_date');
+    $manifestHeader->r_created_by                 = $request->input('r_create_by');
 
     $manifestHeader->save();
 
@@ -149,9 +149,9 @@ class BranchManifestController extends Controller
 
   public function export(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['branchManifestHeader'] = WMSBranchManifestHeader::find($id);
 
-    $view_print = view('web.outgoing.branch-manifest._print');
+    $view_print = view('web.outgoing.branch-manifest._print', $data);
     $title      = 'Branch Manifest';
 
     if ($request->input('filetype') == 'html') {
