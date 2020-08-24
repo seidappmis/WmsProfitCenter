@@ -47,4 +47,9 @@ class LMBHeader extends Model
     // ->where('area', auth()->user()->area) // yang se area
     ;
   }
+
+  public function cabang()
+  {
+    return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
+  }
 }

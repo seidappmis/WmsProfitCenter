@@ -35,7 +35,7 @@
                             <tr>
                                 <td colspan="2" style="width: 30mm;">Tanggal</td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="6" style="width: 60mm;">8/12/2020 3:43:45 PM</td>
+                                <td colspan="6" style="width: 60mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                                 <td colspan="2" style="width: 40mm;">No. Mobil/Jenis</td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="3">{{$lmbHeader->vehicle_number}}</td>
@@ -44,14 +44,20 @@
                                 <td colspan="2">Expedisi</td>
                                 <td>:</td>
                                 <td colspan="6">{{$lmbHeader->expedition_name}}</td>
+                                @if($lmbHeader->cabang->hq)
                                 <td colspan="2">No. Container</td>
                                 <td>:</td>
                                 <td colspan="3">{{$lmbHeader->container_no}}</td>
+                                @else 
+                                <td colspan="2">Customer</td>
+                                <td>:</td>
+                                <td colspan="3">{{$lmbHeader->container_no}}</td>
+                                @endif
                             </tr>
                             <tr>
                                 <td colspan="2">Tujuan</td>
                                 <td>:</td>
-                                <td colspan="6">Jakarta-Medan</td>
+                                <td colspan="6">{{$lmbHeader->destionation_name}}</td>
                                 <td colspan="2">No. Seal</td>
                                 <td>:</td>
                                 <td colspan="3">{{$lmbHeader->seal_no}}</td>
@@ -59,7 +65,7 @@
                             <tr>
                                 <td colspan="2">Lokasi Gudang</td>
                                 <td>:</td>
-                                <td colspan="6">JKT</td>
+                                <td colspan="6">{{$lmbHeader->short_description_cabang}}</td>
                                 <td colspan="2">No. Picking</td>
                                 <td>:</td>
                                 <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
@@ -77,21 +83,59 @@
                             {{-- Table Head --}}
                             <tr>
                                 <td style="text-align: center; border: 1pt solid #000000; width: 10mm;">NO</td>
-                                <td colspan="4" style="text-align: center; border: 1pt solid #000000; width: 50mm;">
-                                    MODEL</td>
-                                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 30mm;">QTY
-                                </td>
-                                <td style="text-align: center; border: 1pt solid #000000; width: 30mm;" colspan="8">NO.
-                                    SERI</td>
+                                <td colspan="4" style="text-align: center; border: 1pt solid #000000; width: 50mm;">MODEL</td>
+                                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 30mm;">QTY</td>
+                                <td style="text-align: center; border: 1pt solid #000000; width: 30mm;" colspan="8">NO. SERI</td>
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
                             </tr>
                             {{-- Table Body --}}
+                            @foreach($rs_details AS $k_model => $v_model)
+                            @php 
+                            $row_serial_pointer = 1;
+                            $row_serial_total = ceil(count($v_model['serial_numbers']) / 3);
+                            $serial_pointer = 0;
+                            $qty = count($v_model['serial_numbers']);
+                            @endphp
                             <tr>
-                                <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
-                                <td rowspan="2" colspan="4" style="text-align: center; border: 1pt solid #000000;">
-                                    AH-A9SAY</td>
-                                <td colspan="2" rowspan="2" style="text-align: center; border: 1pt solid #000000;">5
+                                <td rowspan="{{$row_serial_total}}" style="text-align: center; border: 1pt solid #000000;">1</td>
+                                <td rowspan="{{$row_serial_total}}" colspan="4" style="text-align: center; border: 1pt solid #000000;">{{$k_model}}</td>
+                                <td rowspan="{{$row_serial_total}}" colspan="2"  style="text-align: center; border: 1pt solid #000000;">{{$qty}}</td>
+                                <td style="text-align: center;" colspan="3">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
+                                <td style="text-align: center;" colspan="3">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                </td>
+                                <td style="text-align: center;" colspan="2">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                </td>
+                                <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
+                            </tr>
+
+                            @while($row_serial_pointer < $row_serial_total)
+                            <tr>
+                                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                </td>
+                                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                </td>
+                                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2">
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                </td>
+                                <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
+                            </tr>
+
+                            @php
+                            $row_serial_pointer ++;
+                            @endphp
+                            @endwhile
+
+                            @endforeach
+                            {{-- <tr>
+                                <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
+                                <td rowspan="2" colspan="4" style="text-align: center; border: 1pt solid #000000;">AH-A9SAY</td>
+                                <td colspan="2" rowspan="2" style="text-align: center; border: 1pt solid #000000;">5</td>
                                 <td style="text-align: center;" colspan="3">581910101</td>
                                 <td style="text-align: center;" colspan="3">581910101</td>
                                 <td style="text-align: center;" colspan="2">581910101</td>
@@ -104,7 +148,7 @@
                                 </td>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2"></td>
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td colspan="11">&nbsp;</td>
                             </tr>

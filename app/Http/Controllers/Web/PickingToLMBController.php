@@ -443,6 +443,24 @@ class PickingToLMBController extends Controller
   {
     $data['lmbHeader'] = LMBHeader::findOrFail($id);
 
+    $rs_details = [];
+
+    foreach ($data['lmbHeader']->details as $key => $value) {
+      if (empty($rs_details[$value->model])) {
+        $rs_details[$value->model]['qty'] = 1;
+      } else {
+        $rs_details[$value->model]['qty'] += 1;
+      }
+
+      $rs_details[$value->model]['serial_numbers'][] = $value->serial_number;
+    }
+
+    $data['rs_details'] = $rs_details;
+
+    // echo "<pre>";
+    // print_r($rs_details);
+    // exit;
+
     $view_print = view('web.picking.picking-to-lmb._print', $data);
     $title      = 'Picking List LMB';
 
