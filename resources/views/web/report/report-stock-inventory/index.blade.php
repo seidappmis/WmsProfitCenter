@@ -39,7 +39,7 @@
                                  <tr>
                                     <td>MODEL</td>
                                     <td><div class="input-field col s12">
-                                       <input id="" type="text" class="validate" name="" >
+                                       <input id="model_name" type="text" class="validate" name="" >
                                      </div></td>
                                 <tr>
                                 
@@ -58,7 +58,7 @@
                                     <td>STATUS</td>
                                     <td>
                                       <div class="input-field col s4">
-                                        <select name="" id="" required>
+                                        <select name="" id="status" required>
                                           <option value="" selected >-All-</option>
                                           <option value="1" >Intransit</option>
                                           
