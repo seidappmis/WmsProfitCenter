@@ -11,10 +11,10 @@
 				                <td><img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo"  style="width: 100px;"></td>
 				            </tr>
               				<tr>
-				                <td style="text-align: center; font-size: 18pt;" colspan="15"><strong>CLAIM LETTER</strong></td>
+				                <td style="text-align: center; font-size: 18pt;" colspan="36"><strong>CLAIM LETTER</strong></td>
 				            </tr>
 				            <tr>
-				                <td style="text-align: center; font-size: 12pt;" colspan="15">(Transporter/ Outsourcing Logistics)</td>
+				                <td style="text-align: center; font-size: 12pt;" colspan="36">(Transporter/ Outsourcing Logistics)</td>
 				            </tr>
 				            <tr><td>&nbsp;</td></tr>
 				            <tr>
@@ -44,6 +44,7 @@
 						<table width="100%" style="border-collapse: collapse;">
 							{{-- Head --}}
 							<tr>
+								<!-- <td style="width: 5mm;"></td> -->
 								<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;"><strong>Plan No :</strong></td>
                 				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
                 				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; width: 40mm;"><strong>Part Name :</strong></td>
