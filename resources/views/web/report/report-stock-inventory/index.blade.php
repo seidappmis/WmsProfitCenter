@@ -39,7 +39,7 @@
                                  <tr>
                                     <td>MODEL</td>
                                     <td><div class="input-field col s12">
-                                       <input id="" type="text" class="validate" name="" >
+                                       <input id="model_name" type="text" class="validate" name="" >
                                      </div></td>
                                 <tr>
                                 
@@ -58,7 +58,7 @@
                                     <td>STATUS</td>
                                     <td>
                                       <div class="input-field col s4">
-                                        <select name="" id="" required>
+                                        <select name="" id="status" required>
                                           <option value="" selected >-All-</option>
                                           <option value="1" >Intransit</option>
                                           
@@ -76,6 +76,28 @@
                             </form>
                       </div>
                 </div>
+            </div>
+            <div class="secion">
+              <div class="card">
+                <div class="card-conten">
+                  <div class="section-data-tables"> 
+                          <table id="data-stock-inventory" class="display" width="100%">
+                              <thead>
+                                  <tr>
+                                    <th data-priority="1" width="30px">NO.</th>
+                                    <th>Branch Code</th>
+                                    <th>Branch</th>
+                                    <th>Model</th>
+                                    <th>Sloc</th>
+                                    <th>Qty</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                        </div>
+                </div>
+              </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -117,5 +139,33 @@
        ajax: get_select2_ajax_options('/storage-master/select2-storage-cabang', filter)
     });
   }
+
+  var table = $('#table-stock-inventori').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('report-stock-inventory') }}',
+        type: 'GET',
+        data: function(d) {
+            d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
+            d.model =$('').val()
+            d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [1, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
+        {data: 'long_description', name: 'ldes', className: 'detail'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'ean_code', name: 'ean_code', className: 'detail'},
+        {data: 'quality_total', name: 'quality_total', className: 'detail'},
+       ]
+  });
+
+ 
+
 </script>
 @endpush
