@@ -58,7 +58,7 @@
                                     <td>STATUS</td>
                                     <td>
                                       <div class="input-field col s4">
-                                        <select name="" id="status" required>
+                                        <select name="" id="status" >
                                           <option value="" selected >-All-</option>
                                           <option value="1" >Intransit</option>
                                           
@@ -71,8 +71,8 @@
                                </table>
                               
                                <div class="input-field col s12">
-                                 <button type="submit" class="waves-effect waves-light indigo btn mb-1 mt-1">Submit</button>
-                               </div>
+                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                              </div>
                             </form>
                       </div>
                 </div>
@@ -112,6 +112,9 @@
 
 @push('script_js')
 <script type="text/javascript">
+
+  var table;
+  
   jQuery(document).ready(function($) {
     $('#form-report-stock-inventory [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
@@ -143,6 +146,7 @@
   var table = $('#table-stock-inventori').DataTable({
     serverSide: true,
     scrollX: true,
+    dom: 'Brtip',
     responsive: true,
     ajax: {
         url: '{{ url('report-stock-inventory') }}',
@@ -155,10 +159,11 @@
           }
     },
     order: [1, 'asc'],
+
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
         {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
-        {data: 'long_description', name: 'ldes', className: 'detail'},
+        {data: 'long_description', name: 'long_descripion', className: 'detail'},
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'ean_code', name: 'ean_code', className: 'detail'},
         {data: 'quality_total', name: 'quality_total', className: 'detail'},
