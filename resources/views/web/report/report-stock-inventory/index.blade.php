@@ -39,7 +39,7 @@
                                  <tr>
                                     <td>MODEL</td>
                                     <td><div class="input-field col s12">
-                                       <input id="" type="text" class="validate" name="" >
+                                       <input id="model_name" type="text" class="validate" name="" >
                                      </div></td>
                                 <tr>
                                 
@@ -58,7 +58,7 @@
                                     <td>STATUS</td>
                                     <td>
                                       <div class="input-field col s4">
-                                        <select name="" id="" required>
+                                        <select name="" id="status" required>
                                           <option value="" selected >-All-</option>
                                           <option value="1" >Intransit</option>
                                           
@@ -145,7 +145,7 @@
     scrollX: true,
     responsive: true,
     ajax: {
-        url: '{{ url('master-cabang') }}',
+        url: '{{ url('report-stock-inventory') }}',
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
@@ -159,7 +159,7 @@
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'ean_code', name: 'ean_code', className: 'detail'},
         {data: 'quality_total', name: 'quality_total', className: 'detail'},
-       
+       ]
   });
 
  
