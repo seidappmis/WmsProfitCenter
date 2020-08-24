@@ -128,7 +128,6 @@
             .done(function() {
               // Data has been Transfered on Storage
               showSwalAutoClose('Success', 'Data has been Transfered on Storage');
-              {{-- swal("Good job!", "Incoming with Arrival No. {{$incomingManualHeader->arrival_no}} has been submited to inventory.", "success") // alert success --}}
               window.location.reload();  // (null, false) => user paging is not reset on reload
             })
             .fail(function() {

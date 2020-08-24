@@ -98,7 +98,7 @@
     order: [2, 'asc'],
     columns: [
         {
-          data: 'DT_RowIndex',
+          data: 'delivery_no',
           orderable: false,
           render: function ( data, type, row ) {
               if ( type === 'display' ) {
