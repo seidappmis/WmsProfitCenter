@@ -67,24 +67,16 @@
                       <th class="white-text">No. GR SAP</th>
                       <th class="white-text">Description</th>
                       <th class="white-text">Storage Location</th>
+
+                      @if($incomingManualHeader->inc_type == "OTHERS")
                       <th class="white-text">Serial Number</th>
+                      @endif
+
                       <th class="white-text">Created Date</th>
                       <th width="50px;"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>SCH-210PS</td>
-                      <td>60</td>
-                      <td>0.550</td>
-                      <td>33.000</td>
-                      <td>5001349066</td>
-                      <td>SHOWCASE REFRIGERATOR</td>
-                      <td>HQ-1st Class</td>
-                      <td>2020-02-06 16:57:49</td>
-                      <td></td>
-                    </tr>
                   </tbody>
                 </table>
               </form>
@@ -104,6 +96,7 @@
 
 @push('script_js')
 <script type="text/javascript">
+  var dttable_incoming_detail;
   jQuery(document).ready(function($) {
     @if(auth()->user()->cabang->hq)
       $('#area_filter').select2({
@@ -118,7 +111,7 @@
     $('.area-wrapper').hide()
     @endif
   });
-  var dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
+  dttable_incoming_detail = $('#data-table-incoming-detail').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: false,
@@ -140,10 +133,20 @@
         {data: 'no_gr_sap', name: 'no_gr_sap', className: 'detail'},
         {data: 'description', name: 'description', className: 'detail'},
         {data: 'storage_location', name: 'storage_location', className: 'detail'},
+        @if($incomingManualHeader->inc_type == "OTHERS")
         {data: 'serial_numbers', name: 'serial_numbers', className: 'detail'},
+        @endif
         {data: 'created_at', name: 'created_at', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
-    ]
+    ],
+  });
+
+  dttable_incoming_detail.on('draw', function (data) {
+      if(dttable_incoming_detail.page.info().recordsDisplay > 0){
+        $('.btn-submit-to-inventory').removeClass('hide');
+      } else {
+        $('.btn-submit-to-inventory').addClass('hide');
+      }
   });
 
   dttable_incoming_detail.on('click', '.btn-edit', function(event) {
@@ -269,5 +272,6 @@
       }
     });
   }
+
 </script>
 @endpush

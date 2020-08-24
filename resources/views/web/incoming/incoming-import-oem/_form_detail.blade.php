@@ -67,6 +67,7 @@
         </div>
       </td>
     </tr>
+    @if($incomingManualHeader->inc_type == "OTHERS")
     <tr>
       <td>
         <div class="file-field input-field">
@@ -81,6 +82,7 @@
         </div>
       </td>
     </tr>
+    @endif
   </table>
   {!! get_button_save('Save', 'btn-save mt-1') !!}
 </form>

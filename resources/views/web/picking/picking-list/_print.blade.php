@@ -7,6 +7,7 @@ foreach ($pickinglistHeader->details as $key => $value) {
   $rs_shipment_no[$value->invoice_no] = $value->invoice_no;
 }
 foreach ($rs_shipment_no as $key => $value) {
+  $shipment_no .= !empty($shipment_no) ? '<br>' : '';
   $shipment_no .= $value;
 }
 @endphp
@@ -43,7 +44,7 @@ foreach ($rs_shipment_no as $key => $value) {
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td style="text-align: right;">SHIPMENT NO :</td>
-                <td style="text-align: left;">{{$shipment_no}}</td>
+                <td style="text-align: left;">{!!$shipment_no!!}</td>
               </tr>
               <tr>
                 <td style="text-align: right;">CUSTOMER :</td>
