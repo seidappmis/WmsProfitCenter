@@ -52,4 +52,9 @@ class LMBHeader extends Model
   {
     return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
   }
+
+  public function driverRegistered()
+  {
+    return $this->belongsTo('App\Models\DriverRegistered', 'driver_register_id', 'id');
+  }
 }
