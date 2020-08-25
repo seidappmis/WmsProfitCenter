@@ -67,10 +67,10 @@ class DashboardController extends Controller
 
     $result = [
       'subtitle_text'                      => $request->input('area') . ' ' . date("Y-m-d"),
-      'rs_cbm'                             => $rs_cbm,
-      'rs_vehicle_detail'                  => $rs_vehicle_detail,
-      'rs_vehicle_category'                => $rs_vehicle_category,
-      'rs_workflow'                        => $rs_workflow,
+      // 'rs_cbm'                             => $rs_cbm,
+      // 'rs_vehicle_detail'                  => $rs_vehicle_detail,
+      // 'rs_vehicle_category'                => $rs_vehicle_category,
+      // 'rs_workflow'                        => $rs_workflow,
       'rs_chart_categories'                => array_values($rs_chart_categories),
       'rs_cbm_of_concept'                  => array_values($rs_cbm_of_concept),
       'rs_cbm_of_truck'                    => array_values($rs_cbm_of_concept),
