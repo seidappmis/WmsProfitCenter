@@ -91,6 +91,7 @@
   jQuery(document).ready(function($) {
     @if (auth()->user()->cabang->hq && auth()->user()->area != "All")
     set_select2_value('#area_filter', '{{auth()->user()->area_data->code}}', '{{auth()->user()->area}}');
+    $('#area_name_filter').val('{{auth()->user()->area}}');
     $('#area_filter').attr('disabled', 'disabled');
     $('.branch-filter-wrapper').addClass('hide')
     

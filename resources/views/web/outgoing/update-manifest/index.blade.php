@@ -12,6 +12,7 @@
                   <li class="breadcrumb-item active">Update Manifest</li>
               </ol>
           </div>
+          @if(auth()->user()->cabang->hq)
           <div class="col s12 m3">
             <!---- Search ----->
                 <div class="app-wrapper">
@@ -21,6 +22,18 @@
                   </div>
                 </div>
           </div>
+          @else
+          <div class="col s12 m3">
+            <!---- Search ----->
+                <div class="app-wrapper">
+                  <div class="datatable-search">
+                    <select id="branch_filter">
+                      <option value="{{auth()->user()->cabang->kode_cabang}}">{{auth()->user()->cabang->long_description}}</option>
+                    </select>
+                  </div>
+                </div>
+          </div>
+          @endif
       </div>
   @endcomponent
 
@@ -65,6 +78,9 @@
      allowClear: true,
      ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
+  $('#branch_filter').select2({
+     placeholder: '-- Select Branch --',
+  });
   jQuery(document).ready(function($) {
     @if (auth()->user()->area != 'All')
         set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
@@ -76,7 +92,7 @@
         $.ajax({
           url: '{{ url("update-manifest") }}',
           type: 'POST',
-          data: $(form).serialize() + '&area=' + $('#area_filter').val(),
+          data: $(form).serialize() + '&area=' + $('#area_filter').val() + '&branch=' + $('#branch_filter').val(),
         })
         .done(function(result) { // selesai dan berhasil
           if (result.status) {

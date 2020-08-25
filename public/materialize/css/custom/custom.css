@@ -10,6 +10,12 @@ NOTE:
 PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 
+html {
+    font-family: 'Calibri', sans-serif !important;
+}
+strong {
+    font-weight: 600;
+}
 .row {
     margin-bottom: 20px;
 }
@@ -57,6 +63,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 #breadcrumbs-wrapper .row .col {
     margin-top: 2px;
+}
+h4.header {
+    font-size: 1rem;
+    text-transform: capitalize;
 }
 td, th {
     border-radius: 0;

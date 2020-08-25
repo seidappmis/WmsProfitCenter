@@ -2,72 +2,72 @@
 <table class="table">
   <thead>
     <tr>
-      <th>CATEGORIES</th>
-      <th>WAITING TRUCK</th>
-      <th>WAITING CONCEPT</th>
-      <th>WAITING LOADING</th>
-      <th>LOADING PROCESS</th>
-      <th>WAITING D/O</th>
+      <th style="text-align: center;">CATEGORIES</th>
+      <th style="text-align: center;">WAITING TRUCK</th>
+      <th style="text-align: center;">WAITING CONCEPT</th>
+      <th style="text-align: center;">WAITING LOADING</th>
+      <th style="text-align: center;">LOADING PROCESS</th>
+      <th style="text-align: center;">WAITING D/O</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>TRAILER</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">TRAILER</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
     <tr>
-      <td>TRONTON</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">TRONTON</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
     <tr>
-      <td>CONTAINER</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">CONTAINER</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
     <tr>
-      <td>WINGBOX</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">WINGBOX</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
     <tr>
-      <td>LIGHT TRUCK</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">LIGHT TRUCK</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
     <tr>
-      <td>SMALL TRUCK</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">SMALL TRUCK</td>
+      <td style="text-align: center;">1</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
+      <td style="text-align: center;">0</td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td>TOTAL</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align: center;">TOTAL</td>
+      <th style="text-align: center;">0</th>
+      <th style="text-align: center;">0</th>
+      <th style="text-align: center;">0</th>
+      <th style="text-align: center;">0</th>
+      <th style="text-align: center;">0</th>
     </tr>
   </tfoot>
 </table>
