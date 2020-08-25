@@ -6,43 +6,34 @@
 			<table style="width: 210.0003mm;">
 				<tr>
 					<td>
-						<table width="100%" style="">
-              				<tr>
-				                <td><img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo"  style="width: 100px;"></td>
-				            </tr>
-              				<tr>
-				                <td style="text-align: center; font-size: 18pt;" colspan="36"><strong>CLAIM LETTER</strong></td>
-				            </tr>
-				            <tr>
-				                <td style="text-align: center; font-size: 12pt;" colspan="36">(Transporter/ Outsourcing Logistics)</td>
-				            </tr>
-				            <tr><td>&nbsp;</td></tr>
-				            <tr>
-			                	<td style="text-align: left; width: 10mm;"><strong>No :</strong></td>
-			                	<!-- <td style="width: 3mm;"><strong>:</strong></td> -->
-			                	<td style="text-align: center; width: 60mm; border-bottom: 1px solid #000000;">01/Claim U-Log/Des/2019</td>
-			                	<td>&nbsp;</td>
-			              	</tr>
-			              	<tr>
-			              		<td style="text-align: left; width: 20mm;"><strong>Issued by :</strong></td>
-			              		<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
-			              		<td style="width: 3mm;">&nbsp;</td>
-			              		<td style="text-align: left; width: 10mm;"><strong>Division</strong></td>
-			              		<td style="width: 3mm;"><strong>:</strong></td>
-			              		<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
-			              		<td>&nbsp;</td>
-			              		<td style="text-align: left; width: 10mm;"><strong>Date</strong></td>
-			              		<td style="width: 3mm;"><strong>:</strong></td>
-			              		<td style="text-align: center; width: 32mm; border-bottom: 1px solid #000000;">3-Dec-2019</td>
-			              	</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						{{-- Table --}}
 						<table width="100%" style="border-collapse: collapse;">
-							{{-- Head --}}
+							{{-- Logo --}}
+							<tr>
+				                <td colspan="5" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp; <img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo"  style="width: 90px;"></td>
+				            </tr>
+				            {{-- Title --}}
+							<tr>
+				                <td colspan="5" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000; text-align: center; font-size: 18pt;"><strong>CLAIM LETTER</strong></td>
+				            </tr>
+							<tr>
+				                <td colspan="5" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000; text-align: center; font-size: 12pt;">(Transporter/ Outsourcing Logistics)</td>
+				            </tr>
+							<tr><td colspan="5" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td></tr>
+							{{-- No --}}
+							<tr>
+								<td style="border-left: 2pt solid #000000; text-align: left; width: 10mm;"><strong>No :</strong></td>
+								<td style="text-align: center; width: 60mm; border-bottom: 1px solid #000000;">01/Claim U-Log/Des/2019</td>
+								<td colspan="3" style="border-right: 2pt solid #000000">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="border-left: 2pt solid #000000; text-align: left; width: 10mm;"><strong>Issued by :</strong></td>
+								<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
+			              		<td style="text-align: left; width: 10mm;"><strong>Division</strong></td>
+			              		<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
+			              		<td style="border-right: 2pt solid #000000;">&nbsp;</td>
+							</tr>
+							<tr><td colspan="5" style="height: 10px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td></tr>
+							{{-- Table --}}
 							<tr>
 								<!-- <td style="width: 5mm;"></td> -->
 								<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Plan No :</strong></td>
