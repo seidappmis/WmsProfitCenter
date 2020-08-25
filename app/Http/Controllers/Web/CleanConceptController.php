@@ -14,6 +14,7 @@ class CleanConceptController extends Controller
     if ($request->ajax()) {
       $query = Concept::selectRaw('
           tr_concept.*,
+          SUM(tr_concept.cbm) AS total_cbm,
           tr_destination.destination_description AS destination_name,
           COUNT(tr_concept.line_no) AS total_do_items
         ')

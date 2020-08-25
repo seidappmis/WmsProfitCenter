@@ -56,12 +56,12 @@
                             <tbody>
                                 <tr>
                                     <td style="text-align: center;"><strong>CBM OF CONCEPT</strong></td>
-                                    <td style="text-align: center;"><strong>4504</strong></td>
-                                    <td style="text-align: center;"><strong>512</strong></td>
-                                    <td style="text-align: center;"><strong>134</strong></td>
-                                    <td style="text-align: center;"><strong>617</strong></td>
-                                    <td style="text-align: center;"><strong>0</strong></td>
-                                    <td style="text-align: center;"><strong>5576</strong></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-waiting-truck">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-waiting-loading">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-loading-process">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-waiting-do">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-complete">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-status-cbm-concept-total">0</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -109,16 +109,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+    $('#area_filter').select2({
+       placeholder: '-- Select Area --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+    });
+    @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
     jQuery(document).ready(function($) {
-        $('#area_filter').select2({
-           placeholder: '-- Select Area --',
-           allowClear: true,
-           ajax: get_select2_ajax_options('/master-area/select2-area-only')
-        });
-        @if (auth()->user()->area != 'All')
-        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
-        $('#area_filter').attr('disabled','disabled')
-      @endif
     });
 </script>
 @endpush
