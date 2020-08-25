@@ -19,9 +19,8 @@
 
   jQuery(document).ready(function($) {
     loadLoadingDailyStatus()
+    setInterval( loadLoadingDailyStatus, 60000 );
   });
-  // var cbm_of_concept = [{ y: 0 }, { y: 780 }, { y: 97 }, { y: 346 }, { y: 6 }, { y: 3149 }, { y: 127 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 315 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 206 }, { y: 0 }, { y: 0 }, { y: 64 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 70 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 86 }, { y: 16 }, { y: 0 }, { y: 450 }, { y: 0 }];
-  // var cbm_of_truck = [{ y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 325 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 205 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 108 }, { y: 25 }, { y: 0 }, { y: 490 }, { y: 0 }]
 
   function loadLoadingDailyStatus(){
     $.ajax({
