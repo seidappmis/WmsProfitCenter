@@ -25,12 +25,7 @@
           </div>
           <div class="col s12 m3"></div>
       </div>
-      <div class="row">
-        <div class="col s12 m4">
-          <!---- Button Add ----->
-          <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-create-tag/create') }}">New Tag</a>
-        </div>
-      </div>
+      
   @endcomponent
 
   <div class="col s12">
@@ -81,28 +76,10 @@
                   </div>
                   </form>
 
-                <!-- <div class="row">
-                  <div class="display-flex">
-                    Button Create 
-                    <div class="col s12 m2">
-                    <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('stock-take-create-tag/create') }}">New Tag</a>
-                    </div>
-                    <div class="col s12 m4"></div>
-                    Search
-                    <div class="col s12 m6">
-                      <div class="app-wrapper">
-                        <div class="datatable-search">
-                          <i class="material-icons mr-2 search-icon">search</i>
-                          <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
                 <!-- Main Table -->
                 <div class="container">
                     <div class="section">
+                       <a class="btn waves-effect waves-light btn-add btn-new-tag" href="#">New Tag</a>
                         <div class="card">
                             <div class="card-content p-0">
                                 <div class="section-data-tables">
@@ -116,12 +93,6 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        {{-- <tr>
-                                          <td>1.</td>
-                                          <td>ES-TT8902-PK</td>
-                                          <td>A</td>
-                                          <td>-</td>
-                                        </tr> --}}
                                       </tbody>
                                   </table>
                                 </div>
@@ -198,6 +169,14 @@
         ]
       });
 
+    });
+
+    $('.btn-new-tag').click(function(event) {
+      /* Act on the event */
+      if ($('#sto_id').val() == '' || $('#sto_id').val() == null) {
+        showSwalAutoClose('Warning', 'Please Select STO ID!')
+      }
+      window.location.href = '{{ url('stock-take-create-tag/create') }}' + '?sto_id=' + $('#sto_id').val();
     });
 
     $('#sto_id').select2({

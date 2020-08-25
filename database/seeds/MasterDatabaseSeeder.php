@@ -36,5 +36,6 @@ class MasterDatabaseSeeder extends Seeder
     $this->call(Database\Seeds\Masters\WMSMasterMovementTypeSeeder::class);
     $this->call(Database\Seeds\Masters\WMSMasterModelSeeder::class);
     $this->call(Database\Seeds\Masters\WMSMasterStorageTableSeeder::class);
+    $this->call(Database\Seeds\Masters\WMSUserScannerSeeder::class);
   }
 }

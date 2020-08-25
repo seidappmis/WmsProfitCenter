@@ -168,6 +168,13 @@
     {!! get_button_cancel(url('manifest-regular'), 'Back', '') !!}
 </form>
 
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Manifest',
+  'url' => 'manifest-regular/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'trigger' => '.btn-print'
+  ])
+
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
