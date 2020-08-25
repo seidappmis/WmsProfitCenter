@@ -14,11 +14,7 @@
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -55,3 +51,19 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#area_filter').select2({
+           placeholder: '-- Select Area --',
+           allowClear: true,
+           ajax: get_select2_ajax_options('/master-area/select2-area-only')
+        });
+        @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
+    });
+</script>
+@endpush

@@ -25,32 +25,28 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Input Manual Tag</div>
                           <div class="collapsible-body">
-                          <form class="form-table">
-                        <table>
-                          <tr>
-                            <td>Model</td>
-                            <td>
-                              <div class="input-field col s12">
-                                <select>
-                                  <option value="" disabled selected>-- Select Model --</option>
-                                  <option>[HYP]PT. SEID HQ JKT</option>
-                                  <option>[JKT]PT. SEID CAB. JAKARTA</option>
-                                  <option>[JF]PT. SEID CAB. JAKARTA</option>
-                                </select>
+                            <form class="form-table">
+                              <table>
+                                <tr>
+                                  <td>Model</td>
+                                  <td>
+                                    <div class="input-field col s12">
+                                      <select>
+                                        <option value="" disabled selected>-- Select Model --</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                </tr>
+                                
+                                
+                              </table>
+                              <div class="row">
+                                <div class="input-field col s12">
+                                  {!! get_button_save() !!}
+                                  {!! get_button_cancel(url('stock-take-create-tag')) !!}
+                                </div>
                               </div>
-                            </td>
-                          </tr>
-                          
-                          
-                        </table>
-                        
-                      </form>
-                            <div class="row">
-                              <div class="input-field col s12">
-                                {!! get_button_save() !!}
-                                {!! get_button_cancel(url('stock-take-create-tag')) !!}
-                              </div>
-                            </div>
+                            </form>
                           </div>
                         </li>
                       </ul>

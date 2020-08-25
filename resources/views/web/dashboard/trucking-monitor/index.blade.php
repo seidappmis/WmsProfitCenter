@@ -14,11 +14,7 @@
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -31,19 +27,23 @@
             <div class="section">
                 <div class="card mb-0">
                     <div class="card-content">
-                        <h4 class="header m-0">Loading Status</h4>
+                        <h4 class="header m-0 center-align">Loading Status</h4>
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="row">
     
     <div class="col s12">
         <div class="">
             <div class="section">
                 <div class="card m-0">
                     <div class="card-content">
-                        <h4 class="header m-0">After Loading Status</h4>
+                        <h4 class="header m-0 center-align">After Loading Status</h4>
+                        <hr>
                         <table>
                             <thead>
                                 <tr>
@@ -93,42 +93,29 @@
         <div class="">
             <div class="section">
                 <div class="card m-0">
-                    <div class="card-content">
-                        <h4 class="header m-0">List Of Vehicle That Already Standby</h4>
-                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>VEHICLE NO</th>
-                                    <th>TC NUMBER</th>
-                                    <th>DRIVER NAME</th>
-                                    <th>EXPEDITON NAME</th>
-                                    <th>VEHICLE DESC</th>
-                                    <th>DESTINATION</th>
-                                    <th>UPLOAD DATE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1000307683</td>
-                                    <td>2800076697</td>
-                                    <td>1</td>
-                                    <td>4.42</td>
-                                    <td>SURABAYA HUB-SURABAYA</td>
-                                    <td>MILLENNIUM TRANS BAHARI, PT.</td>
-                                    <td>2018-05-11 10:25:50</td>
-                                </tr>
-                                <tr>
-                                    <td>1000308448</td>
-                                    <td>2800076904</td>
-                                    <td>2</td>
-                                    <td>2.295</td>
-                                    <td>SURABAYA HUB-KEDIRI</td>
-                                    <td>TRISILA, CV.</td>
-                                    <td>2018-05-16 14:47:40</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-content pl-2 pr-2 pt-2 pb-2">
+                        <h4 class="header m-0">List of vehicle that already standby (top 15 of last ID Driver Scan)</h4>
+                        <h6 class="red-text" style="font-weight: 600;">TOTAL VEHICLE : <span id="text-total-vehicle-standby"></span></h6>
+                        <hr>
+                        <div style="overflow-x: auto; height: 300px; overflow-y: auto;">
+                            <table class="table striped" id="table-vehicle-standby">
+                                <thead>
+                                    <tr>
+                                        <th>VEHICLE NO</th>
+                                        <th>TC NUMBER</th>
+                                        <th>DRIVER NAME</th>
+                                        <th>EXPEDITON NAME</th>
+                                        <th>VEHICLE DESC</th>
+                                        <th>DESTINATION</th>
+                                        <th>CAPACITY</th>
+                                        <th>DATE IN</th>
+                                        <th>TIME IN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,42 +126,72 @@
         <div class="">
             <div class="section">
                 <div class="card m-0">
-                    <div class="card-content">
-                        <h4 class="header m-0">Delivery Order List</h4>
-                        <h6 class="red-text">TOTAL VEHICLE : 11</h6>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>SHIPMENT NO</th>
-                                    <th>DELIVERY NO</th>
-                                    <th>TOTAL ITEMS DO</th>
-                                    <th>TOTAL CBM</th>
-                                    <th>DESTIONATION</th>
-                                    <th>EXPEDITION NAME</th>
-                                    <th>UPLOAD DATE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1000307683</td>
-                                    <td>2800076697</td>
-                                    <td>1</td>
-                                    <td>4.42</td>
-                                    <td>SURABAYA HUB-SURABAYA</td>
-                                    <td>MILLENNIUM TRANS BAHARI, PT.</td>
-                                    <td>2018-05-11 10:25:50</td>
-                                </tr>
-                                <tr>
-                                    <td>1000308448</td>
-                                    <td>2800076904</td>
-                                    <td>2</td>
-                                    <td>2.295</td>
-                                    <td>SURABAYA HUB-KEDIRI</td>
-                                    <td>TRISILA, CV.</td>
-                                    <td>2018-05-16 14:47:40</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-content pl-2 pr-2 pt-2 pb-2">
+                        <h4 class="header m-0">Delivery Order List (top 15 of last upload)</h4>
+                        <h6 class="red-text" style="font-weight: 600;">Total Shipment : 131</h6>
+                        <hr>
+                        <div style="overflow-x: auto; height: 300px; overflow-y: auto;">
+                            <table class="table striped">
+                                <thead>
+                                    <tr>
+                                        <th>SHIPMENT NO</th>
+                                        <th>DELIVERY NO</th>
+                                        <th>TOTAL ITEMS DO</th>
+                                        <th>TOTAL CBM</th>
+                                        <th>DESTIONATION</th>
+                                        <th>EXPEDITION NAME</th>
+                                        <th>UPLOAD DATE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1000307683</td>
+                                        <td>2800076697</td>
+                                        <td>1</td>
+                                        <td>4.42</td>
+                                        <td>SURABAYA HUB-SURABAYA</td>
+                                        <td>MILLENNIUM TRANS BAHARI, PT.</td>
+                                        <td>2018-05-11 10:25:50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000308448</td>
+                                        <td>2800076904</td>
+                                        <td>2</td>
+                                        <td>2.295</td>
+                                        <td>SURABAYA HUB-KEDIRI</td>
+                                        <td>TRISILA, CV.</td>
+                                        <td>2018-05-16 14:47:40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000308448</td>
+                                        <td>2800076904</td>
+                                        <td>2</td>
+                                        <td>2.295</td>
+                                        <td>SURABAYA HUB-KEDIRI</td>
+                                        <td>TRISILA, CV.</td>
+                                        <td>2018-05-16 14:47:40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000308448</td>
+                                        <td>2800076904</td>
+                                        <td>2</td>
+                                        <td>2.295</td>
+                                        <td>SURABAYA HUB-KEDIRI</td>
+                                        <td>TRISILA, CV.</td>
+                                        <td>2018-05-16 14:47:40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000308448</td>
+                                        <td>2800076904</td>
+                                        <td>2</td>
+                                        <td>2.295</td>
+                                        <td>SURABAYA HUB-KEDIRI</td>
+                                        <td>TRISILA, CV.</td>
+                                        <td>2018-05-16 14:47:40</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -182,3 +199,62 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#area_filter').select2({
+           placeholder: '-- Select Area --',
+           allowClear: true,
+           ajax: get_select2_ajax_options('/master-area/select2-area-only')
+        });
+        @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
+
+      loadVehicleStandby();
+      setInterval( loadVehicleStandby, 60000 );
+    });
+
+    function loadVehicleStandby(){
+        $.ajax({
+            url: '{{url("trucking-monitor/vehicle-standby")}}',
+            type: 'GET',
+            dataType: 'json',
+            data: {area: $('#area_filter').val()},
+        })
+        .done(function(result) {
+            if (result.status) {
+                var row = '';
+                $.each(result.data.top15, function(index, val) {
+                     /* iterate through array or object */
+                    row += '<tr>';
+                    row += '<td>' + val.vehicle_number + '</td>';
+                    row += '<td>' + val.driver_id + '</td>';
+                    row += '<td>' + val.driver_name + '</td>';
+                    row += '<td>' + val.expedition_name + '</td>';
+                    row += '<td>' + val.vehicle_description + ' capacity ' + val.cbm_min + ' - ' + val.cbm_max + '</td>';
+                    row += '<td>' + val.destination_name + '</td>';
+                    row += '<td>' + val.cbm_max + '</td>';
+                    row += '<td>' + moment(val.datetime_in).format('YYYY-MM-DD') + '</td>';
+                    row += '<td>' + moment(val.datetime_in).format('HH:mm:ss') + '</td>';
+                    row += '</tr>';
+                });
+
+                $('#table-vehicle-standby tbody').empty();
+                $('#table-vehicle-standby tbody').append(row)
+
+                $('#text-total-vehicle-standby').text(result.data.total_vehicle)
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    }
+</script>
+@endpush

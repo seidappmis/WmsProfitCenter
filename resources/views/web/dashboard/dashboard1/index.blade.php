@@ -14,11 +14,7 @@
             <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
-                    <select id="area_filter">
-                      <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option>
+                    <select id="area_filter" class="select2-data-ajax browser-default app-filter">
                     </select>
                   </div>
                 </div>
@@ -48,25 +44,25 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>STATUS</th>
-                                    <th>WAITING TRUCK</th>
-                                    <th>WAITING LOADING</th>
-                                    <th>LOADING PROCESS</th>
-                                    <th>WAITING D/O</th>
-                                    <th>COMPLETE</th>
-                                    <th>TOTAL</th>
+                                    <th style="text-align: center;">STATUS</th>
+                                    <th style="text-align: center;">WAITING TRUCK</th>
+                                    <th style="text-align: center;">WAITING LOADING</th>
+                                    <th style="text-align: center;">LOADING PROCESS</th>
+                                    <th style="text-align: center;">WAITING D/O</th>
+                                    <th style="text-align: center;">COMPLETE</th>
+                                    <th style="text-align: center;">TOTAL</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
-                                    <td>CBM OF CONCEPT</td>
-                                    <td>4504</td>
-                                    <td>512</td>
-                                    <td>134</td>
-                                    <td>617</td>
-                                    <td>0</td>
-                                    <td>5576</td>
-                                </tr> --}}
+                                <tr>
+                                    <td style="text-align: center;"><strong>CBM OF CONCEPT</strong></td>
+                                    <td style="text-align: center;"><strong>4504</strong></td>
+                                    <td style="text-align: center;"><strong>512</strong></td>
+                                    <td style="text-align: center;"><strong>134</strong></td>
+                                    <td style="text-align: center;"><strong>617</strong></td>
+                                    <td style="text-align: center;"><strong>0</strong></td>
+                                    <td style="text-align: center;"><strong>5576</strong></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -78,28 +74,28 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>SUBJECT</th>
-                                    <th>KARAWANG</th>
-                                    <th>SURABAYA HUB</th>
-                                    <th>SWADAYA</th>
-                                    <th>TOTAL</th>
+                                    <th style="text-align: center;">SUBJECT</th>
+                                    <th style="text-align: center;">KARAWANG</th>
+                                    <th style="text-align: center;">SURABAYA HUB</th>
+                                    <th style="text-align: center;">SWADAYA</th>
+                                    <th style="text-align: center;">TOTAL</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
-                                    <td>CBM TOTAL</td>
-                                    <td>4504</td>
-                                    <td>112</td>
-                                    <td>606</td>
-                                    <td>5222</td>
+                                <tr>
+                                    <td style="text-align: center;"><strong>CBM TOTAL</strong></td>
+                                    <td style="text-align: center;"><strong>4504</strong></td>
+                                    <td style="text-align: center;"><strong>112</strong></td>
+                                    <td style="text-align: center;"><strong>606</strong></td>
+                                    <td style="text-align: center;"><strong>5222</strong></td>
                                 </tr>
                                 <tr>
-                                    <td>VEHICLE PLAN (UNIT TRUCK)</td>
-                                    <td>141</td>
-                                    <td>19</td>
-                                    <td>56</td>
-                                    <td>216</td>
-                                </tr> --}}
+                                    <td style="text-align: center;"><strong>VEHICLE PLAN (UNIT TRUCK)</strong></td>
+                                    <td style="text-align: center;"><strong>141</strong></td>
+                                    <td style="text-align: center;"><strong>19</strong></td>
+                                    <td style="text-align: center;"><strong>56</strong></td>
+                                    <td style="text-align: center;"><strong>216</strong></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -110,3 +106,19 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#area_filter').select2({
+           placeholder: '-- Select Area --',
+           allowClear: true,
+           ajax: get_select2_ajax_options('/master-area/select2-area-only')
+        });
+        @if (auth()->user()->area != 'All')
+        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+        $('#area_filter').attr('disabled','disabled')
+      @endif
+    });
+</script>
+@endpush

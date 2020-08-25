@@ -134,6 +134,14 @@ class STScheduleController extends Controller
     $stockTakeSchedule->urut                = $request->input('urut');
     // $stockTakeSchedule->urut                = $max_no;
 
+    if (date('Y-m-d',  strtotime($request->input('schedule_start_date'))) < date("Y-m-d")) {
+      return sendError('(Schedule Start Date can not be small than Today)');
+    }
+
+    if (empty($request->file('file-stocktake-schedule'))) {
+      return sendError('Please select file!');
+    }
+
     try {
       DB::beginTransaction();
 
@@ -275,6 +283,12 @@ class STScheduleController extends Controller
           DB::raw('sto_id AS id'),
           DB::raw("sto_id AS text")
         );
+
+        if (auth()->user()->cabang->hq) {
+          $query->where('area', auth()->user()->area);
+        } else {
+          $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+        }
 
         return get_select2_data($request, $query);
     }
