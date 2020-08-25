@@ -22,14 +22,14 @@
 							{{-- No --}}
 							<tr>
 								<td style="border-left: 2pt solid #000000; text-align: left; width: 10mm;"><strong>No :</strong></td>
-								<td style="text-align: center; width: 60mm; border-bottom: 1px solid #000000;">01/Claim U-Log/Des/2019</td>
+								<td style="text-align: center; border-bottom: 1px solid #000000;">01/Claim U-Log/Des/2019</td>
 								<td colspan="3" style="border-right: 2pt solid #000000">&nbsp;</td>
 							</tr>
 							<tr>
 								<td style="border-left: 2pt solid #000000; text-align: left; width: 10mm;"><strong>Issued by :</strong></td>
-								<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
-			              		<td style="text-align: left; width: 10mm;"><strong>Division</strong></td>
-			              		<td style="text-align: center; width: 40mm; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
+								<td style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
+			              		<td style="text-align: left;"><strong>Division :</strong></td>
+			              		<td style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
 			              		<td style="border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr><td colspan="5" style="height: 10px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td></tr>
