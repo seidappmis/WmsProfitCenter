@@ -84,17 +84,17 @@
                             <tbody>
                                 <tr>
                                     <td style="text-align: center;"><strong>CBM TOTAL</strong></td>
-                                    <td style="text-align: center;"><strong>4504</strong></td>
-                                    <td style="text-align: center;"><strong>112</strong></td>
-                                    <td style="text-align: center;"><strong>606</strong></td>
-                                    <td style="text-align: center;"><strong>5222</strong></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-cbm-karawang">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-cbm-surabaya-hub">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-cbm-swadaya">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-cbm-total">0</span></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;"><strong>VEHICLE PLAN (UNIT TRUCK)</strong></td>
-                                    <td style="text-align: center;"><strong>141</strong></td>
-                                    <td style="text-align: center;"><strong>19</strong></td>
-                                    <td style="text-align: center;"><strong>56</strong></td>
-                                    <td style="text-align: center;"><strong>216</strong></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-unit-karawang">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-unit-surabaya-hub">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-unit-swadaya">0</span></td>
+                                    <td style="text-align: center;"><span style="font-weight: 800;" id="text-waiting-truck-all-unit-total">0</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,6 +119,42 @@
     $('#area_filter').attr('disabled','disabled')
   @endif
     jQuery(document).ready(function($) {
+        loadWaitingTruckAllArea()
+        setInterval( loadWaitingTruckAllArea, 60000 );
     });
+
+    function loadWaitingTruckAllArea(){
+        $.ajax({
+            url: '{{url('dashboard/waiting-truck-all-area')}}',
+            type: 'GET',
+            dataType: 'json',
+        })
+        .done(function(result) {
+            if (result.status) {
+                var total = 0;
+                $.each(result.data.rs_cbm, function(index, val) {
+                     /* iterate through array or object */
+                     $('#text-waiting-truck-all-cbm-' + index).text(val)
+                     total += parseFloat(val)
+                });
+                $('#text-waiting-truck-all-cbm-total').text(total)
+
+                total = 0;
+                $.each(result.data.rs_unit_truck, function(index, val) {
+                     /* iterate through array or object */
+                     $('#text-waiting-truck-all-unit-' + index).text(val)
+                     total += parseFloat(val)
+                });
+                 $('#text-waiting-truck-all-unit-total').text(total)
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    }
 </script>
 @endpush

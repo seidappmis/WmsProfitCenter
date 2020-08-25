@@ -16,9 +16,9 @@ class Concept extends Model
     return $this->belongsTo('App\Models\MasterDestination', 'destination_number', 'destination_number');
   }
 
-  public static function getLoadingDailyStatus($request)
+  public static function getLoadingDailyStatusWaitingTruck($request = null)
   {
-    return Concept::select(
+    $concept = Concept::select(
       'tr_concept.*',
       DB::raw('"" AS reg_driver_id'),
       DB::raw('"" AS reg_driver_name'),
@@ -48,10 +48,15 @@ class Concept extends Model
       $join->on('tr_concept_flow_detail.invoice_no', '=', 'tr_concept.invoice_no');
       $join->on('tr_concept_flow_detail.line_no', '=', 'tr_concept.line_no');
     })
-    ->where('tr_concept.area', $request->input('area'))
+    // ->where('tr_concept.area', $request->input('area'))
     ->whereNull('tr_concept_flow_detail.invoice_no')
-    ->get();
     ;
+
+    if ($request != null) {
+      $concept->where('tr_concept.area', $request->input('area'));
+    }
+
+    return $concept->get();
   }
 
 }

@@ -3,6 +3,7 @@
 Route::group(['middleware' => 'auth'], function () {
   Route::view('dashboard', 'web.dashboard.dashboard1.index');
   Route::get('dashboard/loading-daily-status', 'Web\DashboardController@getLoadingDailyStatus');
+  Route::get('dashboard/waiting-truck-all-area', 'Web\DashboardController@getWaitingTruckAllArea');
 
   Route::view('dashboard2', 'web.dashboard.dashboard2.index');
 
