@@ -9,6 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
 
   Route::get('stock-take-create-tag', 'Web\StockTakeCreateTagController@index');
+  Route::get('stock-take-create-tag/{id}/export', 'Web\StockTakeCreateTagController@export');
   Route::get('stock-take-create-tag/select2-no-tag-1', 'Web\StockTakeCreateTagController@getSelect2NoTag1');
   Route::get('stock-take-create-tag/select2-no-tag-2', 'Web\StockTakeCreateTagController@getSelect2NoTag2');
   Route::post('stock-take-create-tag', 'Web\StockTakeCreateTagController@store');
@@ -31,5 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('stock-take-quick-count/{id}/export', 'Web\StockTakeQuickCountController@export');
 
 
+  Route::get('stock-take-compare-sap/{id}/export', 'Web\StockTakeCompareSAPController@export');
   Route::view('stock-take-compare-sap', 'web.stock-take.stock-take-compare-sap.index');
 });
