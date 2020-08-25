@@ -35,3 +35,7 @@ Route::get('picking-list/{picking_no}', function ($picking_no) {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
+
+Route::middleware('auth:api')->get('/auth/login', function (Request $request) {
+  
+});

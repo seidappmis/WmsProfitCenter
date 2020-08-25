@@ -2,6 +2,9 @@
 
 @push('script_js')
 <script src="{{asset('vendors/highcharts/highcharts.js')}}"></script>
+<script src="{{asset('vendors/highcharts/drilldown.src.js')}}"></script>
+<script src="{{asset('vendors/highcharts/grouped-categories.js')}}"></script>
+<script src="{{asset('vendors/highcharts/jquery.highchartTable.js')}}"></script>
 <script src="{{asset('vendors/highcharts/modules/exporting.js')}}"></script>
 <script src="{{asset('vendors/highcharts/modules/export-data.js')}}"></script>
 <script src="{{asset('vendors/highcharts/modules/accessibility.js')}}"></script>
