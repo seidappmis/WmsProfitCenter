@@ -186,9 +186,10 @@ class PickingListController extends Controller
     // picking no => kodecabang tanggal(Ymd) urut 3 digit
     $prefix = auth()->user()->cabang->kode_cabang . date('Ymd');
 
-    $prefix_length = strlen($prefix);
-    $max_no        = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
-    $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+    $prefix_length   = strlen($prefix);
+    $max_no          = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+    $picking_urut_no = $max_no + 1;
+    $max_no          = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
     $picking_no = $prefix . $max_no;
 
@@ -200,7 +201,7 @@ class PickingListController extends Controller
     $pickinglistHeader->pdo                = $request->input('pdo');
     $pickinglistHeader->destination_number = $request->input('destination_number');
     $pickinglistHeader->destination_name   = $request->input('destination_name');
-    $pickinglistHeader->picking_urut_no    = $request->input('picking_urut_no');
+    $pickinglistHeader->picking_urut_no    = $picking_urut_no;
     $pickinglistHeader->HQ                 = auth()->user()->cabang->hq;
     $pickinglistHeader->kode_cabang        = auth()->user()->cabang->kode_cabang;
     $pickinglistHeader->storage_id         = $request->input('storage_id');
@@ -216,13 +217,34 @@ class PickingListController extends Controller
     $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
 
     if ($pickinglistHeader->city_code != "AS") {
+      $expedition_name = !empty($request->input('expedition_name_manual')) ? $request->input('expedition_name_manual') : $request->input('expedition_name');
+
+      if (!auth()->user()->cabang->hq && $request->input('expedition_name') != "ONE TIME") {
+        $expedition_name = $request->input('expedition_name');
+      } elseif (!auth()->user()->cabang->hq && $request->input('expedition_name') == "ONE TIME") {
+        $expedition_name = $request->input('expedition_name_manual');
+      }
+      $vehicle_number = !empty($request->input('vehicle_number_manual')) ? $request->input('vehicle_number_manual') : $request->input('vehicle_number');
+      $driver_name    = !empty($request->input('driver_name_manual')) ? $request->input('driver_name_manual') : $request->input('driver_name');
+
+      if (empty($vehicle_number)) {
+        return sendError('Please select or insert vehicle no');
+      }
+      if (empty($driver_name)) {
+        return sendError('Please select or insert driver name');
+      }
+
+      if (empty($expedition_name)) {
+        return sendError('Please input expedition name');
+      }
+
       $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
       $pickinglistHeader->expedition_code    = $request->input('expedition_code');
-      $pickinglistHeader->expedition_name    = $request->input('expedition_name');
+      $pickinglistHeader->expedition_name    = $expedition_name;
       $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
-      $pickinglistHeader->vehicle_number     = $request->input('vehicle_number');
+      $pickinglistHeader->vehicle_number     = $vehicle_number;
       $pickinglistHeader->driver_id          = $request->input('driver_id');
-      $pickinglistHeader->driver_name        = $request->input('driver_name');
+      $pickinglistHeader->driver_name        = $driver_name;
     } else {
       $pickinglistHeader->expedition_code = 'AS';
       $pickinglistHeader->expedition_name = 'Ambil Sendiri';

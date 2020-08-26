@@ -85,82 +85,79 @@
 @push('script_js')
 <script type="text/javascript">
 
+    var dtdatatable;
+    jQuery(document).ready(function($) {
+      dtdatatable = $('#picking-list-table').DataTable({
+          serverSide: true,
+          scrollX: true,
+          responsive: true,
+          ajax: {
+              url: '{{url('picking-list')}}',
+              type: 'GET',
+              data: function(d) {
+                d.search['value'] = $('#picking_list_filter').val()
+              }
+          },
+          order: [1, 'desc'],
+          columns: [
+              {data: 'picking_date', name: 'picking_date', className: 'detail'},
+              {data: 'picking_no', name: 'picking_no', className: 'detail'},
+              {data: 'driver_name', name: 'driver_name', className: 'detail'},
+              {data: 'city_name', name: 'city_name', className: 'detail'},
+              {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+              {data: 'storage_type', name: 'storage_type', className: 'detail'},
+              {data: 'do_status', name: 'do_status', className: 'detail'},
+              {data: 'lmb', name: 'lmb', className: 'detail'},
+              {data: 'action', className: 'center-align', orderable:false, searchable: false},
+          ],
+          'createdRow': function(row, data, dataIndex){
+           // Use empty value in the "Office" column
+           // as an indication that grouping with COLSPAN is needed
+           if(data.city_code === 'AS'){
+              // Add COLSPAN attribute
+              $('td:eq(2)', row).attr('colspan', 3);
+              $('td:eq(2)', row).addClass('center-align');
 
-    var dtdatatable = $('#picking-list-table').DataTable({
-        serverSide: true,
-        scrollX: true,
-        responsive: true,
-        ajax: {
-            url: '{{url('picking-list')}}',
-            type: 'GET',
-            data: function(d) {
-              d.search['value'] = $('#picking_list_filter').val()
-            }
-        },
-        order: [1, 'desc'],
-        columns: [
-            {data: 'picking_date', name: 'picking_date', className: 'detail'},
-            {data: 'picking_no', name: 'picking_no', className: 'detail'},
-            {data: 'driver_name', name: 'driver_name', className: 'detail'},
-            {data: 'city_name', name: 'city_name', className: 'detail'},
-            {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-            {data: 'storage_type', name: 'storage_type', className: 'detail'},
-            {data: 'do_status', name: 'do_status', className: 'detail'},
-            {data: 'lmb', name: 'lmb', className: 'detail'},
-            {data: 'action', className: 'center-align', orderable:false, searchable: false},
-        ],
-        'createdRow': function(row, data, dataIndex){
-         // Use empty value in the "Office" column
-         // as an indication that grouping with COLSPAN is needed
-         if(data.city_code === 'AS'){
-            // Add COLSPAN attribute
-            $('td:eq(2)', row).attr('colspan', 3);
-            $('td:eq(2)', row).addClass('center-align');
+              // Hide required number of columns
+              // next to the cell with COLSPAN attribute
+              $('td:eq(3)', row).css('display', 'none');
+              $('td:eq(4)', row).css('display', 'none');
+           }
+        }   
+      });
 
-            // Hide required number of columns
-            // next to the cell with COLSPAN attribute
-            $('td:eq(3)', row).css('display', 'none');
-            $('td:eq(4)', row).css('display', 'none');
-         }
-      }   
-    });
+      dtdatatable.on('click', '.btn-delete', function(event) {
+        var tr = $(this).parent().parent();
+        var data = dtdatatable.row(tr).data();
+        id = data.id
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        swal({
+          text: "Cancel pickinglist for Picking No. " + data.picking_no + "?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Cancel It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) { // Bila oke post ajax ke url delete nya
+            // Ajax Post Delete
+            $.ajax({
+              url: '{{url('picking-list')}}' + '/' + id,
+              type: 'DELETE',
+            })
+            .done(function() { // Kalau ajax nya success
+              showSwalAutoClose('Success', 'Cancel picking no ' + data.picking_no + '.')
+              dtdatatable.ajax.reload(null, false); // reload datatable
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
 
-    dtdatatable.on('click', '.btn-edit', function(event) {
-      var id = $(this).data('id');
-      window.location.href = '' ;
-    });
-
-    dtdatatable.on('click', '.btn-delete', function(event) {
-      var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
-      id = data.id
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      swal({
-        text: "Cancel pickinglist for Picking No. " + data.picking_no + "?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Cancel It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) { // Bila oke post ajax ke url delete nya
-          // Ajax Post Delete
-          $.ajax({
-            url: '{{url('picking-list')}}' + '/' + id,
-            type: 'DELETE',
-          })
-          .done(function() { // Kalau ajax nya success
-            showSwalAutoClose('Success', 'Cancel picking no ' + data.picking_no + '.')
-            dtdatatable.ajax.reload(null, false); // reload datatable
-          })
-          .fail(function() { // Kalau ajax nya gagal
-            console.log("error");
-          });
-
-        }
-      })
+          }
+        })
+      });
     });
 </script>
 @endpush

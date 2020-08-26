@@ -67,24 +67,27 @@
     <table class="form-table" id="table-expedition-detail">
         <tr>
             <td width="120px;">Expedition</td>
-            <td>
-                <div class="input-field col s12">
+            <td width="43%">
+                <div id="expedition-input-wrapper" class="input-field col s12 {{auth()->user()->cabang->hq ? 'm12' : 'm6'}}">
                     <select name="expedition_code" class="select2-data-ajax browser-default" required="">
                     </select>
                     <input type="hidden" name="expedition_name">
+                </div>
+                <div id="expedition-manual-input-wrapper" class="input-field col s12 m6 pl-1 hide">
+                    <input value="" id="expedition_name_manual" type="text" class="validate" name="expedition_name_manual" {!! !auth()->user()->cabang->hq ? ' style="background-color: #f5da438f;"' : '' !!}>
                 </div>
             </td>
             <td width="120px;">
                 <P>Driver Name</P>
             </td>
             <td>
-                <div class="input-field col s12 m6">
-                    <select name="driver_id" class="select2-data-ajax browser-default">
+                <div id="input-driver-wrapper" class="input-field col s12 m6">
+                    <select name="driver_id" class="select2-data-ajax browser-default" {!! !auth()->user()->cabang->hq ? ' style="background-color: #f5da438f;"' : '' !!}>
                     </select>
                     <input type="hidden" name="driver_name">
                 </div>
-                <div class="input-field col s12 m6">
-                    <input value="" id="driver_name" type="text" class="validate" name="driver_name_text">
+                <div class="input-field col s12 m6  pl-1">
+                    <input value="" id="driver_name" type="text" class="validate" name="driver_name_manual" {!! !auth()->user()->cabang->hq ? ' style="background-color: #f5da438f;"' : '' !!}>
                 </div>
             </td>
         </tr>
@@ -113,12 +116,12 @@
             <td>Vehicle No</td>
             <td>
                 <input type="hidden" name="driver_register_id">
-                <div class="input-field col s12 m6">
-                    <select name="vehicle_number" class="select2-data-ajax browser-default">
+                <div id="vehicle_number_input_wrapper" class="input-field col s12 m6">
+                    <select name="vehicle_number" class="select2-data-ajax browser-default" {!! !auth()->user()->cabang->hq ? ' style="background-color: #f5da438f;"' : '' !!}>
                     </select>
                 </div>
-                <div class="input-field col s12 m6">
-                    <input value="" id="vehicle_number" type="text" class="validate" name="vehicle_number_text">
+                <div class="input-field col s12 m6 pl-1">
+                    <input value="" id="vehicle_number" type="text" class="validate" name="vehicle_number_manual" {!! !auth()->user()->cabang->hq ? ' style="background-color: #f5da438f;"' : '' !!}>
                 </div>
             </td>
             <td></td>
@@ -306,9 +309,11 @@
       set_branch_select_ship_to_city()
       set_branch_select_expedition()
       set_branch_select_vehicle_type()
-      $('#form-picking-list select[name="vehicle_number"]').attr('required', 'required');
       set_branch_select_vehicle_number()
-      $('#form-picking-list [name="driver_id"]').attr('required', 'required');
+      $('#form-picking-list select[name="vehicle_number"]').addClass('select2-required');
+      $('#form-picking-list [name="driver_id"]').addClass('select2-required');
+      // $('#form-picking-list select[name="vehicle_number"]').attr('required', 'required');
+      // $('#form-picking-list [name="driver_id"]').attr('required', 'required');
       set_branch_select_driver_name()
 
       $('#form-picking-list [name="driver_id"]').change(function(event) {
@@ -326,6 +331,15 @@
       $('#form-picking-list [name="expedition_code"]').change(function(event) {
           /* Act on the event */
           var data = $(this).select2('data')[0]
+          if ($(this).val() == "ON1") {
+            $('#vehicle_number_input_wrapper').addClass('hide')
+            $('#expedition-manual-input-wrapper').removeClass('hide')
+            $('#input-driver-wrapper').addClass('hide')
+          } else {
+            $('#vehicle_number_input_wrapper').removeClass('hide')
+            $('#expedition-manual-input-wrapper').addClass('hide')
+            $('#input-driver-wrapper').removeClass('hide')
+          }
           // set_branch_select_ship_to_city({expedition_code: $(this).val()})
           set_branch_select_vehicle_type({expedition_code: $(this).val()})
           // set_select2_value('#form-picking-list [name="city_code"]', '', '')

@@ -59,8 +59,13 @@
           data: $(form).serialize(),
         })
         .done(function(result) { // selesai dan berhasil
-          showSwalAutoClose('Success', result.message)
-          window.location.href = "{{ url('picking-list') }}" + '/' + result.data.id + '/edit';
+          if (result.status) {
+            showSwalAutoClose('Success', result.message)
+            window.location.href = "{{ url('picking-list') }}" + '/' + result.data.id + '/edit';
+          } else {
+            showSwalAutoClose('Warning', result.message)
+            setLoading(false); // Enable Button when failed
+          }
         })
         .fail(function(xhr) {
           setLoading(false); // Enable Button when failed

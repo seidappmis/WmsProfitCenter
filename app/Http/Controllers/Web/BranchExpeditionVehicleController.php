@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\BranchExpeditionVehicle;
+use App\Models\VehicleDetail;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -120,10 +121,22 @@ class BranchExpeditionVehicleController extends Controller
       ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_vehicle_expedition.expedition_code')
       ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'wms_branch_vehicle_expedition.vehicle_code_type')
       ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
-      ->where('wms_branch_vehicle_expedition.expedition_code', $request->input('expedition_code'))
       ->orderBy('text')
       ->groupBy('wms_branch_vehicle_expedition.vehicle_code_type')
     ;
+    $query->where('wms_branch_vehicle_expedition.expedition_code', $request->input('expedition_code'));
+
+    if ($request->input('expedition_code') == "ON1") {
+      $query = VehicleDetail::select(
+        DB::raw("vehicle_code_type AS id"),
+        DB::raw("vehicle_description AS text"),
+        'cbm_min',
+        'cbm_max'
+      )->toBase()
+        ->orderBy('text');
+
+      return get_select2_data($request, $query);
+    }
 
     return get_select2_data($request, $query);
   }
