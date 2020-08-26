@@ -10,4 +10,5 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('trucking-monitor', 'web.dashboard.trucking-monitor.index');
   Route::get('trucking-monitor/vehicle-standby', 'Web\TruckingMonitorController@getVehicleStandby');
+  Route::get('trucking-monitor/delivery-order', 'Web\TruckingMonitorController@getDeliveryOrder');
 });
