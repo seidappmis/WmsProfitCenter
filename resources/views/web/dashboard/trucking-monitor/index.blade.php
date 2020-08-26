@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {{-- <tr>
                                     <td>Waiting D/O</td>
                                     <td>SBY-200207-001</td>
                                     <td>L 9624_VZ</td>
@@ -80,7 +80,7 @@
                                     <td>PICK UP</td>
                                     <td>SMALL TRUCK</td>
                                     <td>7.000</td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>
