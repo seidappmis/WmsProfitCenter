@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware('auth:api')->get('picking-list/{picking_no}', 'API\PickinglistController@getPickingList');
+Route::middleware('auth:api')->post('picking-to-lmb', 'API\PickingToLMBController@storeScan');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
   return $request->user();
 });
 
+Route::get('branch', function(){
+  return \App\Models\MasterCabang::select('kode_customer', 'long_description')->get();
+});
 Route::post('login', 'API\UserController@login');
