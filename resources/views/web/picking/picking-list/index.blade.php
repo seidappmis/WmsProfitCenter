@@ -73,9 +73,6 @@
                       </div>
                   </div>
               </div>
-              <!---- Button Add ----->
-              <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
-              </div>
           </div>
           <div class="content-overlay"></div>
       </div>
@@ -141,12 +138,11 @@
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        text: "Cancel pickinglist for Picking No. " + data.picking_no + "?",
         icon: 'warning',
         buttons: {
           cancel: true,
-          delete: 'Yes, Delete It'
+          delete: 'Yes, Cancel It'
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) { // Bila oke post ajax ke url delete nya
@@ -156,7 +152,7 @@
             type: 'DELETE',
           })
           .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
+            showSwalAutoClose('Success', 'Cancel picking no ' + data.picking_no + '.')
             dtdatatable.ajax.reload(null, false); // reload datatable
           })
           .fail(function() { // Kalau ajax nya gagal

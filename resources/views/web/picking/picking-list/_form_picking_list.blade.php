@@ -133,6 +133,7 @@
             {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
           @endif
             {!! get_button_cancel(url('picking-list'),'Back') !!}
+            {!! get_button_delete('Delete', 'btn-delete-picking-list hide mt-2') !!}
         </div>
     </div>
 </form>
@@ -156,6 +157,34 @@
           var data = $(this).select2('data')[0];
           $('#form-picking-list [name="storage_name"]').val(data.text);
       });
+
+      @if(!empty($pickinglistHeader))
+        $('.btn-delete-picking-list').removeClass('hide')
+        $('.btn-delete-picking-list').click(function(event) {
+          /* Act on the event */
+          swal({
+            text: "Are you sure delete Picking No: {{$pickinglistHeader->picking_no}}?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
+            }
+          }).then(function (confirm){
+            if (confirm) {
+              $.ajax({
+                url: '{{url("picking-list/" . $pickinglistHeader->id)}}',
+                type: 'DELETE',
+                dataType: 'json',
+              })
+              .done(function(result) {
+                showSwalAutoClose('Success', 'Delete picking no {{$pickinglistHeader->picking_no}}.')
+                window.location.href = '{{url("picking-list")}}'
+              });
+              
+            }
+          })
+        });
+      @endif
 
         @if(auth()->user()->cabang->hq)
         init_form_hq()

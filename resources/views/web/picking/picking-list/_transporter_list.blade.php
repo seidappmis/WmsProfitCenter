@@ -48,9 +48,6 @@
             </div>
         </div>
     </div>
-    <!---- Button Add ----->
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
-    </div>
 </div>
 <div class="content-overlay"></div>
 
