@@ -130,6 +130,10 @@ class DashboardController extends Controller
       $rs_unit_truck[$key] = count($value);
     }
 
+    foreach ($rs_cbm as $key => $value) {
+      $rs_cbm[$key] = ceil($value);
+    }
+
     $result = [
       'rs_concept_waiting_truck_temp' => $rs_concept_waiting_truck_temp,
       'rs_unit_truck'                 => $rs_unit_truck,
