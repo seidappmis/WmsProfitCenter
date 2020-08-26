@@ -43,7 +43,7 @@ class UploadConceptController extends Controller
 
       // Validasi Data Per Baris
       if (!empty($row[0])) {
-        
+
         $concept = [
           'invoice_no'        => $row[0],
           'line_no'           => $row[1],
@@ -82,6 +82,7 @@ class UploadConceptController extends Controller
 
           'area'              => $area,
           'code_sales'        => 'DS',
+          'created_at'        => date('Y-m-d H:i:s'),
         ];
         // kalau data ada isinya
         $rs_key[$concept['line_no']] = $concept['invoice_no'];

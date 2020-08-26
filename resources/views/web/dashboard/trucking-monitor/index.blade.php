@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {{-- <tr>
                                     <td>Waiting D/O</td>
                                     <td>SBY-200207-001</td>
                                     <td>L 9624_VZ</td>
@@ -80,7 +80,7 @@
                                     <td>PICK UP</td>
                                     <td>SMALL TRUCK</td>
                                     <td>7.000</td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>
@@ -128,10 +128,10 @@
                 <div class="card m-0">
                     <div class="card-content pl-2 pr-2 pt-2 pb-2">
                         <h4 class="header m-0">Delivery Order List (top 15 of last upload)</h4>
-                        <h6 class="red-text" style="font-weight: 600;">Total Shipment : 131</h6>
+                        <h6 class="red-text" style="font-weight: 600;">Total Shipment : <span id="text-total-shipment">0</span></h6>
                         <hr>
                         <div style="overflow-x: auto; height: 300px; overflow-y: auto;">
-                            <table class="table striped">
+                            <table class="table striped" id="table-delivery-order">
                                 <thead>
                                     <tr>
                                         <th>SHIPMENT NO</th>
@@ -144,7 +144,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                   {{--  <tr>
                                         <td>1000307683</td>
                                         <td>2800076697</td>
                                         <td>1</td>
@@ -188,7 +188,7 @@
                                         <td>SURABAYA HUB-KEDIRI</td>
                                         <td>TRISILA, CV.</td>
                                         <td>2018-05-16 14:47:40</td>
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -213,9 +213,49 @@
         $('#area_filter').attr('disabled','disabled')
       @endif
 
+      loadDeliveryOrderList();
+      setInterval( loadDeliveryOrderList, 60000 );
       loadVehicleStandby();
       setInterval( loadVehicleStandby, 60000 );
     });
+
+    function loadDeliveryOrderList(){
+        $.ajax({
+            url: '{{url("trucking-monitor/delivery-order")}}',
+            type: 'GET',
+            dataType: 'json',
+            data: {area:  $('#area_filter').val()},
+        })
+        .done(function(result) {
+            if (result.status) {
+                var row = '';
+                $.each(result.data.top15, function(index, val) {
+                     /* iterate through array or object */
+                    row += '<tr>';
+                    row += '<td>' + val.invoice_no + '</td>';
+                    row += '<td>' + val.delivery_no + '</td>';
+                    row += '<td>' + val.total_do_items + '</td>';
+                    row += '<td>' + val.total_cbm + '</td>';
+                    row += '<td>' + val.destination_name + '</td>';
+                    row += '<td>' + val.expedition_name + '</td>';
+                    row += '<td>' + moment(val.created_at).format('HH:mm:ss') + '</td>';
+                    row += '</tr>';
+                });
+
+                $('#table-delivery-order tbody').empty();
+                $('#table-delivery-order tbody').append(row)
+
+                $('#text-total-shipment').text(result.data.shipment.total_shipment)
+            }
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+        
+    }
 
     function loadVehicleStandby(){
         $.ajax({

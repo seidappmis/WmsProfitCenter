@@ -83,6 +83,18 @@ class DashboardController extends Controller
       }
     }
 
+    foreach ($rs_cbm_of_concept as $key => $value) {
+      $rs_cbm_of_concept[$key]['y'] = ceil($value['y']);
+    }
+
+    foreach ($rs_cbm_of_truck as $key => $value) {
+      $rs_cbm_of_truck[$key]['y'] = ceil($value['y']);
+    }
+
+    foreach ($rs_status_cbm_of_concept_list as $key => $value) {
+      $rs_status_cbm_of_concept_list[$key]['value'] = ceil($value['value']);
+    }
+
     $result = [
       'subtitle_text'                 => $request->input('area') . ' ' . date("Y-m-d"),
       // 'rs_cbm'                             => $rs_cbm,
@@ -116,6 +128,10 @@ class DashboardController extends Controller
     $rs_unit_truck = [];
     foreach ($rs_unit_truck_temp as $key => $value) {
       $rs_unit_truck[$key] = count($value);
+    }
+
+    foreach ($rs_cbm as $key => $value) {
+      $rs_cbm[$key] = ceil($value);
     }
 
     $result = [
