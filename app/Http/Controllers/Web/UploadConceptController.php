@@ -40,48 +40,49 @@ class UploadConceptController extends Controller
         $title = false;
         continue; // Skip baris judul
       }
-      $concept = [
-        'invoice_no'        => $row[0],
-        'line_no'           => $row[1],
-        'output_date'       => $row[2],
-        'output_time'       => $row[3],
-
-        'destination_name'  => $row[4],
-        // 'destination_number' => $row[4], // Cari dari database
-
-        'vehicle_code_type' => $row[5],
-        'car_no'            => $row[6],
-        'cont_no'           => $row[7],
-        'checkin_date'      => $row[8],
-        'checkin_time'      => $row[9],
-
-        'expedition_name'   => $row[10],
-        // 'expedition_id'     => $row[10], // cari dari database
-
-        'delivery_no'       => $row[11],
-        'delivery_items'    => $row[12],
-        'model'             => $row[13],
-        'quantity'          => $row[14],
-        'cbm'               => $row[15],
-        'ship_to'           => $row[16],
-        'sold_to'           => $row[17],
-        'ship_to_city'      => $row[18],
-        'ship_to_district'  => $row[19],
-        'ship_to_street'    => $row[20],
-        'sold_to_city'      => $row[21],
-        'sold_to_district'  => $row[22],
-        'sold_to_street'    => $row[23],
-        'remarks'           => $row[24],
-        'sold_to_code'      => $row[25],
-        'ship_to_code'      => $row[26],
-        'expedition_code'   => $row[27],
-
-        'area'              => $area,
-        'code_sales'        => 'DS',
-      ];
 
       // Validasi Data Per Baris
-      if (!empty($concept['invoice_no'])) {
+      if (!empty($row[0])) {
+        
+        $concept = [
+          'invoice_no'        => $row[0],
+          'line_no'           => $row[1],
+          'output_date'       => $row[2],
+          'output_time'       => $row[3],
+
+          'destination_name'  => $row[4],
+          // 'destination_number' => $row[4], // Cari dari database
+
+          'vehicle_code_type' => $row[5],
+          'car_no'            => $row[6],
+          'cont_no'           => $row[7],
+          'checkin_date'      => $row[8],
+          'checkin_time'      => $row[9],
+
+          'expedition_name'   => $row[10],
+          // 'expedition_id'     => $row[10], // cari dari database
+
+          'delivery_no'       => $row[11],
+          'delivery_items'    => $row[12],
+          'model'             => $row[13],
+          'quantity'          => $row[14],
+          'cbm'               => $row[15],
+          'ship_to'           => $row[16],
+          'sold_to'           => $row[17],
+          'ship_to_city'      => $row[18],
+          'ship_to_district'  => $row[19],
+          'ship_to_street'    => $row[20],
+          'sold_to_city'      => $row[21],
+          'sold_to_district'  => $row[22],
+          'sold_to_street'    => $row[23],
+          'remarks'           => $row[24],
+          'sold_to_code'      => $row[25],
+          'ship_to_code'      => $row[26],
+          'expedition_code'   => $row[27],
+
+          'area'              => $area,
+          'code_sales'        => 'DS',
+        ];
         // kalau data ada isinya
         $rs_key[$concept['line_no']] = $concept['invoice_no'];
 
