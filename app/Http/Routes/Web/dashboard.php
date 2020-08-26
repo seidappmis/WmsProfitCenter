@@ -6,6 +6,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('dashboard/waiting-truck-all-area', 'Web\DashboardController@getWaitingTruckAllArea');
 
   Route::view('dashboard2', 'web.dashboard.dashboard2.index');
+  Route::get('dashboard2/daily-by-category', 'Web\Dashboard2Controller@getDailyByCategory');
 
   Route::view('trucking-monitor', 'web.dashboard.trucking-monitor.index');
   Route::get('trucking-monitor/vehicle-standby', 'Web\TruckingMonitorController@getVehicleStandby');

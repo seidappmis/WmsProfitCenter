@@ -100,7 +100,6 @@ class DashboardController extends Controller
 
   public function getWaitingTruckAllArea()
   {
-    $rs_area                       = Area::whereNotNull('code')->orderBy('area')->get();
     $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck();
 
     $rs_cbm             = [];
@@ -118,8 +117,6 @@ class DashboardController extends Controller
     foreach ($rs_unit_truck_temp as $key => $value) {
       $rs_unit_truck[$key] = count($value);
     }
-
-    // return $rs_area;
 
     $result = [
       'rs_concept_waiting_truck_temp' => $rs_concept_waiting_truck_temp,
