@@ -30,16 +30,35 @@
                         <h4 class="card-title">Header</h4>
                         <table class="form-table mb-1">
                           <tr>
-                            <td>LMB Date</td>
-                            <td>{{$lmbHeader->lmb_date}}</td>
-                            <td>Expedisi</td>
+                            <td width="100px">LMB Date</td>
+                            <td width="35%">{{$lmbHeader->lmb_date}}</td>
+                            <td width="100px">Expedisi</td>
                             <td>{{$lmbHeader->expedition_name}}</td>
                           </tr>
                           <tr>
                             <td>Picking No</td>
                             <td>{{$lmbHeader->picking->picking_no}}</td>
                             <td>Vehicle No</td>
-                            <td>{{$lmbHeader->vehicle_number}}</td>
+                            <td>
+                              <div id="vehicle_number-wrapper">
+                                <span id="text-vehicle_number">{{$lmbHeader->vehicle_number}}</span>
+                                {!! get_button_edit('#', 'Edit', 'btn-edit-vehicle-no') !!}
+                              </div>
+                              <div id="edit-vehicle_number-wrapper" class="hide">
+                                <div class="input-field col s4">
+                                  <input 
+                                      type="text" 
+                                      class="validate" 
+                                      id="new_vehicle_number" 
+                                      value="{{$lmbHeader->vehicle_number}} " 
+                                      maxlength="11" 
+                                      required
+                                      />
+                                </div>
+                                <span class="waves-effect waves-light indigo btn-small btn-save-edit-vehicle-number">Save</span>
+                                <span class="waves-effect waves-light indigo btn-small btn-cancel-edit-vehicle-number">Cancel</span>
+                              </div>
+                            </td>
                           </tr>
                           <tr>
                             <td>Ship to City</td>
@@ -155,5 +174,48 @@
         });
     }
    })
+
+   jQuery(document).ready(function($) {
+     $('.btn-edit-vehicle-no').click(function(event) {
+       /* Act on the event */
+       $('#edit-vehicle_number-wrapper').removeClass('hide')
+       $('#vehicle_number-wrapper').addClass('hide')
+     });
+     $('.btn-cancel-edit-vehicle-number').click(function(event) {
+       /* Act on the event */
+       $('#new_vehicle_number').val($('#text-vehicle_number').text());
+       $('#edit-vehicle_number-wrapper').addClass('hide')
+       $('#vehicle_number-wrapper').removeClass('hide')
+     });
+     $('.btn-save-edit-vehicle-number').click(function(event) {
+       /* Act on the event */
+       var new_vehicle_number = $('#new_vehicle_number').val();
+       if (new_vehicle_number == '') {
+        alert('Please input vehicle no');
+        return;
+       }
+       $.ajax({
+         url: '{{url('picking-to-lmb/' . $lmbHeader->driver_register_id . '/update-vehicle-number')}}',
+         type: 'PUT',
+         dataType: 'json',
+         data: {vehicle_number: new_vehicle_number},
+       })
+       .done(function(result) {
+        if (result.status) {
+          $('#text-vehicle_number').text(new_vehicle_number)
+          $('#edit-vehicle_number-wrapper').addClass('hide')
+           $('#vehicle_number-wrapper').removeClass('hide')
+          showSwalAutoClose('Success', result.message)
+        }
+       })
+       .fail(function() {
+         console.log("error");
+       })
+       .always(function() {
+         console.log("complete");
+       });
+       
+     });
+   });
 </script>
 @endpush

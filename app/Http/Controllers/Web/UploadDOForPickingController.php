@@ -22,6 +22,7 @@ class UploadDOForPickingController extends Controller
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+          $join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->where('kode_cabang', auth()->user()->cabang->kode_cabang);

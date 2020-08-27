@@ -89,133 +89,136 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable_serial_number = $('#serial-number-table').DataTable({
-    serverSide: true,
-    scrollX: true,
-    responsive: true,
-    ajax: {
-        url: '{{ url('picking-to-lmb/picking-list/' . $picking->id) }}',
-        type: 'GET',
-        data: function(d) {
-            d.search['value'] = $('#global_filter').val()
-          }
-    },
-    order: [2, 'asc'],
-    columns: [
-        {
-          data: 'DT_RowIndex',
-          orderable: false,
-          render: function ( data, type, row ) {
-              if ( type === 'display' ) {
-                  return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+  var dtdatatable_serial_number;
+    jQuery(document).ready(function($) {
+      dtdatatable_serial_number = $('#serial-number-table').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('picking-to-lmb/picking-list/' . $picking->id) }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val()
               }
-              return data;
-          },
-          className: "datatable-checkbox-cell"
         },
-        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'serial_number', name: 'serial_number', className: 'detail'},
-        {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
-        {data: 'model', name: 'model', className: 'detail'},
-        {data: 'ean_code', name: 'ean_code', className: 'detail'},
-        {data: 'action', className: 'center-align', searchable: false, orderable: false},
-    ],
-  });
+        order: [2, 'asc'],
+        columns: [
+            {
+              data: 'DT_RowIndex',
+              orderable: false,
+              render: function ( data, type, row ) {
+                  if ( type === 'display' ) {
+                      return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+                  }
+                  return data;
+              },
+              className: "datatable-checkbox-cell"
+            },
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'serial_number', name: 'serial_number', className: 'detail'},
+            {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'ean_code', name: 'ean_code', className: 'detail'},
+            {data: 'action', className: 'center-align', searchable: false, orderable: false},
+        ],
+      });
 
-    set_datatables_checkbox('#serial-number-table', dtdatatable_serial_number)
+        set_datatables_checkbox('#serial-number-table', dtdatatable_serial_number)
 
-    $('.btn-multi-delete-selected-item').click(function(event) {
-      /* Act on the event */
-      swal({
-        title: "Are you sure?",
-        text: "Are you sure delete selected item?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        var data_serial_number = [];
-        dtdatatable_serial_number.$('input[type="checkbox"]').each(function() {
-           /* iterate through array or object */
-           if(this.checked){
-            var row = $(this).closest('tr');
-            var row_data = dtdatatable_serial_number.row(row).data();
-            data_serial_number.push(row_data);
-           }
-        });
-        if (confirm) { // Bila oke post ajax ke url delete nya
-          // Ajax Post Delete
-          $.ajax({
-            url: '{{ url('picking-to-lmb/picking-list/multi-delete-selected-item') }}' ,
-            type: 'DELETE',
-            data: 'data_serial_number=' + JSON.stringify(data_serial_number),
-          })
-          .done(function() { // Kalau ajax nya success
-            showSwalAutoClose('Success', 'selected data deleted.')
-            if ($('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).attr("checked")) {
-              $('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).trigger('click')
+        $('.btn-multi-delete-selected-item').click(function(event) {
+          /* Act on the event */
+          swal({
+            title: "Are you sure?",
+            text: "Are you sure delete selected item?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
             }
-            dtdatatable_serial_number.ajax.reload(null, false); // reload datatable
+          }).then(function (confirm) { // proses confirm
+            var data_serial_number = [];
+            dtdatatable_serial_number.$('input[type="checkbox"]').each(function() {
+               /* iterate through array or object */
+               if(this.checked){
+                var row = $(this).closest('tr');
+                var row_data = dtdatatable_serial_number.row(row).data();
+                data_serial_number.push(row_data);
+               }
+            });
+            if (confirm) { // Bila oke post ajax ke url delete nya
+              // Ajax Post Delete
+              $.ajax({
+                url: '{{ url('picking-to-lmb/picking-list/multi-delete-selected-item') }}' ,
+                type: 'DELETE',
+                data: 'data_serial_number=' + JSON.stringify(data_serial_number),
+              })
+              .done(function() { // Kalau ajax nya success
+                showSwalAutoClose('Success', 'selected data deleted.')
+                if ($('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).attr("checked")) {
+                  $('thead input[type="checkbox"]', dtdatatable_serial_number.table().container()).trigger('click')
+                }
+                dtdatatable_serial_number.ajax.reload(null, false); // reload datatable
+              })
+              .fail(function() { // Kalau ajax nya gagal
+                console.log("error");
+              });
+              
+            }
           })
-          .fail(function() { // Kalau ajax nya gagal
-            console.log("error");
-          });
-          
-        }
-      })
-    });
-
-    dtdatatable_serial_number.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      var tr = $(this).parent().parent();
-      var data = dtdatatable_serial_number.row(tr).data();
-
-      // Ask user confirmation to delete the data.
-      swal({
-        text: "Delete the this item ?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) { // if CONFIRMED send DELETE Request to endpoint
-          $.ajax({
-            url: '{{ url('picking-to-lmb/picking-list') }}',
-            type: 'DELETE',
-            data: 'ean_code=' + data.ean_code + '&serial_number=' + data.serial_number + '&picking_id=' + data.picking_id ,
-            dataType: 'json',
-          })
-          .done(function() {
-            showSwalAutoClose('Success', 'Item deleted.')
-            dtdatatable_serial_number.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
-    });
-
-     $("#form-picking-to-lmb").validate({
-      submitHandler: function(form) {
-        setLoading(true); // Disable Button when ajax post data
-        $.ajax({
-          url: '{{ url("picking-to-lmb") }}',
-          type: 'POST',
-          data: $(form).serialize(),
-        })
-        .done(function(data) { // selesai dan berhasil
-          showSwalAutoClose('Success', 'Data created.')
-          window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
-        })
-        .fail(function(xhr) {
-          setLoading(false); // Enable Button when failed
-            showSwalError(xhr) // Custom function to show error with sweetAlert
         });
-      }
+
+        dtdatatable_serial_number.on('click', '.btn-delete', function(event) {
+          event.preventDefault();
+          /* Act on the event */
+          var tr = $(this).parent().parent();
+          var data = dtdatatable_serial_number.row(tr).data();
+
+          // Ask user confirmation to delete the data.
+          swal({
+            text: "Delete the this item ?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
+            }
+          }).then(function (confirm) { // proses confirm
+            if (confirm) { // if CONFIRMED send DELETE Request to endpoint
+              $.ajax({
+                url: '{{ url('picking-to-lmb/picking-list') }}',
+                type: 'DELETE',
+                data: 'ean_code=' + data.ean_code + '&serial_number=' + data.serial_number + '&picking_id=' + data.picking_id ,
+                dataType: 'json',
+              })
+              .done(function() {
+                showSwalAutoClose('Success', 'Item deleted.')
+                dtdatatable_serial_number.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              })
+              .fail(function() {
+                console.log("error");
+              });
+            }
+          })
+        });
+
+         $("#form-picking-to-lmb").validate({
+          submitHandler: function(form) {
+            setLoading(true); // Disable Button when ajax post data
+            $.ajax({
+              url: '{{ url("picking-to-lmb") }}',
+              type: 'POST',
+              data: $(form).serialize(),
+            })
+            .done(function(data) { // selesai dan berhasil
+              showSwalAutoClose('Success', 'Data created.')
+              window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
+            })
+            .fail(function(xhr) {
+              setLoading(false); // Enable Button when failed
+                showSwalError(xhr) // Custom function to show error with sweetAlert
+            });
+          }
+        });
     });
 </script>
 @endpush

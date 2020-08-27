@@ -62,6 +62,7 @@
         })
         .done(function(data) { // selesai dan berhasil
           setLoading(false); // Enable Button when failed
+          $(form)[0].reset()
           if (data.status == false) {
             $('#table-serial-number tbody').empty();
             swal("Failed!", data.message, "warning");

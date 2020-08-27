@@ -264,18 +264,35 @@ class PickingListController extends Controller
   {
     $total_quantity_split = 0;
 
-    $maxConcept = Concept::select(
-      DB::raw('MAX(line_no) AS max_line_no'),
-      DB::raw('MAX(delivery_items) AS max_delivery_items')
-    )
-      ->where('invoice_no', $request->input('invoice_no'))
-      ->first();
+    if (auth()->user()->cabang->hq) {
+      $maxConcept = Concept::select(
+        DB::raw('MAX(line_no) AS max_line_no'),
+        DB::raw('MAX(delivery_items) AS max_delivery_items')
+      )
+        ->where('invoice_no', $request->input('invoice_no'))
+        ->first();
 
-    $max_line_no        = $maxConcept->max_line_no;
-    $max_delivery_items = $maxConcept->max_delivery_items;
+      $max_line_no        = $maxConcept->max_line_no;
+      $max_delivery_items = $maxConcept->max_delivery_items;
 
-    $concept = Concept::where('invoice_no', $request->input('invoice_no'))
-      ->where('line_no', $request->input('line_no'))->first();
+      $concept = Concept::where('invoice_no', $request->input('invoice_no'))
+        ->where('line_no', $request->input('line_no'))->first();
+    } else {
+      $maxConcept = ManualConcept::select(
+        // DB::raw('MAX(line_no) AS max_line_no'),
+        DB::raw('MAX(delivery_items) AS max_delivery_items')
+      )
+        ->where('invoice_no', $request->input('invoice_no'))
+        ->where('delivery_no', $request->input('delivery_no'))
+        ->first();
+
+      // $max_line_no        = $maxConcept->max_line_no;
+      $max_delivery_items = $maxConcept->max_delivery_items;
+
+      $concept = ManualConcept::where('invoice_no', $request->input('invoice_no'))
+        ->where('delivery_no', $request->input('delivery_no'))
+        ->first();
+    }
 
     $rs_split_concept = [];
     $dateTime         = date('Y-m-d H:i:s');
@@ -284,10 +301,13 @@ class PickingListController extends Controller
       $total_quantity_split += $value;
 
       $split_concept = $concept->toArray();
-      $max_line_no++;
       $max_delivery_items += 10;
 
-      $split_concept['line_no']        = $max_line_no;
+      if (auth()->user()->cabang->hq) {
+        $max_line_no++;
+        $split_concept['line_no'] = $max_line_no;
+      }
+
       $split_concept['delivery_items'] = $max_delivery_items;
       $split_concept['cbm']            = ($split_concept['cbm'] / $concept->quantity * $value);
       $split_concept['quantity']       = $value;
@@ -304,9 +324,15 @@ class PickingListController extends Controller
 
     try {
       DB::beginTransaction();
-      Concept::where('invoice_no', $request->input('invoice_no'))
-        ->where('line_no', $request->input('line_no'))->delete();
-      Concept::insert($rs_split_concept);
+      if (auth()->user()->cabang->hq) {
+        Concept::where('invoice_no', $request->input('invoice_no'))
+          ->where('line_no', $request->input('line_no'))->delete();
+        Concept::insert($rs_split_concept);
+      } else {
+        ManualConcept::where('invoice_no', $request->input('invoice_no'))
+          ->where('delivery_no', $request->input('delivery_no'))->delete();
+        ManualConcept::insert($rs_split_concept);
+      }
       DB::commit();
 
       return sendSuccess('Concept has been split', $concept);
@@ -367,9 +393,9 @@ class PickingListController extends Controller
       ;
 
       if ($request->input('filter_type') == 'shipment') {
-        $query->where('tr_concept.invoice_no', $request->input('do_or_shipment'));
+        $query->where('tr_concept.invoice_no', 'like', '%' . $request->input('do_or_shipment') . '%');
       } else {
-        $query->where('tr_concept.delivery_no', $request->input('do_or_shipment'));
+        $query->where('tr_concept.delivery_no', 'like', '%' . $request->input('do_or_shipment') . '%');
       }
 
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
@@ -380,20 +406,31 @@ class PickingListController extends Controller
       // Cabang Ambil Dari Upload DO for Picking
       $query = ManualConcept::select(
         'wms_manual_concept.*',
-        DB::raw('"" AS line_no')
+        DB::raw('0 AS line_no'),
+        DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
       )
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+          $join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
+        })
+        ->leftjoin(DB::raw('wms_manual_concept AS wmcT'), function ($join) {
+          $join->on('wmcT.invoice_no', '=', 'wms_manual_concept.invoice_no');
+          $join->on('wmcT.delivery_no', '=', 'wms_manual_concept.delivery_no');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
       // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
       ;
 
       if ($request->input('filter_type') == 'shipment') {
-        $query->where('wms_manual_concept.invoice_no', $request->input('do_or_shipment'));
+        $query->where('wms_manual_concept.invoice_no', 'like', '%' . $request->input('do_or_shipment') . '%');
       } else {
-        $query->where('wms_manual_concept.delivery_no', $request->input('do_or_shipment'));
+        $query->where('wms_manual_concept.delivery_no', 'like', '%' . $request->input('do_or_shipment') . '%');
+      }
+
+      if (empty($request->input('do_or_shipment'))) {
+        $query->whereRaw('1=2');
       }
 
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {

@@ -26,6 +26,9 @@ class PickingToLMBController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+      // ->editColumn('destination_name', function ($data) {
+      //   return $data->getDestinationName($data);
+      // })
         ->addColumn('picking_no', function ($data) {
           return $data->picking->picking_no;
         })
@@ -42,6 +45,14 @@ class PickingToLMBController extends Controller
       return $datatables->make(true);
     }
     return view('web.picking.picking-to-lmb.index');
+  }
+
+  public function updateVehicleNumber(Request $request, $id)
+  {
+    $lmbHeader                 = LMBHeader::findOrFail($id);
+    $lmbHeader->vehicle_number = $request->input('vehicle_number');
+    $lmbHeader->save();
+    return sendSuccess('Succes Save Vehicle No ' . $lmbHeader->vehicle_number, $lmbHeader);
   }
 
   public function show(Request $request, $id)
@@ -78,7 +89,7 @@ class PickingToLMBController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'picking_no'   => 'required',
+      'picking_no' => 'required',
       // 'seal_no'      => 'required',
       // 'container_no' => 'required',
     ]);
@@ -95,8 +106,8 @@ class PickingToLMBController extends Controller
     $lmbHeader->driver_id          = $picking->driver_id;
     $lmbHeader->driver_name        = $picking->driver_name;
     $lmbHeader->vehicle_number     = $picking->vehicle_number;
-    $lmbHeader->destination_number = $picking->destination_number;
-    $lmbHeader->destination_name   = $picking->destination_name;
+    $lmbHeader->destination_number = $picking->getDestinationNumber($picking);
+    $lmbHeader->destination_name   = $picking->getDestinationName($picking);
     $lmbHeader->kode_cabang        = $picking->kode_cabang;
 
     $cabang = MasterCabang::where('kode_cabang', $lmbHeader->kode_cabang)->first();
@@ -378,14 +389,15 @@ class PickingToLMBController extends Controller
     ;
   }
 
-  public function destroySelectedLmbDetail(Request $request){
+  public function destroySelectedLmbDetail(Request $request)
+  {
     $data_serial_number = json_decode($request->input('data_serial_number'), true);
 
     foreach ($data_serial_number as $key => $value) {
       LMBDetail::where('ean_code', $value['ean_code'])
-      ->where('serial_number', $value['serial_number'])
-      ->where('picking_id', $value['picking_id'])
-      ->delete();
+        ->where('serial_number', $value['serial_number'])
+        ->where('picking_id', $value['picking_id'])
+        ->delete();
     }
 
     return true;
@@ -398,7 +410,7 @@ class PickingToLMBController extends Controller
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
       ->editColumn('destination_name', function ($data) {
-        return $data->expedition_code == 'AS' ? "Ambil Sendiri" : $data->destination_name;
+        return $data->getDestinationName($data);
       })
       ->addColumn('do_status', function ($data) {
         return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';

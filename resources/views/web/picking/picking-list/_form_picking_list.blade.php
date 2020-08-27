@@ -1,9 +1,12 @@
 <form class="form-table" id="form-picking-list">
     <div class="row">
-        <div class="col s12 m1 padding-1">
+        <div id="btn-new-picking-wrapper" class="col s4 m3 padding-1 hide">
+          <span class="waves-effect waves-light indigo btn-small btn-new-picking">New Picking</span>
+        </div>
+        <div class="col s4 m1 padding-1">
             <p>Storage:</p>
         </div>
-        <div class="col s12 m4">
+        <div class="col s4 m4">
             <!---- Search ----->
             <div class="input-field col s12">
                 <select name="storage_id" class="select2-data-ajax browser-default" required="">
