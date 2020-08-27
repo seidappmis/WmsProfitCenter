@@ -6,7 +6,7 @@
 			<table style="width: 210.0003mm;">
 				<tr>
 					<td>
-						<table width="100%" style="border-collapse: collapse;">
+						<table width="100%" style="border-collapse: collapse; font-size: 10pt;">
 							{{-- Logo --}}
 							<tr>
 				                <td colspan="9" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp; <img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo"  style="width: 90px;"></td>
@@ -225,7 +225,7 @@
 							<tr><td colspan="9" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td></tr>
 							<tr>
 								<td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Company Name :</strong></td>
-								<td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000;"><strong>SEJAHTERA BERSAMA TRANSINDO, PT.</strong></td>
+								<td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; font-size: 12pt;"><strong>SEJAHTERA BERSAMA TRANSINDO, PT.</strong></td>
 								<td colspan="3" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;"><strong>Supplier Code :</strong></td>
 							</tr>
 							<tr><td colspan="9" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000"></td></tr>
