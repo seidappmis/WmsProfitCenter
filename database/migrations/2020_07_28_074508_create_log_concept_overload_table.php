@@ -54,7 +54,7 @@ class CreateLogConceptOverloadTable extends Migration
             $table->integer('quantity_before');
             $table->decimal('cbm_before', 18, 3);
 
-            $table->primary('invoice_no');
+            $table->primary(['invoice_no', 'line_no']);
         });
     }
 

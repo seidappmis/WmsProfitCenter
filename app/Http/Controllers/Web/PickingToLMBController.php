@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
+use App\Models\LOGConceptOverload;
 use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use App\Models\MovementTransactionLog;
@@ -64,24 +65,43 @@ class PickingToLMBController extends Controller
       return sendSuccess('Seat Loading Quantity', $details);
     }
 
-    $data['rs_loading_quantity'] = $data['lmbHeader']
-      ->details()
-      ->selectRaw('
+    $tempDetailLMB = LMBDetail::selectRaw('
         wms_lmb_detail.invoice_no,
         wms_lmb_detail.delivery_no,
         wms_lmb_detail.model,
-        COUNT(serial_number) AS qty_loading,
         wms_lmb_detail.code_sales,
-        wms_pickinglist_detail.quantity
+        COUNT(serial_number) AS qty_loading
       ')
-      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_lmb_detail.picking_id')
-      ->leftjoin('wms_pickinglist_detail', function ($join) {
-        $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
-        $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
-        $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
-      })
-      ->groupBy('delivery_no', 'model')
-      ->get();
+      ->where('driver_register_id', $id)->get();
+
+    $rsLoadingQuantity = [];
+    foreach ($tempDetailLMB as $key => $value) {
+      $rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model] = $value->qty_loading;
+    }
+    $data['rsLoadingQuantity'] = $rsLoadingQuantity;
+
+    $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
+    // echo "<pre>";
+    // print_r($data['rsLoadingQuantity']);
+    // exit;
+    // $data['rs_loading_quantity'] = $data['lmbHeader']
+    //   ->details
+    //   ->selectRaw('
+    //     wms_lmb_detail.invoice_no,
+    //     wms_lmb_detail.delivery_no,
+    //     wms_lmb_detail.model,
+    //     COUNT(serial_number) AS qty_loading,
+    //     wms_lmb_detail.code_sales,
+    //     wms_pickinglist_detail.quantity
+    //   ')
+    //   ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_lmb_detail.picking_id')
+    //   ->leftjoin('wms_pickinglist_detail', function ($join) {
+    //     $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+    //     $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+    //     $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
+    //   })
+    //   ->groupBy('delivery_no', 'model')
+    //   ->get();
 
     return view('web.picking.picking-to-lmb.view', $data);
   }
@@ -134,138 +154,188 @@ class PickingToLMBController extends Controller
   /**
    * Stock di 1 class berkurang dan stock di intransit bertambah
    */
-  public function sendManifest($id)
+  public function sendManifest(Request $request, $id)
   {
     $lmbHeader = LMBHeader::findOrFail($id);
 
-    $lmbHeader->send_manifest = 1;
+    try {
+      DB::beginTransaction();
+      $lmbHeader->send_manifest = 1;
 
-    $details = $lmbHeader
-      ->details()
-      ->select(
-        'wms_lmb_detail.*',
-        'wms_pickinglist_header.storage_id',
-        'wms_master_storage.sto_loc_code_long'
-      )
-      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
-      ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
-      ->get();
+      $rs_picking_detail_id        = $request->input('picking_detail_id');
+      $rs_picking_quantity         = $request->input('picking_quantity');
+      $rs_picking_quantity_loading = $request->input('picking_quantity_loading');
 
-    $rs_models = [];
+      foreach ($rs_picking_detail_id as $key => $value) {
+        if ($rs_picking_quantity_loading[$key] <= 0) {
+          // DELETE Picking List Detail
+          PickinglistDetail::destroy($value);
+        } elseif ($rs_picking_quantity_loading[$key] < $rs_picking_quantity[$key]) {
+          // update quantity Pickinglist
+          $picking_detail           = PickinglistDetail::find($rs_picking_detail_id[$key]);
+          $picking_detail->quantity = $rs_picking_quantity_loading[$key];
+          $cbm_before               = $picking_detail->cbm;
+          $cbm_unit                 = $picking_detail->cbm / $rs_picking_quantity[$key];
+          $picking_detail->cbm      = $cbm_unit * $rs_picking_quantity_loading[$key];
+          $picking_detail->save();
+          // Overload picking
+          $logConceptOverload                    = new LOGConceptOverload;
+          $logConceptOverload->invoice_no        = $picking_detail->invoice_no;
+          $logConceptOverload->line_no           = $picking_detail->line_no;
+          $logConceptOverload->vehicle_code_type = $picking_detail->header->vehicle_code_type;
+          $logConceptOverload->expedition_id     = $picking_detail->header->expedition_id;
+          $logConceptOverload->delivery_no       = $picking_detail->delivery_no;
+          $logConceptOverload->delivery_items    = $picking_detail->delivery_items;
+          $logConceptOverload->model             = $picking_detail->model;
+          $logConceptOverload->quantity          = $rs_picking_quantity[$key] - $rs_picking_quantity_loading[$key];
+          $logConceptOverload->cbm               = $cbm_unit * $logConceptOverload->quantity;
+          $logConceptOverload->ship_to_city      = $picking_detail->header->city_name;
+          $logConceptOverload->created_at        = date('Y-m-d H:i:s');
+          $logConceptOverload->created_by        = auth()->user()->id;
+          $logConceptOverload->split_date        = date('Y-m-d H:i:s');
+          $logConceptOverload->area              = $picking_detail->header->area;
+          $logConceptOverload->expedition_name   = $picking_detail->header->expedition_name;
+          $logConceptOverload->code_sales        = $picking_detail->code_sales;
+          $logConceptOverload->status_confirm    = 0;
+          $logConceptOverload->overload_reason   = 'AUTO OVERLOAD BY SYSTEM FROM LMB';
+          $logConceptOverload->quantity_before   = $rs_picking_quantity[$key];
+          $logConceptOverload->cbm_before        = $cbm_before;
 
-    foreach ($details as $key => $value) {
-      if (empty($rs_models[$value->model])) {
-        $model                      = [];
-        $model['storage_id']        = $value->storage_id;
-        $model['sto_loc_code_long'] = $value->sto_loc_code_long;
-        $model['ean_code']          = $value->ean_code;
-        $model['code_sales']        = $value->code_sales;
-        $model['qty']               = 0;
-        $model['cbm_total']         = 0;
-
-        $rs_models[$value->model] = $model;
+          $logConceptOverload->save();
+        }
       }
 
-      $rs_models[$value->model]['qty'] += 1;
-      $rs_models[$value->model]['cbm_total'] += $value->cbm_unit;
+      $details = $lmbHeader
+        ->details()
+        ->select(
+          'wms_lmb_detail.*',
+          'wms_pickinglist_header.storage_id',
+          'wms_master_storage.sto_loc_code_long'
+        )
+        ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
+        ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
+        ->get();
 
+      $rs_models = [];
+
+      foreach ($details as $key => $value) {
+        if (empty($rs_models[$value->model])) {
+          $model                      = [];
+          $model['storage_id']        = $value->storage_id;
+          $model['sto_loc_code_long'] = $value->sto_loc_code_long;
+          $model['ean_code']          = $value->ean_code;
+          $model['code_sales']        = $value->code_sales;
+          $model['qty']               = 0;
+          $model['cbm_total']         = 0;
+
+          $rs_models[$value->model] = $model;
+        }
+
+        $rs_models[$value->model]['qty'] += 1;
+        $rs_models[$value->model]['cbm_total'] += $value->cbm_unit;
+
+      }
+
+      // print_r($rs_models);
+      // exit;
+      $date_now = date('Y-m-d H:i:s');
+
+      // Storage Intransit
+      // 3 Intransit BR
+      $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
+        ->where('kode_cabang', $lmbHeader->kode_cabang)
+        ->first();
+      // 4 Intransit DS
+      $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
+        ->where('kode_cabang', $lmbHeader->kode_cabang)
+        ->first();
+
+      $rs_movement_transaction_log = [];
+
+      // Update Movement 1 class berkurang intransit bertambah
+      foreach ($rs_models as $key => $value) {
+        // Update Or Create Inventory Stroage data
+        InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $value['storage_id'],
+            'model_name' => $key,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $value['ean_code'],
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
+            'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value['cbm_total']),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+        InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $storageIntransit[$value['code_sales']]->id,
+            'model_name' => $key,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $value['ean_code'],
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value['qty']),
+            'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+        // ADD MOVEMENT
+        // Movement Code
+        // id 7 Code 101 Increase Menambah Sloc Intransit
+        $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+        $movement_transaction_log['arrival_no']            = '';
+        $movement_transaction_log['mvt_master_id']         = 7;
+        $movement_transaction_log['inventory_movement']    = 'Stock INCREASE';
+        $movement_transaction_log['movement_code']         = 101;
+        $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
+        $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
+        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
+        $movement_transaction_log['eancode']               = $value['ean_code'];
+        $movement_transaction_log['model']                 = $key;
+        $movement_transaction_log['quantity']              = $value['qty'];
+        $movement_transaction_log['created_at']            = $date_now;
+        $movement_transaction_log['flow_id']               = '';
+        $movement_transaction_log['kode_cabang']           = $lmbHeader->kode_cabang;
+
+        $rs_movement_transaction_log[] = $movement_transaction_log;
+
+        // id 8 Code 647 Decrease Mengurangi SLOC
+        $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+        $movement_transaction_log['arrival_no']            = '';
+        $movement_transaction_log['mvt_master_id']         = 8;
+        $movement_transaction_log['inventory_movement']    = 'Stock DECREASE';
+        $movement_transaction_log['movement_code']         = 647;
+        $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
+        $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
+        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
+        $movement_transaction_log['eancode']               = $value['ean_code'];
+        $movement_transaction_log['model']                 = $key;
+        $movement_transaction_log['quantity']              = $value['qty'];
+        $movement_transaction_log['created_at']            = $date_now;
+        $movement_transaction_log['flow_id']               = '';
+        $movement_transaction_log['kode_cabang']           = $lmbHeader->kode_cabang;
+
+        $rs_movement_transaction_log[] = $movement_transaction_log;
+      }
+
+      MovementTransactionLog::insert($rs_movement_transaction_log);
+
+      $lmbHeader->save();
+      DB::commit();
+
+      return sendSuccess('LMB Send Manifest', $lmbHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
     }
 
-    // print_r($rs_models);
-    // exit;
-    $date_now = date('Y-m-d H:i:s');
-
-    // Storage Intransit
-    // 3 Intransit BR
-    $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
-      ->where('kode_cabang', $lmbHeader->kode_cabang)
-      ->first();
-    // 4 Intransit DS
-    $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
-      ->where('kode_cabang', $lmbHeader->kode_cabang)
-      ->first();
-
-    $rs_movement_transaction_log = [];
-
-    // Update Movement 1 class berkurang intransit bertambah
-    foreach ($rs_models as $key => $value) {
-      // Update Or Create Inventory Stroage data
-      InventoryStorage::updateOrCreate(
-        // Condition
-        [
-          'storage_id' => $value['storage_id'],
-          'model_name' => $key,
-        ],
-        // Data Update
-        [
-          'ean_code'       => $value['ean_code'],
-          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
-          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value['cbm_total']),
-          'last_updated'   => $date_now,
-        ]
-      );
-
-      InventoryStorage::updateOrCreate(
-        // Condition
-        [
-          'storage_id' => $storageIntransit[$value['code_sales']]->id,
-          'model_name' => $key,
-        ],
-        // Data Update
-        [
-          'ean_code'       => $value['ean_code'],
-          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value['qty']),
-          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
-          'last_updated'   => $date_now,
-        ]
-      );
-
-      // ADD MOVEMENT
-      // Movement Code
-      // id 7 Code 101 Increase Menambah Sloc Intransit
-      $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
-      $movement_transaction_log['arrival_no']            = '';
-      $movement_transaction_log['mvt_master_id']         = 7;
-      $movement_transaction_log['inventory_movement']    = 'Stock INCREASE';
-      $movement_transaction_log['movement_code']         = 101;
-      $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
-      $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
-      $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
-      $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
-      $movement_transaction_log['eancode']               = $value['ean_code'];
-      $movement_transaction_log['model']                 = $key;
-      $movement_transaction_log['quantity']              = $value['qty'];
-      $movement_transaction_log['created_at']            = $date_now;
-      $movement_transaction_log['flow_id']               = '';
-      $movement_transaction_log['kode_cabang']           = $lmbHeader->kode_cabang;
-
-      $rs_movement_transaction_log[] = $movement_transaction_log;
-
-      // id 8 Code 647 Decrease Mengurangi SLOC
-      $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
-      $movement_transaction_log['arrival_no']            = '';
-      $movement_transaction_log['mvt_master_id']         = 8;
-      $movement_transaction_log['inventory_movement']    = 'Stock DECREASE';
-      $movement_transaction_log['movement_code']         = 647;
-      $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
-      $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
-      $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
-      $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
-      $movement_transaction_log['eancode']               = $value['ean_code'];
-      $movement_transaction_log['model']                 = $key;
-      $movement_transaction_log['quantity']              = $value['qty'];
-      $movement_transaction_log['created_at']            = $date_now;
-      $movement_transaction_log['flow_id']               = '';
-      $movement_transaction_log['kode_cabang']           = $lmbHeader->kode_cabang;
-
-      $rs_movement_transaction_log[] = $movement_transaction_log;
-    }
-
-    MovementTransactionLog::insert($rs_movement_transaction_log);
-
-    $lmbHeader->save();
-
-    return $lmbHeader;
   }
 
   public function upload(Request $request)

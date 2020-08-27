@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Concept;
+use App\Models\LOGConceptOverload;
 use DataTables;
 
 class OverloadConceptOrDoController extends Controller
@@ -12,11 +12,11 @@ class OverloadConceptOrDoController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = Concept::selectRaw('
-          tr_concept.*,
+      $query = LOGConceptOverload::selectRaw('
+          log_concept_overload.*,
           tr_destination.destination_description AS destination_name
         ')
-        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'log_concept_overload.destination_number')
         ->where('area', $request->input('area'))
       ;
 

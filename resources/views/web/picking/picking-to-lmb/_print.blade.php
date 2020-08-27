@@ -57,7 +57,7 @@
                             <tr>
                                 <td colspan="2">Tujuan</td>
                                 <td>:</td>
-                                <td colspan="6">{{$lmbHeader->destionation_name}}</td>
+                                <td colspan="6">{{$lmbHeader->destination_name}}</td>
                                 <td colspan="2">No. Seal</td>
                                 <td>:</td>
                                 <td colspan="3">{{$lmbHeader->seal_no}}</td>

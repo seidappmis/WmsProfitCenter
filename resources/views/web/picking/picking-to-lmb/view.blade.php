@@ -156,22 +156,34 @@
 
    $('#form-send-manifest').validate({
     submitHandler: function(form) {
-      setLoading(true); // Disable Button when ajax post data
-      $.ajax({
-          url: '{{ url("picking-to-lmb/" . $lmbHeader->driver_register_id . "/send-manifest") }}',
-          type: 'POST',
+      swal({
+          title: "Are you sure to loading Quantity?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            ok: 'OK'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) {
+            setLoading(true); // Disable Button when ajax post data
+            $.ajax({
+                url: '{{ url("picking-to-lmb/" . $lmbHeader->driver_register_id . "/send-manifest") }}',
+                type: 'POST',
+                data: $(form).serialize()
+              })
+              .done(function(result) { // selesai dan berhasil
+                setLoading(false); // Enable Button when failed
+                showSwalAutoClose('Success', result.message)
+                $('.btn-send-manifest').hide();
+                $('.btn-print-manifest').removeClass('hide');
+                $('#modal-send-manifest').modal('close')
+              })
+              .fail(function(xhr) {
+                setLoading(false); // Enable Button when failed
+                  showSwalError(xhr) // Custom function to show error with sweetAlert
+              });
+          }
         })
-        .done(function(result) { // selesai dan berhasil
-          setLoading(false); // Enable Button when failed
-          showSwalAutoClose('Success', result.message)
-          $('.btn-send-manifest').hide();
-          $('.btn-print-manifest').removeClass('hide');
-          $('#modal-send-manifest').modal('close')
-        })
-        .fail(function(xhr) {
-          setLoading(false); // Enable Button when failed
-            showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
     }
    })
 
