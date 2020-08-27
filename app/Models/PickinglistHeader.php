@@ -70,6 +70,11 @@ class PickinglistHeader extends Model
     return $pickinglistHeader->expedition_code == 'AS' ? "Ambil Sendiri" : ($pickinglistHeader->hq ? $pickinglistHeader->destination_number : $pickinglistHeader->city_code);
   }
 
+  public function cabang()
+  {
+    return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
+  }
+
   public static function noLMBPickingList()
   {
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')

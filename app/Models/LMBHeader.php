@@ -34,6 +34,16 @@ class LMBHeader extends Model
     ;
   }
 
+  public function getCustomer()
+  {
+    $pickingDetail = $this->picking->details;
+    $customer = '';
+    foreach ($pickingDetail as $key => $value) {
+      $customer .= $value->customer();
+    }
+    return $customer;
+  }
+
   public function picking()
   {
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
