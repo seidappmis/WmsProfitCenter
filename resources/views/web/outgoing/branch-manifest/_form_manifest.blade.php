@@ -175,7 +175,7 @@
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print Manifest',
-  'url' => 'branch-manifest/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'url' => 'branch-manifest/' . (!empty($manifestHeader) ? $manifestHeader->do_manifest_no : '') . '/export',
   'trigger' => '.btn-print'
   ])
 

@@ -28,7 +28,7 @@ class BranchManifestController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('branch-manifest/' . $data->driver_register_id . '/edit'), 'View');
+          $action .= ' ' . get_button_view(url('branch-manifest/' . $data->do_manifest_no . '/edit'), 'View');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -202,9 +202,12 @@ class BranchManifestController extends Controller
     try {
       DB::beginTransaction();
 
-      $manifestHeader->save();
       WMSBranchManifestDetail::insert($rs_manifest_detail);
+      if ($manifestHeader->lmb->do_details->count() == 0) {
+        $manifestHeader->status_complete = 1;
+      }
 
+      $manifestHeader->save();
       DB::commit();
 
       return sendSuccess('Success submit to logsys', $manifestHeader);
@@ -216,7 +219,19 @@ class BranchManifestController extends Controller
 
   public function export(Request $request, $id)
   {
-    $data['branchManifestHeader'] = WMSBranchManifestHeader::find($id);
+    $data['branchManifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
+
+    $rs_details = [];
+    foreach ($data['branchManifestHeader']->details as $key => $value) {
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['data']     = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['models'][] = $value;
+    }
+
+    $data['rs_details'] = $rs_details;
+
+    // echo "<pre>";
+    // print_r($rs_details);
+    // echo "</pre>";exit;
 
     $view_print = view('web.outgoing.branch-manifest._print', $data);
     $title      = 'Branch Manifest';

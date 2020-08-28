@@ -102,7 +102,7 @@
           ordering: false,
           searching: false,
           info:     false,
-          data: {!!$lmbHeader->do_detailsFromTCS->toJson()!!},
+          data: {!!$lmbHeader->do_details->toJson()!!},
           columns: [
             {
               render: function ( data, type, row ) {

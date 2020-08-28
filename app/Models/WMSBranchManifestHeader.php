@@ -30,7 +30,7 @@ class WMSBranchManifestHeader extends Model
     if ($this->details->count() == 0) {
       return 'DO Items Not Found';
     } elseif ($this->status_complete) {
-      return 'Complete';
+      return 'Complete & Waiting Confirm';
     }
   }
 }
