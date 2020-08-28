@@ -30,10 +30,11 @@
                 <td width="30%">City Ship To.</td>
                 <td>
                   <div class="input-field col s12">
-                  <select id="ship_to"
-                          name="ship_to"
+                  <select id="city_code"
+                          name="city_code"
                           class="select2-data-ajax browser-default" required>
                   </select>
+                  <input type="hidden" name="city_name">
                   </div> 
                 </td>
             </tr>
@@ -79,7 +80,8 @@
                         return row.delivery_no + ' | ' 
                         + row.cbm + ' | '
                         + row.quantity + ' | '
-                        + row.model;
+                        + row.model + ' | '
+                        + row.invoice_no;
                     }
                     return data;
                 },
@@ -100,7 +102,7 @@
           ordering: false,
           searching: false,
           info:     false,
-          data: {!!$lmbHeader->do_details->toJson()!!},
+          data: {!!$lmbHeader->do_detailsFromTCS->toJson()!!},
           columns: [
             {
               render: function ( data, type, row ) {
@@ -108,7 +110,8 @@
                         return row.delivery_no + ' | ' 
                         + row.cbm + ' | '
                         + row.quantity + ' | '
-                        + row.model;
+                        + row.model + ' | '
+                        + row.invoice_no;
                     }
                     return data;
                 },
@@ -122,11 +125,16 @@
           $(this).toggleClass('selected');
         });
 
-        $('#form-assign-do [name="ship_to"]').select2({
-        placeholder: '-- Select Ship to City --',
-        allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}'})
-      })
+        $('#form-assign-do [name="city_code"]').select2({
+          placeholder: '-- Select Ship to City --',
+          allowClear: true,
+          ajax: get_select2_ajax_options('/destination-city-of-branch/select2')
+        })
+        $('#form-assign-do [name="city_code"]').change(function(event) {
+          /* Act on the event */
+          var data = $(this).select2('data')[0]
+          $('#form-assign-do [name="city_name"]').val(data.text)
+        });
    });
 
    function pickRowData(){

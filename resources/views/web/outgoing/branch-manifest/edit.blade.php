@@ -56,7 +56,8 @@
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
-    set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+    set_select2_value('#form-assign-do [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+    $('#form-assign-do [name="city_name"]').val('{{$manifestHeader->city_name}}')
   });
     $("#form-assign-do").validate({
       submitHandler: function(form) {
@@ -71,11 +72,16 @@
           type: 'POST',
           data: $(form).serialize() + '&selected_list=' + JSON.stringify(selected_list),
         })
-        .done(function(data) { // selesai dan berhasil
-          window.location.href = '{{ url("branch-manifest/" . $manifestHeader->do_manifest_no . "/edit") }}'
+        .done(function(result) { // selesai dan berhasil
+          // setLoading(true); // Disable Button when ajax post data
+          if (result.status) {
+            window.location.href = '{{ url("branch-manifest/" . $manifestHeader->do_manifest_no . "/edit") }}'
+          } else{
+            setLoading(false);
+          }
         })
         .fail(function(xhr) {
-          setLoading(true); // Disable Button when ajax post data
+          setLoading(false);
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
