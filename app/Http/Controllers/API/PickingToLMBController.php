@@ -20,7 +20,7 @@ class PickingToLMBController extends Controller
 
     LMBDetail::insert($data_serial_numbers);
 
-    return sendSuccess('Picking submited', );
+    return sendSuccess('Picking submited', $data_serial_numbers);
   }
 
 }
