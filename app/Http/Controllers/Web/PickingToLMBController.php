@@ -304,12 +304,13 @@ class PickingToLMBController extends Controller
 
         // ADD MOVEMENT
         // Movement Code
-        // id 7 Code 101 Increase Menambah Sloc Intransit
+        // id 7 Code 101 Increase Menambah Sloc Intransit HQ
+        // id 16 Code 9Z3 Increase Menambah Sloc Intransit BRANCH
         $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
         $movement_transaction_log['arrival_no']            = '';
-        $movement_transaction_log['mvt_master_id']         = 7;
+        $movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 7 : 16;
         $movement_transaction_log['inventory_movement']    = 'Stock INCREASE';
-        $movement_transaction_log['movement_code']         = 101;
+        $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 101 : '9Z3';
         $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
         $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
         $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
@@ -323,12 +324,13 @@ class PickingToLMBController extends Controller
 
         $rs_movement_transaction_log[] = $movement_transaction_log;
 
-        // id 8 Code 647 Decrease Mengurangi SLOC
+        // id 8 Code 647 Decrease Mengurangi SLOC HQ
+        // id 17 Code 9Z3 Decrease Mengurangi SLOC BRANCH
         $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
         $movement_transaction_log['arrival_no']            = '';
-        $movement_transaction_log['mvt_master_id']         = 8;
+        $movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 8 : 17;
         $movement_transaction_log['inventory_movement']    = 'Stock DECREASE';
-        $movement_transaction_log['movement_code']         = 647;
+        $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 647 : '9Z3';
         $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
         $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
         $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
