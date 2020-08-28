@@ -15,4 +15,10 @@ class MovementTransactionLog extends Model
   protected $table      = "wms_movement_transaction_log";
   protected $primaryKey = 'log_id';
   public $incrementing  = false;
+
+  public function movementType()
+    {
+        return $this->belongsTo('App\Models\MovementTransactionType', 'mvt_master_id', 'id');
+    }
+
 }
