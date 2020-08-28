@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\LogManifestHeader;
+use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -17,7 +17,17 @@ class BillingReturnController extends Controller
   public function listPendingBillingBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = WMSBranchManifestHeader::select('wms_branch_manifest_header.*')
+        ->leftjoin('wms_branch_manifest_detail', function ($join) {
+          $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')
+            ->where('wms_branch_manifest_detail.status_confirm', 1)
+            ->whereNull('wms_branch_manifest_detail.doc_do_return_date')
+          ;
+        })
+        ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
+        ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('wms_branch_manifest_detail.do_manifest_no')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -41,7 +51,17 @@ class BillingReturnController extends Controller
   public function listReturnBillingBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = WMSBranchManifestHeader::select('wms_branch_manifest_header.*')
+        ->leftjoin('wms_branch_manifest_detail', function ($join) {
+          $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')
+            ->where('wms_branch_manifest_detail.status_confirm', 1)
+            ->whereNotNull('wms_branch_manifest_detail.doc_do_return_date')
+          ;
+        })
+        ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
+        ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('wms_branch_manifest_detail.do_manifest_no')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -64,8 +84,8 @@ class BillingReturnController extends Controller
 
   public function showSubmit($id)
   {
-    $data['manifest'] = LogManifestHeader::findOrFail($id);
-    
+    $data['manifest'] = WMSBranchManifestHeader::findOrFail($id);
+
     return view('web.incoming.billing-return.view', $data);
   }
 

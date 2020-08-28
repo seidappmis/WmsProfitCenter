@@ -35,12 +35,12 @@
                               </tr>
                           </thead>
                           <tbody>
-                            <tr>
+                            {{-- <tr>
                               <td>JKT-180903-053</td>
                               <td>PUTRA NAGITA PRATAMA, PT.</td>
                               <td>BOGOR</td>
                               <td>{!! get_button_view(url('billing-return/1')) !!}</td>
-                            </tr>
+                            </tr> --}}
                           </tbody>
                       </table>
                     </div>

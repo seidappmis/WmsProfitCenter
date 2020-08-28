@@ -1,4 +1,5 @@
 <?php
+use App\Http\Middleware\OnlyBranchAccess;
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -22,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::put('conform-manifest/{id}', 'Web\ConformManifestController@conform');
 
   // Billing Return
-  Route::get('billing-return', 'Web\BillingReturnController@index');
+  Route::get('billing-return', 'Web\BillingReturnController@index')->middleware([OnlyBranchAccess::class]);
   Route::get('billing-return/pending-billing-return-branch', 'Web\BillingReturnController@listPendingBillingBranch');
   Route::get('billing-return/return-billing-branch', 'Web\BillingReturnController@listReturnBillingBranch');
   Route::get('billing-return/{id}/view-for-submit', 'Web\BillingReturnController@showSubmit');
