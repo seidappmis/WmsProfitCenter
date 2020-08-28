@@ -9,6 +9,7 @@ class PickingToLMBController extends Controller
 {
   public function storeScan(Request $request)
   {
+    return sendSuccess('Data return.', $request->all());
     $data_serial_numbers = json_decode($request->input('data_serial_numbers'), true);
 
     if (empty($data_serial_numbers)) {
