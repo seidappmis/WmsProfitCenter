@@ -82,6 +82,16 @@ class LMBHeader extends Model
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
   }
 
+  public function getPickingNo($data){
+    $rs_pickinglistHeader = \App\Models\PickinglistHeader::where('driver_register_id', $data->driver_register_id)->get();
+    $picking_no = '';
+    foreach ($rs_pickinglistHeader as $key => $value) {
+      $picking_no .= !empty($picking_no) ? ', ' : '';
+      $picking_no .= $value->picking_no;
+    }
+    return $picking_no;
+  }
+
   public static function noManifestLMBHeader()
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*');

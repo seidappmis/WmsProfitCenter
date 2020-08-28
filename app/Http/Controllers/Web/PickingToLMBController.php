@@ -23,7 +23,24 @@ class PickingToLMBController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBHeader::where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query = LMBHeader::select('wms_lmb_header.*')
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+      ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+      ;
+
+      if (auth()->user()->cabang->hq) {
+        // Tampilkan data yang belum ada manifest bila tidak di search
+        $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+        if (empty($request->input('search')['value'])) {
+          $query->whereNull('log_manifest_header.driver_register_id');
+        }
+      } else {
+        // Tampilkan data yang belum ada manifest bila tidak di search
+        $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+        if (empty($request->input('search')['value'])) {
+          $query->whereNull('wms_branch_manifest_header.driver_register_id');
+        }
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -31,7 +48,7 @@ class PickingToLMBController extends Controller
       //   return $data->getDestinationName($data);
       // })
         ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
+          return $data->getPickingNo($data);
         })
         ->addColumn('action', function ($data) {
           $action = '';

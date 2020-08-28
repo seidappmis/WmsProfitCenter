@@ -48,7 +48,7 @@
         },
         order: [0, 'asc'],
         columns: [
-            {data: 'picking_no', name: 'picking_no', className: 'detail'},
+            {data: 'picking_no', name: 'wms_pickinglist_header.picking_no', className: 'detail'},
             {data: 'driver_name', name: 'driver_name', className: 'detail'},
             {data: 'destination_name', name: 'destination_name', className: 'detail'},
             {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
@@ -91,6 +91,12 @@
           }
         })
     });
+    $("input#picking_to_lmb_filter").on("keyup click", function () {
+        filterGlobalPickingToLMB();
+      });
   });
+  function filterGlobalPickingToLMB() {
+      dtdatatable_picking_to_lmb.search($("#picking_list_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    }
 </script>
 @endpush
