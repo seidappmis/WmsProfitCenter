@@ -34,7 +34,7 @@ class ConformManifestController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View for Conform');
+          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no) . '/hq', 'View for Conform');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -47,7 +47,7 @@ class ConformManifestController extends Controller
   {
     if ($request->ajax()) {
       $query = WMSBranchManifestHeader::
-      where('kode_cabang', auth()->user()->cabang->kode_cabang);
+        where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -59,7 +59,7 @@ class ConformManifestController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View for Conform');
+          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no) . '/branch', 'View for Conform');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -68,14 +68,15 @@ class ConformManifestController extends Controller
     }
   }
 
-  public function viewForConform($id)
+  public function viewForConformHQ($id)
   {
-    if (auth()->user()->cabang->hq) {
-      $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
-    } else {
-      $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
-    }
-    
+    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    return view('web.incoming.conform-manifest.view', $data);
+  }
+
+  public function viewForConformBranch($id)
+  {
+    $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
     return view('web.incoming.conform-manifest.view', $data);
   }
 
