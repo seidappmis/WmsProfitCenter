@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestHeader;
-use App\Models\WMSBranchManifestHeader;
 use App\Models\WMSBranchManifestDetail;
+use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -47,8 +47,14 @@ class ConformManifestController extends Controller
   public function listManifestBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = WMSBranchManifestHeader::
-        where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query = WMSBranchManifestHeader::select('wms_branch_manifest_header.*')
+        ->leftjoin('wms_branch_manifest_detail', function ($join) {
+          $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')->where('wms_branch_manifest_detail.status_confirm', 0);
+        })
+        ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
+        ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('wms_branch_manifest_detail.do_manifest_no')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -101,6 +107,7 @@ class ConformManifestController extends Controller
         $manifesDetail->status_confirm = 1;
         $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
         $manifesDetail->confirm_by     = auth()->user()->id;
+        $manifesDetail->do_reject      = !empty($request->input('rejected')) ? 1 : 0;
         $manifesDetail->save();
       }
     }
