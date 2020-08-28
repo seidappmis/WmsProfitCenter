@@ -11,13 +11,16 @@ class PickingToLMBController extends Controller
   {
     $data_serial_numbers = json_decode($request->input('data_serial_numbers'), true);
 
+    if (empty($data_serial_numbers)) {
+      return sendError('Data Empty.');
+    }
     foreach ($data_serial_numbers as $key => $value) {
       $data_serial_numbers[$key] = $value;
     }
 
     LMBDetail::insert($data_serial_numbers);
 
-    return true;
+    return sendSuccess('Picking submited', );
   }
 
 }
