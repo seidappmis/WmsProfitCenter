@@ -57,6 +57,9 @@
                                   </tr>
                               </thead>
                               <tbody>
+                                @if(empty($rs_unconfirmManifesDetail))
+                                <tr><td colspan="12" class="center-align">No data available in table</td></tr>
+                                @endif
                                 @foreach($rs_unconfirmManifesDetail AS $key => $unconfirmManifest)
                                   <tr class="grey lighten-2">
                                     <td colspan="12">{{ $unconfirmManifest['manifest']->do_manifest_no }} - {{ $unconfirmManifest['manifest']->expedition_name }} - {{ $unconfirmManifest['manifest']->city_name }}</td>
