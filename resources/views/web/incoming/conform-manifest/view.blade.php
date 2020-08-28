@@ -34,7 +34,7 @@
                         <div class="col s12 m3">
                           <span class="waves-effect waves-light btn blue darken-2 btn-hold-transit">Hold/Transit</span>
                           <div class="input-field col s12">
-                            <input id="hold_transit" type="text" class="validate datepicker" name="hold_transit" required>
+                            <input id="hold_transit" type="text" class="validate datetimepicker" name="hold_transit" required>
                             <label for="hold_transit"></label>
                           </div>
                         </div>
@@ -42,11 +42,11 @@
                           <span class="waves-effect waves-light btn blue darken-2 btn-conform">Conform</span>
                           <div class="row mb-0">
                             <div class="input-field col s12 m6">
-                              <input id="arrival_date" type="text" class="validate datepicker" name="arrival_date" required>
+                              <input id="arrival_date" type="text" class="validate datetimepicker" name="arrival_date" required>
                               <label for="arrival_date">Arrival Date</label>
                             </div>
                             <div class="input-field col s12 m6">
-                              <input id="unloading_date" type="text" class="validate datepicker" name="unloading_date" required>
+                              <input id="unloading_date" type="text" class="validate datetimepicker" name="unloading_date" required>
                               <label for="unloading_date">Unloading Date</label>
                             </div>
                           </div>
@@ -81,7 +81,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($manifestHeader->details AS $key => $manifestDetail)
+                              @foreach($manifestHeader->getUnconfirmedDetails() AS $key => $manifestDetail)
                               <tr>
                                 <td>{{ $manifestDetail->do_manifest_no }}</td>
                                 <td>{{ $manifestDetail->expedition_name }}</td>
@@ -116,9 +116,18 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/materializedatetimepicker.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
+    M.AutoInit();
+    MaterialDateTimePicker.create($('#form-conform-manifest [name="hold_transit"]'))
+    MaterialDateTimePicker.create($('#form-conform-manifest [name="arrival_date"]'))
+    MaterialDateTimePicker.create($('#form-conform-manifest [name="unloading_date"]'))
     $('.btn-hold-transit').click(function(event) {
       /* Act on the event */
       setLoading(true);

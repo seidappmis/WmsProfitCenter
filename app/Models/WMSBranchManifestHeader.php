@@ -20,6 +20,10 @@ class WMSBranchManifestHeader extends Model
     return $this->hasMany('App\Models\WMSBranchManifestDetail', 'do_manifest_no', 'do_manifest_no');
   }
 
+  public function getUnconfirmedDetails(){
+    return $this->details->where('status_confirm', 0);
+  }
+
   public function picking()
   {
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
