@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('billing-return/pending-billing-return-branch', 'Web\BillingReturnController@listPendingBillingBranch');
   Route::get('billing-return/return-billing-branch', 'Web\BillingReturnController@listReturnBillingBranch');
   Route::get('billing-return/{id}/view-for-submit', 'Web\BillingReturnController@showSubmit');
+  Route::put('billing-return/{id}', 'Web\BillingReturnController@conform');
+  Route::get('billing-return/{id}', 'Web\BillingReturnController@show');
   // Route::view('billing-return', 'web.incoming.billing-return.index');
 
 });

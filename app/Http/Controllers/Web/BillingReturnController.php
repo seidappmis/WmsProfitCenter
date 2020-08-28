@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\WMSBranchManifestDetail;
 use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class BillingReturnController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View');
+          $action .= ' ' . get_button_view(url('billing-return/' . $data->do_manifest_no), 'View');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -81,13 +82,32 @@ class BillingReturnController extends Controller
 
   public function showSubmit($id)
   {
-    $data['manifest'] = WMSBranchManifestHeader::findOrFail($id);
+    $data['manifest']  = WMSBranchManifestHeader::findOrFail($id);
+    $data['type_show'] = 'showSubmit';
 
     return view('web.incoming.billing-return.view', $data);
   }
 
   public function show($id)
   {
-    return view('web.incoming.billing-return.view');
+    $data['manifest']  = WMSBranchManifestHeader::findOrFail($id);
+    $data['type_show'] = 'show';
+
+    return view('web.incoming.billing-return.view', $data);
+  }
+
+  public function conform(Request $request, $id)
+  {
+    $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
+    if (empty($request->input('manifest_detail'))) {
+      return sendError('Please, Selected item');
+    }
+    foreach ($request->input('manifest_detail') as $key => $value) {
+      $manifesDetail                     = WMSBranchManifestDetail::findOrFail($key);
+      $manifesDetail->doc_do_return_date = date('Y-m-d H:i:s', strtotime($request->input('doc_do_return_date')));
+      $manifesDetail->save();
+    }
+
+    return sendSuccess('Success', $manifestHeader);
   }
 }

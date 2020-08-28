@@ -28,9 +28,9 @@
         </div>
         <div class="row">
           <div class="col s12 m4">
-            <a class="btn btn-large waves-effect waves-light btn-add" href="{{url('branch-invoicing/create')}}">
+            <span class="btn btn-large waves-effect waves-light btn-add" id="btn-create-receipt">
               Create Reciept
-            </a>
+            </span>
           </div>
         </div>
     @endcomponent
@@ -69,26 +69,32 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+  var dtdatatable
+  jQuery(document).ready(function($) {
+     $('#btn-create-receipt').click(function(event) {
+      /* Act on the event */
+      window.location.href = "{{url('branch-invoicing/' . auth()->user()->cabang->kode_cabang)}}" + moment().format("YYYYMMDD hmmss");
+    });
+
+    dtdatatable = $('#data-table-section-contents').DataTable({
+        serverSide: true,
         scrollX: true,
         responsive: true,
-        // ajax: {
-        //     url: '/',
-        //     type: 'GET',
-        //     data: function(d) {
-        //         d.search['value'] = $('#global_filter').val()
-        //       }
-        // },
+        ajax: {
+            url: '{{url("branch-invoicing")}}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val();
+              }
+        },
         order: [1, 'asc'],
-        // columns: [
-        //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        //     {data: 'content_title', name: 'content_title', className: 'detail'},
-        //     {data: 'video', name: 'video', className: 'detail', orderable: false, searchable: false},
-        //     {data: 'summary_title', name: 'summary_title', className: 'detail'},
-        //     {data: 'question_package_id', name: 'question_package_id', className: 'detail'},
-        //     {data: 'action', className: 'center-align'},
-        // ]
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'group_id', name: 'group_id', className: 'detail'},
+            {data: 'manifest_no', name: "GROUP_CONCAT(do_manifest_no SEPARATOR ', ')", className: 'detail', orderable: false, searchable: false},
+            {data: 'expedition_name', name: "GROUP_CONCAT(expedition_name SEPARATOR ', ')", className: 'detail'},
+            {data: 'action', className: 'center-align'},
+        ]
     });
 
     dtdatatable.on('click', '.btn-edit', function(event) {
@@ -127,5 +133,7 @@
         }
       })
     });
+  });
+   
 </script>
 @endpush

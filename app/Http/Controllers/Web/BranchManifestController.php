@@ -184,7 +184,7 @@ class BranchManifestController extends Controller
       $manifestDetail['model']                 = $value['model'];
       $manifestDetail['expedition_code']       = $manifestHeader->expedition_code;
       $manifestDetail['expedition_name']       = $manifestHeader->expedition_name;
-      $manifestDetail['sold_to']               = $concept->sold_to;
+      $manifestDetail['sold_to']               = $concept->long_description_customer;
       $manifestDetail['sold_to_code']          = $concept->kode_customer;
       $manifestDetail['sold_to_street']        = $concept->long_description_customer;
       $manifestDetail['ship_to']               = $concept->long_description_customer;
