@@ -32,8 +32,8 @@
                         <div class="col s12 m3">
                           <a class="waves-effect waves-light btn blue darken-2">Conform</a>
                           <div class="input-field col s12">
-                            <input id="delivery" type="text" class="validate" name="delivery" required>
-                            <label for="delivery">Document DO Return Date</label>
+                            <input id="doc_do_return_date" type="text" class="validate datepicker" name="doc_do_return_date" required>
+                            <label for="doc_do_return_date">Document DO Return Date</label>
                           </div>
                         </div>
                       </div>
@@ -66,7 +66,7 @@
                                 <td>{{$detail->quantity}}</td>
                                 <td>
                                   <label>
-                                    <input type="checkbox" />
+                                    <input type="checkbox" name="manifest_detail[{{$detail->id}}]"/>
                                     <span class="red-text"></span>
                                   </label>
                                 </td>
