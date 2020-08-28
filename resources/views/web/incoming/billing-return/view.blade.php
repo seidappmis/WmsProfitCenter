@@ -58,10 +58,10 @@
                               @foreach($manifest->details AS $key => $detail)
                               <tr>
                                 @if($key == 0)
-                                <td rowspan="{{$manifest->details->count()}}"></td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->do_manifest_no}}</td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->expedition_name}}</td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->city_name}}</td>
                                 @endif
-                                <td>{{$detail->expedition_name}}</td>
-                                <td>{{$detail->destination_city}}</td>
                                 <td>{{$detail->model}}</td>
                                 <td>{{$detail->quantity}}</td>
                                 <td>
@@ -72,53 +72,6 @@
                                 </td>
                               </tr>
                               @endforeach
-                              {{-- <tr>
-                                <td rowspan="4">JKT-180903-053</td>
-                                <td rowspan="4">PUTRA NAGITA PRATAMA, PT.</td>
-                                <td rowspan="4">BOGOR</td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr> --}}
                             </tbody>
                         </table>
                       </div>

@@ -31,15 +31,12 @@ class BillingReturnController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-        })
-        ->addColumn('status', function ($data) {
-          return $data->status();
+        ->addColumn('source', function ($data) {
+          return 'BRANCH';
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('billing-return/' . $data->driver_register_id . '/view-for-submit'), 'View for Submit');
+          $action .= ' ' . get_button_view(url('billing-return/' . $data->do_manifest_no . '/view-for-submit'), 'View for Submit');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -73,7 +70,7 @@ class BillingReturnController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->driver_register_id), 'View');
+          $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no), 'View');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
