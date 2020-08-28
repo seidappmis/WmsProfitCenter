@@ -20,9 +20,21 @@ class PickingListController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::where('area', auth()->user()->area)
-        ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
-        ->get();
+      $query = PickinglistHeader::where('wms_pickinglist_header.area', auth()->user()->area)
+        ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ;
+
+      if (auth()->user()->cabang->hq) {
+        $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+        if (empty($request->input('search')['value'])) {
+          $query->whereNull('log_manifest_header.driver_register_id');
+        }
+      } else {
+        $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+        if (empty($request->input('search')['value'])) {
+          $query->whereNull('wms_branch_manifest_header.driver_register_id');
+        }
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

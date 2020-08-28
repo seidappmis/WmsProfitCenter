@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item active">Picking List</li>
                 </ol>
             </div>
-            <div class="col s12 m4 l4">
+            {{-- <div class="col s12 m4 l4">
                 <!---- Search ----->
                 <div class="app-wrapper">
                   <div class="datatable-search">
@@ -20,7 +20,7 @@
                     <input type="text" placeholder="Search" class="app-filter" id="global_filter">
                   </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     @endcomponent
 
@@ -158,6 +158,13 @@
           }
         })
       });
+      $("input#picking_list_filter").on("keyup click", function () {
+        filterGlobalPickingList();
+      });
     });
+
+    function filterGlobalPickingList() {
+      dtdatatable.search($("#picking_list_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    }
 </script>
 @endpush
