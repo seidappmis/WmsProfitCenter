@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\LMBHeader;
 use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use DB;
+use Illuminate\Http\Request;
 
 class BranchManifestController extends Controller
 {
-    public function index(Request $request)
+  public function index(Request $request)
   {
     if ($request->ajax()) {
       $query = WMSBranchManifestHeader::all();
@@ -41,8 +41,8 @@ class BranchManifestController extends Controller
   {
     if ($request->ajax()) {
       $query = LMBHeader::noManifestLMBHeader()
-      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
-      ->get();
+        ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -76,7 +76,7 @@ class BranchManifestController extends Controller
     $manifestHeader = new WMSBranchManifestHeader;
 
     // DO MANIFEST NO => KODEAREA-ymd-URUT
-    $prefix = auth()->user()->area . '-' . date('ymd');
+    $prefix = auth()->user()->cabang->short_description . '-' . date('ymd');
 
     $prefix_length = strlen($prefix);
     $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM log_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
@@ -84,25 +84,25 @@ class BranchManifestController extends Controller
 
     $do_manifest_no = $prefix . '-' . $max_no;
 
-    $manifestHeader->driver_register_id          = $request->input('driver_register_id');
-    $manifestHeader->do_manifest_no              = $do_manifest_no;
-    $manifestHeader->expedition_code             = $request->input('expedition_code');
-    $manifestHeader->expedition_name             = $request->input('expedition_name');
-    $manifestHeader->driver_id                   = $request->input('driver_id');
-    $manifestHeader->driver_name                 = $request->input('driver_name');
-    $manifestHeader->vehicle_number              = $request->input('vehicle_number');
-    $manifestHeader->vehicle_code_type           = $request->input('vehicle_code_type');
-    $manifestHeader->vehicle_description         = $request->input('vehicle_description');
-    $manifestHeader->do_manifest_date            = $request->input('do_manifest_date');
-    $manifestHeader->do_manifest_time            = date('Y-m-d H:i:s');
-    $manifestHeader->destination_number_driver   = $request->input('destination_number_driver');
-    $manifestHeader->destination_name_driver     = $request->input('destination_name_driver');
-    $manifestHeader->city_code                   = $request->input('city_code');
-    $manifestHeader->city_name                   = $request->input('city_name');
-    $manifestHeader->container_no                = $request->input('container_no');
-    $manifestHeader->seal_no                     = $request->input('seal_no');
-    $manifestHeader->checker                     = $request->input('checker');
-    $manifestHeader->pdo_no                      = $request->input('pdo_no');
+    $manifestHeader->driver_register_id        = $request->input('driver_register_id');
+    $manifestHeader->do_manifest_no            = $do_manifest_no;
+    $manifestHeader->expedition_code           = $request->input('expedition_code');
+    $manifestHeader->expedition_name           = $request->input('expedition_name');
+    $manifestHeader->driver_id                 = $request->input('driver_id');
+    $manifestHeader->driver_name               = $request->input('driver_name');
+    $manifestHeader->vehicle_number            = $request->input('vehicle_number');
+    $manifestHeader->vehicle_code_type         = $request->input('vehicle_code_type');
+    $manifestHeader->vehicle_description       = $request->input('vehicle_description');
+    $manifestHeader->do_manifest_date          = $request->input('do_manifest_date');
+    $manifestHeader->do_manifest_time          = date('Y-m-d H:i:s');
+    $manifestHeader->destination_number_driver = $request->input('destination_number_driver');
+    $manifestHeader->destination_name_driver   = $request->input('destination_name_driver');
+    $manifestHeader->city_code                 = $request->input('city_code');
+    $manifestHeader->city_name                 = $request->input('city_name');
+    $manifestHeader->container_no              = $request->input('container_no');
+    $manifestHeader->seal_no                   = $request->input('seal_no');
+    $manifestHeader->checker                   = $request->input('checker');
+    $manifestHeader->pdo_no                    = $request->input('pdo_no');
     // $manifestHeader->area                        = auth()->user()->area;
     $manifestHeader->status_complete             = 0;
     $manifestHeader->urut_manifest               = 1;
@@ -123,8 +123,8 @@ class BranchManifestController extends Controller
     $manifestHeader->manifest_resend             = 0;
     $manifestHeader->r_from_manifest             = $request->input('r_from_manifest');
     $manifestHeader->r_driver_register_id        = $request->input('r_driver_register_id');
-    $manifestHeader->r_created_date               = $request->input('r_create_date');
-    $manifestHeader->r_created_by                 = $request->input('r_create_by');
+    $manifestHeader->r_created_date              = $request->input('r_create_date');
+    $manifestHeader->r_created_by                = $request->input('r_create_by');
 
     $manifestHeader->save();
 

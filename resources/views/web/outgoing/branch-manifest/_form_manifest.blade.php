@@ -169,7 +169,7 @@
     {!! get_button_save('Save', 'btn-save') !!}
     {!! get_button_delete() !!}
     {!! get_button_print() !!}
-    {!! get_button_cancel(url('manifest-regular'), 'Back', '') !!}
+    {!! get_button_cancel(url('branch-manifest'), 'Back', '') !!}
 </form>
 
 {{-- Load Modal Print --}}
