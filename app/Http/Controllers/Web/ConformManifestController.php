@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestHeader;
 use App\Models\WMSBranchManifestHeader;
+use App\Models\WMSBranchManifestDetail;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -71,13 +72,40 @@ class ConformManifestController extends Controller
   public function viewForConformHQ($id)
   {
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    $data['type']           = 'HQ';
     return view('web.incoming.conform-manifest.view', $data);
   }
 
   public function viewForConformBranch($id)
   {
     $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
+    $data['type']           = 'Branch';
     return view('web.incoming.conform-manifest.view', $data);
+  }
+
+  public function conform(Request $request, $id)
+  {
+    $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
+    if (empty($request->input('manifest_detail'))) {
+      return sendError('Please, Selected item');
+    }
+    if ($request->input('status') == 'hold_transit') {
+      foreach ($request->input('manifest_detail') as $key => $value) {
+        $manifesDetail                      = WMSBranchManifestDetail::findOrFail($key);
+        $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('hold_transit')));
+        $manifesDetail->save();
+      }
+    } else {
+      foreach ($request->input('manifest_detail') as $key => $value) {
+        $manifesDetail                 = WMSBranchManifestDetail::findOrFail($key);
+        $manifesDetail->status_confirm = 1;
+        $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
+        $manifesDetail->confirm_by     = auth()->user()->id;
+        $manifesDetail->save();
+      }
+    }
+
+    return sendSuccess('Success', $manifestHeader);
   }
 
 }

@@ -7,7 +7,7 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m10">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Conform Manifest Branch</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Conform Manifest {{$type}}</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('finish-good-production') }}">Conform Manifest</a></li>
@@ -28,16 +28,18 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
+                      <form id="form-conform-manifest">
+                        <input type="hidden" name="type_conform" value="{{$type}}">
                       <div class="row mb-0">
                         <div class="col s12 m3">
-                          <a class="waves-effect waves-light btn blue darken-2">Hold/Transit</a>
+                          <span class="waves-effect waves-light btn blue darken-2 btn-hold-transit">Hold/Transit</span>
                           <div class="input-field col s12">
-                            <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
-                            <label for="delivery"></label>
+                            <input id="hold_transit" type="text" class="validate datepicker" name="hold_transit" required>
+                            <label for="hold_transit"></label>
                           </div>
                         </div>
                         <div class="col s12 m4 p-0">
-                          <a class="waves-effect waves-light btn blue darken-2">Conform</a>
+                          <span class="waves-effect waves-light btn blue darken-2 btn-conform">Conform</span>
                           <div class="row mb-0">
                             <div class="input-field col s12 m6">
                               <input id="arrival_date" type="text" class="validate datepicker" name="arrival_date" required>
@@ -52,7 +54,7 @@
                         <div class="col s12 m5">
                           <p>
                             <label>
-                              <input type="checkbox" />
+                              <input type="checkbox" name="rejected" />
                               <span class="red-text">Rejected</span>
                             </label>
                           </p>
@@ -91,74 +93,17 @@
                                 <td>{{ $manifestDetail->ship_to }}</td>
                                 <td>
                                   <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
+                                    <input type="checkbox" name="manifest_detail[{{$manifestDetail->id}}]"/>
+                                    <span class="red-text"></span>
+                                  </label>
                                 </td>
                               </tr>
                               @endforeach
-                              {{-- <tr>
-                                <td rowspan="4">JKT-180903-053</td>
-                                <td rowspan="4">PUTRA NAGITA PRATAMA, PT.</td>
-                                <td rowspan="4">BOGOR</td>
-                                <td rowspan="2">2101067096</td>
-                                <td></td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>CV AIRBUMI INSANI</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>CV AIRBUMI INSANI</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>2101067096</td>
-                                <td></td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>CV AIRBUMI INSANI</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>2101067096</td>
-                                <td></td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>CV AIRBUMI INSANI</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr> --}}
                             </tbody>
                         </table>
                       </div>
                       <!-- datatable ends -->
+                      </form>
                     </div>
                     <div class="card-content p-0">
 
@@ -170,3 +115,62 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('.btn-hold-transit').click(function(event) {
+      /* Act on the event */
+      setLoading(true);
+      $.ajax({
+        url: '{{url('conform-manifest/' . $manifestHeader->do_manifest_no)}}',
+        type: 'PUT',
+        dataType: 'json',
+        data: $('#form-conform-manifest').serialize() + '&status=hold_transit',
+      })
+      .done(function(result) {
+        if (result.status) {
+          window.location.href = '{{url('conform-manifest')}}'
+        } else {
+          setLoading(false);
+          showSwalAutoClose('Warning', result.message)
+        }
+      })
+      .fail(function() {
+        setLoading(false);
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      
+    });
+    $('.btn-conform').click(function(event) {
+      /* Act on the event */
+      setLoading(true);
+      $.ajax({
+        url: '{{url('conform-manifest/' . $manifestHeader->do_manifest_no)}}',
+        type: 'PUT',
+        dataType: 'json',
+        data: $('#form-conform-manifest').serialize() + '&status=conform',
+      })
+      .done(function(result) {
+        if (result.status) {
+          window.location.href = '{{url('conform-manifest')}}'
+        } else {
+          setLoading(false);
+          showSwalAutoClose('Warning', result.message)
+        }
+      })
+      .fail(function() {
+        setLoading(false);
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      
+    });
+  });
+</script>
+@endpush
