@@ -25,11 +25,13 @@ class PickingListController extends Controller
         ;
 
       if (auth()->user()->cabang->hq) {
+        // Tampilkan data yang belum ada manifest bila tidak di search
         $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
         if (empty($request->input('search')['value'])) {
           $query->whereNull('log_manifest_header.driver_register_id');
         }
       } else {
+        // Tampilkan data yang belum ada manifest bila tidak di search
         $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
         if (empty($request->input('search')['value'])) {
           $query->whereNull('wms_branch_manifest_header.driver_register_id');
