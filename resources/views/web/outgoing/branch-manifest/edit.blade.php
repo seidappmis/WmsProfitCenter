@@ -9,7 +9,7 @@
                 <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Manifest</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('branch-manifest') }}">Manifest Regular</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('branch-manifest') }}">Branch Manifest</a></li>
                     <li class="breadcrumb-item active">Create Manifest</li>
                 </ol>
             </div>
@@ -58,6 +58,27 @@
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-assign-do [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     $('#form-assign-do [name="city_name"]').val('{{$manifestHeader->city_name}}')
+
+    $('#form-manifest .btn-save').text('UPDATE');
+
+    $('#form-manifest').validate({
+      submitHandler: function(form){
+        setLoading(true); // Disable Button when ajax post data
+        $.ajax({
+          url: '{{ url("branch-manifest/" . $manifestHeader->do_manifest_no ) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Enable Button when failed
+          showSwalAutoClose("Data manifest updated.")
+        })
+        .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    })
   });
     $("#form-assign-do").validate({
       submitHandler: function(form) {

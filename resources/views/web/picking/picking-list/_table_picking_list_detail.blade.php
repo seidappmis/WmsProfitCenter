@@ -73,7 +73,7 @@
               type: 'DELETE',
             })
             .done(function() { // Kalau ajax nya success
-              swal("Good job!", "You clicked the button!", "success") // alert success
+              showSwalAutoClose('Success', 'detail deleted.')
               dtdatatable_picking_list_detail.ajax.reload(null, false); // reload datatable
             })
             .fail(function() { // Kalau ajax nya gagal

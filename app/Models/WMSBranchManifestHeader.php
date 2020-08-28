@@ -28,7 +28,7 @@ class WMSBranchManifestHeader extends Model
   public function status()
   {
     if ($this->details->count() == 0) {
-      return 'DO Items Not Found';
+      return '<span class="red-text">DO Items Not Found</span>';
     } elseif ($this->status_complete) {
       return 'Complete & Waiting Confirm';
     }

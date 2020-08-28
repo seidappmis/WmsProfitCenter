@@ -120,7 +120,7 @@
                         type="text" 
                         class="validate" 
                         name="container_no" 
-                        value="{{$lmbHeader->container_no}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->container_no : ''}}"
                         />
               </div>
             </td>
@@ -146,6 +146,7 @@
                         type="text" 
                         class="validate" 
                         name="checker" 
+                        value="{{!empty($manifestHeader) ? $manifestHeader->checker : ''}}"
                         />
               </div>
             </td>

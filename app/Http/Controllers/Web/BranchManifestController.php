@@ -31,7 +31,7 @@ class BranchManifestController extends Controller
           $action .= ' ' . get_button_view(url('branch-manifest/' . $data->do_manifest_no . '/edit'), 'View');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['status', 'action']);
 
       return $datatables->make(true);
     }
@@ -114,7 +114,7 @@ class BranchManifestController extends Controller
     $manifestHeader->ritase                      = 0;
     $manifestHeader->cbm                         = 0;
     $manifestHeader->manifest_return             = 0;
-    $manifestHeader->manifest_type               = 'Regular';
+    $manifestHeader->manifest_type               = 'REGULAR';
     $manifestHeader->status_inv_recieve          = 0;
     $manifestHeader->have_lcl                    = 0;
     $manifestHeader->lcl_from_driver_register_id = $request->input('lcl_from_driver_register_id');
@@ -133,6 +133,20 @@ class BranchManifestController extends Controller
     return $manifestHeader;
   }
 
+  public function update(Request $request, $id)
+  {
+    $manifestHeader                            = WMSBranchManifestHeader::findOrFail($id);
+    $manifestHeader->destination_number_driver = $request->input('destination_number_driver');
+    $manifestHeader->destination_name_driver   = $request->input('destination_name_driver');
+    $manifestHeader->container_no              = $request->input('container_no');
+    $manifestHeader->checker                   = $request->input('checker');
+
+    $manifestHeader->save();
+
+    return sendSuccess('Data Update', $manifestHeader);
+
+  }
+
   public function edit($id)
   {
     $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
@@ -140,6 +154,11 @@ class BranchManifestController extends Controller
     $data['doData']         = [];
 
     return view('web.outgoing.branch-manifest.edit', $data);
+  }
+
+  public function destroyDetail($id, $detail_id)
+  {
+    return sendSuccess('Line deleted.', WMSBranchManifestDetail::destroy($detail_id));
   }
 
   public function assignDO(Request $request, $id)
@@ -166,10 +185,10 @@ class BranchManifestController extends Controller
       $manifestDetail['expedition_code']       = $manifestHeader->expedition_code;
       $manifestDetail['expedition_name']       = $manifestHeader->expedition_name;
       $manifestDetail['sold_to']               = $concept->sold_to;
-      $manifestDetail['sold_to_code']          = $concept->sold_to_code;
-      $manifestDetail['sold_to_street']        = $concept->sold_to_street;
-      $manifestDetail['ship_to']               = $concept->ship_to;
-      $manifestDetail['ship_to_code']          = $concept->ship_to_code;
+      $manifestDetail['sold_to_code']          = $concept->kode_customer;
+      $manifestDetail['sold_to_street']        = $concept->long_description_customer;
+      $manifestDetail['ship_to']               = $concept->long_description_customer;
+      $manifestDetail['ship_to_code']          = $concept->kode_customer;
       $manifestDetail['city_code']             = $request->input('city_code');
       $manifestDetail['city_name']             = $request->input('city_name');
       $manifestDetail['do_date']               = $manifestHeader->do_manifest_date;
@@ -193,6 +212,8 @@ class BranchManifestController extends Controller
       $manifestDetail['actual_unloading_date'] = '';
       $manifestDetail['doc_do_return_date']    = '';
       $manifestDetail['do_reject']             = 0;
+      $manifestDetail['created_at']            = date('Y-m-d H:i:s');
+      $manifestDetail['created_by']            = auth()->user()->id;
 
       $rs_manifest_detail[] = $manifestDetail;
     }
