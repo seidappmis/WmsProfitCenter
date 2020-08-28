@@ -19,4 +19,18 @@ class WMSBranchManifestHeader extends Model
   {
     return $this->hasMany('App\Models\WMSBranchManifestDetail', 'do_manifest_no', 'do_manifest_no');
   }
+
+  public function picking()
+  {
+    return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
+  }
+
+  public function status()
+  {
+    if ($this->details->count() == 0) {
+      return 'DO Items Not Found';
+    } elseif ($this->status_complete) {
+      return 'Complete';
+    }
+  }
 }

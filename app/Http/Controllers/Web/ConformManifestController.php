@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestHeader;
+use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,8 @@ class ConformManifestController extends Controller
   public function listManifestBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::where('do_manifest_no', 'safd');
+      $query = WMSBranchManifestHeader::
+      where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -68,7 +70,11 @@ class ConformManifestController extends Controller
 
   public function viewForConform($id)
   {
-    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    if (auth()->user()->cabang->hq) {
+      $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    } else {
+      $data['manifestHeader'] = WMSBranchManifestHeader::findOrFail($id);
+    }
     
     return view('web.incoming.conform-manifest.view', $data);
   }

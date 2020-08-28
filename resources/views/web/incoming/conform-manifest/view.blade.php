@@ -40,12 +40,12 @@
                           <a class="waves-effect waves-light btn blue darken-2">Conform</a>
                           <div class="row mb-0">
                             <div class="input-field col s12 m6">
-                              <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
-                              <label for="delivery">Arrival Date</label>
+                              <input id="arrival_date" type="text" class="validate datepicker" name="arrival_date" required>
+                              <label for="arrival_date">Arrival Date</label>
                             </div>
                             <div class="input-field col s12 m6">
-                              <input id="delivery" type="text" class="validate datepicker" name="delivery" required>
-                              <label for="delivery">Unloading Date</label>
+                              <input id="unloading_date" type="text" class="validate datepicker" name="unloading_date" required>
+                              <label for="unloading_date">Unloading Date</label>
                             </div>
                           </div>
                         </div>

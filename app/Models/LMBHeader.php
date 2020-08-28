@@ -84,11 +84,20 @@ class LMBHeader extends Model
 
   public static function noManifestLMBHeader()
   {
-    return LMBHeader::selectRaw('wms_lmb_header.*')
-      ->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-      ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
+    $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*');
+    if (auth()->user()->cabang->hq) {
+      $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+        ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
+      ;
+    } else {
+      $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+        ->whereNull('wms_branch_manifest_header.driver_register_id') // yang belum ada Manifest
+      ;
+    }
     // ->where('area', auth()->user()->area) // yang se area
-    ;
+
+    return $lmbHeader;
+
   }
 
   public function cabang()
