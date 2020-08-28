@@ -50,7 +50,7 @@
         })
         .done(function(result) { // selesai dan berhasil
           if (result.status) {
-            window.location.href = '{{url("branch-invoicing/create/" . $group_id)}}'
+            window.location.href = '{{url("branch-invoicing/" . $group_id)}}'
             showSwalAutoClose('Success', result.message)
           } else {
             setLoading(false); // Enable Button when failed

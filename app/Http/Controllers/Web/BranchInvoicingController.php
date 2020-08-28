@@ -45,7 +45,13 @@ class BranchInvoicingController extends Controller
       DB::raw('SUM(wms_branch_manifest_detail.cbm) AS sum_of_cbm')
     )
       ->leftjoin('wms_branch_manifest_detail', 'wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')
+      ->leftjoin('wms_branch_manifest_freight_cost', function($join){
+        $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_freight_cost.do_manifest_no');
+        $join->on('wms_branch_manifest_detail.delivery_no', '=', 'wms_branch_manifest_freight_cost.delivery_no');
+        $join->on('wms_branch_manifest_detail.model', '=', 'wms_branch_manifest_freight_cost.model');
+      })
       ->where('wms_branch_manifest_header.do_manifest_no', 'like', '%' . $request->input('search')['value'] . '%')
+      ->whereNull('wms_branch_manifest_freight_cost.group_id')
       ->groupBy('wms_branch_manifest_header.do_manifest_no')
     ;
 
