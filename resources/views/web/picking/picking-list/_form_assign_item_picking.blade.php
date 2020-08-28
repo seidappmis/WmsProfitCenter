@@ -108,7 +108,8 @@
                     + row.model + ' | '
                     + row.delivery_items + ' | '
                     + row.quantity + ' | '
-                    + row.cbm;
+                    + row.cbm + ' | '
+                    + row.code_sales;
                 }
                 return data;
             },
