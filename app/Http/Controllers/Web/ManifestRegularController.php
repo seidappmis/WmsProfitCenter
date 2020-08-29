@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\FreightCost;
 use App\Models\LMBHeader;
 use App\Models\LogManifestDetail;
-use App\Models\FreightCost;
 use App\Models\LogManifestHeader;
 use DataTables;
 use DB;
@@ -17,7 +17,9 @@ class ManifestRegularController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::where('city_name', '<>', 'Ambil Sendiri');
+      $query = LogManifestHeader::select('log_manifest_header.*')
+        ->where('city_name', '<>', 'Ambil Sendiri')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -43,7 +45,9 @@ class ManifestRegularController extends Controller
   public function truckWaitingManifest(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBHeader::noManifestLMBHeader()->where('wms_lmb_header.expedition_code', '<>', 'AS')->get();
+      $query = LMBHeader::noManifestLMBHeader()
+        ->where('wms_lmb_header.expedition_code', '<>', 'AS')
+        ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

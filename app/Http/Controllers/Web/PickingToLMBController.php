@@ -24,8 +24,8 @@ class PickingToLMBController extends Controller
   {
     if ($request->ajax()) {
       $query = LMBHeader::select('wms_lmb_header.*')
-      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-      ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+        ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang)
       ;
 
       if (auth()->user()->cabang->hq) {
@@ -89,7 +89,9 @@ class PickingToLMBController extends Controller
         wms_lmb_detail.code_sales,
         COUNT(serial_number) AS qty_loading
       ')
-      ->where('driver_register_id', $id)->get();
+      ->where('driver_register_id', $id)
+      ->groupBy('invoice_no', 'delivery_no', 'model')
+      ->get();
 
     $rsLoadingQuantity = [];
     foreach ($tempDetailLMB as $key => $value) {
@@ -436,8 +438,17 @@ class PickingToLMBController extends Controller
           ];
         }
 
-        $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
-        $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
+        if ($rs_picking_list_details[$serial_number['ean_code']]->quantity > $scan_summaries[$serial_number['ean_code']]['quantity_scan']) {
+          $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
+          $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
+        } else {
+          $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
+          $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model'] = $rs_models[$serial_number['ean_code']]->model_name;
+          if (empty($model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'])) {
+            $model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] = 0;
+          }
+          $model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] += 1;
+        }
 
         $serial_numbers[] = $serial_number;
       }

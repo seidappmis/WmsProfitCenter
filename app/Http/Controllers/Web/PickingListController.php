@@ -20,9 +20,10 @@ class PickingListController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::where('wms_pickinglist_header.area', auth()->user()->area)
+      $query = PickinglistHeader::select('wms_pickinglist_header.*')
+        ->where('wms_pickinglist_header.area', auth()->user()->area)
         ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang)
-        ;
+      ;
 
       if (auth()->user()->cabang->hq) {
         // Tampilkan data yang belum ada manifest bila tidak di search
@@ -241,24 +242,27 @@ class PickingListController extends Controller
       $vehicle_number = !empty($request->input('vehicle_number_manual')) ? $request->input('vehicle_number_manual') : $request->input('vehicle_number');
       $driver_name    = !empty($request->input('driver_name_manual')) ? $request->input('driver_name_manual') : $request->input('driver_name');
 
-      if (empty($vehicle_number)) {
-        return sendError('Please select or insert vehicle no');
-      }
-      if (empty($driver_name)) {
-        return sendError('Please select or insert driver name');
+      if (!auth()->user()->cabang->hq) {
+        if (empty($vehicle_number)) {
+          return sendError('Please select or insert vehicle no');
+        }
+        if (empty($driver_name)) {
+          return sendError('Please select or insert driver name');
+        }
       }
 
       if (empty($expedition_name)) {
         return sendError('Please input expedition name');
       }
 
-      $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
-      $pickinglistHeader->expedition_code    = $request->input('expedition_code');
-      $pickinglistHeader->expedition_name    = $expedition_name;
-      $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
-      $pickinglistHeader->vehicle_number     = $vehicle_number;
-      $pickinglistHeader->driver_id          = $request->input('driver_id');
-      $pickinglistHeader->driver_name        = $driver_name;
+      $pickinglistHeader->driver_register_id = Uuid::uuid4();
+      // $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
+      $pickinglistHeader->expedition_code   = $request->input('expedition_code');
+      $pickinglistHeader->expedition_name   = $expedition_name;
+      $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
+      $pickinglistHeader->vehicle_number    = $vehicle_number;
+      $pickinglistHeader->driver_id         = $request->input('driver_id');
+      $pickinglistHeader->driver_name       = $driver_name;
     } else {
       $pickinglistHeader->expedition_code = 'AS';
       $pickinglistHeader->expedition_name = 'Ambil Sendiri';
@@ -396,15 +400,29 @@ class PickingListController extends Controller
 
     if (auth()->user()->cabang->hq && $pickinglistHeader->city_code != "AS") {
       // HQ ambil dari Concept
-      $query = Concept::select('tr_concept.*')
+      $query = Concept::select(
+        'tr_concept.*',
+        DB::raw('MAX(wmcT.line_no) AS max_line_no'),
+        DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
+      )
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
+          $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
+        })
+        ->leftjoin(DB::raw('tr_concept AS wmcT'), function ($join) {
+          $join->on('wmcT.invoice_no', '=', 'tr_concept.invoice_no');
+          // $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
       // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
       // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+        ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
       ;
+
+      if (empty($request->input('do_or_shipment'))) {
+        $query->whereRaw('1=2');
+      }
 
       if ($request->input('filter_type') == 'shipment') {
         $query->where('tr_concept.invoice_no', 'like', '%' . $request->input('do_or_shipment') . '%');

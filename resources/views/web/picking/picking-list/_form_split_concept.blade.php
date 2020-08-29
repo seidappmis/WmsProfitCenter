@@ -77,12 +77,18 @@
     total_split = (total_split < 2) ? 2 : total_split;
     $('#item-split-detail-table tbody').empty();
     var quantity = $('#form-split-concept [name="quantity"]').val();
+    console.log(data)
 
     for (var i = total_split; i > 0; i--) {
       data.max_delivery_items += 10;
       var tr = '';
       tr += '<tr>';
+      @if(auth()->user()->cabang->hq)
+      data.max_line_no += 1;
+      tr += '<td>' + data.max_line_no + '</td>';
+      @else
       tr += '<td>' + data.line_no + '</td>';
+      @endif
       tr += '<td>' + data.max_delivery_items  + '</td>';
       tr += '<td><input type="number" name="quantity_split[]" value="' + Math.floor(quantity/total_split) + '"></td>';
       tr += '</tr>';

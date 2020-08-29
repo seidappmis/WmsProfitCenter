@@ -94,10 +94,14 @@ class LMBHeader extends Model
 
   public static function noManifestLMBHeader()
   {
-    $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*');
+    $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
+    ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
+        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'log_manifest_header.driver_register_id')
+        ->whereNotNull('tr_driver_registered.id')
       ;
     } else {
       $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')

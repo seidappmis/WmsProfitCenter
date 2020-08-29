@@ -89,6 +89,9 @@
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
                             </tr>
                             {{-- Table Body --}}
+                            @php
+                            $row_no = 1;
+                            @endphp
                             @foreach($rs_details AS $k_model => $v_model)
                             @php 
                             $row_serial_pointer = 1;
@@ -97,9 +100,30 @@
                             $qty = count($v_model['serial_numbers']);
                             @endphp
                             <tr>
-                                <td rowspan="{{$row_serial_total}}" style="text-align: center; border: 1pt solid #000000;">1</td>
-                                <td rowspan="{{$row_serial_total}}" colspan="4" style="text-align: center; border: 1pt solid #000000;">{{$k_model}}</td>
-                                <td rowspan="{{$row_serial_total}}" colspan="2"  style="text-align: center; border: 1pt solid #000000;">{{$qty}}</td>
+                                <td rowspan="{{$row_serial_total}}" style="
+                                text-align: center; 
+                                border-left: 1pt solid #000000; 
+                                border-right: 1pt solid #000000; 
+                                vertical-align: top;
+                                {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+                                    {{$row_no}}
+                                </td>
+                                <td rowspan="{{$row_serial_total}}" colspan="4" style="
+                                text-align: center; 
+                                border-left: 1pt solid #000000; 
+                                border-right: 1pt solid #000000; 
+                                vertical-align: top;
+                                {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+                                    {{$k_model}}
+                                </td>
+                                <td rowspan="{{$row_serial_total}}" colspan="2"  style="
+                                text-align: center; 
+                                border-left: 1pt solid #000000; 
+                                border-right: 1pt solid #000000; 
+                                vertical-align: top;
+                                {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+                                    {{$qty}}
+                                </td>
                                 <td style="text-align: center;" colspan="3">
                                     {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
@@ -131,6 +155,9 @@
                             @endphp
                             @endwhile
 
+                            @php
+                            $row_no++;
+                            @endphp
                             @endforeach
                             {{-- <tr>
                                 <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
