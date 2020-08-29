@@ -112,7 +112,7 @@ class UploadDOForPickingController extends Controller
     }
 
     $check = $check_manual_concept->orderBy('delivery_no', 'desc')->limit(1)->get();
-    if (!empty($check)) {
+    if (count($check) > 0) {
       return sendError('Failed Upload ' . $check[0]->delivery_no . ' AND ' . $check[0]->delivery_items . ' Already EXIST.', $check);
     }
 
