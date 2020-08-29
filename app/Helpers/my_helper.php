@@ -103,11 +103,12 @@ function limit_kalimat_wrap($kalimat, $panjang_max = 100, $wrap_length = 40)
   return wordwrap($kalimat, $wrap_length, "<br>\n");
 }
 
-function sendError($message)
+function sendError($message, $data = null)
 {
   return [
     'status'  => false,
     'message' => $message,
+    'data'    => $data,
   ];
 }
 
