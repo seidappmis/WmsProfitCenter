@@ -9,7 +9,9 @@
 <div class="assign-item-picking-wrapper mt-3">
   <h4 class="card-title">Assign Item Picking</h4>
   <hr>
-
+  <span class="green-text" style="font-weight: 600;">CBM Truck : </span> {{$pickinglistHeader->vehicle->cbm_max}}
+  <br>
+  <span class="" style="font-weight: 600;">CBM Concept : </span>
   <table class="bordered">
     <tbody>
       <tr>

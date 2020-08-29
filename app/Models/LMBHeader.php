@@ -100,7 +100,7 @@ class LMBHeader extends Model
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
-        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'log_manifest_header.driver_register_id')
+        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_lmb_header.driver_register_id')
         ->whereNotNull('tr_driver_registered.id')
       ;
     } else {

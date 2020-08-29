@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Concept;
+use App\Models\ConceptFlowHeader;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
@@ -179,6 +181,13 @@ class PickingToLMBController extends Controller
 
     try {
       DB::beginTransaction();
+
+      if (auth()->user()->cabang->hq) {
+        $conceptFlowHeader              = ConceptFlowHeader::findOrFail($lmbHeader->driver_register_id);
+        $conceptFlowHeader->workflow_id = 5;
+        $conceptFlowHeader->save();
+      }
+
       $lmbHeader->send_manifest = 1;
 
       $rs_picking_detail_id        = $request->input('picking_detail_id');
@@ -197,28 +206,53 @@ class PickingToLMBController extends Controller
           $cbm_unit                 = $picking_detail->cbm / $rs_picking_quantity[$key];
           $picking_detail->cbm      = $cbm_unit * $rs_picking_quantity_loading[$key];
           $picking_detail->save();
+
+          if (auth()->user()->cabang->hq) {
+            $concept = Concept::where('invoice_no', $picking_detail->invoice_no)
+              ->where('line_no', $picking_detail->line_no)->first();
+          } else {
+            $concept = ManualConcept::where('invoice_no', $picking_detail->invoice_no)
+              ->where('delivery_no', $picking_detail->delivery_no)
+              ->where('delivery_items', $picking_detail->delivery_items)
+              ->first();
+          }
+
           // Overload picking
-          $logConceptOverload                    = new LOGConceptOverload;
-          $logConceptOverload->invoice_no        = $picking_detail->invoice_no;
-          $logConceptOverload->line_no           = $picking_detail->line_no;
-          $logConceptOverload->vehicle_code_type = $picking_detail->header->vehicle_code_type;
-          $logConceptOverload->expedition_id     = $picking_detail->header->expedition_id;
-          $logConceptOverload->delivery_no       = $picking_detail->delivery_no;
-          $logConceptOverload->delivery_items    = $picking_detail->delivery_items;
-          $logConceptOverload->model             = $picking_detail->model;
-          $logConceptOverload->quantity          = $rs_picking_quantity[$key] - $rs_picking_quantity_loading[$key];
-          $logConceptOverload->cbm               = $cbm_unit * $logConceptOverload->quantity;
-          $logConceptOverload->ship_to_city      = $picking_detail->header->city_name;
-          $logConceptOverload->created_at        = date('Y-m-d H:i:s');
-          $logConceptOverload->created_by        = auth()->user()->id;
-          $logConceptOverload->split_date        = date('Y-m-d H:i:s');
-          $logConceptOverload->area              = $picking_detail->header->area;
-          $logConceptOverload->expedition_name   = $picking_detail->header->expedition_name;
-          $logConceptOverload->code_sales        = $picking_detail->code_sales;
-          $logConceptOverload->status_confirm    = 0;
-          $logConceptOverload->overload_reason   = 'AUTO OVERLOAD BY SYSTEM FROM LMB';
-          $logConceptOverload->quantity_before   = $rs_picking_quantity[$key];
-          $logConceptOverload->cbm_before        = $cbm_before;
+          $logConceptOverload                     = new LOGConceptOverload;
+          $logConceptOverload->invoice_no         = $picking_detail->invoice_no;
+          $logConceptOverload->line_no            = $picking_detail->line_no;
+          $logConceptOverload->output_date        = $concept->output_date;
+          $logConceptOverload->output_time        = $concept->output_time;
+          $logConceptOverload->destination_number = $picking_detail->header->destination_number;
+          $logConceptOverload->vehicle_code_type  = $picking_detail->header->vehicle_code_type;
+          $logConceptOverload->car_no             = $concept->car_no;
+          $logConceptOverload->cont_no            = $concept->cont_no;
+          $logConceptOverload->checkin_date       = $concept->checkin_date;
+          $logConceptOverload->checkin_time       = $concept->checkin_time;
+          $logConceptOverload->expedition_id      = $picking_detail->header->expedition_id;
+          $logConceptOverload->delivery_no        = $picking_detail->delivery_no;
+          $logConceptOverload->delivery_items     = $picking_detail->delivery_items;
+          $logConceptOverload->model              = $picking_detail->model;
+          $logConceptOverload->quantity           = $rs_picking_quantity[$key] - $rs_picking_quantity_loading[$key];
+          $logConceptOverload->cbm                = $cbm_unit * $logConceptOverload->quantity;
+          $logConceptOverload->ship_to            = $concept->ship_to;
+          $logConceptOverload->sold_to            = $concept->sold_to;
+          $logConceptOverload->ship_to_city       = $picking_detail->header->city_name;
+          $logConceptOverload->ship_to_district   = $concept->ship_to_district;
+          $logConceptOverload->ship_to_street     = $concept->ship_to_street;
+          $logConceptOverload->sold_to_city       = $concept->sold_to_city;
+          $logConceptOverload->sold_to_district   = $concept->sold_to_district;
+          $logConceptOverload->sold_to_street     = $concept->sold_to_street;
+          $logConceptOverload->created_at         = date('Y-m-d H:i:s');
+          $logConceptOverload->created_by         = auth()->user()->id;
+          $logConceptOverload->split_date         = date('Y-m-d H:i:s');
+          $logConceptOverload->area               = $picking_detail->header->area;
+          $logConceptOverload->expedition_name    = $picking_detail->header->expedition_name;
+          $logConceptOverload->code_sales         = $picking_detail->code_sales;
+          $logConceptOverload->status_confirm     = 0;
+          $logConceptOverload->overload_reason    = 'AUTO OVERLOAD BY SYSTEM FROM LMB';
+          $logConceptOverload->quantity_before    = $rs_picking_quantity[$key];
+          $logConceptOverload->cbm_before         = $cbm_before;
 
           $logConceptOverload->save();
         }
@@ -350,6 +384,7 @@ class PickingToLMBController extends Controller
       MovementTransactionLog::insert($rs_movement_transaction_log);
 
       $lmbHeader->save();
+
       DB::commit();
 
       return sendSuccess('LMB Send Manifest', $lmbHeader);
@@ -443,7 +478,7 @@ class PickingToLMBController extends Controller
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
         } else {
           $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
-          $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model'] = $rs_models[$serial_number['ean_code']]->model_name;
+          $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model']      = $rs_models[$serial_number['ean_code']]->model_name;
           if (empty($model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'])) {
             $model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] = 0;
           }

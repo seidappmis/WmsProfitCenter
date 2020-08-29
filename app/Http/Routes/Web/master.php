@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Master Freight Cost
   Route::post('master-freight-cost/upload', 'Web\MasterFreightCostController@proses_upload');
+  Route::get('master-freight-cost/select2-vehicle', 'Web\MasterFreightCostController@getSelect2Vehicle');
   Route::resource('master-freight-cost', 'Web\MasterFreightCostController');
 
   // Storage Master

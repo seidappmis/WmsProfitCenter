@@ -225,9 +225,17 @@ class ManifestRegularController extends Controller
 
   public function export(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
 
-    $view_print = view('web.outgoing.manifest-regular._print');
+    $rs_details = [];
+    foreach ($data['manifestHeader']->details as $key => $value) {
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['data']     = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['models'][] = $value;
+    }
+
+    $data['rs_details'] = $rs_details;
+
+    $view_print = view('web.outgoing.manifest-regular._print', $data);
     $title      = 'Manifest Reguler';
 
     if ($request->input('filetype') == 'html') {

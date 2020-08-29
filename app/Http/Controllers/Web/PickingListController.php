@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\ConceptFlowDetail;
+use App\Models\ConceptFlowHeader;
+use App\Models\ConceptTruckFlow;
 use App\Models\DriverRegistered;
 use App\Models\InventoryStorage;
+use App\Models\LMBHeader;
 use App\Models\ManualConcept;
 use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
@@ -150,13 +154,17 @@ class PickingListController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('driver_id', function ($data) {
+          return $data->driver_id . '<br>' . $data->driver_name;
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('picking-list/transporter/' . $data->id), 'Assign Picking');
           $action .= ' ' . get_button_edit(url('picking-list/transporter/' . $data->id . '/edit'));
           $action .= ' ' . get_button_delete('Is Leave');
           return $action;
-        });
+        })
+        ->rawColumns(['driver_id', 'action']);
 
       return $datatables->make(true);
     }
@@ -173,36 +181,95 @@ class PickingListController extends Controller
   {
     $driverRegistered = DriverRegistered::findOrFail($id);
 
-    foreach (json_decode($request->input('data_picking'), true) as $key => $value) {
-      $picking = PickinglistHeader::find($value['id']);
+    try {
+      DB::beginTransaction();
+      $driverRegistered->wk_step_number = 4;
+      $driverRegistered->save();
 
-      $picking->driver_register_id = $id;
-      $picking->driver_id          = $driverRegistered->driver_id;
-      $picking->driver_name        = $driverRegistered->driver_name;
-      $picking->vehicle_number     = $driverRegistered->vehicle_number;
-      $picking->expedition_code    = $driverRegistered->expedition_code;
-      $picking->expedition_name    = $driverRegistered->expedition_name;
-      $picking->vehicle_code_type  = $driverRegistered->vehicle_code_type;
-      $picking->vehicle_number     = $driverRegistered->vehicle_number;
-      $picking->gate_number        = $request->input('gate_number');
-      $picking->destination_number = $driverRegistered->destination_number;
-      $picking->destination_name   = $driverRegistered->destination_name;
-      $picking->city_code          = $request->input('city_code');
-      $picking->city_name          = $request->input('city_name');
-      $picking->assign_driver_date = date('Y-m-d H:i:s');
-      $picking->assign_driver_by   = auth()->user()->username;
+      // Add concept flow header
+      $idConceptFlowHeader                   = $driverRegistered->id;
+      $conceptFlowHeader                     = new ConceptFlowHeader;
+      $conceptFlowHeader->id                 = $idConceptFlowHeader;
+      $conceptFlowHeader->workflow_id        = 4;
+      $conceptFlowHeader->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+      $conceptFlowHeader->driver_id          = $driverRegistered->driver_id;
+      $conceptFlowHeader->expedition_id      = $driverRegistered->expedition->id;
+      $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
+      $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
+      $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
+      $conceptFlowHeader->driver_register_id = $driverRegistered->id;
+      $conceptFlowHeader->save();
 
-      $lmb = LMBHeader::find($value['id']);
+      // concept truck flow
+      $conceptTruckFlow                      = new ConceptTruckFlow;
+      $conceptTruckFlow->id                  = $idConceptFlowHeader;
+      $conceptTruckFlow->concept_flow_header = $idConceptFlowHeader;
+      $conceptTruckFlow->gate_number         = $request->input('gate_number');
+      $conceptTruckFlow->created_gate_date   = date('Y-m-d H:i:s');
+      $conceptTruckFlow->created_gate_by     = auth()->user()->username;
+      $conceptTruckFlow->area                = $driverRegistered->area;
+      $conceptTruckFlow->save();
 
-      $lmb->driver_register_id = $id;
-      $lmb->driver_id          = $driverRegistered->driver_id;
-      $lmb->driver_name        = $driverRegistered->driver_name;
-      $lmb->vehicle_number     = $driverRegistered->vehicle_number;
-      $lmb->expedition_code    = $driverRegistered->expedition_code;
-      $lmb->expedition_name    = $driverRegistered->expedition_name;
+      $rs_picking = [];
+      foreach (json_decode($request->input('data_picking'), true) as $key => $value) {
+        $picking = PickinglistHeader::findOrFail($value['id']);
 
-      $lmb->save();
+        $picking->driver_register_id = $id;
+        $picking->driver_id          = $driverRegistered->driver_id;
+        $picking->driver_name        = $driverRegistered->driver_name;
+        $picking->vehicle_number     = $driverRegistered->vehicle_number;
+        $picking->expedition_code    = $driverRegistered->expedition_code;
+        $picking->expedition_name    = $driverRegistered->expedition_name;
+        $picking->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+        $picking->vehicle_number     = $driverRegistered->vehicle_number;
+        $picking->gate_number        = $request->input('gate_number');
+        $picking->destination_number = $driverRegistered->destination_number;
+        $picking->destination_name   = $driverRegistered->destination_name;
+        $picking->city_code          = $request->input('city_code');
+        $picking->city_name          = $request->input('city_name');
+        $picking->assign_driver_date = date('Y-m-d H:i:s');
+        $picking->assign_driver_by   = auth()->user()->username;
 
+        $picking->save();
+
+        $rs_picking[] = $picking;
+
+        // ADD CONCEPT FLOW DETAIL
+        foreach ($picking->details as $key => $value) {
+          $conceptFlowDetail = new ConceptFlowDetail;
+
+          $conceptFlowDetail->id_header      = $idConceptFlowHeader;
+          $conceptFlowDetail->invoice_no     = $value->invoice_no;
+          $conceptFlowDetail->line_no        = $value->line_no;
+          $conceptFlowDetail->quantity       = $value->quantity;
+          $conceptFlowDetail->cbm_max        = $value->cbm;
+          $conceptFlowDetail->concept_type   = "STANDAR";
+          $conceptFlowDetail->delivery_no    = $value->delivery_no;
+          $conceptFlowDetail->delivery_items = $value->delivery_items;
+
+          $conceptFlowDetail->save();
+
+        }
+
+        $lmb = LMBHeader::find($value['id']);
+        if (!empty($lmb)) {
+          $lmb->driver_register_id = $id;
+          $lmb->driver_id          = $driverRegistered->driver_id;
+          $lmb->driver_name        = $driverRegistered->driver_name;
+          $lmb->vehicle_number     = $driverRegistered->vehicle_number;
+          $lmb->expedition_code    = $driverRegistered->expedition_code;
+          $lmb->expedition_name    = $driverRegistered->expedition_name;
+
+          $lmb->save();
+        }
+
+      }
+
+      DB::commit();
+
+      return sendSuccess('assign success', $rs_picking);
+    } catch (Exception $e) {
+      DB::rollBack();
     }
   }
 
@@ -532,7 +599,7 @@ class PickingListController extends Controller
       $pickingListDetail['id']             = $base_id . $key;
       $pickingListDetail['header_id']      = $request->input('picking_id');
       $pickingListDetail['invoice_no']     = $value['invoice_no'];
-      $pickingListDetail['line_no']        = 1;
+      $pickingListDetail['line_no']        = auth()->user()->cabang->hq ? $value['line_no'] : 0;
       $pickingListDetail['delivery_no']    = $value['delivery_no'];
       $pickingListDetail['delivery_items'] = $value['delivery_items'];
       $pickingListDetail['model']          = $value['model'];

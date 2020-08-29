@@ -53,7 +53,7 @@
             {data: 'destination_name', name: 'destination_name', className: 'detail'},
             {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
             {data: 'lmb_date', name: 'lmb_date', className: 'detail'},
-            {data: 'action', className: 'center-align', orderable:false, searchable: false},
+            {data: 'action', className: 'left-align', orderable:false, searchable: false},
         ]
     });
     dtdatatable_picking_to_lmb.on('click', '.btn-delete', function(event) {

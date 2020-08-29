@@ -145,8 +145,12 @@
               data: $(form).serialize() + '&data_picking=' + JSON.stringify(data_picking),
             })
             .done(function(data) { // selesai dan berhasil
-              showSwalAutoClose("Success", "Save Vehicle No {{$driverRegistered->vehicle_number}}")
-              window.location.href = "{{ url('picking-list') }}"
+              setLoading(false)
+              if (data.status) {
+                showSwalAutoClose("Success", "Save Vehicle No {{$driverRegistered->vehicle_number}}")
+                dttable_picking.ajax.reload(null, false)
+              }
+              // window.location.href = "{{ url('picking-list') }}"
             })
             .fail(function(xhr) {
                 setLoading(false); // Enable Button when failed

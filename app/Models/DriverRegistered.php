@@ -15,6 +15,11 @@ class DriverRegistered extends Model
     return $this->belongsTo('App\Models\VehicleDetail', 'vehicle_code_type', 'vehicle_code_type');
   }
 
+  public function expedition()
+  {
+    return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code', 'code');
+  }
+
   public static function transporterWaitingConcept($request)
   {
     return DriverRegistered::select('tr_driver_registered.*', 'tr_vehicle_type_detail.cbm_max', 'tr_expedition.sap_vendor_code')

@@ -295,7 +295,7 @@
     function set_hq_select_vehicle_type(filter = {expedition_code: ''}) {
         $('#form-picking-list [name="vehicle_code_type"]').select2({
           placeholder: '-- Select Vehicle --',
-          ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle', filter)
+          ajax: get_select2_ajax_options('/master-freight-cost/select2-vehicle', filter)
         })
     }
 
