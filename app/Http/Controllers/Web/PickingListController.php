@@ -25,19 +25,25 @@ class PickingListController extends Controller
         ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang)
       ;
 
-      if (auth()->user()->cabang->hq) {
-        // Tampilkan data yang belum ada manifest bila tidak di search
-        $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
-        if (empty($request->input('search')['value'])) {
-          $query->whereNull('log_manifest_header.driver_register_id');
-        }
-      } else {
-        // Tampilkan data yang belum ada manifest bila tidak di search
-        $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
-        if (empty($request->input('search')['value'])) {
-          $query->whereNull('wms_branch_manifest_header.driver_register_id');
-        }
+      // Tampilkan data yang belum ada manifest bila tidak di search
+      $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+      if (empty($request->input('search')['value'])) {
+        $query->whereRaw('(wms_lmb_header.driver_register_id IS NULL OR wms_lmb_header.send_manifest = 0)');
       }
+
+      // if (auth()->user()->cabang->hq) {
+      //   // Tampilkan data yang belum ada manifest bila tidak di search
+      //   $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+      //   if (empty($request->input('search')['value'])) {
+      //     $query->whereNull('log_manifest_header.driver_register_id');
+      //   }
+      // } else {
+      //   // Tampilkan data yang belum ada manifest bila tidak di search
+      //   $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+      //   if (empty($request->input('search')['value'])) {
+      //     $query->whereNull('wms_branch_manifest_header.driver_register_id');
+      //   }
+      // }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -88,9 +94,11 @@ class PickingListController extends Controller
   public function getNonAssignedPicking(Request $request)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::has('details')
-        ->where('area', auth()->user()->area)
-        ->whereNull('driver_register_id')
+      $query = PickinglistHeader::select('wms_pickinglist_header.*')
+        ->has('details')
+        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
+        ->where('wms_pickinglist_header.area', auth()->user()->area)
+        ->whereNull('tr_driver_registered.id')
         ->get();
 
       $datatables = DataTables::of($query)
@@ -184,7 +192,16 @@ class PickingListController extends Controller
       $picking->assign_driver_date = date('Y-m-d H:i:s');
       $picking->assign_driver_by   = auth()->user()->username;
 
-      $picking->save();
+      $lmb = LMBHeader::find($value['id']);
+
+      $lmb->driver_register_id = $id;
+      $lmb->driver_id          = $driverRegistered->driver_id;
+      $lmb->driver_name        = $driverRegistered->driver_name;
+      $lmb->vehicle_number     = $driverRegistered->vehicle_number;
+      $lmb->expedition_code    = $driverRegistered->expedition_code;
+      $lmb->expedition_name    = $driverRegistered->expedition_name;
+
+      $lmb->save();
 
     }
   }
