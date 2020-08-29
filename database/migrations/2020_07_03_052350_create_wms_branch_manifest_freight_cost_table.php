@@ -51,7 +51,7 @@ class CreateWmsBranchManifestFreightCostTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
 
-            $table->primary(['delivery_no', 'model', 'do_manifest_no']);
+            $table->primary(['delivery_no', 'model', 'do_manifest_no'], 'wms_branch_manifest_freight_cost_primary');
         });
     }
 
