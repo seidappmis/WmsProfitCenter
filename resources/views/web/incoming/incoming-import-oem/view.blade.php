@@ -224,6 +224,8 @@
         .done(function(result) { // selesai dan berhasil
           setLoading(false); // Enable Button when failed
           showSwalAutoClose('Success', result.message)
+          $('#form-incoming-import-oem-detail [name="no_gr_sap"]').val(result.no_gr_sap);
+          dttable_incoming_detail.ajax.reload(null, false)
         })
         .fail(function(xhr) {
           setLoading(false); // Enable Button when failed

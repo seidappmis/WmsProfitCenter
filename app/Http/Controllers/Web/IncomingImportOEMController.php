@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\IncomingManualDetail;
 use App\Models\IncomingManualHeader;
 use App\Models\InventoryStorage;
 use App\Models\MovementTransactionLog;
@@ -248,12 +249,13 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->container_no        = $request->input('container_no');
     $incomingManualHeader->area                = $request->input('area');
     // $incomingManualHeader->inc_type            = $request->input('inc_type');
-    $incomingManualHeader->kode_cabang         = auth()->user()->cabang->kode_cabang;
+    $incomingManualHeader->kode_cabang = auth()->user()->cabang->kode_cabang;
     // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');
     // $incomingManualHeader->submit_by           = $request->input('submit_by');
 
     $incomingManualHeader->save();
+    IncomingManualDetail::where('arrival_no_header', $id)->update(['no_gr_sap' => $incomingManualHeader->no_gr_sap]);
 
     return $incomingManualHeader;
 
@@ -283,7 +285,7 @@ class IncomingImportOEMController extends Controller
   public function export(Request $request, $id)
   {
     $data['incomingManualHeader'] = IncomingManualHeader::findOrFail($id);
-    $data['request'] = $request->all();
+    $data['request']              = $request->all();
 
     $view_print = view('web.incoming.incoming-import-oem._print', $data);
     $title      = 'Incoming Import OEM';

@@ -99,7 +99,7 @@
 
       $('#form-incoming-import-oem-detail [name="storage_id"]').select2({
          placeholder: '-- Select Storage Location --',
-         ajax: get_select2_ajax_options('/storage-master/select2-storage')
+         ajax: get_select2_ajax_options('/storage-master/select2-storage', {sto_type_id: [1,2]})
       });
 
    });
