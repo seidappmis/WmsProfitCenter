@@ -402,7 +402,6 @@ class PickingToLMBController extends Controller
 
     $file = fopen($request->file('file_scan'), "r");
 
-    // $title          = true; // Untuk Penada Baris pertama adalah Judul
     $serial_numbers                 = [];
     $scan_summaries                 = [];
     $model_not_exist_in_pickinglist = [];
@@ -410,14 +409,9 @@ class PickingToLMBController extends Controller
     $rs_models               = [];
     $rs_picking_list_details = [];
 
-    $rs_key = [];
-
     while (!feof($file)) {
       $row = fgetcsv($file);
-      // if ($title) {
-      //   $title = false;
-      //   continue; // Skip baris judul
-      // }
+
       $serial_number = [
         'picking_id'    => $row[0],
         'ean_code'      => $row[1],

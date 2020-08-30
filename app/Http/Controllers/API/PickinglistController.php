@@ -10,19 +10,26 @@ class PickinglistController extends Controller
   public function getPickingList(Request $request, $picking_no)
   {
     $pickingList = \App\Models\PickinglistHeader::where('picking_no', $picking_no)
+    // ->where('kode_cabang', substr($request->input('kode_customer'), 0, 2))
       ->first();
+
+    // return sendError('kode_customer' . $request->input('kode_customer'));
 
     if (empty($pickingList)) {
       return sendError('Picking List Not Found !');
     }
 
-    if (!auth()->user()->cabang->hq && $pickingList->kode_cabang != auth()->user()->cabang->kode_cabang) {
+    if (substr($request->input('kode_customer'), 0, 2) != $pickingList->kode_cabang) {
       return sendError('Picking List Not Found !');
     }
 
-    if (auth()->user()->cabang->hq && auth()->user()->area != $pickingList->area) {
-      return sendError('Picking List Not Found !');
-    }
+    // if (!auth()->user()->cabang->hq && $pickingList->kode_cabang != auth()->user()->cabang->kode_cabang) {
+    //   return sendError('Picking List Not Found !');
+    // }
+
+    // if (auth()->user()->cabang->hq && auth()->user()->area != $pickingList->area) {
+    //   return sendError('Picking List Not Found !');
+    // }
 
     // return $pickingList;
 
