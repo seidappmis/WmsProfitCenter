@@ -168,59 +168,71 @@ class ManifestRegularController extends Controller
 
       $manifestDetail['do_manifest_no'] = $request->input('do_manifest_no');
       // $manifestDetail['no_urut']             = '';
-      $manifestDetail['delivery_no']         = $value['delivery_no'];
-      $manifestDetail['delivery_items']      = $value['delivery_items'];
-      $manifestDetail['invoice_no']          = $value['invoice_no'];
-      $manifestDetail['line_no']             = $value['line_no'];
-      $manifestDetail['ambil_sendiri']       = 0;
-      $manifestDetail['model']               = $value['model'];
-      $manifestDetail['expedition_code']     = $manifestHeader->expedition_code;
-      $manifestDetail['expedition_name']     = $manifestHeader->expedition_name;
-      $manifestDetail['sold_to']             = $concept->sold_to;
-      $manifestDetail['sold_to_code']        = $concept->sold_to_code;
-      $manifestDetail['sold_to_street']      = $concept->sold_to_street;
-      $manifestDetail['ship_to']             = $concept->ship_to;
-      $manifestDetail['ship_to_code']        = $concept->ship_to_code;
-      $manifestDetail['city_code']           = $manifestHeader->city_code;
-      $manifestDetail['city_name']           = $manifestHeader->city_name;
-      $manifestDetail['do_date']             = $manifestHeader->do_manifest_date;
-      $manifestDetail['quantity']            = $value['quantity'];
-      $manifestDetail['cbm']                 = $value['cbm'];
-      $manifestDetail['area']                = $manifestHeader->area;
-      $manifestDetail['do_internal']         = $request->input('do_internal');
-      $manifestDetail['reservasi_no']        = $request->input('reservasi_no');
-      $manifestDetail['nilai_ritase']        = '';
-      $manifestDetail['nilai_ritase2']       = '';
-      $manifestDetail['nilai_cbm']           = '';
-      $manifestDetail['code_sales']          = '';
-      $manifestDetail['tcs']                 = '';
-      $manifestDetail['multidro']            = '';
-      $manifestDetail['unloading']           = '';
-      $manifestDetail['overstay']            = '';
-      $manifestDetail['do_return']           = '';
-      $manifestDetail['status_confirm']      = '';
-      $manifestDetail['confirm_date']        = '';
-      $manifestDetail['confirm_by']          = '';
-      $manifestDetail['lead_time']           = '';
-      $manifestDetail['base_price']          = '';
-      $manifestDetail['kode_cabang']         = substr($value['kode_customer'], 0, 2);
-      $manifestDetail['region']              = '';
-      $manifestDetail['remarks']             = '';
-      $manifestDetail['actual_time_arrival'] = '';
-      $manifestDetail['actual_loading_date'] = '';
-      $manifestDetail['doc_do_return_date']  = '';
-      $manifestDetail['status_ds_done']      = 0;
-      $manifestDetail['do_reject']           = 0;
+      $manifestDetail['delivery_no']     = $value['delivery_no'];
+      $manifestDetail['delivery_items']  = $value['delivery_items'];
+      $manifestDetail['invoice_no']      = $value['invoice_no'];
+      $manifestDetail['line_no']         = $value['line_no'];
+      $manifestDetail['ambil_sendiri']   = 0;
+      $manifestDetail['model']           = $value['model'];
+      $manifestDetail['expedition_code'] = $manifestHeader->expedition_code;
+      $manifestDetail['expedition_name'] = $manifestHeader->expedition_name;
+      $manifestDetail['sold_to']         = $concept->sold_to;
+      $manifestDetail['sold_to_code']    = $concept->sold_to_code;
+      $manifestDetail['sold_to_street']  = $concept->sold_to_street;
+      $manifestDetail['ship_to']         = $concept->ship_to;
+      $manifestDetail['ship_to_code']    = $concept->ship_to_code;
+      $manifestDetail['city_code']       = $manifestHeader->city_code;
+      $manifestDetail['city_name']       = $manifestHeader->city_name;
+      $manifestDetail['do_date']         = $manifestHeader->do_manifest_date;
+      $manifestDetail['quantity']        = $value['quantity'];
+      $manifestDetail['cbm']             = $value['cbm'];
+      $manifestDetail['area']            = $manifestHeader->area;
+      $manifestDetail['do_internal']     = $request->input('do_internal');
+      $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
+      // $manifestDetail['nilai_ritase']        = '';
+      // $manifestDetail['nilai_ritase2']       = '';
+      // $manifestDetail['nilai_cbm']           = '';
+      $manifestDetail['code_sales'] = $concept->code_sales;
+      // $manifestDetail['tcs']                 = '';
+      // $manifestDetail['multidro']            = '';
+      // $manifestDetail['unloading']           = '';
+      // $manifestDetail['overstay']            = '';
+      // $manifestDetail['do_return']           = '';
+      // $manifestDetail['status_confirm']      = '';
+      // $manifestDetail['confirm_date']        = '';
+      // $manifestDetail['confirm_by']          = '';
+      // $manifestDetail['lead_time']           = '';
+      $manifestDetail['base_price']  = '';
+      $manifestDetail['kode_cabang'] = substr($value['kode_customer'], 0, 2);
+      $manifestDetail['region']      = '';
+      // $manifestDetail['remarks']             = '';
+      // $manifestDetail['actual_time_arrival'] = '';
+      // $manifestDetail['actual_loading_date'] = '';
+      // $manifestDetail['doc_do_return_date']  = '';
+      $manifestDetail['status_ds_done'] = 0;
+      $manifestDetail['do_reject']      = 0;
 
       $rs_manifest_detail[] = $manifestDetail;
     }
 
     $manifestHeader->tcs = 1;
 
-    $manifestHeader->save();
-    LogManifestDetail::insert($rs_manifest_detail);
+    try {
+      DB::beginTransaction();
 
-    return $manifestHeader;
+      LogManifestDetail::insert($rs_manifest_detail);
+      // if ($manifestHeader->lmb->do_details->count() == 0) {
+      //   $manifestHeader->status_complete = 1;
+      // }
+
+      $manifestHeader->save();
+      DB::commit();
+
+      return sendSuccess('Success submit to logsys', $manifestHeader);
+
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
   }
 
   public function export(Request $request, $id)

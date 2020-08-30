@@ -15,10 +15,10 @@
                 </ol>
             </div>
             <div class="col s12 m2">
-              <div class="display-flex">
+              {{-- <div class="display-flex">
                 @component('layouts.materialize.components.back-button')
                 @endcomponent
-              </div>
+              </div> --}}
             </div>
         </div>
     @endcomponent
@@ -104,6 +104,7 @@
                       </div>
                       <!-- datatable ends -->
                       </form>
+                      {!! get_button_cancel(url('conform-manifest'), 'Back', 'mt-2') !!}
                     </div>
                     <div class="card-content p-0">
 

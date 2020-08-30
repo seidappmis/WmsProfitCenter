@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConceptFlowHeader;
+use App\Models\ConceptTruckFlow;
+use App\Models\DriverRegistered;
 use App\Models\LogManifestHeader;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class CompleteController extends Controller
@@ -12,10 +16,21 @@ class CompleteController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::all();
+      $query = LogManifestHeader::select(
+        'log_manifest_header.*',
+        'tr_concept_truck_flow.complete_date'
+      )
+      ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
+      ->where('log_manifest_header.area', $request->input('area'));
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('vehicle_number', function ($data) {
+          return $data->vehicle_number . '<br>' . $data->driver_name;
+        })
+        ->editColumn('do_manifest_no', function ($data) {
+          return $data->do_manifest_no . '<br>' . $data->complete_date;
+        })
         ->addColumn('picking_no', function ($data) {
           return $data->picking->picking_no;
         })
@@ -27,7 +42,7 @@ class CompleteController extends Controller
           $action .= ' ' . get_button_view(url('complete/' . $data->driver_register_id), 'View');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['vehicle_number', 'do_manifest_no', 'do_status', 'action']);
 
       return $datatables->make(true);
     }
@@ -48,15 +63,41 @@ class CompleteController extends Controller
 
   public function complete($id)
   {
-    $manifestHeader                  = LogManifestHeader::where('driver_register_id', $id)->first();
+    $manifestHeader = LogManifestHeader::where('driver_register_id', $id)->first();
 
     if (empty($manifestHeader)) {
       abort(404);
     }
 
-    $manifestHeader->status_complete = 1;
-    $manifestHeader->save();
+    try {
+      DB::beginTransaction();
+      // Update Tr DRIVER REGISTERED
+      $driverRegistered                 = DriverRegistered::findOrFail($id);
+      $driverRegistered->wk_step_number = 6;
+      $driverRegistered->save();
 
-    return $manifestHeader;
+      // UPDATE tr_workflow_header
+      $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $id)->first();
+      $conceptFlowHeader->workflow_id = 6;
+      $conceptFlowHeader->save();
+
+      // Update Truck flow
+      $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+
+      $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
+      $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
+      $conceptTruckFlow->created_complete_by   = auth()->user()->id;
+      $conceptTruckFlow->save();
+
+      $manifestHeader->status_complete = 1;
+      $manifestHeader->save();
+
+      DB::commit();
+
+      return sendSuccess('Success complete manifest', $manifestHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+
   }
 }
