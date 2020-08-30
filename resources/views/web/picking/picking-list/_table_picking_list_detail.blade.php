@@ -74,6 +74,7 @@
             })
             .done(function() { // Kalau ajax nya success
               showSwalAutoClose('Success', 'detail deleted.')
+              dtdatatable_do_for_picking.ajax.reload(null, false)
               dtdatatable_picking_list_detail.ajax.reload(null, false); // reload datatable
             })
             .fail(function() { // Kalau ajax nya gagal

@@ -482,7 +482,8 @@ class PickingListController extends Controller
 
     $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
 
-    if (auth()->user()->cabang->hq && $pickinglistHeader->city_code != "AS") {
+    // if (auth()->user()->cabang->hq && $pickinglistHeader->city_code != "AS") {
+    if (auth()->user()->cabang->hq) {
       // HQ ambil dari Concept
       $query = Concept::select(
         'tr_concept.*',
