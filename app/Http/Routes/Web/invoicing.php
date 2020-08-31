@@ -15,6 +15,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('receipt-invoice-accounting/{id}', 'Web\ReceiptInvoiceAccountingController@show');
   Route::get('receipt-invoice-accounting/{id}/export-receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@exportReceiptInvoiceAccounting');
 
+  Route::put('branch-invoicing', 'Web\BranchInvoicingController@update');
+  Route::delete('branch-invoicing', 'Web\BranchInvoicingController@destroy');
   Route::get('branch-invoicing', 'Web\BranchInvoicingController@index');
   Route::post('branch-invoicing', 'Web\BranchInvoicingController@store');
   Route::get('branch-invoicing/manifest-data', 'Web\BranchInvoicingController@getManifestData');

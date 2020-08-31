@@ -20,6 +20,7 @@ class BranchInvoicingController extends Controller
           GROUP_CONCAT(do_manifest_no SEPARATOR ', ') AS manifest_no,
           GROUP_CONCAT(expedition_name SEPARATOR ', ') AS expedition_name
         ")
+        ->where('kode_cabang_pembuat', auth()->user()->cabang->kode_cabang)
         ->groupBy('group_id')
       ;
 
@@ -45,7 +46,7 @@ class BranchInvoicingController extends Controller
       DB::raw('SUM(wms_branch_manifest_detail.cbm) AS sum_of_cbm')
     )
       ->leftjoin('wms_branch_manifest_detail', 'wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')
-      ->leftjoin('wms_branch_manifest_freight_cost', function($join){
+      ->leftjoin('wms_branch_manifest_freight_cost', function ($join) {
         $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_freight_cost.do_manifest_no');
         $join->on('wms_branch_manifest_detail.delivery_no', '=', 'wms_branch_manifest_freight_cost.delivery_no');
         $join->on('wms_branch_manifest_detail.model', '=', 'wms_branch_manifest_freight_cost.model');
@@ -153,5 +154,37 @@ class BranchInvoicingController extends Controller
   protected function getCostTotal($freight_cost)
   {
     return $freight_cost['cbm_total'] * $freight_cost['cost_per_cbm'] + $freight_cost['cbm_total'] * $freight_cost['cost_per_coli'] + $freight_cost['cost_per_trip'];
+  }
+
+  public function update(Request $request)
+  {
+    $freight_cost_temp = WMSBranchManifestFreightCost::where('do_manifest_no', $request->input('do_manifest_no'))
+      ->where('model', $request->input('model'))
+      ->where('delivery_no', $request->input('delivery_no'))
+      ->first();
+
+    $freight_cost                  = [];
+    $freight_cost['cbm_total']     = $freight_cost_temp->cbm_total;
+    $freight_cost['cost_per_cbm']  = $request->input('cost_per_cbm');
+    $freight_cost['cost_per_coli'] = $request->input('cost_per_coli');
+    $freight_cost['cost_per_trip'] = $request->input('cost_per_trip');
+    $freight_cost['cost_total']    = $this->getCostTotal($freight_cost);
+
+    WMSBranchManifestFreightCost::where('do_manifest_no', $request->input('do_manifest_no'))
+      ->where('model', $request->input('model'))
+      ->where('delivery_no', $request->input('delivery_no'))
+      ->update($freight_cost);
+
+    return sendSuccess('Freight Cost for DO ' . $request->input('delivery_no') . ' and Model ' . $request->input('model') . ' has been update', $freight_cost);
+  }
+
+  public function destroy(Request $request)
+  {
+    $delete = WMSBranchManifestFreightCost::where('do_manifest_no', $request->input('do_manifest_no'))
+      ->where('model', $request->input('model'))
+      ->where('delivery_no', $request->input('delivery_no'))
+      ->delete();
+
+    return sendSuccess('Item Deleted.', $delete);
   }
 }
