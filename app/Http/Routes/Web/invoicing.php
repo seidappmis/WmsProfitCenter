@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('branch-invoicing', 'Web\BranchInvoicingController@index');
     Route::get('branch-invoicing/create', 'Web\BranchInvoicingController@create');
+    Route::get('branch-invoicing/{id}/export', 'Web\BranchInvoicingController@export');
 
     Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
 });
