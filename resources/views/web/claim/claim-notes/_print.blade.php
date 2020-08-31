@@ -6,7 +6,7 @@
 			<table style="width: 210.0003mm;">
 				<tr>
 					<td>
-						<table width="100%" style="border-collapse: collapse; font-size: 10pt;">
+						<table width="100%" style="border-collapse: collapse; font-size: 9pt;">
 							{{-- Logo --}}
 							<tr>
 				                <td colspan="13" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp; <img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo" style="width: 90px;"></td>
@@ -166,13 +166,20 @@
 							</tr>
 							<tr>
 								<td colspan="3" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Total Claim Amount</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000; width: 5mm;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000; width: 5mm;"><strong>IDR</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>USD</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>JYP</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>OTHERS:</strong></td>
+								<td>
+									<table width="100%" style="font-size: 9pt;">
+										<tr>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>IDR</strong></td>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>USD</strong></td>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>JYP</strong></td>
+										</tr>
+									</table>
+								</td>
+								<td style="border-bottom: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="5" style="border-bottom: 2pt solid #000000;"><strong>OTHERS:</strong></td>
 								<td colspan="3" style="border-bottom: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
