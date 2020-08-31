@@ -120,29 +120,44 @@
 
     $("#form-assign-picking").validate({
       submitHandler: function(form) {
-        setLoading(true); // Disable Button when ajax post data
-        var data_picking = [];
-        dttable_picking.$('input[type="checkbox"]').each(function() {
-           /* iterate through array or object */
-           if(this.checked){
-            var row = $(this).closest('tr');
-            var row_data = dttable_picking.row(row).data();
-            data_picking.push(row_data);
-           }
-        });
-        $.ajax({
-          url: '{{ url("picking-list/transporter/" . $driverRegistered->id) }}',
-          type: 'POST',
-          data: $(form).serialize() + '&data_picking=' + JSON.stringify(data_picking),
+        swal({
+          text: "Are you sure save selected picking ?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Submit It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) {
+            setLoading(true); // Disable Button when ajax post data
+            var data_picking = [];
+            dttable_picking.$('input[type="checkbox"]').each(function() {
+               /* iterate through array or object */
+               if(this.checked){
+                var row = $(this).closest('tr');
+                var row_data = dttable_picking.row(row).data();
+                data_picking.push(row_data);
+               }
+            });
+            $.ajax({
+              url: '{{ url("picking-list/transporter/" . $driverRegistered->id) }}',
+              type: 'POST',
+              data: $(form).serialize() + '&data_picking=' + JSON.stringify(data_picking),
+            })
+            .done(function(data) { // selesai dan berhasil
+              setLoading(false)
+              if (data.status) {
+                showSwalAutoClose("Success", "Save Vehicle No {{$driverRegistered->vehicle_number}}")
+                dttable_picking.ajax.reload(null, false)
+              }
+              // window.location.href = "{{ url('picking-list') }}"
+            })
+            .fail(function(xhr) {
+                setLoading(false); // Enable Button when failed
+                showSwalError(xhr) // Custom function to show error with sweetAlert
+            });
+          }
         })
-        .done(function(data) { // selesai dan berhasil
-          showSwalAutoClose("Success", "")
-          window.location.href = "{{ url('picking-list') }}"
-        })
-        .fail(function(xhr) {
-            setLoading(false); // Enable Button when failed
-            showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
       }
     });
   });

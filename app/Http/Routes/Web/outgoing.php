@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('branch-manifest/truck-waiting-manifest', 'Web\BranchManifestController@truckWaitingManifest');
   Route::get('branch-manifest/{lmb_id}/create-manifest', 'Web\BranchManifestController@createManifest');
   Route::get('branch-manifest/{id}/export', 'Web\BranchManifestController@export');
+  Route::post('branch-manifest/{lmb_id}/assign-do', 'Web\BranchManifestController@assignDO');
+  Route::delete('branch-manifest/{id}/details/{detail_id}', 'Web\BranchManifestController@destroyDetail');
   Route::resource('branch-manifest', 'Web\BranchManifestController');
 
   // Manifest AS

@@ -48,9 +48,6 @@
             </div>
         </div>
     </div>
-    <!---- Button Add ----->
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top"><a href="#" class="btn-floating indigo darken-2 gradient-shadow modal-trigger"><i class="material-icons">add</i></a>
-    </div>
 </div>
 <div class="content-overlay"></div>
 
@@ -65,62 +62,67 @@
     set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
     $('#area_filter').attr('disabled','disabled')
   @endif
-  var dt_table_transporter = $('#data-table-transporter-list').DataTable({
-    serverSide: true,
-    scrollX: true,
-    responsive: true,
-    ajax: {
-        url: '{{ url('picking-list/get-transporter-list') }}',
-        type: 'GET',
-        data: function(d) {
-            d.search['value'] = $('#transporter_filter').val(),
-            d.area = $('#area_filter').val()
-          }
-    },
-    order: [1, 'asc'],
-    columns: [
-        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
-        {data: 'driver_id', name: 'driver_id', className: 'detail'},
-        {data: 'vehicle_description', name: 'vehicle_description', className: 'detail'},
-        {data: 'cbm_max', name: 'cbm_max', className: 'detail'},
-        {data: 'destination_name', name: 'destination_name', className: 'detail'},
-        {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-        {data: 'datetime_in', name: 'datetime_in', className: 'detail'},
-        {data: 'action', className: 'center-align', searchable: false, orderable: false},
-    ]
-  });
-
-  dt_table_transporter.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      var tr = $(this).parent().parent();
-      var data = dt_table_transporter.row(tr).data();
-      swal({
-        text: "Are you sure No. " + data.vehicle_number + " has living?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-            $.ajax({
-            url: '{{ url('assign-vehicles') }}' + '/' + data.id ,
-            type: 'DELETE',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "Vehicle No. " + data.vehicle_number + " has been deleted.", "success") // alert success
-            dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
+  
+  var dt_table_transporter;
+  
+  jQuery(document).ready(function($) {
+    dt_table_transporter = $('#data-table-transporter-list').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: true,
+      ajax: {
+          url: '{{ url('picking-list/get-transporter-list') }}',
+          type: 'GET',
+          data: function(d) {
+              d.search['value'] = $('#transporter_filter').val(),
+              d.area = $('#area_filter').val()
+            }
+      },
+      order: [1, 'asc'],
+      columns: [
+          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+          {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+          {data: 'driver_id', name: 'driver_id', className: 'detail'},
+          {data: 'vehicle_description', name: 'vehicle_description', className: 'detail'},
+          {data: 'cbm_max', name: 'cbm_max', className: 'detail'},
+          {data: 'destination_name', name: 'destination_name', className: 'detail'},
+          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+          {data: 'datetime_in', name: 'datetime_in', className: 'detail'},
+          {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ]
     });
+
+    dt_table_transporter.on('click', '.btn-delete', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        var tr = $(this).parent().parent();
+        var data = dt_table_transporter.row(tr).data();
+        swal({
+          text: "Are you sure No. " + data.vehicle_number + " has living?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Delete It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) {
+              $.ajax({
+              url: '{{ url('assign-vehicles') }}' + '/' + data.id ,
+              type: 'DELETE',
+              dataType: 'json',
+            })
+            .done(function() {
+              swal("Good job!", "Vehicle No. " + data.vehicle_number + " has been deleted.", "success") // alert success
+              dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+            })
+            .fail(function() {
+              console.log("error");
+            });
+          }
+        })
+      });
+  });
 
   $('#area_filter').change(function(event) {
     /* Act on the event */

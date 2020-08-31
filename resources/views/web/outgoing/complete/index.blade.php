@@ -17,10 +17,6 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      {{-- <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -58,29 +54,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <td>1.</td>
-                                  <td>Waiting D/O</td>
-                                  <td>B_9168_UO<br>ANDI_</td>
-                                  <td>Kendari</td>
-                                  <td>SARIJASA TRANSUTAMA, PT.</td>
-                                  <td>KRW-200207-023 </td>
-                                  <td>
-                                    {!! get_button_view(url('complete/1'), 'View Detail') !!}
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>2.</td>
-                                  <td>Waiting D/O</td>
-                                  <td>B 9704 KYX<br>RAMLAN PANJAITAN</td>
-                                  <td>Lampung</td>
-                                  <td>SARANA AGUNG MULIA SETIA, PT.</td>
-                                  <td><span class="red-text">-NOT COMPLETE-</span> </td>
-                                  <td>
-                                    {!! get_button_view(url('complete/1'), 'View Detail') !!}
-                                    {!! get_button_return('#', 'Back to Loading') !!}
-                                  </td>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -126,7 +99,7 @@
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
             {data: 'status', name: 'status', className: 'detail'},
             {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
-            {data: 'vehicle_number', name: 'vehicle_number', className: 'detail'},
+            {data: 'destination_name_driver', name: 'destination_name_driver', className: 'detail'},
             {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
             {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
             {data: 'action', className: 'center-align', searchable: false, orderable: false},

@@ -34,6 +34,7 @@ class PickinglistHeader extends Model
         'wms_pickinglist_detail.header_id',
         'wms_pickinglist_detail.invoice_no',
         'wms_pickinglist_detail.delivery_no',
+        'wms_pickinglist_detail.delivery_items',
         'wms_pickinglist_detail.ean_code'
       )
     ;
@@ -57,6 +58,21 @@ class PickinglistHeader extends Model
   public function gate()
   {
     return $this->belongsTo('App\Models\Gate', 'gate_number', 'gate_number');
+  }
+
+  public static function getDestinationName($pickinglistHeader)
+  {
+    return $pickinglistHeader->expedition_code == 'AS' ? "Ambil Sendiri" : ($pickinglistHeader->hq ? $pickinglistHeader->destination_name : $pickinglistHeader->city_name);
+  }
+
+  public static function getDestinationNumber($pickinglistHeader)
+  {
+    return $pickinglistHeader->expedition_code == 'AS' ? "Ambil Sendiri" : ($pickinglistHeader->hq ? $pickinglistHeader->destination_number : $pickinglistHeader->city_code);
+  }
+
+  public function cabang()
+  {
+    return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
   }
 
   public static function noLMBPickingList()

@@ -117,10 +117,10 @@
           // {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
           {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
-          {data: 'cbm', name: 'cbm', className: 'detail'},
+          {data: 'total_cbm', orderable:false, searchable:false, className: 'detail'},
           {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'total_do_items', name: 'total_do_items', className: 'detail center-align'},
+          {data: 'total_do_items', orderable:false, searchable:false, className: 'detail center-align'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ],
     });

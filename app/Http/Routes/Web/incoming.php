@@ -1,4 +1,5 @@
 <?php
+use App\Http\Middleware\OnlyBranchAccess;
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -17,13 +18,17 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('conform-manifest', 'Web\ConformManifestController@index');
   Route::get('conform-manifest/from-manifest-hq', 'Web\ConformManifestController@listManifestHQ');
   Route::get('conform-manifest/from-manifest-branch', 'Web\ConformManifestController@listManifestBranch');
-  Route::get('conform-manifest/{id}', 'Web\ConformManifestController@viewForConform');
+  Route::get('conform-manifest/{id}/hq', 'Web\ConformManifestController@viewForConformHQ');
+  Route::get('conform-manifest/{id}/branch', 'Web\ConformManifestController@viewForConformBranch');
+  Route::put('conform-manifest/{id}', 'Web\ConformManifestController@conform');
 
   // Billing Return
-  Route::get('billing-return', 'Web\BillingReturnController@index');
+  Route::get('billing-return', 'Web\BillingReturnController@index')->middleware([OnlyBranchAccess::class]);
   Route::get('billing-return/pending-billing-return-branch', 'Web\BillingReturnController@listPendingBillingBranch');
   Route::get('billing-return/return-billing-branch', 'Web\BillingReturnController@listReturnBillingBranch');
   Route::get('billing-return/{id}/view-for-submit', 'Web\BillingReturnController@showSubmit');
+  Route::put('billing-return/{id}', 'Web\BillingReturnController@conform');
+  Route::get('billing-return/{id}', 'Web\BillingReturnController@show');
   // Route::view('billing-return', 'web.incoming.billing-return.index');
 
 });

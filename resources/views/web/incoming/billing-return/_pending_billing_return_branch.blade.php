@@ -76,8 +76,8 @@
       columns: [
           {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+          {data: 'city_name', name: 'city_name', className: 'detail'},
+          {data: 'source', name: 'source', className: 'detail', searchable: false, orderable: false},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });

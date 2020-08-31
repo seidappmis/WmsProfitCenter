@@ -14,8 +14,8 @@ class CreateTrConceptTruckFlowTable extends Migration
     public function up()
     {
         Schema::create('tr_concept_truck_flow', function (Blueprint $table) {
-            $table->string('id', 20); // PK
-            $table->string('concept_flow_header', 20); // FK
+            $table->string('id', 50); // PK
+            $table->string('concept_flow_header', 50); // FK
             $table->integer('gate_number')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();

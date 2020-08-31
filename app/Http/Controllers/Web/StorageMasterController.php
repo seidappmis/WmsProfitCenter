@@ -128,7 +128,7 @@ class StorageMasterController extends Controller
     $storageMaster                     = StorageMaster::findOrFail($id);
     $storageMaster->kode_cabang        = $request->input('kode_cabang');
     $storageMaster->sto_loc_code_short = $request->input('sto_loc_code_short');
-    
+
     $sto_loc_code_long                = $storageMaster->kode_cabang . $storageMaster->sto_loc_code_short;
     $storageMaster->sto_loc_code_long = $sto_loc_code_long;
     $storageMaster->sto_type_id       = $request->input('sto_type_id');
@@ -168,6 +168,10 @@ class StorageMasterController extends Controller
       DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
     );
     $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+
+    if (!empty($request->input('sto_type_id'))) {
+      $query->whereRaw('sto_type_id IN(' . implode(",", $request->input('sto_type_id')) . ')');
+    }
 
     return get_select2_data($request, $query);
   }

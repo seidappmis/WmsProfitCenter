@@ -14,7 +14,7 @@ class CreateTrConceptFlowDetailTable extends Migration
     public function up()
     {
         Schema::create('tr_concept_flow_detail', function (Blueprint $table) {
-            $table->string('id_header', 20); // FK
+            $table->string('id_header', 50); // FK
             $table->string('invoice_no', 10); // PK
             $table->integer('line_no'); // PK
             $table->integer('quantity')->nullable();

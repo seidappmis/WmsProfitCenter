@@ -35,7 +35,22 @@
       </thead>
       <tbody></tbody>
     </table>
-    <button class="waves-effect waves-light indigo btn-small btn-save mt-2 mr-1 mb-1" onclick="submit_scan_data()">Submit</button>
+    <button class="waves-effect waves-light indigo btn-small btn-submit-upload-data mt-2 mr-1 mb-1" onclick="submit_scan_data()">Submit</button>
+</div>
+
+<div id="model-not-exist-in-pickinglist-wrapper" class="hide">
+  <h5>Model Not Exist in Picking List</h5>
+    <table id="table-model-not-exist-in-pickinglist" class="table striped bordered" width="100%">
+      <thead>
+        <tr>
+          <th>PICKING NO</th>
+          <th>MODEL</th>
+          <th>TOTAL SN</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <br>
 </div>
 
 @push('script_js')
@@ -62,6 +77,7 @@
         })
         .done(function(data) { // selesai dan berhasil
           setLoading(false); // Enable Button when failed
+          $(form)[0].reset()
           if (data.status == false) {
             $('#table-serial-number tbody').empty();
             swal("Failed!", data.message, "warning");
@@ -84,6 +100,25 @@
 
              $('#table-serial-number tbody').append(row);
           });
+
+          if (Object.keys(data.model_not_exist_in_pickinglist).length > 0) {
+            $('.btn-submit-upload-data').addClass('hide')
+            $('#model-not-exist-in-pickinglist-wrapper').removeClass('hide')
+            $('#table-model-not-exist-in-pickinglist tbody').empty()
+            $.each(data.model_not_exist_in_pickinglist, function(index, val) {
+               /* iterate through array or object */
+               var row = '<tr>';
+               row += '<td>' + val.picking_no + '</td>';
+               row += '<td>' + val.model + '</td>';
+               row += '<td>' + val.total_sn + '</td>';
+               row += '</tr>';
+
+               $('#table-model-not-exist-in-pickinglist tbody').append(row);
+            });
+          }else {
+            $('.btn-submit-upload-data').removeClass('hide')
+            $('#model-not-exist-in-pickinglist-wrapper').addClass('hide')
+          }
         })
         .fail(function(xhr) {
             setLoading(false); // Enable Button when failed

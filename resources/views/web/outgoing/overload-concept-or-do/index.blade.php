@@ -17,10 +17,6 @@
                 <div class="app-wrapper">
                   <div class="datatable-search">
                     <select id="area_filter">
-                      {{-- <option>-Select Area-</option>
-                      <option>KARAWANG</option>
-                      <option>SURABAYA HUB</option>
-                      <option>SWADAYA</option> --}}
                     </select>
                   </div>
                 </div>
@@ -61,19 +57,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- <tr>
-                                  <td>1.</td>
-                                  <td>1000402671</td>
-                                  <td>4</td>
-                                  <td>2101447850</td>
-                                  <td>30</td>
-                                  <td>6</td>
-                                  <td>SJ-X165MG-GB</td>
-                                  <td>2.190</td>
-                                  <td>TIDAK MUAT</td>
-                                  <td>2020-02-06</td>
-                                </tr>
-                              </tbody> --}}
                           </table>
                         </div>
                         <!-- datatable ends -->
@@ -111,6 +94,7 @@
               type: 'GET',
               data: function(d) {
                   d.search['value'] = $('#global_filter').val()
+                  d.area = $('#area_filter').val()
               }
           },
           order: [1, 'asc'],
@@ -123,8 +107,8 @@
               { data: 'quantity', name: 'quantity', className: 'detail' },
               { data: 'model', name: 'model', className: 'detail' },
               { data: 'cbm', name: 'cbm', className: 'detail' },
-              { data: 'description', name: 'description', className: 'detail' },
-              { data: 'overload_date', name: 'overload_date', className: 'detail' },
+              { data: 'overload_reason', name: 'overload_reason', className: 'detail' },
+              { data: 'output_date', name: 'output_date', className: 'detail' },
           ]
       });
 

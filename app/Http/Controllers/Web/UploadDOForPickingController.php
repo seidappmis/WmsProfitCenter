@@ -7,8 +7,8 @@ use App\Models\ManualConcept;
 use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use DataTables;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
 
 class UploadDOForPickingController extends Controller
 {
@@ -22,6 +22,7 @@ class UploadDOForPickingController extends Controller
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+          $join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->where('kode_cabang', auth()->user()->cabang->kode_cabang);
@@ -52,13 +53,14 @@ class UploadDOForPickingController extends Controller
     $rs_model      = [];
     $rs_code_sales = [];
 
+    $check_manual_concept = DB::table('wms_manual_concept');
+
     while (!feof($file)) {
       $row = fgetcsv($file);
       if ($title) {
         $title = false;
         continue; // Skip baris judul
       }
-
 
       if (!empty($row[5])) {
         $do = [];
@@ -82,6 +84,14 @@ class UploadDOForPickingController extends Controller
         $do['created_by'] = auth()->user()->id;
         $do['created_at'] = date('Y-m-d H:i:s');
 
+        // CEK database
+        $check_manual_concept->orWhere(function ($query) use ($do) {
+          $query->where('invoice_no', $do['invoice_no'])
+            ->where('delivery_no', $do['delivery_no'])
+            ->where('delivery_items', $do['delivery_items'])
+          ;
+        });
+
         if (empty($rs_model[$do['model']])) {
           $model = MasterModel::where('model_name', $do['model'])->first();
 
@@ -89,7 +99,7 @@ class UploadDOForPickingController extends Controller
         }
 
         if (empty($rs_code_sales[$do['kode_customer']])) {
-          $cabang = MasterCabang::where('kode_customer', $do['kode_customer'])->first();
+          $cabang                              = MasterCabang::where('kode_customer', $do['kode_customer'])->first();
           $rs_code_sales[$do['kode_customer']] = empty($cabang) ? 'DS' : 'BR';
         }
 
@@ -99,6 +109,11 @@ class UploadDOForPickingController extends Controller
 
         $rs_do[] = $do;
       }
+    }
+
+    $check = $check_manual_concept->orderBy('delivery_no', 'desc')->limit(1)->get();
+    if (count($check) > 0) {
+      return sendError('Failed Upload ' . $check[0]->delivery_no . ' AND ' . $check[0]->delivery_items . ' Already EXIST.', $check);
     }
 
     ManualConcept::insert($rs_do);

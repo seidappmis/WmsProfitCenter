@@ -171,7 +171,7 @@
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print Manifest',
-  'url' => 'manifest-regular/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'url' => 'manifest-regular/' .  (!empty($manifestHeader) ? $manifestHeader->do_manifest_no : '') . '/export',
   'trigger' => '.btn-print'
   ])
 

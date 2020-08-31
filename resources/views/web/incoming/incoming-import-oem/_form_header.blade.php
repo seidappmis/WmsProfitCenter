@@ -128,7 +128,7 @@
             .done(function() {
               // Data has been Transfered on Storage
               showSwalAutoClose('Success', 'Data has been Transfered on Storage');
-              window.location.reload();  // (null, false) => user paging is not reset on reload
+              window.location.href = '{{url('incoming-import-oem')}}';
             })
             .fail(function() {
               console.log("error");

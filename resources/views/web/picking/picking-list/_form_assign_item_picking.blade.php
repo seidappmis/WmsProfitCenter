@@ -9,7 +9,11 @@
 <div class="assign-item-picking-wrapper mt-3">
   <h4 class="card-title">Assign Item Picking</h4>
   <hr>
-
+  @if($pickinglistHeader->expedition_code != "AS")
+  <span class="green-text" style="font-weight: 600;">CBM Truck : </span> {{$pickinglistHeader->vehicle->cbm_max}}
+  <br>
+  <span class="" style="font-weight: 600;">CBM Concept : </span>
+  @endif
   <table class="bordered">
     <tbody>
       <tr>
@@ -108,7 +112,8 @@
                     + row.model + ' | '
                     + row.delivery_items + ' | '
                     + row.quantity + ' | '
-                    + row.cbm;
+                    + row.cbm + ' | '
+                    + row.code_sales;
                 }
                 return data;
             },
@@ -211,9 +216,10 @@
       row += '<td>' + data.quantity + '</td>';
       row += '<td>' + data.cbm + '</td>';
       row += '<td><input type="text" name="total_split" value="2"></td>';
-      row += '<td><span class="waves-effect waves-light indigo btn-small btn-run-split-concept" onclick="runSplitConceptTable(this)">Run</span></td>';
+      row += '<td><span class="waves-effect waves-light indigo btn-small btn-run-split-concept" onclick="runSplitConceptTable(this, ' + data + ')">Run</span></td>';
       row += '</tr>';
 
+      $('#form-split-concept [name="delivery_no"]').val(data.delivery_no)
       $('#form-split-concept [name="invoice_no"]').val(data.invoice_no)
       $('#form-split-concept [name="line_no"]').val(data.line_no)
       $('#form-split-concept [name="quantity"]').val(data.quantity)
@@ -221,7 +227,7 @@
 
       $('#item-split-table tbody').empty();
       $('#item-split-table tbody').append(row);
-      runSplitConceptTable($('.btn-run-split-concept'))
+      runSplitConceptTable($('.btn-run-split-concept'), data)
       $('#modal-split-concept').modal('open')
     });
 

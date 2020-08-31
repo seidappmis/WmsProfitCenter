@@ -15,13 +15,18 @@ class LogManifestHeader extends Model
     return $this->hasMany('App\Models\LogManifestDetail', 'do_manifest_no', 'do_manifest_no');
   }
 
+  public function getUnconfirmedDetails()
+  {
+    return $this->details->where('status_confirm', 0);
+  }
+
   /**
    * Status Manifest Normal:
-   * DO Items Not Found Belum terdapat DO pada Manifest 
-   * Complete & Waiting Confirm.  Semua DO telah di Assign, Menunggu Confirm Cabang 
+   * DO Items Not Found Belum terdapat DO pada Manifest
+   * Complete & Waiting Confirm.  Semua DO telah di Assign, Menunggu Confirm Cabang
    * Full D/O Confirm  Semua DO telah di Confirm oleh tujuan
    * Partial D/O Confirm  Sebagian DO telah di Confirm oleh Tujuan
-   * 
+   *
    * @return [type] [status]
    */
   public function status()
@@ -30,6 +35,8 @@ class LogManifestHeader extends Model
       return 'DO Items Not Found';
     } elseif ($this->status_complete) {
       return 'Complete';
+    } else {
+      return 'Waiting D/O';
     }
   }
 

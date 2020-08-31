@@ -120,7 +120,7 @@
                         type="text" 
                         class="validate" 
                         name="container_no" 
-                        value="{{$lmbHeader->container_no}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->container_no : ''}}"
                         />
               </div>
             </td>
@@ -146,6 +146,7 @@
                         type="text" 
                         class="validate" 
                         name="checker" 
+                        value="{{!empty($manifestHeader) ? $manifestHeader->checker : ''}}"
                         />
               </div>
             </td>
@@ -169,13 +170,13 @@
     {!! get_button_save('Save', 'btn-save') !!}
     {!! get_button_delete() !!}
     {!! get_button_print() !!}
-    {!! get_button_cancel(url('manifest-regular'), 'Back', '') !!}
+    {!! get_button_cancel(url('branch-manifest'), 'Back', '') !!}
 </form>
 
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print Manifest',
-  'url' => 'branch-manifest/' . (!empty($lmbHeader) ? $lmbHeader->driver_register_id : '') . '/export',
+  'url' => 'branch-manifest/' . (!empty($manifestHeader) ? $manifestHeader->do_manifest_no : '') . '/export',
   'trigger' => '.btn-print'
   ])
 

@@ -28,6 +28,9 @@
            if ($(val).is(':required')) {
             $(val).parent().find('span.select2-selection').addClass('select2-required')
            }
+           if ($(val).hasClass('select2-required')) {
+            $(val).parent().find('span.select2-selection').addClass('select2-required')
+           }
         });
       }, 10);
 

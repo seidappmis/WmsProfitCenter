@@ -138,13 +138,14 @@
           })
           .done(function(data) { // selesai dan berhasil
             data_concept = data;
+            $(form)[0].reset();
+             $('#modal1').modal('close');
             if (data.status == false) {
-              $('#table-concept tbody').empty();
+              // $('#table-concept tbody').empty();
               swal("Failed!", data.message, "warning");
               return;
             }
             showSwalAutoClose('Success', 'Data uploaded.')
-           $('#modal1').modal('close');
            dtdatatable.ajax.reload(null, false)
           })
           .fail(function(xhr) {

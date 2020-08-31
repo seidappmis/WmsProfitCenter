@@ -14,7 +14,7 @@ class CreateTrConceptFlowHeaderTable extends Migration
     public function up()
     {
         Schema::create('tr_concept_flow_header', function (Blueprint $table) {
-            $table->string('id', 20); // PK
+            $table->string('id', 50); // PK
             $table->integer('workflow_id')->nullable();
             $table->string('vehicle_code_type', 6)->nullable();
             $table->string('driver_id', 10)->nullable();

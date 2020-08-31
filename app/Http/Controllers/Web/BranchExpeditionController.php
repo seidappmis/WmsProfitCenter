@@ -128,7 +128,7 @@ class BranchExpeditionController extends Controller
       ->toBase();
 
     if ($request->input('onetime')) {
-      $onetime = DB::table('wms_branch_expedition')->selectRaw('"ONE TIME" as id, "ONE TIME" AS `text` ');
+      $onetime = DB::table('wms_branch_expedition')->selectRaw('"ON1" as id, "ONE TIME" AS `text` ');
       $query->union($onetime);
     }
 

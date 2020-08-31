@@ -14,11 +14,12 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
+        "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.10",
         "ramsey/uuid": "^4.0",
-        "yajra/laravel-datatables-oracle": "^9.0",
-        "phpoffice/phpspreadsheet": "^1.10"
+        "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

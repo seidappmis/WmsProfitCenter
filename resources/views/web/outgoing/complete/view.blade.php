@@ -11,13 +11,11 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('complete') }}">Complete</a></li>
-                    <li class="breadcrumb-item active">B_9168_UO</li>
+                    <li class="breadcrumb-item active">{{$manifestHeader->vehicle_number}}</li>
                 </ol>
             </div>
             <div class="col s12 m2">
               <div class="display-flex">
-                @component('layouts.materialize.components.back-button')
-                @endcomponent
               </div>
             </div>
         </div>
@@ -28,8 +26,8 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <p>VEHICLE NO. : <b class="green-text text-darken-3">B_9168_UO</b></p>
-                      <p>STATUS : <b class="green-text text-darken-3">Waiting D/O</b></p>
+                      <p>VEHICLE NO. : <b class="green-text text-darken-3">{{$manifestHeader->vehicle_number}}</b></p>
+                      <p>STATUS : <b class="green-text text-darken-3">{{$manifestHeader->status()}}</b></p>
                       <br>
                       <div class="section-data-tables"> 
                         <table id="data-table-section-contents" class="bordered" width="100%">
@@ -44,7 +42,7 @@
                                   <th>QUANTITY</th>
                                   <th>CBM</th>
                                   <th>STATUS</th>
-                                  <th width="50px;"></th>
+                                  {{-- <th width="50px;"></th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,9 +59,9 @@
                                 <td>{{$manifestDetail->quantity}}</td>
                                 <td>{{$manifestDetail->cbm}}</td>
                                 <td>-</td>
-                                <td>
+                                {{-- <td> --}}
                                   {{-- <a href="#" class="btn btn-small">Overload</a> --}}
-                                </td>
+                                {{-- </td> --}}
                               </tr>
                               @endforeach
                             </tbody>
@@ -71,7 +69,9 @@
                       </div>
                       <!-- datatable ends -->
                       <div class="mt-2">
+                        @if(!$manifestHeader->status_complete)
                         {!!get_button_save('Complete', 'btn-complete')!!}
+                        @endif
                         {!! get_button_cancel(url('complete'), 'Back', '') !!}
                       </div>
                     </div>

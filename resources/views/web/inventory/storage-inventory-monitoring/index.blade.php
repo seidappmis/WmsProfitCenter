@@ -37,8 +37,14 @@
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
                                     <th>STORAGE TYPE</th>
-                                    <th>STORAGE LOC. CODE</th>
-                                    <th>MODEL NAME</th>
+                                    <th class="center-align">
+                                      STORAGE LOC. CODE
+                                      <p><input type="text" class="input-filter-column" id="filter-storage_location_code"></p>
+                                    </th>
+                                    <th class="center-align">
+                                      MODEL NAME
+                                      <p><input type="text" class="input-filter-column" id="filter-model"></p>
+                                    </th>
                                     <th>QTY</th>
                                     <th>LAST UPDATE</th>
                                     <th width="100px;"></th>
@@ -71,7 +77,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var table
+  var dttable_storage_inventory_monitoring
 
   jQuery(document).ready(function($) {
     dttable_storage_inventory_monitoring = $('#storage-inventory-monitoring-table').DataTable({
@@ -83,6 +89,8 @@
           type: 'GET',
           data: function(d) {
               d.search['value'] = $('#storage-inventory-monitoring-filter').val()
+              d.columns[2]['search']['value'] = $('#filter-storage_location_code').val()
+              d.columns[3]['search']['value'] = $('#filter-model').val()
             }
       },
       order: [5, 'desc'],
@@ -96,7 +104,12 @@
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });
+  // Filter event handler
+    $( dttable_storage_inventory_monitoring.table().container() ).on( 'keyup', 'thead input', function () {
+      dttable_storage_inventory_monitoring.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    } );
   });
+  
 
   $("input#storage-inventory-monitoring-filter").on("keyup click", function () {
     filterGlobal();

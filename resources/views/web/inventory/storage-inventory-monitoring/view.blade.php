@@ -80,7 +80,12 @@ jQuery(document).ready(function($) {
           {data: 'arrival_no', name: 'quantity_total', className: 'detail'},
           {data: 'quantity', name: 'last_updated', className: 'detail'},
           {data: 'created_at', name: 'created_at', className: 'detail'},
-      ]
+      ],
+      "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+        if (aData.movement_action == "DECREASE") {
+            $('td', nRow).css('background-color', '#FFBACB');
+          }
+        }
     });
   });
 </script>

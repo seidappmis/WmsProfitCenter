@@ -16,8 +16,8 @@
             </div>
             <div class="col s12 m2">
               <div class="display-flex">
-                @component('layouts.materialize.components.back-button')
-                @endcomponent
+                {{-- @component('layouts.materialize.components.back-button')
+                @endcomponent --}}
               </div>
             </div>
         </div>
@@ -28,13 +28,16 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
+                      <form id="form-billing-return">
                       <div class="row">
                         <div class="col s12 m3">
-                          <a class="waves-effect waves-light btn blue darken-2">Conform</a>
+                          @if($type_show == 'showSubmit')
+                          <span class="waves-effect waves-light btn blue darken-2 btn-conform">Conform</span>
                           <div class="input-field col s12">
-                            <input id="delivery" type="text" class="validate" name="delivery" required>
-                            <label for="delivery">Document DO Return Date</label>
+                            <input id="doc_do_return_date" type="text" class="validate datepicker" name="doc_do_return_date" required>
+                            <label for="doc_do_return_date">Document DO Return Date</label>
                           </div>
+                          @endif
                         </div>
                       </div>
                       <div class="section-data-tables"> 
@@ -47,10 +50,12 @@
                                   <th>MODEL</th>
                                   <th>QUANTITY</th>
                                   <th width="50px;">
+                                    @if($type_show == 'showSubmit')
                                     <label>
                                       <input type="checkbox" />
                                       <span class="red-text"></span>
                                     </label>
+                                    @endif
                                   </th>
                                 </tr>
                             </thead>
@@ -58,71 +63,28 @@
                               @foreach($manifest->details AS $key => $detail)
                               <tr>
                                 @if($key == 0)
-                                <td rowspan="{{$manifest->details->count()}}"></td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->do_manifest_no}}</td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->expedition_name}}</td>
+                                <td rowspan="{{$manifest->details->count()}}">{{$manifest->city_name}}</td>
                                 @endif
-                                <td>{{$detail->expedition_name}}</td>
-                                <td>{{$detail->destination_city}}</td>
                                 <td>{{$detail->model}}</td>
                                 <td>{{$detail->quantity}}</td>
                                 <td>
+                                  @if($type_show == 'showSubmit')
                                   <label>
-                                    <input type="checkbox" />
+                                    <input type="checkbox" name="manifest_detail[{{$detail->id}}]"/>
                                     <span class="red-text"></span>
                                   </label>
+                                  @endif
                                 </td>
                               </tr>
                               @endforeach
-                              {{-- <tr>
-                                <td rowspan="4">JKT-180903-053</td>
-                                <td rowspan="4">PUTRA NAGITA PRATAMA, PT.</td>
-                                <td rowspan="4">BOGOR</td>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>AH-A5UCY</td>
-                                <td>10</td>
-                                <td>
-                                  <label>
-                                      <input type="checkbox" />
-                                      <span class="red-text"></span>
-                                    </label>
-                                  </th>
-                                </td>
-                              </tr> --}}
                             </tbody>
                         </table>
                       </div>
                       <!-- datatable ends -->
+                      </form>
+                      {!! get_button_cancel(url('billing-return'), 'Back') !!}
                     </div>
                     <div class="card-content p-0">
 
@@ -134,3 +96,36 @@
     </div>
 </div>
 @endsection
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('.btn-conform').click(function(event) {
+          /* Act on the event */
+          setLoading(true);
+          $.ajax({
+            url: '{{url('billing-return/' . $manifest->do_manifest_no)}}',
+            type: 'PUT',
+            dataType: 'json',
+            data: $('#form-billing-return').serialize(),
+          })
+          .done(function(result) {
+            if (result.status) {
+              window.location.href = '{{url('billing-return')}}'
+            } else {
+              setLoading(false);
+              showSwalAutoClose('Warning', result.message)
+            }
+          })
+          .fail(function() {
+            setLoading(false);
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+          
+        });
+    });
+</script>
+@endpush

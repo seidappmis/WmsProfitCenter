@@ -17,25 +17,38 @@
         @php
         $allowSubmit = true;
         @endphp
-        @foreach($rs_loading_quantity AS $key => $loading)
+        @foreach($pickingListDetail AS $key => $picking)
         <tr>
           <td>{{$key +1}}</td>
-          <td>{{$loading->invoice_no}}</td>
-          <td>{{$loading->delivery_no}}</td>
-          <td>{{$loading->model}}</td>
-          <td>{{$loading->quantity}}</td>
-          <td>{{$loading->code_sales}}</td>
-          <td>{{$loading->qty_loading}}</td>
+          <td>{{$picking->invoice_no}}</td>
+          <td>{{$picking->delivery_no}}</td>
+          <td>{{$picking->model}}</td>
+          <td>{{$picking->quantity}}</td>
+          <td>{{$picking->code_sales}}</td>
           <td>
             @php
-            if ($loading->qty_loading == 0) {
-              echo "Delete from Picking List";
-            } elseif ($loading->qty_loading < $loading->quantity && $lmbHeader->expedition_code == 'AS'){
+            $qty_loading = empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model]) ? 0 :
+             ($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] >= 0 ? $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] : 0);
+             if (empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model])) {
+               $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] = 0;
+             }
+            $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] -= $picking->quantity;
+            echo $qty_loading;
+            @endphp
+            <input type="hidden" name="picking_detail_id[]" value="{{$picking->id}}">
+            <input type="hidden" name="picking_quantity[]" value="{{$picking->quantity}}">
+            <input type="hidden" name="picking_quantity_loading[]" value="{{$qty_loading}}">
+          </td>
+          <td>
+            @php
+            if ($qty_loading == 0) {
+              echo "DELETE IN PICKING";
+            } elseif ($qty_loading < $picking->quantity && $lmbHeader->expedition_code == 'AS'){
               $allowSubmit = false;
               echo "QTY MUST BE SAME IN PICKING AND LMB";
-            } elseif ($loading->qty_loading < $loading->quantity) {
+            } elseif ($qty_loading < $picking->quantity) {
               echo "OVERLOAD";
-            } elseif ($loading->qty_loading = $loading->quantity) {
+            } elseif ($qty_loading == $picking->quantity) {
               echo "OK";
             }
             @endphp
