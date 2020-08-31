@@ -6,7 +6,7 @@
 			<table style="width: 210.0003mm;">
 				<tr>
 					<td>
-						<table width="100%" style="border-collapse: collapse; font-size: 10pt;">
+						<table width="100%" style="border-collapse: collapse; font-size: 9pt;">
 							{{-- Logo --}}
 							<tr>
 				                <td colspan="13" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp; <img src="{{ url('images/sharp-logo.png') }}" alt="sharp-logo" style="width: 90px;"></td>
@@ -29,151 +29,177 @@
 								<td colspan="3" style="border-left: 2pt solid #000000; text-align: left;"><strong>Issued by :</strong></td>
 								<td colspan="" style="text-align: center; border-bottom: 1px solid #000000; width: 50mm;"><strong>LOGISTICS</strong></td>
 								<td style="width: 7mm;">&nbsp;</td>
-			              		<td colspan="" style="text-align: left; width: 15mm;"><strong>Division :</strong></td>
-			              		<td style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
+			              		<td colspan="2" style="text-align: left;"><strong>Division :</strong></td>
+			              		<td colspan="2" style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
 			              		<td colspan="">&nbsp;</td>
 			              		<td style="text-align: center;"><strong>Date:</strong></td>
 			              		<td style="text-align: center; border-bottom: 1px solid #000000;"><strong>3-Dec-2019</strong></td>
-			              		<td colspan="2" style="border-right: 2pt solid #000000;">&nbsp;</td>
+			              		<td style="border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
 							</tr>
 							<tr><td colspan="13" style="height: 10px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td></tr>
 							{{-- Table --}}
 							<tr>
-								<td colspan="4" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Plan No :</strong></td>
+								<td colspan="5" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Plan No :</strong></td>
                 				<td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
-                				<td colspan="" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Name :</strong></td>
-                				<td colspan="5" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000; border-right: 2pt solid #000000;"><strong>Mould Name :</strong></td>
+                				<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Name :</strong></td>
+                				<td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Mould Name :</strong></td>
+                				<td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
 							</tr>
 							{{-- Body --}}
 							<tr>
-								<td colspan="4" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000;">&nbsp;</td>
-                				<td colspan="9" style="border-top: 2pt solid #000000; border-left: 1pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="5" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000;">&nbsp;</td>
+                				<td colspan="8" style="border-top: 2pt solid #000000; border-left: 1pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;">Reason :</td>
-								<td colspan="2">&nbsp;</td>
+								<td colspan="3">&nbsp;</td>
                 				<td colspan="2" style="border-left: 1pt solid #000000;">Claim Amount :</td>
-                				<td colspan="7" style="border-right: 2pt solid #000000;"></td>
+                				<td colspan="6" style="border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="3" style=""><strong>Claim Carton Box :</strong></td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="4" style=""><strong>Claim Carton Box :</strong></td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Wet Carton Box</td>
-                				<td colspan="3" style="border-left: 1pt solid #000000;">Material Cost Amount</td>
-                				<td colspan="6" style="border-right: 2pt solid #000000;"></td>
+								<td colspan="3">Wet Carton Box</td>
+								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9312;</td>
+                				<td colspan="2" style="">Material Cost Amount</td>
+                				<td colspan="2">&nbsp;</td>
+                				<td>=</td>
+                				<td>&nbsp;</td>
+                				<td style="border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Damage Carton Box</td>
-                				<td colspan="3" style="border-left: 1pt solid #000000;">F/G Sales Price Amount</td>
-                				<td colspan="6" style="border-right: 2pt solid #000000;"></td>
+								<td colspan="3">Damage Carton Box</td>
+								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9313;</td>
+                				<td colspan="2" style="">F/G Sales Price Amount</td>
+                				<td colspan="2">&nbsp;</td>
+                				<td>=</td>
+                				<td>&nbsp;</td>
+                				<td style="border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="3" style=""><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
-                				<td colspan="2" style="border-left: 1pt solid #000000;">Man Power Cost</td>
-                				<td colspan="7" style="border-right: 2pt solid #000000;"></td>
+								<td colspan="4" style=""><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
+								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9314;</td>
+                				<td colspan="2" style="">Man Power Cost</td>
+                				<td colspan="2">&nbsp;</td>
+                				<td>=</td>
+                				<td>&nbsp;</td>
+                				<td style="border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Unit of F/G Damaged</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="3">Unit of F/G Damaged</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="2" style="border-left: 1pt solid #000000;">Other Cost</td>
-								<td colspan="7" style="border-right: 2pt solid #000000;"></td>
-							</tr>
-							<tr>
-								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Unit of F/G Scratched</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
-							</tr>
-							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="3" style="border-left: 1pt solid #000000;">Claim Cost (1+2+3+4)</td>
-								<td colspan="6" style="border-right: 2pt solid #000000;"></td>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9315;</td>
+								<td colspan="2" style="">Other Cost</td>
+								<td colspan="2">&nbsp;</td>
+								<td>=</td>
+                				<td style="border-bottom: 1pt solid #000000;">&nbsp;</td>
+                				<td style="border-right: 2pt solid #000000;">+</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Unit of F/G Dented</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="3">Unit of F/G Scratched</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
-							</tr>
-							<tr>
-								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Unit of F/G Broken</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
-							</tr>
-							<tr>
-								<td colspan="4" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="3" style="border-left: 1pt solid #000000;">Claim Cost (&#9312;+&#9313;+&#9314;+&#9315;)</td>
+								<td colspan="2">&nbsp;</td>
+                				<td>=</td>
+                				<td>&nbsp;</td>
+                				<td style="border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
-								<td colspan="2">Other Problem</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="3">Unit of F/G Dented</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td colspan="4" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
+								<td colspan="3">Unit of F/G Broken</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
+								<td colspan="3">Other Problem</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="5" style="border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td style="border-left: 2pt solid #000000;">&nbsp;</td>
 								<td colspan="2" style=""><strong>Remarks :</strong></td>
-								<td style="">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="2" style="">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td style="">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="2" style="">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td style="">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="2" style="">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td style="">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="2" style="">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td style="">&nbsp;</td>
-								<td colspan="9" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
+								<td colspan="2" style="">&nbsp;</td>
+								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td style="border-bottom: 2pt solid #000000;">&nbsp;</td>
-                				<td colspan="9" style="border-left: 1pt solid #000000; border-bottom: 2pt solid #000000; border-right: 2pt solid #000000; font-size: 7pt;">Note: Prices are subject to change without prior notice</td>
+								<td colspan="2" style="border-bottom: 2pt solid #000000;">&nbsp;</td>
+                				<td colspan="8" style="border-left: 1pt solid #000000; border-bottom: 2pt solid #000000; border-right: 2pt solid #000000; font-size: 7pt;">Note: Prices are subject to change without prior notice</td>
 							</tr>
 							<tr>
 								<td colspan="3" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Total Claim Amount</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000; width: 5mm;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000; width: 5mm;"><strong>IDR</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>USD</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;">&#9744;</td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>JYP</strong></td>
-								<td colspan="" style="border-bottom: 2pt solid #000000;"><strong>OTHERS:</strong></td>
-								<td colspan="3" style="border-bottom: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
+								<td>
+									<table width="100%" style="font-size: 8pt;">
+										<tr>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>IDR</strong></td>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>USD</strong></td>
+											<td style="width: 5mm; text-align: center;">&#9744;</td>
+											<td style="width: 5mm; text-align: left;"><strong>JYP</strong></td>
+										</tr>
+									</table>
+								</td>
+								<td colspan="2" style="border-bottom: 2pt solid #000000;"><strong>OTHERS:</strong></td>
+								<td colspan="7" style="border-bottom: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
 								<td colspan="4" style="border-left: 2pt solid #000000;"><strong>Logistic Dept. Opinion :</strong></td>
