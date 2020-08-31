@@ -29,9 +29,9 @@
 								<td colspan="3" style="border-left: 2pt solid #000000; text-align: left;"><strong>Issued by :</strong></td>
 								<td colspan="" style="text-align: center; border-bottom: 1px solid #000000; width: 50mm;"><strong>LOGISTICS</strong></td>
 								<td style="width: 7mm;">&nbsp;</td>
-			              		<td style="text-align: left; width: 15mm;"><strong>Division :</strong></td>
+			              		<td colspan="2" style="text-align: left;"><strong>Division :</strong></td>
 			              		<td colspan="2" style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
-			              		<td colspan="2">&nbsp;</td>
+			              		<td colspan="">&nbsp;</td>
 			              		<td style="text-align: center;"><strong>Date:</strong></td>
 			              		<td style="text-align: center; border-bottom: 1px solid #000000;"><strong>3-Dec-2019</strong></td>
 			              		<td style="border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
@@ -64,7 +64,8 @@
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
 								<td colspan="3">Wet Carton Box</td>
-                				<td colspan="3" style="border-left: 1pt solid #000000;">Material Cost Amount</td>
+								<td style="border-left: 1pt solid #000000; width: 3mm;">&#9312;</td>
+                				<td colspan="2" style="">Material Cost Amount</td>
                 				<td colspan="2">&nbsp;</td>
                 				<td>=</td>
                 				<td>&nbsp;</td>
@@ -77,7 +78,8 @@
 							<tr>
 								<td colspan="2" style="border-left: 2pt solid #000000;"></td>
 								<td colspan="3">Damage Carton Box</td>
-                				<td colspan="3" style="border-left: 1pt solid #000000;">F/G Sales Price Amount</td>
+								<td style="border-left: 1pt solid #000000; width: 3mm;">&#9313;</td>
+                				<td colspan="2" style="">F/G Sales Price Amount</td>
                 				<td colspan="2">&nbsp;</td>
                 				<td>=</td>
                 				<td>&nbsp;</td>
@@ -90,7 +92,8 @@
 							<tr>
 								<td colspan="" style="border-left: 2pt solid #000000;">&nbsp;</td>
 								<td colspan="4" style=""><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
-                				<td colspan="3" style="border-left: 1pt solid #000000;">Man Power Cost</td>
+								<td style="border-left: 1pt solid #000000; width: 3mm;">&#9314;</td>
+                				<td colspan="2" style="">Man Power Cost</td>
                 				<td colspan="2">&nbsp;</td>
                 				<td>=</td>
                 				<td>&nbsp;</td>
@@ -103,7 +106,8 @@
 							</tr>
 							<tr>
 								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="3" style="border-left: 1pt solid #000000;">Other Cost</td>
+								<td style="border-left: 1pt solid #000000; width: 3mm;">&#9315;</td>
+								<td colspan="2" style="">Other Cost</td>
 								<td colspan="2">&nbsp;</td>
 								<td>=</td>
                 				<td style="border-bottom: 1pt solid #000000;">&nbsp;</td>
@@ -116,7 +120,7 @@
 							</tr>
 							<tr>
 								<td colspan="5" style="height: 2px; border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="3" style="border-left: 1pt solid #000000;">Claim Cost (1+2+3+4)</td>
+								<td colspan="3" style="border-left: 1pt solid #000000;">Claim Cost (&#9312;+&#9313;+&#9314;+&#9315;)</td>
 								<td colspan="2">&nbsp;</td>
                 				<td>=</td>
                 				<td>&nbsp;</td>
