@@ -127,116 +127,120 @@
       window.location.href = '{{url("incoming-import-oem/create?area=")}}' + $('#area_filter').val()
     });
   });
-    var table = $('#data-table-incoming-import-oem').DataTable({
-    serverSide: true,
-    scrollX: true,
-    responsive: false,
-    ajax: {
-        url: '{{ url('incoming-import-oem') }}',
-        type: 'GET',
-        data: function(d) {
-            d.search['value'] = $('#global_filter').val(),
-            d.area = $('#area_filter').val()
-          }
-    },
-    order: [1, 'desc'],
-    columns: [
-        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'arrival_no', name: 'arrival_no', className: 'detail'},
-        {data: 'po', name: 'po', className: 'detail'},
-        {data: 'vendor_name', name: 'vendor_name', className: 'detail'},
-        {data: 'status', name: 'status', className: 'detail'},
-        {data: 'document_date', name: 'document_date', className: 'detail'},
-        {data: 'action_view', className: 'center-align', searchable: false, orderable: false},
-        {data: 'action_submit_to_inventory', className: 'center-align', searchable: false, orderable: false},
-        {data: 'action_delete', className: 'center-align', searchable: false, orderable: false},
-        {data: 'action_print', className: 'center-align', searchable: false, orderable: false},
-    ]
-  });
+    
+    var table
+    jQuery(document).ready(function($) {
+      table = $('#data-table-incoming-import-oem').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: false,
+        ajax: {
+            url: '{{ url('incoming-import-oem') }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val(),
+                d.area = $('#area_filter').val()
+              }
+        },
+        order: [1, 'desc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'arrival_no', name: 'arrival_no', className: 'detail'},
+            {data: 'po', name: 'po', className: 'detail'},
+            {data: 'vendor_name', name: 'vendor_name', className: 'detail'},
+            {data: 'status', name: 'status', className: 'detail'},
+            {data: 'document_date', name: 'document_date', className: 'detail'},
+            {data: 'action_view', className: 'center-align', searchable: false, orderable: false},
+            {data: 'action_submit_to_inventory', className: 'center-align', searchable: false, orderable: false},
+            {data: 'action_delete', className: 'center-align', searchable: false, orderable: false},
+            {data: 'action_print', className: 'center-align', searchable: false, orderable: false},
+        ]
+      });
 
-  table.on('click', '.btn-delete', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      // Ditanyain dulu usernya mau beneran delete data nya nggak.
-      var tr = $(this).parent().parent();
-      var data = table.row(tr).data();
-      swal({
-        text: "Are you sure want to delete " + data.arrival_no + " and the details?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Delete It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-            $.ajax({
-            url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no ,
-            type: 'DELETE',
-            dataType: 'json',
+      table.on('click', '.btn-delete', function(event) {
+          event.preventDefault();
+          /* Act on the event */
+          // Ditanyain dulu usernya mau beneran delete data nya nggak.
+          var tr = $(this).parent().parent();
+          var data = table.row(tr).data();
+          swal({
+            text: "Are you sure want to delete " + data.arrival_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
+            }
+          }).then(function (confirm) { // proses confirm
+            if (confirm) {
+                $.ajax({
+                url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no ,
+                type: 'DELETE',
+                dataType: 'json',
+              })
+              .done(function() {
+                showSwalAutoClose('Success', "Incoming with Arrival No. " + data.arrival_no + " has been deleted.")
+                table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              })
+              .fail(function() {
+                console.log("error");
+              });
+            }
           })
-          .done(function() {
-            showSwalAutoClose('Success', "Incoming with Arrival No. " + data.arrival_no + " has been deleted.")
-            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+        });
+
+        table.on('click', '.btn-print', function(event) {
+          var tr = $(this).parent().parent();
+          var data = table.row(tr).data();
+          $('#form-print [name="arrival_no"]').val(data.arrival_no)
+          $('#modal-form-print').modal('open')
+        })
+
+        {{-- Load Modal Print --}}
+        @include('layouts.materialize.components.modal-print', [
+          'title' => 'Print',
+        ])
+
+        $('.btn-show-print-preview').click(function(event) {
+          /* Act on the event */
+          initPrintPreviewPrint(
+            '{{url("incoming-import-oem")}}' + '/' + $('#form-print [name="arrival_no"]').val() + '/export',
+            $('#form-print').serialize()
+          )
+        });
+
+        table.on('click', '.btn-submit-to-inventory', function(event) {
+          var tr = $(this).parent().parent();
+          var data = table.row(tr).data();
+          swal({
+            text: "Are you sure want to Submit to Inventory " + data.arrival_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Submit It'
+            }
+          }).then(function (confirm) { // proses confirm
+            if (confirm) {
+              $.ajax({
+                url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no + '/submit-to-inventory',
+                type: 'POST',
+                dataType: 'json',
+              })
+              .done(function() {
+                showSwalAutoClose("Success", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.")
+                table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              })
+              .fail(function() {
+                console.log("error");
+              });
+            }
           })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
+          
+        });
+
+      $("input#global_filter").on("keyup click", function () {
+        filterGlobal();
+      });
     });
-
-    table.on('click', '.btn-print', function(event) {
-      var tr = $(this).parent().parent();
-      var data = table.row(tr).data();
-      $('#form-print [name="arrival_no"]').val(data.arrival_no)
-      $('#modal-form-print').modal('open')
-    })
-
-    {{-- Load Modal Print --}}
-    @include('layouts.materialize.components.modal-print', [
-      'title' => 'Print',
-    ])
-
-    $('.btn-show-print-preview').click(function(event) {
-      /* Act on the event */
-      initPrintPreviewPrint(
-        '{{url("incoming-import-oem")}}' + '/' + $('#form-print [name="arrival_no"]').val() + '/export',
-        $('#form-print').serialize()
-      )
-    });
-
-    table.on('click', '.btn-submit-to-inventory', function(event) {
-      var tr = $(this).parent().parent();
-      var data = table.row(tr).data();
-      swal({
-        text: "Are you sure want to Submit to Inventory " + data.arrival_no + " and the details?",
-        icon: 'warning',
-        buttons: {
-          cancel: true,
-          delete: 'Yes, Submit It'
-        }
-      }).then(function (confirm) { // proses confirm
-        if (confirm) {
-          $.ajax({
-            url: '{{ url('incoming-import-oem') }}' + '/' + data.arrival_no + '/submit-to-inventory',
-            type: 'POST',
-            dataType: 'json',
-          })
-          .done(function() {
-            showSwalAutoClose("Success", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.")
-            table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-        }
-      })
-      
-    });
-
-  $("input#global_filter").on("keyup click", function () {
-    filterGlobal();
-  });
 
   $('#area_filter').change(function(event) {
     /* Act on the event */

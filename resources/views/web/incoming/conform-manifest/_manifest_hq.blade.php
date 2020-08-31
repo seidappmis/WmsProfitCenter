@@ -36,13 +36,6 @@
                               </tr>
                           </thead>
                           <tbody>
-                            {{-- <tr>
-                              <td>JKT-180903-053</td>
-                              <td>PUTRA NAGITA PRATAMA, PT.</td>
-                              <td>BOGOR</td>
-                              <td>-</td>
-                              <td>{!! get_button_view(url('conform-manifest/1'), 'View for Conform') !!}</td>
-                            </tr> --}}
                           </tbody>
                       </table>
                     </div>
@@ -76,7 +69,7 @@
       columns: [
           {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
+          {data: 'city_name', name: 'city_name', className: 'detail'},
           {data: 'status', name: 'status', className: 'detail'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]

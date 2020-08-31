@@ -12,7 +12,7 @@ class CancelMovementController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = MovementTransactionLog::all();
+      $query = MovementTransactionLog::where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

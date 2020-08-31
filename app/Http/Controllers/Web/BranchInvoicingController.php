@@ -243,4 +243,5 @@ class BranchInvoicingController extends Controller
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
     }
+  }
 }

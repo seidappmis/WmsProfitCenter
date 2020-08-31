@@ -22,12 +22,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('branch-invoicing/manifest-data', 'Web\BranchInvoicingController@getManifestData');
   Route::get('branch-invoicing/manifest-details', 'Web\BranchInvoicingController@getManifestDetails');
   Route::get('branch-invoicing/{group_id}', 'Web\BranchInvoicingController@show');
+  Route::get('branch-invoicing/create', 'Web\BranchInvoicingController@create');
+  Route::get('branch-invoicing/{id}/export', 'Web\BranchInvoicingController@export');
 
-
-    Route::get('branch-invoicing', 'Web\BranchInvoicingController@index');
-    Route::get('branch-invoicing/create', 'Web\BranchInvoicingController@create');
-    Route::get('branch-invoicing/{id}/export', 'Web\BranchInvoicingController@export');
-
-    Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
+  Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
 
 });
