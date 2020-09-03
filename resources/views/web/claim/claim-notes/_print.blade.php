@@ -92,7 +92,7 @@
 								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td colspan="" style="border-left: 2pt solid #000000;">&nbsp;</td>
+								<td style="border-left: 2pt solid #000000;">&nbsp;</td>
 								<td colspan="4"><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
 								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9314;</td>
                 				<td colspan="2" style="">Man Power Cost</td>
