@@ -45,6 +45,9 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('update-manifest', 'Web\UpdateManifestController@index');
   Route::post('update-manifest', 'Web\UpdateManifestController@show');
+  Route::put('update-manifest', 'Web\UpdateManifestController@update');
+  Route::get('update-manifest/list-do', 'Web\UpdateManifestController@listDo');
+  Route::put('update-manifest/update-do', 'Web\UpdateManifestController@updateDO');
 
   // Route::view('overload-concept-or-do', 'web.outgoing.overload-concept-or-do.index');
   Route::get('overload-concept-or-do', 'Web\OverloadConceptOrDoController@index');

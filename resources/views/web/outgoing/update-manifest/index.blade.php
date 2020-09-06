@@ -81,6 +81,8 @@
   $('#branch_filter').select2({
      placeholder: '-- Select Branch --',
   });
+  var dttable_do;
+
   jQuery(document).ready(function($) {
     @if (auth()->user()->area != 'All')
         set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
@@ -101,12 +103,18 @@
             $('#form-update-manifest [name="do_manifest_date"]').val(manifestHeader.do_manifest_date);
             $('#form-update-manifest [name="vehicle_number"]').val(manifestHeader.vehicle_number);
             $('#form-update-manifest [name="expedition_name"]').val(manifestHeader.expedition_name);
+            $('#form-update-manifest [name="expedition_code"]').val(manifestHeader.expedition_code);
             $('#form-update-manifest [name="driver_name"]').val(manifestHeader.driver_name);
             $('#form-update-manifest [name="vehicle_description"]').val(manifestHeader.vehicle_description);
             $('#form-update-manifest [name="city_name"]').val(manifestHeader.city_name);
             $('#form-update-manifest [name="container_no"]').val(manifestHeader.container_no);
             $('#form-update-manifest [name="seal_no"]').val(manifestHeader.seal_no);
             $('#form-update-manifest [name="pdo_no"]').val(manifestHeader.pdo_no);
+            $('#form-update-manifest [name="checker"]').val(manifestHeader.checker);
+            set_select2_destination(manifestHeader.expedition_code)
+
+            $('#filter-do-or-shipment').val($("#form-search-manifest [name='delivery_no']").val());
+            dttable_do.ajax.reload(null, false)
 
             $('#form-search-manifest').addClass('hide');
             $('.form-update-manifest-wrapper').removeClass('hide');
@@ -119,7 +127,60 @@
         });
       }
     });
+
+    $('#form-update-manifest').validate({
+      submitHandler: function(form){
+        $.ajax({
+          url: '{{ url("update-manifest") }}',
+          type: 'PUT',
+          data: $(form).serialize() + '&area=' + $('#area_filter').val(),
+        })
+        .done(function(result) { // selesai dan berhasil
+          showSwalAutoClose('', result.message);
+
+        })
+        .fail(function(xhr) {
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    })
+
+    dttable_do = $('#table-do').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: true,
+      ajax: {
+          url: "{{url('update-manifest/list-do')}}",
+          type: 'GET',
+          data: function(d) {
+              d.search['value'] = $('#filter-do-or-shipment').val()
+              d.do_manifest_no = $('#form-update-manifest [name="do_manifest_no"]').val()
+          }
+      },
+      order: [0, 'asc'],
+      columns: [
+          { data: 'DT_RowIndex' , orderable:false, searchable: false, width: '5px'},
+          { data: 'invoice_no' },
+          { data: 'delivery_no' },
+          { data: 'do_internal' },
+          { data: 'city_name' },
+          { data: 'delivery_items' },
+          { data: 'model' },
+          { data: 'quantity' },
+          { data: 'description' },
+          { data: 'status' },
+          { data: 'sold_to_code' },
+          { data: 'action', className: 'center-align', orderable: false, searchable: false },
+      ]
+    });
+
+    $('#btn-search-do').click(function(event) {
+      /* Act on the event */
+      dttable_do.ajax.reload(null, false)
+    });
   });
 
 </script>
 @endpush
+
+@include('web.outgoing.update-manifest._edit_do')

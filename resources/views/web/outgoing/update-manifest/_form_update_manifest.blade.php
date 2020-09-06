@@ -12,7 +12,7 @@
           <table width="100%" class="form-table">
             <tr>
               <td width="20%">Manifest No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_no" disabled></div></td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_no" readonly=""></div></td>
               <td width="20%">Manifest Date</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_date" disabled></div></td>
             </tr>
@@ -20,7 +20,10 @@
               <td width="20%">Vehicle No.</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_number"></div></td>
               <td width="20%">Expedition</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="expedition_name" disabled></div></td>
+              <td>
+                <input type="hidden" name="expedition_code">
+                <div class="input-field col s12"><input type="text" class="validate" name="expedition_name" disabled></div>
+              </td>
             </tr>
             <tr>
               <td width="20%">Driver Name</td>
@@ -65,7 +68,7 @@
     </div>
   </div>
   <div class="section-data-tables"> 
-    <table id="data-table-2" class="display" width="100%">
+    <table id="table-do" class="display" width="100%">
         <thead>
             <tr>
               <th>NO.</th>
