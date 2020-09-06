@@ -18,15 +18,14 @@ class TaskNoticeController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-        })
-        ->addColumn('status', function ($data) {
-          return $data->status();
+        ->addColumn('task_notice_no', function ($data) {
+          return '';
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('manifest-regular/' . $data->do_manifest_no . '/edit'), 'View');
+          $action .= ' ' . get_button_view(url('task-notice/' . $data->id_header), 'View');
+          $action .= ' ' . get_button_print('#', 'Print ST', 'btn-print-st');
+          $action .= ' ' . get_button_print('#', 'Print DO Return', 'btn-print-do-return');
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -35,6 +34,11 @@ class TaskNoticeController extends Controller
     }
 
     return view('web.return.task-notice.index');
+  }
+
+  public function show($id)
+  {
+    return view('web.return.task-notice.view');
   }
 
   //Export ST

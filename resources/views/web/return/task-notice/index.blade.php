@@ -83,7 +83,12 @@
                                     <th>CUSTOMER PO</th>
                                     <th>UPLOAD DATE</th>
                                     <th width="50px;"></th>
-                                    <th width="20px;"></th>
+                                    <th data-priority="1" class="datatable-checkbox-cell" width="30px">
+                                      <label>
+                                          <input type="checkbox" class="select-all" />
+                                          <span></span>
+                                      </label>
+                                    </th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -130,12 +135,25 @@
           { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           { data: 'task_notice_no', name: 'task_notice_no', className: 'detail' },
           { data: 'no_document', name: 'no_document', className: 'detail' },
-          { data: 'costumer_po', name: 'costumer_po', className: 'detail' },
+          { data: 'customer_po', name: 'customer_po', className: 'detail' },
           { data: 'upload_date', name: 'upload_date', className: 'detail' },
           { data: 'action', className: 'center-align', orderable: false, searchable: false },
-          { data: 'action', className: 'center-align', orderable: false, searchable: false },
+          {
+            data: 'id_header',
+            orderable: false,
+            searchable: false,
+            render: function ( data, type, row ) {
+                if ( type === 'display' ) {
+                    return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+                }
+                return data;
+            },
+            className: "datatable-checkbox-cell"
+          },
       ]
   });
+
+    set_datatables_checkbox('#data-table-simple', table)
 
     $('#form-task-notice [name="area"]').select2({
        placeholder: '-- Select Area --',
@@ -148,35 +166,18 @@
       $('#form-task-notice [name="area"]').attr('disabled', 'disabled');
     @endif
 
-    table.on('click', '.btn-delete', function(event) {
-        event.preventDefault();
-        /* Act on the event */
-        // Ditanyain dulu usernya mau beneran delete data nya nggak.
-        swal({
-          title: "Are you sure?",
-          text: "You will not be able to recover this imaginary file!",
-          icon: 'warning',
-          buttons: {
-            cancel: true,
-            delete: 'Yes, Delete It'
-          }
-        }).then(function (confirm) { // proses confirm
-          if (confirm) {
-            $(".btn-delete").closest("tr").remove();
-            showSwalAutoClose('Success', 'Data deleted')
-            //datatable memunculkan no data available in table
-          }
-        })
-      });
-
     table.on('click', '.btn-print-st', function(event) {
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
         initPrintPreviewPrintST(
-          '{{url("task-notice")}}' + '/123/export-st')
+          '{{url("task-notice")}}' + '/' + data.id_header + '/export-st')
       })
 
     table.on('click', '.btn-print-do-return', function(event) {
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
         initPrintPreviewPrintDOReturn(
-          '{{url("task-notice")}}' + '/123/export-do-return')
+          '{{url("task-notice")}}' + '/' + data.id_header + '/export-do-return')
       })
 
     $("input#global_filter").on("keyup click", function () {

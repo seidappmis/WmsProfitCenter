@@ -30,7 +30,7 @@
 
     function initPrintPreview{{$print_selector_id}}(url, extraParams = null){
       $('#modal-print-{{$print_selector_id}}').modal('open');
-      $('#frame').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : ''));
+      $('#modal-print-{{$print_selector_id}} .frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : ''));
       
       $('#btn-print-export-xls-{{$print_selector_id}}').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : ''));
       $('#btn-print-export-pdf-{{$print_selector_id}}').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : ''));
