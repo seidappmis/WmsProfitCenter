@@ -214,15 +214,24 @@ class BranchInvoicingController extends Controller
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(30);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
