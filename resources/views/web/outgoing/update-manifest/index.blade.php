@@ -128,6 +128,10 @@
       }
     });
 
+    $('#form-update-manifest .btn-print').click(function(event) {
+      /* Act on the event */
+      initPrintPreviewPrintManifest('manifest-regular/' + $('#form-update-manifest [name="do_manifest_no"]').val() + '/export')
+    });
     $('#form-update-manifest').validate({
       submitHandler: function(form){
         $.ajax({

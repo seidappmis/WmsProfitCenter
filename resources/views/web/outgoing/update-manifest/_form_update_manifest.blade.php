@@ -55,6 +55,14 @@
       </tr>
     </tbody>
   </table>
+
+  {{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Manifest',
+  'url' => '#',
+  'trigger' => '.btn-print'
+  ])
+
 </form>
   <h6 class="card-header">Total Manifest : 1</h6>
   <h5 class="card-header">List DO</h5>
