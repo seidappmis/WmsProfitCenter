@@ -60,7 +60,7 @@
         </div>
       </div>
 
-       <div class="col s12 container-task-notice-actual-wrapper hide">
+       <div class="col s12 container-input-task-notice-actual-wrapper hide">
         <div class="container">
             <div class="section">
               <div class="card">
@@ -79,7 +79,7 @@
                           <form id="form-task-notice-actual">
                             <input type="hidden" name="id_header">
                             <input type="hidden" name="id_detail_plan">
-                            <table id="task-notice-table" class="display form-table" width="100%">
+                            <table id="task-notice-actual-table" class="display form-table" width="100%">
                                 <thead>
                                     <tr>
                                       <th>Model Actual</th>
@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <div class="col s12 container-task-notice-actual-wrapper hide">
+      <div class="col s12 container-list-task-notice-actual-wrapper hide">
         <div class="container">
             <div class="section">
               <div class="card">
@@ -166,7 +166,7 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>List Task Notice Actual</div>
                       <div class="collapsible-body padding-1">
                         <div class="section-data-tables"> 
-                          <table id="task-notice-table" class="display" width="100%">
+                          <table id="task-notice-actual-table" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th>Model Actual</th>
@@ -178,6 +178,9 @@
                                     <th>RR</th>
                                     <th>KONDISI</th>
                                     <th>REMAK</th>
+                                    <th width="50px;"></th>
+                                    <th width="50px;"></th>
+                                    <th width="50px;"></th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -237,7 +240,8 @@
       $('#id_detail_plan').val(data.id_detail_plan)
       $('#text-input-actual-model-plan').text(data.model)
       $('#text-input-actual-quantity-plan').text(data.qty)
-      $('.container-task-notice-actual-wrapper').removeClass('hide');
+      $('.container-input-task-notice-actual-wrapper').removeClass('hide');
+      loadListTaskNoticeActual();
     });
 
     $('.btn-add-input-actual').click(function(event) {
@@ -282,6 +286,7 @@
             $('#form-task-notice-actual')[0].reset()
             $('.btn-cancel-input-actual').trigger('click')
             dttable_plan.ajax.reload(null, false)
+            loadListTaskNoticeActual();
           }
         })
         .fail(function(xhr) {
@@ -292,5 +297,46 @@
     })
 
   });
+
+  function loadListTaskNoticeActual(){
+    $.ajax({
+      url: '{{url('task-notice/actual')}}',
+      type: 'GET',
+      dataType: 'json',
+      data: {id_detail_plan: $('#id_detail_plan').val()},
+    })
+    .done(function(result) {
+      if (result.data.length > 0) {
+        $('.container-list-task-notice-actual-wrapper').removeClass('hide');
+
+         $('#task-notice-actual-table tbody').empty();
+        $.each(result.data, function(index, val) {
+           /* iterate through array or object */
+           var row = '';
+           row += '<tr>';
+           row += '<td>' + val.model + '</td>';
+           row += '<td>' + val.qty + '</td>';
+           row += '<td>' + val.serial_number + '</td>';
+           row += '<td>' + val.no_so + '</td>';
+           row += '<td>' + val.no_do + '</td>';
+           row += '<td>' + val.no_po + '</td>';
+           row += '<td>' + val.rr + '</td>';
+           row += '<td>' + val.kondisi + '</td>';
+           row += '<td>' + val.remark + '</td>';
+           row += '<td></td>';
+           row += '<td></td>';
+           row += '<td></td>';
+           row += '<td></td>';
+           row += '</tr>';
+
+           $('#task-notice-actual-table tbody').append(row)
+        });
+      }
+    })
+    .always(function() {
+      console.log("complete");
+    });
+    
+  }
 </script>
 @endpush

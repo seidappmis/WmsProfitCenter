@@ -64,6 +64,11 @@ class TaskNoticeController extends Controller
     return view('web.return.task-notice.view', $data);
   }
 
+  public function getActual(Request $request){
+    $actuals = LogReturnSuratTugasActual::where('id_detail_plan', $request->input('id_detail_plan'))->get();
+    return sendSuccess('Data Actual Retrive.', $actuals);
+  }
+
   public function storeActual(Request $request)
   {
     $plan = LogReturnSuratTugasPlan::findOrFail($request->input('id_detail_plan'));
