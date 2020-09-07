@@ -105,6 +105,126 @@
 </div>
 @endsection
 
+@push('page-modal')
+<div id="modal-form-print-st" class="modal" style="">
+  <form id="form-print-st" class="form-table">
+    <div class="modal-content">
+        <input type="hidden" name="id_header">
+        <table>
+          <tr>
+            <td width="150px">Expedition</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="expedition">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Vehicle No</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="vehicle_number">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Driver</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="driver">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Allocation</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="allocation">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Admin Warehouse</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="locate">
+              </div>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-st btn green darken-4">Print Report</a>
+      <a href="#!" class="btn waves-effect waves-light indigo btn-small btn-save">Save</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </form>
+</div>
+
+<div id="modal-form-print-do-return" class="modal" style="">
+  <form id="form-print-do-return" class="form-table">
+    <div class="modal-content">
+        <input type="hidden" name="id_header">
+        <table>
+          <tr>
+            <td width="150px">Expedition</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="expedition">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Vehicle No</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="vehicle_number">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Driver</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="driver">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Security</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="security">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Checker</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="checker">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">W.H</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="wh">
+              </div>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-do-return btn green darken-4">Print Report</a>
+      <a href="#!" class="btn waves-effect waves-light indigo btn-small btn-save">Save</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </form>
+</div>
+@endpush
+
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print ST',
@@ -169,16 +289,26 @@
     table.on('click', '.btn-print-st', function(event) {
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
-        initPrintPreviewPrintST(
-          '{{url("task-notice")}}' + '/' + data.id_header + '/export-st')
-      })
+      $('#form-print-st [name="id_header"]').val(data.id_header)
+      $('#modal-form-print-st').modal('open')
+    })
+
+    $('.btn-show-print-preview-st').click(function(event) {
+      /* Act on the event */
+       initPrintPreviewPrintST('{{url("task-notice")}}' + '/' + $('#form-print-st [name="id_header"]').val() + '/export-st')
+    });
 
     table.on('click', '.btn-print-do-return', function(event) {
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
-        initPrintPreviewPrintDOReturn(
-          '{{url("task-notice")}}' + '/' + data.id_header + '/export-do-return')
-      })
+      $('#form-print-do-return [name="id_header"]').val(data.id_header)
+      $('#modal-form-print-do-return').modal('open')
+    });
+
+    $('.btn-show-print-preview-do-return').click(function(event) {
+      /* Act on the event */
+      initPrintPreviewPrintDOReturn('{{url("task-notice")}}' + '/' + $('#form-print-do-return [name="id_header"]').val() + '/export-do-return')
+    });
 
     $("input#global_filter").on("keyup click", function () {
       filterGlobal();
