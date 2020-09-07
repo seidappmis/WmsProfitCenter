@@ -73,6 +73,9 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
+                      <span class="btn waves-effect waves-light btn-small red darken-4 btn-multi-delete-selected-item mt-1 mb-1 ml-1">
+                        Delete
+                      </span>
                         <div class="section-data-tables"> 
                           <table id="data-table-simple" class="display" width="100%">
                               <thead>

@@ -172,8 +172,6 @@
                                     <th>REMAK</th>
                                     <th width="50px;"></th>
                                     <th width="50px;"></th>
-                                    <th width="50px;"></th>
-                                    <th width="50px;"></th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -315,8 +313,6 @@
            row += '<td>' + val.rr + '</td>';
            row += '<td>' + val.kondisi + '</td>';
            row += '<td>' + val.remark + '</td>';
-           row += '<td></td>';
-           row += '<td></td>';
            row += '<td></td>';
            row += '<td></td>';
            row += '</tr>';
