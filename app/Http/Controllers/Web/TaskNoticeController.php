@@ -36,9 +36,30 @@ class TaskNoticeController extends Controller
     return view('web.return.task-notice.index');
   }
 
-  public function show($id)
+  public function show(Request $request, $id)
   {
-    return view('web.return.task-notice.view');
+    $suratTugasHeader = LogReturnSuratTugasHeader::findOrFail($id);
+
+    if ($request->ajax()) {
+      $query = $suratTugasHeader->plans;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('count_of_actual', function ($data) {
+          return $data->actual->count();
+        })
+        ->addColumn('action', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_view('#', 'View');
+          return $action;
+        })
+        ->rawColumns(['do_status', 'action']);
+
+      return $datatables->make(true);
+    }
+
+    $data['suratTugasHeader'] = $suratTugasHeader;
+    return view('web.return.task-notice.view', $data);
   }
 
   //Export ST
