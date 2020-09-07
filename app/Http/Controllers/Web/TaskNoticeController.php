@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\LogReturnSuratTugasActual;
 use App\Models\LogReturnSuratTugasHeader;
+use App\Models\LogReturnSuratTugasPlan;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -60,6 +62,34 @@ class TaskNoticeController extends Controller
 
     $data['suratTugasHeader'] = $suratTugasHeader;
     return view('web.return.task-notice.view', $data);
+  }
+
+  public function storeActual(Request $request)
+  {
+    $plan = LogReturnSuratTugasPlan::findOrFail($request->input('id_detail_plan'));
+
+    $actual = new LogReturnSuratTugasActual;
+
+    $actual->id_header      = $request->input('id_header');
+    $actual->id_detail_plan = $request->input('id_detail_plan');
+    $actual->area           = $plan->area;
+    $actual->date           = $plan->date;
+    $actual->no_document    = $plan->no_document;
+    $actual->costumer_po    = $plan->costumer_po;
+    $actual->model          = $request->input('model');
+    $actual->qty            = $request->input('qty');
+    $actual->serial_number  = $request->input('serial_number');
+    $actual->no_so          = $request->input('no_so');
+    $actual->no_do          = $request->input('no_do');
+    $actual->no_po          = $request->input('no_po');
+    $actual->ceck           = 'OK';
+    $actual->rr             = $request->input('rr');
+    $actual->kondisi        = $request->input('kondisi');
+    $actual->remark         = $request->input('remark');
+
+    $actual->save();
+
+    return sendSuccess('Task Notice Actual Success', $actual);
   }
 
   //Export ST

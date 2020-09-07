@@ -14,7 +14,7 @@ class CreateLogReturnSuratTugasPlanTable extends Migration
   public function up()
   {
     Schema::create('log_return_surat_tugas_plan', function (Blueprint $table) {
-      $table->bigInteger('id_detail_plan');
+      $table->bigInteger('id_detail_plan')->autoIncrement();
       $table->bigInteger('id_header');
       $table->string('area', 20)->nullable();
       $table->date('date')->nullable();
@@ -50,7 +50,7 @@ class CreateLogReturnSuratTugasPlanTable extends Migration
       $table->string('wh', 40)->nullable();
       $table->string('driver_print', 40)->nullable();
 
-      $table->primary('id_detail_plan');
+      // $table->primary('id_detail_plan');
     });
   }
 

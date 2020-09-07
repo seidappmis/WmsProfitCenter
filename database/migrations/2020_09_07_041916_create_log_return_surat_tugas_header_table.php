@@ -14,7 +14,7 @@ class CreateLogReturnSuratTugasHeaderTable extends Migration
   public function up()
   {
     Schema::create('log_return_surat_tugas_header', function (Blueprint $table) {
-      $table->bigInteger('id_header');
+      $table->bigInteger('id_header')->autoIncrement();
       $table->string('area', 20)->nullable();
       $table->date('date')->nullable();
       $table->string('no_document', 40)->nullable();
@@ -22,7 +22,7 @@ class CreateLogReturnSuratTugasHeaderTable extends Migration
       $table->datetime('upload_date')->nullable();
       $table->integer('upload_by')->nullable();
 
-      $table->primary('id_header');
+      // $table->primary('id_header');
     });
   }
 

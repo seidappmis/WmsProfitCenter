@@ -14,7 +14,7 @@ class CreateLogReturnSuratTugasActualTable extends Migration
   public function up()
   {
     Schema::create('log_return_surat_tugas_actual', function (Blueprint $table) {
-      $table->bigInteger('id_detail_actual');
+      $table->bigInteger('id_detail_actual')->autoIncrement();
       $table->bigInteger('id_header');
       $table->bigInteger('id_detail_plan');
       $table->string('area', 20)->nullable();
@@ -36,7 +36,7 @@ class CreateLogReturnSuratTugasActualTable extends Migration
       $table->datetime('modifiy_date')->nullable();
       $table->integer('modifiy_by')->nullable();
 
-      $table->primary('id_detail_actual');
+      // $table->primary('id_detail_actual');
     });
   }
 

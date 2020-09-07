@@ -72,7 +72,7 @@
                         {!! get_button_save('Add', 'btn-add-input-actual') !!}
                         {!! get_button_save('Save', 'btn-save-input-actual hide') !!}
                         {!! get_button_save('Cancel', 'btn-cancel-input-actual hide') !!}
-                        <h5 class="card-title" style="text-weight: 900 !important;">Model Plan: <span id="text-input-actual-model-plan"></span> Quantity Plan : <span id="text-input-actual-quantity-plan"></span></h5>
+                        <h5 class="card-title" style="text-weight: 900 !important;">Model Plan: <span id="text-input-actual-model-plan"></span> &nbsp; &nbsp;&nbsp; &nbsp; Quantity Plan : <span id="text-input-actual-quantity-plan"></span></h5>
                         <input type="hidden" name="id_header" id="id_header">
                         <input type="hidden" name="id_detail_plan" id="id_detail_plan">
                         <div class="section-data-tables input-task-notice-actual-wrapper hide"> 
@@ -276,8 +276,13 @@
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          showSwalAutoClose("Success", "Data Created.")
-          $('#form-task-notice-actual')[0].reset()
+          setLoading(false); // Disable Button when ajax post data
+          if (data.status) {
+            showSwalAutoClose("Success", data.message)
+            $('#form-task-notice-actual')[0].reset()
+            $('.btn-cancel-input-actual').trigger('click')
+            dttable_plan.ajax.reload(null, false)
+          }
         })
         .fail(function(xhr) {
             setLoading(false); // Enable Button when failed
