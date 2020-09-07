@@ -7,6 +7,7 @@ use App\Models\LogReturnSuratTugasActual;
 use App\Models\LogReturnSuratTugasHeader;
 use App\Models\LogReturnSuratTugasPlan;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class TaskNoticeController extends Controller
@@ -14,8 +15,13 @@ class TaskNoticeController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogReturnSuratTugasHeader::select('log_return_surat_tugas_header.*')
-        ->where('area', auth()->user()->area)
+      $query = LogReturnSuratTugasHeader::select(
+        'log_return_surat_tugas_plan.*',
+        DB::raw('COUNT(log_return_surat_tugas_plan.id_detail_plan) AS count_of_plan')
+      )
+        ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_header.id_header', '=', 'log_return_surat_tugas_plan.id_header')
+        ->where('log_return_surat_tugas_plan.area', auth()->user()->area)
+        ->groupBy('log_return_surat_tugas_plan.id_header')
       ;
 
       $datatables = DataTables::of($query)
@@ -64,7 +70,8 @@ class TaskNoticeController extends Controller
     return view('web.return.task-notice.view', $data);
   }
 
-  public function getActual(Request $request){
+  public function getActual(Request $request)
+  {
     $actuals = LogReturnSuratTugasActual::where('id_detail_plan', $request->input('id_detail_plan'))->get();
     return sendSuccess('Data Actual Retrive.', $actuals);
   }

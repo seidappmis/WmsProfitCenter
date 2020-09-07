@@ -253,9 +253,9 @@
       order: [1, 'desc'],
       columns: [
           { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          { data: 'task_notice_no', name: 'task_notice_no', className: 'detail' },
+          { data: 'no', name: 'no', className: 'detail' },
           { data: 'no_document', name: 'no_document', className: 'detail' },
-          { data: 'customer_po', name: 'customer_po', className: 'detail' },
+          { data: 'costumer_po', name: 'costumer_po', className: 'detail' },
           { data: 'upload_date', name: 'upload_date', className: 'detail' },
           { data: 'action', className: 'center-align', orderable: false, searchable: false },
           {
@@ -290,6 +290,10 @@
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
       $('#form-print-st [name="id_header"]').val(data.id_header)
+      $('#form-print-st [name="expedition"]').val(data.expedition)
+      $('#form-print-st [name="vehicle_no"]').val(data.vehicle_no)
+      $('#form-print-st [name="allocation"]').val(data.allocation)
+      $('#form-print-st [name="admin_warehouse"]').val(data.admin_warehouse)
       $('#modal-form-print-st').modal('open')
     })
 
@@ -302,6 +306,12 @@
       var tr = $(this).parent().parent();
       var data = table.row(tr).data();
       $('#form-print-do-return [name="id_header"]').val(data.id_header)
+      $('#form-print-do-return [name="expedition"]').val(data.expedition)
+      $('#form-print-do-return [name="vehicle_no"]').val(data.vehicle_no)
+      $('#form-print-do-return [name="driver"]').val(data.driver)
+      $('#form-print-do-return [name="security"]').val(data.security)
+      $('#form-print-do-return [name="checker"]').val(data.checker)
+      $('#form-print-do-return [name="wh"]').val(data.wh)
       $('#modal-form-print-do-return').modal('open')
     });
 
