@@ -126,7 +126,7 @@
             <td width="150px">Vehicle No</td>
             <td>
               <div class="input-field">
-                <input type="text" name="vehicle_number">
+                <input type="text" name="vehicle_no">
               </div>
             </td>
           </tr>
@@ -150,7 +150,7 @@
             <td width="150px">Admin Warehouse</td>
             <td>
               <div class="input-field">
-                <input type="text" name="locate">
+                <input type="text" name="admin_warehouse">
               </div>
             </td>
           </tr>
@@ -158,7 +158,7 @@
     </div>
     <div class="modal-footer">
       <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-st btn green darken-4">Print Report</a>
-      <a href="#!" class="btn waves-effect waves-light indigo btn-small btn-save">Save</a>
+      <button type="submit" class="btn waves-effect waves-light indigo btn-small btn-save">Save</button>
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
   </form>
@@ -181,7 +181,7 @@
             <td width="150px">Vehicle No</td>
             <td>
               <div class="input-field">
-                <input type="text" name="vehicle_number">
+                <input type="text" name="vehicle_no">
               </div>
             </td>
           </tr>
@@ -221,7 +221,7 @@
     </div>
     <div class="modal-footer">
       <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-do-return btn green darken-4">Print Report</a>
-      <a href="#!" class="btn waves-effect waves-light indigo btn-small btn-save">Save</a>
+      <button type="submit" class="btn waves-effect waves-light indigo btn-small btn-save">Save</button>
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
   </form>
@@ -236,6 +236,11 @@
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print DO Return',
 ])
+
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
@@ -284,6 +289,50 @@
        ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 
+    $('#form-print-st').validate({
+      submitHandler: function(form){
+        setLoading(true); // Disable Button when ajax post data
+        $.ajax({
+          url: '{{ url("task-notice") }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Disable Button when ajax post data
+          if (data.status) {
+            showSwalAutoClose("Success", data.message)
+            table.ajax.reload(null, false)
+          }
+        })
+        .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    })
+
+    $('#form-print-do-return').validate({
+      submitHandler: function(form){
+        setLoading(true); // Disable Button when ajax post data
+        $.ajax({
+          url: '{{ url("task-notice") }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Disable Button when ajax post data
+          if (data.status) {
+            showSwalAutoClose("Success", data.message)
+            table.ajax.reload(null, false)
+          }
+        })
+        .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    })
+
     @if (auth()->user()->area != "All") 
       set_select2_value('#form-task-notice [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
       $('#form-task-notice [name="area"]').attr('disabled', 'disabled');
@@ -295,6 +344,7 @@
       $('#form-print-st [name="id_header"]').val(data.id_header)
       $('#form-print-st [name="expedition"]').val(data.expedition)
       $('#form-print-st [name="vehicle_no"]').val(data.vehicle_no)
+      $('#form-print-st [name="driver"]').val(data.driver)
       $('#form-print-st [name="allocation"]').val(data.allocation)
       $('#form-print-st [name="admin_warehouse"]').val(data.admin_warehouse)
       $('#modal-form-print-st').modal('open')

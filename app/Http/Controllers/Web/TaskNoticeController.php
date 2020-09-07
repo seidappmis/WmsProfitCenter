@@ -70,6 +70,33 @@ class TaskNoticeController extends Controller
     return view('web.return.task-notice.view', $data);
   }
 
+  public function update(Request $request)
+  {
+    $data['vehicle_no'] = $request->input('vehicle_no');
+    $data['expedition'] = $request->input('expedition');
+    $data['driver']     = $request->input('driver');
+    if (!empty($request->input('allocation'))) {
+      $data['allocation'] = $request->input('allocation');
+    }
+    if (!empty($request->input('admin_warehouse'))) {
+      $data['admin_warehouse'] = $request->input('admin_warehouse');
+    }
+    if (!empty($request->input('security'))) {
+      $data['security'] = $request->input('security');
+    }
+    if (!empty($request->input('checker'))) {
+      $data['checker'] = $request->input('checker');
+    }
+    if (!empty($request->input('wh'))) {
+      $data['wh'] = $request->input('wh');
+    }
+
+    LogReturnSuratTugasPlan::where('id_header', $request->input('id_header'))->update($data);
+
+    return sendSuccess('Data updated.', $data);
+
+  }
+
   public function getActual(Request $request)
   {
     $actuals = LogReturnSuratTugasActual::where('id_detail_plan', $request->input('id_detail_plan'))->get();
