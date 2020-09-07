@@ -341,12 +341,12 @@ class PickingListController extends Controller
 
       // $pickinglistHeader->driver_register_id = Uuid::uuid4();
       $pickinglistHeader->driver_register_id = !empty($request->input('driver_register_id')) ? $request->input('driver_register_id') : Uuid::uuid4();
-      $pickinglistHeader->expedition_code   = $request->input('expedition_code');
-      $pickinglistHeader->expedition_name   = $expedition_name;
-      $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
-      $pickinglistHeader->vehicle_number    = $vehicle_number;
-      $pickinglistHeader->driver_id         = $request->input('driver_id');
-      $pickinglistHeader->driver_name       = $driver_name;
+      $pickinglistHeader->expedition_code    = $request->input('expedition_code');
+      $pickinglistHeader->expedition_name    = $expedition_name;
+      $pickinglistHeader->vehicle_code_type  = $request->input('vehicle_code_type');
+      $pickinglistHeader->vehicle_number     = $vehicle_number;
+      $pickinglistHeader->driver_id          = $request->input('driver_id');
+      $pickinglistHeader->driver_name        = $driver_name;
     } else {
       $pickinglistHeader->expedition_code = 'AS';
       $pickinglistHeader->expedition_name = 'Ambil Sendiri';
