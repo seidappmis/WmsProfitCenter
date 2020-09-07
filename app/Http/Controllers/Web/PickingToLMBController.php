@@ -188,8 +188,6 @@ class PickingToLMBController extends Controller
         $conceptFlowHeader->save();
       }
 
-      return $conceptFlowHeader;
-
       $lmbHeader->send_manifest = 1;
 
       $rs_picking_detail_id        = $request->input('picking_detail_id');
