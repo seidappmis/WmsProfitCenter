@@ -25,6 +25,7 @@
                     <li class="active">
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>List Task Notice Plan</div>
                       <div class="collapsible-body padding-1">
+                        {!! get_button_cancel(url('task-notice'), 'Back' , 'mb-1') !!}
                         <div class="section-data-tables"> 
                           <table id="task-notice-plan-table" class="display" width="100%">
                               <thead>
@@ -37,15 +38,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                {{-- @foreach($suratTugasHeader->plans AS $kPlan => $vPlan)
-                                <tr>
-                                  <td>{{$vPlan->no_document}}</td>
-                                  <td>{{$vPlan->model}}</td>
-                                  <td>{{$vPlan->qty}}</td>
-                                  <td>{{$vPlan->actual->count()}}</td>
-                                  <td>{!! get_button_view(url('#'), 'View') !!}</td>
-                                </tr>
-                                @endforeach --}}
                               </tbody>
                           </table>
                         </div>
