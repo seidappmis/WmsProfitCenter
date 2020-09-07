@@ -77,7 +77,7 @@ jQuery(document).ready(function($) {
           {data: 'movement_code', className: 'detail'},
           {data: 'storage_location_from', className: 'detail'},
           {data: 'storage_location_to', className: 'detail'},
-          {data: 'arrival_no', name: 'quantity_total', className: 'detail'},
+          {data: 'ref', className: 'detail'},
           {data: 'quantity', name: 'last_updated', className: 'detail'},
           {data: 'created_at', name: 'created_at', className: 'detail'},
       ],
