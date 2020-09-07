@@ -352,7 +352,7 @@
 
     $('.btn-show-print-preview-st').click(function(event) {
       /* Act on the event */
-       initPrintPreviewPrintST('{{url("task-notice")}}' + '/' + $('#form-print-st [name="id_header"]').val() + '/export-st')
+       initPrintPreviewPrintST('{{url("task-notice")}}' + '/' + $('#form-print-st [name="id_header"]').val() + '/export-st', $('#form-print-st').serialize())
     });
 
     table.on('click', '.btn-print-do-return', function(event) {

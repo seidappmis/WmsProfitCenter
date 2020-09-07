@@ -134,9 +134,10 @@ class TaskNoticeController extends Controller
   //Export ST
   public function exportSt(Request $request, $id)
   {
+    $data['request'] = $request->all();
     // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
 
-    $view_print = view('web.return.task-notice._print_st');
+    $view_print = view('web.return.task-notice._print_st', $data);
     $title      = 'Task Notice ST';
 
     if ($request->input('filetype') == 'html') {
