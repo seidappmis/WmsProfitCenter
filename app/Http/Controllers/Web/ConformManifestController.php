@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestHeader;
+use App\Models\LogManifestDetail;
 use App\Models\WMSBranchManifestDetail;
 use App\Models\WMSBranchManifestHeader;
 use DataTables;
@@ -91,19 +92,31 @@ class ConformManifestController extends Controller
 
   public function conform(Request $request, $id)
   {
-    $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
+    if ($request->input('type_conform') == 'HQ') {
+      $manifestHeader = LogManifestHeader::where('do_manifest_no', $request->input('do_manifest_no'))->first();
+    } else {
+      $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
+    }
     if (empty($request->input('manifest_detail'))) {
       return sendError('Please, Selected item');
     }
     if ($request->input('status') == 'hold_transit') {
       foreach ($request->input('manifest_detail') as $key => $value) {
-        $manifesDetail                      = WMSBranchManifestDetail::findOrFail($key);
+        if ($request->input('type_conform') == 'HQ') {
+          $manifesDetail                      = LogManifestDetail::findOrFail($key);
+        } else {
+          $manifesDetail                      = WMSBranchManifestDetail::findOrFail($key);
+        }
         $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('hold_transit')));
         $manifesDetail->save();
       }
     } else {
       foreach ($request->input('manifest_detail') as $key => $value) {
-        $manifesDetail                 = WMSBranchManifestDetail::findOrFail($key);
+        if ($request->input('type_conform') == 'HQ') {
+          $manifesDetail                 = LogManifestDetail::findOrFail($key);
+        } else {
+          $manifesDetail                 = WMSBranchManifestDetail::findOrFail($key);
+        }
         $manifesDetail->status_confirm = 1;
         $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
         $manifesDetail->confirm_by     = auth()->user()->id;

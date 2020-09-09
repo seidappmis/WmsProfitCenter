@@ -339,8 +339,37 @@ class PickingListController extends Controller
         return sendError('Please input expedition name');
       }
 
-      $pickinglistHeader->driver_register_id = Uuid::uuid4();
-      // $pickinglistHeader->driver_register_id = $request->input('driver_register_id');
+      // $pickinglistHeader->driver_register_id = Uuid::uuid4();
+      $pickinglistHeader->driver_register_id = !empty($request->input('driver_register_id')) ? $request->input('driver_register_id') : Uuid::uuid4();
+      if (!empty($request->input('driver_register_id'))) {
+        $driverRegistered = DriverRegistered::findOrFail($request->input('driver_register_id'));
+
+        // Add concept flow header
+        $idConceptFlowHeader                   = $driverRegistered->id;
+        $conceptFlowHeader                     = new ConceptFlowHeader;
+        $conceptFlowHeader->id                 = $idConceptFlowHeader;
+        $conceptFlowHeader->workflow_id        = 4;
+        $conceptFlowHeader->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+        $conceptFlowHeader->driver_id          = $driverRegistered->driver_id;
+        $conceptFlowHeader->expedition_id      = $driverRegistered->expedition->id;
+        $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
+        $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
+        $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
+        $conceptFlowHeader->driver_register_id = $driverRegistered->id;
+        $conceptFlowHeader->save();
+
+        // concept truck flow
+        $conceptTruckFlow                      = new ConceptTruckFlow;
+        $conceptTruckFlow->id                  = $idConceptFlowHeader;
+        $conceptTruckFlow->concept_flow_header = $idConceptFlowHeader;
+        $conceptTruckFlow->gate_number         = $pickinglistHeader->gate_number;
+        $conceptTruckFlow->created_gate_date   = date('Y-m-d H:i:s');
+        $conceptTruckFlow->created_gate_by     = auth()->user()->username;
+        $conceptTruckFlow->area                = $driverRegistered->area;
+        $conceptTruckFlow->save();
+
+      }
+      
       $pickinglistHeader->expedition_code   = $request->input('expedition_code');
       $pickinglistHeader->expedition_name   = $expedition_name;
       $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
@@ -350,7 +379,6 @@ class PickingListController extends Controller
     } else {
       $pickinglistHeader->expedition_code = 'AS';
       $pickinglistHeader->expedition_name = 'Ambil Sendiri';
-
     }
 
     if ($pickinglistHeader->city_code == "AS" || !auth()->user()->cabang->hq) {

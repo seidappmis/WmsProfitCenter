@@ -263,6 +263,7 @@ class PickingToLMBController extends Controller
         ->select(
           'wms_lmb_detail.*',
           'wms_pickinglist_header.storage_id',
+          'wms_pickinglist_header.picking_no',
           'wms_master_storage.sto_loc_code_long'
         )
         ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
@@ -278,6 +279,7 @@ class PickingToLMBController extends Controller
           $model['sto_loc_code_long'] = $value->sto_loc_code_long;
           $model['ean_code']          = $value->ean_code;
           $model['code_sales']        = $value->code_sales;
+          $model['picking_no']        = $value->picking_no;
           $model['qty']               = 0;
           $model['cbm_total']         = 0;
 
@@ -343,7 +345,7 @@ class PickingToLMBController extends Controller
         // id 7 Code 101 Increase Menambah Sloc Intransit HQ
         // id 16 Code 9Z3 Increase Menambah Sloc Intransit BRANCH
         $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
-        $movement_transaction_log['arrival_no']            = '';
+        $movement_transaction_log['arrival_no']            = $value['picking_no'];
         $movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 7 : 16;
         $movement_transaction_log['inventory_movement']    = 'Stock INCREASE';
         $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 101 : '9Z3';
@@ -363,7 +365,7 @@ class PickingToLMBController extends Controller
         // id 8 Code 647 Decrease Mengurangi SLOC HQ
         // id 17 Code 9Z3 Decrease Mengurangi SLOC BRANCH
         $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
-        $movement_transaction_log['arrival_no']            = '';
+        $movement_transaction_log['arrival_no']            = $value['picking_no'];
         $movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 8 : 17;
         $movement_transaction_log['inventory_movement']    = 'Stock DECREASE';
         $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 647 : '9Z3';

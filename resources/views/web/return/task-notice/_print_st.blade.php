@@ -71,17 +71,17 @@
               <tr>
                 <td style="width: 30mm;">EKSPEDISI</td>
                 <td style="width: 5mm;">:</td>
-                <td>ini ekspedisi</td>
+                <td>{{ $request['expedition'] }}</td>
               </tr>
               <tr>
                 <td style="width: 30mm;">NO. POLISI</td>
                 <td style="width: 5mm;">:</td>
-                <td>ini no polisi</td>
+                <td>{{ $request['vehicle_no'] }}</td>
               </tr>
               <tr>
                 <td style="width: 30mm;">SUPIR</td>
                 <td style="width: 5mm;">:</td>
-                <td>ini supir</td>
+                <td>{{ $request['driver'] }}</td>
               </tr>
               <tr>
                 <td colspan="7">UNTUK MENGAMBIL BARANG PRODUCT SHARP SEBAGAI BERIKUT</td>
@@ -167,8 +167,14 @@
                 <td>HORMAT KAMI,</td>
               </tr>
               <tr>
-                <td>ALLOCATION</td>
-                <td>ADMIN WAREHOUSE</td>
+                <td style="text-align: center">
+                  {{ $request['allocation'] }}<br>
+                  ALLOCATION
+                </td>
+                <td style="text-align: center">
+                  {{ $request['admin_warehouse'] }}<br>
+                  ADMIN WAREHOUSE
+                </td>
               </tr>
               <tr>
                 <td>Page 1 of 1</td>

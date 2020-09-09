@@ -71,7 +71,7 @@
                           <form id="form-task-notice-actual">
                             <input type="hidden" name="id_header">
                             <input type="hidden" name="id_detail_plan">
-                            <table id="task-notice-actual-table" class="display form-table" width="100%">
+                            <table id="task-notice-actual-input-table" class="display form-table" width="100%">
                                 <thead>
                                     <tr>
                                       <th>Model Actual</th>
