@@ -67,7 +67,7 @@
       <td>No GR SAP</td>
       <td>
         <div class="input-field col s12">
-          <input name="no_gr_sap" type="text" value="{{!empty($incomingManualHeader) ? $incomingManualHeader->no_gr_sap : ''}}" class="validate">
+          <input name="no_gr_sap" type="text" value="{{!empty($incomingManualHeader) ? $incomingManualHeader->no_gr_sap : ''}}" class="validate" required="">
         </div>
       </td>
       <td>Expedition Name</td>
