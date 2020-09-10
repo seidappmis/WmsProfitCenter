@@ -168,6 +168,22 @@ class ManifestRegularController extends Controller
     return $manifestHeader;
   }
 
+  public function update(Request $request, $do_manifest_no)
+  {
+    $manifestHeader = LogManifestHeader::findOrFail($do_manifest_no);
+
+    $manifestHeader->city_code    = $request->input('city_code');
+    $manifestHeader->city_name    = $request->input('city_name');
+    $manifestHeader->container_no = $request->input('container_no');
+    $manifestHeader->seal_no      = $request->input('seal_no');
+    $manifestHeader->checker      = $request->input('checker');
+    $manifestHeader->pdo_no       = $request->input('pdo_no');
+
+    $manifestHeader->save();
+
+    return sendSuccess('Manifest updated.', $manifestHeader);
+  }
+
   public function destroyDO(Request $request)
   {
     $detail = LogManifestDetail::findOrFail($request->input('id'));

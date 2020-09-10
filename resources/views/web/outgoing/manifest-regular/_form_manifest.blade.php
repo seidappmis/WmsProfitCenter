@@ -144,6 +144,7 @@
                         type="text" 
                         class="validate" 
                         name="checker" 
+                        value="{{!empty($manifestHeader->checker) ? $manifestHeader->checker : ''}}"
                         />
               </div>
             </td>
@@ -156,6 +157,7 @@
                         type="text" 
                         class="validate" 
                         name="pdo_no" 
+                        value="{{!empty($manifestHeader->pdo_no) ? $manifestHeader->pdo_no : ''}}"
                         />
               </div>
             </td>

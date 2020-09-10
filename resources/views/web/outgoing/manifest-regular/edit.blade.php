@@ -59,7 +59,28 @@
     set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-upload-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-upload-return [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
-  });
+
+    $('#form-manifest .btn-save').text('Update');
+
+    $("#form-manifest").validate({
+      submitHandler: function(form) {
+        setLoading(true); // Disable Button when ajax post data
+        $.ajax({
+          url: '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no) }}',
+          type: 'PUT',
+          data: $(form).serialize(),
+        })
+        .done(function(data) { // selesai dan berhasil
+          setLoading(false)
+          showSwalAutoClose("Success", "Manifest Updated.")
+        })
+        .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+      }
+    });
+
     $("#form-assign-do").validate({
       submitHandler: function(form) {
         var selected_list = [];
@@ -74,13 +95,22 @@
           data: $(form).serialize() + '&selected_list=' + JSON.stringify(selected_list),
         })
         .done(function(data) { // selesai dan berhasil
-          window.location.href = '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/edit") }}'
+          if (data.status) {
+            setLoading(false); // Disable Button when ajax post data
+            showSwalAutoClose('Success', data.message)
+            dttable_list_do.ajax.reload(null, false); // reload datatable
+            dtdatatable_submit_to_logsys.rows()
+              .remove()
+              .draw();
+          }
+          // window.location.href = '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/edit") }}'
         })
         .fail(function(xhr) {
-          setLoading(true); // Disable Button when ajax post data
+          setLoading(false); // Disable Button when ajax post data
             showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });
+  });
 </script>
 @endpush

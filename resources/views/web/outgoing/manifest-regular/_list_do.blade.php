@@ -32,9 +32,9 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable
+  var dttable_list_do
   jQuery(document).ready(function($) {
-    dtdatatable = $('#list-do-table').DataTable({
+    dttable_list_do = $('#list-do-table').DataTable({
     serverSide: true,
     scrollX: true,
     responsive: true,
@@ -65,7 +65,7 @@
       event.preventDefault();
       /* Act on the event */
       var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
+      var data = dttable_list_do.row(tr).data();
 
       swal({
         title: "Are you sure?",
@@ -84,7 +84,7 @@
           })
           .done(function() { // Kalau ajax nya success
             showSwalAutoClose('Success', 'Data deleted.')
-            dtdatatable.ajax.reload(null, false); // reload datatable
+            dttable_list_do.ajax.reload(null, false); // reload datatable
           })
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
