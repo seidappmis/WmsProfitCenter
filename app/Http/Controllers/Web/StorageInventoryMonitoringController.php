@@ -58,6 +58,7 @@ class StorageInventoryMonitoringController extends Controller
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('ref', function ($data) {
           $ref = $data->arrival_no;
+          $ref .= $data->do_manifest_no;
 
           return $ref;
         })

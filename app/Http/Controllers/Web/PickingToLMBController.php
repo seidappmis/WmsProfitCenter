@@ -137,8 +137,10 @@ class PickingToLMBController extends Controller
 
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
 
-    if (empty($picking->driver_register)) {
-      return sendError('Driver have not assigned.');
+    if ($picking->city_code != 'AS' and auth()->user()->cabang->hq) {
+      if (empty($picking->driver_register)) {
+        return sendError('Driver have not assigned.');
+      }
     }
 
     $lmbHeader                     = new LMBHeader;

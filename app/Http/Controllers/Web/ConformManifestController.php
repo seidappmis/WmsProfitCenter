@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\LogManifestHeader;
+use App\Models\InventoryStorage;
 use App\Models\LogManifestDetail;
+use App\Models\LogManifestHeader;
+use App\Models\MasterModel;
+use App\Models\MovementTransactionLog;
+use App\Models\MovementTransactionType;
+use App\Models\StorageMaster;
 use App\Models\WMSBranchManifestDetail;
 use App\Models\WMSBranchManifestHeader;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class ConformManifestController extends Controller
 {
@@ -100,32 +107,147 @@ class ConformManifestController extends Controller
     if (empty($request->input('manifest_detail'))) {
       return sendError('Please, Selected item');
     }
-    if ($request->input('status') == 'hold_transit') {
-      foreach ($request->input('manifest_detail') as $key => $value) {
-        if ($request->input('type_conform') == 'HQ') {
-          $manifesDetail                      = LogManifestDetail::findOrFail($key);
-        } else {
-          $manifesDetail                      = WMSBranchManifestDetail::findOrFail($key);
-        }
-        $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('hold_transit')));
-        $manifesDetail->save();
-      }
-    } else {
-      foreach ($request->input('manifest_detail') as $key => $value) {
-        if ($request->input('type_conform') == 'HQ') {
-          $manifesDetail                 = LogManifestDetail::findOrFail($key);
-        } else {
-          $manifesDetail                 = WMSBranchManifestDetail::findOrFail($key);
-        }
-        $manifesDetail->status_confirm = 1;
-        $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-        $manifesDetail->confirm_by     = auth()->user()->id;
-        $manifesDetail->do_reject      = !empty($request->input('rejected')) ? 1 : 0;
-        $manifesDetail->save();
-      }
-    }
+    try {
+      DB::beginTransaction();
 
-    return sendSuccess('Success', $manifestHeader);
+      if ($request->input('status') == 'hold_transit') {
+        foreach ($request->input('manifest_detail') as $key => $value) {
+          if ($request->input('type_conform') == 'HQ') {
+            $manifesDetail = LogManifestDetail::findOrFail($key);
+          } else {
+            $manifesDetail = WMSBranchManifestDetail::findOrFail($key);
+          }
+          $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('hold_transit')));
+          $manifesDetail->save();
+        }
+      } else {
+
+        $date_now = date('Y-m-d H:i:s');
+
+        $firstClassTMP = StorageMaster::where('sto_type_id', 1)->get();
+        foreach ($firstClassTMP as $key => $value) {
+          $firstClass[$value->kode_cabang] = $value;
+        }
+
+        $intransitBR = StorageMaster::where('sto_type_id', 3)->get();
+        foreach ($intransitBR as $key => $value) {
+          $storageIntransit['BR'][$value->kode_cabang] = $value;
+        }
+
+        $intranstDS = StorageMaster::where('sto_type_id', 4)->get();
+        foreach ($intranstDS as $key => $value) {
+          $storageIntransit['DS'][$value->kode_cabang] = $value;
+        }
+
+        $movementIncreaseSLOC      = MovementTransactionType::where('movement_code', '9X5')->where('action', 'INCREASE')->first();
+        $movementDecreaseIntransit = MovementTransactionType::where('movement_code', '9X5')->where('action', 'DECREASE')->first();
+
+        $rs_model = [];
+
+        foreach ($request->input('manifest_detail') as $key => $value) {
+          if ($request->input('type_conform') == 'HQ') {
+            $manifesDetail = LogManifestDetail::findOrFail($key);
+          } else {
+            $manifesDetail = WMSBranchManifestDetail::findOrFail($key);
+          }
+
+          $manifesDetail->status_confirm = 1;
+          $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
+          $manifesDetail->confirm_by     = auth()->user()->id;
+          $manifesDetail->do_reject      = !empty($request->input('rejected')) ? 1 : 0;
+          $manifesDetail->save();
+
+          if (empty($rs_model[$manifesDetail->model])) {
+            $model                           = MasterModel::where('model_name', $manifesDetail->model)->first();
+            $rs_model[$manifesDetail->model] = $model;
+          }
+
+          // return $rs_model;
+
+          // Jika CODE SALES BRANCH Stock Branch Bertambah
+          if ($manifesDetail->code_sales == 'BR') {
+            InventoryStorage::updateOrCreate(
+              // Condition
+              [
+                'storage_id' => $firstClass[$manifesDetail->kode_cabang]->id,
+                'model_name' => $manifesDetail->model,
+              ],
+              // Data Update
+              [
+                'ean_code'       => (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : ''),
+                'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $manifesDetail->quantity),
+                'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $manifesDetail->cbm),
+                'last_updated'   => $date_now,
+              ]
+            );
+
+            // ADD MOVEMENT
+            // Movement Code
+            // id 9 Code 9X5 Increase Menambah Sloc Intransit HQ
+            $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+            $movement_transaction_log['do_manifest_no']        = $manifesDetail->do_manifest_no;
+            $movement_transaction_log['mvt_master_id']         = $movementIncreaseSLOC->id;
+            $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementIncreaseSLOC->action;
+            $movement_transaction_log['movement_code']         = $movementIncreaseSLOC->movement_code;
+            $movement_transaction_log['transactions_desc']     = $movementIncreaseSLOC->action_description;
+            $movement_transaction_log['storage_location_from'] = $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->sto_loc_code_long;
+            $movement_transaction_log['storage_location_to']   = $firstClass[$manifesDetail->kode_cabang]->sto_loc_code_long;
+            $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
+            $movement_transaction_log['eancode']               = (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : '');
+            $movement_transaction_log['model']                 = $manifesDetail->model;
+            $movement_transaction_log['quantity']              = $manifesDetail->quantity;
+            $movement_transaction_log['created_at']            = $date_now;
+            $movement_transaction_log['flow_id']               = '';
+            $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
+
+            $rs_movement_transaction_log[] = $movement_transaction_log;
+
+          } // END OF CODE SALES BRANCH
+
+          InventoryStorage::updateOrCreate(
+            // Condition
+            [
+              'storage_id' => $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->id,
+              'model_name' => $manifesDetail->model,
+            ],
+            // Data Update
+            [
+              'ean_code'       => (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : ''),
+              'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $manifesDetail->quantity),
+              'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $manifesDetail->cbm),
+              'last_updated'   => $date_now,
+            ]
+          );
+
+          $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+          $movement_transaction_log['do_manifest_no']        = $manifesDetail->do_manifest_no;
+          $movement_transaction_log['mvt_master_id']         = $movementDecreaseIntransit->id;
+          $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementDecreaseIntransit->action;
+          $movement_transaction_log['movement_code']         = $movementDecreaseIntransit->movement_code;
+          $movement_transaction_log['transactions_desc']     = $movementDecreaseIntransit->action_description;
+          $movement_transaction_log['storage_location_from'] = $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->sto_loc_code_long;
+          $movement_transaction_log['storage_location_to']   = $firstClass[$manifesDetail->kode_cabang]->sto_loc_code_long;
+          $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
+          $movement_transaction_log['eancode']               = (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : '');
+          $movement_transaction_log['model']                 = $manifesDetail->model;
+          $movement_transaction_log['quantity']              = $manifesDetail->quantity;
+          $movement_transaction_log['created_at']            = $date_now;
+          $movement_transaction_log['flow_id']               = '';
+          $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
+
+          $rs_movement_transaction_log[] = $movement_transaction_log;
+
+        }
+
+        MovementTransactionLog::insert($rs_movement_transaction_log);
+      }
+
+      DB::commit();
+      return sendSuccess('Success', $manifestHeader);
+
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
   }
 
 }
