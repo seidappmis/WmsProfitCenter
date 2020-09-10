@@ -33,7 +33,7 @@ var MaterialDateTimePicker = {
                            element.blur();
                        }
                     });
-                    $('button.btn-flat.timepicker-close.waves-effect')[0].remove();
+                    // $('button.btn-flat.timepicker-close.waves-effect')[0].remove();
                     
                     if(element.val() != "")
                     {
@@ -66,7 +66,12 @@ var MaterialDateTimePicker = {
                     });
                 }
             });
-            $('button.btn-flat.datepicker-cancel.waves-effect, button.btn-flat.datepicker-done.waves-effect').remove();
+            // $('button.btn-flat.datepicker-cancel.waves-effect, button.btn-flat.datepicker-done.waves-effect').remove();
+            $('button.btn-flat.datepicker-cancel.waves-effect').click(function(event) {
+                /* Act on the event */
+                $('button.btn-flat.timepicker-close.waves-effect').trigger('click')
+                element.val('');
+            });
             this.addCSSRules();
             return element;
         }

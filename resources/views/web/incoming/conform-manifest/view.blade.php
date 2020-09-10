@@ -42,7 +42,7 @@
                           <span class="waves-effect waves-light btn blue darken-2 btn-conform">Conform</span>
                           <div class="row mb-0">
                             <div class="input-field col s12 m6">
-                              <input id="arrival_date" type="text" class="validate datetimepicker" name="arrival_date" required>
+                              <input id="arrival_date" type="text" class="validate datetimepicker" name="arrival_date" required="">
                               <label for="arrival_date">Arrival Date</label>
                             </div>
                             <div class="input-field col s12 m6">
@@ -74,7 +74,7 @@
                                   <th>SHIP TO</th>
                                   <th width="50px;">
                                     <label>
-                                      <input type="checkbox" />
+                                      <input class="checkbox_header" type="checkbox" />
                                       <span class="red-text"></span>
                                     </label>
                                   </th>
@@ -93,7 +93,7 @@
                                 <td>{{ $manifestDetail->ship_to }}</td>
                                 <td>
                                   <label>
-                                    <input type="checkbox" name="manifest_detail[{{$manifestDetail->id}}]"/>
+                                    <input type="checkbox" class="checkbox_detail" name="manifest_detail[{{$manifestDetail->id}}]"/>
                                     <span class="red-text"></span>
                                   </label>
                                 </td>
@@ -129,6 +129,16 @@
     MaterialDateTimePicker.create($('#form-conform-manifest [name="hold_transit"]'))
     MaterialDateTimePicker.create($('#form-conform-manifest [name="arrival_date"]'))
     MaterialDateTimePicker.create($('#form-conform-manifest [name="unloading_date"]'))
+
+    $('.checkbox_header').click(function(event) {
+      /* Act on the event */
+      if ($(this).is(':checked')) {
+        $('.checkbox_detail').prop('checked', true)
+      } else {
+        $('.checkbox_detail').prop('checked', false)
+      }
+    });
+
     $('.btn-hold-transit').click(function(event) {
       /* Act on the event */
       setLoading(true);

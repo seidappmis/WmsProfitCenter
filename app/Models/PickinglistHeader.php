@@ -40,6 +40,12 @@ class PickinglistHeader extends Model
     ;
   }
 
+
+  public function driver_register()
+  {
+    return $this->belongsTo('App\Models\DriverRegistered', 'driver_register_id', 'id');
+  }
+
   public function lmb_header()
   {
     return $this->belongsTo('App\Models\LMBHeader', 'driver_register_id', 'driver_register_id');

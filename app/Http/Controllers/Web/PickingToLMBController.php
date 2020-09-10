@@ -137,6 +137,10 @@ class PickingToLMBController extends Controller
 
     $picking = PickinglistHeader::where('picking_no', $request->input('picking_no'))->first();
 
+    if (empty($picking->driver_register)) {
+      return sendError('Driver have not assigned.');
+    }
+
     $lmbHeader                     = new LMBHeader;
     $lmbHeader->driver_register_id = $request->input('driver_register_id');
     $lmbHeader->lmb_date           = date('Y-m-d');
@@ -168,7 +172,7 @@ class PickingToLMBController extends Controller
 
     $lmbHeader->save();
 
-    return $lmbHeader;
+    return sendSuccess('Data Created.', $lmbHeader);
 
   }
 
@@ -283,6 +287,8 @@ class PickingToLMBController extends Controller
           $model['qty']               = 0;
           $model['cbm_total']         = 0;
 
+          $model['kode_cabang'] = substr($value->kode_customer, 0, 2);
+
           $rs_models[$value->model] = $model;
         }
 
@@ -297,13 +303,26 @@ class PickingToLMBController extends Controller
 
       // Storage Intransit
       // 3 Intransit BR
-      $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
-        ->where('kode_cabang', $lmbHeader->kode_cabang)
-        ->first();
+      // $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
+      //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+      //   ->first();
+      $intransitBR = StorageMaster::where('sto_type_id', 3)
+        ->get();
+
+      foreach ($intransitBR as $key => $value) {
+        $storageIntransit['BR'][$value->kode_cabang] = $value;
+      }
+
       // 4 Intransit DS
-      $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
-        ->where('kode_cabang', $lmbHeader->kode_cabang)
-        ->first();
+      // $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
+      //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+      //   ->first();
+      $intranstDS = StorageMaster::where('sto_type_id', 4)
+        ->get();
+
+      foreach ($intranstDS as $key => $value) {
+        $storageIntransit['DS'][$value->kode_cabang] = $value;
+      }
 
       $rs_movement_transaction_log = [];
 
@@ -328,7 +347,7 @@ class PickingToLMBController extends Controller
         InventoryStorage::updateOrCreate(
           // Condition
           [
-            'storage_id' => $storageIntransit[$value['code_sales']]->id,
+            'storage_id' => $storageIntransit[$value['code_sales']][$value['kode_cabang']]->id,
             'model_name' => $key,
           ],
           // Data Update
@@ -351,7 +370,7 @@ class PickingToLMBController extends Controller
         $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 101 : '9Z3';
         $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
         $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
-        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']][$value['kode_cabang']]->sto_loc_code_long;
         $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
         $movement_transaction_log['eancode']               = $value['ean_code'];
         $movement_transaction_log['model']                 = $key;
@@ -371,7 +390,7 @@ class PickingToLMBController extends Controller
         $movement_transaction_log['movement_code']         = auth()->user()->cabang->hq ? 647 : '9Z3';
         $movement_transaction_log['transactions_desc']     = 'Add LMB Outgoing';
         $movement_transaction_log['storage_location_from'] = $value['sto_loc_code_long'];
-        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']]->sto_loc_code_long;
+        $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']][$value['kode_cabang']]->sto_loc_code_long;
         $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
         $movement_transaction_log['eancode']               = $value['ean_code'];
         $movement_transaction_log['model']                 = $key;

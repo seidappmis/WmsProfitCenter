@@ -209,9 +209,14 @@
               type: 'POST',
               data: $(form).serialize(),
             })
-            .done(function(data) { // selesai dan berhasil
-              showSwalAutoClose('Success', 'Data created.')
-              window.location.href = "{{ url('picking-to-lmb') }}" + '/' + data.driver_register_id ;
+            .done(function(result) { // selesai dan berhasil
+              if (result.status) {
+                showSwalAutoClose('Success', 'Data created.')
+                window.location.href = "{{ url('picking-to-lmb') }}" + '/' + result.data.driver_register_id ;
+              } else {
+                setLoading(false)
+                showSwalAutoClose('Warning', result.message)
+              }
             })
             .fail(function(xhr) {
               setLoading(false); // Enable Button when failed
