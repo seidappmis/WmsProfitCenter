@@ -95,13 +95,13 @@ class BeritaAcaraDuringController extends Controller
 
       // Atur lebar kolom
       $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(25);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(10);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(30);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(30);
-      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(30);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
