@@ -33,7 +33,8 @@
               </div>
             </div>
             <div class="col s12 m6">
-                <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action">
+                <a href="#" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
+                {{-- <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action"> --}}
                   New Incoming Import/OEM
                 </a>
             </div>
@@ -240,23 +241,24 @@
       $("input#global_filter").on("keyup click", function () {
         filterGlobal();
       });
+      
+      $('#area_filter').change(function(event) {
+        /* Act on the event */
+        table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+        if ($(this).val() == null) {
+          $('.btn-add').addClass('hide');
+        } else {
+          $('.btn-add').removeClass('hide');
+        }
+      });
+
+      $('#area_filter').select2({
+           placeholder: '-- Select Area --',
+           allowClear: true,
+           ajax: get_select2_ajax_options('/master-area/select2-area-only')
+        });
     });
 
-  $('#area_filter').change(function(event) {
-    /* Act on the event */
-    table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-    if ($(this).val() == null) {
-      $('.btn-add').addClass('hide');
-    } else {
-      $('.btn-add').removeClass('hide');
-    }
-  });
-
-  $('#area_filter').select2({
-       placeholder: '-- Select Area --',
-       allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-area-only')
-    });
 
   // Custom search
   function filterGlobal() {

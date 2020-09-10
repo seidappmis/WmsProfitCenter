@@ -9,6 +9,7 @@ use App\Models\ConceptFlowHeader;
 use App\Models\ConceptTruckFlow;
 use App\Models\DriverRegistered;
 use App\Models\InventoryStorage;
+use App\Models\LMBDetail;
 use App\Models\LMBHeader;
 use App\Models\ManualConcept;
 use App\Models\MasterModel;
@@ -214,6 +215,8 @@ class PickingListController extends Controller
       foreach (json_decode($request->input('data_picking'), true) as $key => $value) {
         $picking = PickinglistHeader::findOrFail($value['id']);
 
+        $previousDriverRegisterID = $picking->driver_register_id;
+
         $picking->driver_register_id = $id;
         $picking->driver_id          = $driverRegistered->driver_id;
         $picking->driver_name        = $driverRegistered->driver_name;
@@ -253,6 +256,7 @@ class PickingListController extends Controller
 
         $lmb = LMBHeader::find($value['id']);
         if (!empty($lmb)) {
+
           $lmb->driver_register_id = $id;
           $lmb->driver_id          = $driverRegistered->driver_id;
           $lmb->driver_name        = $driverRegistered->driver_name;
@@ -261,7 +265,10 @@ class PickingListController extends Controller
           $lmb->expedition_name    = $driverRegistered->expedition_name;
 
           $lmb->save();
+
         }
+
+        LMBDetail::where('driver_register_id', $previousDriverRegisterID)->update(['driver_register_id' => $id]);
 
       }
 
@@ -369,7 +376,7 @@ class PickingListController extends Controller
         $conceptTruckFlow->save();
 
       }
-      
+
       $pickinglistHeader->expedition_code   = $request->input('expedition_code');
       $pickinglistHeader->expedition_name   = $expedition_name;
       $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
