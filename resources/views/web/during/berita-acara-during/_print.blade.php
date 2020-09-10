@@ -9,8 +9,8 @@
             <table width="100%" style=" font-size: 10pt;">
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
-              <tr><td colspan="8" style="text-align: center;"><strong>BERITA ACARA BARANG DURING</strong></td></tr>
-              <tr><td colspan="8" style="text-align: center; font-style: italic;"><strong>No : 037/DR-SWD/XII/2019</strong></td></tr>
+              <tr><td colspan="8" style="font-size: 12pt; text-align: center;"><strong>BERITA ACARA BARANG DURING</strong></td></tr>
+              <tr><td colspan="8" style="font-size: 12pt; text-align: center; font-style: italic;"><strong>No : 037/DR-SWD/XII/2019</strong></td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr><td colspan="8">Kepada Yth.</td></tr>
               <tr><td colspan="8">Logistic &amp; Distribution Section</td></tr>
