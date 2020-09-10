@@ -41,7 +41,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="datatable-receipt-invoice" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -50,6 +50,7 @@
                                     <th>RECIEPT DATE</th>
                                     <th>KWITANSI NO</th>
                                     <th>EXPEDITION NAME</th>
+                                    <th width="50px;"></th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -71,11 +72,31 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+  var dtdatatable
+  jQuery(document).ready(function($) {
+    
+    dtdatatable = $('#datatable-receipt-invoice').DataTable({
+        serverSide: true,
         scrollX: true,
         responsive: true,
+        ajax: {
+            url: '{{url("receipt-invoice")}}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val();
+              }
+        },
         order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'invoice_receipt_id'},
+            {data: 'invoice_receipt_no'},
+            {data: 'invoice_receipt_date'},
+            {data: 'kwitansi_no'},
+            {data: 'expedition_name'},
+            {data: 'action_view', className: 'center-align'},
+            {data: 'action_delete', className: 'center-align'},
+        ]
     });
 
     dtdatatable.on('click', '.btn-edit', function(event) {
@@ -112,5 +133,6 @@
         }
       })
     });
+  });
 </script>
 @endpush

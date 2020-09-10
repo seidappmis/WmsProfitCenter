@@ -78,6 +78,12 @@ class AdminNavListComposer
       ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
     ]];
 
+    $this->menuItems[] = ['name' => 'during', 'label' => 'During', 'url' => '#', 'icon' => 'ac_unit', 'childs' => [
+      ['name' => 'during', 'label' => 'Berita Acara During', 'url' => 'berita-acara-during', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'during', 'label' => 'Damage Goods Report', 'url' => 'damage-goods-report', 'icon' => 'radio_button_unchecked'],
+      // ['name' => 'during', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
+    ]];
+
     $this->menuItems[] = ['name' => 'report', 'label' => 'Stock Take', 'url' => '#', 'icon' => 'rate_review', 'childs' => [
       ['name' => 'report', 'label' => 'Stock Take Schedule', 'url' => 'stock-take-schedule', 'icon' => 'radio_button_unchecked'],
       ['name' => 'report', 'label' => 'Stock Take Create Tag', 'url' => 'stock-take-create-tag', 'icon' => 'radio_button_unchecked'],
