@@ -44,6 +44,29 @@ class ManifestRegularController extends Controller
     return view('web.outgoing.manifest-regular.index');
   }
 
+  public function listDO(Request $request, $do_manifest_no)
+  {
+    if ($request->ajax()) {
+      $query = LogManifestDetail::select('log_manifest_detail.*')
+        ->where('do_manifest_no', $do_manifest_no)
+      ;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('desc', function ($data) {
+          return $data->getDesc();
+        })
+        ->addColumn('action', function ($data) {
+          $action = '';
+          $action .= ' ' . get_button_delete();
+          return $action;
+        })
+        ->rawColumns(['do_status', 'action']);
+
+      return $datatables->make(true);
+    }
+  }
+
   public function truckWaitingManifest(Request $request)
   {
     if ($request->ajax()) {
@@ -143,6 +166,15 @@ class ManifestRegularController extends Controller
     $manifestHeader->save();
 
     return $manifestHeader;
+  }
+
+  public function destroyDO(Request $request)
+  {
+    $detail = LogManifestDetail::findOrFail($request->input('id'));
+
+    $detail->delete();
+
+    return sendSuccess('DO deleted.', $detail);
   }
 
   public function edit($id)

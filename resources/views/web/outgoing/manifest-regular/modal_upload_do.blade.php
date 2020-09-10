@@ -3,7 +3,7 @@
 <div id="modal-upload-do" class="modal">
 <form id="form-upload-do">
   <div class="modal-content">
-    <h4>Upload DO</h4>
+    <h4>Upload</h4>
     <table class="form-table">
       <tr>
         <td width="120px">Upload Type</td>

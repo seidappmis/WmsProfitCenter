@@ -7,7 +7,7 @@
 <a href="#modal-upload-return" class="waves-effect waves-light indigo btn-small modal-trigger mb-1">Upload Return</a>
 @include('web.outgoing.manifest-regular.modal_upload_return')
 <div class="section-data-tables"> 
-  <table id="data_manifest_normal_table" class="display" width="100%">
+  <table id="list-do-table" class="display" width="100%">
     <thead>
       <tr>
         <th>NO.</th>
@@ -25,23 +25,74 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($manifestHeader->details AS $key => $manifestDetail)
-      <tr>
-        <td>{{$key+1}}</td>
-        <td>{{$manifestDetail->invoice_no}}</td>
-        <td>{{ $manifestDetail->delivery_no }}</td>
-        <td>{{ $manifestDetail->do_internal }}</td>
-        <td>{{ $manifestDetail->ship_to }}</td>
-        <td>{{ $manifestDetail->delivery_items }}</td>
-        <td>{{ $manifestDetail->model }}</td>
-        <td>{{ $manifestDetail->quantity }}</td>
-        <td>{{ $manifestDetail->getDesc() }}</td>
-        {{-- <td>{{ $manifestDetail->status }}</td> --}}
-        <td>{{ $manifestDetail->ship_to_code }}</td>
-        <td>{!! get_button_delete() !!}</td>
-      </tr>
-      @endforeach
     </tbody>
   </table>
 </div>
   <!-- datatable ends -->
+
+@push('script_js')
+<script type="text/javascript">
+  var dtdatatable
+  jQuery(document).ready(function($) {
+    dtdatatable = $('#list-do-table').DataTable({
+    serverSide: true,
+    scrollX: true,
+    responsive: true,
+    ajax: {
+        url: '{{ url('manifest-regular/' . $manifestHeader->do_manifest_no . '/list-do') }}',
+        type: 'GET',
+        data: function(d) {
+            d.search['value'] = $('#global_filter').val()
+          }
+    },
+    order: [2, 'asc'],
+    columns: [
+        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+        {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
+        {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
+        {data: 'do_internal', name: 'do_internal', className: 'detail'},
+        {data: 'ship_to', name: 'ship_to', className: 'detail'},
+        {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
+        {data: 'model', name: 'model', className: 'detail'},
+        {data: 'quantity', name: 'quantity', className: 'detail'},
+        {data: 'desc', name: 'desc', className: 'detail'},
+        {data: 'ship_to_code', name: 'ship_to_code', className: 'detail'},
+        {data: 'action', className: 'center-align', searchable: false, orderable: false},
+      ],
+    });
+
+    $('#list-do-table').on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+
+      swal({
+        title: "Are you sure?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('manifest-regular/delete-do') }}' ,
+            type: 'DELETE',
+            data: 'id=' + data.id
+          })
+          .done(function() { // Kalau ajax nya success
+            showSwalAutoClose('Success', 'Data deleted.')
+            dtdatatable.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
+    });
+  });
+</script>
+@endpush
