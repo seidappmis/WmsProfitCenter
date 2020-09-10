@@ -65,6 +65,7 @@
                                     <td colspan="12">{{ $unconfirmManifest['manifest']->do_manifest_no }} - {{ $unconfirmManifest['manifest']->expedition_name }} - {{ $unconfirmManifest['manifest']->city_name }}</td>
                                   </tr>
                                   @foreach($unconfirmManifest['detail'] AS $key => $detail)
+                                  <tr>
                                     <td>{{ $detail->invoice_no }}</td>
                                     <td>{{ $detail->delivery_no }}</td>
                                     <td>{{ $detail->do_internal }}</td>
@@ -77,6 +78,7 @@
                                     <td>{{ $detail->do_manifest_date }}</td>
                                     <td>{{ $detail->do_manifest_date }}</td>
                                     <td>{{ $detail->lead_time }}</td>
+                                  </tr>
                                   @endforeach
                                 @endforeach
                             

@@ -8,6 +8,8 @@ use App\Models\FreightCost;
 use App\Models\LMBHeader;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
+use App\Models\MasterCabang;
+use App\Models\MasterModel;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -193,7 +195,7 @@ class ManifestRegularController extends Controller
       // $manifestDetail['nilai_ritase2']       = '';
       // $manifestDetail['nilai_cbm']           = '';
       $manifestDetail['code_sales'] = $concept->code_sales;
-      // $manifestDetail['tcs']                 = '';
+      $manifestDetail['tcs']        = 1;
       // $manifestDetail['multidro']            = '';
       // $manifestDetail['unloading']           = '';
       // $manifestDetail['overstay']            = '';
@@ -233,6 +235,87 @@ class ManifestRegularController extends Controller
     } catch (Exception $e) {
       DB::rollBack();
     }
+  }
+
+  public function uploadDO(Request $request, $do_manifest_no)
+  {
+    $request->validate([
+      'file-do' => 'required',
+    ]);
+
+    $manifestHeader = LogManifestHeader::findOrFail($do_manifest_no);
+
+    $file = fopen($request->file('file-do'), "r");
+
+    $title         = true; // Untuk Penada Baris pertama adalah Judul
+    $rs_do         = [];
+    $rs_model      = [];
+    $rs_code_sales = [];
+
+    while (!feof($file)) {
+      $row = fgetcsv($file);
+      if ($title) {
+        $title = false;
+        continue; // Skip baris judul
+      }
+
+      if (!empty($row[5])) {
+        $do = [];
+
+        $do['invoice_no']     = $row[5];
+        $do['delivery_no']    = $row[1];
+        $do['delivery_items'] = $row[4];
+        $do['line_no']        = $row[4];
+        $do['do_date']        = $row[2];
+        $do['sold_to_code']   = $row[7];
+        $do['sold_to']        = $row[8];
+        $do['ship_to_code']   = $row[7];
+        $do['ship_to']        = $row[8];
+        $do['model']          = $row[9];
+        $do['quantity']       = $row[10];
+        $do['cbm']            = $row[15];
+        $do['area']           = auth()->user()->area;
+        // $do['kode_cabang']     = auth()->user()->cabang->kode_cabang;
+        $do['kode_cabang']   = substr($do['sold_to_code'], 0, 2);
+        $do['remarks']       = '-';
+        $do['created_by']    = auth()->user()->id;
+        $do['created_at']    = date('Y-m-d H:i:s');
+        $do['ambil_sendiri'] = 0;
+        $do['tcs']           = 0;
+        if ($request->input('type') == 'return') {
+          $do['do_return'] = 1;
+        }
+        $do['expedition_code'] = $manifestHeader->expedition_code;
+        $do['expedition_name'] = $manifestHeader->expedition_name;
+        $do['city_code']       = $request->input('ship_to');
+        $do['city_name']       = $request->input('city_name');
+        $do['do_date']         = $manifestHeader->do_manifest_date;
+        $do['do_manifest_no']  = $manifestHeader->do_manifest_no;
+        $do['do_internal']     = $request->input('do_internal');
+        $do['reservasi_no']    = $request->input('reservasi_no');
+
+        if (empty($rs_model[$do['model']])) {
+          $model = MasterModel::where('model_name', $do['model'])->first();
+
+          $rs_model[$do['model']] = $model;
+        }
+
+        if (empty($rs_code_sales[$do['sold_to_code']])) {
+          $cabang                             = MasterCabang::where('kode_customer', $do['sold_to_code'])->first();
+          $rs_code_sales[$do['sold_to_code']] = empty($cabang) ? 'DS' : 'BR';
+        }
+
+        $do['code_sales'] = $rs_code_sales[$do['sold_to_code']];
+
+        // $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
+
+        $rs_do[] = $do;
+      }
+    }
+
+    LogManifestDetail::insert($rs_do);
+
+    return sendSuccess('DO Uploaded', $rs_do);
   }
 
   public function export(Request $request, $id)

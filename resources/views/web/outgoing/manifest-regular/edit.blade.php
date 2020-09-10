@@ -57,6 +57,8 @@
   jQuery(document).ready(function($) {
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+    set_select2_value('#form-upload-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+    set_select2_value('#form-upload-return [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
   });
     $("#form-assign-do").validate({
       submitHandler: function(form) {
