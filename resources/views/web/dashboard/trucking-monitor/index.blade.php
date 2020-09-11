@@ -144,51 +144,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   {{--  <tr>
-                                        <td>1000307683</td>
-                                        <td>2800076697</td>
-                                        <td>1</td>
-                                        <td>4.42</td>
-                                        <td>SURABAYA HUB-SURABAYA</td>
-                                        <td>MILLENNIUM TRANS BAHARI, PT.</td>
-                                        <td>2018-05-11 10:25:50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000308448</td>
-                                        <td>2800076904</td>
-                                        <td>2</td>
-                                        <td>2.295</td>
-                                        <td>SURABAYA HUB-KEDIRI</td>
-                                        <td>TRISILA, CV.</td>
-                                        <td>2018-05-16 14:47:40</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000308448</td>
-                                        <td>2800076904</td>
-                                        <td>2</td>
-                                        <td>2.295</td>
-                                        <td>SURABAYA HUB-KEDIRI</td>
-                                        <td>TRISILA, CV.</td>
-                                        <td>2018-05-16 14:47:40</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000308448</td>
-                                        <td>2800076904</td>
-                                        <td>2</td>
-                                        <td>2.295</td>
-                                        <td>SURABAYA HUB-KEDIRI</td>
-                                        <td>TRISILA, CV.</td>
-                                        <td>2018-05-16 14:47:40</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1000308448</td>
-                                        <td>2800076904</td>
-                                        <td>2</td>
-                                        <td>2.295</td>
-                                        <td>SURABAYA HUB-KEDIRI</td>
-                                        <td>TRISILA, CV.</td>
-                                        <td>2018-05-16 14:47:40</td>
-                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -235,7 +190,7 @@
                     row += '<td>' + val.invoice_no + '</td>';
                     row += '<td>' + val.delivery_no + '</td>';
                     row += '<td>' + val.total_do_items + '</td>';
-                    row += '<td>' + val.total_cbm + '</td>';
+                    row += '<td>' + val.total_cbm.toFixed(3) + '</td>';
                     row += '<td>' + val.destination_name + '</td>';
                     row += '<td>' + val.expedition_name + '</td>';
                     row += '<td>' + moment(val.created_at).format('HH:mm:ss') + '</td>';
