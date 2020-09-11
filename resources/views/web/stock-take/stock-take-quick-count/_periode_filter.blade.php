@@ -93,6 +93,8 @@
             $('#form-stock-take-summary [name="diff_qty"]').val(result.data.diff_qty)
             $('#form-stock-take-summary [name="only_input_1"]').val(result.data.only_input_1)
             $('#form-stock-take-summary [name="only_input_2"]').val(result.data.only_input_2)
+            dttable_input_1.ajax.reload(null, false)
+            dttable_input_2.ajax.reload(null, false)
           } else {
             $('.quick-count-wrapper').addClass('hide')
           }
