@@ -164,6 +164,14 @@
         /* Act on the event */
         dtdatatable.ajax.reload(null, false)
       });
+
+      dtdatatable.on('draw', function (data) {
+        if (dtdatatable.page.info().recordsDisplay > 0) {
+          $('.btn-print').removeClass('hide')
+        } else {
+          $('.btn-print').addClass('hide')
+        }
+      });
     });
     $('#sto_id').select2({
        placeholder: '-- Select Schedule ID --',
