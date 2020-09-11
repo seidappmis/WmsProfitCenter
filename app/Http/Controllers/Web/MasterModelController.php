@@ -90,6 +90,7 @@ class MasterModelController extends Controller
     $masterModel->price1           = $request->input('price1');
     $masterModel->price2           = $request->input('price2');
     $masterModel->price3           = $request->input('price3');
+    $masterModel->price_carton_box = $request->input('price_carton_box');
 
     return $masterModel->save();
   }
@@ -217,10 +218,12 @@ class MasterModelController extends Controller
       'price3'           => 'numeric',
     ]);
 
-    $masterModel                   = MasterModel::findOrFail($id);
-    $masterModel->model_name       = $request->input('model_name');
+    $masterModel = MasterModel::findOrFail($id);
+    if (!$masterModel->isUsed()) {
+      $masterModel->model_name = $request->input('model_name');
+      $masterModel->ean_code   = $request->input('ean_code');
+    }
     $masterModel->model_from_apbar = $request->input('model_from_apbar');
-    $masterModel->ean_code         = $request->input('ean_code');
     $masterModel->cbm              = $request->input('cbm');
     $masterModel->material_group   = $request->input('material_group');
     $masterModel->category         = $request->input('category');
@@ -232,6 +235,7 @@ class MasterModelController extends Controller
     $masterModel->price1           = $request->input('price1');
     $masterModel->price2           = $request->input('price2');
     $masterModel->price3           = $request->input('price3');
+    $masterModel->price_carton_box = $request->input('price_carton_box');
 
     return $masterModel->save();
   }
@@ -247,7 +251,7 @@ class MasterModelController extends Controller
     return MasterModel::destroy($id);
   }
 
-   public function getSelect2Model2(Request $request)
+  public function getSelect2Model2(Request $request)
   {
     $query = MasterModel::select(
       DB::raw('model_name AS id'),

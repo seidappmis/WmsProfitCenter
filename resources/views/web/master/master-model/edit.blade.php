@@ -41,6 +41,10 @@
  	jQuery(document).ready(function($) {
         set_initial_form_data();
         $('.btn-save').html('Update');
+
+        @if ($masterModel->isUsed()) {}
+        showSwalAutoClose('Warning', 'EAN CODE or Model can not be update, Model {{$masterModel->model_name}} used by another data')
+        @endif
     });
 
     function set_initial_form_data(){

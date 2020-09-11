@@ -124,6 +124,14 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td>Price Carton Box</td>
+      <td>
+        <div class="input-field col s12">
+          <input placeholder="0" type="number" id="price_carton_box" name="price_carton_box" value="{{old('price_carton_box', !empty($masterModel) ? $masterModel->price_carton_box : '')}}">
+        </div>
+      </td>
+    </tr>
   </table>
   {!! get_button_save() !!}
   {!! get_button_cancel(url('master-model')) !!}

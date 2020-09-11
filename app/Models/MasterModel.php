@@ -32,4 +32,8 @@ class MasterModel extends BaseModel
     {
         return $this->belongsTo('App\Models\ModelType', 'model_type');
     }
+
+    public function isUsed(){
+        return true;
+    }
 }

@@ -127,6 +127,7 @@
 	</tr>
 	<tr>
 		<td>
+			<footer>
 			<table style="width: 210.0003mm;">
 				<tr><td>&nbsp;</td></tr>
 				<tr>
@@ -175,6 +176,7 @@
 		          	<td colspan="4" style="text-align: left;  width: 100mm; font-size: 9pt;">&nbsp; &nbsp; print out from SEID WMS</td>
 		        </tr>
 			</table>
+			</footer>
 		</td>
 	</tr>
 </table>

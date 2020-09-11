@@ -20,7 +20,7 @@
               <tr>
                 <td>Manifest No.</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 65mm;"><strong>BDG-191228-012</strong></td>
+                <td colspan="8" style="text-align: left; width: 65mm;"><strong>JKT-200910-002</strong></td>
                 <td colspan="2">Vehicle</td>
                 <td>:</td>
                 <td colspan="4" style="text-align: left;"><strong>D 8410 FE &nbsp;&nbsp;&nbsp; CD 6 BAN (CDD)</strong></td>
@@ -28,7 +28,7 @@
               <tr>
                 <td>Date</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 65mm;"><strong>28-December-2019</strong></td>
+                <td colspan="8" style="text-align: left; width: 65mm;"><strong>10-September-2020</strong></td>
                 <td colspan="2">Expedition Name</td>
                 <td>:</td>
                 <td colspan="4" style="text-align: left;"><strong>PUTRA NAGITA PRATAMA</strong></td>
@@ -39,13 +39,13 @@
                 <td colspan="8" style="text-align: left; width: 65mm;"><strong>Tasikmalaya</strong></td>
                 <td colspan="2">Container No.</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>ini no container</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>Test Container No</strong></td>
               </tr>
               <tr>
                 <td colspan="10" style="width: 65mm;"></td>
                 <td colspan="2">PDO. No</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>ini no PDO</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>Test PDO No</strong></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -144,6 +144,7 @@
         </tr>
         <tr>
           <td>
+            <footer>
             <table width="100%" style="font-size: 8pt;">
               <tr>
                 <td colspan="3" style="text-align: center; width: 70mm;"><strong>EXPEDITION</strong></td>
@@ -161,11 +162,12 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="3" style="text-align: left; width: 70mm;">Thursday, 13-August-2020 04:16:31 PM</td>
+                <td colspan="3" style="text-align: left; width: 70mm;">Thursday, {{date('d-F-Y h:i:s A')}}</td>
                 <td colspan="8" style="text-align: center; width: 70mm;">Page 1 of 1</td>
                 <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
               </tr>
             </table>
+            </footer>
           </td>
         </tr>
       </table>

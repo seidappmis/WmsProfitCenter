@@ -405,7 +405,7 @@
                                                 <strong>203</strong></td>
                                             <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 <strong>60,333</strong></td>
-                                        </tr>
+                                        {{-- </tr>
                                         <tr>
                                             <td rowspan="6" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
@@ -610,7 +610,7 @@
                                                 <strong>203</strong></td>
                                             <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
                                                 <strong>60,333</strong></td>
-                                        </tr>
+                                        </tr> --}}
 
                                         <tr>
 
