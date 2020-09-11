@@ -27,15 +27,12 @@
                         </div>
                         <div class="col s12 m4">
                           <!---- Search ----->
-                              <div class="app-wrapper">
-                                <div class="datatable-search">
-                                  <select id="area_filter">
-                                    <option>-Select Schedule ID-</option>
-                                    <option>SBY-STO-200201-001</option>
-                                    <option>KRW-STO-199801-002</option>
-                                  </select>
-                                </div>
-                              </div>
+                          <div class="app-wrapper">
+                              <div class="datatable-search">
+                              <select id="sto_id" name="sto_id">
+                              </select>
+                            </div>
+                          </div>
                         </div>
                         <div class="col s12 m6">
 
@@ -70,7 +67,7 @@
                                                   </tr>
                                               </thead>
                                               <tbody>
-                                                <tr>
+                                                {{-- <tr>
                                                   <td>1.</td>
                                                   <td>2T-C3BA21</td>
                                                   <td>56456</td>
@@ -78,7 +75,7 @@
                                                   <td>1854</td>
                                                   <td>0</td>
                                                   <td>0</td>
-                                                </tr>
+                                                </tr> --}}
                                               </tbody>
 
                                           </table>
@@ -103,6 +100,11 @@
 <script type="text/javascript">
     var dtdatatable = $('#data-table-section-contents').DataTable({
         serverSide: false,
+    });
+    $('#sto_id').select2({
+       placeholder: '-- Select Schedule ID --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
     });
 </script>
 @endpush

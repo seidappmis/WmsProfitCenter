@@ -31,9 +31,9 @@
                       <!---- Search ----->
                       <div class="app-wrapper">
                           <div class="datatable-search">
-                              <select class="select2-data-ajax browser-default" id="sto_id" name="sto_id" required="">
-                              </select>
-                          </div>
+                          <select id="sto_id" name="sto_id">
+                          </select>
+                        </div>
                       </div>
                     </div>
                     <div class="col s12 m6">
@@ -164,5 +164,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  $('#sto_id').select2({
+       placeholder: '-- Select Schedule ID --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
+    });
 </script>
 @endpush
