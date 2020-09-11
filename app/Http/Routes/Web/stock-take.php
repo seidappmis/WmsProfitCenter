@@ -34,5 +34,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 
   Route::get('stock-take-compare-sap/{id}/export', 'Web\StockTakeCompareSAPController@export');
-  Route::view('stock-take-compare-sap', 'web.stock-take.stock-take-compare-sap.index');
+  Route::get('stock-take-compare-sap', 'Web\StockTakeCompareSAPController@index');
 });
