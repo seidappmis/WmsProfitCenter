@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\StockTakeSchedule;
+use App\Models\StockTakeInput1;
 use Illuminate\Http\Request;
+use DataTables;
 
 class StockTakeQuickCountController extends Controller
 {
@@ -13,18 +15,34 @@ class StockTakeQuickCountController extends Controller
     if ($request->ajax()) {
       $schedule = StockTakeSchedule::findOrFail($request->input('sto_id'));
 
-      $data['schedule'] = $schedule;
-      $data['total_all_tag_no'] = $schedule->input1->count();
-      $data['total_all_models'] = $schedule->details->count();
-      $data['total_all_location'] = 0;
+      $data['schedule']                     = $schedule;
+      $data['total_all_tag_no']             = $schedule->input1->count();
+      $data['total_all_models']             = $schedule->details->count();
+      $data['total_all_location']           = 0;
       $data['summary_tag_compared_matched'] = 0;
-      $data['diff_qty'] = 0;
-      $data['only_input_1'] = $schedule->input1->whereNotNull('input_date')->count();
-      $data['only_input_2'] = $schedule->input2->whereNotNull('input_date')->count();
+      $data['diff_qty']                     = 0;
+      $data['only_input_1']                 = $schedule->input1->whereNotNull('input_date')->count();
+      $data['only_input_2']                 = $schedule->input2->whereNotNull('input_date')->count();
 
       return sendSuccess('Data Retrive', $data);
     }
     return view('web.stock-take.stock-take-quick-count.index');
+  }
+
+  public function getDifferentQuantity(Request $request)
+  {
+    if ($request->ajax()) {
+      $query = StockTakeInput1::
+        where('sto_id', $request->input('sto_id'))
+        ->whereNotNull('input_date')
+      ;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ;
+
+      return $datatables->make(true);
+    }
   }
 
   public function export(Request $request, $id)

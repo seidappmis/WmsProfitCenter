@@ -95,6 +95,7 @@
             $('#form-stock-take-summary [name="only_input_2"]').val(result.data.only_input_2)
             dttable_input_1.ajax.reload(null, false)
             dttable_input_2.ajax.reload(null, false)
+            dttable_different_quantity.ajax.reload(null, false)
           } else {
             $('.quick-count-wrapper').addClass('hide')
           }

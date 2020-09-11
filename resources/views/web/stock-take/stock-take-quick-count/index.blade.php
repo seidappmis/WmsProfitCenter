@@ -70,7 +70,7 @@
                       <h4 class="card-title">Different Quantity</h4>
                       <hr>
                       <div class="section-data-tables">
-                          <table class="display" id="data-table-section-contents" width="100%">
+                          <table class="display" id="table-different-in-quantity" width="100%">
                               <thead>
                                   <tr>
                                       <th data-priority="1" width="30px">No.</th>
@@ -175,6 +175,7 @@
 
   var dttable_input_1
   var dttable_input_2
+  var dttable_different_quantity
   jQuery(document).ready(function($) {
     dttable_input_1 = $('#table-only-input-1').DataTable({
         serverSide: true,
@@ -210,6 +211,31 @@
         order: [1, 'asc'],
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'no_tag', name: 'no_tag', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'location', name: 'location', className: 'detail'},
+            {data: 'quantity', name: 'quantity', className: 'detail'},
+        ]
+      });
+
+    dttable_different_quantity = $('#table-different-in-quantity').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('stock-take-quick-count/different-quantity') }}',
+            type: 'GET',
+            data: function(d) {
+                d.sto_id = $('#sto_id').val()
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'no_tag', name: 'no_tag', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'location', name: 'location', className: 'detail'},
+            {data: 'quantity', name: 'quantity', className: 'detail'},
             {data: 'no_tag', name: 'no_tag', className: 'detail'},
             {data: 'model', name: 'model', className: 'detail'},
             {data: 'location', name: 'location', className: 'detail'},
