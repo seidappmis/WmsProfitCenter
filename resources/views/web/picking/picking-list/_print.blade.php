@@ -71,7 +71,7 @@ foreach ($rs_shipment_no as $key => $value) {
                   {{-- <div class="barcode">*{{$pickinglistHeader->picking_no}}*</div> --}}
                   @php
                   $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                  echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode('*' . $pickinglistHeader->picking_no . '*', $generator::TYPE_CODE_39)) . '" style="width: 250px; height: 35px;">';
+                  echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($pickinglistHeader->picking_no, $generator::TYPE_CODE_39)) . '" style="width: 230px; height: 35px;">';
                   @endphp
                 </td>
               </tr>
