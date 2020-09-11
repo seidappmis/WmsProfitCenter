@@ -236,10 +236,10 @@
             {data: 'model', name: 'model', className: 'detail'},
             {data: 'location', name: 'location', className: 'detail'},
             {data: 'quantity', name: 'quantity', className: 'detail'},
-            {data: 'no_tag', name: 'no_tag', className: 'detail'},
-            {data: 'model', name: 'model', className: 'detail'},
-            {data: 'location', name: 'location', className: 'detail'},
-            {data: 'quantity', name: 'quantity', className: 'detail'},
+            {data: 'no_tag2', name: 'no_tag', className: 'detail'},
+            {data: 'model2', name: 'model', className: 'detail'},
+            {data: 'location2', name: 'location', className: 'detail'},
+            {data: 'quantity2', name: 'quantity', className: 'detail'},
         ]
       });
   });

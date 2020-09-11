@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\StockTakeSchedule;
 use App\Models\StockTakeInput1;
-use Illuminate\Http\Request;
+use App\Models\StockTakeSchedule;
 use DataTables;
+use DB;
+use Illuminate\Http\Request;
 
 class StockTakeQuickCountController extends Controller
 {
@@ -32,9 +33,24 @@ class StockTakeQuickCountController extends Controller
   public function getDifferentQuantity(Request $request)
   {
     if ($request->ajax()) {
-      $query = StockTakeInput1::
-        where('sto_id', $request->input('sto_id'))
-        ->whereNotNull('input_date')
+      $query = StockTakeInput1::select(
+        'log_stocktake_input1.id',
+        'log_stocktake_input1.no_tag',
+        'log_stocktake_input1.model',
+        'log_stocktake_input1.quantity',
+        'log_stocktake_input1.location',
+        DB::raw('log_stocktake_input2.id AS id2'),
+        DB::raw('log_stocktake_input2.no_tag AS no_tag2'),
+        DB::raw('log_stocktake_input2.model AS model2'),
+        DB::raw('log_stocktake_input2.quantity AS quantity2'),
+        DB::raw('log_stocktake_input2.location AS location2')
+      )
+      ->leftjoin('log_stocktake_input2', function($join){
+        $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_input2.sto_id');
+        $join->on('log_stocktake_input1.no_tag', '=', 'log_stocktake_input2.no_tag');
+      })
+        ->where('log_stocktake_input1.sto_id', $request->input('sto_id'))
+        ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL OR log_stocktake_input2.input_date IS NOT NULL)')
       ;
 
       $datatables = DataTables::of($query)
