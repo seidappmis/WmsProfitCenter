@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\StockTakeSchedule;
 use Illuminate\Http\Request;
 
 class StockTakeQuickCountController extends Controller
 {
   public function index(Request $request)
   {
+    if ($request->ajax()) {
+      $schedule = StockTakeSchedule::findOrFail($request->input('sto_id'));
+
+      $data['schedule'] = $schedule;
+
+      return sendSuccess('Data Retrive', $data);
+    }
     return view('web.stock-take.stock-take-quick-count.index');
   }
 

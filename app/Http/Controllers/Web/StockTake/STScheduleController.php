@@ -283,7 +283,10 @@ class STScheduleController extends Controller
   {
     $query = StockTakeSchedule::select(
       DB::raw('sto_id AS id'),
-      DB::raw("sto_id AS text")
+      DB::raw("sto_id AS text"),
+      'log_stocktake_schedule.schedule_start_date',
+      'log_stocktake_schedule.schedule_end_date',
+      'log_stocktake_schedule.description'
     );
 
     if (auth()->user()->cabang->hq) {
