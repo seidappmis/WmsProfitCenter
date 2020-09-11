@@ -48,8 +48,8 @@
                         </div>
                         <div class="row">
                             <div class="col s12">
-                                {!! get_button_view('#', 'Compare', 'btn-compare') !!}
-                        {!! get_button_print('#', 'Print', 'btn-print hide') !!}
+                              {!! get_button_view('#', 'Compare', 'btn-compare') !!}
+                              {!! get_button_print('#', 'Print', 'btn-print hide') !!}
                             </div>
                         </div>
                         {{-- Load Modal Print --}}

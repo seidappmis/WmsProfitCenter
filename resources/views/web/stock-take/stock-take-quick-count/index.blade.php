@@ -242,6 +242,14 @@
             {data: 'quantity2', name: 'quantity', className: 'detail'},
         ]
       });
+
+    dttable_different_quantity.on('draw', function (data) {
+        if (dttable_different_quantity.page.info().recordsDisplay > 0) {
+          $('.btn-print').removeClass('hide')
+        } else {
+          $('.btn-print').addClass('hide')
+        }
+      });
   });
 </script>
 @endpush

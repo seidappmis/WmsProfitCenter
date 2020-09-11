@@ -50,6 +50,7 @@
                   <div class="row">
                     <div class="col s12">
                     {!! get_button_save('Load', 'btn-load') !!}
+                    {!! get_button_print('#', 'Print', 'btn-print hide') !!}
                     </div>
                   </div>
                 </div>
@@ -59,6 +60,11 @@
     </div>
   </div>
 </div>
+
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print',
+])
 
 @push('script_js')
 <script type="text/javascript">
@@ -73,6 +79,14 @@
       } else {
         $('.filter-wrapper').addClass('hide')
       }
+    });
+
+    $('.btn-print').click(function(event) {
+      /* Act on the event */
+      initPrintPreviewPrint(
+            '{{url("stock-take-quick-count")}}' + '/' + $('#sto_id').val() + '/export',
+            $('#form-print').serialize()
+          )
     });
 
     $('#form-filter-periode').validate({

@@ -12,7 +12,7 @@
               <tr>
                 <td style="width: 30mm">STS Schedule</td>
                 <td style="width: 10mm">:</td>
-                <td colspan="2" style="width: 70mm">JMB-STO-190831-001</td>
+                <td colspan="2" style="width: 70mm">{{$schedule->sto_id}}</td>
                 <td style="width: 30mm">Description</td>
                 <td style="width: 10mm">:</td>
                 <td colspan="2">Stock Tacking Fiscal 19F</td>
@@ -20,10 +20,10 @@
               <tr>
                 <td>Period</td>
                 <td>:</td>
-                <td colspan="2">2019-08-31 S/D 2019-09-04</td>
+                <td colspan="2">{{$schedule->schedule_start_date}} S/D {{$schedule->schedule_end_date}}</td>
                 <td>Print Date</td>
                 <td>:</td>
-                <td colspan="2">2020-08-13</td>
+                <td colspan="2">{{ date('Y-m-d') }}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -42,14 +42,16 @@
                 <td colspan="2" style="border: 1pt solid #000000; text-align: center; width: 30mm;">Input 2</td>
                 <td style="border: 1pt solid #000000; text-align: center; width: 30mm;">Diff</td>
               </tr>
+              @foreach($details AS $key => $value)
               <tr>
-                <td style="border: 1pt solid #000000; text-align: left;">1</td>
-                <td colspan="2" style="border: 1pt solid #000000; text-align: left;">ES-T96CL-HK</td>
-                <td style="border: 1pt solid #000000; text-align: left;">A</td>
-                <td style="border: 1pt solid #000000; text-align: left;">21</td>
-                <td colspan="2" style="border: 1pt solid #000000; text-align: left;">input 2</td>
-                <td style="border: 1pt solid #000000; text-align: left;">diff</td>
+                <td style="border: 1pt solid #000000; text-align: left;">{{$key+1}}</td>
+                <td colspan="2" style="border: 1pt solid #000000; text-align: left;">{{$value->model}}</td>
+                <td style="border: 1pt solid #000000; text-align: left;">{{$value->location}}</td>
+                <td style="border: 1pt solid #000000; text-align: left;">{{$value->quantity}}</td>
+                <td colspan="2" style="border: 1pt solid #000000; text-align: left;">{{$value->quantity2}}</td>
+                <td style="border: 1pt solid #000000; text-align: left;">{{!empty($value->quantity) && !empty($value->quantity2) ? $value->quantity - $value->quantity2 : ''}}</td>
               </tr>
+              @endforeach
             </table>
           </td>
         </tr>
