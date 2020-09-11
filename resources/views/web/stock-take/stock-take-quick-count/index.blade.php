@@ -25,15 +25,70 @@
               <div class="card">
                 <div class="card-content">
                 <div class="row">
-                    <div class="input-field col s12 m6">
-                      <input value="Only in Input 1" id="ston1" type="text" class="validate" name="ston1" validated>
+                    <div class="col s12 m6">
+                      <h4 class="card-title">Only in Input 1</h4>
+                      <hr>
+                      <div class="section-data-tables">
+                          <table class="display" id="data-table-section-contents" width="100%">
+                              <thead>
+                                  <tr>
+                                      <th data-priority="1" width="30px">No.</th>
+                                      <th>No Tag</th>
+                                      <th>Model</th>
+                                      <th>Location</th>
+                                      <th>Quantity</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                      <!-- datatable ends -->
                     </div>
-                    <div class="input-field col s12 m6 mb-10">
-                      <input value="Only in Input 2" id="ston2" type="text" class="validate" name="ston2" validated>
+                    <div class="col s12 m6 mb-10">
+                      <h4 class="card-title">Only in Input 2</h4>
+                      <hr>
+                      <div class="section-data-tables">
+                          <table class="display" id="data-table-section-contents" width="100%">
+                              <thead>
+                                  <tr>
+                                      <th data-priority="1" width="30px">No.</th>
+                                      <th>No Tag</th>
+                                      <th>Model</th>
+                                      <th>Location</th>
+                                      <th>Quantity</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                      <!-- datatable ends -->
                     </div>
 
-                    <div class="input-field col s12 mb-10">
-                      <input value="Diffrent Quantity" id="ston3" type="text" class="validate" name="ston3" validated>
+                    <div class="col s12 mb-10">
+                      <h4 class="card-title">Diffrent Quantity</h4>
+                      <hr>
+                      <div class="section-data-tables">
+                          <table class="display" id="data-table-section-contents" width="100%">
+                              <thead>
+                                  <tr>
+                                      <th data-priority="1" width="30px">No.</th>
+                                      <th>No Tag</th>
+                                      <th>Model</th>
+                                      <th>Location</th>
+                                      <th>Quantity</th>
+                                      <th>No Tag</th>
+                                      <th>Model</th>
+                                      <th>Location</th>
+                                      <th>Quantity</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                      <!-- datatable ends -->
                     </div>
                 </div>
                 <div class="row">
