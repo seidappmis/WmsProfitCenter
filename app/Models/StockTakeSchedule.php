@@ -34,4 +34,14 @@ class StockTakeSchedule extends BaseModel
     {
       return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
     }
+
+    public function input1()
+    {
+      return $this->hasMany('App\Models\StockTakeInput1', 'sto_id', 'sto_id');
+    }
+
+    public function input2()
+    {
+      return $this->hasMany('App\Models\StockTakeInput2', 'sto_id', 'sto_id');
+    }
 }

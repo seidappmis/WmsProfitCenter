@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="col s12 mb-10">
-                      <h4 class="card-title">Diffrent Quantity</h4>
+                      <h4 class="card-title">Different Quantity</h4>
                       <hr>
                       <div class="section-data-tables">
                           <table class="display" id="data-table-section-contents" width="100%">

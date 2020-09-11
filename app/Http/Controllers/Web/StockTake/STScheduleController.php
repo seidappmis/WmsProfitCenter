@@ -287,7 +287,9 @@ class STScheduleController extends Controller
       'log_stocktake_schedule.schedule_start_date',
       'log_stocktake_schedule.schedule_end_date',
       'log_stocktake_schedule.description'
-    );
+    )
+    ->orderBy('created_at', 'desc')
+    ;
 
     if (auth()->user()->cabang->hq) {
       $query->where('area', auth()->user()->area);
