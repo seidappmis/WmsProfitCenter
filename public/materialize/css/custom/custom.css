@@ -464,3 +464,6 @@ input:not([type]):disabled, input:not([type])[readonly='readonly'], input[type=t
     background: linear-gradient(90deg, #4c948f, #5e7a88);
     box-shadow: 3px 3px 20px 0 rgb(65 108 121);
 }
+.datepicker-controls .select-month input {
+    width: 150px !important;
+}
