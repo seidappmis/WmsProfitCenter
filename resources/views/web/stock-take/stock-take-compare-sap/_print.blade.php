@@ -47,7 +47,7 @@
               {{-- Body --}}
               <tr>
                 <td colspan="3" style="text-align: left; border: 1pt solid #000000;">2T-C32BA1I</td>
-                <td style="text-align: left; border: 1pt solid #000000;">43</td>
+                <td style="text-align: left; border: 1pt solid #000000;">15</td>
                 <td style="text-align: left; border: 1pt solid #000000;"></td>
                 <td style="text-align: left; border: 1pt solid #000000;"></td>
                 <td colspan="2" style="text-align: left; border: 1pt solid #000000;"></td>

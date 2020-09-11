@@ -148,6 +148,7 @@
         </tr>
         <tr>
           <td>
+            <footer>
             <table width="100%" style="font-size: 8pt;">
               <tr>
                 <td colspan="3" style="text-align: center; width: 70mm;"><strong>EXPEDITION</strong></td>
@@ -170,6 +171,7 @@
                 <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
               </tr>
             </table>
+            </footer>
           </td>
         </tr>
       </table>

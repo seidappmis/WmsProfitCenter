@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
 
 <table style="font-family: Arial;">
     <tr>
@@ -185,6 +185,7 @@
                 </tr>
                 <tr>
                     <td>
+                        <footer>
                         <table width="100%" style="font-size: 9pt;">
                             <tr>
                                 <td rowspan="3" colspan="4"
@@ -251,6 +252,7 @@
                 <td style="font-style: italic;">Cabang (Lampiran DO)</td>
               </tr> --}}
                         </table>
+                        </footer>
                     </td>
                 </tr>
             </table>
