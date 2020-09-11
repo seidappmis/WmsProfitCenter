@@ -188,13 +188,12 @@
             type: 'POST',
             data: $(form).serialize(),
           })
-          .done(function() { // selesai dan berhasil
-            swal("Good job!", "You clicked the button!", "success")
-              .then((result) => {
-                // Kalau klik Ok redirect ke index
+          .done(function(result) { // selesai dan berhasil
+            if (result.status) {
+                showSwalAutoClose("Success", result.message)
                 clear_input()
                 dtdatatable.ajax.reload(null, false)
-              }) // alert success
+            }
           })
           .fail(function(xhr) {
               showSwalError(xhr) // Custom function to show error with sweetAlert
@@ -256,7 +255,7 @@
               dataType: 'json',
             })
             .done(function() {
-              swal("Good job!", "You clicked the button!", "success") // alert success
+              showSwalAutoClose('Success', 'Success delete no Tag.')
               dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
             })
             .fail(function() {

@@ -84,7 +84,10 @@ class StockTakeCreateTagController extends Controller
       DB::raw('id AS id'),
       DB::raw("no_tag AS text"),
       'log_stocktake_input1.*'
-    )->whereNull('input_date');
+    )
+    ->where('sto_id', $request->input('sto_id'))
+    ->whereNull('input_date')
+    ;
 
     return get_select2_data($request, $query);
   }
@@ -95,7 +98,9 @@ class StockTakeCreateTagController extends Controller
       DB::raw('id AS id'),
       DB::raw("no_tag AS text"),
       'log_stocktake_input2.*'
-    )->whereNull('input_date');
+    )
+    ->where('sto_id', $request->input('sto_id'))
+    ->whereNull('input_date');
 
     return get_select2_data($request, $query);
   }

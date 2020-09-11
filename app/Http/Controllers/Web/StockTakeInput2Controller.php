@@ -14,7 +14,8 @@ class StockTakeInput2Controller extends Controller
     if ($request->ajax()) {
       $query = StockTakeInput2::
         where('sto_id', $request->input('sto_id'))
-        ->whereNotNull('input_date');
+        ->whereNotNull('input_date')
+        ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -45,7 +46,7 @@ class StockTakeInput2Controller extends Controller
 
     $stockTakeInput->save();
 
-    return $stockTakeInput;
+    return sendSuccess('Input Success', $stockTakeInput);
   }
 
   public function destroy($id)
