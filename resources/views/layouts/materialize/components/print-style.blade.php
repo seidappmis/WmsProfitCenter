@@ -1,4 +1,5 @@
-@font-face {
+<style type="text/css">
+    @font-face {
     font-family: CCode39;
     src: url(/fonts/ConnectCode39.ttf);
 }
@@ -38,3 +39,4 @@ footer {
         height: 297mm;
     }
 }
+</style>

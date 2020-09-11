@@ -1,4 +1,5 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
+{{-- <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}"> --}}
+@include('layouts.materialize.components.print-style')
 
 @php
 $shipment_no = '';
@@ -119,55 +120,58 @@ foreach ($rs_shipment_no as $key => $value) {
   </tr>
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
-        <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
-        <tr>
-          <td style="width: 30mm;">PICKED BY</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td colspan="2">GRAND TOTAL</td>
-          <td style="text-align: center; width: 30mm;">{{$total_quantity}}</td>
-          <td style="text-align: center; width: 30mm;">{{$total_cbm}}</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td rowspan="2">PACKED BY</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td rowspan="2">CHECKED BY</td>
-          <td>&nbsp;</td>
-          <td style="width: 10mm; padding-left: 5mm;" rowspan="2">SIGN</td>
-          <td>&nbsp;</td>
-          <td style="width: 20mm;">SIGNATURE</td>
-          <td style="border-bottom: 1px solid #000000;" colspan="2">&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
-          <td style="width: 40mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
-          <td>OP.CODE</td>
-        </tr>
-        <tr>
-          <td colspan="5"></td>
-          <td style="text-align: center;">KOR</td>
-          <td style="text-align: center;">VERIFIED</td>
-        </tr>
-      </table>
+      <footer>
+        <table style="width: 210.0003mm;">
+          <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
+          <tr>
+            <td style="width: 30mm;">PICKED BY</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">GRAND TOTAL</td>
+            <td style="text-align: center; width: 30mm;">{{$total_quantity}}</td>
+            <td style="text-align: center; width: 30mm;">{{$total_cbm}}</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td rowspan="2">PACKED BY</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td rowspan="2">CHECKED BY</td>
+            <td>&nbsp;</td>
+            <td style="width: 10mm; padding-left: 5mm;" rowspan="2">SIGN</td>
+            <td>&nbsp;</td>
+            <td style="width: 20mm;">SIGNATURE</td>
+            <td style="border-bottom: 1px solid #000000;" colspan="2">&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="width: 32mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="width: 40mm; border-bottom: 1px solid #000000;">&nbsp;&nbsp;&nbsp;</td>
+            <td>OP.CODE</td>
+          </tr>
+          <tr>
+            <td colspan="5"></td>
+            <td style="text-align: center;">KOR</td>
+            <td style="text-align: center;">VERIFIED</td>
+          </tr>
+        </table>
+      </footer>
     </td>
   </tr>
 </table>
+<footer>
