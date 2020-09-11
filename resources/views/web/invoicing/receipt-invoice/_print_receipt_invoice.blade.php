@@ -1,4 +1,17 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
+<style type="text/css">
+@page {
+    size: A3 !important;
+    margin: 2mm 2mm 2mm 2mm;
+    size: landscape !important;
+}
+@media print {
+    html, body {
+        width: 550mm;
+        height: 420mm;
+    }
+}
+</style>
 <table style="font-family: Arial;">
     <tr>
         <td>

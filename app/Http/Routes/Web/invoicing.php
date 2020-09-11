@@ -10,7 +10,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('receipt-invoice', 'Web\ReceiptInvoiceController@store');
   Route::get('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@show');
   Route::get('receipt-invoice/{id}/export-receipt-no', 'Web\ReceiptInvoiceController@exportReceiptNo');
-  Route::get('receipt-invoice/{id}/export-receipt-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
+  Route::get('receipt-invoice/{id}/export-receive-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
 
   Route::get('receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@index');
   Route::get('receipt-invoice-accounting/create', 'Web\ReceiptInvoiceAccountingController@create');

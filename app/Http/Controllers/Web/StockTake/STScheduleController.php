@@ -134,7 +134,7 @@ class STScheduleController extends Controller
     $stockTakeSchedule->urut                = $request->input('urut');
     // $stockTakeSchedule->urut                = $max_no;
 
-    if (date('Y-m-d',  strtotime($request->input('schedule_start_date'))) < date("Y-m-d")) {
+    if (date('Y-m-d', strtotime($request->input('schedule_start_date'))) < date("Y-m-d")) {
       return sendError('(Schedule Start Date can not be small than Today)');
     }
 
@@ -166,12 +166,14 @@ class STScheduleController extends Controller
             continue; // Skip baris judul
           }
 
-          $stockTakeDetail['sto_id']      = $request->input('sto_id');
-          $stockTakeDetail['material_no'] = $row[0];
-          $stockTakeDetail['qty']         = $row[1];
-          $stockTakeDetail['created_at']  = $date;
-          $stockTakeDetail['created_by']  = auth()->user()->id;
-          $stocktake_details[]            = $stockTakeDetail;
+          if (!empty($row[0])) {
+            $stockTakeDetail['sto_id']      = $request->input('sto_id');
+            $stockTakeDetail['material_no'] = $row[0];
+            $stockTakeDetail['qty']         = $row[1];
+            $stockTakeDetail['created_at']  = $date;
+            $stockTakeDetail['created_by']  = auth()->user()->id;
+            $stocktake_details[]            = $stockTakeDetail;
+          }
         }
 
         fclose($file);
@@ -278,19 +280,19 @@ class STScheduleController extends Controller
   }
 
   public function getSelect2Schedule(Request $request)
-    {
-        $query = StockTakeSchedule::select(
-          DB::raw('sto_id AS id'),
-          DB::raw("sto_id AS text")
-        );
+  {
+    $query = StockTakeSchedule::select(
+      DB::raw('sto_id AS id'),
+      DB::raw("sto_id AS text")
+    );
 
-        if (auth()->user()->cabang->hq) {
-          $query->where('area', auth()->user()->area);
-        } else {
-          $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
-        }
-
-        return get_select2_data($request, $query);
+    if (auth()->user()->cabang->hq) {
+      $query->where('area', auth()->user()->area);
+    } else {
+      $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
     }
+
+    return get_select2_data($request, $query);
+  }
 
 }

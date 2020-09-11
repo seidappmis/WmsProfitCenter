@@ -78,6 +78,9 @@
                       <label for="textarea2">REMARKS</label>
                   </div>
               </div>
+              {!! get_button_print('#', 'Print Receipt NO', 'btn-print-receipt-no mt-0') !!}
+              {!! get_button_print('#', 'Print Receive Invoice', 'btn-print-receive-invoice mt-0') !!}
+              <br>
               {!! get_button_save('Submit to Accounting') !!}
             </div>
           </div>
@@ -85,6 +88,18 @@
     </div>
   </div>
 </div>
+
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Receipt No',
+  'url' => 'receipt-invoice/' . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '') . '/export-receipt-no',
+  'trigger' => '.btn-print-receipt-no'
+  ])
+
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Receive Invoice',
+  'url' => 'receipt-invoice/' . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '') . '/export-receive-invoice',
+  'trigger' => '.btn-print-receive-invoice'
+  ])
 
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">

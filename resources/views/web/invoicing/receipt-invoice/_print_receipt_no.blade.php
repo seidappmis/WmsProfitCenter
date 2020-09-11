@@ -1,17 +1,11 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
 <table style="font-family: Arial;">
     <tr>
         <td>
-            <table style="width: 350mm;">
+            <table style="width: 270mm;">
                 <tr>
                     <td>
                         <table width="100%" style="font-size: 9pt;">
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                            </tr>
                             <tr>
                                 <td colspan="24">
                                     &nbsp;
