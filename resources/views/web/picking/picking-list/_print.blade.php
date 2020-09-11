@@ -1,5 +1,5 @@
-{{-- <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}"> --}}
-@include('layouts.materialize.components.print-style')
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
+{{-- @include('layouts.materialize.components.print-style') --}}
 
 @php
 $shipment_no = '';
