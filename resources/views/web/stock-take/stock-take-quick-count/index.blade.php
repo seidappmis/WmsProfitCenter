@@ -41,32 +41,34 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col s12 m2">
-                        <p>Periode</p>
-                    </div>
-                    <div class="col s12 m4">
-                        <p id="text-stocktake-periode"></p>
-                    </div>
-                    <div class="col s12 m6">
+                  <div class="filter-wrapper hide">
+                    <div class="row">
+                      <div class="col s12 m2">
+                          <p>Periode</p>
+                      </div>
+                      <div class="col s12 m4">
+                          <p id="text-stocktake-periode"></p>
+                      </div>
+                      <div class="col s12 m6">
+
+                      </div>
+                      <br>
+                      <div class="col s12 m2">
+                          <p>Description</p>
+                      </div>
+                      <div class="col s12 m4">
+                          <p id="text-stocktake-description"></p>
+                      </div>
+                      <div class="col s12 m6">
+
+                      </div>
 
                     </div>
-                    <br>
-                    <div class="col s12 m2">
-                        <p>Description</p>
-                    </div>
-                    <div class="col s12 m4">
-                        <p id="text-stocktake-description"></p>
-                    </div>
-                    <div class="col s12 m6">
 
-                    </div>
-
-                  </div>
-
-                  <div class="row">
-                    <div class="col s12">
-                    {!! get_button_save('Load', 'btn-load') !!}
+                    <div class="row">
+                      <div class="col s12">
+                      {!! get_button_save('Load', 'btn-load') !!}
+                      </div>
                     </div>
                   </div>
 
@@ -78,7 +80,7 @@
     </div>
 
     <div class="col s12">
-        <div class="container">
+        <div class="container quick-count-wrapper hide">
             <div class="section">
               <div class="card">
                 <div class="card-content">
