@@ -58,9 +58,9 @@
     $('#form-picking-list [name="driver_name"]').attr('disabled', 'disabled');
     $('#select-gate-number').attr('disabled', 'disabled');
     $('#btn-new-picking-wrapper').removeClass('hide')
+    set_select2_value('#select-gate-number', '{{$pickinglistHeader->gate_number}}', '{{$pickinglistHeader->gate_number}}')
     @if ($pickinglistHeader->city_code != 'AS')
       set_select2_value('#form-picking-list [name="expedition_code"]', '{{$pickinglistHeader->expedition_code}}', '{{$pickinglistHeader->expedition_name}}')
-      set_select2_value('#select-gate-number', '{{$pickinglistHeader->gate_number}}', '{{$pickinglistHeader->gate_number}}')
 
       @if (!empty($pickinglistHeader->vehicle_code_type))
       set_select2_value('#form-picking-list [name="vehicle_code_type"]', '{{$pickinglistHeader->vehicle_code_type}}', '{{$pickinglistHeader->vehicle->vehicle_description}}')

@@ -674,8 +674,16 @@ class PickingListController extends Controller
 
   public function destroy($id)
   {
-    PickinglistDetail::where('header_id', $id)->delete();
-    return PickinglistHeader::destroy($id);
+    try {
+
+      PickinglistDetail::where('header_id', $id)->delete();
+      PickinglistHeader::destroy($id);
+
+      return sendSuccess('Picking List Deleted', []);
+      
+    } catch (Exception $e) {
+
+    }
   }
 
   public function destroyDetail($id)

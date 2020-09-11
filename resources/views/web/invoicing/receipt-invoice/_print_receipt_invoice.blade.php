@@ -42,7 +42,7 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="5" style="text-align: left; font-size: 10pt;"><strong>
-                                        KRW-FAKTUR-191227-N03</strong>
+                                        KRW-FAKTUR-200910-N03</strong>
                                 </td>
                                 <td rowspan="4" colspan="14"
                                     style="text-align: left; font-size: 14pt; vertical-align: top;"><strong>
@@ -55,10 +55,10 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="4" style="text-align: left; font-size: 10pt;"><strong>
-                                        174/XII/DIST.LOG/KU.SEID/19</strong>
+                                        001/IX/DIST.LOG/KU.SEID/20</strong>
                                 </td>
                                 <td style="text-align: left; font-size: 10pt;">
-                                    <strong>K2019-12-27</strong>
+                                    <strong>K2020-09-10</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +67,7 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="5" style="text-align: left; font-size: 10pt;">
-                                    <strong>INV/SHARP-KRW/XII-19/109</strong>
+                                    <strong>INV/SHARP-KRW/IX-20/001</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -202,143 +202,56 @@
                                         {{-- Table Body --}}
 
                                         <tr>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 1
 
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                KRW-191213-029
+                                                KRW-200910-001
                                             </td>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
+                                                10/09/2020
 
                                             </td>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 SERANG
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 TRONTON 9 M
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 B 9610 BYW
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                4541204
+                                                891,000
                                             </td>
-                                            <td rowspan="6"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
-                                            </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
+                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
+                                                0
+                                            </td>
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 150000
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
@@ -402,58 +315,58 @@
                                                 <strong>SUB
                                                     TOTAL</strong></td>
                                             <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>203</strong></td>
+                                                <strong>40</strong></td>
                                             <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>60,333</strong></td>
+                                                <strong>6,90</strong></td>
                                         {{-- </tr>
                                         <tr>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 1
 
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 KRW-191213-029
                                             </td>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td rowspan="6" colspan="2"
+                                            <td rowspan="3" colspan="2"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 SERANG
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 TRONTON 9 M
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 B 9610 BYW
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 4541204
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 150000
                                             </td>
-                                            <td rowspan="6"
+                                            <td rowspan="3"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
                                                 0
                                             </td>
