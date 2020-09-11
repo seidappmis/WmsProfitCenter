@@ -44,19 +44,19 @@
                           <td>Total All Tag no</td>
                           <td>
                             <div class="input-field col s12">
-                              <input value="" id="atn" type="text" class="validate" name="atn" required>
+                              <input value="" id="atn" type="text" class="validate" name="total_all_tag_no" required>
                             </div>
                           </td>
                              <td>Total All Models</td>
                           <td>
                             <div class="input-field col s12">
-                              <input value="" id="tam" type="text" class="validate" name="tam" required>
+                              <input value="" id="tam" type="text" class="validate" name="total_all_models" required>
                             </div>
                           </td>
                              <td>Total All Location</td>
                           <td>
                             <div class="input-field col s12">
-                              <input value="" id="tal" type="text" class="validate" name="tal" required>
+                              <input value="" id="tal" type="text" class="validate" name="total_all_location" required>
                             </div>
                           </td>
                         </tr>
@@ -65,13 +65,13 @@
                           <td colspan="2" >Summary tag Compared Match</td>
                           <td colspan="2">
                             <div class="input-field col s12">
-                              <input value="" id="loca" type="text" class="validate" name="loca" required>
+                              <input value="" id="loca" type="text" class="validate" name="summary_tag_compared_matched" required>
                             </div>
                           </td>
-                            <td>Diff City</td>
+                            <td>Diff Qty</td>
                           <td>
                             <div class="input-field col s12">
-                              <input value="0" id="loca" type="text" class="validate" name="loca" required>
+                              <input value="0" id="loca" type="text" class="validate" name="diff_qty" required>
                             </div>
                           </td>
                         </tr>
@@ -80,13 +80,13 @@
                           <td colspan="2" >Only Input 1</td>
                           <td colspan="2">
                             <div class="input-field col s12">
-                              <input value="" id="loca" type="text" class="validate" name="loca" required>
+                              <input value="" id="loca" type="text" class="validate" name="only_input_1" required>
                             </div>
                           </td>
                             <td>Only Input 2</td>
                           <td>
                             <div class="input-field col s12">
-                              <input value="" id="loca" type="text" class="validate" name="loca" required>
+                              <input value="" id="loca" type="text" class="validate" name="only_input_2" required>
                             </div>
                           </td>
                         </tr>

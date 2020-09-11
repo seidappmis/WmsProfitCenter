@@ -85,7 +85,14 @@
         })
         .done(function(result) {
           if (result.status) {
-            $('.quick-count-wrapper').removeClass('hide')
+            $('.quick-count-wrapper').removeClass('hide');
+            $('#form-stock-take-summary [name="total_all_tag_no"]').val(result.data.total_all_tag_no)
+            $('#form-stock-take-summary [name="total_all_models"]').val(result.data.total_all_models)
+            $('#form-stock-take-summary [name="total_all_location"]').val(result.data.total_all_location)
+            $('#form-stock-take-summary [name="summary_tag_compared_matched"]').val(result.data.summary_tag_compared_matched)
+            $('#form-stock-take-summary [name="diff_qty"]').val(result.data.diff_qty)
+            $('#form-stock-take-summary [name="only_input_1"]').val(result.data.only_input_1)
+            $('#form-stock-take-summary [name="only_input_2"]').val(result.data.only_input_2)
           } else {
             $('.quick-count-wrapper').addClass('hide')
           }

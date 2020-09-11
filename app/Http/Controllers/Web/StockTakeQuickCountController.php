@@ -14,6 +14,13 @@ class StockTakeQuickCountController extends Controller
       $schedule = StockTakeSchedule::findOrFail($request->input('sto_id'));
 
       $data['schedule'] = $schedule;
+      $data['total_all_tag_no'] = 0;
+      $data['total_all_models'] = 0;
+      $data['total_all_location'] = 0;
+      $data['summary_tag_compared_matched'] = 0;
+      $data['diff_qty'] = 0;
+      $data['only_input_1'] = 0;
+      $data['only_input_2'] = 0;
 
       return sendSuccess('Data Retrive', $data);
     }
