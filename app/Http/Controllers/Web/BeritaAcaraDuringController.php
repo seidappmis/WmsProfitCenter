@@ -123,4 +123,9 @@ class BeritaAcaraDuringController extends Controller
       return redirect(404);
     }
   }
+
+  public function create(Request $request)
+  {
+    return view('web.during.berita-acara-during.create');
+  }
 }
