@@ -6,10 +6,10 @@
   @component('layouts.materialize.components.title-wrapper')
       <div class="row">
           <div class="col s12 m12 mb-0">
-              <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Quick Count</span></h5>
+              <h5 class="breadcrumbs-title mt-0 mb-0"><span>Stock Take Compare SAP</span></h5>
               <ol class="breadcrumbs mb-0">
                   <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                  <li class="breadcrumb-item active">Stock Take Quick Count</li>
+                  <li class="breadcrumb-item active">Stock Take Compare SAP</li>
               </ol>
           </div>
         </div>
