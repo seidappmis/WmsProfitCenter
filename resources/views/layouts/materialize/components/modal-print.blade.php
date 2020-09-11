@@ -32,6 +32,10 @@
       $('#modal-print-{{$print_selector_id}}').modal('open');
       $('#modal-print-{{$print_selector_id}} .frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : ''));
       
+      $('#btn-reload-{{$print_selector_id}}').click(function(event) {
+        /* Act on the event */
+        $('#modal-print-{{$print_selector_id}} .frame-print').attr("src", $('#modal-print-{{$print_selector_id}} .frame-print').attr("src"))
+      });
       $('#btn-print-export-xls-{{$print_selector_id}}').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : ''));
       $('#btn-print-export-pdf-{{$print_selector_id}}').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : ''));
       $('#btn-print-{{$print_selector_id}}').click(function(event) {
