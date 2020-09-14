@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\StockTakeScheduleDetail;
 use App\Models\StockTakeSchedule;
 use App\Models\StockTakeInput1;
 use DataTables;
@@ -14,7 +15,7 @@ class StockTakeCompareSAPController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = StockTakeInput1::select(
+      $query = StockTakeScheduleDetail::select(
         DB::raw('log_stocktake_schedule_detail.qty AS quantitySAP'),
         'log_stocktake_input1.id',
         'log_stocktake_input1.no_tag',
@@ -27,24 +28,24 @@ class StockTakeCompareSAPController extends Controller
         DB::raw('log_stocktake_input2.quantity AS quantity2'),
         DB::raw('log_stocktake_input2.location AS location2')
       )
+        ->leftjoin('log_stocktake_input1', function ($join) {
+          $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_schedule_detail.sto_id');
+          $join->on('log_stocktake_input1.model', '=', 'log_stocktake_schedule_detail.material_no');
+        })
         ->leftjoin('log_stocktake_input2', function ($join) {
           $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_input2.sto_id');
           $join->on('log_stocktake_input1.no_tag', '=', 'log_stocktake_input2.no_tag');
         })
-        ->leftjoin('log_stocktake_schedule_detail', function ($join) {
-          $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_schedule_detail.sto_id');
-          $join->on('log_stocktake_input1.model', '=', 'log_stocktake_schedule_detail.material_no');
-        })
-        ->where('log_stocktake_input1.sto_id', $request->input('sto_id'))
-        ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL AND log_stocktake_input2.input_date IS NOT NULL)')
+        ->where('log_stocktake_schedule_detail.sto_id', $request->input('sto_id'))
+        // ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL AND log_stocktake_input2.input_date IS NOT NULL)')
       ;
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('sap_vs_input_1', function($data){
-          return $data->quantity - $data->quantitySAP;
+          return !empty($data->quantity) ? $data->quantity - $data->quantitySAP : '';
         })
         ->addColumn('sap_vs_input_2', function($data){
-          return $data->quantity2 - $data->quantitySAP;
+          return !empty($data->quantity2) ? $data->quantity2 - $data->quantitySAP : '';
         })
       ;
 
@@ -57,7 +58,7 @@ class StockTakeCompareSAPController extends Controller
   public function export(Request $request, $id)
   {
     $data['stockTakeSchedule'] = StockTakeSchedule::findOrFail($id);
-    $data['stockTakeDetail'] = StockTakeInput1::select(
+    $data['stockTakeDetail'] = StockTakeScheduleDetail::select(
         DB::raw('log_stocktake_schedule_detail.qty AS quantitySAP'),
         'log_stocktake_input1.id',
         'log_stocktake_input1.no_tag',
@@ -70,16 +71,15 @@ class StockTakeCompareSAPController extends Controller
         DB::raw('log_stocktake_input2.quantity AS quantity2'),
         DB::raw('log_stocktake_input2.location AS location2')
       )
+        ->leftjoin('log_stocktake_input1', function ($join) {
+          $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_schedule_detail.sto_id');
+          $join->on('log_stocktake_input1.model', '=', 'log_stocktake_schedule_detail.material_no');
+        })
         ->leftjoin('log_stocktake_input2', function ($join) {
           $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_input2.sto_id');
           $join->on('log_stocktake_input1.no_tag', '=', 'log_stocktake_input2.no_tag');
         })
-        ->leftjoin('log_stocktake_schedule_detail', function ($join) {
-          $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_schedule_detail.sto_id');
-          $join->on('log_stocktake_input1.model', '=', 'log_stocktake_schedule_detail.material_no');
-        })
-        ->where('log_stocktake_input1.sto_id', $id)
-        ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL AND log_stocktake_input2.input_date IS NOT NULL)')
+        ->where('log_stocktake_schedule_detail.sto_id', $id)
         ->get()
       ;
 

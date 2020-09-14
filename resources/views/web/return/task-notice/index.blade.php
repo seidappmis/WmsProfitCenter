@@ -13,15 +13,6 @@
                 </ol>
             </div>
           <div class="col s12 m6">
-            {{-- <div class="display-flex">
-              <!---- Search ----->
-              <div class="app-wrapper mr-2">
-                <div class="datatable-search">
-                  <i class="material-icons mr-2 search-icon">search</i>
-                  <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-                </div>
-              </div>
-            </div> --}}
           </div>
         </div>
     @endcomponent
@@ -47,7 +38,7 @@
                             <p>Data File</p>
                           </div>
                           <div class="col s12 m8 l6">
-                            <input type="file" required id="input-file-now" class="dropify" name="file_inventory_storage" data-default-file="" data-height="150"/>
+                            <input type="file" required id="input-file-now" class="dropify" name="file_task_notice" data-default-file="" data-height="150"/>
                             <br>
                           </div>
                           <div class="col s12 m12 l4">
@@ -289,6 +280,83 @@
        ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 
+    $('#form-task-notice').validate({
+      submitHandler: function(form){
+        setLoading(true);
+        var fdata = new FormData(form);
+        $.ajax({
+          url: '{{'task-notice'}}',
+          type: 'POST',
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
+        })
+        .done(function(result) {
+          setLoading(false)
+          if (result.status) {
+            showSwalAutoClose('Success', result.message)
+            table.ajax.reload(null, false)
+          }
+        })
+        .fail(function(xhr) {
+          setLoading(false)
+          showSwalError(xhr)
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+      }
+    })
+
+    $('.btn-multi-delete-selected-item').click(function(event) {
+      /* Act on the event */
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure want delete this data?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        var data_header = [];
+        table.$('input[type="checkbox"]').each(function() {
+           /* iterate through array or object */
+           if(this.checked){
+            var row = $(this).closest('tr');
+            var row_data = table.row(row).data();
+            data_header.push(row_data);
+           }
+        });
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('task-notice') }}' ,
+            type: 'DELETE',
+            data: 'data_header=' + JSON.stringify(data_header),
+          })
+          .done(function(result) { // Kalau ajax nya success
+            if (result.status) {
+              showSwalAutoClose('Success', result.message)
+              if ($('thead input[type="checkbox"]', table.table().container()).attr("checked")) {
+                $('thead input[type="checkbox"]', table.table().container()).trigger('click')
+              }
+              table.ajax.reload(null, false); // reload datatable
+            } else {
+              showSwalAutoClose('Warning', result.message)
+            }
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
+    });
+
     $('#form-print-st').validate({
       submitHandler: function(form){
         setLoading(true); // Disable Button when ajax post data
@@ -323,6 +391,7 @@
           setLoading(false); // Disable Button when ajax post data
           if (data.status) {
             showSwalAutoClose("Success", data.message)
+            $(form)[0].reset();
             table.ajax.reload(null, false)
           }
         })
@@ -370,7 +439,7 @@
 
     $('.btn-show-print-preview-do-return').click(function(event) {
       /* Act on the event */
-      initPrintPreviewPrintDOReturn('{{url("task-notice")}}' + '/' + $('#form-print-do-return [name="id_header"]').val() + '/export-do-return')
+      initPrintPreviewPrintDOReturn('{{url("task-notice")}}' + '/' + $('#form-print-do-return [name="id_header"]').val() + '/export-do-return', $('#form-print-do-return').serialize())
     });
 
     $("input#global_filter").on("keyup click", function () {

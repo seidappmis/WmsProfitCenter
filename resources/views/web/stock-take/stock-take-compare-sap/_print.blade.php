@@ -51,8 +51,8 @@
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantitySAP}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity2}}</td>
-                <td colspan="2" style="text-align: left; border: 1pt solid #000000;">{{$value->quantity - $value->quantitySAP}}</td>
-                <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity2 - $value->quantitySAP}}</td>
+                <td colspan="2" style="text-align: left; border: 1pt solid #000000;">{{!empty($value->quantity) ? $value->quantity - $value->quantitySAP : ''}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;">{{!empty($value->quantity2) ? $value->quantity2 - $value->quantitySAP : ''}}</td>
               </tr>
               @endforeach
             </table>

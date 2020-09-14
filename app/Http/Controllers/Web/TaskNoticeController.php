@@ -70,6 +70,89 @@ class TaskNoticeController extends Controller
     return view('web.return.task-notice.view', $data);
   }
 
+  public function store(Request $request)
+  {
+    $request->validate([
+      'file_task_notice' => 'required',
+    ]);
+
+    $file           = fopen($request->file('file_task_notice'), "r");
+    $title          = true; // Untuk Penada Baris pertama adalah Judul
+    $rs_plan        = [];
+    $rs_no_document = [];
+
+    try {
+      DB::beginTransaction();
+
+      while (!feof($file)) {
+        $row = fgetcsv($file);
+        if ($title) {
+          $title = false;
+          continue; // Skip baris judul
+        }
+
+        if (!empty($row[1])) {
+          $plan['area']              = !empty($request->input('area')) ? $request->input('area') : auth()->user()->area;
+          $plan['date']              = date('Y-m-d');
+          $plan['no']                = $row[1];
+          $plan['no_document']       = $row[2];
+          $plan['costumer_po']       = $row[3];
+          $plan['expedition_code']   = $row[4];
+          $plan['expedition']        = $row[5];
+          $plan['vehicle_no']        = $row[6];
+          $plan['driver']            = $row[7];
+          $plan['model']             = $row[8];
+          $plan['model_description'] = $row[9];
+          $plan['qty']               = $row[10];
+          $plan['cbm']               = $row[11];
+          $plan['description']       = $row[12];
+          $plan['costumer_code']     = $row[13];
+          $plan['costumer_name']     = $row[14];
+          $plan['location']          = $row[15];
+          $plan['document']          = $row[16];
+          $plan['return_date']       = $row[17];
+          $plan['lead_time']         = $row[18];
+          $plan['no_so']             = $row[19];
+          $plan['category']          = $row[20];
+          $plan['no_app']            = $row[21];
+          $plan['no_do']             = $row[22];
+          $plan['remark']            = strtoupper($row[23]);
+          $plan['upload_date']       = date('Y-m-d H:i:s');
+          $plan['upload_by']         = auth()->user()->id;
+
+          if (empty($rs_no_document[$plan['no_document']])) {
+            $header              = new LogReturnSuratTugasHeader;
+            $header->area        = !empty($request->input('area')) ? $request->input('area') : auth()->user()->area;
+            $header->date        = date('Y-m-d');
+            $header->no_document = $plan['no_document'];
+            $header->customer_po = $plan['costumer_po'];
+            $header->upload_date = date('Y-m-d H:i:s');
+            $header->upload_by   = auth()->user()->id;
+
+            $header->save();
+
+            $rs_no_document[$plan['no_document']] = $header;
+          }
+
+          $plan['id_header'] = $rs_no_document[$plan['no_document']]->id_header;
+
+          $rs_plan[] = $plan;
+        }
+      }
+
+      LogReturnSuratTugasPlan::insert($rs_plan);
+
+      $data['rs_plan']        = $rs_plan;
+      $data['rs_no_document'] = $rs_no_document;
+
+      DB::commit();
+
+      return sendSuccess('Task Notice submited.', $data);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+  }
+
   public function update(Request $request)
   {
     $data['vehicle_no'] = $request->input('vehicle_no');
@@ -95,6 +178,42 @@ class TaskNoticeController extends Controller
 
     return sendSuccess('Data updated.', $data);
 
+  }
+
+  public function destroy(Request $request)
+  {
+
+    try {
+      DB::beginTransaction();
+
+      $data_header = json_decode($request->input('data_header'), true);
+
+      foreach ($data_header as $key => $value) {
+        $actual = LogReturnSuratTugasActual::where('id_header', $value['id_header'])->first();
+
+        if (!empty($actual)) {
+          return sendError('Data Already Exist In Actual !');
+        }
+
+        LogReturnSuratTugasPlan::where('id_header', $value['id_header'])
+          ->delete();
+        LogReturnSuratTugasHeader::where('id_header', $value['id_header'])->delete();
+      }
+
+      DB::commit();
+
+      return sendSuccess('Task Notice Deleted.', []);
+    } catch (Exception $e) {
+      DB::rollback();
+
+    }
+  }
+
+  public function destroyActual(Request $request)
+  {
+    LogReturnSuratTugasActual::destroy($request->input('id_detail_actual'));
+
+    return sendSuccess('This Actual has been deleted.', []);
   }
 
   public function getActual(Request $request)
@@ -135,7 +254,7 @@ class TaskNoticeController extends Controller
   public function exportSt(Request $request, $id)
   {
     $data['request'] = $request->all();
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['header']  = LogReturnSuratTugasHeader::findOrFail($id);
 
     $view_print = view('web.return.task-notice._print_st', $data);
     $title      = 'Task Notice ST';
@@ -200,9 +319,10 @@ class TaskNoticeController extends Controller
   // ExportDoReturn
   public function exportDoReturn(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['request'] = $request->all();
+    $data['header']  = LogReturnSuratTugasHeader::findOrFail($id);
 
-    $view_print = view('web.return.task-notice._print_do_return');
+    $view_print = view('web.return.task-notice._print_do_return', $data);
     $title      = 'Task Notice DO Return';
 
     if ($request->input('filetype') == 'html') {

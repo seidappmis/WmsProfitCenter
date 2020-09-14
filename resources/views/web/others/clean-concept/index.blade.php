@@ -186,7 +186,6 @@
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
         title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
         icon: 'warning',
         buttons: {
           cancel: true,

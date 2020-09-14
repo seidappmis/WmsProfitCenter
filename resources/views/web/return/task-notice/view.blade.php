@@ -210,7 +210,7 @@
           url: "{{url('task-notice/' . $suratTugasHeader->id_header)}}",
           type: 'GET'
       },
-      order: [1, 'desc'],
+      order: [1, 'asc'],
       columns: [
           { data: 'no_document', name: 'no_document', className: 'detail' },
           { data: 'model', name: 'model', className: 'detail' },
@@ -286,6 +286,41 @@
       }
     })
 
+    $('#task-notice-actual-table').on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+
+      swal({
+        title: "Are you sure?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('task-notice/delete-actual') }}',
+            type: 'DELETE',
+            data: 'id_detail_actual=' + $(tr).find('[name="id_detail_actual"]').val()
+          })
+          .done(function(result) { // Kalau ajax nya success
+            if (result.status) {
+              showSwalAutoClose('Success', result.message)
+              $(tr).remove();
+              dttable_plan.ajax.reload(null, false); // reload datatable
+            }
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
+    });
+
   });
 
   function loadListTaskNoticeActual(){
@@ -313,8 +348,10 @@
            row += '<td>' + val.rr + '</td>';
            row += '<td>' + val.kondisi + '</td>';
            row += '<td>' + val.remark + '</td>';
-           row += '<td></td>';
-           row += '<td></td>';
+           row += '<td>'
+           row += '<input type="hidden" name="id_detail_actual" value="' + val.id_detail_actual + '"></input>'
+           row +='</td>';
+           row += '<td>{!! get_button_delete() !!}</td>';
            row += '</tr>';
 
            $('#task-notice-actual-table tbody').append(row)
