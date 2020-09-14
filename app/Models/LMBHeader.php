@@ -72,7 +72,12 @@ class LMBHeader extends Model
     $pickingDetail = $this->picking->details;
     $customer      = '';
     foreach ($pickingDetail as $key => $value) {
-      $customer .= $value->customer();
+      $rs_customer[$value->customer()] = $value;
+    }
+
+    foreach ($rs_customer as $key => $value) {
+      $customer .= (!empty($customer) ? '<br>' : '');
+      $customer .= $key;
     }
     return $customer;
   }

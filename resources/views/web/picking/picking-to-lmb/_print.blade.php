@@ -51,7 +51,7 @@
                                 @else 
                                 <td colspan="2">Customer</td>
                                 <td>:</td>
-                                <td colspan="3">{{$lmbHeader->getCustomer()}}</td>
+                                <td colspan="3">{!! $lmbHeader->getCustomer() !!}</td>
                                 @endif
                             </tr>
                             <tr>
@@ -139,13 +139,13 @@
                             @while($row_serial_pointer < $row_serial_total)
                             <tr>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
                                 </td>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
                                 </td>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
                                 </td>
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
                             </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\ManualConcept;
 use App\Models\ConceptFlowHeader;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
