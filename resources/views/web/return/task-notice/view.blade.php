@@ -232,6 +232,7 @@
       $('#text-input-actual-model-plan').text(data.model)
       $('#text-input-actual-quantity-plan').text(data.qty)
       $('.container-input-task-notice-actual-wrapper').removeClass('hide');
+      $('.btn-cancel-input-actual').trigger('click')
       loadListTaskNoticeActual();
     });
 
