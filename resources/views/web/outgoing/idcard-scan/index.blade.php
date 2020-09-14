@@ -164,9 +164,13 @@
           type: 'POST',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
-          showSwalAutoClose("Success", "")
-          window.location.href = "{{ url('idcard-scan') }}"
+        .done(function(result) { // selesai dan berhasil
+          if (result.status) {
+            showSwalAutoClose("Success", result.message)
+            window.location.href = "{{ url('idcard-scan') }}"
+          } else {
+            showSwalAutoClose("Warning", result.message)
+          }
         })
         .fail(function(xhr) {
             showSwalError(xhr) // Custom function to show error with sweetAlert

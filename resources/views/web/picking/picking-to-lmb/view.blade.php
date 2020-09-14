@@ -154,6 +154,10 @@
       });
    });
 
+   @if($lmbHeader->send_manifest)
+   $('.btn-edit-vehicle-no').addClass('hide');
+   @endif
+
    $('#form-send-manifest').validate({
     submitHandler: function(form) {
       swal({
@@ -177,6 +181,7 @@
                 $('.btn-send-manifest').hide();
                 $('.btn-print-manifest').removeClass('hide');
                 $('#modal-send-manifest').modal('close')
+                $('.btn-edit-vehicle-no').addClass('hide');
               })
               .fail(function(xhr) {
                 setLoading(false); // Enable Button when failed

@@ -10,9 +10,9 @@
   <h4 class="card-title">Assign Item Picking</h4>
   <hr>
   @if($pickinglistHeader->expedition_code != "AS")
-  <span class="green-text" style="font-weight: 600;">CBM Truck : </span> {{$pickinglistHeader->vehicle->cbm_max}}
+  <span class="green-text" style="font-weight: 600;">CBM Truck : </span> {{setDecimal($pickinglistHeader->vehicle->cbm_max)}}
   <br>
-  <span class="" style="font-weight: 600;">CBM Concept : </span>
+  <span class="" style="font-weight: 600;">CBM Concept : </span> <span id="text-total-cbm-concept"></span>
   @endif
   <table class="bordered">
     <tbody>

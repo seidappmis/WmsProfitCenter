@@ -35,6 +35,9 @@
             }
       },
       order: [2, 'asc'],
+      "fnDrawCallback": function( oSettings ) {
+        $('#text-total-cbm-concept').text(setDecimal(oSettings.json.total_cbm))
+      },
       columns: [
           {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           {data: 'delivery_no', name: 'delivery_no', className: 'detail'},

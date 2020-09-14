@@ -102,7 +102,7 @@
                   <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
                   <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
                   <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
-                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{$detail['data']->do_internal}}</td>
+                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{!empty($detail['data']->do_internal) ? $detail['data']->do_internal : $detail['data']->delivery_no}}</td>
                   <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
                   @endif
 

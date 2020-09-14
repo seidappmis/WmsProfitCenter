@@ -40,6 +40,13 @@ class IdCardScanController extends Controller
       'driver_id' => 'max:45',
     ]);
 
+    // Check vehicle number
+    $checkVehicle = DriverRegistered::where('vehicle_number', $request->input('vehicle_number'))->whereRaw('(`wk_step_number` IS NULL OR wk_step_number !=6)')->first();
+
+    if (!empty($checkVehicle)) {
+      return sendError('Vehicle Number ' . $checkVehicle->vehicle_number . ' Already Checkin !!');
+    }
+
     $storeDateTime = date('Y-m-d H:i:s');
 
     $driverRegistered                      = new DriverRegistered;
@@ -63,7 +70,7 @@ class IdCardScanController extends Controller
 
     $driverRegistered->save();
 
-    return $driverRegistered;
+    return sendSuccess('Driver Check in success', $driverRegistered);
   }
 
   public function getSelect2VehicleNumber(Request $request)

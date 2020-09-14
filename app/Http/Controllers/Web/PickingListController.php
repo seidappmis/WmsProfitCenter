@@ -194,6 +194,7 @@ class PickingListController extends Controller
       $conceptFlowHeader->workflow_id        = 4;
       $conceptFlowHeader->vehicle_code_type  = $driverRegistered->vehicle_code_type;
       $conceptFlowHeader->driver_id          = $driverRegistered->driver_id;
+      $conceptFlowHeader->driver_name        = $driverRegistered->driver_name;
       $conceptFlowHeader->expedition_id      = $driverRegistered->expedition->id;
       $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
       $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
@@ -289,112 +290,121 @@ class PickingListController extends Controller
   {
     $pickinglistHeader = new PickinglistHeader;
 
-    // picking no => kodecabang tanggal(Ymd) urut 3 digit
-    $prefix = auth()->user()->cabang->kode_cabang . date('Ymd');
+    try {
+      DB::beginTransaction();
+      // picking no => kodecabang tanggal(Ymd) urut 3 digit
+      $prefix = auth()->user()->cabang->kode_cabang . date('Ymd');
 
-    $prefix_length   = strlen($prefix);
-    $max_no          = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
-    $picking_urut_no = $max_no + 1;
-    $max_no          = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+      $prefix_length   = strlen($prefix);
+      $max_no          = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+      $picking_urut_no = $max_no + 1;
+      $max_no          = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
-    $picking_no = $prefix . $max_no;
+      $picking_no = $prefix . $max_no;
 
-    $pickinglistHeader->id                 = $picking_no;
-    $pickinglistHeader->picking_date       = date('Y-m-d H:i:s');
-    $pickinglistHeader->picking_no         = $picking_no;
-    $pickinglistHeader->area               = auth()->user()->area;
-    $pickinglistHeader->gate_number        = !empty($request->input('gate_number')) ? $request->input('gate_number') : 0;
-    $pickinglistHeader->pdo                = $request->input('pdo');
-    $pickinglistHeader->destination_number = $request->input('destination_number');
-    $pickinglistHeader->destination_name   = $request->input('destination_name');
-    $pickinglistHeader->picking_urut_no    = $picking_urut_no;
-    $pickinglistHeader->HQ                 = auth()->user()->cabang->hq;
-    $pickinglistHeader->kode_cabang        = auth()->user()->cabang->kode_cabang;
-    $pickinglistHeader->storage_id         = $request->input('storage_id');
-    $pickinglistHeader->storage_type       = $request->input('storage_name');
-    $pickinglistHeader->city_code          = $request->input('city_code');
-    $pickinglistHeader->city_name          = $request->input('city_name');
-    $pickinglistHeader->start_date         = $request->input('start_date');
-    $pickinglistHeader->start_by           = $request->input('start_by');
-    $pickinglistHeader->finish_date        = $request->input('finish_date');
-    $pickinglistHeader->finish_by          = $request->input('finish_by');
-    $pickinglistHeader->assign_driver_date = $request->input('assign_driver_date');
-    $pickinglistHeader->assign_driver_by   = $request->input('assign_driver_by');
-    $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
+      $pickinglistHeader->id                 = $picking_no;
+      $pickinglistHeader->picking_date       = date('Y-m-d H:i:s');
+      $pickinglistHeader->picking_no         = $picking_no;
+      $pickinglistHeader->area               = auth()->user()->area;
+      $pickinglistHeader->gate_number        = !empty($request->input('gate_number')) ? $request->input('gate_number') : 0;
+      $pickinglistHeader->pdo                = $request->input('pdo');
+      $pickinglistHeader->destination_number = $request->input('destination_number');
+      $pickinglistHeader->destination_name   = $request->input('destination_name');
+      $pickinglistHeader->picking_urut_no    = $picking_urut_no;
+      $pickinglistHeader->HQ                 = auth()->user()->cabang->hq;
+      $pickinglistHeader->kode_cabang        = auth()->user()->cabang->kode_cabang;
+      $pickinglistHeader->storage_id         = $request->input('storage_id');
+      $pickinglistHeader->storage_type       = $request->input('storage_name');
+      $pickinglistHeader->city_code          = $request->input('city_code');
+      $pickinglistHeader->city_name          = $request->input('city_name');
+      $pickinglistHeader->start_date         = $request->input('start_date');
+      $pickinglistHeader->start_by           = $request->input('start_by');
+      $pickinglistHeader->finish_date        = $request->input('finish_date');
+      $pickinglistHeader->finish_by          = $request->input('finish_by');
+      $pickinglistHeader->assign_driver_date = $request->input('assign_driver_date');
+      $pickinglistHeader->assign_driver_by   = $request->input('assign_driver_by');
+      $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
 
-    if ($pickinglistHeader->city_code != "AS") {
-      $expedition_name = !empty($request->input('expedition_name_manual')) ? $request->input('expedition_name_manual') : $request->input('expedition_name');
+      if ($pickinglistHeader->city_code != "AS") {
+        $expedition_name = !empty($request->input('expedition_name_manual')) ? $request->input('expedition_name_manual') : $request->input('expedition_name');
 
-      if (!auth()->user()->cabang->hq && $request->input('expedition_name') != "ONE TIME") {
-        $expedition_name = $request->input('expedition_name');
-      } elseif (!auth()->user()->cabang->hq && $request->input('expedition_name') == "ONE TIME") {
-        $expedition_name = $request->input('expedition_name_manual');
-      }
-      $vehicle_number = !empty($request->input('vehicle_number_manual')) ? $request->input('vehicle_number_manual') : $request->input('vehicle_number');
-      $driver_name    = !empty($request->input('driver_name_manual')) ? $request->input('driver_name_manual') : $request->input('driver_name');
-
-      if (!auth()->user()->cabang->hq) {
-        if (empty($vehicle_number)) {
-          return sendError('Please select or insert vehicle no');
+        if (!auth()->user()->cabang->hq && $request->input('expedition_name') != "ONE TIME") {
+          $expedition_name = $request->input('expedition_name');
+        } elseif (!auth()->user()->cabang->hq && $request->input('expedition_name') == "ONE TIME") {
+          $expedition_name = $request->input('expedition_name_manual');
         }
-        if (empty($driver_name)) {
-          return sendError('Please select or insert driver name');
+        $vehicle_number = !empty($request->input('vehicle_number_manual')) ? $request->input('vehicle_number_manual') : $request->input('vehicle_number');
+        $driver_name    = !empty($request->input('driver_name_manual')) ? $request->input('driver_name_manual') : $request->input('driver_name');
+
+        if (!auth()->user()->cabang->hq) {
+          if (empty($vehicle_number)) {
+            return sendError('Please select or insert vehicle no');
+          }
+          if (empty($driver_name)) {
+            return sendError('Please select or insert driver name');
+          }
         }
+
+        if (empty($expedition_name)) {
+          return sendError('Please input expedition name');
+        }
+
+        // $pickinglistHeader->driver_register_id = Uuid::uuid4();
+        $pickinglistHeader->driver_register_id = !empty($request->input('driver_register_id')) ? $request->input('driver_register_id') : Uuid::uuid4();
+        if (!empty($request->input('driver_register_id'))) {
+          $driverRegistered = DriverRegistered::findOrFail($request->input('driver_register_id'));
+
+          // Add concept flow header
+          $idConceptFlowHeader                   = $driverRegistered->id;
+          $conceptFlowHeader                     = new ConceptFlowHeader;
+          $conceptFlowHeader->id                 = $idConceptFlowHeader;
+          $conceptFlowHeader->workflow_id        = 4;
+          $conceptFlowHeader->vehicle_code_type  = $driverRegistered->vehicle_code_type;
+          $conceptFlowHeader->driver_id          = $driverRegistered->driver_id;
+          $conceptFlowHeader->driver_name        = $driverRegistered->driver_name;
+          $conceptFlowHeader->expedition_id      = $driverRegistered->expedition->id;
+          $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
+          $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
+          $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
+          $conceptFlowHeader->driver_register_id = $driverRegistered->id;
+          $conceptFlowHeader->save();
+
+          // concept truck flow
+          $conceptTruckFlow                      = new ConceptTruckFlow;
+          $conceptTruckFlow->id                  = $idConceptFlowHeader;
+          $conceptTruckFlow->concept_flow_header = $idConceptFlowHeader;
+          $conceptTruckFlow->gate_number         = $pickinglistHeader->gate_number;
+          $conceptTruckFlow->created_gate_date   = date('Y-m-d H:i:s');
+          $conceptTruckFlow->created_gate_by     = auth()->user()->username;
+          $conceptTruckFlow->area                = $driverRegistered->area;
+          $conceptTruckFlow->save();
+
+        }
+
+        $pickinglistHeader->expedition_code   = $request->input('expedition_code');
+        $pickinglistHeader->expedition_name   = $expedition_name;
+        $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
+        $pickinglistHeader->vehicle_number    = $vehicle_number;
+        $pickinglistHeader->driver_id         = $request->input('driver_id');
+        $pickinglistHeader->driver_name       = $driver_name;
+      } else {
+        $pickinglistHeader->expedition_code = 'AS';
+        $pickinglistHeader->expedition_name = 'Ambil Sendiri';
       }
 
-      if (empty($expedition_name)) {
-        return sendError('Please input expedition name');
+      if ($pickinglistHeader->city_code == "AS" || !auth()->user()->cabang->hq) {
+        $pickinglistHeader->driver_register_id = Uuid::uuid4();
       }
 
-      // $pickinglistHeader->driver_register_id = Uuid::uuid4();
-      $pickinglistHeader->driver_register_id = !empty($request->input('driver_register_id')) ? $request->input('driver_register_id') : Uuid::uuid4();
-      if (!empty($request->input('driver_register_id'))) {
-        $driverRegistered = DriverRegistered::findOrFail($request->input('driver_register_id'));
+      $pickinglistHeader->save();
 
-        // Add concept flow header
-        $idConceptFlowHeader                   = $driverRegistered->id;
-        $conceptFlowHeader                     = new ConceptFlowHeader;
-        $conceptFlowHeader->id                 = $idConceptFlowHeader;
-        $conceptFlowHeader->workflow_id        = 4;
-        $conceptFlowHeader->vehicle_code_type  = $driverRegistered->vehicle_code_type;
-        $conceptFlowHeader->driver_id          = $driverRegistered->driver_id;
-        $conceptFlowHeader->expedition_id      = $driverRegistered->expedition->id;
-        $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
-        $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
-        $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
-        $conceptFlowHeader->driver_register_id = $driverRegistered->id;
-        $conceptFlowHeader->save();
+      DB::commit();
 
-        // concept truck flow
-        $conceptTruckFlow                      = new ConceptTruckFlow;
-        $conceptTruckFlow->id                  = $idConceptFlowHeader;
-        $conceptTruckFlow->concept_flow_header = $idConceptFlowHeader;
-        $conceptTruckFlow->gate_number         = $pickinglistHeader->gate_number;
-        $conceptTruckFlow->created_gate_date   = date('Y-m-d H:i:s');
-        $conceptTruckFlow->created_gate_by     = auth()->user()->username;
-        $conceptTruckFlow->area                = $driverRegistered->area;
-        $conceptTruckFlow->save();
+      return sendSuccess('Create New Pickinglist no ' . $pickinglistHeader->picking_no . ' success', $pickinglistHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
 
-      }
-
-      $pickinglistHeader->expedition_code   = $request->input('expedition_code');
-      $pickinglistHeader->expedition_name   = $expedition_name;
-      $pickinglistHeader->vehicle_code_type = $request->input('vehicle_code_type');
-      $pickinglistHeader->vehicle_number    = $vehicle_number;
-      $pickinglistHeader->driver_id         = $request->input('driver_id');
-      $pickinglistHeader->driver_name       = $driver_name;
-    } else {
-      $pickinglistHeader->expedition_code = 'AS';
-      $pickinglistHeader->expedition_name = 'Ambil Sendiri';
     }
-
-    if ($pickinglistHeader->city_code == "AS" || !auth()->user()->cabang->hq) {
-      $pickinglistHeader->driver_register_id = Uuid::uuid4();
-    }
-
-    $pickinglistHeader->save();
-
-    return sendSuccess('Create New Pickinglist no ' . $pickinglistHeader->picking_no . ' success', $pickinglistHeader);
   }
 
   public function splitConcept(Request $request)
@@ -503,7 +513,11 @@ class PickingListController extends Controller
         })
         ->rawColumns(['do_status', 'action']);
 
-      return $datatables->make(true);
+      $total_cbm = PickinglistHeader::findOrFail($id)->details()->selectRaw('SUM(cbm) AS total_cbm')->first()->total_cbm;
+
+      return $datatables
+        ->with('total_cbm', $total_cbm)
+        ->make(true);
     }
 
     return view('web.picking.picking-list.view', $data);
@@ -675,14 +689,25 @@ class PickingListController extends Controller
   public function destroy($id)
   {
     try {
-
+      DB::beginTransaction();
+      $pickingHeader = PickinglistHeader::findOrFail($id);
       PickinglistDetail::where('header_id', $id)->delete();
-      PickinglistHeader::destroy($id);
+      $conceptFlowHeader = ConceptFlowHeader::where('driver_register_id', $pickingHeader->driver_register_id)->first();
 
-      return sendSuccess('Picking List Deleted', []);
-      
+      if (!empty($conceptFlowHeader)) {
+        ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->delete();
+        ConceptFlowDetail::where('id_header', $conceptFlowHeader->id)->delete();
+
+        $conceptFlowHeader->delete();
+      }
+
+      $pickingHeader->delete();
+
+      DB::commit();
+      return sendSuccess('Picking List Deleted', $pickingHeader);
+
     } catch (Exception $e) {
-
+      DB::rollBack();
     }
   }
 

@@ -40,6 +40,12 @@
       });
     });
 
+    function set_select2_required(selector){
+      if ($(selector).is(':required')) {
+        $(selector).parent().find('span.select2-selection').addClass('select2-required')
+      }
+    }
+
 
     // jQuery.validator.setDefaults({
     //   errorElement : 'div',

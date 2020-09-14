@@ -1,8 +1,8 @@
 <form class="form-table" id="form-picking-list">
     <div class="row">
-        <div id="btn-new-picking-wrapper" class="col s4 m3 padding-1 hide">
+        {{-- <div id="btn-new-picking-wrapper" class="col s4 m3 padding-1 hide">
           <span class="waves-effect waves-light indigo btn-small btn-new-picking">New Picking</span>
-        </div>
+        </div> --}}
         <div class="col s4 m1 padding-1">
             <p>Storage:</p>
         </div>
@@ -235,6 +235,13 @@
           $('#form-picking-list [name="driver_register_id"]').val(data.driver_register_id)
           set_select2_value('#form-picking-list [name="driver_id"]', '', '')
           set_hq_select_driver_name({driver_register_id: data.driver_register_id})
+          if ($(this).val()) {
+            $('#form-picking-list [name="driver_id"]').attr('required', 'required');
+            set_select2_required('#form-picking-list [name="driver_id"]')
+            $('#select-gate-number').attr('required', 'required').addClass('select2-required');
+            set_select2_required('#select-gate-number')
+          }
+
           // set_select2_value('#form-picking-list [name="driver_id"]', data.driver_id, data.driver_name)
       });
 

@@ -36,6 +36,10 @@ function thousand_reformat($number)
   return number_format($number, 0, ',', '.');
 }
 
+function setDecimal($number){
+  return number_format($number, 3);
+}
+
 function money_reformat($number, $currency = null)
 {
   switch ($currency) {
