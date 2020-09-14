@@ -26,7 +26,7 @@
         </div>
         <div class="row">
           <div class="col s12 m4">
-            <a href="{{ url('berita-acara/create') }}" class="btn btn-large waves-effect waves-light btn-add">
+            <a href="{{ url('berita-acara-during/create') }}" class="btn btn-large waves-effect waves-light btn-add">
               New Berita Acara
             </a>
           </div>

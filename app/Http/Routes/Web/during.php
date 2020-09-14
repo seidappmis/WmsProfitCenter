@@ -3,6 +3,7 @@
 Route::group(['middleware' => 'auth'], function () {
   // Berita Acara
   Route::get('/berita-acara-during', 'Web\BeritaAcaraDuringController@index');
+  Route::get('/berita-acara-during/create', 'Web\BeritaAcaraDuringController@create');
   Route::get('/berita-acara-during/{id}/export-BA', 'Web\BeritaAcaraDuringController@exportBA');
   Route::get('/berita-acara-during/{id}/export-attach', 'Web\BeritaAcaraDuringController@exportAttach');
 
