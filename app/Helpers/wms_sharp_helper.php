@@ -19,7 +19,7 @@ function get_button_return($url = '#', $label = "Send Back")
 }
 
 // edit
-function get_button_edit($url = '#', $label = "Edit", $class = 'btn-edit')
+function get_button_edit($url = '#!', $label = "Edit", $class = 'btn-edit')
 {
   return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' " href="' . $url . '">' . $label . '</a>';
 }

@@ -209,6 +209,25 @@ class TaskNoticeController extends Controller
     }
   }
 
+  public function updateActual(Request $request)
+  {
+    $actual = LogReturnSuratTugasActual::findOrFail($request->input('id_detail_actual'));
+
+    $actual->model         = $request->input('model');
+    $actual->qty           = $request->input('qty');
+    $actual->serial_number = $request->input('serial_number');
+    $actual->no_so         = $request->input('no_so');
+    $actual->no_do         = $request->input('no_do');
+    $actual->no_po         = $request->input('no_po');
+    $actual->rr            = $request->input('rr');
+    $actual->kondisi       = $request->input('kondisi');
+    $actual->remark        = $request->input('remark');
+
+    $actual->save();
+
+    return sendSuccess('Data Actual updated.', $actual);
+  }
+
   public function destroyActual(Request $request)
   {
     LogReturnSuratTugasActual::destroy($request->input('id_detail_actual'));

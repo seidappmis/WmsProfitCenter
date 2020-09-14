@@ -158,11 +158,11 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>List Task Notice Actual</div>
                       <div class="collapsible-body padding-1">
                         <div class="section-data-tables"> 
-                          <table id="task-notice-actual-table" class="display" width="100%">
+                          <table id="task-notice-actual-table" class="form-table" width="100%">
                               <thead>
                                   <tr>
                                     <th>Model Actual</th>
-                                    <th>QTY Actual</th>
+                                    <th width="20px">QTY Actual</th>
                                     <th>Serial Number</th>
                                     <th>NO SO</th>
                                     <th>NO DO</th>
@@ -170,6 +170,7 @@
                                     <th>RR</th>
                                     <th>KONDISI</th>
                                     <th>REMAK</th>
+                                    <th width="50px;"></th>
                                     <th width="50px;"></th>
                                     <th width="50px;"></th>
                                   </tr>
@@ -286,6 +287,57 @@
       }
     })
 
+    $('#task-notice-actual-table').on('click', '.btn-edit', function(event) {
+      var tr = $(this).parent().parent();
+      $(tr).find('.text-display').addClass('hide')
+      $(tr).find('.text-input').removeClass('hide')
+      $(tr).find('.btn-update').removeClass('hide')
+      $(tr).find('.btn-cancel').removeClass('hide')
+      $(tr).find('.btn-edit').addClass('hide')
+    })
+
+    $('#task-notice-actual-table').on('click', '.btn-cancel', function(event) {
+      var tr = $(this).parent().parent();
+      $(tr).find('.text-display').removeClass('hide')
+      $(tr).find('.text-input').addClass('hide')
+      $(tr).find('.btn-update').addClass('hide')
+      $(tr).find('.btn-cancel').addClass('hide')
+      $(tr).find('.btn-edit').removeClass('hide')
+    })
+
+    $('#task-notice-actual-table').on('click', '.btn-update', function(event) {
+      setLoading(true); // Disable Button when ajax post data
+      var tr = $(this).parent().parent();
+      $.ajax({
+        url: '{{ url("task-notice/actual") }}',
+        type: 'PUT',
+        data: {
+          id_detail_actual: $(tr).find('[name="id_detail_actual"]').val(),
+          model: $(tr).find('[name="model"]').val(),
+          qty: $(tr).find('[name="qty"]').val(),
+          serial_number: $(tr).find('[name="serial_number"]').val(),
+          no_so: $(tr).find('[name="no_so"]').val(),
+          no_do: $(tr).find('[name="no_do"]').val(),
+          no_po: $(tr).find('[name="no_po"]').val(),
+          rr: $(tr).find('[name="rr"]').val(),
+          kondisi: $(tr).find('[name="kondisi"]').val(),
+          remark: $(tr).find('[name="remark"]').val(),
+        },
+      })
+      .done(function(data) { // selesai dan berhasil
+        setLoading(false); // Disable Button when ajax post data
+        if (data.status) {
+          showSwalAutoClose("Success", data.message)
+          loadListTaskNoticeActual();
+        }
+      })
+      .fail(function(xhr) {
+          setLoading(false); // Enable Button when failed
+          showSwalError(xhr) // Custom function to show error with sweetAlert
+      });
+      
+    })
+
     $('#task-notice-actual-table').on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -339,17 +391,49 @@
            /* iterate through array or object */
            var row = '';
            row += '<tr>';
-           row += '<td>' + val.model + '</td>';
-           row += '<td>' + val.qty + '</td>';
-           row += '<td>' + val.serial_number + '</td>';
-           row += '<td>' + val.no_so + '</td>';
-           row += '<td>' + val.no_do + '</td>';
-           row += '<td>' + val.no_po + '</td>';
-           row += '<td>' + val.rr + '</td>';
-           row += '<td>' + val.kondisi + '</td>';
-           row += '<td>' + val.remark + '</td>';
-           row += '<td>'
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="model" value="' + val.model + '"></div>'
+           row += '<span class="text-display">' + val.model + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="number" min="0" name="qty" value="' + val.qty + '"></div>'
+           row += '<span class="text-display">' + val.qty + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="serial_number" value="' + val.serial_number + '" required=""></div>'
+           row += '<span class="text-display">' + val.serial_number + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="no_so" value="' + val.no_so + '"></div>'
+           row += '<span class="text-display">' + val.no_so + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="no_do" value="' + val.no_do + '"></div>'
+           row += '<span class="text-display">' + val.no_do + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="no_po" value="' + val.no_po + '"></div>'
+           row += '<span class="text-display">' + val.no_po + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="rr" value="' + val.rr + '"></div>'
+           row += '<span class="text-display">' + val.rr + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="kondisi" value="' + val.kondisi + '"></div>'
+           row += '<span class="text-display">' + val.kondisi + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
+           row += '<div class="input-field col s12" style="padding: 0;"><input id="area" class="text-input hide" type="text" name="remark" value="' + val.remark + '"></div>'
+           row += '<span class="text-display">' + val.remark + '</span>'
+           row += '</td>';
+           row += '<td style="padding: 0px;">'
            row += '<input type="hidden" name="id_detail_actual" value="' + val.id_detail_actual + '"></input>'
+           row += '{!! get_button_edit() !!}'
+           row += '{!! get_button_save("Update", "btn-update hide") !!}'
+           row +='</td>';
+           row += '<td style="padding: 0px;">'
+           row += '{!! get_button_cancel("#!", "Cancel", "btn-cancel hide") !!}'
            row +='</td>';
            row += '<td>{!! get_button_delete() !!}</td>';
            row += '</tr>';

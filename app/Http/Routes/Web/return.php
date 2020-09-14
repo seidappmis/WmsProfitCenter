@@ -7,6 +7,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::delete('task-notice', 'Web\TaskNoticeController@destroy');
   Route::delete('task-notice/delete-actual', 'Web\TaskNoticeController@destroyActual');
   Route::post('task-notice/actual', 'Web\TaskNoticeController@storeActual');
+  Route::put('task-notice/actual', 'Web\TaskNoticeController@updateActual');
   Route::get('task-notice/actual', 'Web\TaskNoticeController@getActual');
   Route::get('task-notice/{id}', 'Web\TaskNoticeController@show');
   Route::get('task-notice/{id}/export-st', 'Web\TaskNoticeController@exportSt');
