@@ -5,6 +5,8 @@
     <input type="hidden" name="delivery_no">
     <input type="hidden" name="line_no">
     <input type="hidden" name="quantity">
+    <input type="hidden" name="max_delivery_items">
+    <input type="hidden" name="max_line_no">
       <thead>
           <tr>
             <th data-priority="1">Invoice No</th>
@@ -72,24 +74,26 @@
     }
   });
 
-  function runSplitConceptTable(ths, data){
+  function runSplitConceptTable(ths){
     var total_split = $(ths).parent().parent().find('[name="total_split"]').val();
     total_split = (total_split < 2) ? 2 : total_split;
     $('#item-split-detail-table tbody').empty();
     var quantity = $('#form-split-concept [name="quantity"]').val();
-    console.log(data)
+    var max_delivery_items = $('#form-split-concept [name="max_delivery_items"]').val()
+    var max_line_no =  $('#form-split-concept [name="max_line_no"]').val()
+
 
     for (var i = total_split; i > 0; i--) {
-      data.max_delivery_items += 10;
+      max_delivery_items += 10;
       var tr = '';
       tr += '<tr>';
       @if(auth()->user()->cabang->hq)
-      data.max_line_no += 1;
-      tr += '<td>' + data.max_line_no + '</td>';
+      max_line_no += 1;
+      tr += '<td>' + $('#form-split-concept [name="max_line_no"]').val() + '</td>';
       @else
-      tr += '<td>' + data.line_no + '</td>';
+      tr += '<td>' + $('#form-split-concept [name="line_no"]').val() + '</td>';
       @endif
-      tr += '<td>' + data.max_delivery_items  + '</td>';
+      tr += '<td>' + $('#form-split-concept [name="max_delivery_items"]').val()  + '</td>';
       tr += '<td><input type="number" name="quantity_split[]" value="' + Math.floor(quantity/total_split) + '"></td>';
       tr += '</tr>';
 
