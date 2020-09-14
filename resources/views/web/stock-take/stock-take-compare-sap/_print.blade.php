@@ -12,20 +12,20 @@
               <tr>
                 <td style="width: 30mm;">STS Schedule</td>
                 <td style="width: 5mm;">:</td>
-                <td colspan="2" style="width: 50mm;text-align: left;">MKS-STO-190831-001</td>
+                <td colspan="2" style="width: 50mm;text-align: left;">{{$stockTakeSchedule->sto_id}}</td>
                 <td style="width: 40mm;"></td>
                 <td style="width: 30mm;">Description</td>
                 <td style="width: 5mm;">:</td>
-                <td colspan="2" style="width: 50mm;text-align: left;">Stock Tacking Fiscal 19F</td>
+                <td colspan="2" style="width: 50mm;text-align: left;">{{$stockTakeSchedule->description}}</td>
               </tr>
               <tr>
                 <td>Period</td>
                 <td>:</td>
-                <td colspan="2" style="text-align: left;">2019-08-31 S/D 2019-09-03</td>
+                <td colspan="2" style="text-align: left;">{{$stockTakeSchedule->schedule_start_date}} S/D {{$stockTakeSchedule->schedule_end_date}}</td>
                 <td></td>
                 <td>Print Date</td>
                 <td>:</td>
-                <td colspan="2" style="text-align: left;">2020-08-25</td>
+                <td colspan="2" style="text-align: left;">{{date('Y-m-d')}}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -45,14 +45,16 @@
                 <td style="text-align: center; border: 1pt solid #000000; width: 30mm;">SAP vs Input 2</td>
               </tr>
               {{-- Body --}}
+              @foreach($stockTakeDetail AS $key => $value)
               <tr>
-                <td colspan="3" style="text-align: left; border: 1pt solid #000000;">2T-C32BA1I</td>
-                <td style="text-align: left; border: 1pt solid #000000;">15</td>
-                <td style="text-align: left; border: 1pt solid #000000;"></td>
-                <td style="text-align: left; border: 1pt solid #000000;"></td>
-                <td colspan="2" style="text-align: left; border: 1pt solid #000000;"></td>
-                <td style="text-align: left; border: 1pt solid #000000;"></td>
+                <td colspan="3" style="text-align: left; border: 1pt solid #000000;">{{$value->model}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantitySAP}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity2}}</td>
+                <td colspan="2" style="text-align: left; border: 1pt solid #000000;">{{$value->quantity - $value->quantitySAP}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity2 - $value->quantitySAP}}</td>
               </tr>
+              @endforeach
             </table>
           </td>
         </tr>

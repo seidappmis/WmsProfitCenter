@@ -54,7 +54,7 @@
                         </div>
                         {{-- Load Modal Print --}}
                       @include('layouts.materialize.components.modal-print', [
-                        'title' => 'Print Pickinglist',
+                        'title' => 'Print',
                         'url' => 'stock-take-compare-sap/1/export',
                         'trigger' => '.btn-print'
                         ])
@@ -90,31 +90,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{--
-                                                    <tr>
-                                                        <td>
-                                                            1.
-                                                        </td>
-                                                        <td>
-                                                            2T-C3BA21
-                                                        </td>
-                                                        <td>
-                                                            56456
-                                                        </td>
-                                                        <td>
-                                                            34545
-                                                        </td>
-                                                        <td>
-                                                            1854
-                                                        </td>
-                                                        <td>
-                                                            0
-                                                        </td>
-                                                        <td>
-                                                            0
-                                                        </td>
-                                                    </tr>
-                                                    --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -153,16 +128,23 @@
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
             {data: 'model', name: 'model', className: 'detail'},
+            {data: 'quantitySAP', name: 'quantitySAP', className: 'detail'},
             {data: 'quantity', name: 'quantity', className: 'detail'},
-            {data: 'quantity', name: 'quantity', className: 'detail'},
-            {data: 'quantity', name: 'quantity', className: 'detail'},
-            {data: 'quantity', name: 'quantity', className: 'detail'},
-            {data: 'quantity', name: 'quantity', className: 'detail'},
+            {data: 'quantity2', name: 'quantity2', className: 'detail'},
+            {data: 'sap_vs_input_1', name: 'sap_vs_input_1', className: 'detail'},
+            {data: 'sap_vs_input_2', name: 'sap_vs_input_2', className: 'detail'},
         ]
       });
       $('.btn-compare').click(function(event) {
         /* Act on the event */
         dtdatatable.ajax.reload(null, false)
+      });
+
+      $('.btn-print').click(function(event) {
+          /* Act on the event */
+          initPrintPreviewPrint(
+            '{{url("stock-take-compare-sap")}}' + '/' + $('#sto_id').val() + '/export'
+          )
       });
 
       dtdatatable.on('draw', function (data) {

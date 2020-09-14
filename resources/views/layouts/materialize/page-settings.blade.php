@@ -89,6 +89,10 @@ function get_select2_ajax_options(url, extraFilter = null) {
   };
 }
 
+function setDecimal(number, precision = 3){
+  return parseFloat(number).toFixed(precision)
+}
+
 function get_select2_search_term(params, extraFilter){
   var search_term = {
     q: params.term || '', // search term

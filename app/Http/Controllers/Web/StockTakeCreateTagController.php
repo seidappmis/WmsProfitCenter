@@ -47,6 +47,7 @@ class StockTakeCreateTagController extends Controller
 
     $date             = date('Y-m-d H:i:s');
     $stocktake_inputs = [];
+    $no_tag           = 1;
 
     // Loop data sampai baris terakhir
     while (!feof($file)) {
@@ -58,9 +59,9 @@ class StockTakeCreateTagController extends Controller
 
       if (!empty($row[0])) {
         $stockTakeInput['sto_id']      = $request->input('sto_id');
-        $stockTakeInput['no_tag']      = $row[0];
-        $stockTakeInput['model']       = $row[1];
-        $stockTakeInput['location']    = $row[2];
+        $stockTakeInput['no_tag']      = $no_tag++;
+        $stockTakeInput['model']       = $row[0];
+        $stockTakeInput['location']    = $row[1];
         $stockTakeInput['upload_date'] = $date;
         $stockTakeInput['upload_by']   = auth()->user()->id;
 
@@ -85,8 +86,8 @@ class StockTakeCreateTagController extends Controller
       DB::raw("no_tag AS text"),
       'log_stocktake_input1.*'
     )
-    ->where('sto_id', $request->input('sto_id'))
-    ->whereNull('input_date')
+      ->where('sto_id', $request->input('sto_id'))
+      ->whereNull('input_date')
     ;
 
     return get_select2_data($request, $query);
@@ -99,8 +100,8 @@ class StockTakeCreateTagController extends Controller
       DB::raw("no_tag AS text"),
       'log_stocktake_input2.*'
     )
-    ->where('sto_id', $request->input('sto_id'))
-    ->whereNull('input_date');
+      ->where('sto_id', $request->input('sto_id'))
+      ->whereNull('input_date');
 
     return get_select2_data($request, $query);
   }

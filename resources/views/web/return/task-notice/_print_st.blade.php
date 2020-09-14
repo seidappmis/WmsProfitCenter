@@ -121,6 +121,9 @@
             </table>
           </td>
         </tr>
+      </table>
+      <footer>
+      <table style="width: 210.0003mm;">
         <tr>
           <td>
             <table width="100%" style="font-family: Arial; font-size: 8pt;">
@@ -166,27 +169,29 @@
               <tr>
                 <td>HORMAT KAMI,</td>
               </tr>
-              <tr>
-                <td style="text-align: center">
+              <tr style="height: 100px;">
+                <td style="text-align: center; vertical-align: bottom; border: black solid 1px; width: 150px;">
                   {{ $request['allocation'] }}<br>
                   ALLOCATION
                 </td>
-                <td style="text-align: center">
+                <td></td>
+                <td style="text-align: center; vertical-align: bottom; border: black solid 1px; width: 150px;">
                   {{ $request['admin_warehouse'] }}<br>
                   ADMIN WAREHOUSE
                 </td>
               </tr>
               <tr>
                 <td>Page 1 of 1</td>
-                <td>Print Date : 15 Aug, 2020</td>
+                <td>Print Date : {{date('d M, Y')}}</td>
               </tr>
               <tr>
-                <td>Print by : mis5</td>
+                <td>Print by : {{auth()->user()->username}}</td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
+      </footer>
     </td>
   </tr>
 </table>

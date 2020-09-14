@@ -190,7 +190,7 @@
                     row += '<td>' + val.invoice_no + '</td>';
                     row += '<td>' + val.delivery_no + '</td>';
                     row += '<td>' + val.total_do_items + '</td>';
-                    row += '<td>' + val.total_cbm.toFixed(3) + '</td>';
+                    row += '<td>' + setDecimal(val.total_cbm) + '</td>';
                     row += '<td>' + val.destination_name + '</td>';
                     row += '<td>' + val.expedition_name + '</td>';
                     row += '<td>' + moment(val.created_at).format('HH:mm:ss') + '</td>';
@@ -229,9 +229,9 @@
                     row += '<td>' + val.driver_id + '</td>';
                     row += '<td>' + val.driver_name + '</td>';
                     row += '<td>' + val.expedition_name + '</td>';
-                    row += '<td>' + val.vehicle_description + ' capacity ' + val.cbm_min + ' - ' + val.cbm_max + '</td>';
+                    row += '<td>' + val.vehicle_description + ' capacity ' + setDecimal(val.cbm_min) + ' - ' + setDecimal(val.cbm_max) + '</td>';
                     row += '<td>' + val.destination_name + '</td>';
-                    row += '<td>' + val.cbm_max + '</td>';
+                    row += '<td>' + setDecimal(val.cbm_max) + '</td>';
                     row += '<td>' + moment(val.datetime_in).format('YYYY-MM-DD') + '</td>';
                     row += '<td>' + moment(val.datetime_in).format('HH:mm:ss') + '</td>';
                     row += '</tr>';
