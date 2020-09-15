@@ -38,7 +38,7 @@
                                 <td colspan="6" style="width: 60mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                                 <td colspan="2" style="width: 40mm;">No. Mobil/Jenis</td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->picking->vehicle->vehicle_description}}</td>
+                                <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">Expedisi</td>
@@ -177,7 +177,7 @@
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
                             </tr> --}}
                             <tr>
-                                <td colspan="11">&nbsp;</td>
+                                <td colspan="14">&nbsp;</td>
                             </tr>
                         </table>
                         {{-- End Main Table --}}

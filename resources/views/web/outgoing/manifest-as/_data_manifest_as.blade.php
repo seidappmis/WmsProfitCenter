@@ -81,6 +81,41 @@ jQuery(document).ready(function($) {
           { data: 'actionPrint', className: 'center-align', orderable: false, searchable: false },
       ]
   });
+
+  dtdatatable_data_manifest_normal.on('click', '.btn-delete', function(event) {
+        var tr = $(this).parent().parent();
+        var data = dtdatatable_data_manifest_normal.row(tr).data();
+        id = data.do_manifest_no
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        swal({
+          text: "Delete this manifest?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, delete It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) { // Bila oke post ajax ke url delete nya
+            // Ajax Post Delete
+            $.ajax({
+              url: '{{url('manifest-as')}}' + '/' + id,
+              type: 'DELETE',
+            })
+            .done(function(result) { // Kalau ajax nya success
+              showSwalAutoClose('Success', result.message)
+              dtdatatable_data_manifest_normal.ajax.reload(null, false); // reload datatable
+              dtdatatable_truck_waiting_manifest.ajax.reload(null, false); // reload datatable
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
+          }
+        })
+      });
+
 });
 
 </script>

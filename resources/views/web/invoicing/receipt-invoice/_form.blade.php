@@ -14,7 +14,7 @@
               <hr>
               <span class="waves-effect waves-light btn btn-small indigo darken-4 mb-1">Create Receipt No.</span>
               <div class="section-data-tables">
-                <table id="data-table-section-contents" class="display" width="100%">
+                <table id="table_list_manifest_receipt" class="display" width="100%">
                     <thead>
                       <tr>
                         <th data-priority="1" width="30px">NO.</th>
@@ -103,5 +103,33 @@
 
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+  var dttable_list_manifest_receipt
+  jQuery(document).ready(function($) {
+    var dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}',
+            type: 'GET',
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'invoice_receipt_id'},
+            {data: 'invoice_receipt_no'},
+            {data: 'invoice_receipt_date'},
+            {data: 'kwitansi_no'},
+            {data: 'expedition_name'},
+            {data: 'action_view', className: 'center-align'},
+            {data: 'action_delete', className: 'center-align'},
+        ]
+    });
+  });
 </script>
 @endpush

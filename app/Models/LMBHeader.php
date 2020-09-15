@@ -87,9 +87,10 @@ class LMBHeader extends Model
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
   }
 
-  public function getPickingNo($data){
+  public function getPickingNo($data)
+  {
     $rs_pickinglistHeader = \App\Models\PickinglistHeader::where('driver_register_id', $data->driver_register_id)->get();
-    $picking_no = '';
+    $picking_no           = '';
     foreach ($rs_pickinglistHeader as $key => $value) {
       $picking_no .= !empty($picking_no) ? ', ' : '';
       $picking_no .= $value->picking_no;
@@ -97,17 +98,21 @@ class LMBHeader extends Model
     return $picking_no;
   }
 
-  public static function noManifestLMBHeader()
+  public static function noManifestLMBHeader($as = false)
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
-    ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
 
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
-        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_lmb_header.driver_register_id')
-        ->whereNotNull('tr_driver_registered.id')
       ;
+
+      if (!$as) {
+        $lmbHeader->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_lmb_header.driver_register_id')
+          ->whereNotNull('tr_driver_registered.id')
+        ;
+      }
     } else {
       $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
         ->whereNull('wms_branch_manifest_header.driver_register_id') // yang belum ada Manifest

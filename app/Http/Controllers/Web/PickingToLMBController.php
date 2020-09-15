@@ -189,7 +189,7 @@ class PickingToLMBController extends Controller
     try {
       DB::beginTransaction();
 
-      if (auth()->user()->cabang->hq) {
+      if (auth()->user()->cabang->hq && $lmbHeader->destination_number != 'AS') {
         $conceptFlowHeader              = ConceptFlowHeader::findOrFail($lmbHeader->driver_register_id);
         $conceptFlowHeader->workflow_id = 5;
         $conceptFlowHeader->save();

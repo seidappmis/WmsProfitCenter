@@ -239,26 +239,11 @@ class ManifestRegularController extends Controller
       $manifestDetail['area']            = $manifestHeader->area;
       $manifestDetail['do_internal']     = $request->input('do_internal');
       $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
-      // $manifestDetail['nilai_ritase']        = '';
-      // $manifestDetail['nilai_ritase2']       = '';
-      // $manifestDetail['nilai_cbm']           = '';
       $manifestDetail['code_sales'] = $concept->code_sales;
       $manifestDetail['tcs']        = 1;
-      // $manifestDetail['multidro']            = '';
-      // $manifestDetail['unloading']           = '';
-      // $manifestDetail['overstay']            = '';
-      // $manifestDetail['do_return']           = '';
-      // $manifestDetail['status_confirm']      = '';
-      // $manifestDetail['confirm_date']        = '';
-      // $manifestDetail['confirm_by']          = '';
-      // $manifestDetail['lead_time']           = '';
       $manifestDetail['base_price']  = '';
       $manifestDetail['kode_cabang'] = substr($value['kode_customer'], 0, 2);
       $manifestDetail['region']      = '';
-      // $manifestDetail['remarks']             = '';
-      // $manifestDetail['actual_time_arrival'] = '';
-      // $manifestDetail['actual_loading_date'] = '';
-      // $manifestDetail['doc_do_return_date']  = '';
       $manifestDetail['status_ds_done'] = 0;
       $manifestDetail['do_reject']      = 0;
 

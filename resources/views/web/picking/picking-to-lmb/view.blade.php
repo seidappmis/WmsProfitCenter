@@ -154,7 +154,7 @@
       });
    });
 
-   @if($lmbHeader->send_manifest)
+   @if($lmbHeader->send_manifest || $lmbHeader->destination_number == 'AS')
    $('.btn-edit-vehicle-no').addClass('hide');
    @endif
 

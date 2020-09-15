@@ -38,14 +38,6 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        scrollY: true,
-        scrollX: true,
-        // responsive: true,
-        order: [1, 'asc'],
-    });
-
   jQuery(document).ready(function($) {
       set_select2_value('#form-add-manifest [name="expedition_code"]', '{{$invoiceReceiptHeader->expedition_code}}', '{{$invoiceReceiptHeader->expedition_name}}')
       $('#form-add-manifest [name="expedition_code"]').attr('disabled', 'disabled');

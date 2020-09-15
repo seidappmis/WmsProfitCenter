@@ -28,7 +28,7 @@
                       <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Detail</div>
                       <div class="collapsible-body padding-1">
                         @include('web.outgoing.manifest-as._form_manifest')
-                        {{-- @include('web.outgoing.manifest-as._list_do') --}}
+                        @include('web.outgoing.manifest-as._list_do')
                       </div>
                     </li>
                   </ul>
@@ -54,6 +54,38 @@
   jQuery(document).ready(function($) {
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
+
+    $('.btn-delete').removeClass('hide')
+    $('.btn-print').removeClass('hide')
+
+    $('.btn-delete').click(function(event) {
+      /* Act on the event */
+      swal({
+          text: "Delete manifest {{$manifestHeader->do_manifest_no}}?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, delete It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) { // Bila oke post ajax ke url delete nya
+            // Ajax Post Delete
+            $.ajax({
+              url: '{{url('manifest-as/' . $manifestHeader->do_manifest_no)}}',
+              type: 'DELETE',
+            })
+            .done(function(result) { // Kalau ajax nya success
+              showSwalAutoClose('Success', result.message)
+              window.location.href = '{{url("manifest-as")}}'
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
+          }
+        })
+    });
+
   });
     $("#form-assign-do").validate({
       submitHandler: function(form) {
