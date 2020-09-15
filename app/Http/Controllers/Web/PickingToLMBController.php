@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
-use App\Models\ManualConcept;
 use App\Models\ConceptFlowHeader;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
 use App\Models\LOGConceptOverload;
+use App\Models\ManualConcept;
 use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use App\Models\MovementTransactionLog;
@@ -436,15 +436,14 @@ class PickingToLMBController extends Controller
     while (!feof($file)) {
       $row = fgetcsv($file);
 
-      $serial_number = [
-        'picking_id'    => $row[0],
-        'ean_code'      => $row[1],
-        'serial_number' => $row[2],
-      ];
-
       // Validasi Data Per Baris
-      if (!empty($serial_number['picking_id'])) {
+      if (!empty($row[0])) {
         // kalau data ada isinya
+        $serial_number = [
+          'picking_id'    => $row[0],
+          'ean_code'      => $row[1],
+          'serial_number' => $row[2],
+        ];
 
         if (empty($rs_models[$serial_number['ean_code']])) {
           $model = MasterModel::where('ean_code', $serial_number['ean_code'])->first();
