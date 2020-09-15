@@ -69,6 +69,7 @@
     {!! get_button_save('Save', 'btn-save') !!}
     {!! get_button_delete('Delete', 'btn-delete hide') !!}
     {!! get_button_print('#!', 'Print', 'btn-print hide') !!}
+    {!! get_button_view('#1', 'Submit', 'btn-submit hide') !!}
     {!! get_button_cancel(url('manifest-as'), 'Back', '') !!}
 </form>
 

@@ -234,6 +234,17 @@ class ManifestASController extends Controller
     return sendSuccess("Manifest Deleted", $log_manifest_header);
   }
 
+  public function submit($id)
+  {
+    $log_manifest_header = LogManifestHeader::findOrFail($id);
+
+    $log_manifest_header->status_complete = 1;
+
+    $log_manifest_header->save();
+
+    return sendSuccess("Manifest Submited", $log_manifest_header);
+  }
+
   public function export(Request $request, $id)
   {
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
@@ -245,7 +256,7 @@ class ManifestASController extends Controller
     }
 
     $data['rs_details'] = $rs_details;
-    
+
     $view_print = view('web.outgoing.manifest-as._print', $data);
     $title      = 'Manifest AS';
 

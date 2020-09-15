@@ -55,8 +55,44 @@
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
 
-    $('.btn-delete').removeClass('hide')
     $('.btn-print').removeClass('hide')
+
+    @if(!$manifestHeader->status_complete)
+    $('.btn-delete').removeClass('hide')
+    $('.btn-submit').removeClass('hide')
+    @else
+    $('.btn-save').addClass('hide')
+    @endif
+
+    $('.btn-submit').click(function(event) {
+      /* Act on the event */
+      swal({
+          text: "After submit manifest cannot rollback or cancel, Are you sure to submit complete ?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Submit It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) { // Bila oke post ajax ke url delete nya
+            // Ajax Post Delete
+            $.ajax({
+              url: '{{url('manifest-as/' . $manifestHeader->do_manifest_no . '/submit')}}',
+              type: 'POST',
+            })
+            .done(function(result) { // Kalau ajax nya success
+              if (result.status) {
+                showSwalAutoClose('Success', result.message)
+                window.location.href = '{{url("manifest-as/" . $manifestHeader->do_manifest_no . '/edit')}}'
+              }
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
+          }
+        })
+    });
 
     $('.btn-delete').click(function(event) {
       /* Act on the event */

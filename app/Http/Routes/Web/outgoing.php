@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('manifest-as/lmb-waiting-manifest', 'Web\ManifestASController@lmbWaitingManifest');
   Route::get('manifest-as/{lmb_id}/create-manifest', 'Web\ManifestASController@createManifest');
   Route::get('manifest-as/{do_manifest_no}/list-do', 'Web\ManifestASController@listDO');
+  Route::post('manifest-as/{do_manifest_no}/submit', 'Web\ManifestASController@submit');
   Route::get('manifest-as/{id}/export', 'Web\ManifestASController@export'); // Print
   Route::resource('manifest-as', 'Web\ManifestASController');
 
