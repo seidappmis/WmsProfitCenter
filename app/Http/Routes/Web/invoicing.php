@@ -8,6 +8,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('receipt-invoice/manifest', 'Web\ReceiptInvoiceController@getManifest');
   Route::get('receipt-invoice/create', 'Web\ReceiptInvoiceController@create');
   Route::post('receipt-invoice', 'Web\ReceiptInvoiceController@store');
+  Route::post('receipt-invoice/{id}/create-receipt-no', 'Web\ReceiptInvoiceController@createReceiptNo');
   Route::get('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@show');
   Route::get('receipt-invoice/{id}/export-receipt-no', 'Web\ReceiptInvoiceController@exportReceiptNo');
   Route::get('receipt-invoice/{id}/export-receive-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');

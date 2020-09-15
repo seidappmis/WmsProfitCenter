@@ -45,8 +45,13 @@ class ReceiptInvoiceController extends Controller
         DB::raw('SUM(log_manifest_detail.cbm) AS sum_of_cbm')
       )
         ->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
+        ->leftjoin('log_invoice_receipt_detail', function ($join) {
+          $join->on('log_invoice_receipt_detail.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no');
+          $join->on('log_invoice_receipt_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
+        })
         ->where('log_manifest_header.expedition_code', $request->input('expedition_code'))
         ->whereBetween(DB::raw('DATE(log_manifest_header.do_manifest_date)'), array($from_date, $to_date))
+        ->whereNull('log_invoice_receipt_detail.id')
         ->groupBy('log_manifest_header.do_manifest_no')
       ;
 
@@ -164,6 +169,9 @@ class ReceiptInvoiceController extends Controller
         ->addColumn('count_of_do', function ($data) {
           return 0;
         })
+        ->addColumn('total', function ($data) {
+          return 0;
+        })
         ->addColumn('action_view', function ($data) {
           return get_button_view(url('receipt-invoice/' . $data->id));
         })
@@ -176,6 +184,24 @@ class ReceiptInvoiceController extends Controller
     }
 
     return view('web.invoicing.receipt-invoice.view', $data);
+  }
+
+  public function createReceiptNo($id)
+  {
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+
+    $max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where invoice_receipt_date = ?', [date('Y-m-d')])[0]->max_no;
+
+    $max_no = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+
+    $invoice_receipt_no = $max_no . '/' . getRomawi(date('m')) . '/DIST.LOG/KU.SEID/' . date('y');
+
+    $invoiceReceiptHeader->invoice_receipt_no   = $invoice_receipt_no;
+    $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d');
+
+    $invoiceReceiptHeader->save();
+
+    return sendSuccess("Receipt No created.", $invoiceReceiptHeader);
   }
 
   public function exportReceiptNo(Request $request, $id)

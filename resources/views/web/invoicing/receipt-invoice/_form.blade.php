@@ -12,7 +12,9 @@
               <strong>NEW</strong>
               <h6 class="card-title">List Manifest Receipt</h6>
               <hr>
-              <span class="waves-effect waves-light btn btn-small indigo darken-4 mb-1">Create Receipt No.</span>
+              @if(empty($invoiceReceiptHeader->invoice_receipt_no))
+              <span class="waves-effect waves-light btn btn-small btn-create-receipt-no indigo darken-4 mb-1">Create Receipt No.</span>
+              @endif
               <div class="section-data-tables">
                 <table id="table_list_manifest_receipt" class="display" width="100%">
                     <thead>
@@ -33,6 +35,7 @@
                         <th>OVERSTAY</th>
                         <th>TOTAL</th>
                         <th width="50px;"></th>
+                        <th width="50px;"></th>
                       </tr>
                     </thead>
                     <tbody></tbody> 
@@ -41,15 +44,15 @@
 
               <div class="row">
                 <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="">
+                    <input id="name" type="text" value="{{$invoiceReceiptHeader->kwitansi_no}}" placeholder="">
                     <label for="first_name">Kwitansi No.</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="" readonly="readonly">
+                    <input id="name" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_id}}" readonly="readonly">
                     <label for="first_name">Receipt ID.</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="" readonly="readonly">
+                    <input id="name" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_no}}" readonly="readonly">
                     <label for="first_name">Receipt No.</label>
                 </div>
               </div>
@@ -67,7 +70,7 @@
                     <input id="name" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice (X)</label>
                 </div>
-                <div class="input-field col s2">
+                <div class="input-field col s3">
                     <input id="name" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice + PPn(B+X)</label>
                 </div>
@@ -127,16 +130,39 @@
             {data: 'vehicle_description'},
             {data: 'city_name'},
             {data: 'count_of_do'},
-            {data: 'sum_of_cbm', className: 'center-align'},
-            {data: 'cbm', className: 'center-align'},
-            {data: 'ritase', className: 'center-align'},
-            {data: 'ritas2', className: 'center-align'},
-            {data: 'multidrop', className: 'center-align'},
-            {data: 'unloading', className: 'center-align'},
-            {data: 'overstay', className: 'center-align'},
+            {data: 'cbm_do', className: 'center-align'},
+            {data: 'cbm_amount', className: 'center-align'},
+            {data: 'ritase_amount', className: 'center-align'},
+            {data: 'ritase2_amount', className: 'center-align'},
+            {data: 'multidro_amount', className: 'center-align'},
+            {data: 'unloading_amount', className: 'center-align'},
+            {data: 'overstay_amount', className: 'center-align'},
             {data: 'total', className: 'center-align'},
-            {data: 'action', className: 'center-align'},
+            {data: 'action_view', className: 'center-align'},
+            {data: 'action_delete', className: 'center-align'},
         ]
+    });
+
+    $('.btn-create-receipt-no').click(function(event) {
+      /* Act on the event */
+      $.ajax({
+        url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id . '/create-receipt-no')}}',
+        type: 'POST',
+        dataType: 'json',
+      })
+      .done(function(result) {
+        if(result.status){
+          showSwalAutoClose("Success", result.message)
+          window.location.href = '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}';
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      
     });
   });
 </script>
