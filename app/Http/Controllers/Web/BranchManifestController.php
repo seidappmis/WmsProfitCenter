@@ -16,7 +16,7 @@ class BranchManifestController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = WMSBranchManifestHeader::all();
+      $query = WMSBranchManifestHeader::where('kode_cabang', auth()->user()->cabang->kode_cabang);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -177,43 +177,43 @@ class BranchManifestController extends Controller
 
       $manifestDetail['do_manifest_no'] = $request->input('do_manifest_no');
       // $manifestDetail['no_urut']             = '';
-      $manifestDetail['delivery_no']           = $value['delivery_no'];
-      $manifestDetail['delivery_items']        = $value['delivery_items'];
-      $manifestDetail['invoice_no']            = $value['invoice_no'];
-      $manifestDetail['ambil_sendiri']         = 0;
-      $manifestDetail['model']                 = $value['model'];
-      $manifestDetail['expedition_code']       = $manifestHeader->expedition_code;
-      $manifestDetail['expedition_name']       = $manifestHeader->expedition_name;
-      $manifestDetail['sold_to']               = $concept->long_description_customer;
-      $manifestDetail['sold_to_code']          = $concept->kode_customer;
-      $manifestDetail['sold_to_street']        = $concept->long_description_customer;
-      $manifestDetail['ship_to']               = $concept->long_description_customer;
-      $manifestDetail['ship_to_code']          = $concept->kode_customer;
-      $manifestDetail['city_code']             = $request->input('city_code');
-      $manifestDetail['city_name']             = $request->input('city_name');
-      $manifestDetail['do_date']               = $manifestHeader->do_manifest_date;
-      $manifestDetail['quantity']              = $value['quantity'];
-      $manifestDetail['cbm']                   = $value['cbm'];
-      $manifestDetail['do_internal']           = $request->input('do_internal');
-      $manifestDetail['reservasi_no']          = $request->input('reservasi_no');
+      $manifestDetail['delivery_no']     = $value['delivery_no'];
+      $manifestDetail['delivery_items']  = $value['delivery_items'];
+      $manifestDetail['invoice_no']      = $value['invoice_no'];
+      $manifestDetail['ambil_sendiri']   = 0;
+      $manifestDetail['model']           = $value['model'];
+      $manifestDetail['expedition_code'] = $manifestHeader->expedition_code;
+      $manifestDetail['expedition_name'] = $manifestHeader->expedition_name;
+      $manifestDetail['sold_to']         = $concept->long_description_customer;
+      $manifestDetail['sold_to_code']    = $concept->kode_customer;
+      $manifestDetail['sold_to_street']  = $concept->long_description_customer;
+      $manifestDetail['ship_to']         = $concept->long_description_customer;
+      $manifestDetail['ship_to_code']    = $concept->kode_customer;
+      $manifestDetail['city_code']       = $request->input('city_code');
+      $manifestDetail['city_name']       = $request->input('city_name');
+      $manifestDetail['do_date']         = $manifestHeader->do_manifest_date;
+      $manifestDetail['quantity']        = $value['quantity'];
+      $manifestDetail['cbm']             = $value['cbm'];
+      $manifestDetail['do_internal']     = $request->input('do_internal');
+      $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
       // $manifestDetail['nilai_ritase']          = '';
       // $manifestDetail['nilai_ritase2']         = '';
       // $manifestDetail['nilai_cbm']             = '';
-      $manifestDetail['code_sales']            = $concept->code_sales;
+      $manifestDetail['code_sales'] = $concept->code_sales;
       // $manifestDetail['tcs']                   = '';
       // $manifestDetail['do_return']             = '';
       // $manifestDetail['status_confirm']        = '';
       // $manifestDetail['confirm_date']          = '';
       // $manifestDetail['confirm_by']            = '';
       // $manifestDetail['lead_time']             = '';
-      $manifestDetail['kode_cabang']           = substr($value['kode_customer'], 0, 2);
+      $manifestDetail['kode_cabang'] = substr($value['kode_customer'], 0, 2);
       // $manifestDetail['region']                = '';
       // $manifestDetail['actual_time_arrival']   = '';
       // $manifestDetail['actual_unloading_date'] = '';
       // $manifestDetail['doc_do_return_date']    = '';
-      $manifestDetail['do_reject']             = 0;
-      $manifestDetail['created_at']            = date('Y-m-d H:i:s');
-      $manifestDetail['created_by']            = auth()->user()->id;
+      $manifestDetail['do_reject']  = 0;
+      $manifestDetail['created_at'] = date('Y-m-d H:i:s');
+      $manifestDetail['created_by'] = auth()->user()->id;
 
       $rs_manifest_detail[] = $manifestDetail;
     }

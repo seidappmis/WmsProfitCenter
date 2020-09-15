@@ -42,6 +42,7 @@ class LMBHeader extends Model
       ->leftjoin('wms_pickinglist_detail', function ($join) {
         $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
         $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
         $join->on('wms_pickinglist_detail.header_id', '=', 'wms_lmb_detail.picking_id');
       })
     ;

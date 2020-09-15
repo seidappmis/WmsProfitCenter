@@ -31,10 +31,18 @@ class LogManifestHeader extends Model
    */
   public function status()
   {
-    if ($this->details->count() == 0) {
+    $total_detail         = $this->details->count();
+    $total_detail_confirm = $this->details()->where('status_confirm', 1)->count();
+
+    if ($total_detail == 0) {
       return 'DO Items Not Found';
-    } elseif ($this->status_complete) {
+    } elseif ($this->status_complete && $total_detail_confirm == 0) {
       return 'Complete & Waiting Confirm';
+    } elseif ($this->status_complete && $total_detail_confirm < $total_detail) {
+      return 'Partial D/O Confirmed';
+    } elseif ($this->status_complete && $total_detail_confirm = $total_detail) {
+      return 'Full D/O Confirmed';
+
     } else {
       return 'Waiting D/O';
     }

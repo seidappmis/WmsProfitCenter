@@ -33,6 +33,7 @@ class ConformManifestController extends Controller
         ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
         ->groupBy('log_manifest_header.do_manifest_no')
         ->where('log_manifest_header.status_complete', 1)
+        ->where('log_manifest_detail.status_confirm', 0)
         ;
 
       $datatables = DataTables::of($query)

@@ -217,6 +217,7 @@ class ManifestRegularController extends Controller
 
       $concept = Concept::where('delivery_no', $value['delivery_no'])
         ->where('invoice_no', $value['invoice_no'])
+        ->where('delivery_items', $value['delivery_items'])
         ->where('model', $value['model'])->first();
 
       $manifestDetail['do_manifest_no'] = $request->input('do_manifest_no');
