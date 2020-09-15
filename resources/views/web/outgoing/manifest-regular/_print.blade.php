@@ -133,7 +133,7 @@
               <tr>
                 <td colspan="7" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Total</strong></td>
                 <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"></td>
-                <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;">1</td>
+                <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"></td>
                 <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
                 <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
                 <td colspan="2" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;">{{$total_qty}}</td>
@@ -166,7 +166,7 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="3" style="text-align: left; width: 70mm;">Thursday, 13-August-2020 04:16:31 PM</td>
+                <td colspan="3" style="text-align: left; width: 70mm;">Thursday, {{date('d-F-Y h:i:s A')}}</td>
                 <td colspan="8" style="text-align: center; width: 70mm;">Page 1 of 1</td>
                 <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
               </tr>
