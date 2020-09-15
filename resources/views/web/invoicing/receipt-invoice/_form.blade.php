@@ -42,7 +42,7 @@
                 </table>
               </div>
 
-              <div class="row">
+              <div class="row mt-2">
                 <div class="input-field col s3">
                     <input id="kwitansi_no" type="text" value="{{$invoiceReceiptHeader->kwitansi_no}}" placeholder="">
                     <label for="kwitansi_no">Kwitansi No.</label>
@@ -62,12 +62,12 @@
               <hr>
               <div class="row">
                   <div class="input-field col s2">
-                    <input id="name" type="text" placeholder="" required>
-                    <label for="first_name">PPh 2% (A)</label>
+                    <input id="amount_pph" type="text" value="{{$invoiceReceiptHeader->amount_pph}}" placeholder="" required>
+                    <label for="amount_pph">PPh 2% (A)</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="name" type="text" placeholder="" required>
-                    <label for="first_name">PPn 10% (B)</label>
+                    <input id="amount_ppn" type="text" value="{{$invoiceReceiptHeader->amount_ppn}}" placeholder="" required>
+                    <label for="amount_ppn">PPn 10% (B)</label>
                 </div>
                 <div class="input-field col s2">
                     <input id="name" type="text" placeholder="" readonly="readonly">
@@ -76,6 +76,9 @@
                 <div class="input-field col s3">
                     <input id="name" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice + PPn(B+X)</label>
+                </div>
+                <div class="col s3">
+                  <span class="waves-effect waves-light btn btn-small btn-update-ppn indigo darken-4 mt-5 {{!empty($invoiceReceiptHeader->invoice_receipt_no) ? '' : 'hide'}}">Update PPN</span>
                 </div>
               </div>
               <div class="row">

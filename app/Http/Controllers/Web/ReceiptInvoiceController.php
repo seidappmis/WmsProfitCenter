@@ -229,7 +229,9 @@ class ReceiptInvoiceController extends Controller
 
   public function exportReceiptNo(Request $request, $id)
   {
-    $view_print = view('web.invoicing.receipt-invoice._print_receipt_no');
+    $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+
+    $view_print = view('web.invoicing.receipt-invoice._print_receipt_no', $data);
     $title      = 'receipt_no';
 
     if ($request->input('filetype') == 'html') {
@@ -296,7 +298,9 @@ class ReceiptInvoiceController extends Controller
 
   public function exportReceiptInvoice(Request $request, $id)
   {
-    $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice');
+    $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+
+    $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
     $title      = 'receipt_invoice';
 
     if ($request->input('filetype') == 'html') {

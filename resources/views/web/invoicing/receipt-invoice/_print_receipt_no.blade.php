@@ -124,7 +124,7 @@
                                     &nbsp;
                                 </td>
                                 <td colspan="4" style="text-align: center; font-size: 10pt; ">
-                                    No. 175/XII/DIST.LOG/KU.SEID/19
+                                    No. {{$invoiceReceiptHeader->invoice_receipt_no}}
 
                                 </td>
                                 <td colspan="4" style="text-align: center; font-size: 14pt; width: 40mm;">
@@ -135,7 +135,7 @@
                                     &nbsp;
                                 </td>
                                 <td colspan="4" style="text-align: center; font-size: 10pt; ">
-                                    No. 175/XII/DIST.LOG/KU.SEID/19
+                                    No. {{$invoiceReceiptHeader->invoice_receipt_no}}
 
                                 </td>
                                 <td colspan="4" style="text-align: center; font-size: 14pt; width: 40mm;">
@@ -165,12 +165,12 @@
                                     Telah Terima dari
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="8">GEMA SARANA TRANSPORTASI, PT.</td>
+                                <td colspan="8">{{$invoiceReceiptHeader->expedition_name}}</td>
                                 <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
                                     Telah Terima dari
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="8">GEMA SARANA TRANSPORTASI, PT.</td>
+                                <td colspan="8">{{$invoiceReceiptHeader->expedition_name}}</td>
                             </tr>
                             <tr>
                                 <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
@@ -186,12 +186,12 @@
                                     Nota / Kwitansi No. / Tgl
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="8">INV/SHARP-JKT/XII-19/110</td>
+                                <td colspan="8">{{$invoiceReceiptHeader->kwitansi_no}}</td>
                                 <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
                                     Nota / Kwitansi No. / Tgl
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="8">INV/SHARP-JKT/XII-19/110</td>
+                                <td colspan="8">{{$invoiceReceiptHeader->kwitansi_no}}</td>
                             </tr>
                             <tr>
                                 <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">

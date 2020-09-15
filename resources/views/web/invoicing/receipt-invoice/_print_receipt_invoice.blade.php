@@ -42,7 +42,7 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="5" style="text-align: left; font-size: 10pt;"><strong>
-                                        KRW-FAKTUR-200910-N03</strong>
+                                        {{$invoiceReceiptHeader->invoice_receipt_id}}</strong>
                                 </td>
                                 <td rowspan="4" colspan="14"
                                     style="text-align: left; font-size: 14pt; vertical-align: top;"><strong>
@@ -55,10 +55,10 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="4" style="text-align: left; font-size: 10pt;"><strong>
-                                        001/IX/DIST.LOG/KU.SEID/20</strong>
+                                        {{$invoiceReceiptHeader->invoice_receipt_no}}</strong>
                                 </td>
                                 <td style="text-align: left; font-size: 10pt;">
-                                    <strong>K2020-09-10</strong>
+                                    <strong>K{{date('Y-m-d')}}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -67,7 +67,7 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="5" style="text-align: left; font-size: 10pt;">
-                                    <strong>INV/SHARP-KRW/IX-20/001</strong>
+                                    <strong>{{$invoiceReceiptHeader->kwitansi_no}}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -76,7 +76,7 @@
                                 </td>
                                 <td style="width: 5mm;">:</td>
                                 <td colspan="5" style="text-align: left; font-size: 10pt;">
-                                    <strong>GEMA SARANA TRANSPORTASI, PT.</strong>
+                                    <strong>{{$invoiceReceiptHeader->expedition_name}}</strong>
                                 </td>
                             </tr>
                             <tr>
