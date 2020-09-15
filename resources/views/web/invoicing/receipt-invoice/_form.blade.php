@@ -44,16 +44,19 @@
 
               <div class="row">
                 <div class="input-field col s3">
-                    <input id="name" type="text" value="{{$invoiceReceiptHeader->kwitansi_no}}" placeholder="">
-                    <label for="first_name">Kwitansi No.</label>
+                    <input id="kwitansi_no" type="text" value="{{$invoiceReceiptHeader->kwitansi_no}}" placeholder="">
+                    <label for="kwitansi_no">Kwitansi No.</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_id}}" readonly="readonly">
-                    <label for="first_name">Receipt ID.</label>
+                    <input id="invoice_receipt_id" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_id}}" readonly="readonly">
+                    <label for="invoice_receipt_id">Receipt ID.</label>
                 </div>
-                <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_no}}" readonly="readonly">
-                    <label for="first_name">Receipt No.</label>
+                <div class="input-field col s4">
+                    <input id="invoice_receipt_no" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_no}}" readonly="readonly">
+                    <label for="invoice_receipt_no">Receipt No.</label>
+                </div>
+                <div class="col s2">
+                  <span class="waves-effect waves-light btn btn-small btn-update-receipt-invoice indigo darken-4 mt-5 {{!empty($invoiceReceiptHeader->invoice_receipt_no) ? '' : 'hide'}}">Update</span>
                 </div>
               </div>
               <hr>
@@ -117,6 +120,8 @@
         serverSide: true,
         scrollX: true,
         responsive: false,
+        paging: false,
+        info: false,
         ajax: {
             url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}',
             type: 'GET',
@@ -143,6 +148,28 @@
         ]
     });
 
+    $('.btn-update-receipt-invoice').click(function(event) {
+      $.ajax({
+        url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id . '/update-receipt-invoice')}}',
+        type: 'PUT',
+        dataType: 'json',
+        data: {kwitansi_no: $('#kwitansi_no').val()}
+      })
+      .done(function(result) {
+        if(result.status){
+          showSwalAutoClose("Success", result.message)
+          $('#kwitansi_no').val(result.data.kwitansi_no)
+          $('#invoice_receipt_id').val(result.data.invoice_receipt_id)
+        }
+      })
+      .fail(function() {
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+    })
+
     $('.btn-create-receipt-no').click(function(event) {
       /* Act on the event */
       $.ajax({
@@ -153,7 +180,9 @@
       .done(function(result) {
         if(result.status){
           showSwalAutoClose("Success", result.message)
-          window.location.href = '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}';
+          $('#invoice_receipt_no').val(result.data.invoice_receipt_no)
+          $('.btn-update-receipt-invoice').removeClass('hide')
+          $('.btn-create-receipt-no').addClass('hide')
         }
       })
       .fail(function() {

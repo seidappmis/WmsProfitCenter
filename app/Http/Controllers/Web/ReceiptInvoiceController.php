@@ -186,6 +186,29 @@ class ReceiptInvoiceController extends Controller
     return view('web.invoicing.receipt-invoice.view', $data);
   }
 
+  public function updateReceiptInvoice(Request $request, $id)
+  {
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+
+    $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
+
+    if (empty($invoiceReceiptHeader->invoice_receipt_id)) {
+      $prefix = auth()->user()->area_data->code . '-FAKTUR-' . date('ymd') . '-N';
+
+      $prefix_length = strlen($prefix);
+      $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+      $max_no        = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
+
+      $invoice_receipt_id = $prefix . $max_no;
+
+      $invoiceReceiptHeader->invoice_receipt_id = $invoice_receipt_id;
+    }
+
+    $invoiceReceiptHeader->save();
+
+    return sendSuccess("Create Receipt ID " . $invoiceReceiptHeader->invoice_receipt_id . " success.", $invoiceReceiptHeader);
+  }
+
   public function createReceiptNo($id)
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
@@ -201,7 +224,7 @@ class ReceiptInvoiceController extends Controller
 
     $invoiceReceiptHeader->save();
 
-    return sendSuccess("Receipt No created.", $invoiceReceiptHeader);
+    return sendSuccess("Create Receipt No " . $invoiceReceiptHeader->invoice_receipt_no . " success.", $invoiceReceiptHeader);
   }
 
   public function exportReceiptNo(Request $request, $id)
