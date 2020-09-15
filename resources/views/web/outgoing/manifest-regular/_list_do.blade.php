@@ -2,9 +2,9 @@
 <h6>Total Manifest: 1</h6>
 <h5 class="card-title">List DO</h5>
 <hr>
-<a href="#modal-upload-do" class="waves-effect waves-light indigo btn-small modal-trigger mb-1">Upload DO</a>
+<a href="#modal-upload-do" class="waves-effect waves-light indigo btn-small btn-upload modal-trigger mb-1">Upload DO</a>
 @include('web.outgoing.manifest-regular.modal_upload_do')
-<a href="#modal-upload-return" class="waves-effect waves-light indigo btn-small modal-trigger mb-1">Upload Return</a>
+<a href="#modal-upload-return" class="waves-effect waves-light indigo btn-small btn-upload modal-trigger mb-1">Upload Return</a>
 @include('web.outgoing.manifest-regular.modal_upload_return')
 <div class="section-data-tables"> 
   <table id="list-do-table" class="display" width="100%">
@@ -34,6 +34,12 @@
 <script type="text/javascript">
   var dttable_list_do
   jQuery(document).ready(function($) {
+
+    @if($manifestHeader->status_complete)
+    $('.btn-save').addClass('hide')
+    $('.btn-upload').addClass('hide')
+    $('.btn-delete').addClass('hide')
+    @endif
     dttable_list_do = $('#list-do-table').DataTable({
     serverSide: true,
     scrollX: true,

@@ -47,8 +47,9 @@ class ManifestRegularController extends Controller
   public function listDO(Request $request, $do_manifest_no)
   {
     if ($request->ajax()) {
-      $query = LogManifestDetail::select('log_manifest_detail.*')
-        ->where('do_manifest_no', $do_manifest_no)
+      $query = LogManifestDetail::select('log_manifest_detail.*', 'log_manifest_header.status_complete')
+        ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        ->where('log_manifest_detail.do_manifest_no', $do_manifest_no)
       ;
 
       $datatables = DataTables::of($query)
@@ -58,7 +59,9 @@ class ManifestRegularController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_delete();
+          if (!$data->status_complete) {
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         })
         ->rawColumns(['do_status', 'action']);
@@ -239,13 +242,13 @@ class ManifestRegularController extends Controller
       $manifestDetail['area']            = $manifestHeader->area;
       $manifestDetail['do_internal']     = $request->input('do_internal');
       $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
-      $manifestDetail['code_sales'] = $concept->code_sales;
-      $manifestDetail['tcs']        = 1;
-      $manifestDetail['base_price']  = '';
-      $manifestDetail['kode_cabang'] = substr($value['kode_customer'], 0, 2);
-      $manifestDetail['region']      = '';
-      $manifestDetail['status_ds_done'] = 0;
-      $manifestDetail['do_reject']      = 0;
+      $manifestDetail['code_sales']      = $concept->code_sales;
+      $manifestDetail['tcs']             = 1;
+      $manifestDetail['base_price']      = '';
+      $manifestDetail['kode_cabang']     = substr($value['kode_customer'], 0, 2);
+      $manifestDetail['region']          = '';
+      $manifestDetail['status_ds_done']  = 0;
+      $manifestDetail['do_reject']       = 0;
 
       $rs_manifest_detail[] = $manifestDetail;
     }

@@ -139,13 +139,13 @@
                             @while($row_serial_pointer < $row_serial_total)
                             <tr>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2">
-                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : '&nbsp;'}}
+                                    {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
                             </tr>

@@ -87,7 +87,7 @@
                                 <td>{{ $manifestDetail->expedition_name }}</td>
                                 <td>{{ $manifestHeader->city_name }}</td>
                                 <td>{{ $manifestDetail->delivery_no }}</td>
-                                <td>{{ $manifestDetail->internal_do }}</td>
+                                <td>{{ $manifestDetail->do_internal }}</td>
                                 <td>{{ $manifestDetail->model }}</td>
                                 <td>{{ $manifestDetail->quantity }}</td>
                                 <td>{{ $manifestDetail->ship_to }}</td>

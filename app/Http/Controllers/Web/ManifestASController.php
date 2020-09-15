@@ -33,7 +33,9 @@ class ManifestASController extends Controller
         })
         ->addColumn('actionDelete', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_delete();
+          if (!$data->status_complete) {
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         })
         ->addColumn('actionPrint', function ($data) {

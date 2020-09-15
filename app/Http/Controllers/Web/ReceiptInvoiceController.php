@@ -152,9 +152,28 @@ class ReceiptInvoiceController extends Controller
 
   }
 
-  public function show($id)
+  public function show(Request $request, $id)
   {
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+
+    if ($request->ajax()) {
+      $query = $data['invoiceReceiptHeader']->details;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('count_of_do', function ($data) {
+          return 0;
+        })
+        ->addColumn('action_view', function ($data) {
+          return get_button_view(url('receipt-invoice/' . $data->id));
+        })
+        ->addColumn('action_delete', function ($data) {
+          return get_button_delete();
+        })
+        ->rawColumns(['action_view', 'action_delete']);
+
+      return $datatables->make(true);
+    }
 
     return view('web.invoicing.receipt-invoice.view', $data);
   }

@@ -110,10 +110,10 @@
 <script type="text/javascript">
   var dttable_list_manifest_receipt
   jQuery(document).ready(function($) {
-    var dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
+    dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
         serverSide: true,
         scrollX: true,
-        responsive: true,
+        responsive: false,
         ajax: {
             url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}',
             type: 'GET',
@@ -121,13 +121,21 @@
         order: [1, 'asc'],
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-            {data: 'invoice_receipt_id'},
-            {data: 'invoice_receipt_no'},
-            {data: 'invoice_receipt_date'},
-            {data: 'kwitansi_no'},
-            {data: 'expedition_name'},
-            {data: 'action_view', className: 'center-align'},
-            {data: 'action_delete', className: 'center-align'},
+            {data: 'do_manifest_no'},
+            {data: 'do_manifest_date'},
+            {data: 'vehicle_number'},
+            {data: 'vehicle_description'},
+            {data: 'city_name'},
+            {data: 'count_of_do'},
+            {data: 'sum_of_cbm', className: 'center-align'},
+            {data: 'cbm', className: 'center-align'},
+            {data: 'ritase', className: 'center-align'},
+            {data: 'ritas2', className: 'center-align'},
+            {data: 'multidrop', className: 'center-align'},
+            {data: 'unloading', className: 'center-align'},
+            {data: 'overstay', className: 'center-align'},
+            {data: 'total', className: 'center-align'},
+            {data: 'action', className: 'center-align'},
         ]
     });
   });

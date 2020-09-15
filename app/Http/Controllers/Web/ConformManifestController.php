@@ -31,7 +31,9 @@ class ConformManifestController extends Controller
         'log_manifest_header.*'
       )->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
         ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
-        ->groupBy('log_manifest_header.do_manifest_no');
+        ->groupBy('log_manifest_header.do_manifest_no')
+        ->where('log_manifest_header.status_complete', 1)
+        ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -61,6 +63,7 @@ class ConformManifestController extends Controller
         })
         ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
         ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->where('wms_branch_manifest_header.status_complete', 1)
         ->groupBy('wms_branch_manifest_detail.do_manifest_no')
       ;
 
@@ -121,6 +124,10 @@ class ConformManifestController extends Controller
           $manifesDetail->save();
         }
       } else {
+
+        if (empty($request->input('arrival_date'))) {
+          return sendError('Arival Date Required');
+        }
 
         $date_now = date('Y-m-d H:i:s');
 
