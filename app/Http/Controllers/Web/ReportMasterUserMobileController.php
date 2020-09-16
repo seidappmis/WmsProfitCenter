@@ -99,6 +99,7 @@ class ReportMasterUserMobileController extends Controller
 
     $writer->save("php://output");
   }
+  
   protected function getUserMobileTableData($data)
   {
     

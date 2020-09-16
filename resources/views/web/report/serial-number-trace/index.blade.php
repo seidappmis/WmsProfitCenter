@@ -102,13 +102,13 @@
                   {
                       text: 'PDF',
                       action: function ( e, dt, node, config ) {
-                          window.location.href = "{{url('report-master-users/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+                          window.location.href = "{{url('serial-number-trace/export?file_type=pdf')}}" + '&model=' + $('#form-filter [name="model"]').val() + '&serial_number=' + $('#form-filter [name="serial_number"]').val();
                       }
                   },
                    {
                       text: 'EXCEL',
                       action: function ( e, dt, node, config ) {
-                          window.location.href = "{{url('report-master-users/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+                          window.location.href = "{{url('serial-number-trace/export?file_type=xls')}}" + '&model=' + $('#form-filter [name="model"]').val() + '&serial_number=' + $('#form-filter [name="serial_number"]').val();
                       }
                   }
               ],
@@ -128,9 +128,9 @@
               {data: 'lmb_date'},
               {data: 'do_manifest_no'},
               {data: 'created_at'},
-              {data: 'arrival_date'},
+              {data: 'actual_time_arrival'},
               {data: 'from'},
-              {data: 'ship_to_code'},
+              {data: 'kode_customer'},
           ]
         });
 

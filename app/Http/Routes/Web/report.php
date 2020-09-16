@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-stock-inventory', 'Web\ReportStockInventoryController@index');
 
   Route::get('serial-number-trace', 'Web\SerialNumberTraceController@index');
+  Route::get('serial-number-trace/export', 'Web\SerialNumberTraceController@export');
 
   Route::view('report-occupancy', 'web.report.report-occupancy.index');
   Route::view('summary-wh-transporter-report', 'web.report.summary-wh-transporter-report.index');
