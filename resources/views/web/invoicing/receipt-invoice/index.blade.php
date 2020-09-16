@@ -105,7 +105,9 @@
     });
 
     dtdatatable.on('click', '.btn-delete', function(event) {
-      var id = $(this).data('id');
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+      id = data.id
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
@@ -120,7 +122,7 @@
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: id,
+            url: '{{url('picking-list')}}' + '/' + id,
             type: 'DELETE',
           })
           .done(function() { // Kalau ajax nya success

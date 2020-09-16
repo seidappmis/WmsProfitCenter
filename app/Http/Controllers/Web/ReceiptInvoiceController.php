@@ -41,7 +41,7 @@ class ReceiptInvoiceController extends Controller
 
       $query = LogManifestHeader::select(
         'log_manifest_header.*',
-        DB::raw('COUNT(log_manifest_detail.delivery_no) AS count_of_do'),
+        DB::raw('COUNT(DISTINCT(log_manifest_detail.delivery_no)) AS count_of_do'),
         DB::raw('SUM(log_manifest_detail.cbm) AS sum_of_cbm')
       )
         ->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
@@ -162,13 +162,15 @@ class ReceiptInvoiceController extends Controller
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
 
     if ($request->ajax()) {
-      $query = $data['invoiceReceiptHeader']->details;
+      $query = $data['invoiceReceiptHeader']->details()->select(
+        'log_invoice_receipt_detail.*',
+        DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do')
+      )
+        ->groupBy('do_manifest_no')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('count_of_do', function ($data) {
-          return 0;
-        })
         ->addColumn('total', function ($data) {
           return 0;
         })
