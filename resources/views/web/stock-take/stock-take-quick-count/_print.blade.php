@@ -15,7 +15,7 @@
                 <td colspan="2" style="width: 70mm">{{$schedule->sto_id}}</td>
                 <td style="width: 30mm">Description</td>
                 <td style="width: 10mm">:</td>
-                <td colspan="2">Stock Tacking Fiscal 19F</td>
+                <td colspan="2">{{$schedule->description}}</td>
               </tr>
               <tr>
                 <td>Period</td>
