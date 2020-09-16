@@ -21,8 +21,8 @@ class StockTakeQuickCountController extends Controller
       $data['total_all_tag_no']             = $schedule->input1->count();
       $data['total_all_models']             = $schedule->details->count();
       $data['total_all_location']           = $schedule->total_all_location();
-      $data['summary_tag_compared_matched'] = 0;
-      $data['diff_qty']                     = 0;
+      $data['summary_tag_compared_matched'] = $schedule->get_summary_tag_compared_matched($schedule->sto_id);
+      $data['diff_qty']                     = $schedule->getDifferentQuantity($schedule->sto_id);
       $data['only_input_1']                 = $schedule->input1->whereNotNull('input_date')->count();
       $data['only_input_2']                 = $schedule->input2->whereNotNull('input_date')->count();
 
