@@ -182,7 +182,7 @@
         scrollX: true,
         responsive: true,
         ajax: {
-            url: '{{ url('stock-take-input-1') }}',
+            url: '{{ url('stock-take-quick-count/input-1') }}',
             type: 'GET',
             data: function(d) {
                 d.sto_id = $('#sto_id').val()
@@ -202,7 +202,7 @@
         scrollX: true,
         responsive: true,
         ajax: {
-            url: '{{ url('stock-take-input-2') }}',
+            url: '{{ url('stock-take-quick-count/input-2') }}',
             type: 'GET',
             data: function(d) {
                 d.sto_id = $('#sto_id').val()

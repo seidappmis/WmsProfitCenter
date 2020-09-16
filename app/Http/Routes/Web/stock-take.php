@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Route::view('stock-take-quick-count', 'web.stock-take.stock-take-quick-count.index');
   Route::get('stock-take-quick-count', 'Web\StockTakeQuickCountController@index');
+  Route::get('stock-take-quick-count/input-1', 'Web\StockTakeQuickCountController@getInput1');
+  Route::get('stock-take-quick-count/input-2', 'Web\StockTakeQuickCountController@getInput2');
   Route::get('stock-take-quick-count/different-quantity', 'Web\StockTakeQuickCountController@getDifferentQuantity');
   Route::get('stock-take-quick-count/{id}/export', 'Web\StockTakeQuickCountController@export');
 
