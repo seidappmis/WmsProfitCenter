@@ -103,6 +103,7 @@ class PickingListController extends Controller
         ->has('details')
         ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
         ->where('wms_pickinglist_header.area', auth()->user()->area)
+        ->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
         ->whereNull('tr_driver_registered.id')
         ->get();
 
