@@ -8,7 +8,7 @@ Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 Route::get('/test', function () {
   echo "<pre>";
-  $modules   = \App\User::getStringGrantCabang();
+  $modules   = \App\Models\Gate::getLoadingGate();
   print_r($modules);
 });
 

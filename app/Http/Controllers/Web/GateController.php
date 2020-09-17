@@ -140,15 +140,13 @@ class GateController extends Controller
 
   public function getSelect2FreeGate(Request $request)
   {
-    $query = Gate::select(
-      DB::raw('tr_gate.gate_number AS id'),
-      DB::raw("CONCAT(tr_gate.gate_number, '|', tr_gate.description) AS text")
-    )->leftjoin('wms_pickinglist_header', function ($join) use ($request) {
-      $join->on('wms_pickinglist_header.gate_number', '=', 'tr_gate.gate_number')
+    $query = Gate::getLoadingGate(auth()->user()->area)
+      ->select(
+        DB::raw('tr_gate.gate_number AS id'),
+        DB::raw("CONCAT(tr_gate.gate_number, '|', tr_gate.description) AS text")
+      )
+      ->whereNull('vehicle_number')
       ;
-    });
-    $query->whereNull('wms_pickinglist_header.id');
-    $query->where('tr_gate.area', auth()->user()->area);
 
     return get_select2_data($request, $query);
   }
