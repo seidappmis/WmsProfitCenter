@@ -6,17 +6,13 @@
         <div class="container">
             <div class="section">
                 <div class="card">
-                    <div class="card-content">
-                        <p class="caption mb-0">
-                            Dashboard
-                        </p>
+                    <div class="card-content center-align" style="">
+                        <img src="{{ asset('app_logo.png') }}">
+                        <h5>::Welcome to::</h5>
+                        <h5>::SEID - WAREHOUSE MANAGEMENT SYSTEM::</h5>
                     </div>
                 </div>
             </div>
-            <!-- START RIGHT SIDEBAR NAV -->
-
-            <!-- END RIGHT SIDEBAR NAV -->
-
         </div>
     </div>
 </div>

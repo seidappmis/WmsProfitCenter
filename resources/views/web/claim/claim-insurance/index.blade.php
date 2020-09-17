@@ -1,0 +1,89 @@
+@extends('layouts.materialize.index')
+
+@section('content')
+<div class="row">
+
+    @component('layouts.materialize.components.title-wrapper')
+        <div class="row">
+            <div class="col s12 m6">
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Claim Insurance</span></h5>
+                <ol class="breadcrumbs mb-0">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Claim Insurance</li>
+                </ol>
+            </div>
+            <div class="col s12 m6">
+              <div class="display-flex">
+                <!---- Search ----->
+                <div class="app-wrapper mr-2">
+                  <div class="datatable-search">
+                    <i class="material-icons mr-2 search-icon">search</i>
+                    <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m3">
+            </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4">
+            <a href="{{ url('claim-insurance/create') }}" class="btn btn-large waves-effect waves-light btn-add">
+              New Claim Insurance
+            </a>
+          </div>
+        </div>
+    @endcomponent
+    
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                        <div class="section-data-tables"> 
+                          <table id="data-table-section-contents" class="display" width="100%">
+                              <thead>
+                                  <tr>
+                                    <th data-priority="1" width="30px">NO.</th>
+                                    <th>CLAIM REPORT</th>
+                                    <th>BERITA ACARA</th>
+                                    <th>BRANCH</th>
+                                    <th>KETERANGAN</th>
+                                    <th>DATE OF REPORT</th>
+                                    <th width="50px;"></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>1.</td>
+                                  <td></td>
+                                  <td>01/BA-HQ/02/2015</td>
+                                  <td></td>
+                                  <td></td>
+                                  <td>13-Oct</td>
+                                  <td>
+                                    {!! get_button_view(url('claim-notes/1')) !!}
+                                    {!! get_button_print() !!}
+                                  </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay"></div>
+    </div>
+</div>
+@endsection
+
+@push('script_js')
+<script type="text/javascript">
+    var dtdatatable = $('#data-table-section-contents').DataTable({
+        serverSide: false,
+        order: [1, 'asc'],
+    });
+</script>
+@endpush

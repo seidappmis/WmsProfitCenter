@@ -8,12 +8,15 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description"
-    content="WMS Sharp.">
-  <meta name="keywords"
-    content="WMS Sharp.">
+  <meta name="description" content="WMS Sharp.">
+  <meta name="keywords" content="WMS Sharp.">
+  <meta property="og:title" content="Wms-sharp" />
+  <meta property="og:image" content="{{ url('favicon.ico') }}" />
+  <meta property="og:url" content="/" />
+  <meta property="og:site_name" content="WMS SEID" />
+  <meta property="og:description" content="WMS SEID." />
   <meta name="author" content="ThemeSelect">
-  <title>WMS Sharp</title>
+  <title>SEID - Warehouse Management System</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -22,10 +25,14 @@
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/css/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/css/select.dataTables.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/css/dataTables.checkboxes.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/css/buttons.dataTables.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/pages/data-tables.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/sweetalert/sweetalert.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/select2/css/select2-materialize.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/dropify/css/dropify.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('css/font-awesome.min.css') }}">
   @stack('vendor_css')
 
   <!-- END: VENDOR CSS-->
@@ -57,9 +64,8 @@
 
   <footer class="page-footer footer footer-static footer-dark gradient-shadow navbar-border navbar-shadow">
     <div class="footer-copyright">
-      <div class="container"><span>&copy; 2019 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-            target="_blank">WMS Sharp</a> All rights reserved.</span><span class="right hide-on-small-only">Design and
-          Developed by <a href="https://pixinvent.com/">WMS Sharp</a></span></div>
+      <div class="container"><span>&copy; 2020 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
+            target="_blank">WMS SEID</a> All rights reserved.</span><span class="right hide-on-small-only">SEID :: Warehouse Management System</a></span></div>
     </div>
   </footer>
 
@@ -72,13 +78,18 @@
   <script src="{{ url('materialize/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js') }}">
   </script>
   <script src="{{ url('materialize/vendors/data-tables/js/dataTables.select.min.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/pdfmake.min.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/vfs_fonts.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/jszip.min.js') }}"></script>
+  <script src="{{ url('materialize/vendors/data-tables/js/datatables.checkboxes.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/sweetalert/sweetalert.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/select2/js/select2.full.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/dropify/js/dropify.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/form_repeater/jquery.repeater.min.js') }}"></script>
-  <script src="https://cdn.tiny.cloud/1/owjs6t5ywvk0rxqa5rd4xmlg8f2vg4c04wnstf7esi5sctw5/tinymce/5/tinymce.min.js"
-    referrerpolicy="origin"></script>
-
+  <script src="{{ url('vendors/moment.js') }}"></script>
+  {{-- <script src="https://cdn.tiny.cloud/1/owjs6t5ywvk0rxqa5rd4xmlg8f2vg4c04wnstf7esi5sctw5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
 
 
   @stack('vendor_js')

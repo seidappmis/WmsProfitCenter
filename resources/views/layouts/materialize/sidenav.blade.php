@@ -3,8 +3,8 @@
     <div class="brand-sidebar">
         <h1 class="logo-wrapper">
             <a class="brand-logo darken-1" href="/">
-            {{-- <img class="hide-on-med-and-down" src="" alt="WMS SHARP Logo" style="margin: 0 8px;"> --}}
-            <span class="logo-text hide-on-med-and-down">WMS SHARP</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i>
+            <img class="hide-on-med-and-down" src="" alt="WMS SHARP Logo" style="margin: 0 8px;">
+            <span class="logo-text hide-on-med-and-down">WMS SEID</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i>
             </a>
             <a class="navbar-toggler" href="#"></a>
         </h1>
@@ -35,7 +35,13 @@
                 }
                 @endphp
 
-                <li class="{{$parent_active}} bold"><a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)" tabindex="0"><i class="material-icons">{{ $nav["icon"] }}</i><span class="menu-title" data-i18n="Menu levels">{{ $nav["label"] }}</span></a>
+                <li class="{{$parent_active}} bold">
+                    <a class="collapsible-header waves-effect waves-cyan " href="JavaScript:void(0)" tabindex="0">
+                        <i class="material-icons">{{ $nav["icon"] }}</i>
+                        <div>
+                            <span class="menu-title" data-i18n="Menu levels">{{ $nav["label"] }}</span>
+                        </div>
+                    </a>
                     <div class="collapsible-body" style="">
                         <ul class="collapsible collapsible-sub" data-collapsible="accordion">
 
@@ -43,7 +49,9 @@
                             <li class="{{$child_nav['active']}}">
                                 <a class="{{$child_nav['active']}}" href="{{ url($child_nav["url"]) }}">
                                     <i class="material-icons">{{ $child_nav["icon"] }}</i>
-                                    <span data-i18n="Second level">{{ $child_nav["label"] }}</span>
+                                    <div>
+                                        <span data-i18n="Second level">{{ $child_nav["label"] }}</span>
+                                    </div>
                                 </a>
                             </li>
                         @endforeach
@@ -52,7 +60,13 @@
                     </div>
                 </li>
             @else {{-- tidak punya sub menu --}}
-                <li class="bold {{ $active }}"><a class="waves-effect waves-cyan {{ $active }}" href="{{ url($nav["url"]) }}"><i class="material-icons">{{ $nav["icon"] }}</i><span class="menu-title" data-i18n="">{{ $nav["label"] }}</span></a>
+                <li class="bold {{ $active }}">
+                    <a class="waves-effect waves-cyan {{ $active }}" href="{{ url($nav["url"]) }}">
+                        <i class="material-icons">{{ $nav["icon"] }}</i>
+                        <div>
+                            <span class="menu-title" data-i18n="">{{ $nav["label"] }}</span>
+                        </div>
+                    </a>
                 </li>
             @endif
 
