@@ -40,13 +40,13 @@ class LogManifestHeader extends Model
 
     if ($total_detail == 0) {
       return 'DO Items Not Found';
-    } elseif ($this->status_complete && $total_detail_confirm == 0) {
+    // } elseif ($this->status_complete && $total_detail_confirm == 0) {
+    } elseif ($this->status_complete) {
       return 'Complete & Waiting Confirm';
-    } elseif ($this->status_complete && $total_detail_confirm < $total_detail) {
+    } elseif ($total_detail_confirm < $total_detail) {
       return 'Partial D/O Confirmed';
-    } elseif ($this->status_complete && $total_detail_confirm = $total_detail) {
+    } elseif ($total_detail_confirm = $total_detail) {
       return 'Full D/O Confirmed';
-
     } else {
       return 'Waiting D/O';
     }
