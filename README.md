@@ -1,15 +1,19 @@
 ## Pre Installation
 1. OS (Ubuntu or linux base)
 1. Webserver Apache
- sudo apt install apache2
+   ``sudo apt install apache2``
+
 1. mysql
- sudo apt install mysql-server
+   ``sudo apt install mysql-server``
+
 1. PHP 7.4
- sudo apt install php libapache2-mod-php php-mysql
+   ``sudo apt install php libapache2-mod-php php-mysql``
+
 1. Extensi PHP 
- sudo apt install php-xml php-gd php-zip
+   ``sudo apt install php-xml php-gd php-zip``
+   
 1. Composer (Package Manager)
-  sudo apt install composer
+   ``sudo apt install composer``
 
 ## Installation
 1. clone project kemudian masuk ke folder project
