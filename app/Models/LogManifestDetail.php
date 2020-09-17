@@ -18,4 +18,12 @@ class LogManifestDetail extends Model
       return 'Manual';
     }
   }
+
+  public static function listDO($do_manifest_no)
+  {
+    return LogManifestDetail::select('log_manifest_detail.*', 'log_manifest_header.status_complete')
+        ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        ->where('log_manifest_detail.do_manifest_no', $do_manifest_no)
+        ;
+  }
 }

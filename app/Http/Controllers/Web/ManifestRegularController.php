@@ -47,9 +47,7 @@ class ManifestRegularController extends Controller
   public function listDO(Request $request, $do_manifest_no)
   {
     if ($request->ajax()) {
-      $query = LogManifestDetail::select('log_manifest_detail.*', 'log_manifest_header.status_complete')
-        ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        ->where('log_manifest_detail.do_manifest_no', $do_manifest_no)
+      $query = LogManifestDetail::listDO($do_manifest_no)
       ;
 
       $datatables = DataTables::of($query)

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LogManifestDetail;
 
 class LogManifestHeader extends Model
 {
@@ -21,7 +22,7 @@ class LogManifestHeader extends Model
       ->details
       ->where('status_confirm', 0)
       ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
-      ;
+    ;
   }
 
   /**
@@ -35,12 +36,12 @@ class LogManifestHeader extends Model
    */
   public function status()
   {
-    $total_detail         = $this->details->count();
-    $total_detail_confirm = $this->details()->where('status_confirm', 1)->count();
+    $total_detail         = LogManifestDetail::listDO($this->do_manifest_no)->count();
+    $total_detail_confirm = $this->details->count();
 
     if ($total_detail == 0) {
       return 'DO Items Not Found';
-    // } elseif ($this->status_complete && $total_detail_confirm == 0) {
+      // } elseif ($this->status_complete && $total_detail_confirm == 0) {
     } elseif ($this->status_complete) {
       return 'Complete & Waiting Confirm';
     } elseif ($total_detail_confirm < $total_detail) {
