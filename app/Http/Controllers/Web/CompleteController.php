@@ -72,7 +72,7 @@ class CompleteController extends Controller
     try {
       DB::beginTransaction();
       // Update Tr DRIVER REGISTERED
-      if ($manifestHeader->driver_name == "Ambil Sendiri") {
+      if ($manifestHeader->driver_name != "Ambil Sendiri") {
         $driverRegistered                 = DriverRegistered::findOrFail($id);
         $driverRegistered->wk_step_number = 6;
         $driverRegistered->save();
