@@ -26,6 +26,7 @@
 1. seed database data ``php artisan db:seed``
 1. Generate Oauth key ``php artisan passport:install``
 1. Set vhost ke folder public project
+
  - masuk folder vhost ``cd /etc/apache2/sites-avaliable``
  - edit default vhost atau buat baru ``sudo nano 000-default.conf``
    edit 
@@ -39,6 +40,7 @@
   </Directory>
    ``
   - reload web server ``sudo service apache2 reload``
+
 
 ## Reset database ke kondisi awal
 1. ``php artisan migrate:refresh``
