@@ -14,7 +14,14 @@
 ## Installation
 1. clone project kemudian masuk ke folder project
 1. composer install
-1. Buat database dan 
+1. Buat database dan user database
+
+  - masuk ke mysql ``sudo mysql``
+  - ``CREATE DATABASE database_name;``
+  - buat user database 
+  - ``CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';``
+  - ``GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';``
+
 1. copy .env.example ke .env kemudian atur konfigurasi di .env (database, app_url, dll)
 
    - Setting Database
