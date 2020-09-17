@@ -145,7 +145,7 @@ class GateController extends Controller
         DB::raw('tr_gate.gate_number AS id'),
         DB::raw("CONCAT(tr_gate.gate_number, '|', tr_gate.description) AS text")
       )
-      ->whereNull('vehicle_number')
+      ->whereNull('driver_id')
       ;
 
     return get_select2_data($request, $query);

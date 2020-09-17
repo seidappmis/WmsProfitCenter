@@ -25,9 +25,10 @@ class Gate extends BaseModel
           '(SELECT
            wms_pickinglist_header.`gate_number` AS picking_gate_number,
            wms_pickinglist_header.vehicle_number,
-           wms_pickinglist_header.driver_id,
+           IF(wms_pickinglist_header.city_code = "AS", "AS", wms_pickinglist_header.driver_id) AS driver_id,
            wms_pickinglist_header.`driver_register_id`,
            log_manifest_header.`do_manifest_no`,
+           wms_pickinglist_header.`city_code`,
            log_manifest_header.`status_complete`
          FROM wms_pickinglist_header
          LEFT JOIN log_manifest_header ON log_manifest_header.`driver_register_id` = wms_pickinglist_header.`driver_register_id`
