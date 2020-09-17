@@ -2,25 +2,24 @@
 1. OS (Ubuntu or linux base)
 1. Webserver Apache
    ``sudo apt install apache2``
-
 1. mysql
    ``sudo apt install mysql-server``
-
 1. PHP 7.4
    ``sudo apt install php libapache2-mod-php php-mysql``
-
 1. Extensi PHP 
    ``sudo apt install php-xml php-gd php-zip``
-   
 1. Composer (Package Manager)
    ``sudo apt install composer``
 
 ## Installation
 1. clone project kemudian masuk ke folder project
 1. composer install
+1. Buat database dan 
 1. copy .env.example ke .env kemudian atur konfigurasi di .env (database, app_url, dll)
-  - Setting Database
-  - Sesuaikan APP_URL dengan url aplikasi ex: http://localhost atau http://ip_komputer
+   - Setting Database
+   - Sesuaikan APP_URL dengan url aplikasi ex: http://localhost atau http://ip_komputer
+
+   
 1. generate application key ``php artisan key:generate``
 1. migrasi tabel database ``php artisan migrate``
 1. seed database data ``php artisan db:seed``
