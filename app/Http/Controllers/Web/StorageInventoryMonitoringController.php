@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\InventoryStorage;
 use App\Models\MovementTransactionLog;
-use DB;
 use DataTables;
+use DB;
 use Illuminate\Http\Request;
 
 class StorageInventoryMonitoringController extends Controller
@@ -21,7 +21,8 @@ class StorageInventoryMonitoringController extends Controller
       )
         ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_inventory_storage.storage_id');
 
-      $query->where('wms_master_storage.kode_cabang', auth()->user()->cabang->kode_cabang);
+      // $query->where('wms_master_storage.kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query->whereIn('wms_master_storage.kode_cabang', auth()->user()->getStringGrantCabang());
       // if (!auth()->user()->cabang->hq) {
       //   $query->where('wms_master_storage.kode_cabang', auth()->user()->cabang->kode_cabang);
       // }
@@ -46,13 +47,13 @@ class StorageInventoryMonitoringController extends Controller
     $data['inventoryStorage'] = InventoryStorage::findOrFail($id);
 
     if ($request->ajax()) {
-      $query      = MovementTransactionLog::select(
+      $query = MovementTransactionLog::select(
         'wms_movement_transaction_log.*',
         DB::raw('wms_master_movement_type.action AS movement_action')
       )
-      ->where('eancode', $data['inventoryStorage']->ean_code)
-      ->whereRaw('( wms_movement_transaction_log.storage_location_from = ' . $data['inventoryStorage']->storage->sto_loc_code_long . ' OR wms_movement_transaction_log.storage_location_to = ' . $data['inventoryStorage']->storage->sto_loc_code_long . ' )')
-      ->leftjoin('wms_master_movement_type', 'wms_master_movement_type.id', '=', 'wms_movement_transaction_log.mvt_master_id')
+        ->where('eancode', $data['inventoryStorage']->ean_code)
+        ->whereRaw('( wms_movement_transaction_log.storage_location_from = ' . $data['inventoryStorage']->storage->sto_loc_code_long . ' OR wms_movement_transaction_log.storage_location_to = ' . $data['inventoryStorage']->storage->sto_loc_code_long . ' )')
+        ->leftjoin('wms_master_movement_type', 'wms_master_movement_type.id', '=', 'wms_movement_transaction_log.mvt_master_id')
       ;
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

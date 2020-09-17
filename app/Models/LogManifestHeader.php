@@ -17,7 +17,11 @@ class LogManifestHeader extends Model
 
   public function getUnconfirmedDetails()
   {
-    return $this->details->where('status_confirm', 0);
+    return $this
+      ->details
+      ->where('status_confirm', 0)
+      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+      ;
   }
 
   /**

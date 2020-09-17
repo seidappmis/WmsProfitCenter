@@ -106,7 +106,7 @@
   function set_select2_branch(){
     $('#form-adjust-inventory-movement [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
-       ajax: get_select2_ajax_options('/master-cabang/select2-cabang')
+       ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
     });
     $('#form-adjust-inventory-movement [name="kode_cabang"]').change(function(event) {
       /* Act on the event */

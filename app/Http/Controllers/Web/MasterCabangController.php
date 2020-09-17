@@ -193,6 +193,20 @@ class MasterCabangController extends Controller
         return get_select2_data($request, $query);
     }
 
+    public function getSelect2GrantCabang(Request $request)
+    {
+        $query = MasterCabang::select(
+          DB::raw('kode_cabang AS id'),
+          DB::raw("CONCAT(short_description, '-', long_description) AS text")
+        );
+
+        $query->orderBy('text');
+
+        $query->whereIn('kode_cabang', auth()->user()->getStringGrantCabang());
+
+        return get_select2_data($request, $query);
+    }
+
     public function getSelect2Branch(Request $request)
     {
         $query = MasterCabang::select(

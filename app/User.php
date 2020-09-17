@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\UserRoleDetail;
+use App\Models\UsersGrantCabang;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -72,5 +73,20 @@ class User extends Authenticatable
   public function grantCabangs()
   {
     return $this->hasMany('App\Models\UsersGrantCabang', 'userid', 'username');
+  }
+
+  public static function getStringGrantCabang()
+  {
+    $grantCabangs = UsersGrantCabang::select('kode_cabang_grant')
+      ->where('userid', auth()->user()->username)
+      ->get();
+
+    $result = [];
+
+    foreach ($grantCabangs as $key => $value) {
+      $result[] = $value['kode_cabang_grant'];
+    }
+
+    return $result;
   }
 }
