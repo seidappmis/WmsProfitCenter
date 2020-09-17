@@ -16,6 +16,7 @@
 1. composer install
 1. Buat database dan 
 1. copy .env.example ke .env kemudian atur konfigurasi di .env (database, app_url, dll)
+
    - Setting Database
    - Sesuaikan APP_URL dengan url aplikasi ex: http://localhost atau http://ip_komputer
 
