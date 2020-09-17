@@ -20,8 +20,8 @@ class CompleteController extends Controller
         'log_manifest_header.*',
         'tr_concept_truck_flow.complete_date'
       )
-      ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
-      ->where('log_manifest_header.area', $request->input('area'));
+        ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
+        ->where('log_manifest_header.area', $request->input('area'));
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -72,22 +72,24 @@ class CompleteController extends Controller
     try {
       DB::beginTransaction();
       // Update Tr DRIVER REGISTERED
-      $driverRegistered                 = DriverRegistered::findOrFail($id);
-      $driverRegistered->wk_step_number = 6;
-      $driverRegistered->save();
+      if ($manifestHeader->driver_name == "Ambil Sendiri") {
+        $driverRegistered                 = DriverRegistered::findOrFail($id);
+        $driverRegistered->wk_step_number = 6;
+        $driverRegistered->save();
 
-      // UPDATE tr_workflow_header
-      $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $id)->first();
-      $conceptFlowHeader->workflow_id = 6;
-      $conceptFlowHeader->save();
+        // UPDATE tr_workflow_header
+        $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $id)->first();
+        $conceptFlowHeader->workflow_id = 6;
+        $conceptFlowHeader->save();
 
-      // Update Truck flow
-      $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+        // Update Truck flow
+        $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
 
-      $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
-      $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
-      $conceptTruckFlow->created_complete_by   = auth()->user()->id;
-      $conceptTruckFlow->save();
+        $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
+        $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
+        $conceptTruckFlow->created_complete_by   = auth()->user()->id;
+        $conceptTruckFlow->save();
+      }
 
       $manifestHeader->status_complete = 1;
       $manifestHeader->save();
