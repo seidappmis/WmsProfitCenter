@@ -81,7 +81,7 @@ class BranchManifestController extends Controller
     $prefix = auth()->user()->cabang->short_description . '-' . date('ymd');
 
     $prefix_length = strlen($prefix);
-    $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM log_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+    $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM wms_branch_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
     $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
     $do_manifest_no = $prefix . '-' . $max_no;
