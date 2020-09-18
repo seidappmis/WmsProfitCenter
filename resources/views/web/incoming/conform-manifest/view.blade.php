@@ -46,7 +46,7 @@
                               <label for="arrival_date">Arrival Date</label>
                             </div>
                             <div class="input-field col s12 m6">
-                              <input id="unloading_date" type="text" class="validate datetimepicker" name="unloading_date" required>
+                              <input id="unloading_date" type="text" class="validate datetimepicker" name="unloading_date">
                               <label for="unloading_date">Unloading Date</label>
                             </div>
                           </div>

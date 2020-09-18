@@ -68,10 +68,15 @@ var MaterialDateTimePicker = {
             });
             // $('button.btn-flat.datepicker-cancel.waves-effect, button.btn-flat.datepicker-done.waves-effect').remove();
             element.parent().find('.datepicker-footer').prepend('<button class="btn-flat datepicker-now waves-effect" data-id="' + element.attr('id') + '" type="button">NOW</button>')
+            element.parent().addClass('input-' + element.attr('id') + '-wrapper');
+
             
-            // $('button.btn-flat.datepicker-now.waves-effect').click(function(event) {
-            //     $('#' + $(this).data('id')).val('asdf')
-            // })
+            $('button.btn-flat.datepicker-now.waves-effect').click(function(event) {
+                $('#' + $(this).data('id')).val(moment().format('YYYY-MM-DD hh:mm'))
+                var input_wrapper = $('.input-' + $(this).data('id') + '-wrapper');
+                input_wrapper.find('.datepicker-modal').modal('close');
+                M.updateTextFields();
+            })
             $('button.btn-flat.datepicker-cancel.waves-effect').click(function(event) {
                 /* Act on the event */
                 $('button.btn-flat.timepicker-close.waves-effect').trigger('click')
