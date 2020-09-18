@@ -12,7 +12,7 @@
               <strong>NEW</strong>
               <h6 class="card-title">List Manifest Receipt</h6>
               <hr>
-              @if(empty($invoiceReceiptHeader->invoice_receipt_no))
+              @if(!empty($invoiceReceiptHeader) && empty($invoiceReceiptHeader->invoice_receipt_no))
               <span class="waves-effect waves-light btn btn-small btn-create-receipt-no indigo darken-4 mb-1">Create Receipt No.</span>
               @endif
               <div class="section-data-tables">
@@ -44,15 +44,15 @@
 
               <div class="row mt-2">
                 <div class="input-field col s3">
-                    <input id="kwitansi_no" type="text" value="{{$invoiceReceiptHeader->kwitansi_no}}" placeholder="">
+                    <input id="kwitansi_no" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->kwitansi_no : ''}}" placeholder="">
                     <label for="kwitansi_no">Kwitansi No.</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="invoice_receipt_id" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_id}}" readonly="readonly">
+                    <input id="invoice_receipt_id" type="text" placeholder="" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->invoice_receipt_id : ''}}" readonly="readonly">
                     <label for="invoice_receipt_id">Receipt ID.</label>
                 </div>
                 <div class="input-field col s4">
-                    <input id="invoice_receipt_no" type="text" placeholder="" value="{{$invoiceReceiptHeader->invoice_receipt_no}}" readonly="readonly">
+                    <input id="invoice_receipt_no" type="text" placeholder="" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->invoice_receipt_no : ''}}" readonly="readonly">
                     <label for="invoice_receipt_no">Receipt No.</label>
                 </div>
                 <div class="col s2">
@@ -62,11 +62,11 @@
               <hr>
               <div class="row">
                   <div class="input-field col s2">
-                    <input id="amount_pph" type="text" value="{{$invoiceReceiptHeader->amount_pph}}" placeholder="" required>
+                    <input id="amount_pph" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_pph : ''}}" placeholder="" required>
                     <label for="amount_pph">PPh 2% (A)</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="amount_ppn" type="text" value="{{$invoiceReceiptHeader->amount_ppn}}" placeholder="" required>
+                    <input id="amount_ppn" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_ppn : ''}}" placeholder="" required>
                     <label for="amount_ppn">PPn 10% (B)</label>
                 </div>
                 <div class="input-field col s2">
@@ -87,10 +87,44 @@
                       <label for="textarea2">REMARKS</label>
                   </div>
               </div>
+              @if(!empty($invoiceReceiptHeader))
               {!! get_button_print('#', 'Print Receipt NO', 'btn-print-receipt-no mt-0') !!}
               {!! get_button_print('#', 'Print Receive Invoice', 'btn-print-receive-invoice mt-0') !!}
               <br>
               {!! get_button_save('Submit to Accounting') !!}
+              @endif
+
+              <div class="list-do-wrapper mt-2">
+                <h6 class="card-title">LIST DO</h6>
+                <hr>
+                Manifest No : <span id="text-detail-manifest-no"></span>
+                <div class="section-data-tables">
+                <table id="table_list_manifest_receipt_do" class="display" width="100%">
+                      <thead>
+                        <tr>
+                          <th data-priority="1" width="30px">NO.</th>
+                          <th>MANIFEST NO</th>
+                          <th>DO DATE</th>
+                          <th>DO NO</th>
+                          <th>DO Int No</th>
+                          <th>CITY DO</th>
+                          <th>SHIP TO DETAIL</th>
+                          <th>CBM DO</th>
+                          <th>CBM</th>
+                          <th>RITASE</th>
+                          <th>RITASE2</th>
+                          <th>MULTIDROP</th>
+                          <th>UNLOADING</th>
+                          <th>OVERSTAY</th>
+                          <th>COST PER DO</th>
+                          <th width="50px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody> 
+                  </table>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -118,7 +152,9 @@
 @push('script_js')
 <script type="text/javascript">
   var dttable_list_manifest_receipt
+  var dttable_list_manifest_receipt_do
   jQuery(document).ready(function($) {
+    @if(!empty($invoiceReceiptHeader))
     dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
         serverSide: true,
         scrollX: true,
@@ -126,8 +162,8 @@
         paging: false,
         info: false,
         ajax: {
-            url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id)}}',
-            type: 'GET',
+            url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null"))}}',
+            type: 'GET'
         },
         order: [1, 'asc'],
         columns: [
@@ -151,9 +187,83 @@
         ]
     });
 
+    dttable_list_manifest_receipt_do = $('#table_list_manifest_receipt_do').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: false,
+        paging: false,
+        info: false,
+        ajax: {
+            url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/manifest' )}}',
+            type: 'GET',
+            data: function(d) {
+                d.do_manifest_no = $('#text-detail-manifest-no').text();
+              }
+        },
+        order: [1, 'asc'],
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'do_manifest_no'},
+            {data: 'do_date'},
+            {data: 'delivery_no'},
+            {data: 'do_internal_no'},
+            {data: 'city_name'},
+            {data: 'count_of_do'},
+            {data: 'cbm_do', className: 'center-align'},
+            {data: 'cbm_amount', className: 'center-align'},
+            {data: 'ritase_amount', className: 'center-align'},
+            {data: 'ritase2_amount', className: 'center-align'},
+            {data: 'multidro_amount', className: 'center-align'},
+            {data: 'unloading_amount', className: 'center-align'},
+            {data: 'overstay_amount', className: 'center-align'},
+            {data: 'total', className: 'center-align'},
+            {data: 'action_view', className: 'center-align'},
+        ]
+    });
+
+    dttable_list_manifest_receipt.on('click', '.btn-view', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      alert()
+    });
+
+    dttable_list_manifest_receipt.on('click', '.btn-delete', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var tr = $(this).parent().parent();
+      var data = dttable_list_manifest_receipt.row(tr).data();
+      swal({
+          text: "Delete Manifest No " + data.do_manifest_no + "?",
+          icon: 'warning',
+          buttons: {
+            cancel: true,
+            delete: 'Yes, Delete It'
+          }
+        }).then(function (confirm) { // proses confirm
+          if (confirm) { // Bila oke post ajax ke url delete nya
+            // Ajax Post Delete
+            $.ajax({
+              url: '{{url('receipt-invoice/' . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") )}}' + '/manifest/' + data.do_manifest_no,
+              type: 'DELETE',
+            })
+            .done(function(result) { // Kalau ajax nya success
+              if (result.status) {
+                showSwalAutoClose('Success', result.message)
+                dttable_list_manifest_receipt.ajax.reload(null, false); // reload datatable
+                dttable_manifest.ajax.reload(null, false); // reload datatable
+              }
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
+          }
+        })
+    });
+
     $('.btn-update-receipt-invoice').click(function(event) {
       $.ajax({
-        url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id . '/update-receipt-invoice')}}',
+        url: '{{url("receipt-invoice/" .  (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/update-receipt-invoice')}}',
         type: 'PUT',
         dataType: 'json',
         data: {kwitansi_no: $('#kwitansi_no').val()}
@@ -176,7 +286,7 @@
     $('.btn-create-receipt-no').click(function(event) {
       /* Act on the event */
       $.ajax({
-        url: '{{url("receipt-invoice/" . $invoiceReceiptHeader->id . '/create-receipt-no')}}',
+        url: '{{url("receipt-invoice/" .  (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/create-receipt-no')}}',
         type: 'POST',
         dataType: 'json',
       })
@@ -196,6 +306,7 @@
       });
       
     });
+    @endif
   });
 </script>
 @endpush

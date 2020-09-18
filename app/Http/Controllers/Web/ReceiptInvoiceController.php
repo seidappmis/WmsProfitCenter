@@ -50,6 +50,7 @@ class ReceiptInvoiceController extends Controller
           $join->on('log_invoice_receipt_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
         })
         ->where('log_manifest_header.expedition_code', $request->input('expedition_code'))
+        ->whereNotNull('log_manifest_header.expedition_code')
         ->whereBetween(DB::raw('DATE(log_manifest_header.do_manifest_date)'), array($from_date, $to_date))
         ->whereNull('log_invoice_receipt_detail.id')
         ->groupBy('log_manifest_header.do_manifest_no')
@@ -84,6 +85,53 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->amount_before_tax = 0;
     $invoiceReceiptHeader->amount_after_tax  = 0;
 
+    $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
+
+    try {
+      DB::beginTransaction();
+
+      $invoiceReceiptHeader->save();
+      InvoiceReceiptDetail::insert($rsInvoiceReceiptDetail);
+
+      DB::commit();
+
+      return sendSuccess('Receipt Invoice Created.', $invoiceReceiptHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+
+    return $rsInvoiceManifestDetail;
+
+  }
+
+  public function update(Request $request, $id)
+  {
+    if (empty(json_decode($request->input('data_manifest'), true))) {
+      return sendError('No manifest selected.');
+    }
+
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+    $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
+
+    try {
+      DB::beginTransaction();
+
+      $invoiceReceiptHeader->save();
+      InvoiceReceiptDetail::insert($rsInvoiceReceiptDetail);
+
+      DB::commit();
+
+      return sendSuccess('Receipt Invoice updated.', $invoiceReceiptHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+
+    return $rsInvoiceManifestDetail;
+
+  }
+
+  protected function getPostManifestDetailData($request, $invoiceReceiptHeader)
+  {
     $rs_do_manifest_no = [];
     foreach (json_decode($request->input('data_manifest'), true) as $key => $value) {
       $rs_do_manifest_no[] = $value['do_manifest_no'];
@@ -140,21 +188,7 @@ class ReceiptInvoiceController extends Controller
       $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
     }
 
-    try {
-      DB::beginTransaction();
-
-      $invoiceReceiptHeader->save();
-      InvoiceReceiptDetail::insert($rsInvoiceReceiptDetail);
-
-      DB::commit();
-
-      return sendSuccess('Receipt Invoice Created.', $invoiceReceiptHeader);
-    } catch (Exception $e) {
-      DB::rollBack();
-    }
-
-    return $rsInvoiceManifestDetail;
-
+    return $rsInvoiceReceiptDetail;
   }
 
   public function show(Request $request, $id)
@@ -186,6 +220,30 @@ class ReceiptInvoiceController extends Controller
     }
 
     return view('web.invoicing.receipt-invoice.view', $data);
+  }
+
+  public function destroy($id)
+  {
+    $header = InvoiceReceiptHeader::findOrFail($id);
+    try {
+      DB::beginTransaction();
+      InvoiceReceiptDetail::where('id_header', $id)->delete();
+      $header->delete();
+      DB::commit();
+
+      return sendSuccess('Receipt Invoice Deleted.', $header);
+    } catch (Exception $e) {
+      DB::rollback();
+    }
+  }
+
+  public function destroyManifest($id, $do_manifest_no)
+  {
+    $detail = InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no);
+
+    $detail->delete();
+
+    return sendSuccess('Manifest deleted.', $detail);
   }
 
   public function updateReceiptInvoice(Request $request, $id)

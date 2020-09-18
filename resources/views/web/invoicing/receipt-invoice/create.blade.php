@@ -38,13 +38,39 @@
 
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        scrollY: true,
-        scrollX: true,
-        // responsive: true,
-        order: [1, 'asc'],
-    });
+  $('#form-add-manifest').validate({
+      submitHandler: function (form){
+        setLoading(true); // Disable Button when ajax post data
+        var data_manifest = [];
+        dttable_manifest.$('input[type="checkbox"]').each(function() {
+           /* iterate through array or object */
+           if(this.checked){
+            var row = $(this).closest('tr');
+            var row_data = dttable_manifest.row(row).data();
+            data_manifest.push(row_data);
+           }
+        });
+        $.ajax({
+          url: '{{ url("receipt-invoice") }}',
+          type: 'POST',
+          data: $(form).serialize() + '&data_manifest=' + JSON.stringify(data_manifest),
+        })
+        .done(function(result) { // selesai dan berhasil
+          if (result.status) {
+            showSwalAutoClose("Success", result.message)
+            window.location.href = "{{ url('receipt-invoice') }}" + "/" + result.data.id
+          } else {
+            setLoading(false)
+            showSwalAutoClose("Warning", result.message)
+          }
+        })
+        .fail(function(xhr) {
+            setLoading(false); // Enable Button when failed
+            showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+
+      }
+    })
 
   M.textareaAutoResize($('#textarea2')); 
 </script>

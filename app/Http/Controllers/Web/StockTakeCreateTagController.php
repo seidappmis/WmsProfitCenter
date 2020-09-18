@@ -71,7 +71,7 @@ class StockTakeCreateTagController extends Controller
 
     fclose($file);
 
-    return DB::transaction(function () use ($stocktake_inputs) {
+    return DB::transaction(function () use ($stocktake_inputs, $request) {
       StockTakeInput1::where('sto_id', $request->input('sto_id'))->delete();
       StockTakeInput2::where('sto_id', $request->input('sto_id'))->delete();
       StockTakeInput1::insert($stocktake_inputs);

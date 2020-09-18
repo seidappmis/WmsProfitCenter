@@ -122,12 +122,14 @@
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: '{{url('picking-list')}}' + '/' + id,
+            url: '{{url('receipt-invoice')}}' + '/' + id,
             type: 'DELETE',
           })
-          .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
-            dtdatatable.ajax.reload(null, false); // reload datatable
+          .done(function(result) { // Kalau ajax nya success
+            if (result.status) {
+              showSwalAutoClose('Success', result.message)
+              dtdatatable.ajax.reload(null, false); // reload datatable
+            }
           })
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
