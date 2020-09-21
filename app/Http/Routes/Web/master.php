@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Destination City
   Route::get('destination-city/select2-destination-city', 'Web\DestinationCityController@getSelect2DestinationCity');
+  Route::get('destination-city/select2-destination-city-with-city-code', 'Web\DestinationCityController@getSelect2DestinationCityWithCityCode');
   Route::resource('destination-city', 'Web\DestinationCityController');
 
   // Master Freight Cost

@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class SummaryWHTransporterReportController extends Controller
+{
+  public function index(Request $request)
+  {
+    return view('web.report.summary-wh-transporter-report.index');
+  }
+
+  public function export(Request $request)
+  {
+    return view('web.report.summary-wh-transporter-report.print');
+  }
+}

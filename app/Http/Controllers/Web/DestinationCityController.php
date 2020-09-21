@@ -53,8 +53,8 @@ class DestinationCityController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'city_code'  => 'required|unique:log_destination_city|digits_between:1,10',
-      'city_name'  => 'required|alpha|max:100',
+      'city_code' => 'required|unique:log_destination_city|digits_between:1,10',
+      'city_name' => 'required|alpha|max:100',
     ]);
 
     $destinationCity            = new DestinationCity;
@@ -98,8 +98,8 @@ class DestinationCityController extends Controller
   public function update(Request $request, $id)
   {
     $request->validate([
-      'city_code'  => 'required|digits_between:1,10',
-      'city_name'  => 'required|alpha|max:100',
+      'city_code' => 'required|digits_between:1,10',
+      'city_name' => 'required|alpha|max:100',
     ]);
 
     $destinationCity            = DestinationCity::findOrFail($id);
@@ -120,12 +120,22 @@ class DestinationCityController extends Controller
   }
 
   public function getSelect2DestinationCity(Request $request)
-    {
-        $query = DestinationCity::select(
-          DB::raw('city_code AS id'),
-          DB::raw("city_name AS text")
-        );
+  {
+    $query = DestinationCity::select(
+      DB::raw('city_code AS id'),
+      DB::raw("city_name AS text")
+    );
 
-        return get_select2_data($request, $query);
-    }
+    return get_select2_data($request, $query);
+  }
+
+  public function getSelect2DestinationCityWithCityCode(Request $request)
+  {
+    $query = DestinationCity::select(
+      DB::raw('city_code AS id'),
+      DB::raw("CONCAT(city_code, ' - ', city_name) AS text")
+    );
+
+    return get_select2_data($request, $query);
+  }
 }
