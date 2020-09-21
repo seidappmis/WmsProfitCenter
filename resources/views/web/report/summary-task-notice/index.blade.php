@@ -38,7 +38,7 @@
                                      <td width="20%">No Document</td>
                                      <td>
                                        <div class="input-field col s4">
-                                         <input type="text" name="">
+                                         <input type="text" name="no_document">
                                        </div>
                                      </td>
                                    </tr>
@@ -49,9 +49,9 @@
                                          <table>
                                            <tr>
                                              <td>START :</td>
-                                             <td><input type="text" name="" class="validate datepicker"></td>
+                                             <td><input type="text" name="start_date" class="validate datepicker"></td>
                                              <td>END :</td>
-                                             <td><input type="text" name="" class="validate datepicker"></td>
+                                             <td><input type="text" name="end_date" class="validate datepicker"></td>
                                            </tr>
                                          </table>
                                        </div>
@@ -152,19 +152,20 @@
           url: '{{ url('summary-task-notice') }}',
           type: 'GET',
           data: function(d) {
-            d.type = 'area'
-            d.area = $('#form-report-outstanding-list [name="area"]').val()
-            d.area = $('#form-report-outstanding-list [name="area"]').val()
+            d.no_document = $('#form-summary-task-notice [name="no_document"]').val()
+            d.start_date = $('#form-summary-task-notice [name="start_date"]').val()
+            d.end_date = $('#form-summary-task-notice [name="end_date"]').val()
+            d.area = $('#form-summary-task-notice [name="area"]').val()
           }
       },
       columns: [
-          {data: 'date'},
+          {data: 'upload_date'},
           {data: 'receive_date'},
           {data: 'no_doc'},
-          {data: 'no_doc'},
+          {data: 'no_st_or_no_urf'},
           {data: 'no_apply'},
-          {data: 'customer_code'},
-          {data: 'customer_name'},
+          {data: 'costumer_code'},
+          {data: 'costumer_name'},
           {data: 'model_plan'},
           {data: 'qty_plan'},
           {data: 'cbm'},
@@ -179,12 +180,18 @@
           {data: 'rr'},
           {data: 'no_serial'},
           {data: 'kondisi'},
-          {data: 'remak'},
+          {data: 'remark'},
           {data: 'no_mobil'},
           {data: 'expedisi'},
           {data: 'driver'},
       ]
     });
+
+    $('#form-summary-task-notice').validate({
+      submitHandler: function(form){
+        dttable_summary_task_notice.ajax.reload(null, false)
+      }
+    })
     $('#form-summary-task-notice [name="area"]').select2({
        placeholder: '-- Select Area --',
        allowClear: true,

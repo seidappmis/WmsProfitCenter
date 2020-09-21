@@ -43,7 +43,7 @@
                                          From
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required>
+                                         <input placeholder="" name="start_date" type="text" class="validate datepicker" required>
                                        </div>
                                      </div>
                                      <div class="input-field col s6">
@@ -51,7 +51,7 @@
                                          To
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required >
+                                         <input placeholder="" name="end_date" type="text" class="validate datepicker" required >
                                        </div>
                                      </div>
                                    </td>
@@ -60,7 +60,7 @@
                                  <tr>
                                      <td>MODEL</td>
                                      <td><div class="input-field col s12">
-                                        <input id="" type="text" class="validate" name="" >
+                                        <input id="" type="text" class="validate" name="model" >
                                       </div></td>
                                  </tr>
                                  <tr>
@@ -99,6 +99,44 @@
         </div>
         <div class="content-overlay"></div>
     </div>
+
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                        <div class="section-data-tables">
+                            <table class="display" id="table_report_inventory_movement" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Transaction Date</th>
+                                        <th>Model</th>
+                                        <th>QTY</th>
+                                        <th>Debit/Credit</th>
+                                        <th>Branch Code</th>
+                                        <th>Branch</th>
+                                        <th>Storage Location</th>
+                                        <th>Movement Type</th>
+                                        <th>Picking No</th>
+                                        <th>Manifest No</th>
+                                        <th>Ship to Code</th>
+                                        <th>User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay">
+        </div>
+    </div>
+
 </div>
 @endsection
 
@@ -109,7 +147,56 @@
 
 @push('script_js')
 <script type="text/javascript">
+  var dttable_report_inventory_movement;
   jQuery(document).ready(function($) {
+    dttable_report_inventory_movement = $('#table_report_inventory_movement').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('report-inventory-movement/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('report-inventory-movement/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('report-inventory-movement') }}',
+          type: 'GET',
+          data: function(d) {
+            d.kode_cabang = $('#form-report-inventory-movement [name="kode_cabang"]').val()
+            d.start_date = $('#form-report-inventory-movement [name="start_date"]').val()
+            d.end_date = $('#form-report-inventory-movement [name="end_date"]').val()
+            d.model = $('#form-report-inventory-movement [name="model"]').val()
+            d.storage_location = $('#form-report-inventory-movement [name="storage_location"]').val()
+            d.movement_code = $('#form-report-inventory-movement [name="movement_code"]').val()
+          }
+      },
+      columns: [
+          {data: 'log_id'},
+          {data: 'created_at'},
+          {data: 'model'},
+          {data: 'quantity'},
+          {data: 'debit_credit'},
+          {data: 'kode_customer'},
+          {data: 'long_description'},
+          {data: 'storage_location'},
+          {data: 'movement_code'},
+          {data: 'arrival_no'},
+          {data: 'do_manifest_no'},
+          {data: 'ship_to_code'},
+          {data: 'username'},
+      ]
+    });
+
     $('#form-report-inventory-movement [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,
@@ -127,6 +214,12 @@
        allowClear: true,
        ajax: get_select2_ajax_options('/movement-type/select2')
     });
+
+    $('#form-report-inventory-movement').validate({
+      submitHandler: function (form){
+        dttable_report_inventory_movement.ajax.reload(null, false)
+      }
+    })
   });
 
   function setSLOC(filter = {cabang: null}){

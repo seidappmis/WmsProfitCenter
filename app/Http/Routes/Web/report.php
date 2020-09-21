@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
-  
+
   Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
 
@@ -50,5 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::view('report-occupancy', 'web.report.report-occupancy.index');
   Route::view('summary-wh-transporter-report', 'web.report.summary-wh-transporter-report.index');
-  Route::view('summary-do-confirmed', 'web.report.summary-do-confirmed.index');
+
+  Route::get('summary-do-confirmed', 'Web\SummaryDOConfirmedController@index');
+  Route::get('summary-do-confirmed/export', 'Web\SummaryDOConfirmedController@export');
 });

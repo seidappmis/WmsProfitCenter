@@ -21,21 +21,15 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content ">
-                        <form class="form-table">
+                        <form class="form-table" id="form-summary-do-confirmed">
                                <table>
                                    <tr>
                                        <td>Branch</td>
                                        <td>
-                                         <div class="input-field col s4">
-                                           <select name="" id="" required>
-                                             <option value="" disabled selected >-Select Branch-</option>
-                                             <option value="1" >KARAWANG</option>
-                                             <option value="2">SURABAYA HUB</option>
-                                             <option value="3">SWADAYA</option>
-                                              
-                                           </select>
-       
-                                         </div>
+                                         <div class="input-field col s12">
+                                            <select name="cabang" class="select2-data-ajax browser-default" required="">
+                                            </select>
+                                          </div>
                                        </td>
                                      </tr>
                                  <tr>
@@ -46,7 +40,7 @@
                                          From
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required>
+                                         <input placeholder="" name="do_date_from" type="text" class="validate datepicker" required>
                                        </div>
                                      </div>
                                      <div class="input-field col s6">
@@ -54,7 +48,7 @@
                                          To
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required >
+                                         <input placeholder="" name="do_date_to" type="text" class="validate datepicker" required >
                                        </div>
                                      </div>
                                    </td>
@@ -67,7 +61,7 @@
                                           From
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" >
+                                          <input placeholder="" name="delivery_no_from" type="text" >
                                         </div>
                                       </div>
                                       <div class="input-field col s6">
@@ -75,7 +69,7 @@
                                           To
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" >
+                                          <input placeholder="" name="delivery_no_to" type="text" >
                                         </div>
                                       </div>
                                     </td>
@@ -88,7 +82,7 @@
                                           From
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" >
+                                          <input placeholder="" name="do_internal_from" type="text" >
                                         </div>
                                       </div>
                                       <div class="input-field col s6">
@@ -96,7 +90,7 @@
                                           To
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" >
+                                          <input placeholder="" name="do_internal_to" type="text" >
                                         </div>
                                       </div>
                                     </td>
@@ -109,7 +103,7 @@
                                           From
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" class="validate datepicker" >
+                                          <input placeholder="" name="confirm_date_from" type="text" class="validate datepicker" >
                                         </div>
                                       </div>
                                       <div class="input-field col s6">
@@ -117,7 +111,7 @@
                                           To
                                         </div>
                                         <div class="col s9 m10">
-                                          <input placeholder="" id="first_name" type="text" class="validate datepicker"  >
+                                          <input placeholder="" name="confirm_date_to" type="text" class="validate datepicker"  >
                                         </div>
                                       </div>
                                     </td>
@@ -128,10 +122,10 @@
                                     <td>Confirm Status</td>
                                     <td>
                                       <div class="input-field col s4">
-                                        <select name="" id="" required>
-                                          <option value="" disabled selected >-All-</option>
-                                          <option value="1" >Confirm</option>
-                                          <option value="2">Unconfirm</option>
+                                        <select name="status_confirm" id="" required>
+                                          <option value="">-All-</option>
+                                          <option value="1">Confirm</option>
+                                          <option value="0">Unconfirm</option>
                                         </select>
     
                                       </div>
@@ -141,7 +135,7 @@
                                </table>
                               
                                <div class="input-field col s12">
-                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                 <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
                                </div>
                             </form>
                       </div>
@@ -152,3 +146,34 @@
     </div>
 </div>
 @endsection
+
+{{-- Load Modal Print --}}
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print',
+])
+
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#form-summary-do-confirmed').validate({
+      submitHandler: function(form){
+        initPrintPreviewPrint(
+            '{{url("summary-do-confirmed")}}' + '/export',
+            $(form).serialize()
+          )
+      }
+    })
+  });
+
+  $('#form-summary-do-confirmed [name="cabang"]').select2({
+     placeholder: '-- Select Branch --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+  });
+</script>
+@endpush

@@ -81,7 +81,7 @@
               <div class="card">
                 <div class="card-conten">
                   <div class="section-data-tables"> 
-                          <table id="data-stock-inventory" class="display" width="100%">
+                          <table id="table_report_stock_inventory" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">NO.</th>
@@ -113,9 +113,54 @@
 @push('script_js')
 <script type="text/javascript">
 
-  var table;
+  var dttable_report_stock_inventory;
   
   jQuery(document).ready(function($) {
+    var dttable_report_stock_inventory = $('#table_report_stock_inventory').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('report-stock-inventory') }}',
+          type: 'GET',
+          data: function(d) {
+              d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
+              d.model =$('').val()
+              d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
+              d.search['value'] = $('#global_filter').val()
+            }
+      },
+      order: [1, 'asc'],
+      columns: [
+          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+          {data: 'kode_customer', className: 'detail'},
+          {data: 'long_description', className: 'detail'},
+          {data: 'model_name', className: 'detail'},
+          {data: 'sto_loc_code_long', className: 'detail'},
+          {data: 'quantity_total', className: 'detail'},
+         ]
+    });
+
+    $('#form-report-stock-inventory').validate({
+      submitHandler: function (form){
+        dttable_report_stock_inventory.ajax.reload(null, false)
+      }
+    })
     $('#form-report-stock-inventory [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,
@@ -143,32 +188,7 @@
     });
   }
 
-  var table = $('#table-stock-inventori').DataTable({
-    serverSide: true,
-    scrollX: true,
-    dom: 'Brtip',
-    responsive: true,
-    ajax: {
-        url: '{{ url('report-stock-inventory') }}',
-        type: 'GET',
-        data: function(d) {
-            d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
-            d.model =$('').val()
-            d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
-            d.search['value'] = $('#global_filter').val()
-          }
-    },
-    order: [1, 'asc'],
-
-    columns: [
-        {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'kode_cabang', name: 'kode_cabang', className: 'detail'},
-        {data: 'long_description', name: 'long_descripion', className: 'detail'},
-        {data: 'model', name: 'model', className: 'detail'},
-        {data: 'ean_code', name: 'ean_code', className: 'detail'},
-        {data: 'quality_total', name: 'quality_total', className: 'detail'},
-       ]
-  });
+  
 
  
 
