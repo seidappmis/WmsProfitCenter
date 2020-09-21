@@ -20,12 +20,16 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('report-loading-lead-time', 'web.report.report-loading-lead-time.index');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
   Route::view('report-kpi-expeditions', 'web.report.report-kpi-expeditions.index');
-  Route::view('summary-incoming-report', 'web.report.summary-incoming-report.index');
+
+  Route::get('summary-incoming-report', 'Web\SummaryIncomingReportController@index');
+
   Route::view('summary-outgoing-report', 'web.report.summary-outgoing-report.index');
-  Route::view('report-master-freight-cost', 'web.report.report-master-freight-cost.index');
+  Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
-  Route::view('report-overload-concept-or-do', 'web.report.report-overload-concept-or-do.index');
+  
+  Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
+  Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
 
 
   Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');

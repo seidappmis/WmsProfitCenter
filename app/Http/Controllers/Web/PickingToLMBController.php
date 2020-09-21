@@ -160,7 +160,7 @@ class PickingToLMBController extends Controller
 
     $cabang = MasterCabang::where('kode_cabang', $lmbHeader->kode_cabang)->first();
 
-    $lmbHeader->short_description_cabang = $cabang->short_description;
+    $lmbHeader->short_description_cabang = auth()->user()->cabang->hq ? auth()->user()->area_data->code : $cabang->short_description;
     $lmbHeader->seal_no                  = $request->input('seal_no');
     $lmbHeader->container_no             = $request->input('container_no');
     $lmbHeader->send_manifest            = 0;
@@ -255,6 +255,9 @@ class PickingToLMBController extends Controller
           $logConceptOverload->split_date         = date('Y-m-d H:i:s');
           $logConceptOverload->area               = $picking_detail->header->area;
           $logConceptOverload->expedition_name    = $picking_detail->header->expedition_name;
+          $logConceptOverload->ship_to_code       = $concept->ship_to_code;
+          $logConceptOverload->sold_to_code       = $concept->sold_to_code;
+          $logConceptOverload->expedition_code    = $concept->expedition_code;
           $logConceptOverload->code_sales         = $picking_detail->code_sales;
           $logConceptOverload->status_confirm     = 0;
           $logConceptOverload->overload_reason    = 'AUTO OVERLOAD BY SYSTEM FROM LMB';

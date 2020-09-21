@@ -42,7 +42,7 @@
             <td>WHS</td>
             <td>
                 <div class="input-field col s12">
-                    <input type="text" class="validate" name="picking_date" value="SHARP W/H {{auth()->user()->cabang->short_description}}" readonly>
+                    <input type="text" class="validate" name="picking_date" value="SHARP W/H {{auth()->user()->cabang->hq ? auth()->user()->area_data->code : auth()->user()->cabang->short_description}}" readonly>
                 </div>
             </td>
             <td>

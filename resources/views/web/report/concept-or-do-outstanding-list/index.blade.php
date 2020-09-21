@@ -22,7 +22,7 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <form id="form-report-outstanding-list" class="form-table">
+                        <form id="form-report-outstanding-list" class="form-table" onsubmit="return false;">
                             <table>
                               <tr style="background-color: darkgray">
                                 <td>Area</td>
@@ -49,13 +49,13 @@
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
-                                  <input id="model" type="text" class="validate" name="shipment_no">
+                                  <input id="model" type="text" class="validate" name="invoice_no">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Do NO</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="do_no">
+                                  <input id="aqty" type="text" class="validate " name="delivery_no">
                                 </div></td>
                               </tr>
                               <tr class="area-wrapper">
@@ -107,20 +107,84 @@
         <div class="content-overlay"></div>
     </div>
 
-    <div class="col s12">
+    <div class="col s12 outstanding-list-area-wrapper hide">
         <div class="container">
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables">
-                            <table class="display" id="data-concept-or-do-outstanding-list" width="100%">
+                            <table class="display" id="data-concept-or-do-outstanding-list-area" width="100%">
                                 <thead>
                                     <tr>
-                                        <th width="150px;">INVOICE NO</th>
-                                        <th width="150px;">DELIVERY NO</th>
-                                        <th width="150px;">DELIVERY ITEMS</th>
-                                        <th width="150px;">DO DATE</th>
-                                        <th width="150px;">KODE CUSTOMER</th>
+                                        <th>SHIPMENT NO</th>
+                                        <th>LINE NO</th>
+                                        <th>OUTPUT DATE</th>
+                                        <th>OUTPUT TIME</th>
+                                        <th>DESTINATION NAME</th>
+                                        <th>VEHICLE CODE TYPE</th>
+                                        <th>EXPEDITION NAME</th>
+                                        <th>CAR NO</th>
+                                        <th>CONT NO</th>
+                                        <th>CHECKIN DATE</th>
+                                        <th>CHECKIN TIME</th>
+                                        <th>DELIVERY NO</th>
+                                        <th>DELIVERY ITEMS</th>
+                                        <th>MODEL</th>
+                                        <th>QUANTITY</th>
+                                        <th>CBM</th>
+                                        <th>SHIP TO</th>
+                                        <th>SOLD TO</th>
+                                        <th>SHIP TO CITY</th>
+                                        <th>SHIP TO DISTRICT</th>
+                                        <th>SOLD TO CITY</th>
+                                        <th>SOLD TO DISTRICT</th>
+                                        <th>SOLD TO STREET</th>
+                                        <th>REMARKS</th>
+                                        <th>AREA</th>
+                                        <th>UPLOAD DATE</th>
+                                        <th>UPLOAD BY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay">
+        </div>
+    </div>
+
+    <div class="col s12 outstanding-list-branch-wrapper hide">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                        <div class="section-data-tables">
+                            <table class="display" id="data-concept-or-do-outstanding-list-branch" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>INVOICE NO</th>
+                                        <th>DELIVERY NO</th>
+                                        <th>DELIVERY ITEMS</th>
+                                        <th>DO DATE</th>
+                                        <th>KODE CUSTOMER</th>
+                                        <th>LONG DESCRIPTION CUSTOMER</th>
+                                        <th>MODEL</th>
+                                        <th>EAN CODE</th>
+                                        <th>QUANTITY</th>
+                                        <th>CBM</th>
+                                        <th>CREATED DATE</th>
+                                        <th>CREATED BY</th>
+                                        <th>CODE SALES</th>
+                                        <th>AREA</th>
+                                        <th>KODE CABANG</th>
+                                        <th>SPLIT DATE</th>
+                                        <th>SPLIT BY</th>
+                                        <th>REMARKS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -147,48 +211,129 @@
 
 @push('script_js')
 <script type="text/javascript">
-
+  var dttable_outstanding_list_area;
+  var dttable_outstanding_list_branch;
   jQuery(document).ready(function($) {
-    table = $('#data-concept-or-do-outstanding-list').DataTable({
+    dttable_outstanding_list_area = $('#data-concept-or-do-outstanding-list-area').DataTable({
       serverSide: true,
       scrollX: true,
       dom: 'Brtip',
-      pageLength: 1,
       scrollY: '60vh',
       buttons: [
-              {
-                  text: 'PDF',
-                  action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
-                  }
-              },
-               {
-                  text: 'EXCEL',
-                  action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
-                  }
-              }
-          ],
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+          }
+        }
+      ],
       ajax: {
           url: '{{ url('concept-or-do-outstanding-list') }}',
           type: 'GET',
           data: function(d) {
-            d.area = $('#area_filter').val()
-            d.search['value'] = $('#report-user-filter').val()
+            d.type = 'area'
+            d.area = $('#form-report-outstanding-list [name="area"]').val()
+            d.area = $('#form-report-outstanding-list [name="area"]').val()
           }
       },
       columns: [
-          {data: 'invoice_no', className: 'detail'},
-          {data: 'delivery_no', className: 'detail'},
-          {data: 'delivery_items', className: 'detail'},
-          {data: 'do_date', className: 'detail'},
-          {data: 'username', className: 'detail'},
+          {data: 'invoice_no'},
+          {data: 'line_no'},
+          {data: 'output_date'},
+          {data: 'output_time'},
+          {data: 'destination_name'},
+          {data: 'vehicle_code_type'},
+          {data: 'expedition_name'},
+          {data: 'car_no'},
+          {data: 'cont_no'},
+          {data: 'checkin_date'},
+          {data: 'checkin_time'},
+          {data: 'delivery_no'},
+          {data: 'delivery_items'},
+          {data: 'model'},
+          {data: 'quantity'},
+          {data: 'cbm'},
+          {data: 'ship_to'},
+          {data: 'sold_to'},
+          {data: 'ship_to_city'},
+          {data: 'ship_to_district'},
+          {data: 'sold_to_city'},
+          {data: 'sold_to_district'},
+          {data: 'sold_to_street'},
+          {data: 'remarks'},
+          {data: 'area'},
+          {data: 'created_at'},
+          {data: 'upload_by', name: 'users.username'},
+      ]
+    });
+
+    dttable_outstanding_list_branch = $('#data-concept-or-do-outstanding-list-branch').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('concept-or-do-outstanding-list') }}',
+          type: 'GET',
+          data: function(d) {
+            d.type = 'branch'
+            d.branch = $('#form-report-outstanding-list [name="cabang"]').val()
+            d.branch = $('#form-report-outstanding-list [name="cabang"]').val()
+          }
+      },
+      columns: [
+          {data: 'invoice_no'},
+          {data: 'delivery_no'},
+          {data: 'delivery_items'},
+          {data: 'do_date'},
+          {data: 'kode_customer'},
+          {data: 'long_description_customer'},
+          {data: 'model'},
+          {data: 'ean_code'},
+          {data: 'quantity'},
+          {data: 'cbm'},
+          {data: 'created_at'},
+          {data: 'created_by'},
+          {data: 'code_sales'},
+          {data: 'area'},
+          {data: 'kode_cabang'},
+          {data: 'split_date'},
+          {data: 'split_by'},
+          {data: 'remarks'},
       ]
     });
 
     $('#form-report-outstanding-list').validate({
       submitHandler: function (form){
-        alert('Get Outstanding')
+        if ($('#form-report-outstanding-list [name="area"]').val() == null || $('#form-report-outstanding-list [name="area"]').val() == '') {
+          $('.outstanding-list-area-wrapper').addClass('hide')
+          $('.outstanding-list-branch-wrapper').removeClass('hide')
+          dttable_outstanding_list_branch.ajax.reload(null, false)
+        } else {
+          $('.outstanding-list-area-wrapper').removeClass('hide')
+          $('.outstanding-list-branch-wrapper').addClass('hide')
+          dttable_outstanding_list_area.ajax.reload(null, false)
+        }
       }
     })
 

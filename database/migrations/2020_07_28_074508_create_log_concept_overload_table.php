@@ -46,6 +46,9 @@ class CreateLogConceptOverloadTable extends Migration
             $table->string('area', 20)->nullable(); // FK
             $table->string('concept_type', 100)->nullable();
             $table->string('expedition_name', 100)->nullable();
+            $table->string('sold_to_code', 10)->nullable();
+            $table->string('ship_to_code', 10)->nullable();
+            $table->string('expedition_code', 6)->nullable();
             $table->string('code_sales', 2)->nullable();
             $table->bigInteger('status_confirm');
             $table->string('confirm_by', 50)->nullable();

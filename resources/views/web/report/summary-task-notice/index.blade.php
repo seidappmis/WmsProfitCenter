@@ -69,12 +69,122 @@
         </div>
         <div class="content-overlay"></div>
     </div>
+
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                 <div class="card">
+                    <div class="card-content p-0">
+                        <form class="form-table">
+                            <table id="table_summary_task_notice" class="display" width="100%">
+                                <thead>
+                                    <tr>
+                                      <th>UPLOAD DATE</th>
+                                      <th>RECEIVE DATE</th>
+                                      <th>NO DOC</th>
+                                      <th>NO ST or NO URF</th>
+                                      <th>NO APPLY</th>
+                                      <th>CUSTOMER CODE</th>
+                                      <th>CUSTOMER NAME</th>
+                                      <th>MODEL PLAN</th>
+                                      <th>QTY PLAN</th>
+                                      <th>CBM</th>
+                                      <th>MODEL ACTUAL</th>
+                                      <th>QTY ACTUAL</th>
+                                      <th>CHECK</th>
+                                      <th>CATEGORY</th>
+                                      <th>DO NUMBER PLAN</th>
+                                      <th>DO NUMBER ACTUAL</th>
+                                      <th>NO SO</th>
+                                      <th>NO PO</th>
+                                      <th>RR</th>
+                                      <th>NO SERIAL</th>
+                                      <th>KONDISI</th>
+                                      <th>REMAK</th>
+                                      <th>NO MOBIL</th>
+                                      <th>EXPEDISI</th>
+                                      <th>DRIVER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </form>
+                     </div>
+                 </div>
+            </div>
+        <div class="content-overlay"></div>
+    </div>
+  </div>
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
+  var dttable_summary_task_notice;
   jQuery(document).ready(function($) {
+    dttable_summary_task_notice = $('#table_summary_task_notice').DataTable({
+      serverSide: true,
+      responsive: false,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('summary-task-notice/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('summary-task-notice/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('summary-task-notice') }}',
+          type: 'GET',
+          data: function(d) {
+            d.type = 'area'
+            d.area = $('#form-report-outstanding-list [name="area"]').val()
+            d.area = $('#form-report-outstanding-list [name="area"]').val()
+          }
+      },
+      columns: [
+          {data: 'date'},
+          {data: 'receive_date'},
+          {data: 'no_doc'},
+          {data: 'no_doc'},
+          {data: 'no_apply'},
+          {data: 'customer_code'},
+          {data: 'customer_name'},
+          {data: 'model_plan'},
+          {data: 'qty_plan'},
+          {data: 'cbm'},
+          {data: 'model_actual'},
+          {data: 'qty_actual'},
+          {data: 'check'},
+          {data: 'category'},
+          {data: 'do_number_plan'},
+          {data: 'do_number_actual'},
+          {data: 'no_so'},
+          {data: 'no_po'},
+          {data: 'rr'},
+          {data: 'no_serial'},
+          {data: 'kondisi'},
+          {data: 'remak'},
+          {data: 'no_mobil'},
+          {data: 'expedisi'},
+          {data: 'driver'},
+      ]
+    });
     $('#form-summary-task-notice [name="area"]').select2({
        placeholder: '-- Select Area --',
        allowClear: true,

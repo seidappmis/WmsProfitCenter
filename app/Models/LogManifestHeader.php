@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\LogManifestDetail;
 
 class LogManifestHeader extends Model
 {
@@ -27,29 +26,34 @@ class LogManifestHeader extends Model
 
   /**
    * Status Manifest Normal:
-   * DO Items Not Found Belum terdapat DO pada Manifest
-   * Complete & Waiting Confirm.  Semua DO telah di Assign, Menunggu Confirm Cabang
-   * Full D/O Confirm  Semua DO telah di Confirm oleh tujuan
-   * Partial D/O Confirm  Sebagian DO telah di Confirm oleh Tujuan
+   * 1. Create Manifest --> DO Items Not Found
+   * 2. Create Manifest DO sudah masuk sebagian --> DO Items Not Found
+   * 3. Create Manifest DO sudah masuk semua --> Ready To Complete
+   * 4. Manifest dicomplete --> Complete & Waitng Confirm
+   * 5. Manifest Partial DO confirm --> Partial D/O Confirmed
+   * 6. Manifest Full DO confirm --> Full D/O Confirmed
    *
    * @return [type] [status]
    */
   public function status()
   {
-    $total_detail         = LogManifestDetail::listDO($this->do_manifest_no)->count();
-    $total_detail_confirm = $this->details->count();
+    $total_detail_tcs_do      = $this->lmb->do_details->count();
+    $total_detail_manifest_do = $this->details->count();
+    $total_unconfirm_detail   = $this->details->where('status_confirm', 0)->count();
 
-    if ($total_detail == 0) {
+    if ($total_detail_tcs_do > $total_detail_manifest_do) {
       return 'DO Items Not Found';
-      // } elseif ($this->status_complete && $total_detail_confirm == 0) {
+    } elseif ($this->status_complete && $total_unconfirm_detail == 0) {
+      return 'Full D/O Confirmed';
+    } elseif ($this->status_complete && $total_unconfirm_detail > 0) {
+      return 'Partial D/O Confirmed';
     } elseif ($this->status_complete) {
       return 'Complete & Waiting Confirm';
-    } elseif ($total_detail_confirm < $total_detail) {
-      return 'Partial D/O Confirmed';
-    } elseif ($total_detail_confirm = $total_detail) {
-      return 'Full D/O Confirmed';
+    } elseif (!$this->status_complete) {
+      return 'Ready to Complete';
     } else {
-      return 'Waiting D/O';
+      return '';
+      // return 'Waiting D/O';
     }
   }
 

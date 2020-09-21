@@ -33,10 +33,6 @@
                                 <td>
                                   <div class="input-field col s12">
                                     <select>
-                                      <option value="" disabled selected>-Select Area-</option>
-                                      <option value="1">KARAWANG</option>
-                                      <option value="2">SURABAYA HUB</option>
-                                      <option value="3">SWADAYA</option>
                                     </select>
                                   </div>
                                 </td>

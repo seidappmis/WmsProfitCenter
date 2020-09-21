@@ -83,6 +83,7 @@ class UploadConceptController extends Controller
           'area'              => $area,
           'code_sales'        => 'DS',
           'created_at'        => date('Y-m-d H:i:s'),
+          'created_by'        => auth()->user()->id,
         ];
         // kalau data ada isinya
         $rs_key[$concept['line_no']] = $concept['invoice_no'];
