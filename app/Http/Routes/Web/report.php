@@ -48,7 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('serial-number-trace', 'Web\SerialNumberTraceController@index');
   Route::get('serial-number-trace/export', 'Web\SerialNumberTraceController@export');
 
-  Route::view('report-occupancy', 'web.report.report-occupancy.index');
+  Route::get('report-occupancy', 'Web\ReportOccupancyController@index');
+  Route::get('report-occupancy/export', 'Web\ReportOccupancyController@export');
+  
   Route::get('summary-wh-transporter-report', 'Web\SummaryWHTransporterReportController@index');
   Route::get('summary-wh-transporter-report/export', 'Web\SummaryWHTransporterReportController@export');
 
