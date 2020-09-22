@@ -359,6 +359,9 @@
           type: 'POST',
           data: function(d) {
               d.area = $('#form-loading-status-list [name="area"]').val()
+              d.invoice_no = $('#form-loading-status-list [name="invoice_no"]').val()
+              d.delivery_no = $('#form-loading-status-list [name="delivery_no"]').val()
+              d.vehicle_number = $('#form-loading-status-list [name="vehicle_number"]').val()
             }
       },
       order: [1, 'asc'],
