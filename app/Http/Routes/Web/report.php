@@ -21,7 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::view('report-loading-lead-time', 'web.report.report-loading-lead-time.index');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
-  Route::view('report-kpi-expeditions', 'web.report.report-kpi-expeditions.index');
+
+  Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
 
   Route::get('summary-incoming-report', 'Web\SummaryIncomingReportController@index');
 
