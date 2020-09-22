@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\ConceptFlowHeader;
 use App\Models\TRWorkflow;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
@@ -12,7 +13,8 @@ class Dashboard2Controller extends Controller
 {
   public function getDailyByCategory(Request $request)
   {
-    $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
+    // $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
+    $rs_concept = ConceptFlowHeader::getSummaryConcept($request);
     $rs_temp_vehicle_detail        = Vehicle::select(
       'tr_vehicle_type_group.group_name',
       'tr_vehicle_type_detail.*'
@@ -37,7 +39,7 @@ class Dashboard2Controller extends Controller
 
     $rs_unit_truck_temp             = [];
     $rs_daily_status_by_destination = [];
-    foreach ($rs_concept_waiting_truck_temp as $key => $value) {
+    foreach ($rs_concept as $key => $value) {
       $rs_unit_truck_temp[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name][$value->invoice_no . $value->expedition_id . $value->vehicle_code_type] = $value;
       $rs_daily_status_by_destination[$value->reg_region][$value->invoice_no . $value->expedition_id . $value->vehicle_code_type]                                            = $value;
     }
@@ -72,7 +74,7 @@ class Dashboard2Controller extends Controller
 
     $result = [
       'subtitle_text'                   => $request->input('area') . ' ' . date("Y-m-d"),
-      'rs_concept_waiting_truck_temp'   => $rs_concept_waiting_truck_temp,
+      'rs_concept_waiting_truck_temp'   => $rs_concept,
       // 'rs_unit_truck'                 => $rs_unit_truck,
       // 'rs_temp_vehicle_detail'        => $rs_temp_vehicle_detail,
       'rs_by_destination_series_data'   => $rs_by_destination_series_data,

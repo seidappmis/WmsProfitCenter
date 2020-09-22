@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Concept;
+use App\Models\ConceptFlowHeader;
 use App\Models\DriverRegistered;
 use App\Models\TRWorkflow;
 use App\Models\Vehicle;
@@ -15,7 +16,10 @@ class DashboardController extends Controller
   public function getLoadingDailyStatus(Request $request)
   {
 
-    $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
+    // $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
+
+    $rs_concept = ConceptFlowHeader::getSummaryConcept($request);
+
     $rs_temp_vehicle_detail        = Vehicle::select(
       'tr_vehicle_type_group.group_name',
       'tr_vehicle_type_detail.*'
@@ -40,7 +44,7 @@ class DashboardController extends Controller
     $rs_cbm                             = [];
     $rs_status_cbm_of_concept_list_temp = [];
 
-    foreach ($rs_concept_waiting_truck_temp as $key => $value) {
+    foreach ($rs_concept as $key => $value) {
       if (empty($rs_cbm[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name])) {
         $rs_cbm[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name] = 0;
       }
@@ -116,7 +120,7 @@ class DashboardController extends Controller
 
     $rs_cbm             = [];
     $rs_unit_truck_temp = [];
-    foreach ($rs_concept_waiting_truck_temp as $key => $value) {
+    foreach ($rs_concept as $key => $value) {
       $area = strtolower(str_replace(' ', '-', $value->area));
       if (empty($rs_cbm[$area])) {
         $rs_cbm[$area] = 0;

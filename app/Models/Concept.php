@@ -56,7 +56,7 @@ class Concept extends Model
       $concept->where('tr_concept.area', $request->input('area'));
     }
 
-    return $concept->get();
+    return $concept;
   }
 
 }

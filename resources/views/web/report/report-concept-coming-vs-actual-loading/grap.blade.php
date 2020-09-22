@@ -9,7 +9,7 @@
     chart: { renderTo: 'Chart1_container', height: 500, type: 'column' },
     plotOptions: { column: { borderWidth: 0, pointPadding: 150, pointWidth: 16 }, series: { dataLabels: { align: 'left', color: '#FF0000', enabled: true, formatter: function() { if (this.y != 0) return this.y; }, padding: 5, style: { fontSize: '9px', fontFamily: 'Verdana, sans-serif' } } } },
     // subtitle: { text: 'KARAWANG 2020-04-14' },
-    title: { text: 'CONCEPT COMING VS ACTUAL LOADING -KARAWANG' },
+    title: { text: 'CONCEPT COMING VS ACTUAL LOADING' },
     tooltip: { formatter: function() { return '' + this.x + ': ' + this.y + ' m3'; } },
     // xAxis: {
     //   categories: [
