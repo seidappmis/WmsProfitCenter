@@ -11,13 +11,13 @@
     // subtitle: { text: 'KARAWANG 2020-04-14' },
     title: { text: 'Concept Issue(%)-KARAWANG' },
     tooltip: { formatter: function() { return '' + this.x + ': ' + this.y + ' m3'; } },
-    xAxis: {
-      categories: [
-        { name: 'Waiting Truck', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting Concept', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting Loading', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Loading Process', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting D/O', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] },
-      ]
-    },
-    yAxis: { min: 0, title: { text: '' } },
-    series: [{ data: [ { y: 325 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 205 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 108 }, { y: 25 }, { y: 0 }, { y: 490 }, { y: 0 }], name: '%' }]
+    // xAxis: {
+    //   categories: [
+    //     { name: 'Waiting Truck', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting Concept', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting Loading', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Loading Process', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] }, { name: 'Waiting D/O', categories: ['8 METER', 'CONTAINER', 'LIGHT TRUCK', 'SMALL TRUCK', 'TRAILER', 'TRONTON', 'WINGBOX'] },
+    //   ]
+    // },
+    // yAxis: { min: 0, title: { text: '' } },
+    // series: [{ data: [ { y: 325 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 205 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 0 }, { y: 0 }, { y: 65 }, { y: 108 }, { y: 25 }, { y: 0 }, { y: 490 }, { y: 0 }], name: '%' }]
   });
 </script>
 @endpush
