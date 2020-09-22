@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concept;
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Concept;
 
 class ConceptFlowHeader extends Model
 {
   protected $table = "tr_concept_flow_header";
+
+  public $incrementing = false;
 
   public $timestamps = false;
 
@@ -55,6 +57,8 @@ class ConceptFlowHeader extends Model
       ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.concept_flow_header', '=', 'tr_concept_flow_header.id')
       ->leftjoin('tr_workflow', 'tr_workflow.step_number', '=', 'tr_concept_flow_header.workflow_id')
     ;
+
+    $concept->whereNotNull('tr_concept.invoice_no');
 
     if ($request != null) {
       $concept->where('tr_concept.area', $request->input('area'));

@@ -250,7 +250,7 @@
                 </div>
             </div>
 
-            <div class="secion">
+            <div class="secion loading-status-list-wrapper hide">
               <div class="card">
                 <div class="card-conten">
                   <div class="section-data-tables"> 
@@ -320,6 +320,10 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
@@ -354,10 +358,7 @@
           url: '{{ url('loading-status-list') }}',
           type: 'POST',
           data: function(d) {
-              d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
-              d.model =$('').val()
-              d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
-              d.search['value'] = $('#global_filter').val()
+              d.area = $('#form-loading-status-list [name="area"]').val()
             }
       },
       order: [1, 'asc'],
@@ -411,6 +412,13 @@
           {data: 'area'},
          ]
     });
+
+    $('#form-loading-status-list').validate({
+      submitHandler: function (form){
+        $('.loading-status-list-wrapper').removeClass('hide')
+        dttable_loading_status_list.ajax.reload(null, false)
+      }
+    })
   });
 </script>
 @endpush

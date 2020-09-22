@@ -189,8 +189,8 @@ class PickingListController extends Controller
       $driverRegistered->save();
 
       // Add concept flow header
-      $idConceptFlowHeader                   = $driverRegistered->id;
-      
+      $idConceptFlowHeader = $driverRegistered->id;
+
       $conceptFlowHeader                     = new ConceptFlowHeader;
       $conceptFlowHeader->id                 = $idConceptFlowHeader;
       $conceptFlowHeader->workflow_id        = 4;
@@ -683,9 +683,37 @@ class PickingListController extends Controller
       $rs_pickinglistDetail[] = $pickingListDetail;
     }
 
-    PickinglistDetail::insert($rs_pickinglistDetail);
+    try {
+      DB::beginTransaction();
+      // ADD CONCEPT FLOW DETAIL
+      $conceptFlowHeader = ConceptFlowHeader::where('driver_register_id', $pickinglistHeader->driver_register_id)->first();
 
-    return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
+      if (!empty($conceptFlowHeader->id)) {
+        foreach ($rs_pickinglistDetail as $key => $value) {
+          $conceptFlowDetail = new ConceptFlowDetail;
+
+          $conceptFlowDetail->id_header      = $conceptFlowHeader->id;
+          $conceptFlowDetail->invoice_no     = $value['invoice_no'];
+          $conceptFlowDetail->line_no        = $value['line_no'];
+          $conceptFlowDetail->quantity       = $value['quantity'];
+          $conceptFlowDetail->cbm_max        = $value['cbm'];
+          $conceptFlowDetail->concept_type   = "STANDAR";
+          $conceptFlowDetail->delivery_no    = $value['delivery_no'];
+          $conceptFlowDetail->delivery_items = $value['delivery_items'];
+
+          $conceptFlowDetail->save();
+
+        }
+      }
+
+      PickinglistDetail::insert($rs_pickinglistDetail);
+      DB::commit();
+
+      return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+
   }
 
   public function destroy($id)
@@ -715,7 +743,23 @@ class PickingListController extends Controller
 
   public function destroyDetail($id)
   {
-    return PickinglistDetail::destroy($id);
+    try {
+      DB::beginTransaction();
+      $pickingDetail = PickinglistDetail::findOrFail($id);
+
+      ConceptFlowDetail::where('invoice_no', $pickingDetail->invoice_no)
+        ->where('line_no', $pickingDetail->line_no)
+        ->where('delivery_no', $pickingDetail->delivery_no)
+        ->where('delivery_items', $pickingDetail->delivery_items)
+        ->delete();
+
+      $pickingDetail->delete();
+
+      DB::commit();
+      return sendSuccess('Item Deleted', $pickingDetail);
+    } catch (Exception $e) {
+      DB::rollback();
+    }
   }
 
   public function edit($id)
