@@ -14,7 +14,7 @@ class Dashboard2Controller extends Controller
   public function getDailyByCategory(Request $request)
   {
     // $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
-    $rs_concept = ConceptFlowHeader::getSummaryConcept($request);
+    $rs_concept = ConceptFlowHeader::getSummaryConcept($request)->get();
     $rs_temp_vehicle_detail        = Vehicle::select(
       'tr_vehicle_type_group.group_name',
       'tr_vehicle_type_detail.*'

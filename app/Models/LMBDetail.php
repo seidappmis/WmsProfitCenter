@@ -19,18 +19,20 @@ class LMBDetail extends Model
       ->where('wms_lmb_detail.serial_number', $request->input('serial_number'))
       ->first();
 
+    $isHQ = !empty($LMB->hq) ? $LMB->hq : 0;
+
     $serial_number = LMBDetail::select(
       'wms_lmb_detail.*',
       'wms_lmb_header.lmb_date',
       'log_cabang.kode_customer AS from',
-      ($LMB->hq ? 'log_manifest_header.do_manifest_no' : 'wms_branch_manifest_header.do_manifest_no'),
-      ($LMB->hq ? 'log_manifest_detail.actual_time_arrival' : 'wms_branch_manifest_detail.actual_time_arrival')
+      ($isHQ ? 'log_manifest_header.do_manifest_no' : 'wms_branch_manifest_header.do_manifest_no'),
+      ($isHQ ? 'log_manifest_detail.actual_time_arrival' : 'wms_branch_manifest_detail.actual_time_arrival')
     )
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
       ->leftjoin('log_cabang', 'wms_lmb_header.kode_cabang', '=', 'log_cabang.kode_cabang')
     ;
 
-    if ($LMB->hq) {
+    if ($isHQ) {
       $serial_number->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id');
       $serial_number->leftjoin('log_manifest_detail', function ($join) {
         $join->on('log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no');
@@ -40,7 +42,7 @@ class LMBDetail extends Model
       });
     } else {
       $serial_number->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id');
-      $serial_number->leftjoin('wms_branch_manifest_detail', function($join){
+      $serial_number->leftjoin('wms_branch_manifest_detail', function ($join) {
         $join->on('wms_branch_manifest_header.do_manifest_no', '=', 'wms_branch_manifest_detail.do_manifest_no');
         $join->on('wms_lmb_detail.model', '=', 'wms_branch_manifest_detail.model');
         $join->on('wms_lmb_detail.delivery_no', '=', 'wms_branch_manifest_detail.delivery_no');

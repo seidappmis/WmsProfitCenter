@@ -34,7 +34,7 @@ class ConformManifestController extends Controller
         ->groupBy('log_manifest_header.do_manifest_no')
         ->where('log_manifest_header.status_complete', 1)
         ->where('log_manifest_detail.status_confirm', 0)
-        ;
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -159,10 +159,11 @@ class ConformManifestController extends Controller
             $manifesDetail = WMSBranchManifestDetail::findOrFail($key);
           }
 
-          $manifesDetail->status_confirm = 1;
-          $manifesDetail->confirm_date   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-          $manifesDetail->confirm_by     = auth()->user()->id;
-          $manifesDetail->do_reject      = !empty($request->input('rejected')) ? 1 : 0;
+          $manifesDetail->status_confirm      = 1;
+          $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
+          $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
+          $manifesDetail->confirm_by          = auth()->user()->id;
+          $manifesDetail->do_reject           = !empty($request->input('rejected')) ? 1 : 0;
           $manifesDetail->save();
 
           if (empty($rs_model[$manifesDetail->model])) {

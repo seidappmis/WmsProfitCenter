@@ -18,7 +18,7 @@ class DashboardController extends Controller
 
     // $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
 
-    $rs_concept = ConceptFlowHeader::getSummaryConcept($request);
+    $rs_concept = ConceptFlowHeader::getSummaryConcept($request)->get();
 
     $rs_temp_vehicle_detail        = Vehicle::select(
       'tr_vehicle_type_group.group_name',

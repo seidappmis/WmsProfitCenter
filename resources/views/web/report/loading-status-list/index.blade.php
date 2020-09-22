@@ -26,13 +26,13 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-0">
-                        <form class="form-table">
+                        <form class="form-table" id="form-loading-status-list">
                             <table>
                               <tr>
                                 <td>Area</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select>
+                                    <select name="area" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -40,19 +40,19 @@
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
-                                  <input id="model" type="text" class="validate" name="Shipment Nodel" required>
+                                  <input id="model" type="text" class="validate" name="invoice_no">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Do NO</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="Do NO">
+                                  <input id="aqty" type="text" class="validate " name="delivery_no">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Vahicle No.</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="Vahicle No.">
+                                  <input id="aqty" type="text" class="validate " name="vehicle_number">
                                 </div></td>
                               </tr>
                               <tr>
@@ -97,7 +97,7 @@
                               <tr>
                                 <td>Do Manifest No.</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="aqty" disabled>
+                                  <input id="aqty" type="text" class="validate " name="do_manifest_no">
                                 </div></td>
                               </tr> 
                               <tr>
@@ -249,8 +249,130 @@
                     </div>
                 </div>
             </div>
+
+            <div class="secion">
+              <div class="card">
+                <div class="card-conten">
+                  <div class="section-data-tables"> 
+                      <table id="table_loading_status_list" class="display" width="100%">
+                          <thead>
+                              <tr>
+                                <th>CONCEPT INVOICE NO</th>
+                                <th>CONCEPT LINE NO</th>
+                                <th>CONCEPT OUTPUT DATE</th>
+                                <th>CONCEPT OUTPUT TIME</th>
+                                <th>CONCEPT DESTINATION NAME</th>
+                                <th>CONCEPT VEHICLE CODE TYPE</th>
+                                <th>CONCEPT CAR NO</th>
+                                <th>CONCEPT CONT NO</th>
+                                <th>CONCEPT CHECKIN DATE</th>
+                                <th>CONCEPT CHECKIN TIME</th>
+                                <th>CONCEPT DELIVERY NO</th>
+                                <th>CONCEPT DELIVERY ITEMS</th>
+                                <th>CONCEPT MODEL</th>
+                                <th>CONCEPT QUANTITY</th>
+                                <th>CONCEPT CBM</th>
+                                <th>CONCEPT SHIP TO</th>
+                                <th>CONCEPT SOLD TO</th>
+                                <th>CONCEPT SHIP TO CITY</th>
+                                <th>CONCEPT SHIP TO STREET</th>
+                                <th>CONCEPT SOLD TO CITY</th>
+                                <th>CONCEPT SOLD TO DISTRICT</th>
+                                <th>CONCEPT SOLD TO STREET</th>
+                                <th>CONCEPT REMARKS</th>
+                                <th>CONCEPT UPLOAD DATE</th>
+                                <th>REG DRIVER ID</th>
+                                <th>REG DRIVER NAME</th>
+                                <th>REG VEHICLE NO</th>
+                                <th>REG VEHICLE DESC</th>
+                                <th>REG VEHICLE TYPE</th>
+                                <th>REG CBM TRUCK</th>
+                                <th>REG DATE IN</th>
+                                <th>REG DATE OUT</th>
+                                <th>REG DESTINATION</th>
+                                <th>REG REGION</th>
+                                <th>REG EXPEDITION CODE</th>
+                                <th>REG EXPEDITION NAME</th>
+                                <th>MAPPING CONCEPT DATE</th>
+                                <th>SELECT GATE DATE</th>
+                                <th>LOAD GATE NUMBER</th>
+                                <th>LOAD LOADING START</th>
+                                <th>LOAD LOADING END</th>
+                                <th>LOAD LOADING MINUTES</th>
+                                <th>LOAD LOAD DO MANIFEST NO</th>
+                                <th>STATUS</th>
+                                <th>SOLD TO CODE</th>
+                                <th>SHIP TO CODE</th>
+                                <th>AREA</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                      </table>
+                    </div>
+                </div>
+              </div>
+            </div>
+
         </div>
         <div class="content-overlay"></div>
     </div>
 </div>
 @endsection
+
+
+@push('script_js')
+<script type="text/javascript">
+  $('#form-loading-status-list [name="area"]').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+
+  var dttable_loading_status_list;
+  jQuery(document).ready(function($) {
+    dttable_loading_status_list = $('#table_loading_status_list').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('loading-status-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('loading-status-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('loading-status-list') }}',
+          type: 'GET',
+          data: function(d) {
+              d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
+              d.model =$('').val()
+              d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
+              d.search['value'] = $('#global_filter').val()
+            }
+      },
+      order: [1, 'asc'],
+      columns: [
+          {data: 'invoice_no', className: 'detail'},
+          {data: 'line_no', className: 'detail'},
+          {data: 'output_date', className: 'detail'},
+          {data: 'output_time', className: 'detail'},
+          {data: 'destination_name', className: 'detail'},
+          {data: 'vehicle_code_type', className: 'detail'},
+          {data: 'car_no', className: 'detail'},
+          {data: 'cont_no', className: 'detail'},
+          {data: 'cont_no', className: 'detail'},
+         ]
+    });
+  });
+</script>
+@endpush

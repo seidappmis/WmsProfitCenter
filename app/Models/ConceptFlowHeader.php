@@ -66,6 +66,6 @@ class ConceptFlowHeader extends Model
   {
     $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck($request);
 
-    return ConceptFlowHeader::getLoadingSummary($request)->union($rs_concept_waiting_truck_temp)->get();
+    return ConceptFlowHeader::getLoadingSummary($request)->union($rs_concept_waiting_truck_temp);
   }
 }

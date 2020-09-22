@@ -14,7 +14,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('concept-or-do-outstanding-list', 'Web\ConceptOrDOOutstandingListController@index');
 
-  Route::view('loading-status-list', 'web.report.loading-status-list.index');
+  Route::get('loading-status-list', 'Web\LoadingStatusListController@index');
+
   Route::view('report-concept-coming-vs-actual-loading', 'web.report.report-concept-coming-vs-actual-loading.index');
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::view('report-loading-lead-time', 'web.report.report-loading-lead-time.index');
