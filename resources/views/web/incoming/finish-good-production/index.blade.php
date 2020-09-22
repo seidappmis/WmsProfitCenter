@@ -63,7 +63,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                <tr>
+                                {{-- <tr>
                                   <td>1.</td>
                                   <td>ARV-WHHYP-181003-019</td>
                                   <td>L-TV-1810010006</td>
@@ -73,7 +73,7 @@
                                     {!! get_button_view(url('finish-good-production/1')) !!}
                                     {!! get_button_print() !!}
                                   </td>
-                                </tr>
+                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
