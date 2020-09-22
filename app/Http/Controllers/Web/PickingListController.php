@@ -190,6 +190,7 @@ class PickingListController extends Controller
 
       // Add concept flow header
       $idConceptFlowHeader                   = $driverRegistered->id;
+      
       $conceptFlowHeader                     = new ConceptFlowHeader;
       $conceptFlowHeader->id                 = $idConceptFlowHeader;
       $conceptFlowHeader->workflow_id        = 4;

@@ -20,6 +20,7 @@ class Concept extends Model
   {
     $concept = Concept::select(
       'tr_concept.*',
+      DB::raw('tr_destination.destination_description AS concept_destination_name'),
       DB::raw('"" AS reg_driver_id'),
       DB::raw('"" AS reg_driver_name'),
       DB::raw('"" AS reg_vehicle_no'),

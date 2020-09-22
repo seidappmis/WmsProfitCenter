@@ -16,6 +16,7 @@ class ConceptFlowHeader extends Model
   {
     $concept = ConceptFlowHeader::select(
       'tr_concept.*',
+      DB::raw('tr_destination.destination_description AS concept_destination_name'),
       DB::raw('tr_driver_registered.driver_id AS reg_driver_id'),
       DB::raw('tr_driver_registered.driver_name AS reg_driver_name'),
       DB::raw('tr_driver_registered.vehicle_number AS reg_vehicle_no'),
