@@ -127,7 +127,7 @@
         order: [1, 'asc'],
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'material_no', name: 'material_no', className: 'detail'},
             {data: 'quantitySAP', name: 'quantitySAP', className: 'detail'},
             {data: 'quantity', name: 'quantity', className: 'detail'},
             {data: 'quantity2', name: 'quantity2', className: 'detail'},

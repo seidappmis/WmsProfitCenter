@@ -47,7 +47,7 @@
               {{-- Body --}}
               @foreach($stockTakeDetail AS $key => $value)
               <tr>
-                <td colspan="3" style="text-align: left; border: 1pt solid #000000;">{{$value->model}}</td>
+                <td colspan="3" style="text-align: left; border: 1pt solid #000000;">{{$value->material_no}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantitySAP}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity2}}</td>

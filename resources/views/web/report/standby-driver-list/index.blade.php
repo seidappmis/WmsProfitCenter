@@ -37,7 +37,7 @@
         <div class="container">
             <div class="section">
               <div class="card ">
-                <div class="card-content">
+                <div class="card-content pl-1 pr-1 pb-1 pt-1">
                   <table id="data-table-standby-driver-list" class="display" width="100%">
                     <thead>
                         <tr>

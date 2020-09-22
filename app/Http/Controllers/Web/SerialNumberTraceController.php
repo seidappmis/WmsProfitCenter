@@ -12,19 +12,7 @@ class SerialNumberTraceController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBDetail::select(
-        'wms_lmb_detail.*',
-        'wms_lmb_header.lmb_date',
-        'log_cabang.kode_customer AS from',
-        'log_manifest_header.do_manifest_no',
-        'log_manifest_detail.actual_time_arrival'
-      )
-        ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
-        ->leftjoin('log_cabang', 'wms_lmb_header.kode_cabang', '=', 'log_cabang.kode_cabang')
-        ->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
-        ->leftjoin('log_manifest_detail', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        ->where('wms_lmb_detail.model', $request->input('model'))
-        ->where('wms_lmb_detail.serial_number', $request->input('serial_number'))
+      $query = LMBDetail::getSerialNumberTrace($request)
       ;
 
       $datatables = DataTables::of($query);
@@ -37,21 +25,9 @@ class SerialNumberTraceController extends Controller
 
   public function export(Request $request)
   {
-    $query = LMBDetail::select(
-        'wms_lmb_detail.*',
-        'wms_lmb_header.lmb_date',
-        'log_cabang.kode_customer AS from',
-        'log_manifest_header.do_manifest_no',
-        'log_manifest_detail.actual_time_arrival'
-      )
-        ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
-        ->leftjoin('log_cabang', 'wms_lmb_header.kode_cabang', '=', 'log_cabang.kode_cabang')
-        ->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
-        ->leftjoin('log_manifest_detail', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        ->where('wms_lmb_detail.model', $request->input('model'))
-        ->where('wms_lmb_detail.serial_number', $request->input('serial_number'))
-        ->get()
-      ;
+    $query = LMBDetail::getSerialNumberTrace($request)
+      ->get()
+    ;
 
     $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -86,7 +62,7 @@ class SerialNumberTraceController extends Controller
 
   protected function getSerialNumberTraceTable($data)
   {
-    
+
     $table = '';
     $table .= '<table  style="border-collapse: collapse; border: 1px solid black; width: 210mm;">';
 
@@ -115,7 +91,6 @@ class SerialNumberTraceController extends Controller
     $table .= '</tr>';
 
     $table .= '</table>';
-
 
     return $table;
   }

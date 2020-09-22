@@ -43,7 +43,7 @@
                 <td style="border: 1pt solid #000000; text-align: center; width: 20mm;"><strong>M3</strong></td>
                 <td style="border: 1pt solid #000000; text-align: center; width: 20mm;"><strong>%</strong></td>
               </tr>
-              <tr>
+              {{-- <tr>
                 <td style="border: 1pt solid #000000;">10-PT. SEID CAB. SEMARANG</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>
@@ -65,7 +65,7 @@
                 <td style="text-align: right; border: 1pt solid #000000;">0%</td>
                 <td style="text-align: right; border: 1pt solid #000000;">-7676228</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0%</td>
-              </tr>
+              </tr> --}}
               <tr>
                 <td>&nbsp;</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>

@@ -17,6 +17,7 @@ class StockTakeCompareSAPController extends Controller
     if ($request->ajax()) {
       $query = StockTakeScheduleDetail::select(
         DB::raw('log_stocktake_schedule_detail.qty AS quantitySAP'),
+        'log_stocktake_schedule_detail.material_no',
         'log_stocktake_input1.id',
         'log_stocktake_input1.no_tag',
         'log_stocktake_input1.model',
@@ -60,6 +61,7 @@ class StockTakeCompareSAPController extends Controller
     $data['stockTakeSchedule'] = StockTakeSchedule::findOrFail($id);
     $data['stockTakeDetail'] = StockTakeScheduleDetail::select(
         DB::raw('log_stocktake_schedule_detail.qty AS quantitySAP'),
+        'log_stocktake_schedule_detail.material_no',
         'log_stocktake_input1.id',
         'log_stocktake_input1.no_tag',
         'log_stocktake_input1.model',
