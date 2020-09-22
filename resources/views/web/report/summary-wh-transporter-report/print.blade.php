@@ -37,8 +37,9 @@
                 <td style="text-align: center; border: 1pt solid #000000;"><strong>CBM</strong></td>
                 <td style="text-align: center; border: 1pt solid #000000;"><strong>QTY</strong></td>
               </tr>
-              <tr>
-                <td style="text-align: center; border: 1pt solid #000000;">01-Sep-20</td>
+              @foreach($rs_details AS $key => $value)
+              <tr style="{{ $value['isWeekend'] ? 'background-color: red;' : '' }}">
+                <td style="text-align: center; border: 1pt solid #000000;">{{ $value['date'] }}</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0.000</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>
@@ -47,6 +48,7 @@
                 <td style="text-align: right; border: 1pt solid #000000;">0.000</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>
               </tr>
+              @endforeach
               <tr>
                 <td style="text-align: center; border: 1pt solid #000000;">TOTAL</td>
                 <td style="text-align: right; border: 1pt solid #000000;">0</td>

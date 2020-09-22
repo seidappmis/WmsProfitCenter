@@ -44,7 +44,7 @@
                                  <tr>
                                     <td width="20%">Periode</td>
                                     <td><div class="col s9 m10">
-                                        <input placeholder="" id="first_name" type="text" class="validate monthpicker" required autocomplete="off">
+                                        <input placeholder="" name="periode" type="text" class="validate monthpicker" required autocomplete="off">
                                       </div></td>
                                  </tr>
                                </table>

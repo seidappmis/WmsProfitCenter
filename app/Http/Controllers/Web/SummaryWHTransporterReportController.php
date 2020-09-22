@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SummaryWHTransporterReportController extends Controller
@@ -14,13 +15,21 @@ class SummaryWHTransporterReportController extends Controller
 
   public function export(Request $request)
   {
-    // return view('web.report.summary-wh-transporter-report.print');
+    $start_date = Carbon::createFromFormat('d/m/Y', '01/' . $request->input('periode'));
+    $end_date   = Carbon::createFromFormat('d/m/Y', '01/' . $request->input('periode'))->endOfMonth();
 
-    // $data['request'] = $request->all();
-    // $data['header']  = LogReturnSuratTugasHeader::findOrFail($id);
+    $rs_details = [];
+    while ($start_date->lessThanOrEqualTo($end_date)) {
+      $detail['date']      = $start_date->format('d-M-y');
+      $detail['isWeekend'] = $start_date->isWeekend();
+      $start_date->addDay();
 
-    // $view_print = view('web.report.summary-wh-transporter-report.print', $data);
-    $view_print = view('web.report.summary-wh-transporter-report.print');
+      $rs_details[] = $detail;
+    }
+
+    $data['rs_details'] = $rs_details;
+
+    $view_print = view('web.report.summary-wh-transporter-report.print', $data);
     $title      = 'Summary WH Transporter Report';
 
     if ($request->input('filetype') == 'html') {
@@ -50,7 +59,7 @@ class SummaryWHTransporterReportController extends Controller
       $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
       $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
       $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-    
+
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
@@ -70,6 +79,6 @@ class SummaryWHTransporterReportController extends Controller
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
     }
-  // }
+    // }
   }
 }
