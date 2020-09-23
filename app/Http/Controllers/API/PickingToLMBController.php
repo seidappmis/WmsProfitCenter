@@ -28,11 +28,11 @@ class PickingToLMBController extends Controller
 
       // return $postSerialNumber;
 
-      if (!empty($postSerialNumber['a'])) {
+      if (!empty($postSerialNumber['pickingNo'])) {
         $serial_number = [
-          'picking_id'    => $postSerialNumber['a'],
-          'ean_code'      => $postSerialNumber['b'],
-          'serial_number' => $postSerialNumber['c'],
+          'picking_id'    => $postSerialNumber['pickingNo'],
+          'ean_code'      => $postSerialNumber['eanCode'],
+          'serial_number' => $postSerialNumber['serialNumber'],
         ];
 
         // return $serial_number;
@@ -106,7 +106,7 @@ class PickingToLMBController extends Controller
     if (empty($serial_numbers)) {
       return sendError('No Serial Number Data.');
     }
-    
+
     LMBDetail::insert($serial_numbers);
 
     return sendSuccess('Serial Number uploaded.', $serial_numbers);
