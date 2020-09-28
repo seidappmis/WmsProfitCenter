@@ -70,14 +70,15 @@ class StockTakeSchedule extends BaseModel
   public static function getDifferentQuantity($sto_id)
   {
     return StockTakeInput1::select(
-      DB::raw('IF(SUM(log_stocktake_input1.quantity) IS NULL, 0, SUM(log_stocktake_input1.quantity)) - IF(SUM(log_stocktake_input2.quantity) IS NULL, 0, SUM(log_stocktake_input2.quantity)) AS different_quantity')
+      // DB::raw('IF(SUM(log_stocktake_input1.quantity) IS NULL, 0, SUM(log_stocktake_input1.quantity)) - IF(SUM(log_stocktake_input2.quantity) IS NULL, 0, SUM(log_stocktake_input2.quantity)) AS different_quantity')
+      DB::raw('IF(COUNT(log_stocktake_input1.quantity) IS NULL, 0, COUNT(log_stocktake_input1.quantity)) AS different_quantity')
     )
       ->leftjoin('log_stocktake_input2', function ($join) {
         $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_input2.sto_id');
         $join->on('log_stocktake_input1.no_tag', '=', 'log_stocktake_input2.no_tag');
       })
       ->where('log_stocktake_input1.sto_id', $sto_id)
-      ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL AND log_stocktake_input2.input_date IS NOT NULL)')
+      ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL OR log_stocktake_input2.input_date IS NOT NULL)')
       ->whereRaw('IF(log_stocktake_input1.quantity IS NULL, 0, log_stocktake_input1.quantity) != IF(log_stocktake_input2.quantity IS NULL, 0, log_stocktake_input2.quantity)')
       ->first()->different_quantity;
   }

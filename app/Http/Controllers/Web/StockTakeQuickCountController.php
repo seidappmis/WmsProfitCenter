@@ -41,6 +41,7 @@ class StockTakeQuickCountController extends Controller
         })
         ->where('log_stocktake_input1.sto_id', $request->input('sto_id'))
         ->whereNotNull('log_stocktake_input1.input_date')
+        ->whereRaw('(log_stocktake_input1.input_date IS NULL OR log_stocktake_input2.input_date IS NULL)')
         ->whereRaw('IF(log_stocktake_input1.quantity IS NULL, 0, log_stocktake_input1.quantity) != IF(log_stocktake_input2.quantity IS NULL, 0, log_stocktake_input2.quantity)')
       ;
 
@@ -67,6 +68,7 @@ class StockTakeQuickCountController extends Controller
         })
         ->where('log_stocktake_input2.sto_id', $request->input('sto_id'))
         ->whereNotNull('log_stocktake_input2.input_date')
+        ->whereRaw('(log_stocktake_input1.input_date IS NULL OR log_stocktake_input2.input_date IS NULL)')
         ->whereRaw('IF(log_stocktake_input1.quantity IS NULL, 0, log_stocktake_input1.quantity) != IF(log_stocktake_input2.quantity IS NULL, 0, log_stocktake_input2.quantity)')
       ;
 

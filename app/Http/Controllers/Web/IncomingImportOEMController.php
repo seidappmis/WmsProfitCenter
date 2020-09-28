@@ -248,7 +248,7 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->expedition_name     = $request->input('expedition_name');
     $incomingManualHeader->container_no        = $request->input('container_no');
     $incomingManualHeader->area                = $request->input('area');
-    // $incomingManualHeader->inc_type            = $request->input('inc_type');
+    $incomingManualHeader->inc_type            = $request->input('inc_type');
     $incomingManualHeader->kode_cabang = auth()->user()->cabang->kode_cabang;
     // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');

@@ -208,7 +208,9 @@
     $('#form-incoming-import-oem-header .btn-save').html('Update')
     set_select2_value('#form-incoming-import-oem-header [name="vendor_name"]', '{{$incomingManualHeader->vendor_name}}', '{{$incomingManualHeader->vendor_name}}');
     $('input:radio[name="inc_type"]').filter('[value="{{$incomingManualHeader->inc_type}}"]').attr('checked', true);
+    @if($incomingManualHeader->submit)
     $('input:radio[name="inc_type"]').prop('disabled', true);
+    @endif
   }
 
   function update_handler(){
