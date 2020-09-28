@@ -57,9 +57,9 @@
                 				<td colspan="5" style="border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="4"><strong>Claim Carton Box :</strong></td>
-								<td colspan="2" style="width: 7mm;">&nbsp;</td>
+								<!-- <td style="border-left: 2pt solid #000000;">&nbsp;</td> -->
+								<td colspan="6" style="text-align: left; border-left: 2pt solid #000000;"><strong>&nbsp; &emsp; Claim Carton Box :</strong></td>
+								<td colspan="">&nbsp;</td>
                 				<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
@@ -93,9 +93,9 @@
 								<td colspan="8" style="border-left: 1pt solid #000000; border-right: 2pt solid #000000;"></td>
 							</tr>
 							<tr>
-								<td style="border-left: 2pt solid #000000;">&nbsp;</td>
-								<td colspan="4"><strong>Claim Unit : &nbsp; 2 Unit</strong></td>
-								<td colspan="2" style="width: 7mm;">&nbsp;</td>
+								<!-- <td style="border-left: 2pt solid #000000;">&nbsp;</td> -->
+								<td colspan="6" style="border-left: 2pt solid #000000; text-align: left;"><strong>&nbsp; &emsp;Claim Unit : &nbsp; 2 Unit</strong></td>
+								<td colspan="" style="width: 7mm;">&nbsp;</td>
 								<td style="border-left: 1pt solid #000000; width: 7mm;">&#9314;</td>
                 				<td colspan="2" style="">Man Power Cost</td>
                 				<td colspan="2">&nbsp;</td>
@@ -195,7 +195,7 @@
 							</tr>
 							<!-- Total Claim -->
 							<tr>
-								<td colspan="5" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; width: 80mm;"><strong>Total Claim Amount</strong></td>
+								<td colspan="5" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; width: 130mm;"><strong>Total Claim Amount</strong></td>
 								<td>
 									<table width="100%" style="font-size: 8pt;">
 										<tr>
@@ -271,11 +271,62 @@
 							<tr><td colspan="15" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td></tr>
 							<!-- Company Name -->
 							<tr>
-								<td colspan="4" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Company Name :</strong></td>
-								<td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; font-size: 12pt;"><strong>SEJAHTERA BERSAMA TRANSINDO, PT.</strong></td>
+								<td colspan="5" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Company Name :</strong></td>
+								<td colspan="3" style="border-top: 2pt solid #000000; font-size: 12pt;"><strong>SEJAHTERA BERSAMA TRANSINDO, PT.</strong></td>
 								<td colspan="7" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;"><strong>Supplier Code :</strong></td>
 							</tr>
+							<tr>
+								<td colspan="5" style="border-left: 2pt solid #000000;"><strong>Opinion :</strong></td>
+								<td colspan="10" style="border-right: 2pt solid #000000;"></td>
+							</tr>
+							<tr>
+								<td colspan="6" style="border-left: 2pt solid #000000;">Payment Method( &radic; ):</td>
+								<td colspan="" style="border: 1pt solid #000000;"></td>
+								<td>&nbsp;Transfer</td>
+								<td colspan="2">&nbsp;</td>
+								<td colspan="" style="border: 1pt solid #000000;"></td>
+								<td>&nbsp;Deduct Payment</td>
+								<td colspan="">Claim Amount(IDR, JYP, USD)</td>
+								<td style="border-bottom: 1pt solid #000000;">: &nbsp; <strong>6.499.350</strong></td>
+								<td colspan="" style="border-right: 2pt solid #000000;">
+									<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
+										<tr>
+											<td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center; width: 15mm;">&nbsp;</td>
+										</tr>
+										<tr>
+											<td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000;text-align: center; width: 15mm;"><strong>PIC</strong></td>
+										</tr>
+										<tr>
+											<td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 15mm;">&nbsp;</td>
+										</tr>
+										<tr>
+											<td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
+										</tr>
+										<tr>
+											<td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
+										</tr>
+										<tr>
+											<td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
+										</tr>
+										<tr>
+											<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<!-- <tr>
+								<td colspan="8" style="border-left: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="6">&nbsp;</td>
+								<td colspan="" style="border-right: 2pt solid #000000;">
+									<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
+										<tr>
+											<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+							</tr> -->
 							<tr><td colspan="15" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000"></td></tr>
+							<tr><td colspan="15" style="height: 1px; border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000"></td></tr>
 							<tr>
 								<td colspan="6" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Accounting Dept. Opinion :</strong></td>
 								<td colspan="9" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
@@ -362,7 +413,7 @@
 							</tr>
 							<tr>
 								<td colspan="4" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; height: 40px;"><strong>Debit Note No :</strong></td>
-								<td style="border-top: 2pt solid #000000;">&nbsp;</td>
+								<td colspan="2" style="border-top: 2pt solid #000000;">&nbsp;</td>
 								<td colspan="9" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
 							</tr>
 							<tr>
