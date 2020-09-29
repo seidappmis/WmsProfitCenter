@@ -7,6 +7,7 @@ use App\Models\Concept;
 use App\Models\MasterCabang;
 use App\Models\MasterDestination;
 use App\Models\MasterExpedition;
+use App\Models\ModelException;
 use Illuminate\Http\Request;
 
 class UploadConceptController extends Controller
@@ -29,6 +30,13 @@ class UploadConceptController extends Controller
     $rs_destination = [];
     $rs_expedition  = [];
     $rs_code_sales  = [];
+
+    $modelException   = ModelException::all();
+    $rsModelException = [];
+
+    foreach ($modelException as $key => $value) {
+      $rsModelException[$value->model] = $value;
+    }
 
     $area = (auth()->user()->area == "All") ? $request->input('area') : auth()->user()->area;
 
@@ -124,7 +132,9 @@ class UploadConceptController extends Controller
         $concept['destination_number'] = $rs_destination[$concept['destination_name']];
         $concept['expedition_id']      = $rs_expedition[$concept['expedition_code']];
 
-        $concepts[] = $concept;
+        if (empty($rsModelException[$concept['model']])) {
+          $concepts[] = $concept;
+        }
       }
       // Akhir validasi data per baris
     }

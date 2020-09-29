@@ -384,6 +384,7 @@ class PickingToLMBController extends Controller
         $movement_transaction_log['created_at']            = $date_now;
         $movement_transaction_log['flow_id']               = '';
         $movement_transaction_log['kode_cabang']           = $lmbHeader->kode_cabang;
+        $movement_transaction_log['created_by']            = auth()->user()->id;
 
         $rs_movement_transaction_log[] = $movement_transaction_log;
 

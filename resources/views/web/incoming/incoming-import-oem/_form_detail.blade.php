@@ -97,10 +97,18 @@
          ajax: get_select2_ajax_options('/master-model/select2-model')
       });
 
+
+      @if($incomingManualHeader->inc_type == "OTHERS")
+      $('#form-incoming-import-oem-detail [name="storage_id"]').select2({
+         placeholder: '-- Select Storage Location --',
+         ajax: get_select2_ajax_options('/storage-master/select2-storage', {sto_type_id: [1,2]})
+      });
+      @else
       $('#form-incoming-import-oem-detail [name="storage_id"]').select2({
          placeholder: '-- Select Storage Location --',
          ajax: get_select2_ajax_options('/storage-master/select2-storage', {sto_type_id: [1]})
       });
+      @endif
 
    });
 

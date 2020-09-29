@@ -42,7 +42,7 @@ class LogManifestHeader extends Model
     $total_unconfirm_detail   = $this->details->where('status_confirm', 0)->count();
 
     if ($total_detail_tcs_do > $total_detail_manifest_do) {
-      return 'DO Items Not Found';
+      return '<span class="red-text">DO Items Not Found</span>';
     } elseif ($this->status_complete && $total_unconfirm_detail == 0) {
       return 'Full D/O Confirmed';
     } elseif ($this->status_complete && $total_unconfirm_detail > 0) {

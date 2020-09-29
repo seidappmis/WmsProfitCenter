@@ -36,7 +36,7 @@ class ManifestRegularController extends Controller
           $action .= ' ' . get_button_view(url('manifest-regular/' . $data->do_manifest_no . '/edit'), 'View');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['status', 'action']);
 
       return $datatables->make(true);
     }

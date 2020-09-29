@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ManualConcept;
 use App\Models\MasterCabang;
 use App\Models\MasterModel;
+use App\Models\ModelException;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -54,6 +55,13 @@ class UploadDOForPickingController extends Controller
     $rs_code_sales = [];
 
     $check_manual_concept = DB::table('wms_manual_concept');
+
+    $modelException   = ModelException::all();
+    $rsModelException = [];
+
+    foreach ($modelException as $key => $value) {
+      $rsModelException[$value->model] = $value;
+    }
 
     while (!feof($file)) {
       $row = fgetcsv($file);
@@ -107,7 +115,9 @@ class UploadDOForPickingController extends Controller
 
         $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
 
-        $rs_do[] = $do;
+        if (empty($rsModelException[$do['model']])) {
+          $rs_do[] = $do;
+        }
       }
     }
 
@@ -116,7 +126,9 @@ class UploadDOForPickingController extends Controller
       return sendError('Failed Upload ' . $check[0]->delivery_no . ' AND ' . $check[0]->delivery_items . ' Already EXIST.', $check);
     }
 
-    ManualConcept::insert($rs_do);
+    if (!empty($rs_do)) {
+      ManualConcept::insert($rs_do);
+    }
 
     return $rs_do;
   }
