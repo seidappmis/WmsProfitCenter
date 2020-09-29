@@ -32,7 +32,9 @@ class Gate extends BaseModel
            log_manifest_header.`status_complete`
          FROM wms_pickinglist_header
          LEFT JOIN log_manifest_header ON log_manifest_header.`driver_register_id` = wms_pickinglist_header.`driver_register_id`
-         WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL)) AS t'
+         WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL)
+         GROUP BY wms_pickinglist_header.`driver_register_id`
+       ) AS t'
         ),
         't.picking_gate_number', '=', 'tr_gate.gate_number'
       )
