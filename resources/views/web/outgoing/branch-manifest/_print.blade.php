@@ -168,7 +168,7 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="3" style="text-align: left; width: 70mm;">Thursday, 13-August-2020 04:16:31 PM</td>
+                <td colspan="3" style="text-align: left; width: 70mm;">{{date('l, d-F-Y h:i:s A')}}</td>
                 <td colspan="8" style="text-align: center; width: 70mm;">Page 1 of 1</td>
                 <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
               </tr>

@@ -169,7 +169,7 @@
 		        <tr><td>&nbsp;</td></tr>
 		        <tr>
 		        	<td style="text-align: right; width: 80mm;"></td>
-		          	<td style="text-align: left;  width: 300mm; font-size: 9pt;">Wednesday, 12-August-2020</td>
+		          	<td style="text-align: left;  width: 300mm; font-size: 9pt;">{{date('l, d-F-Y h:i:s A')}}</td>
 		          	<td style="width: 30mm;">&nbsp;</td>
 		          	<td style="text-align: left;  width: 200mm; font-size: 9pt;">&nbsp; Page 1 of 1</td>
 		          	<td style="width: 30mm;">&nbsp;</td>
