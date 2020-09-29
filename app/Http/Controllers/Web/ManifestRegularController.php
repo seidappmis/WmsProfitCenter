@@ -68,6 +68,100 @@ class ManifestRegularController extends Controller
     }
   }
 
+  public function newManifestLCL(Request $request)
+  {
+    $request->validate([
+      'do_manifest_no' => 'required',
+    ]);
+
+    $oldManifestHeader = LogManifestHeader::findOrFail($request->input('do_manifest_no'));
+
+    $manifestHeader = new LogManifestHeader;
+
+    // DO MANIFEST NO => KODEAREA-ymd-URUT
+    $prefix = auth()->user()->area_data->code . '-' . date('ymd');
+
+    $prefix_length = strlen($prefix);
+    $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM log_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+    $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+
+    $do_manifest_no = $prefix . '-' . $max_no;
+
+    $manifestHeader->driver_register_id          = $oldManifestHeader->driver_register_id;
+    $manifestHeader->do_manifest_no              = $do_manifest_no;
+    $manifestHeader->expedition_code             = $request->input('expedition_code');
+    $manifestHeader->expedition_name             = $request->input('expedition_name');
+    $manifestHeader->driver_id                   = $request->input('driver_id');
+    $manifestHeader->driver_name                 = $request->input('driver_name');
+    $manifestHeader->vehicle_number              = $request->input('vehicle_number');
+    $manifestHeader->vehicle_code_type           = $request->input('vehicle_code_type');
+    $manifestHeader->vehicle_description         = $request->input('vehicle_description');
+    $manifestHeader->do_manifest_date            = $request->input('do_manifest_date');
+    $manifestHeader->do_manifest_time            = date('Y-m-d H:i:s');
+    $manifestHeader->destination_number_driver   = $request->input('destination_number_driver');
+    $manifestHeader->destination_name_driver     = $request->input('destination_name_driver');
+    $manifestHeader->city_code                   = $request->input('city_code');
+    $manifestHeader->city_name                   = $request->input('city_name');
+    $manifestHeader->container_no                = $request->input('container_no');
+    $manifestHeader->seal_no                     = $request->input('seal_no');
+    $manifestHeader->checker                     = $request->input('checker');
+    $manifestHeader->pdo_no                      = $request->input('pdo_no');
+    $manifestHeader->area                        = auth()->user()->area;
+    $manifestHeader->status_complete             = 0;
+    $manifestHeader->urut_manifest               = 2;
+    $manifestHeader->tcs                         = 0;
+    $manifestHeader->ambil_sendiri               = 0;
+    $manifestHeader->ritase                      = 0;
+    $manifestHeader->cbm                         = 0;
+    $manifestHeader->manifest_return             = 0;
+    $manifestHeader->manifest_type               = 'LCL';
+    $manifestHeader->status_inv_recieve          = 0;
+    $manifestHeader->have_lcl                    = 1;
+    $manifestHeader->lcl_from_driver_register_id = $oldManifestHeader->driver_register_id;
+    $manifestHeader->lcl_from_manifest_no        = $oldManifestHeader->do_manifest_no;
+    $manifestHeader->lcl_created_date            = date('Y-m-d H:i:s');
+    $manifestHeader->lcl_created_by              = auth()->user()->id;
+    $manifestHeader->have_resend                 = 0;
+    $manifestHeader->manifest_resend             = 0;
+    $manifestHeader->r_from_manifest             = $request->input('r_from_manifest');
+    $manifestHeader->r_driver_register_id        = $request->input('r_driver_register_id');
+    $manifestHeader->r_create_date               = $request->input('r_create_date');
+    $manifestHeader->r_create_by                 = $request->input('r_create_by');
+
+    $freightCost = FreightCost::where('area', $manifestHeader->area)
+      ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
+      ->where('expedition_code', $manifestHeader->expedition_code)
+      ->where('city_code', $manifestHeader->city_code)
+      ->first();
+
+    $manifestHeader->id_freight_cost = $freightCost->id;
+
+    $rs_details = [];
+    foreach ($oldManifestHeader->details as $key => $value) {
+      $rs_details[$key] = $value->toArray();
+      unset($rs_details[$key]['id']);
+
+      $rs_details[$key]['do_manifest_no'] = $manifestHeader->do_manifest_no;
+    }
+
+    try {
+      DB::beginTransaction();
+      LogManifestDetail::insert($rs_details);
+      $manifestHeader->save();
+
+      $oldManifestHeader->have_lcl         = 1;
+      $oldManifestHeader->lcl_created_date = $manifestHeader->lcl_created_date;
+
+      $oldManifestHeader->save();
+
+      DB::commit();
+
+      return sendSuccess('Manifest LCL Created', $manifestHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+  }
+
   public function truckWaitingManifest(Request $request)
   {
     if ($request->ajax()) {

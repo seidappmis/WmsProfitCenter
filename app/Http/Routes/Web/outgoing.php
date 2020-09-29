@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');
   Route::get('manifest-regular/truck-waiting-manifest', 'Web\ManifestRegularController@truckWaitingManifest');
   Route::delete('manifest-regular/delete-do', 'Web\ManifestRegularController@destroyDO');
+  Route::post('manifest-regular/new-manifest-lcl', 'Web\ManifestRegularController@newManifestLCL');
   Route::post('manifest-regular/{do_manifest_no}/upload-do', 'Web\ManifestRegularController@uploadDO');
   Route::get('manifest-regular/{do_manifest_no}/list-do', 'Web\ManifestRegularController@listDO');
   Route::get('manifest-regular/{lmb_id}/create-manifest', 'Web\ManifestRegularController@createManifest');

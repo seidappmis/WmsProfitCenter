@@ -1,40 +1,4 @@
-@if(!empty($manifestHeader))
-{!! get_button_save('New Manifest LCL', 'btn-new-manifest-lcl mb-1') !!}
-@push('script_js')
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        $('.btn-new-manifest-lcl').click(function(event) {
-            /* Act on the event */
-            swal({
-                title: "Are you sure want to create Manifest LCL ?",
-                icon: 'warning',
-                buttons: {
-                  cancel: true,
-                  delete: 'OK'
-                }
-              }).then(function (confirm) { // proses confirm
-                if (confirm) { // Bila oke post ajax ke url delete nya
-                  // Ajax Post Delete
-                  $.ajax({
-                    url: '{{ url('manifest-regular/new-manifest-lcl') }}' ,
-                    type: 'POST',
-                    data: 'do_manifest_no={{$manifestHeader->do_manifest_no}}'
-                  })
-                  .done(function() { // Kalau ajax nya success
-                    showSwalAutoClose('Success', 'Data deleted.')
-                    dttable_list_do.ajax.reload(null, false); // reload datatable
-                  })
-                  .fail(function() { // Kalau ajax nya gagal
-                    console.log("error");
-                  });
-                  
-                }
-              })
-        });
-    });
-</script>
-@endpush
-@endif
+@include('web.outgoing.manifest-regular._form_new_lcl')
 
 <form class="form-table" id="form-manifest">
     <input type="hidden" name="driver_register_id" value="{{$lmbHeader->driver_register_id}}">
