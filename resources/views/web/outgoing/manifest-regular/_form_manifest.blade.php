@@ -1,3 +1,4 @@
+
 @include('web.outgoing.manifest-regular._form_new_lcl')
 
 <form class="form-table" id="form-manifest">

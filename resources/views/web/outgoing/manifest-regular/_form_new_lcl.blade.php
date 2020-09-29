@@ -1,3 +1,4 @@
+@if(!empty($manifestHeader) && !$manifestHeader->have_lcl)
 @push('page-modal')
 <div id="modal-form-new-lcl" class="modal" style="">
     <div class="modal-content">
@@ -134,7 +135,6 @@
   </div>
 @endpush
 
-@if(!empty($manifestHeader) && !$manifestHeader->have_lcl)
 {!! get_button_save('New Manifest LCL', 'btn-new-manifest-lcl mb-1') !!}
 @push('script_js')
 <script type="text/javascript">

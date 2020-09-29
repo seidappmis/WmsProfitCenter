@@ -40,7 +40,7 @@ foreach ($rs_shipment_no as $key => $value) {
               </tr>
               <tr>
                 <td style="text-align: right;">SHARP WAREHOUSE :</td>
-                <td>SEID W/H {{auth()->user()->cabang->short_description}}</td>
+                <td>SEID W/H {{auth()->user()->cabang->hq ? auth()->user()->area_data->code : auth()->user()->cabang->short_description}}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>

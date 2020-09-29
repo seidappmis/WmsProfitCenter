@@ -671,6 +671,23 @@ class PickingListController extends Controller
         if (empty($inventoryStorage)) {
           return sendError('Model ' . $value['model'] . ' not exist in storage !');
         }
+
+        // Dikurangi item terbooking, picking list yang belum send manifest;
+        $holdPickingDetail = PickinglistDetail::select(
+          'wms_pickinglist_detail.ean_code',
+          DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
+          'wms_lmb_header.send_manifest'
+        )
+          ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+          ->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+          ->whereNull('wms_lmb_header.send_manifest')
+          ->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
+          ->groupBy('wms_pickinglist_detail.ean_code')
+          ->first();
+
+        $qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
+
+        $inventoryStorage->quantity_total -= $qty_hold;
         $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
       }
 
