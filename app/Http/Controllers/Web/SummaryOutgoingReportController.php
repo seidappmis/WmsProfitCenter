@@ -27,7 +27,7 @@ class SummaryOutgoingReportController extends Controller
   public static function getSummaryOutgoingReport($request)
   {
     $query = LogManifestHeader::select(
-      'log_manifest_header.*',
+      'slog_manifest_header.*',
       'log_manifest_detail.invoice_no',
       'log_manifest_detail.delivery_no',
       'log_manifest_detail.lead_time',
@@ -67,6 +67,55 @@ class SummaryOutgoingReportController extends Controller
       ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
       ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
     ;
+
+    $query->where('log_manifest_header.area', $request->input('area'));
+
+    if (!empty($request->input('start_do_manifest_date'))) {
+      $query->where('log_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
+    }
+    if (!empty($request->input('end_do_manifest_date'))) {
+      $query->where('log_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date'));
+    }
+
+    if (!empty($request->input('start_do_date'))) {
+      $query->where('log_manifest_header.do_date', '>=', $request->input('start_do_date'));
+    }
+    if (!empty($request->input('end_do_date'))) {
+      $query->where('log_manifest_header.do_date', '<=', $request->input('end_do_date'));
+    }
+
+    if (!empty($request->input('start_actual_time_arrival'))) {
+      $query->where('log_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
+    }
+    if (!empty($request->input('end_actual_time_arrival'))) {
+      $query->where('log_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival'));
+    }
+
+    if (!empty($request->input('start_unloading_date'))) {
+      $query->where('log_manifest_detail.actual_loading_date', '>=', $request->input('start_unloading_date'));
+    }
+    if (!empty($request->input('end_unloading_date'))) {
+      $query->where('log_manifest_detail.actual_loading_date', '<=', $request->input('end_unloading_date'));
+    }
+
+    if (!empty($request->input('start_doc_do_return_date'))) {
+      $query->where('log_manifest_detail.doc_do_return_date', '>=', $request->input('start_doc_do_return_date'));
+    }
+    if (!empty($request->input('end_doc_do_return_date'))) {
+      $query->where('log_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date'));
+    }
+
+    if (!empty($request->input('do_manifest_no'))) {
+      $query->where('log_manifest_header.do_manifest_no', $request->input('do_manifest_no'));
+    }
+
+    if (!empty($request->input('invoice_no'))) {
+      $query->where('log_manifest_detail.invoice_no', $request->input('invoice_no'));
+    }
+
+    if (!empty($request->input('delivery_no'))) {
+      $query->where('log_manifest_detail.delivery_no', $request->input('delivery_no'));
+    }
 
     return $query;
   }

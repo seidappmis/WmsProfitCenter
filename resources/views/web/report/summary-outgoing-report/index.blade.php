@@ -27,7 +27,7 @@
                                 <td>Area</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select name="area" class="select2-data-ajax browser-default">
+                                    <select name="area" class="select2-data-ajax browser-default" required="">
                                     </select>
                                   </div>
                                  <label>
@@ -63,7 +63,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                      <input placeholder="" name="start_do_manifest_date" type="text" class="validate datepicker" readonly required="">
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -71,7 +71,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                      <input placeholder="" name="end_do_manifest_date" type="text" class="validate datepicker" readonly required="">
                                     </div>
                                   </div>
                                 </td>
@@ -331,26 +331,19 @@
           type: 'POST',
           data: function(d) {
               d.area = $('#form-summary-outgoing-report [name="area"]').val()
+              d.do_manifest_no = $('#form-summary-outgoing-report [name="do_manifest_no"]').val()
               d.invoice_no = $('#form-summary-outgoing-report [name="invoice_no"]').val()
               d.delivery_no = $('#form-summary-outgoing-report [name="delivery_no"]').val()
-              d.vehicle_number = $('#form-summary-outgoing-report [name="vehicle_number"]').val()
-              d.destination_number = $('#form-summary-outgoing-report [name="destination_number"]').val()
-              d.expedition_code = $('#form-summary-outgoing-report [name="expedition_code"]').val()
-              d.vehicle_code_type = $('#form-summary-outgoing-report [name="vehicle_code_type"]').val()
-              d.do_manifest_no = $('#form-summary-outgoing-report [name="do_manifest_no"]').val()
-              d.start_upload_concept_date = $('#form-summary-outgoing-report [name="start_upload_concept_date"]').val()
-              d.end_upload_concept_date = $('#form-summary-outgoing-report [name="end_upload_concept_date"]').val()
-              d.start_register_driver_date = $('#form-summary-outgoing-report [name="start_register_driver_date"]').val()
-              d.end_register_driver_date = $('#form-summary-outgoing-report [name="end_register_driver_date"]').val()
-              d.start_mapping_concept_date = $('#form-summary-outgoing-report [name="start_mapping_concept_date"]').val()
-              d.end_mapping_concept_date = $('#form-summary-outgoing-report [name="end_mapping_concept_date"]').val()
-              d.start_loading_start_date = $('#form-summary-outgoing-report [name="start_loading_start_date"]').val()
-              d.end_loading_start_date = $('#form-summary-outgoing-report [name="end_loading_start_date"]').val()
-              d.start_loading_finish_date = $('#form-summary-outgoing-report [name="start_loading_finish_date"]').val()
-              d.end_loading_finish_date = $('#form-summary-outgoing-report [name="end_loading_finish_date"]').val()
-              d.start_complete_date = $('#form-summary-outgoing-report [name="start_complete_date"]').val()
-              d.end_complete_date = $('#form-summary-outgoing-report [name="end_complete_date"]').val()
-              d.status = $('#form-summary-outgoing-report [name="status"]').val()
+              d.start_do_manifest_date = $('#form-summary-outgoing-report [name="start_do_manifest_date"]').val()
+              d.end_do_manifest_date = $('#form-summary-outgoing-report [name="end_do_manifest_date"]').val()
+              d.start_do_date = $('#form-summary-outgoing-report [name="start_do_date"]').val()
+              d.end_do_date = $('#form-summary-outgoing-report [name="end_do_date"]').val()
+              d.start_actual_time_arrival = $('#form-summary-outgoing-report [name="start_actual_time_arrival"]').val()
+              d.end_actual_time_arrival = $('#form-summary-outgoing-report [name="end_actual_time_arrival"]').val()
+              d.start_unloading_date = $('#form-summary-outgoing-report [name="start_unloading_date"]').val()
+              d.end_unloading_date = $('#form-summary-outgoing-report [name="end_unloading_date"]').val()
+              d.start_doc_do_return_date = $('#form-summary-outgoing-report [name="start_doc_do_return_date"]').val()
+              d.end_doc_do_return_date = $('#form-summary-outgoing-report [name="end_doc_do_return_date"]').val()
             }
       },
       order: [1, 'asc'],
