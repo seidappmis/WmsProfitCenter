@@ -398,7 +398,7 @@
           {data: 'confirm_by'},
           {data: 'confirm_date'},
           {data: 'actual_time_arrival'},
-          {data: 'actual_loading_date'},
+          {data: 'actual_unloading_date'},
           {data: 'doc_do_return_date'},
           {data: 'status_reject'},
          ]
