@@ -84,7 +84,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" name="start_date_of_manifest" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_do_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -92,7 +92,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" name="end_date_of_manifest" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_do_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -332,6 +332,9 @@
           data: function(d) {
               d.area = $('#form-summary-outgoing-report [name="area"]').val()
               d.do_manifest_no = $('#form-summary-outgoing-report [name="do_manifest_no"]').val()
+              d.include_hq = $('#form-summary-outgoing-report [name="include_hq"]').val()
+              d.do_received = $('#form-summary-outgoing-report [name="do_received"]').val()
+              d.not_include_manifest_as = $('#form-summary-outgoing-report [name="not_include_manifest_as"]').val()
               d.invoice_no = $('#form-summary-outgoing-report [name="invoice_no"]').val()
               d.delivery_no = $('#form-summary-outgoing-report [name="delivery_no"]').val()
               d.start_do_manifest_date = $('#form-summary-outgoing-report [name="start_do_manifest_date"]').val()

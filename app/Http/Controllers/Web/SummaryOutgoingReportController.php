@@ -27,7 +27,7 @@ class SummaryOutgoingReportController extends Controller
   public static function getSummaryOutgoingReport($request)
   {
     $query = LogManifestHeader::select(
-      'slog_manifest_header.*',
+      'log_manifest_header.*',
       'log_manifest_detail.invoice_no',
       'log_manifest_detail.delivery_no',
       'log_manifest_detail.lead_time',
