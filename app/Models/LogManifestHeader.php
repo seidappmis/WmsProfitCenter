@@ -66,4 +66,6 @@ class LogManifestHeader extends Model
   {
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
   }
+
+  
 }

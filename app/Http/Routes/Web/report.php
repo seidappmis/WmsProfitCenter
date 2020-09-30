@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('summary-incoming-report', 'Web\SummaryIncomingReportController@index');
 
   Route::get('summary-outgoing-report', 'Web\SummaryOutgoingReportController@index');
+  Route::post('summary-outgoing-report', 'Web\SummaryOutgoingReportController@index');
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');

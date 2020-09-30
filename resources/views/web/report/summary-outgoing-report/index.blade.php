@@ -63,7 +63,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -71,7 +71,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
                                     </div>
                                   </div>
                                 </td>
@@ -316,18 +316,18 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('loading-status-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('summary-outgoing-report/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('loading-status-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('summary-outgoing-report/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
           }
         }
       ],
       ajax: {
-          url: '{{ url('loading-status-list') }}',
+          url: '{{ url('summary-outgoing-report') }}',
           type: 'POST',
           data: function(d) {
               d.area = $('#form-summary-outgoing-report [name="area"]').val()
@@ -355,53 +355,56 @@
       },
       order: [1, 'asc'],
       columns: [
+          {data: 'manifest_type'},
+          {data: 'do_manifest_date'},
+          {data: 'do_manifest_no'},
+          {data: 'do_manifest_no'},
           {data: 'invoice_no'},
-          {data: 'line_no'},
-          {data: 'output_date'},
-          {data: 'output_time'},
-          {data: 'concept_destination_name'},
-          {data: 'vehicle_code_type'},
-          {data: 'car_no'},
-          {data: 'cont_no'},
-          {data: 'checkin_date'},
-          {data: 'checkin_time'},
           {data: 'delivery_no'},
+          {data: 'do_internal'},
+          {data: 'reservasi_no'},
+          {data: 'do_date'},
           {data: 'delivery_items'},
-          {data: 'model'},
-          {data: 'quantity'},
-          {data: 'cbm'},
-          {data: 'ship_to'},
-          {data: 'sold_to'},
-          {data: 'ship_to_city'},
-          {data: 'ship_to_street'},
-          {data: 'sold_to_city'},
-          {data: 'sold_to_district'},
-          {data: 'sold_to_street'},
-          {data: 'remarks'},
-          {data: 'created_at'},
-          {data: 'reg_driver_id'},
-          {data: 'reg_driver_name'},
-          {data: 'reg_vehicle_no'},
-          {data: 'reg_vehicle_description'},
-          {data: 'reg_vehicle_type'},
-          {data: 'reg_cbm_truck'},
-          {data: 'reg_date_in'},
-          {data: 'reg_date_out'},
-          {data: 'reg_destination'},
-          {data: 'reg_region'},
-          {data: 'reg_expedition_code'},
-          {data: 'reg_expedition_name'},
-          {data: 'mapping_concept_date'},
-          {data: 'select_gate_date'},
-          {data: 'load_gate_number'},
-          {data: 'load_loading_start'},
-          {data: 'load_loading_end'},
-          {data: 'load_loading_minutes'},
-          {data: 'load_do_manifest_no'},
-          {data: 'status'},
+          {data: 'do_manifest_date'},
+          {data: 'eta'},
+          {data: 'lead_time'},
+          {data: 'checker'},
           {data: 'sold_to_code'},
+          {data: 'sold_to'},
           {data: 'ship_to_code'},
-          {data: 'area'},
+          {data: 'ship_to'},
+          {data: 'region'},
+          {data: 'destination_name_driver'},
+          {data: 'city_name'},
+          {data: 'model'},
+          {data: 'model_description'},
+          {data: 'quantity'},
+          {data: 'detail_cbm'},
+          {data: 'detail_total_cbm'},
+          {data: 'expedition_code'},
+          {data: 'expedition_name'},
+          {data: 'vehicle_number'},
+          {data: 'vehicle_code_type'},
+          {data: 'vehicle_description'},
+          {data: 'container_no'},
+          {data: 'seal_no'},
+          {data: 'pdo_no'},
+          {data: 'code_sales'},
+          {data: 'status'},
+          {data: 'created_by_name'},
+          {data: 'created_at'},
+          {data: 'updated_by_name'},
+          {data: 'updated_at'},
+          {data: 'desc'},
+          {data: 'delivery_status'},
+          {data: 'confirm'},
+          {data: 'status_confirm'},
+          {data: 'confirm_by'},
+          {data: 'confirm_date'},
+          {data: 'actual_time_arrival'},
+          {data: 'actual_loading_date'},
+          {data: 'doc_do_return_date'},
+          {data: 'status_reject'},
          ]
     });
 
