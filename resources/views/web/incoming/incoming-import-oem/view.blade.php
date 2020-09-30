@@ -141,6 +141,7 @@
     ],
   });
 
+  @if(!$incomingManualHeader->submit)
   dttable_incoming_detail.on('draw', function (data) {
       if(dttable_incoming_detail.page.info().recordsDisplay > 0){
         $('.btn-submit-to-inventory').removeClass('hide');
@@ -148,6 +149,7 @@
         $('.btn-submit-to-inventory').addClass('hide');
       }
   });
+  @endif
 
   dttable_incoming_detail.on('click', '.btn-edit', function(event) {
     var tr = $(this).parent().parent();

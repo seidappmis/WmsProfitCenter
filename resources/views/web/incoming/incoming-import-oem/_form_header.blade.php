@@ -106,7 +106,7 @@
 
       @if(!empty($incomingManualHeader) && !$incomingManualHeader->submit)
       $('#form-incoming-import-oem-detail').removeClass('hide');
-      @if($incomingManualHeader->details->count() > 0)
+      @if($incomingManualHeader->details->count() > 0 && !$incomingManualHeader->submit)
       $('.btn-submit-to-inventory').removeClass('hide');
       @endif
       $('.btn-submit-to-inventory').click(function(event) {

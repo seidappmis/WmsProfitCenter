@@ -58,12 +58,8 @@
                               <tr>
                                 <td>Destination Concept</td>
                                 <td>
-                                  <div class="input-field col s4">
-                                    <select>
-                                      <option value="" disabled selected></option>
-                                      <option value="1"> </option>
-                                      <option value="2"> </option>
-                                      <option value="3"> </option>
+                                  <div class="input-field col s6">
+                                    <select name="destination_number" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -71,12 +67,8 @@
                               <tr>
                                 <td>Expedition</td>
                                 <td>
-                                  <div class="input-field col s4">
-                                    <select>
-                                      <option value="" disabled selected></option>
-                                      <option value="1"> </option>
-                                      <option value="2"> </option>
-                                      <option value="3"> </option>
+                                  <div class="input-field col s6">
+                                    <select name="expedition_code" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -84,12 +76,8 @@
                               <tr>
                                 <td>Vahicle Type</td>
                                 <td>
-                                  <div class="input-field col s4">
-                                    <select>
-                                      <option value="" disabled selected></option>
-                                      <option value="1"> </option>
-                                      <option value="2"> </option>
-                                      <option value="3"> </option>
+                                  <div class="input-field col s6">
+                                    <select name="vehicle_code_type" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -108,7 +96,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_upload_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -116,7 +104,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_upload_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -129,7 +117,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_register_driver_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -137,20 +125,20 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_register_driver_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>Maping Concept Date</td>
+                                <td>Mapping Concept Date</td>
                                 <td>
                                   <div class="input-field col s6">
                                     <div class="col s3 m2 label">
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_mapping_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -158,7 +146,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_mapping_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -171,7 +159,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_loading_start_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -179,7 +167,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_loading_start_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -192,7 +180,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_loading_finish_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -200,7 +188,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_loading_finish_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -213,7 +201,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_complete_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -221,7 +209,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_complete_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -231,10 +219,13 @@
                                 <td>Status</td>
                                 <td>
                                   <div class="input-field col s4">
-                                    <select name="" id="">
-                                      <option value="1"></option>
-                                      <option value="2"></option>
-                                      <option value="3"></option>
+                                    <select name="status" id="">
+                                      <option value="">-All Status-</option>
+                                      <option value="Waiting Truck">Waiting Truck</option>
+                                      <option value="Waiting Loading">Waiting Loading</option>
+                                      <option value="Loading Process">Loading Process</option>
+                                      <option value="Waiting D/O">Waiting D/O</option>
+                                      <option value="Complete">Complete</option>
                                     </select>
 
                                   </div>
@@ -333,6 +324,24 @@
      ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
 
+  $('#form-loading-status-list [name="destination_number"]').select2({
+    placeholder: '-- ALL --',
+     allowClear: true,
+    ajax: get_select2_ajax_options('/master-destination/select2-destination')
+  });
+
+  $('#form-loading-status-list [name="expedition_code"]').select2({
+    placeholder: '-- ALL --',
+    allowClear: true,
+    ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  })
+
+  $('#form-loading-status-list [name="vehicle_code_type"]').select2({
+    placeholder: '-- ALL --',
+    allowClear: true,
+    ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
+  })
+
   var dttable_loading_status_list;
   jQuery(document).ready(function($) {
     dttable_loading_status_list = $('#table_loading_status_list').DataTable({
@@ -362,6 +371,23 @@
               d.invoice_no = $('#form-loading-status-list [name="invoice_no"]').val()
               d.delivery_no = $('#form-loading-status-list [name="delivery_no"]').val()
               d.vehicle_number = $('#form-loading-status-list [name="vehicle_number"]').val()
+              d.destination_number = $('#form-loading-status-list [name="destination_number"]').val()
+              d.expedition_code = $('#form-loading-status-list [name="expedition_code"]').val()
+              d.vehicle_code_type = $('#form-loading-status-list [name="vehicle_code_type"]').val()
+              d.do_manifest_no = $('#form-loading-status-list [name="do_manifest_no"]').val()
+              d.start_upload_concept_date = $('#form-loading-status-list [name="start_upload_concept_date"]').val()
+              d.end_upload_concept_date = $('#form-loading-status-list [name="end_upload_concept_date"]').val()
+              d.start_register_driver_date = $('#form-loading-status-list [name="start_register_driver_date"]').val()
+              d.end_register_driver_date = $('#form-loading-status-list [name="end_register_driver_date"]').val()
+              d.start_mapping_concept_date = $('#form-loading-status-list [name="start_mapping_concept_date"]').val()
+              d.end_mapping_concept_date = $('#form-loading-status-list [name="end_mapping_concept_date"]').val()
+              d.start_loading_start_date = $('#form-loading-status-list [name="start_loading_start_date"]').val()
+              d.end_loading_start_date = $('#form-loading-status-list [name="end_loading_start_date"]').val()
+              d.start_loading_finish_date = $('#form-loading-status-list [name="start_loading_finish_date"]').val()
+              d.end_loading_finish_date = $('#form-loading-status-list [name="end_loading_finish_date"]').val()
+              d.start_complete_date = $('#form-loading-status-list [name="start_complete_date"]').val()
+              d.end_complete_date = $('#form-loading-status-list [name="end_complete_date"]').val()
+              d.status = $('#form-loading-status-list [name="status"]').val()
             }
       },
       order: [1, 'asc'],

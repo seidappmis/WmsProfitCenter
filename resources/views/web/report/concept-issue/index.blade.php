@@ -21,17 +21,13 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-3">
-                        <form class="form-table">
+                        <form class="form-table" id="form-concept-issue">
                             <table id="data-table-simple" class="display" width="100%">
                                 <tr>
                                     <td>Area</td>
                                     <td>
                                       <div class="input-field col s12">
-                                        <select>
-                                          <option value="" disabled selected>-Select Area-</option>
-                                          <option value="1">KARAWANG</option>
-                                          <option value="2">SURABAYA HUB</option>
-                                          <option value="3">SWADAYA</option>
+                                        <select name="area" class="select2-data-ajax browser-default">
                                         </select>
                                       </div>
                                     </td>
@@ -60,3 +56,16 @@
     </div>
 </div>
 @endsection
+
+
+@push('script_js')
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $('#form-concept-issue [name="area"]').select2({
+           placeholder: '-- Select Area --',
+           allowClear: true,
+           ajax: get_select2_ajax_options('/master-area/select2-area-only')
+        });
+    });
+</script>
+@endpush

@@ -149,6 +149,20 @@ class AreaController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2AreaWithAll(Request $request)
+  {
+    $query = Area::select(
+      DB::raw('area AS id'),
+      DB::raw('area AS text')
+    );
+
+    if (auth()->user()->area != "All") {
+      $query->where('area', auth()->user()->area);
+    }
+
+    return get_select2_data($request, $query);
+  }
+
   public function getSelect2AreaOnly(Request $request)
   {
     $query = Area::select(
