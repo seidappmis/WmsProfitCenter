@@ -45,7 +45,7 @@ class LogManifestHeader extends Model
       return '<span class="red-text">DO Items Not Found</span>';
     } elseif ($this->status_complete && $total_unconfirm_detail == 0) {
       return 'Full D/O Confirmed';
-    } elseif ($this->status_complete && $total_unconfirm_detail > 0) {
+    } elseif ($this->status_complete && $total_unconfirm_detail > 0 && $total_unconfirm_detail < $total_detail_manifest_do) {
       return 'Partial D/O Confirmed';
     } elseif ($this->status_complete) {
       return 'Complete & Waiting Confirm';

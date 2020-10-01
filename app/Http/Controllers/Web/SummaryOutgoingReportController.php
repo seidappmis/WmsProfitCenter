@@ -29,7 +29,27 @@ class SummaryOutgoingReportController extends Controller
   {
 
     $query = WMSBranchManifestHeader::select(
-      'wms_branch_manifest_header.*',
+      'wms_branch_manifest_header.driver_register_id',
+      'wms_branch_manifest_header.do_manifest_no',
+      'wms_branch_manifest_header.expedition_code',
+      'wms_branch_manifest_header.driver_id',
+      'wms_branch_manifest_header.driver_name',
+      'wms_branch_manifest_header.vehicle_number',
+      'wms_branch_manifest_header.vehicle_code_type',
+      'wms_branch_manifest_header.vehicle_description',
+      'wms_branch_manifest_header.do_manifest_date',
+      'wms_branch_manifest_header.do_manifest_time',
+      'wms_branch_manifest_header.manifest_type',
+      'wms_branch_manifest_header.checker',
+      'wms_branch_manifest_header.destination_name_driver',
+      'wms_branch_manifest_header.city_name',
+      'wms_branch_manifest_header.city_code',
+      'wms_branch_manifest_header.expedition_name',
+      'wms_branch_manifest_header.container_no',
+      'wms_branch_manifest_header.seal_no',
+      'wms_branch_manifest_header.pdo_no',
+      'wms_branch_manifest_header.created_at',
+      'wms_branch_manifest_header.updated_at',
       'wms_branch_manifest_detail.invoice_no',
       'wms_branch_manifest_detail.delivery_no',
       'wms_branch_manifest_detail.lead_time',
@@ -69,6 +89,8 @@ class SummaryOutgoingReportController extends Controller
       ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'wms_branch_manifest_header.updated_by')
       ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'wms_branch_manifest_header.updated_by')
     ;
+
+    $query->where('wms_branch_manifest_header.kode_cabang', $request->input('kode_cabang'));
 
     if (!empty($request->input('start_do_manifest_date'))) {
       $query->where('wms_branch_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
@@ -117,9 +139,29 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_detail.delivery_no', $request->input('delivery_no'));
     }
 
-    if ($request->input('include_hq')) {
+    if ($request->input('include_hq') == 'true') {
       $queryHQ = LogManifestHeader::select(
-        'log_manifest_header.*',
+        'log_manifest_header.driver_register_id',
+        'log_manifest_header.do_manifest_no',
+        'log_manifest_header.expedition_code',
+        'log_manifest_header.driver_id',
+        'log_manifest_header.driver_name',
+        'log_manifest_header.vehicle_number',
+        'log_manifest_header.vehicle_code_type',
+        'log_manifest_header.vehicle_description',
+        'log_manifest_header.do_manifest_date',
+        'log_manifest_header.do_manifest_time',
+        'log_manifest_header.manifest_type',
+        'log_manifest_header.checker',
+        'log_manifest_header.destination_name_driver',
+        'log_manifest_header.city_name',
+        'log_manifest_header.city_code',
+        'log_manifest_header.expedition_name',
+        'log_manifest_header.container_no',
+        'log_manifest_header.seal_no',
+        'log_manifest_header.pdo_no',
+        'log_manifest_header.created_at',
+        'log_manifest_header.updated_at',
         'log_manifest_detail.invoice_no',
         'log_manifest_detail.delivery_no',
         'log_manifest_detail.lead_time',
@@ -209,7 +251,7 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_detail.delivery_no', $request->input('delivery_no'));
       }
 
-      // $query->union($queryHQ);
+      $query->union($queryHQ);
     }
 
     return $query;

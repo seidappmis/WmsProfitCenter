@@ -99,7 +99,7 @@
         if (confirm) {
           setLoading(true); // Disable Button when ajax post data
             $.ajax({
-            url: '{{ url('complete/' . $manifestHeader->driver_register_id . '/complete') }}' ,
+            url: '{{ url('complete/' . $manifestHeader->do_manifest_no . '/complete') }}' ,
             type: 'POST',
             dataType: 'json',
           })

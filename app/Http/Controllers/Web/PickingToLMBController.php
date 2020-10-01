@@ -45,6 +45,8 @@ class PickingToLMBController extends Controller
         }
       }
 
+      $query->groupBy('wms_lmb_header.driver_register_id');
+
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
       // ->editColumn('destination_name', function ($data) {

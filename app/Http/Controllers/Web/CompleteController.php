@@ -39,7 +39,7 @@ class CompleteController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('complete/' . $data->driver_register_id), 'View');
+          $action .= ' ' . get_button_view(url('complete/' . $data->do_manifest_no), 'View');
           return $action;
         })
         ->rawColumns(['vehicle_number', 'do_manifest_no', 'do_status', 'action']);
@@ -52,7 +52,7 @@ class CompleteController extends Controller
 
   public function show($id)
   {
-    $data['manifestHeader'] = LogManifestHeader::where('driver_register_id', $id)->first();
+    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
 
     if (empty($data['manifestHeader'])) {
       abort(404);
@@ -63,7 +63,7 @@ class CompleteController extends Controller
 
   public function complete($id)
   {
-    $manifestHeader = LogManifestHeader::where('driver_register_id', $id)->first();
+    $manifestHeader = LogManifestHeader::findOrFail($id);
 
     if (empty($manifestHeader)) {
       abort(404);
@@ -73,12 +73,12 @@ class CompleteController extends Controller
       DB::beginTransaction();
       // Update Tr DRIVER REGISTERED
       if ($manifestHeader->driver_name != "Ambil Sendiri") {
-        $driverRegistered                 = DriverRegistered::findOrFail($id);
+        $driverRegistered                 = DriverRegistered::findOrFail($manifestHeader->driver_register_id);
         $driverRegistered->wk_step_number = 6;
         $driverRegistered->save();
 
         // UPDATE tr_workflow_header
-        $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $id)->first();
+        $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
         $conceptFlowHeader->workflow_id = 6;
         $conceptFlowHeader->save();
 

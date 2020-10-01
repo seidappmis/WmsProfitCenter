@@ -173,6 +173,34 @@
     {!! get_button_cancel(url('manifest-regular'), 'Back', '') !!}
 </form>
 
+@if(!empty($rsManifest) && $rsManifest->count() > 1)
+ @php
+ $prevLink = '#!';
+ $nextLink = '#!';
+ $activeFound = 0;
+ foreach ($rsManifest as $key => $value) {
+     $rsManifest[$key]->linkActive = $value->do_manifest_no == $manifestHeader->do_manifest_no;
+     $rsManifest[$key]->url = url('manifest-regular/' . $value->do_manifest_no . '/edit#!');
+
+     if (!$activeFound && $rsManifest[$key]->linkActive) {
+         $activeFound = 1;
+         $nextLink = !empty($rsManifest[$key + 1]) ? url('manifest-regular/' . $rsManifest[$key + 1]->do_manifest_no . '/edit#!') : '#!' ;
+     } elseif (!$activeFound) {
+        $prevLink = $rsManifest[$key]->url;
+     }
+ }
+ @endphp
+ <ul class="pagination mt-2">
+  <li class="{{$prevLink == '#!' ? 'disabled' : 'waves-effect'}}"><a href="{{$prevLink}}"><i class="material-icons">chevron_left</i></a></li>
+  @foreach($rsManifest AS $key => $value)
+  <li class="{{ $value->linkActive ? 'active' : 'waves-effect' }}">
+    <a href="{{ $value->url }}">{{ ($key + 1) }}</a>
+  </li>
+  @endforeach
+  <li class="{{$nextLink == '#!' ? 'disabled' : 'waves-effect'}}"><a href="{{$nextLink}}"><i class="material-icons">chevron_right</i></a></li>
+</ul>
+@endif
+
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print Manifest',

@@ -332,7 +332,8 @@
           data: function(d) {
               d.area = $('#form-summary-outgoing-report [name="area"]').val()
               d.do_manifest_no = $('#form-summary-outgoing-report [name="do_manifest_no"]').val()
-              d.include_hq = $('#form-summary-outgoing-report [name="include_hq"]').val()
+              d.kode_cabang = $('#form-summary-outgoing-report [name="kode_cabang"]').val()
+              d.include_hq = $('#form-summary-outgoing-report [name="include_hq"]').is(":checked")
               d.do_received = $('#form-summary-outgoing-report [name="do_received"]').val()
               d.not_include_manifest_as = $('#form-summary-outgoing-report [name="not_include_manifest_as"]').val()
               d.invoice_no = $('#form-summary-outgoing-report [name="invoice_no"]').val()

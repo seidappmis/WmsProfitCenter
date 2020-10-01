@@ -108,6 +108,10 @@
       $("input#complete-filter").on("keyup click", function () {
         filterManifestBranch();
       });
+      $('#area_filter').change(function(event) {
+        /* Act on the event */
+        filterManifestBranch();
+      });
     });
 
   function filterManifestBranch(){

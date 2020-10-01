@@ -8,8 +8,8 @@ Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 Route::get('/test', function () {
   echo "<pre>";
-  $modules   = \App\Models\Gate::getLoadingGate();
-  print_r($modules);
+  $modules   = \App\Models\LogManifestHeader::findOrFail('JKT-200929-003');
+  print_r($modules->details->where('status_confirm', '!=', 0)->toArray());
 });
 
 Route::group(['middleware' => 'auth'], function () {

@@ -19,8 +19,19 @@ class ManifestRegularController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::select('log_manifest_header.*')
-        ->where('city_name', '<>', 'Ambil Sendiri')
+      $query = LogManifestHeader::select(
+        'driver_register_id',
+        'log_manifest_header.status_complete',
+        DB::raw('do_manifest_no AS first_do_manifest_no'),
+        DB::raw('GROUP_CONCAT(do_manifest_no SEPARATOR ", <br>") AS do_manifest_no'),
+        DB::raw('GROUP_CONCAT(expedition_name SEPARATOR ", <br>") AS expedition_name'),
+        DB::raw('GROUP_CONCAT(city_name SEPARATOR ", <br>") AS city_name'),
+        DB::raw('GROUP_CONCAT(vehicle_number SEPARATOR ", <br>") AS vehicle_number'),
+
+      )
+      // ->where('city_name', '<>', 'Ambil Sendiri')
+        ->where('ambil_sendiri', 0)
+        ->groupBy('driver_register_id')
       ;
 
       $datatables = DataTables::of($query)
@@ -33,10 +44,10 @@ class ManifestRegularController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('manifest-regular/' . $data->do_manifest_no . '/edit'), 'View');
+          $action .= ' ' . get_button_view(url('manifest-regular/' . $data->first_do_manifest_no . '/edit'), 'View');
           return $action;
         })
-        ->rawColumns(['status', 'action']);
+        ->rawColumns(['do_manifest_no', 'expedition_name', 'city_name', 'vehicle_number', 'status', 'action']);
 
       return $datatables->make(true);
     }
@@ -293,6 +304,7 @@ class ManifestRegularController extends Controller
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
     $data['lmbHeader']      = $data['manifestHeader']->lmb;
     $data['doData']         = [];
+    $data['rsManifest']     = LogManifestHeader::where('driver_register_id', $data['manifestHeader']->driver_register_id)->get();
 
     return view('web.outgoing.manifest-regular.edit', $data);
   }

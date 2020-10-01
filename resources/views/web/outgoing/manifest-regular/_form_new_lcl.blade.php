@@ -63,11 +63,26 @@
                 <div class="input-field col s12">
                     <select name="vehicle_code_type" class="select2-data-ajax browser-default" required="">
                     </select>
+                    <input type="hidden" name="vehicle_description">
               </div>
             </td>
             <td width="18%">Destination</td>
             <td width="32%">
                 <div class="input-field col s12">
+                    <input 
+                        type="hidden" 
+                        class="validate" 
+                        name="destination_number_driver" 
+                        value="{{$lmbHeader->destination_number}}"
+                        readonly 
+                        />
+                    <input 
+                        type="text" 
+                        class="validate" 
+                        name="destination_name_driver" 
+                        value="{{$lmbHeader->destination_name}}"
+                        readonly 
+                        />
                     <select name="city_code" class="select2-data-ajax browser-default" required>
                     </select>
                     <input type="hidden" name="city_name" value="">
@@ -128,7 +143,7 @@
     </table>
     </div>
     <div class="modal-footer">
-      {!! get_button_save('Save', 'btn-save') !!}
+      {!! get_button_save('Save', 'btn-save-lcl') !!}
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
     </div>
   </form>
@@ -187,12 +202,26 @@
         $('#form-new-lcl [name="expedition_code"]').change(function(event) {
           /* Act on the event */
           var data = $(this).select2('data')[0]
-          set_lcl_select_ship_to_city({expedition_code: $(this).val()})
           set_lcl_select_vehicle_type({expedition_code: $(this).val()})
-          set_select2_value('#form-new-lcl [name="city_code"]', '', '')
+          // set_lcl_select_ship_to_city({expedition_code: $(this).val()})
+          // set_select2_value('#form-new-lcl [name="city_code"]', '', '')
           set_select2_value('#form-new-lcl [name="vehicle_code_type"]', '', '')
           $('#form-new-lcl [name="expedition_name"]').val(data.text)
-      });
+        });
+
+
+        $('#form-new-lcl [name="vehicle_code_type"]').change(function(event) {
+          var data = $(this).select2('data')[0];
+          set_lcl_select_ship_to_city({expedition_code: $('#form-new-lcl [name="expedition_code"]').val(), vehicle_code_type: $(this).val() })
+          set_select2_value('#form-new-lcl [name="city_code"]', '', '')
+          $('#form-new-lcl [name="vehicle_description"]').val(data == undefined ? '' : data.text);
+        })
+
+        $('#form-new-lcl [name="city_code"]').change(function(event) {
+          /* Act on the event */
+          var data = $(this).select2('data')[0];
+          $('#form-new-lcl [name="city_name"]').val(data == undefined ? '' : data.text);
+        });
     });
 
     function set_lcl_select_expedition(){
@@ -209,7 +238,8 @@
         })
     }
 
-    function set_lcl_select_ship_to_city(filter = {expedition_code: ''}){
+    function set_lcl_select_ship_to_city(filter = {expedition_code: '', vehicle_code_type: ''}){
+      console.log(filter)
         // filter.tambah_ambil_sendiri = true
       $('#form-new-lcl [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
