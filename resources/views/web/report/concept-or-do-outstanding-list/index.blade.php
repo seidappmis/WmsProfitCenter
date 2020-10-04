@@ -23,6 +23,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <form id="form-report-outstanding-list" class="form-table" onsubmit="return false;">
+                          <input type="hidden" name="type">
                             <table>
                               <tr style="background-color: darkgray">
                                 <td>Area</td>
@@ -223,13 +224,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&' + $('#form-report-outstanding-list').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&' + $('#form-report-outstanding-list').serialize();
           }
         }
       ],
@@ -237,9 +238,9 @@
           url: '{{ url('concept-or-do-outstanding-list') }}',
           type: 'GET',
           data: function(d) {
-            d.type = 'area'
+            d.type = $('#form-report-outstanding-list [name="type"]').val()
             d.area = $('#form-report-outstanding-list [name="area"]').val()
-            d.area = $('#form-report-outstanding-list [name="area"]').val()
+            d.branch = $('#form-report-outstanding-list [name="branch"]').val()
           }
       },
       columns: [
@@ -354,6 +355,7 @@
 
   function init_form_branch(){
     $('.area-wrapper').addClass('hide')
+    $('#form-report-outstanding-list [name="type"]').val('branch');
     set_select2_value('#form-report-outstanding-list [name="area"]', '', '');
     set_select2_value('#form-report-outstanding-list [name="expedition"]', '', '');
     set_select2_value('#form-report-outstanding-list [name="vehicle_type"]', '', '');
@@ -361,6 +363,7 @@
 
   function init_form_area() {
     $('.area-wrapper').removeClass('hide')
+    $('#form-report-outstanding-list [name="type"]').val('area');
     set_select2_value('#form-report-outstanding-list [name="cabang"]', '', '');
 
   }

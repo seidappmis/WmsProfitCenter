@@ -10,9 +10,11 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-user-mobile', 'Web\ReportMasterUserMobileController@index');
   Route::get('report-user-mobile/export', 'Web\ReportMasterUserMobileController@export');
 
-  Route::view('standby-driver-list', 'web.report.standby-driver-list.index');
+  Route::get('standby-driver-list', 'Web\StandbyDriverListController@index');
+  Route::get('standby-driver-list/export', 'Web\StandbyDriverListController@export');
 
   Route::get('concept-or-do-outstanding-list', 'Web\ConceptOrDOOutstandingListController@index');
+  Route::get('concept-or-do-outstanding-list/export', 'Web\ConceptOrDOOutstandingListController@export');
 
   Route::get('loading-status-list', 'Web\LoadingStatusListController@index');
   Route::post('loading-status-list', 'Web\LoadingStatusListController@index');
@@ -25,9 +27,12 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
 
   Route::get('summary-incoming-report', 'Web\SummaryIncomingReportController@index');
+  Route::get('summary-incoming-report/export', 'Web\SummaryIncomingReportController@export');
 
   Route::get('summary-outgoing-report', 'Web\SummaryOutgoingReportController@index');
   Route::post('summary-outgoing-report', 'Web\SummaryOutgoingReportController@index');
+  Route::get('summary-outgoing-report/export', 'Web\SummaryOutgoingReportController@export');
+
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');

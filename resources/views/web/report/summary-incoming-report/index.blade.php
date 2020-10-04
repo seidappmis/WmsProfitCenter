@@ -163,13 +163,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('summary-incoming-report/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('summary-incoming-report/export?file_type=pdf')}}" + '&' + $('#form-summary-incoming-report').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('summary-incoming-report/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('summary-incoming-report/export?file_type=xls')}}" + '&' + $('#form-summary-incoming-report').serialize();
           }
         }
       ],

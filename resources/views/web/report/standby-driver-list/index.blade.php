@@ -95,18 +95,18 @@
               {
                   text: 'PDF',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-master-users/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+                      window.location.href = "{{url('standby-driver-list/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
                   }
               },
                {
                   text: 'EXCEL',
                   action: function ( e, dt, node, config ) {
-                      window.location.href = "{{url('report-master-users/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+                      window.location.href = "{{url('standby-driver-list/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
                   }
               }
           ],
       ajax: {
-          url: '{{ url('picking-list/get-transporter-list') }}',
+          url: '{{ url('standby-driver-list') }}',
           type: 'GET',
           data: function(d) {
               d.search['value'] = $('#transporter_filter').val(),
@@ -134,7 +134,7 @@
 
      $('#area_filter').change(function(event) {
       /* Act on the event */
-      dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+      dt_table_driver_list.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
     });
 
     $("input#transporter_filter").on("keyup click", function () {
@@ -143,7 +143,7 @@
 
     });
   function filterGlobal() {
-      dt_table_transporter.search($("#transporter_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+      dt_table_driver_list.search($("#transporter_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 </script>
 @endpush

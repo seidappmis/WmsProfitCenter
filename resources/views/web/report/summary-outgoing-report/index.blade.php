@@ -316,13 +316,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('summary-outgoing-report/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('summary-outgoing-report/export?file_type=pdf')}}" + '&' + $('#form-summary-outgoing-report').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('summary-outgoing-report/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('summary-outgoing-report/export?file_type=xls')}}" + '&' + $('#form-summary-outgoing-report').serialize();
           }
         }
       ],
