@@ -133,12 +133,16 @@ function submit_scan_data(){
       type: 'POST',
       data: 'data_serial_numbers=' + JSON.stringify(data_serial_numbers),
     })
-    .done(function() { // selesai dan berhasil
+    .done(function(result) { // selesai dan berhasil
       setLoading(false); // Enable Button when failed
-      showSwalAutoClose('Success', 'Data submited.')
-      $('#table-serial-number tbody').empty();
-      $('#upload-serial-number-wrapper').hide();
-      dttable_picking_list.ajax.reload(null, false)
+      if (result.status) {
+        showSwalAutoClose('Success', result.message)
+        $('#table-serial-number tbody').empty();
+        $('#upload-serial-number-wrapper').hide();
+        dttable_picking_list.ajax.reload(null, false)
+      } else {
+        showSwalAutoClose('Warning', result.message)
+      }
     })
     .fail(function(xhr) {
       setLoading(false); // Enable Button when failed

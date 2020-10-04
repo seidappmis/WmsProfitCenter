@@ -529,9 +529,15 @@ class PickingToLMBController extends Controller
       $data_serial_numbers[$key] = $value;
     }
 
-    LMBDetail::insert($data_serial_numbers);
-
-    return true;
+    try {
+      DB::beginTransaction();
+      LMBDetail::insert($data_serial_numbers);
+      DB::commit();
+      return sendSuccess('Data submited.', $data_serial_number);
+    } catch (\Exception $exception) {
+      DB::rollBack();
+      return sendError('Duplicate Serial Number Entry', $data_serial_numbers);
+    }
   }
 
   public function destroy($id)
