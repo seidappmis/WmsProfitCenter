@@ -27,6 +27,8 @@ class DriverRegistered extends Model
       ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_driver_registered.vehicle_code_type')
       ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'tr_driver_registered.id')
       ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver_registered.expedition_code')
+      ->leftjoin('log_manifest_header', 'log_manifest_header.r_driver_register_id', '=', 'tr_driver_registered.id')
+      ->whereNull('log_manifest_header.driver_register_id')
       ->whereNull('wms_pickinglist_header.driver_register_id')
       ->whereNull('datetime_out');
   }

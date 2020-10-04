@@ -1,5 +1,6 @@
 
 @include('web.outgoing.manifest-regular._form_new_lcl')
+@include('web.outgoing.manifest-regular._form_resend')
 
 <form class="form-table" id="form-manifest">
     <input type="hidden" name="driver_register_id" value="{{$lmbHeader->driver_register_id}}">
@@ -63,12 +64,12 @@
             <td width="20%">Driver Name</td>
             <td width="30%">
                 <div class="input-field col s12">
-                    <input type="hidden" name="driver_id" value="{{$lmbHeader->driver_id}}">
+                    <input type="hidden" name="driver_id" value="{{!empty($manifestHeader) ? $manifestHeader->driver_id : $lmbHeader->driver_id}}">
                     <input 
                         type="text" 
                         class="validate" 
                         name="driver_name" 
-                        value="{{$lmbHeader->driver_name}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->driver_name : $lmbHeader->driver_name}}"
                         readonly 
                         />
               </div>

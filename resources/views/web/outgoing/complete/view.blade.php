@@ -11,7 +11,7 @@
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ url('complete') }}">Complete</a></li>
-                    <li class="breadcrumb-item active">{{$manifestHeader->vehicle_number}}</li>
+                    <li class="breadcrumb-item active">{{$rsManifestHeader[0]->vehicle_number}}</li>
                 </ol>
             </div>
             <div class="col s12 m2">
@@ -26,8 +26,8 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content">
-                      <p>VEHICLE NO. : <b class="green-text text-darken-3">{{$manifestHeader->vehicle_number}}</b></p>
-                      <p>STATUS : <b class="green-text text-darken-3">{{$manifestHeader->status()}}</b></p>
+                      <p>VEHICLE NO. : <b class="green-text text-darken-3">{{$rsManifestHeader[0]->vehicle_number}}</b></p>
+                      <p>STATUS : <b class="green-text text-darken-3">{{$rsManifestHeader[0]->status()}}</b></p>
                       <br>
                       <div class="section-data-tables"> 
                         <table id="data-table-section-contents" class="bordered" width="100%">
@@ -46,6 +46,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              @foreach($rsManifestHeader AS $km => $manifestHeader)
                               @foreach($manifestHeader->details AS $key => $manifestDetail)
                               <tr>
                                 @if($key == 0)
@@ -63,6 +64,7 @@
                                   {{-- <a href="#" class="btn btn-small">Overload</a> --}}
                                 {{-- </td> --}}
                               </tr>
+                              @endforeach
                               @endforeach
                             </tbody>
                         </table>
@@ -99,7 +101,7 @@
         if (confirm) {
           setLoading(true); // Disable Button when ajax post data
             $.ajax({
-            url: '{{ url('complete/' . $manifestHeader->do_manifest_no . '/complete') }}' ,
+            url: '{{ url('complete/' . $rsManifestHeader[0]->driver_register_id . '/complete') }}' ,
             type: 'POST',
             dataType: 'json',
           })

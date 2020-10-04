@@ -17,11 +17,17 @@ class CompleteController extends Controller
   {
     if ($request->ajax()) {
       $query = LogManifestHeader::select(
-        'log_manifest_header.*',
-        'tr_concept_truck_flow.complete_date'
+        'log_manifest_header.driver_register_id',
+        'log_manifest_header.vehicle_number',
+        'log_manifest_header.destination_name_driver',
+        'log_manifest_header.expedition_name',
+        'tr_concept_truck_flow.complete_date',
+        DB::raw('GROUP_CONCAT(log_manifest_header.do_manifest_no) AS do_manifest_no')
       )
         ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
-        ->where('log_manifest_header.area', $request->input('area'));
+        ->where('log_manifest_header.area', $request->input('area'))
+        ->where('log_manifest_header.manifest_type', '!=', 'LCL')
+        ->groupBy('log_manifest_header.driver_register_id');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -39,7 +45,7 @@ class CompleteController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_view(url('complete/' . $data->do_manifest_no), 'View');
+          $action .= ' ' . get_button_view(url('complete/' . $data->driver_register_id), 'View');
           return $action;
         })
         ->rawColumns(['vehicle_number', 'do_manifest_no', 'do_status', 'action']);
@@ -52,9 +58,9 @@ class CompleteController extends Controller
 
   public function show($id)
   {
-    $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
+    $data['rsManifestHeader'] = LogManifestHeader::where('driver_register_id', $id)->get();
 
-    if (empty($data['manifestHeader'])) {
+    if (empty($data['rsManifestHeader'])) {
       abort(404);
     }
 
@@ -63,40 +69,42 @@ class CompleteController extends Controller
 
   public function complete($id)
   {
-    $manifestHeader = LogManifestHeader::findOrFail($id);
+    $rsManifestHeader = LogManifestHeader::where('driver_register_id', $id)->get();
 
-    if (empty($manifestHeader)) {
+    if (empty($rsManifestHeader)) {
       abort(404);
     }
 
     try {
       DB::beginTransaction();
-      // Update Tr DRIVER REGISTERED
-      if ($manifestHeader->driver_name != "Ambil Sendiri") {
-        $driverRegistered                 = DriverRegistered::findOrFail($manifestHeader->driver_register_id);
-        $driverRegistered->wk_step_number = 6;
-        $driverRegistered->save();
+      foreach ($rsManifestHeader as $key => $manifestHeader) {
+        // Update Tr DRIVER REGISTERED
+        if ($manifestHeader->driver_name != "Ambil Sendiri") {
+          $driverRegistered                 = DriverRegistered::findOrFail($manifestHeader->driver_register_id);
+          $driverRegistered->wk_step_number = 6;
+          $driverRegistered->save();
 
-        // UPDATE tr_workflow_header
-        $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
-        $conceptFlowHeader->workflow_id = 6;
-        $conceptFlowHeader->save();
+          // UPDATE tr_workflow_header
+          $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
+          $conceptFlowHeader->workflow_id = 6;
+          $conceptFlowHeader->save();
 
-        // Update Truck flow
-        $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+          // Update Truck flow
+          $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
 
-        $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
-        $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
-        $conceptTruckFlow->created_complete_by   = auth()->user()->id;
-        $conceptTruckFlow->save();
+          $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
+          $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
+          $conceptTruckFlow->created_complete_by   = auth()->user()->id;
+          $conceptTruckFlow->save();
+        }
+
+        $manifestHeader->status_complete = 1;
+        $manifestHeader->save();
       }
-
-      $manifestHeader->status_complete = 1;
-      $manifestHeader->save();
 
       DB::commit();
 
-      return sendSuccess('Success complete manifest', $manifestHeader);
+      return sendSuccess('Success complete manifest', $rsManifestHeader);
     } catch (Exception $e) {
       DB::rollBack();
     }

@@ -138,6 +138,8 @@ class PickingListController extends Controller
     )
       ->toBase()
       ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'tr_driver_registered.id')
+      ->leftjoin('log_manifest_header', 'log_manifest_header.r_driver_register_id', '=', 'tr_driver_registered.id')
+      ->whereNull('log_manifest_header.driver_register_id')
       ->where('tr_driver_registered.area', auth()->user()->area)
       ->where('tr_driver_registered.vehicle_code_type', $request->input('vehicle_code_type'))
       ->where('tr_driver_registered.expedition_code', $request->input('expedition_code'))
