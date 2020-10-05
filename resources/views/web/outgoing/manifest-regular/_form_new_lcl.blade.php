@@ -150,7 +150,10 @@
   </div>
 @endpush
 
+@if($manifestHeader->details->count() > 0)
 {!! get_button_save('New Manifest', 'btn-new-manifest mb-1') !!}
+@endif
+
 {!! get_button_save('New Manifest LCL', 'btn-new-manifest-lcl mb-1') !!}
 @push('script_js')
 <script type="text/javascript">
