@@ -30,7 +30,7 @@ class ConformManifestController extends Controller
       $query = LogManifestHeader::select(
         'log_manifest_header.*'
       )->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
-        ->where('log_manifest_detail.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->whereIn('log_manifest_detail.kode_cabang', auth()->user()->getStringGrantCabang())
         ->groupBy('log_manifest_header.do_manifest_no')
         ->where('log_manifest_header.status_complete', 1)
         ->where('log_manifest_detail.status_confirm', 0)
@@ -63,7 +63,7 @@ class ConformManifestController extends Controller
           $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')->where('wms_branch_manifest_detail.status_confirm', 0);
         })
         ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
-        ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->whereIn('wms_branch_manifest_header.kode_cabang', auth()->user()->getStringGrantCabang())
         ->where('wms_branch_manifest_header.status_complete', 1)
         ->groupBy('wms_branch_manifest_detail.do_manifest_no')
       ;
@@ -162,7 +162,7 @@ class ConformManifestController extends Controller
           $manifesDetail->status_confirm      = 1;
           $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
           $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-          $manifesDetail->confirm_by          = auth()->user()->id;
+          $manifesDetail->confirm_by          = auth()->user()->username;
           $manifesDetail->do_reject           = !empty($request->input('rejected')) ? 1 : 0;
           $manifesDetail->save();
 

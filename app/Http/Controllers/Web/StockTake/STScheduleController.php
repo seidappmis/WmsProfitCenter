@@ -288,14 +288,15 @@ class STScheduleController extends Controller
       'log_stocktake_schedule.schedule_end_date',
       'log_stocktake_schedule.description'
     )
-    ->orderBy('created_at', 'desc')
+      ->orderBy('created_at', 'desc')
     ;
 
-    if (auth()->user()->cabang->hq) {
-      $query->where('area', auth()->user()->area);
-    } else {
-      $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
-    }
+    $query->whereIn('kode_cabang', auth()->user()->getStringGrantCabang());
+    // if (auth()->user()->cabang->hq) {
+    //   $query->where('area', auth()->user()->area);
+    // } else {
+    //   $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+    // }
 
     return get_select2_data($request, $query);
   }

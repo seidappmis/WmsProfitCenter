@@ -63,6 +63,7 @@
       serverSide: true,
       scrollX: true,
       responsive: true,
+      pageLength: 5,
       ajax: {
           url: '{{ url('conform-manifest/from-manifest-branch') }}',
           type: 'GET',
@@ -70,7 +71,7 @@
               d.search['value'] = $('#from-manifest-branch-filter').val()
             }
       },
-      order: [1, 'asc'],
+      order: [0, 'asc'],
       columns: [
           {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},

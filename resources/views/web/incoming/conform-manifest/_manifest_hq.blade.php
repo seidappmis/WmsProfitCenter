@@ -57,6 +57,7 @@
     dttable_manifest_hq = $('#from-manifest-hq-table').DataTable({
       serverSide: true,
       scrollX: true,
+      pageLength: 5,
       responsive: true,
       ajax: {
           url: '{{ url('conform-manifest/from-manifest-hq') }}',
@@ -65,7 +66,7 @@
               d.search['value'] = $('#from-manifest-hq-filter').val()
             }
       },
-      order: [1, 'asc'],
+      order: [0, 'asc'],
       columns: [
           {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
           {data: 'expedition_name', name: 'expedition_name', className: 'detail'},

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
+use App\Models\DriverRegistered;
 use App\Models\FreightCost;
 use App\Models\LMBHeader;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
 use App\Models\MasterCabang;
-use App\Models\DriverRegistered;
 use App\Models\MasterModel;
 use DataTables;
 use DB;
@@ -228,7 +228,7 @@ class ManifestRegularController extends Controller
     $manifestHeader->ritase                    = 0;
     $manifestHeader->cbm                       = 0;
     $manifestHeader->manifest_return           = 0;
-    $manifestHeader->manifest_type             = 'LCL';
+    $manifestHeader->manifest_type             = 'RESEND';
     $manifestHeader->status_inv_recieve        = 0;
     $manifestHeader->have_lcl                  = 0;
     // $manifestHeader->lcl_from_driver_register_id = $oldManifestHeader->driver_register_id;
@@ -266,6 +266,12 @@ class ManifestRegularController extends Controller
       $oldManifestHeader->have_resend   = 1;
       $oldManifestHeader->r_create_date = $manifestHeader->lcl_created_date;
 
+      LogManifestDetail::where('do_manifest_no', $oldManifestHeader->do_manifest_no)
+        ->update([
+          'status_confirm' => 1,
+          'confirm_date'   => date('Y-m-d H:i:s'),
+          'confirm_by'     => 'AUTO SYSTEM RESEND',
+        ]);
 
       $oldManifestHeader->save();
 
