@@ -1,6 +1,6 @@
 @if(!empty($manifestHeader) && $manifestHeader->status_complete)
 {!! get_button_save('Resend', 'btn-resend mb-1') !!}
-@endif
+
 
 @push('page-modal')
 <div id="modal-form-resend" class="modal" style="">
@@ -210,3 +210,4 @@
   });
 </script>
 @endpush
+@endif
