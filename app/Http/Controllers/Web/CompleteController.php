@@ -58,7 +58,9 @@ class CompleteController extends Controller
 
   public function show($id)
   {
-    $data['rsManifestHeader'] = LogManifestHeader::where('driver_register_id', $id)->get();
+    $data['rsManifestHeader'] = LogManifestHeader::where('driver_register_id', $id)
+    ->where('manifest_type', '!=', 'LCL')
+    ->get();
 
     if (empty($data['rsManifestHeader'])) {
       abort(404);
