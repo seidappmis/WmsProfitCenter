@@ -150,7 +150,7 @@
   </div>
 @endpush
 
-@if($manifestHeader->details->count() > 0)
+@if($manifestHeader->details->count() > 0 && $lmbHeader->do_details->count() > 0)
 {!! get_button_save('New Manifest', 'btn-new-manifest mb-1') !!}
 @endif
 
