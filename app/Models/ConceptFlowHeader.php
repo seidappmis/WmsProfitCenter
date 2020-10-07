@@ -44,7 +44,7 @@ class ConceptFlowHeader extends Model
         AS load_loading_minutes'),
       DB::raw('tr_concept_truck_flow.complete_date AS load_complete_date'),
       DB::raw('tr_concept_truck_flow.do_manifest_no AS load_do_manifest_no'),
-      DB::raw('tr_workflow.step_description AS status'),
+      DB::raw('tr_workflow.step_description AS status')
     )
       ->leftjoin('tr_concept_flow_detail', 'tr_concept_flow_detail.id_header', '=', 'tr_concept_flow_header.id')
       ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'tr_concept_flow_header.driver_register_id')

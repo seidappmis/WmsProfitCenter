@@ -41,7 +41,7 @@ class Concept extends Model
       DB::raw('0 AS load_loading_minutes'),
       DB::raw('NULL AS load_complete_date'),
       DB::raw('"" AS load_do_manifest_no'),
-      DB::raw('"Waiting Truck" AS status'),
+      DB::raw('"Waiting Truck" AS status')
     )
     ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
     ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_concept.vehicle_code_type')

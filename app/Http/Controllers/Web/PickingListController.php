@@ -118,7 +118,7 @@ class PickingListController extends Controller
   {
     $query = DriverRegistered::select(
       DB::raw("tr_driver_registered.driver_id AS id"),
-      DB::raw("tr_driver_registered.driver_name AS text"),
+      DB::raw("tr_driver_registered.driver_name AS text")
     )
       ->toBase()
       ->where('id', $request->input('driver_register_id'))
@@ -798,7 +798,7 @@ class PickingListController extends Controller
   public function export(Request $request, $id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
-
+    $data['excel'] =1;
     $view_print = view('web.picking.picking-list._print', $data);
     $title      = 'picking_list';
 
@@ -838,7 +838,10 @@ class PickingListController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      
+      // $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      /*untuk lokas saya */
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => 'C:\xampp\htdocs']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
