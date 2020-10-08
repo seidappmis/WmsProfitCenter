@@ -1,4 +1,4 @@
-<!-- <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}"> -->
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
 {{-- @include('layouts.materialize.components.print-style') --}}
 
 @php

@@ -845,9 +845,9 @@ class PickingListController extends Controller
 
       // REQUEST PDF
       
-      // $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
       /*untuk lokas saya */
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => 'C:\xampp\htdocs']);
+      // $mpdf = new \Mpdf\Mpdf(['tempDir' => 'C:\xampp\htdocs']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 

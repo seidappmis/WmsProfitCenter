@@ -23,7 +23,7 @@ footer {
 }
 @page {
    size: A4;
-   margin: 2mm 2mm 2mm 2mm;
+   margin: 2mm 1mm 2mm 1mm;
 }
 @media print {
    footer {
