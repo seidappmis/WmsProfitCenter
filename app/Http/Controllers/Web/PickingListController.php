@@ -828,11 +828,11 @@ class PickingListController extends Controller
 
       // Atur lebar kolom
       $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);

@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
+<!-- <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}"> -->
 {{-- @include('layouts.materialize.components.print-style') --}}
 
 @php
@@ -16,7 +16,7 @@ foreach ($rs_shipment_no as $key => $value) {
 <table style="font-family: courier New; font-size: 10pt;">
   <tr>
     <td>
-      <table style="font-family: courier New; font-size: 10pt; width: 210.0003mm;">
+      <table style="font-family: courier New; font-size: 10pt; width: 21mm;">
         <tr>
           <td>
             <table width="100%">
@@ -183,4 +183,3 @@ foreach ($rs_shipment_no as $key => $value) {
     </td>
   </tr>
 </table>
-<footer>
