@@ -125,7 +125,15 @@
     @endif
     $('.btn-add').click(function(event) {
       /* Act on the event */
-      window.location.href = '{{url("incoming-import-oem/create?area=")}}' + $('#area_filter').val()
+      var area = $('#area_filter').val();
+      if(area==''){
+        swal({
+          text: "Please Select Area!",
+          icon: "warning",
+        });
+      }else{
+        window.location.href = '{{url("incoming-import-oem/create?area=")}}' + area
+      }      
     });
   });
     

@@ -185,12 +185,21 @@ class MasterExpeditionController extends Controller
       $query->union($ambil_sendiri);
     }
 
-    $area = empty($request->input('area')) ? auth()->user()->area : $request->input('area');
+    //$area = empty($request->input('area')) ? auth()->user()->area : $request->input('area');
     $query->leftjoin('log_destination_city', 'log_destination_city.city_code', '=', 'log_freight_cost.city_code')
       ->where('expedition_code', $request->input('expedition_code'))
-      ->where('area', $area)
+      //->where('area', $area)
       ->groupBy('log_freight_cost.city_code')
-      ->orderBy('text');
+      ->orderBy('text');  
+
+    if(empty($request->input('area'))){
+      if(strtoupper(auth()->user()->area)=='ALL'){
+        // tampilkan semua area atau tidak pakai where
+      }
+    }else{
+      $area = $request->input('area');
+      $query->where('area', $area);
+    }
 
     if (!empty($request->input('vehicle_code_type'))) {
       $query->where('log_freight_cost.vehicle_code_type', $request->input('vehicle_code_type'));
