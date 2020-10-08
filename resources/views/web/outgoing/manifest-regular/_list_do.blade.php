@@ -67,6 +67,18 @@
       ],
     });
 
+    dttable_list_do.on('draw', function (data) {
+      if (dttable_list_do.page.info().recordsDisplay > 0 && dttable_from_tcs.page.info().recordsDisplay > 0) {
+        $('.btn-new-manifest').removeClass('hide')
+      } else {
+        $('.btn-new-manifest').addClass('hide')
+      }
+
+      if (dttable_from_tcs.page.info().recordsDisplay == 0) {
+        $('.assign-do-wrapper').addClass('hide')
+      }
+    });
+
     $('#list-do-table').on('click', '.btn-delete', function(event) {
       event.preventDefault();
       /* Act on the event */

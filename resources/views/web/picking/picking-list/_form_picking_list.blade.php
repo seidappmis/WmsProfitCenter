@@ -248,7 +248,7 @@
       $('#form-picking-list [name="expedition_code"]').change(function(event) {
           /* Act on the event */
           var data = $(this).select2('data')[0]
-          set_hq_select_ship_to_city({expedition_code: $(this).val()})
+          set_hq_select_ship_to_city({expedition_code: $(this).val(), vehicle_code_type: $('#form-picking-list [name="vehicle_code_type"]').val()})
           set_hq_select_vehicle_type({expedition_code: $(this).val()})
           set_select2_value('#form-picking-list [name="city_code"]', '', '')
           set_select2_value('#form-picking-list [name="vehicle_code_type"]', '', '')
@@ -257,6 +257,8 @@
 
       $('#form-picking-list [name="vehicle_code_type"]').change(function(event) {
           /* Act on the event */
+          set_hq_select_ship_to_city({expedition_code: $('#form-picking-list [name="expedition_code"]').val(), vehicle_code_type: $(this).val()})
+          set_select2_value('#form-picking-list [name="city_code"]', '', '')
           set_select2_value('#form-picking-list select[name="vehicle_number"]', '', '')
           set_hq_select_vehicle_number({vehicle_code_type: $(this).val(), expedition_code: $('#form-picking-list [name="expedition_code"]').val()})
       });

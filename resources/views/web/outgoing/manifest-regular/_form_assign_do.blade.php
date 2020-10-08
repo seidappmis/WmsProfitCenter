@@ -1,3 +1,4 @@
+<div class="assign-do-wrapper">
 <h4 class="card-title mt-2">Assign DO</h4>
 <hr>
 <form class="form-table" id="form-assign-do">
@@ -59,6 +60,8 @@
         </tr>
     </table>
 </form>
+  
+</div>
 
 @push('script_js')
 <script type="text/javascript">
@@ -92,6 +95,10 @@
           /* Act on the event */
           $(this).toggleClass('selected');
         });
+
+        @if ($lmbHeader->do_details->count() == 0)
+        $('.assign-do-wrapper').addClass('hide')
+        @endif
 
         dttable_from_tcs = $('#from-tcs-table').DataTable({
           scrollY: '60vh',

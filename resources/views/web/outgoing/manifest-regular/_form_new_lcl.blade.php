@@ -1,4 +1,8 @@
 @if(!empty($manifestHeader) && !$manifestHeader->status_complete)
+
+{!! get_button_save('New Manifest', 'btn-new-manifest mb-1 hide') !!}
+{!! get_button_save('New Manifest LCL', 'btn-new-manifest-lcl mb-1') !!}
+
 @push('page-modal')
 <div id="modal-form-new-lcl" class="modal" style="">
     <div class="modal-content">
@@ -150,13 +154,11 @@
   </div>
 @endpush
 
-@if($manifestHeader->details->count() > 0 && $lmbHeader->do_details->count() > 0)
-{!! get_button_save('New Manifest', 'btn-new-manifest mb-1') !!}
-@endif
-
-{!! get_button_save('New Manifest LCL', 'btn-new-manifest-lcl mb-1') !!}
 @push('script_js')
 <script type="text/javascript">
+  @if($manifestHeader->details->count() > 0 && $lmbHeader->do_details->count() > 0)
+  $('.btn-new-manifest').removeClass('hide')
+  @endif
     jQuery(document).ready(function($) {
         $('.btn-new-manifest').click(function(event) {
           window.location.href = "{{ url('manifest-regular/' . $manifestHeader->driver_register_id . '/create-manifest') }}";

@@ -48,7 +48,7 @@ class CompleteController extends Controller
           $action .= ' ' . get_button_view(url('complete/' . $data->driver_register_id), 'View');
           return $action;
         })
-        ->rawColumns(['vehicle_number', 'do_manifest_no', 'do_status', 'action']);
+        ->rawColumns(['status', 'vehicle_number', 'do_manifest_no', 'do_status', 'action']);
 
       return $datatables->make(true);
     }
