@@ -6,6 +6,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('receipt-invoice', 'Web\ReceiptInvoiceController@index');
   Route::get('receipt-invoice/manifest', 'Web\ReceiptInvoiceController@getManifest');
+  Route::get('receipt-invoice/{id_header}/manifest', 'Web\ReceiptInvoiceController@getListDo');
   Route::get('receipt-invoice/create', 'Web\ReceiptInvoiceController@create');
   Route::post('receipt-invoice', 'Web\ReceiptInvoiceController@store');
   Route::post('receipt-invoice/{id}/create-receipt-no', 'Web\ReceiptInvoiceController@createReceiptNo');

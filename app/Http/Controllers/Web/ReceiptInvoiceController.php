@@ -424,4 +424,20 @@ class ReceiptInvoiceController extends Controller
       return redirect(404);
     }
   }
+
+  public function getListDo($id_header){
+    $query = InvoiceReceiptDetail::where('id_header', $id_header)->get();
+
+    $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)     
+        ->addColumn('action_view', function ($data) {
+          return get_button_view(url('receipt-invoice/' . $data->id));
+        })
+        ->addColumn('action_delete', function ($data) {
+          return get_button_delete();
+        })
+        ->rawColumns(['action_view', 'action_delete']);
+
+      return $datatables->make(true);
+  }
 }
