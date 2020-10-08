@@ -126,7 +126,7 @@
     $('.btn-add').click(function(event) {
       /* Act on the event */
       var area = $('#area_filter').val();
-      if(area==''){
+      if(area=='null'){
         swal({
           text: "Please Select Area!",
           icon: "warning",
