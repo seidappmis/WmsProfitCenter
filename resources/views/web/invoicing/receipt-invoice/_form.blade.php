@@ -206,7 +206,7 @@
             {data: 'do_manifest_no'},
             {data: 'do_date'},
             {data: 'delivery_no'},
-            {data: 'do_internal_no'},
+            {data: 'do_manifest_no'},
             {data: 'city_name'},
             {data: 'count_of_do'},
             {data: 'cbm_do', className: 'center-align'},
