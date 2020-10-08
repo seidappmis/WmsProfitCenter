@@ -423,6 +423,21 @@ class ManifestRegularController extends Controller
     return sendSuccess('Manifest updated.', $manifestHeader);
   }
 
+  public function destroy(Request $request, $do_manifest_no)
+  {
+
+    try {
+      DB::beginTransaction();
+      LogManifestDetail::where('do_manifest_no', $do_manifest_no)->delete();
+      LogManifestHeader::destroy($do_manifest_no);
+
+      DB::commit();
+      return sendSuccess('Success delete manifest.', []);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+  }
+
   public function destroyDO(Request $request)
   {
     $detail = LogManifestDetail::findOrFail($request->input('id'));

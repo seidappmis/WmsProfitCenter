@@ -22,7 +22,7 @@ class LogManifestHeader extends Model
     return $this
       ->details
       ->where('status_confirm', 0)
-      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+      ->whereIn('kode_cabang', auth()->user()->getStringGrantCabang())
     ;
   }
 

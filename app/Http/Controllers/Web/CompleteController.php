@@ -21,13 +21,14 @@ class CompleteController extends Controller
         'log_manifest_header.vehicle_number',
         'log_manifest_header.destination_name_driver',
         'log_manifest_header.expedition_name',
+        'log_manifest_header.status_complete',
         'tr_concept_truck_flow.complete_date',
         DB::raw('GROUP_CONCAT(log_manifest_header.do_manifest_no) AS do_manifest_no')
       )
         ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
         ->where('log_manifest_header.area', $request->input('area'))
         ->where('log_manifest_header.manifest_type', '!=', 'LCL')
-        ->groupBy('log_manifest_header.driver_register_id');
+        ->groupBy('log_manifest_header.do_manifest_no');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -48,7 +49,7 @@ class CompleteController extends Controller
           $action .= ' ' . get_button_view(url('complete/' . $data->driver_register_id), 'View');
           return $action;
         })
-        ->rawColumns(['vehicle_number', 'do_manifest_no', 'do_status', 'action']);
+        ->rawColumns(['status', 'vehicle_number', 'do_manifest_no', 'do_status', 'action']);
 
       return $datatables->make(true);
     }
