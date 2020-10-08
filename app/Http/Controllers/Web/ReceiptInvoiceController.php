@@ -429,7 +429,10 @@ class ReceiptInvoiceController extends Controller
     $query = InvoiceReceiptDetail::where('id_header', $id_header)->get();
 
     $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)     
+        ->addIndexColumn() //DT_RowIndex (Penomoran)    
+        ->addColumn('total', function ($data) {
+          return 0;
+        }) 
         ->addColumn('action_view', function ($data) {
           return get_button_view(url('receipt-invoice/' . $data->id));
         })

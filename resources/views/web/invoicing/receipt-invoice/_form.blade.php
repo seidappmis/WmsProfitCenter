@@ -208,7 +208,7 @@
             {data: 'delivery_no'},
             {data: 'do_manifest_no'},
             {data: 'city_name'},
-            {data: 'count_of_do'},
+            {data: 'ship_to'},
             {data: 'cbm_do', className: 'center-align'},
             {data: 'cbm_amount', className: 'center-align'},
             {data: 'ritase_amount', className: 'center-align'},
