@@ -799,10 +799,13 @@ class PickingListController extends Controller
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
     $data['excel']  = '';
+    $view_print = view('web.picking.picking-list._print', $data);
+
     if ($request->input('filetype') == 'xls') {
       $data['excel'] =1;
+      $view_print = view('web.picking.picking-list._excel', $data);
+
     }
-    $view_print = view('web.picking.picking-list._print', $data);
     $title      = 'picking_list';
 
     if ($request->input('filetype') == 'html') {
