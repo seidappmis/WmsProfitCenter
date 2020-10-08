@@ -29,6 +29,7 @@
                           <thead>
                               <tr>
                                 <th>DO MANIFEST</th>
+                                <th>DO MANIFEST DATE</th>
                                 <th>EXPEDITION NAME</th>
                                 <th>DESTINATION CITY</th>
                                 <th width="50px;"></th>
@@ -71,11 +72,12 @@
               d.search['value'] = $('#from-manifest-branch-filter').val()
             }
       },
-      order: [0, 'asc'],
+      order: [1, 'asc'],
       columns: [
-          {data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail'},
-          {data: 'expedition_name', name: 'expedition_name', className: 'detail'},
-          {data: 'city_name', name: 'city_name', className: 'detail'},
+          {data: 'do_manifest_no'},
+          {data: 'do_manifest_date', visible: false},
+          {data: 'expedition_name'},
+          {data: 'city_name'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });
