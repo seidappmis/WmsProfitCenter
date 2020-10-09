@@ -1042,16 +1042,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.28.3",
+            "version": "v7.28.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b0942c391975972b1a54b2dc983e33a239f169a9"
+                "reference": "de187e9200948bab6975167e480950abcd5efdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b0942c391975972b1a54b2dc983e33a239f169a9",
-                "reference": "b0942c391975972b1a54b2dc983e33a239f169a9",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/de187e9200948bab6975167e480950abcd5efdac",
+                "reference": "de187e9200948bab6975167e480950abcd5efdac",
                 "shasum": ""
             },
             "require": {
@@ -1196,7 +1196,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-09-17T14:23:26+00:00"
+            "time": "2020-10-06T14:22:09+00:00"
         },
         {
             "name": "laravel/passport",
@@ -3631,12 +3631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00"
+                "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
-                "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
+                "url": "https://api.github.com/repos/symfony/console/zipball/ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
+                "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
                 "shasum": ""
             },
             "require": {
@@ -3702,7 +3702,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2020-09-18T14:27:32+00:00"
+            "time": "2020-10-07T15:23:00+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -5676,16 +5676,16 @@
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v9.11.0",
+            "version": "v9.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "fb12721a46dd9071236d7e7e6de440413bc69087"
+                "reference": "d85285c87cd9c02dfaee2a1201a05e002e148e1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/fb12721a46dd9071236d7e7e6de440413bc69087",
-                "reference": "fb12721a46dd9071236d7e7e6de440413bc69087",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/d85285c87cd9c02dfaee2a1201a05e002e148e1a",
+                "reference": "d85285c87cd9c02dfaee2a1201a05e002e148e1a",
                 "shasum": ""
             },
             "require": {
@@ -5743,7 +5743,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2020-09-09T02:36:16+00:00"
+            "time": "2020-10-06T03:24:30+00:00"
         }
     ],
     "packages-dev": [

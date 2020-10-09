@@ -129,7 +129,7 @@ foreach ($rs_shipment_no as $key => $value) {
   </tr>
   <tr>
     <td>
-      <footer>
+      <!-- <footer> -->
         <table style="width: 210.0003mm;">
           <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
           <tr>
@@ -179,7 +179,7 @@ foreach ($rs_shipment_no as $key => $value) {
             <td style="text-align: center;">VERIFIED</td>
           </tr>
         </table>
-      </footer>
+      <!-- </footer> -->
     </td>
   </tr>
 </table>
