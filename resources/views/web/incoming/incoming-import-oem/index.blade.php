@@ -127,10 +127,16 @@
       /* Act on the event */
       var area = $('#area_filter').val();
       if(area==null){
-        swal({
-          text: "Please Select Area!",
-          icon: "warning",
-        });
+        area = '{{auth()->user()->area}}';
+        if(area==null){
+          swal({
+            text: "Please Select Area!",
+            icon: "warning",
+          });
+        }
+        else{
+          window.location.href = '{{url("incoming-import-oem/create?area=")}}' + area  
+        }
       }else{
         window.location.href = '{{url("incoming-import-oem/create?area=")}}' + area
       }      
