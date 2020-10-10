@@ -112,5 +112,9 @@
       }
     });
   });
+
+  refresh_assign_do_after_delete_list_do(){
+    dttable_from_tcs.reload(null, false); // reload datatable
+  }
 </script>
 @endpush

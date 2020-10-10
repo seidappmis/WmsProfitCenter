@@ -128,7 +128,7 @@
           {data: 'schedule_end_date', name: 'schedule_end_date', className: 'detail'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
-    });
+    }); dtdatatable.ajax.reload(null, false);
 
       dtdatatable.on('click', '.btn-delete', function(event) {
         event.preventDefault();
