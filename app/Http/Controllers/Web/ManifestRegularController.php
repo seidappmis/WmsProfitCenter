@@ -67,6 +67,9 @@ class ManifestRegularController extends Controller
         ->addColumn('desc', function ($data) {
           return $data->getDesc();
         })
+        ->editColumn('status_confirm', function($data){
+          return $data->status_confirm ? 'Confirmed' : '';
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           if (!$data->status_complete) {

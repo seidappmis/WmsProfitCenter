@@ -25,14 +25,25 @@
                         <li class="active">
                           <div class="collapsible-header"><i class="material-icons">keyboard_arrow_right</i>Input Manual Tag</div>
                           <div class="collapsible-body">
-                            <form class="form-table">
+                            <form class="form-table" id="form-input-manual-tag">
+                              <input type="hidden" name="sto_id" value="{{$schedule->sto_id}}">
                               <table>
                                 <tr>
-                                  <td>Model</td>
+                                  <td width="30%">Model</td>
                                   <td>
                                     <div class="input-field col s12">
-                                      <select>
-                                        <option value="" disabled selected>-- Select Model --</option>
+                                      <select name="model" required="" class="select2-data-ajax browser-default">
+                                        <option value=""></option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td width="30%">Location</td>
+                                  <td>
+                                    <div class="input-field col s12">
+                                      <select name="location" required="" class="select2-data-ajax browser-default">
+                                        <option value=""></option>
                                       </select>
                                     </div>
                                   </td>
@@ -61,9 +72,32 @@
 @endsection
 
 @push('script_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
 <script type="text/javascript">
  	$('.collapsible').collapsible({
         accordion:true
     });
+
+  jQuery(document).ready(function($) {
+    $('#form-input-manual-tag [name="model"]').select2({
+      placeholder: '-- Select Model --',
+      ajax: get_select2_ajax_options('/master-model/select2-model')
+    })
+
+    $('#form-input-manual-tag [name="location"]').select2({
+      placeholder: '-- Select Model --',
+      ajax: get_select2_ajax_options('/stock-take-create-tag/select2-location')
+    })
+
+    $('#form-input-manual-tag').validate({
+      submitHandler: function(form){
+
+      }
+    })
+  });
 </script>
 @endpush

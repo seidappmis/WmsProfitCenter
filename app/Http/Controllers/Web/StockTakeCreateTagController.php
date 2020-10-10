@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\StockTakeInput1;
 use App\Models\StockTakeInput2;
+use App\Models\StockTakeSchedule;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -78,6 +79,20 @@ class StockTakeCreateTagController extends Controller
       StockTakeInput2::insert($stocktake_inputs);
       return 1;
     });
+
+  }
+
+  public function createManual(Request $request)
+  {
+    $data['schedule'] = StockTakeSchedule::findOrFail($request->input('sto_id'));
+
+    return view('web.stock-take.stock-take-create-tag.create', $data);
+    $input1 = new StockTakeInput1;
+    $input2 = new StockTakeInput2;
+
+    $input1->sto_id = $request->input('sto_id');
+    $input1->no_tag = $request->input('no_tag');
+    $input1->model  = $request->input('model');
 
   }
 

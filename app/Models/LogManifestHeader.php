@@ -40,10 +40,15 @@ class LogManifestHeader extends Model
   public function status()
   {
     $total_detail_tcs_do      = $this->lmb->do_details->count();
-    $total_detail_manifest_do = $this->details->count();
+    // $total_detail_manifest_do = $this->details->count();
+    $total_detail_manifest_do = LogManifestDetail::select(DB::raw('COUNT(id) AS countManifestDO'))
+    ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+    ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
+    ->first()->countManifestDO;
     $total_unconfirm_detail   = LogManifestDetail::select(DB::raw('COUNT(id) AS countUnconfirmDetail'))
     ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
     ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
+    ->where('log_manifest_detail.status_confirm', 0)
     ->first()->countUnconfirmDetail;
 
     if ($total_detail_tcs_do > $total_detail_manifest_do) {

@@ -19,7 +19,7 @@
         <th>Model</th>
         <th>QTY</th>
         <th>DESC</th>
-        {{-- <th>Status</th> --}}
+        <th>Status</th>
         <th>Customer Code</th>
         <th width="50px;"></th>
       </tr>
@@ -62,6 +62,7 @@
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'quantity', name: 'quantity', className: 'detail'},
         {data: 'desc', name: 'desc', className: 'detail'},
+        {data: 'status_confirm', name: 'status_confirm', className: 'detail'},
         {data: 'ship_to_code', name: 'ship_to_code', className: 'detail'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ],

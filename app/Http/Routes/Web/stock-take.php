@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('stock-take-create-tag/select2-no-tag-1', 'Web\StockTakeCreateTagController@getSelect2NoTag1');
   Route::get('stock-take-create-tag/select2-no-tag-2', 'Web\StockTakeCreateTagController@getSelect2NoTag2');
   Route::post('stock-take-create-tag', 'Web\StockTakeCreateTagController@store');
-  Route::view('stock-take-create-tag/create', 'web.stock-take.stock-take-create-tag.create');
+  Route::get('stock-take-create-tag/create', 'Web\StockTakeCreateTagController@createManual');
 
   Route::get('stock-take-input-1', 'Web\StockTakeInput1Controller@index');
   Route::post('stock-take-input-1', 'Web\StockTakeInput1Controller@store');
