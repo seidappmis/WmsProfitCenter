@@ -45,7 +45,7 @@ class StockTakeCompareSAPController extends Controller
       // ;
 
       $query = StockTakeScheduleDetail::selectRaw('
-        sum(log_stocktake_schedule_detail.qty) AS quantitySAP,
+        log_stocktake_schedule_detail.qty AS quantitySAP,
         log_stocktake_schedule_detail.material_no,
         sum(log_stocktake_input1.quantity) as quantity,
         sum(log_stocktake_input2.quantity) AS quantity2')
