@@ -11,40 +11,63 @@
         <td>
           <table width="100%" class="form-table">
             <tr>
-              <td width="20%">Manifest No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_no" readonly=""></div></td>
-              <td width="20%">Manifest Date</td>
+              <td width="18%">Manifest No.</td>
+              <td>
+                <div class="input-field col s8">
+                  <input type="text" class="validate" name="do_manifest_no" readonly="">
+                </div>
+                <div class="input-field col s4">
+                  <span id="manifest_type"></span>
+                </div>
+              </td>
+              <td width="18%">Manifest Date</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="do_manifest_date" disabled></div></td>
             </tr>
             <tr>
-              <td width="20%">Vehicle No.</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_number"></div></td>
-              <td width="20%">Expedition</td>
+              <td width="18%">Vehicle No.</td>
+              <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_number" required=""></div></td>
+              <td width="18%">Expedition</td>
               <td>
-                <input type="hidden" name="expedition_code">
-                <div class="input-field col s12"><input type="text" class="validate" name="expedition_name" disabled></div>
+                <div class="input-field col s12">
+                  <input type="text" class="validate text-expedition_name"  disabled>
+                  <select name="expedition_code" class="select2-data-ajax browser-default" required="">
+                  </select>
+                  <input type="hidden" name="expedition_name">
+                </div>
               </td>
             </tr>
             <tr>
-              <td width="20%">Driver Name</td>
+              <td width="18%">Driver Name</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="driver_name" disabled></div></td>
-              <td width="20%">Vehicle Type</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="vehicle_description" disabled></div></td>
+              <td width="18%">Vehicle Type</td>
+              <td><div class="input-field col s12">
+                <input type="text" class="validate" name="text_vehicle_description" disabled>
+                <input type="hidden" name="vehicle_description">
+                  <select name="vehicle_code_type" class="select2-data-ajax browser-default" required="">
+                  </select>
+              </div></td>
             </tr>
             <tr>
-              <td width="20%">Destination City</td>
-              <td><div class="input-field col s12"><input type="text" class="validate" name="city_name" disabled></div></td>
-              <td width="20%">Container No</td>
+              <td width="18%">Destination City</td>
+              <td>
+                <div class="input-field col s12">
+                  <input type="text" class="validate" name="destination_name_driver" disabled>
+                   <select name="city_code" class="select2-data-ajax browser-default" required>
+                  </select>
+                  <input type="hidden" name="city_name" value="">
+                </div>
+              </td>
+              <td width="18%">Container No</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="container_no"></div></td>
             </tr>
             <tr>
-              <td width="20%">Seal No.</td>
+              <td width="18%">Seal No.</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="seal_no"></div></td>
-              <td width="20%">Checker</td>
+              <td width="18%">Checker</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="checker"></div></td>
             </tr>
             <tr>
-              <td width="20%">PDO No.</td>
+              <td width="18%">PDO No.</td>
               <td><div class="input-field col s12"><input type="text" class="validate" name="pdo_no"></div></td>
             </tr>
           </table>

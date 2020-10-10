@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
+use App\Models\WMSBranchManifestHeader;
+use App\Models\WMSBranchManifestDetail;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -21,13 +23,24 @@ class UpdateManifestController extends Controller
       return sendError('Please Fill No. Manifest First');
     }
 
-    $logManifestHeader = LogManifestHeader::where('area', $request->input('area'))->where('do_manifest_no', $request->input('manifest_no'))->first();
+    $manifestHeader = LogManifestHeader::where('area', $request->input('area'))->where('do_manifest_no', $request->input('manifest_no'))->first();
 
-    if (empty($logManifestHeader)) {
+    if (empty($manifestHeader)) {
+      $manifestHeader = WMSBranchManifestHeader::where('do_manifest_no', $request->input('manifest_no'))
+        ->whereIn('kode_cabang', auth()->user()->getStringGrantCabang())
+        ->first();
+      if (!empty($manifestHeader)) {
+        $manifestHeader->type = 'BRANCH';
+      }
+    } else {
+      $manifestHeader->type = 'HQ';
+    }
+
+    if (empty($manifestHeader)) {
       return sendError('No Manifest Found');
     }
 
-    $data['logManifestHeader'] = $logManifestHeader;
+    $data['manifestHeader'] = $manifestHeader;
 
     return sendSuccess('Manifest Found', $data);
   }
@@ -44,11 +57,17 @@ class UpdateManifestController extends Controller
       return sendError('No Manifest Found');
     }
 
-    $logManifestHeader->vehicle_number = $request->input('vehicle_number');
-    $logManifestHeader->seal_no        = $request->input('seal_no');
-    $logManifestHeader->pdo_no         = $request->input('pdo_no');
-    $logManifestHeader->checker        = $request->input('checker');
-    $logManifestHeader->container_no   = $request->input('container_no');
+    $logManifestHeader->vehicle_number      = $request->input('vehicle_number');
+    $logManifestHeader->seal_no             = $request->input('seal_no');
+    $logManifestHeader->expedition_code     = $request->input('expedition_code');
+    $logManifestHeader->expedition_name     = $request->input('expedition_name');
+    $logManifestHeader->vehicle_code_type   = $request->input('vehicle_code_type');
+    $logManifestHeader->vehicle_description = $request->input('vehicle_description');
+    $logManifestHeader->city_code           = $request->input('city_code');
+    $logManifestHeader->city_name           = $request->input('city_name');
+    $logManifestHeader->pdo_no              = $request->input('pdo_no');
+    $logManifestHeader->checker             = $request->input('checker');
+    $logManifestHeader->container_no        = $request->input('container_no');
 
     $logManifestHeader->save();
 

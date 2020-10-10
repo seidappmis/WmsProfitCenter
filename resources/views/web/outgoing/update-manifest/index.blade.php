@@ -98,20 +98,31 @@
         })
         .done(function(result) { // selesai dan berhasil
           if (result.status) {
-            var manifestHeader = result.data.logManifestHeader;
+            var manifestHeader = result.data.manifestHeader;
+            $('#manifest_type').text(manifestHeader.manifest_type);
             $('#form-update-manifest [name="do_manifest_no"]').val(manifestHeader.do_manifest_no);
             $('#form-update-manifest [name="do_manifest_date"]').val(manifestHeader.do_manifest_date);
             $('#form-update-manifest [name="vehicle_number"]').val(manifestHeader.vehicle_number);
-            $('#form-update-manifest [name="expedition_name"]').val(manifestHeader.expedition_name);
+            $('#form-update-manifest .text-expedition_name').val(manifestHeader.expedition_name);
             $('#form-update-manifest [name="expedition_code"]').val(manifestHeader.expedition_code);
             $('#form-update-manifest [name="driver_name"]').val(manifestHeader.driver_name);
-            $('#form-update-manifest [name="vehicle_description"]').val(manifestHeader.vehicle_description);
-            $('#form-update-manifest [name="city_name"]').val(manifestHeader.city_name);
+            $('#form-update-manifest [name="text_vehicle_description"]').val(manifestHeader.vehicle_description);
+            $('#form-update-manifest [name="destination_name_driver"]').val(manifestHeader.destination_name_driver);
             $('#form-update-manifest [name="container_no"]').val(manifestHeader.container_no);
             $('#form-update-manifest [name="seal_no"]').val(manifestHeader.seal_no);
             $('#form-update-manifest [name="pdo_no"]').val(manifestHeader.pdo_no);
             $('#form-update-manifest [name="checker"]').val(manifestHeader.checker);
             set_select2_destination(manifestHeader.expedition_code)
+
+            set_select2_value('#form-update-manifest [name="expedition_code"]', manifestHeader.expedition_code, manifestHeader.expedition_name)
+            set_select2_value('#form-update-manifest [name="vehicle_code_type"]', manifestHeader.vehicle_code_type, manifestHeader.vehicle_description)
+            set_select2_value('#form-update-manifest [name="city_code"]', manifestHeader.city_code, manifestHeader.city_name)
+
+            if (manifestHeader.type == 'HQ') {
+              setManifestHQ(manifestHeader);
+            } else {
+              setManifestBranch(manifestHeader);
+            }
 
             $('#filter-do-or-shipment').val($("#form-search-manifest [name='delivery_no']").val());
             dttable_do.ajax.reload(null, false)
@@ -183,6 +194,106 @@
       dttable_do.ajax.reload(null, false)
     });
   });
+
+function setManifestHQ(manifestHeader){
+  set_hq_select_expedition()
+  set_hq_select_vehicle_type({expedition_code: manifestHeader.expedition_code})
+  set_hq_select_ship_to_city({expedition_code: manifestHeader.expedition_code})
+
+  $('#form-update-manifest [name="expedition_code"]').change(function(event) {
+    /* Act on the event */
+    var data = $(this).select2('data')[0]
+    set_select2_value('#form-update-manifest [name="vehicle_code_type"]', '', '')
+    set_hq_select_vehicle_type({expedition_code: $(this).val()})
+    $('#form-update-manifest [name="expedition_name"]').val(data.text)
+  });
+
+  $('#form-update-manifest [name="vehicle_code_type"]').change(function(event) {
+    /* Act on the event */
+    var data = $(this).select2('data')[0]
+    set_select2_value('#form-update-manifest [name="city_code"]', '', '')
+    set_hq_select_ship_to_city({expedition_code: $('#form-update-manifest [name="expedition_code"]').val()})
+    $('#form-update-manifest [name="vehicle_description"]').val(data.text)
+  });
+
+  $('#form-update-manifest [name="city_code"]').change(function(event) {
+    var data = $(this).select2('data')[0]
+    $('#form-update-manifest [name="city_name"]').val(data.text)
+  })
+}
+
+function set_hq_select_expedition(){
+    $('#form-update-manifest [name="expedition_code"]').select2({
+        placeholder: '-- Select Expedition --',
+        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+  })
+}
+
+function set_hq_select_vehicle_type(filter = {expedition_code: ''}) {
+  $('#form-update-manifest [name="vehicle_code_type"]').select2({
+    placeholder: '-- Select Vehicle --',
+    ajax: get_select2_ajax_options('/master-freight-cost/select2-vehicle', filter)
+  })
+}
+
+function set_hq_select_ship_to_city(filter = {expedition_code: ''}){
+  filter.tambah_ambil_sendiri = true
+  $('#form-update-manifest [name="city_code"]').select2({
+    placeholder: '-- Select Destination City --',
+    allowClear: true,
+    ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+  })
+}
+
+function setManifestBranch(manifestHeader){
+set_branch_select_expedition();
+set_branch_select_vehicle_type({expedition_code: manifestHeader.expedition_code});
+set_branch_select_ship_to_city({expedition_code: manifestHeader.expedition_code});
+$('#form-update-manifest [name="expedition_code"]').change(function(event) {
+    /* Act on the event */
+    var data = $(this).select2('data')[0]
+    set_select2_value('#form-update-manifest [name="vehicle_code_type"]', '', '')
+    set_branch_select_vehicle_type({expedition_code: $(this).val()})
+    $('#form-update-manifest [name="expedition_name"]').val(data.text)
+  });
+
+  $('#form-update-manifest [name="vehicle_code_type"]').change(function(event) {
+    /* Act on the event */
+    var data = $(this).select2('data')[0]
+    set_select2_value('#form-update-manifest [name="city_code"]', '', '')
+    set_branch_select_ship_to_city({expedition_code: $('#form-update-manifest [name="expedition_code"]').val()})
+    $('#form-update-manifest [name="vehicle_description"]').val(data.text)
+  });
+
+  $('#form-update-manifest [name="city_code"]').change(function(event) {
+    var data = $(this).select2('data')[0]
+    $('#form-update-manifest [name="city_name"]').val(data.text)
+  })
+}
+
+function set_branch_select_expedition(){
+    $('#form-update-manifest [name="expedition_code"]').select2({
+        placeholder: '-- Select Expedition --',
+        ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
+  })
+}
+
+
+function set_branch_select_vehicle_type(filter = {expedition_code: ''}) {
+    $('#form-update-manifest [name="vehicle_code_type"]').select2({
+      placeholder: '-- Select Vehicle --',
+      ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle', filter)
+    })
+}
+
+function set_branch_select_ship_to_city(filter = {expedition_code: ''}){
+  filter.tambah_ambil_sendiri = true
+  $('#form-update-manifest [name="city_code"]').select2({
+    placeholder: '-- Select Destination City --',
+    allowClear: true,
+    ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+  })
+}
 
 </script>
 @endpush

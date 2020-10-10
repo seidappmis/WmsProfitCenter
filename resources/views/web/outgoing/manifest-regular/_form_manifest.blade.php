@@ -49,12 +49,12 @@
             <td width="20%">Expedition</td>
             <td width="30%">
                 <div class="input-field col s12">
-                    <input type="hidden" name="expedition_code" value="{{$lmbHeader->expedition_code}}">
+                    <input type="hidden" name="expedition_code" value="{{!empty($manifestHeader) ? $manifestHeader->expedition_code : $lmbHeader->expedition_code}}">
                     <input 
                         type="text" 
                         class="validate" 
                         name="expedition_name" 
-                        value="{{$lmbHeader->expedition_name}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->expedition_name : $lmbHeader->expedition_name}}"
                         readonly 
                         />
               </div>
@@ -81,14 +81,14 @@
                         type="hidden" 
                         class="validate" 
                         name="vehicle_code_type" 
-                        value="{{$lmbHeader->picking->vehicle_code_type}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_code_type : $lmbHeader->picking->vehicle_code_type}}"
                         readonly 
                         />
                         <input 
                         type="text" 
                         class="validate" 
                         name="vehicle_description" 
-                        value="{{$lmbHeader->picking->vehicle->vehicle_description}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_description : $lmbHeader->picking->vehicle->vehicle_description}}"
                         readonly 
                         />
               </div>

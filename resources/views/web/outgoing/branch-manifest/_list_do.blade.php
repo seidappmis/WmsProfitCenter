@@ -34,7 +34,7 @@
         <td>{{ $manifestHeader->manifest_type == "REGULAR" ? 'NORMAL' : '' }}</td>
         <td>{{ $manifestDetail->status() }}</td>
         <td>{{ $manifestDetail->ship_to_code }}</td>
-        <td><input type="hidden" name="id" value="{{$manifestDetail->id}}">{!! get_button_delete() !!}</td>
+        <td><input type="hidden" name="id" value="{{$manifestDetail->id}}">{!! $manifestDetail->status_confirm ? '' : get_button_delete() !!}</td>
       </tr>
       @endforeach
     </tbody>
