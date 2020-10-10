@@ -89,40 +89,48 @@
           )
     });
 
-    $('#form-filter-periode').validate({
-      submitHandler: function (form){
-        $.ajax({
-          url: '{{url("stock-take-quick-count")}}',
-          type: 'GET',
-          dataType: 'json',
-          data: $(form).serialize(),
-        })
-        .done(function(result) {
-          if (result.status) {
-            $('.quick-count-wrapper').removeClass('hide');
-            $('#form-stock-take-summary [name="total_all_tag_no"]').val(result.data.total_all_tag_no)
-            $('#form-stock-take-summary [name="total_all_models"]').val(result.data.total_all_models)
-            $('#form-stock-take-summary [name="total_all_location"]').val(result.data.total_all_location)
-            $('#form-stock-take-summary [name="summary_tag_compared_matched"]').val(result.data.summary_tag_compared_matched)
-            $('#form-stock-take-summary [name="diff_qty"]').val(result.data.diff_qty)
-            $('#form-stock-take-summary [name="only_input_1"]').val(result.data.only_input_1)
-            $('#form-stock-take-summary [name="only_input_2"]').val(result.data.only_input_2)
-            dttable_input_1.ajax.reload(null, false)
-            dttable_input_2.ajax.reload(null, false)
-            dttable_different_quantity.ajax.reload(null, false)
-          } else {
-            $('.quick-count-wrapper').addClass('hide')
+    setTimeout(function(){ 
+      
+      if($('#sto_id').val()!=''){
+        $('#form-filter-periode').validate({
+          submitHandler: function (form){
+            $.ajax({
+              url: '{{url("stock-take-quick-count")}}',
+              type: 'GET',
+              dataType: 'json',
+              data: $(form).serialize(),
+            })
+            .done(function(result) {
+              if (result.status) {
+                $('.quick-count-wrapper').removeClass('hide');
+                $('#form-stock-take-summary [name="total_all_tag_no"]').val(result.data.total_all_tag_no)
+                $('#form-stock-take-summary [name="total_all_models"]').val(result.data.total_all_models)
+                $('#form-stock-take-summary [name="total_all_location"]').val(result.data.total_all_location)
+                $('#form-stock-take-summary [name="summary_tag_compared_matched"]').val(result.data.summary_tag_compared_matched)
+                $('#form-stock-take-summary [name="diff_qty"]').val(result.data.diff_qty)
+                $('#form-stock-take-summary [name="only_input_1"]').val(result.data.only_input_1)
+                $('#form-stock-take-summary [name="only_input_2"]').val(result.data.only_input_2)
+                dttable_input_1.ajax.reload(null, false)
+                dttable_input_2.ajax.reload(null, false)
+                dttable_different_quantity.ajax.reload(null, false)
+              } else {
+                $('.quick-count-wrapper').addClass('hide')
+              }
+            })
+            .fail(function() {
+              console.log("error");
+            })
+            .always(function() {
+              console.log("complete");
+            });
+            
           }
         })
-        .fail(function() {
-          console.log("error");
-        })
-        .always(function() {
-          console.log("complete");
-        });
-        
       }
-    })
+      else{
+        console.log('no periode selected');
+      }
+    }, 30000);    
   });
 </script>
 @endpush
