@@ -1,5 +1,6 @@
 <div class="form-update-manifest-wrapper hide">
   <form id="form-update-manifest">
+    <input type="hidden" name="type">
   <table class="">
     <thead>
       <tr>

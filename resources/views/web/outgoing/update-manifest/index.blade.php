@@ -100,6 +100,7 @@
           if (result.status) {
             var manifestHeader = result.data.manifestHeader;
             $('#manifest_type').text(manifestHeader.manifest_type);
+            $('#form-update-manifest [name="type"]').val(manifestHeader.type);
             $('#form-update-manifest [name="do_manifest_no"]').val(manifestHeader.do_manifest_no);
             $('#form-update-manifest [name="do_manifest_date"]').val(manifestHeader.do_manifest_date);
             $('#form-update-manifest [name="vehicle_number"]').val(manifestHeader.vehicle_number);
@@ -170,6 +171,7 @@
           data: function(d) {
               d.search['value'] = $('#filter-do-or-shipment').val()
               d.do_manifest_no = $('#form-update-manifest [name="do_manifest_no"]').val()
+              d.type = $('#form-update-manifest [name="type"]').val()
           }
       },
       order: [0, 'asc'],

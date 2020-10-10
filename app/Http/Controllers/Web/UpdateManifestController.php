@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
-use App\Models\WMSBranchManifestHeader;
 use App\Models\WMSBranchManifestDetail;
+use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -51,37 +51,48 @@ class UpdateManifestController extends Controller
       return sendError('Please Fill No. Manifest First');
     }
 
-    $logManifestHeader = LogManifestHeader::where('area', $request->input('area'))->where('do_manifest_no', $request->input('do_manifest_no'))->first();
+    if ($request->input('type') == 'HQ') {
+      $manifestHeader = LogManifestHeader::where('area', $request->input('area'))->where('do_manifest_no', $request->input('do_manifest_no'))->first();
+    } else {
+      $manifestHeader = WMSBranchManifestHeader::where('do_manifest_no', $request->input('do_manifest_no'))->first();
+    }
 
-    if (empty($logManifestHeader)) {
+    if (empty($manifestHeader)) {
       return sendError('No Manifest Found');
     }
 
-    $logManifestHeader->vehicle_number      = $request->input('vehicle_number');
-    $logManifestHeader->seal_no             = $request->input('seal_no');
-    $logManifestHeader->expedition_code     = $request->input('expedition_code');
-    $logManifestHeader->expedition_name     = $request->input('expedition_name');
-    $logManifestHeader->vehicle_code_type   = $request->input('vehicle_code_type');
-    $logManifestHeader->vehicle_description = $request->input('vehicle_description');
-    $logManifestHeader->city_code           = $request->input('city_code');
-    $logManifestHeader->city_name           = $request->input('city_name');
-    $logManifestHeader->pdo_no              = $request->input('pdo_no');
-    $logManifestHeader->checker             = $request->input('checker');
-    $logManifestHeader->container_no        = $request->input('container_no');
+    $manifestHeader->vehicle_number      = $request->input('vehicle_number');
+    $manifestHeader->seal_no             = $request->input('seal_no');
+    $manifestHeader->expedition_code     = $request->input('expedition_code');
+    $manifestHeader->expedition_name     = $request->input('expedition_name');
+    $manifestHeader->vehicle_code_type   = $request->input('vehicle_code_type');
+    $manifestHeader->vehicle_description = $request->input('vehicle_description');
+    $manifestHeader->city_code           = $request->input('city_code');
+    $manifestHeader->city_name           = $request->input('city_name');
+    $manifestHeader->pdo_no              = $request->input('pdo_no');
+    $manifestHeader->checker             = $request->input('checker');
+    $manifestHeader->container_no        = $request->input('container_no');
 
-    $logManifestHeader->save();
+    $manifestHeader->save();
 
-    return sendSuccess('Success update manifest.', $logManifestHeader);
+    return sendSuccess('Success update manifest.', $manifestHeader);
   }
 
   public function listDo(Request $request)
   {
     if ($request->ajax()) {
 
-      $query = LogManifestDetail::select('log_manifest_detail.*')
-        ->where('do_manifest_no', $request->input('do_manifest_no'))
-        ->where('delivery_no', $request->input('search')['value'])
-      ;
+      if ($request->input('type') == 'HQ') {
+        $query = LogManifestDetail::select('log_manifest_detail.*')
+          ->where('do_manifest_no', $request->input('do_manifest_no'))
+          ->where('delivery_no', $request->input('search')['value'])
+        ;
+      } else {
+        $query = WMSBranchManifestDetail::select('wms_branch_manifest_detail.*')
+          ->where('do_manifest_no', $request->input('do_manifest_no'))
+          ->where('delivery_no', $request->input('search')['value'])
+        ;
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -89,7 +100,7 @@ class UpdateManifestController extends Controller
           return 'TCS';
         })
         ->addColumn('status', function ($data) {
-          return '';
+          return $data->status();
         })
         ->addColumn('action', function ($data) {
           $action = '';
