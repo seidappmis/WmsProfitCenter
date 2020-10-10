@@ -112,12 +112,19 @@
                 <br>
                 <div id="print-area" class="hide">
                   <h4>
-                  <span class="right">
-                    <a id="btn-reload" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1"><i class="material-icons">refresh</i></a>
-                    <a id="btn-print-export-xls" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
-                    <a id="btn-print-export-pdf" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
-                    <a id="btn-print" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">Print</a>
-                  </span>
+                    <div class="row mb-0 mt-0">
+                      <div class="col m6 print-pagination">
+                         
+                      </div>
+                      <div class="col m6">
+                        <span class="right">
+                          <a id="btn-reload" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1"><i class="material-icons">refresh</i></a>
+                          <a id="btn-print-export-xls" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+                          <a id="btn-print-export-pdf" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+                          <a id="btn-print" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">Print</a>
+                        </span>
+                      </div>
+                    </div>
                 </h4>
                 <iframe id="frame" class="frame-print" src="" width="100%" height="700px">
                 </iframe>
@@ -289,15 +296,16 @@
       dtdatatable.search($("#tag_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 
-  function initPrintPreview(url, extraParams = null){
-      $('.frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : ''));
+  function initPrintPreview(url, extraParams = null, page = 1){
+    loadPrintPagination(page)
+      $('.frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : '') + '&page=' + page);
       
       $('#btn-reload').click(function(event) {
         /* Act on the event */
         $('.frame-print').attr("src", $('.frame-print').attr("src"))
       });
-      $('#btn-print-export-xls').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : ''));
-      $('#btn-print-export-pdf').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : ''));
+      $('#btn-print-export-xls').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : '') + '&page=' + page);
+      $('#btn-print-export-pdf').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : '') + '&page=' + page);
       $('#btn-print').click(function(event) {
         /* Act on the event */
         $.ajax({
@@ -318,6 +326,26 @@
             }
           });
       });
+    }
+
+    function loadPrintPagination(page){
+      var total_page = $('#form-print [name="no_tag_end"]').val() - $('#form-print [name="no_tag_start"]').val();
+
+      total_page = (total_page / 2) + 1;
+
+      var pagination = '';
+      pagination += '<ul class="pagination mb-0 mt-0">';
+      pagination += '<li class="waves-effect"><a href="#"><i class="material-icons">chevron_left</i></a></li>';
+      for (var i = 1; i <= total_page; i++) {
+        pagination += '<li class="' + (i == page ? 'active' : 'waves-effect') + '">';
+        pagination += "<a href='#!' onclick=\"initPrintPreview('{{ url('stock-take-create-tag/export') }}', $('#form-print').serialize(), " + i + ")\">" + i + '</a>';
+        pagination += '</li>';
+      }
+      pagination += '<li class="waves-effect"><a href="#"><i class="material-icons">chevron_right</i></a></li>';
+      pagination += '</ul>';
+
+      $('.print-pagination').empty()
+      $('.print-pagination').append(pagination)
     }
 
    
