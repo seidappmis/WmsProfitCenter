@@ -32,7 +32,7 @@
         <td>{{ $manifestDetail->model }}</td>
         <td>{{ $manifestDetail->quantity }}</td>
         <td>{{ $manifestHeader->manifest_type == "REGULAR" ? 'NORMAL' : '' }}</td>
-        <td>{{ $manifestDetail->status }}</td>
+        <td>{{ $manifestDetail->status() }}</td>
         <td>{{ $manifestDetail->ship_to_code }}</td>
         <td><input type="hidden" name="id" value="{{$manifestDetail->id}}">{!! get_button_delete() !!}</td>
       </tr>
