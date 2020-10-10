@@ -89,13 +89,9 @@
           )
     });
 
-    setInterval(function(){ 
-      
-      if($('#sto_id').val()==''){
-        console.log('no periode selected');       
-      }
-      else{
-        $('#form-filter-periode').validate({
+    setInterval(function(){  $('#form-filter-periode').submit() }, 30000);
+
+    $('#form-filter-periode').validate({
           submitHandler: function (form){
             $.ajax({
               url: '{{url("stock-take-quick-count")}}',
@@ -128,9 +124,7 @@
             });
             
           }
-        })
-      }
-    }, 30000);    
+        }); 
   });
 </script>
 @endpush
