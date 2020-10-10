@@ -91,7 +91,10 @@
 
     setTimeout(function(){ 
       
-      if($('#sto_id').val()!=''){
+      if($('#sto_id').val()==''){
+        console.log('no periode selected');       
+      }
+      else{
         $('#form-filter-periode').validate({
           submitHandler: function (form){
             $.ajax({
@@ -126,9 +129,6 @@
             
           }
         })
-      }
-      else{
-        console.log('no periode selected');
       }
     }, 30000);    
   });
