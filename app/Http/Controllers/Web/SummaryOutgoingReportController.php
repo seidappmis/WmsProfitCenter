@@ -70,6 +70,7 @@ class SummaryOutgoingReportController extends Controller
       'wms_branch_manifest_detail.actual_time_arrival',
       'wms_branch_manifest_detail.actual_unloading_date',
       'wms_branch_manifest_detail.doc_do_return_date',
+      'wms_branch_manifest_detail.confirm_by',
       DB::raw('wms_branch_manifest_detail.do_reject AS status_reject'),
       DB::raw('DATE_ADD(do_manifest_date, INTERVAL wms_branch_manifest_detail.lead_time DAY) AS eta'),
       DB::raw('wms_branch_manifest_detail.cbm AS detail_cbm'),
@@ -79,7 +80,7 @@ class SummaryOutgoingReportController extends Controller
       DB::raw('wms_master_model.description AS model_description'),
       DB::raw('IF(wms_branch_manifest_detail.status_confirm IS NULL, "", IF(wms_branch_manifest_detail.status_confirm = 1, "Confirmed", IF(wms_branch_manifest_detail.status_confirm = 0 && wms_branch_manifest_header.status_complete = 1, "Delivery", IF(wms_branch_manifest_detail.status_confirm = 0 && wms_branch_manifest_header.status_complete = 0, "Waiting Complete", "")))) AS status'),
       DB::raw('IF(wms_branch_manifest_detail.tcs IS NULL, "", IF(wms_branch_manifest_detail.tcs = 1, "TCS",IF(wms_branch_manifest_detail.tcs = 0 && wms_branch_manifest_detail.do_return = 0, "MANUAL", ""))) AS `desc`'),
-      DB::raw('uconfirm.username AS confirm_by'),
+      // DB::raw('uconfirm.username AS confirm_by'),
       DB::raw('uc.username AS created_by_name'),
       DB::raw('um.username AS updated_by_name')
     )

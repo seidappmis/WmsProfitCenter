@@ -109,18 +109,19 @@
                     </div>
                 </div>
                 <div class="content-overlay"></div>
-
-                    <table id="data-table-print" class="display hide" width="100%">
-                        <thead>
-                            <tr>
-                              <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <!-- datatable ends -->
-                   </div>
+                <br>
+                <div id="print-area" class="hide">
+                  <h4>
+                  <span class="right">
+                    <a id="btn-reload" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1"><i class="material-icons">refresh</i></a>
+                    <a id="btn-print-export-xls" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+                    <a id="btn-print-export-pdf" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+                    <a id="btn-print" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">Print</a>
+                  </span>
+                </h4>
+                <iframe id="frame" class="frame-print" src="" width="100%" height="700px">
+                </iframe>
+                </div>
                </div>
                   
               </div>
@@ -246,11 +247,9 @@
 
       $('.btn-show-print-preview').click(function(event) {
           /* Act on the event */
-        $('#modal-form-print').modal('close');
-         $('#data-table-print').removeClass('hide')
-         setTimeout(function() {
-          
-         }, 10);
+          $('#modal-form-print').modal('close');
+          initPrintPreview('{{ url('stock-take-create-tag/export') }}', $('#form-print').serialize())
+           $('#print-area').removeClass('hide');
         });
 
       $('#sto_id').change(function(event) {
@@ -289,6 +288,37 @@
   function filterGlobal() {
       dtdatatable.search($("#tag_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
+
+  function initPrintPreview(url, extraParams = null){
+      $('.frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : ''));
+      
+      $('#btn-reload').click(function(event) {
+        /* Act on the event */
+        $('.frame-print').attr("src", $('.frame-print').attr("src"))
+      });
+      $('#btn-print-export-xls').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : ''));
+      $('#btn-print-export-pdf').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : ''));
+      $('#btn-print').click(function(event) {
+        /* Act on the event */
+        $.ajax({
+            type: 'GET',
+            url: url + '?filetype=html' + (extraParams != null ? '&' + extraParams : ''),
+            dataType: 'html',
+            timeout: 10000,
+            success: function (html) {
+              w = window.open(window.location.href,"_blank");
+              w.document.open();
+              w.document.write(html);
+              w.document.close();
+              w.window.print();
+              w.window.close();
+            },
+            error: function (data) {
+              console.log('Error:', data);
+            }
+          });
+      });
+    }
 
    
 </script>

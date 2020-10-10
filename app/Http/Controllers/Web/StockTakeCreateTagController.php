@@ -181,11 +181,49 @@ class StockTakeCreateTagController extends Controller
     return get_select2_data($request, $query);
   }
 
-  public function export(Request $request, $id)
-  {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+  function print(Request $request) {
+    if (!$request->ajax()) {
+      return;
+    }
 
-    $view_print = view('web.stock-take.stock-take-create-tag._print');
+    $query = StockTakeInput1::where('sto_id', $request->input('sto_id'))
+      ->whereBetween('no_tag', [$request->input('no_tag_start'), $request->input('no_tag_end')])
+      ->get();
+
+    $datatables = DataTables::of($query)
+      ->editColumn('print', function ($data) {
+        return $this->getPrintTable($data);
+      })
+      ->rawColumns(['print'])
+    ;
+
+    return $datatables->make(true);
+
+  }
+
+  public function export(Request $request)
+  {
+
+    $page = empty($request->input('page')) ? 0 : ($request->input('page') - 1);
+
+    $start = $request->input('no_tag_start') + (2*$page);
+    $end   = $request->input('no_tag_end');
+
+    $data['tag'] = StockTakeInput1::select(
+      'log_stocktake_input1.*',
+      'log_stocktake_schedule.area',
+      DB::raw('CONCAT("WH", log_cabang.short_description) AS warehouse')
+    )
+     ->leftjoin('log_stocktake_schedule', 'log_stocktake_schedule.sto_id', '=', 'log_stocktake_input1.sto_id')
+     ->leftjoin('log_cabang', 'log_stocktake_schedule.kode_cabang', '=', 'log_cabang.kode_cabang')
+      ->where('log_stocktake_input1.sto_id',$request->input('sto_id'))
+      ->where('log_stocktake_input1.no_tag', '>=', $start)
+      ->where('log_stocktake_input1.no_tag', '<=', $end)
+      ->orderBy('log_stocktake_input1.no_tag')
+      ->limit(2)
+      ->get();
+
+    $view_print = view('web.stock-take.stock-take-create-tag._print', $data);
     $title      = 'Stock Take Create Tag';
 
     if ($request->input('filetype') == 'html') {

@@ -9,7 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
 
   Route::get('stock-take-create-tag', 'Web\StockTakeCreateTagController@index');
-  Route::get('stock-take-create-tag/{id}/export', 'Web\StockTakeCreateTagController@export');
+  Route::get('stock-take-create-tag/export', 'Web\StockTakeCreateTagController@export');
   Route::get('stock-take-create-tag/select2-no-tag-1', 'Web\StockTakeCreateTagController@getSelect2NoTag1');
   Route::get('stock-take-create-tag/select2-no-tag-2', 'Web\StockTakeCreateTagController@getSelect2NoTag2');
   Route::post('stock-take-create-tag', 'Web\StockTakeCreateTagController@store');
@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('stock-take-create-tag/create', 'Web\StockTakeCreateTagController@storeManual');
   Route::get('stock-take-create-tag/select2-location', 'Web\StockTakeCreateTagController@getSelect2Location');
   Route::get('stock-take-create-tag/select2-no-tag', 'Web\StockTakeCreateTagController@getSelect2NoTag');
+  Route::get('stock-take-create-tag/print', 'Web\StockTakeCreateTagController@print');
 
   Route::get('stock-take-input-1', 'Web\StockTakeInput1Controller@index');
   Route::post('stock-take-input-1', 'Web\StockTakeInput1Controller@store');
