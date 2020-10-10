@@ -291,12 +291,14 @@ class STScheduleController extends Controller
       ->orderBy('created_at', 'desc')
     ;
 
-    $query->whereIn('kode_cabang', auth()->user()->getStringGrantCabang());
-    // if (auth()->user()->cabang->hq) {
-    //   $query->where('area', auth()->user()->area);
-    // } else {
-    //   $query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
-    // }
+    //$query->whereIn('kode_cabang', auth()->user()->getStringGrantCabang());
+    
+    if (auth()->user()->cabang->hq) {
+      //$query->where('area', auth()->user()->area);
+    } else {
+      //$query->where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query->whereIn('kode_cabang', auth()->user()->getStringGrantCabang());
+    }
 
     return get_select2_data($request, $query);
   }
