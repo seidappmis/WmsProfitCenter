@@ -89,7 +89,7 @@
           )
     });
 
-    setTimeout(function(){ 
+    setInterval(function(){ 
       
       if($('#sto_id').val()==''){
         console.log('no periode selected');       
