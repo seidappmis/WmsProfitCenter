@@ -45,10 +45,12 @@ class StockTakeCompareSAPController extends Controller
       // ;
 
       $query = StockTakeScheduleDetail::select(
-        DB::raw('sum(log_stocktake_schedule_detail.qty) AS quantitySAP'),
-        'log_stocktake_schedule_detail.material_no',      
-        'sum(log_stocktake_input1.quantity) as quantity',           
-        DB::raw('sum(log_stocktake_input2.quantity) AS quantity2')
+        DB::raw('
+          sum(log_stocktake_schedule_detail.qty) AS quantitySAP,
+          log_stocktake_schedule_detail.material_no,
+          sum(log_stocktake_input1.quantity) as quantity,
+          sum(log_stocktake_input2.quantity) AS quantity2
+        ')
       )
         ->leftjoin('log_stocktake_input1', function ($join) {
           $join->on('log_stocktake_input1.sto_id', '=', 'log_stocktake_schedule_detail.sto_id');
@@ -62,6 +64,8 @@ class StockTakeCompareSAPController extends Controller
         // ->whereRaw('(log_stocktake_input1.input_date IS NOT NULL AND log_stocktake_input2.input_date IS NOT NULL)')
         ->groupBy('log_stocktake_schedule_detail.material_no')
       ;
+
+      $query = DB::raw();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
