@@ -28,7 +28,7 @@ class CompleteController extends Controller
         ->leftjoin('tr_concept_truck_flow', 'tr_concept_truck_flow.id', '=', 'log_manifest_header.driver_register_id')
         ->where('log_manifest_header.area', $request->input('area'))
         ->where('log_manifest_header.manifest_type', '!=', 'LCL')
-        ->groupBy('log_manifest_header.do_manifest_no');
+        ->groupBy('log_manifest_header.driver_register_id');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
