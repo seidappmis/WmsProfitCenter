@@ -243,7 +243,7 @@
                   url: '{{url('manifest-regular/'. $manifestHeader->do_manifest_no)}}',
                   type: 'DELETE',
                 })
-                .done(function() { // Kalau ajax nya success
+                .done(function(result) { // Kalau ajax nya success
                   showSwalAutoClose('Success', result.message)
                   window.location.href = '{{url("manifest-regular")}}'
                 })
