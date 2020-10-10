@@ -103,7 +103,7 @@
           .done(function() { // Kalau ajax nya success
             showSwalAutoClose('Success', 'Data deleted.')
             dttable_list_do.ajax.reload(null, false); // reload datatable
-            refresh_assign_do_after_delete_list_do();
+            setTimeout(function(){ location.reload() }, 2000);
           })
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
