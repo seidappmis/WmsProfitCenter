@@ -28,7 +28,7 @@
               <tr>
                 <td>Date</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 65mm;"><strong>{{date('d-m-Y', strtotime($manifestHeader->do_manifest_date))}}</strong></td>
+                <td colspan="8" style="text-align: left; width: 65mm;"><strong>{{date('d-F-Y', strtotime($manifestHeader->do_manifest_date))}}</strong></td>
                 <td colspan="2">Expedition Name</td>
                 <td>:</td>
                 <td colspan="4" style="text-align: left;"><strong>{{$manifestHeader->expedition_name}}</strong></td>

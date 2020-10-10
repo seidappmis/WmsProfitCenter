@@ -122,6 +122,12 @@
                             <div class="section">
                                 <div class="card">
                                     <div class="card-content p-0">
+                                        <div class="row mb-0 mt-2">
+                                            <div class="col m6"></div>
+                                            <div class="col m6">
+                                                <input type="text" placeholder="Search" class="app-filter" id="input_filter">
+                                            </div>
+                                        </div>
                                         <div class="section-data-tables">
                                             <table class="display" id="data-table-section-contents" width="100%">
                                                 <thead>
@@ -208,6 +214,7 @@
             url: '{{ url('stock-take-input-1') }}',
             type: 'GET',
             data: function(d) {
+                d.search['value'] = $('#input_filter').val(),
                 d.sto_id = $('#sto_id').val()
               }
         },
@@ -264,7 +271,15 @@
           }
         })
       });
+
+      $("input#input_filter").on("keyup click", function () {
+        filterGlobal();
+      });
     });
+
+    function filterGlobal() {
+      dtdatatable.search($("#input_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 
     function clear_input(){
       set_select2_value('#form-input [name="id"]', '', '')

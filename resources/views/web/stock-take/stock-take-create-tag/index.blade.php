@@ -12,17 +12,17 @@
                   <li class="breadcrumb-item active">Stock Take Create Tag</li>
               </ol>
           </div>
-          <div class="col s12 m6">
+          {{-- <div class="col s12 m6">
             <div class="display-flex">
               <!---- Search ----->
               <div class="app-wrapper mr-2">
                 <div class="datatable-search">
                   <i class="material-icons mr-2 search-icon">search</i>
-                  <input type="text" placeholder="Search" class="app-filter" id="global_filter">
+                  <input type="text" placeholder="Search" class="app-filter" id="tag_filter">
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
           <div class="col s12 m3"></div>
       </div>
       
@@ -79,7 +79,14 @@
                 <!-- Main Table -->
                 <div class="container">
                     <div class="section">
-                       <a class="btn waves-effect waves-light btn-add btn-new-tag" href="#">New Tag</a>
+                      <div class="row">
+                        <div class="col m6">
+                           <a class="btn waves-effect waves-light btn-add btn-new-tag" href="#">New Tag</a>
+                        </div>
+                        <div class="col m6 right-align">
+                          <input type="text" placeholder="Search" class="app-filter" id="tag_filter">
+                        </div>
+                      </div>
                         <div class="card">
                             <div class="card-content p-0">
                                 <div class="section-data-tables">
@@ -102,13 +109,59 @@
                     </div>
                 </div>
                 <div class="content-overlay"></div>
+
+                    <table id="data-table-print" class="display hide" width="100%">
+                        <thead>
+                            <tr>
+                              <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <!-- datatable ends -->
+                   </div>
+               </div>
+                  
+              </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="content-overlay"></div>
     </div>
   </div>
 @endsection
+
+@push('page-modal')
+<div id="modal-form-print" class="modal" style="">
+    <div class="modal-content">
+      <form id="form-print" class="form-table">
+        <input type="hidden" name="sto_id">
+        <table>
+          <tr>
+            <td width="100px">No Tag Start</td>
+            <td>
+              <div class="input-field">
+                <select name="no_tag_start" required="" class="select2-data-ajax browser-default"></select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">No Tag End</td>
+            <td>
+              <div class="input-field">
+                <select name="no_tag_end" required="" class="select2-data-ajax browser-default"></select>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview btn green darken-4">Print Report</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+@endpush
 
 @push('vendor_js')
 <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
@@ -117,8 +170,18 @@
 
 @push('script_js')
 <script type="text/javascript">
+   $('#sto_id').select2({
+       placeholder: '-- Select Schedule ID --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
+    });
+
+    
+
     var dtdatatable;
     jQuery(document).ready(function($) {
+
+    
       $("#form-stock-take-create-tag").validate({
         submitHandler: function(form) {
           setLoading(true); // Disable Button when ajax post data
@@ -157,6 +220,7 @@
             url: '{{ url('stock-take-create-tag') }}',
             type: 'GET',
             data: function(d) {
+                d.search['value'] = $('#tag_filter').val(),
                 d.sto_id = $('#sto_id').val()
               }
         },
@@ -169,6 +233,35 @@
         ]
       });
 
+      $("input#tag_filter").on("keyup click", function () {
+        filterGlobal();
+      });
+
+      $('.btn-print').click(function(event) {
+        /* Act on the event */
+        setSelect2Print($('#sto_id').val())
+        $('#form-print [name="sto_id"]').val($('#sto_id').val());
+        $('#modal-form-print').modal('open');
+      });
+
+      $('.btn-show-print-preview').click(function(event) {
+          /* Act on the event */
+        $('#modal-form-print').modal('close');
+         $('#data-table-print').removeClass('hide')
+         setTimeout(function() {
+          
+         }, 10);
+        });
+
+      $('#sto_id').change(function(event) {
+        /* Act on the event */
+        dtdatatable.ajax.reload(null, false)
+      });
+
+        @if(!empty($sto_id))
+      set_select2_value('#sto_id', '{{$sto_id}}', '{{$sto_id}}')
+      @endif
+
     });
 
     $('.btn-new-tag').click(function(event) {
@@ -180,15 +273,23 @@
       }
     });
 
-    $('#sto_id').select2({
-       placeholder: '-- Select Schedule ID --',
-       allowClear: true,
-       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
-    });
+    function setSelect2Print(sto_id){
+       $('#form-print [name="no_tag_start"]').select2({
+        placeholder: '',
+        ajax: get_select2_ajax_options('/stock-take-create-tag/select2-no-tag', {sto_id: sto_id})
+      })
 
-    $('#sto_id').change(function(event) {
-        /* Act on the event */
-        dtdatatable.ajax.reload(null, false)
-      });
+      $('#form-print [name="no_tag_end"]').select2({
+        placeholder: '',
+        ajax: get_select2_ajax_options('/stock-take-create-tag/select2-no-tag', {sto_id: sto_id})
+      })
+    }
+
+    // Custom search
+  function filterGlobal() {
+      dtdatatable.search($("#tag_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
+
+   
 </script>
 @endpush

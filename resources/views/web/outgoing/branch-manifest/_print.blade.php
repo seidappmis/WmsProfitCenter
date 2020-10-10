@@ -28,7 +28,7 @@
               <tr>
                 <td>Date</td>
                 <td>:</td>
-                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? date('d-m-Y', strtotime($branchManifestHeader->do_manifest_date)) : ''}}</strong></td>
+                <td colspan="8" style="text-align: left; width: 90mm;"><strong>{{!empty($branchManifestHeader) ? date('d-F-Y', strtotime($branchManifestHeader->do_manifest_date)) : ''}}</strong></td>
                 <td colspan="2">Expedition Name</td>
                 <td>:</td>
                 <td colspan="4" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->expedition_name : ''}}</strong></td>

@@ -31,7 +31,9 @@ class StockTakeCreateTagController extends Controller
       return $datatables->make(true);
     }
 
-    return view('web.stock-take.stock-take-create-tag.index');
+    $data['sto_id'] = $request->input('sto_id');
+
+    return view('web.stock-take.stock-take-create-tag.index', $data);
   }
 
   public function store(Request $request)
@@ -87,12 +89,40 @@ class StockTakeCreateTagController extends Controller
     $data['schedule'] = StockTakeSchedule::findOrFail($request->input('sto_id'));
 
     return view('web.stock-take.stock-take-create-tag.create', $data);
+
+  }
+
+  public function storeManual(Request $request)
+  {
+    $lastNoTag = StockTakeInput1::select(DB::raw('MAX(no_tag) as last_no_tag'))->where('sto_id', $request->input('sto_id'))->first()->last_no_tag;
+
+    $lastNoTag++;
+
     $input1 = new StockTakeInput1;
     $input2 = new StockTakeInput2;
 
-    $input1->sto_id = $request->input('sto_id');
-    $input1->no_tag = $request->input('no_tag');
-    $input1->model  = $request->input('model');
+    $input1->sto_id   = $request->input('sto_id');
+    $input1->no_tag   = $lastNoTag;
+    $input1->model    = $request->input('model');
+    $input1->location = $request->input('location');
+
+    $input2->sto_id   = $request->input('sto_id');
+    $input2->no_tag   = $lastNoTag;
+    $input2->model    = $request->input('model');
+    $input2->location = $request->input('location');
+
+    try {
+      DB::beginTransaction();
+
+      $input1->save();
+      $input2->save();
+
+      DB::commit();
+      return sendSuccess('Manual tag input success.', $input1);
+    } catch (Exception $e) {
+      DB::rollBack();
+
+    }
 
   }
 
@@ -132,7 +162,21 @@ class StockTakeCreateTagController extends Controller
       ->where('sto_id', $request->input('sto_id'))
       ->groupBy('location')
       ->orderBy('location')
-      ;
+      ->toBase()
+    ;
+
+    return get_select2_data($request, $query);
+  }
+
+  public function getSelect2NoTag(Request $request)
+  {
+    $query = StockTakeInput1::select(
+      DB::raw('no_tag AS id'),
+      DB::raw("no_tag AS text"),
+    )
+      ->where('sto_id', $request->input('sto_id'))
+      ->toBase()
+    ;
 
     return get_select2_data($request, $query);
   }
