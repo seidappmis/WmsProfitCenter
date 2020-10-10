@@ -175,8 +175,9 @@
       /* Act on the event */
       if ($('#sto_id').val() == '' || $('#sto_id').val() == null) {
         showSwalAutoClose('Warning', 'Please Select STO ID!')
+      } else {
+        window.location.href = '{{ url('stock-take-create-tag/create') }}' + '?sto_id=' + $('#sto_id').val();
       }
-      window.location.href = '{{ url('stock-take-create-tag/create') }}' + '?sto_id=' + $('#sto_id').val();
     });
 
     $('#sto_id').select2({

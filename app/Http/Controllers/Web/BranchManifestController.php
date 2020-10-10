@@ -314,4 +314,19 @@ class BranchManifestController extends Controller
       return redirect(404);
     }
   }
+
+  public function destroy(Request $request, $do_manifest_no)
+  {
+
+    try {
+      DB::beginTransaction();
+      WMSBranchManifestDetail::where('do_manifest_no', $do_manifest_no)->delete();
+      WMSBranchManifestHeader::destroy($do_manifest_no);
+
+      DB::commit();
+      return sendSuccess('Success delete manifest.', []);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+  }
 }

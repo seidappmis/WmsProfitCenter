@@ -168,7 +168,7 @@
         </tr>
     </table>
     {!! get_button_save('Save', 'btn-save') !!}
-    {!! get_button_delete() !!}
+    {!! get_button_delete('Delete', 'btn-delete-manifest') !!}
     {!! get_button_print() !!}
     {!! get_button_cancel(url('branch-manifest'), 'Back', '') !!}
 </form>
@@ -193,6 +193,39 @@
             var data = $(this).select2('data')[0];
           $('#form-manifest [name="city_name"]').val(data == undefined ? '' : data.text);
         });
+
+        @if(!empty($manifestHeader))
+        @if($manifestHeader->status_complete)
+        $('.btn-delete-manifest').addClass('hide')
+        @endif
+        $('.btn-delete-manifest').click(function(event) {
+            /* Act on the event */
+            swal({
+              text: "Delete Manifest No. {{$manifestHeader->do_manifest_no}}?",
+              icon: 'warning',
+              buttons: {
+                cancel: true,
+                delete: 'Yes, Delete It'
+              }
+            }).then(function (confirm) { // proses confirm
+              if (confirm) { // Bila oke post ajax ke url delete nya
+                // Ajax Post Delete
+                $.ajax({
+                  url: '{{url('branch-manifest/'. $manifestHeader->do_manifest_no)}}',
+                  type: 'DELETE',
+                })
+                .done(function(result) { // Kalau ajax nya success
+                  showSwalAutoClose('Success', result.message)
+                  window.location.href = '{{url("branch-manifest")}}'
+                })
+                .fail(function() { // Kalau ajax nya gagal
+                  console.log("error");
+                });
+
+              }
+            })
+        });
+        @endif
     });
 </script>
 @endpush

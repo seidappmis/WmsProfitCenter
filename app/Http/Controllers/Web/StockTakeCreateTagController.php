@@ -123,6 +123,20 @@ class StockTakeCreateTagController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2Location(Request $request)
+  {
+    $query = StockTakeInput1::select(
+      DB::raw('location AS id'),
+      DB::raw("location AS text"),
+    )
+      ->where('sto_id', $request->input('sto_id'))
+      ->groupBy('location')
+      ->orderBy('location')
+      ;
+
+    return get_select2_data($request, $query);
+  }
+
   public function export(Request $request, $id)
   {
     // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);

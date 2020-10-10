@@ -89,8 +89,8 @@
     })
 
     $('#form-input-manual-tag [name="location"]').select2({
-      placeholder: '-- Select Model --',
-      ajax: get_select2_ajax_options('/stock-take-create-tag/select2-location')
+      placeholder: '-- Select Location --',
+      ajax: get_select2_ajax_options('/stock-take-create-tag/select2-location?sto_id={{$schedule->sto_id}}')
     })
 
     $('#form-input-manual-tag').validate({
