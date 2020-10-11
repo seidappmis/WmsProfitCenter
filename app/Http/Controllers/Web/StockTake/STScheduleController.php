@@ -127,7 +127,7 @@ class STScheduleController extends Controller
     $stockTakeSchedule->sto_id = $request->input('sto_id');
 
     $stockTakeSchedule->area                = empty($request->input('area')) ? ' ' : $request->input('area');
-    $stockTakeSchedule->kode_cabang         = auth()->user()->cabang->kode_cabang;
+    $stockTakeSchedule->kode_cabang         = !empty($request->input('kode_cabang')) ? $request->input('kode_cabang') : auth()->user()->cabang->kode_cabang;
     $stockTakeSchedule->description         = $request->input('description');
     $stockTakeSchedule->schedule_start_date = date('Y-m-d', strtotime($request->input('schedule_start_date')));
     $stockTakeSchedule->schedule_end_date   = date('Y-m-d', strtotime($request->input('schedule_end_date')));
