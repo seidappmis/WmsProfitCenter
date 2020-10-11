@@ -110,7 +110,7 @@ class ReceiptInvoiceController extends Controller
       return sendError('No manifest selected.');
     }
 
-    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+    $invoiceReceiptHeader   = InvoiceReceiptHeader::findOrFail($id);
     $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
 
     try {
@@ -167,6 +167,7 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['sold_to_code']        = $value->sold_to_code;
       $invoiceManifestDetail['sold_to_street']      = $value->sold_to_street;
       $invoiceManifestDetail['ship_to']             = $value->ship_to;
+      $invoiceManifestDetail['quantity']            = $value->quantity;
       $invoiceManifestDetail['ship_to_code']        = $value->ship_to_code;
       $invoiceManifestDetail['city_code']           = $value->city_code;
       $invoiceManifestDetail['city_name']           = $value->city_name;
@@ -175,15 +176,16 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;
       $invoiceManifestDetail['cbm_do']              = $value->cbm;
       $invoiceManifestDetail['freight_cost_cbm']    = 1;
-      $invoiceManifestDetail['freight_cost']        = 1;
-      $invoiceManifestDetail['cbm_amount']          = 1;
-      $invoiceManifestDetail['ritase_amount']       = 1;
+      $invoiceManifestDetail['freight_cost']        = $value->base_price;
+      $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
+      $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase;
+      $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2;
       $invoiceManifestDetail['code_sales']          = $value->code_sales;
       $invoiceManifestDetail['lead_time']           = $value->lead_time;
       $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
       $invoiceManifestDetail['region']              = $value->region;
       $invoiceManifestDetail['area']                = $value->area;
-      $invoiceManifestDetail['acc_code']            = date('My') . '-SMG-' . $value->code_sales;
+      $invoiceManifestDetail['acc_code']            = date('My') . '-' . auth()->user()->cabang->short_description . '-' . $value->code_sales;
 
       $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
     }
@@ -206,7 +208,7 @@ class ReceiptInvoiceController extends Controller
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('total', function ($data) {
-          return 0;
+          return $data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount;
         })
         ->addColumn('action_view', function ($data) {
           return get_button_view(url('receipt-invoice/' . $data->id));
@@ -360,6 +362,11 @@ class ReceiptInvoiceController extends Controller
   {
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
 
+    // echo "<pre>";
+    // print_r($data['invoiceReceiptHeader']->getPrintReceiptData());
+    // echo "</pre>";
+    // return;
+
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
     $title      = 'receipt_invoice';
 
@@ -425,22 +432,24 @@ class ReceiptInvoiceController extends Controller
     }
   }
 
-  public function getListDo($id_header){
-    $query = InvoiceReceiptDetail::where('id_header', $id_header)->get();
+  public function getListDo(Request $request, $id_header)
+  {
+    $query = InvoiceReceiptDetail::where('id_header', $id_header)
+      ->where('do_manifest_no', $request->input('do_manifest_no'));
 
     $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)    
-        ->addColumn('total', function ($data) {
-          return 0;
-        }) 
-        ->addColumn('action_view', function ($data) {
-          return get_button_view(url('receipt-invoice/' . $data->id));
-        })
-        ->addColumn('action_delete', function ($data) {
-          return get_button_delete();
-        })
-        ->rawColumns(['action_view', 'action_delete']);
+      ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ->addColumn('total', function ($data) {
+        return 0;
+      })
+      ->addColumn('action_view', function ($data) {
+        return get_button_view(url('receipt-invoice/' . $data->id));
+      })
+      ->addColumn('action_delete', function ($data) {
+        return get_button_delete();
+      })
+      ->rawColumns(['action_view', 'action_delete']);
 
-      return $datatables->make(true);
+    return $datatables->make(true);
   }
 }

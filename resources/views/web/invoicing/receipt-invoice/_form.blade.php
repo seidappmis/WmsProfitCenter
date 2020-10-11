@@ -94,7 +94,7 @@
               {!! get_button_save('Submit to Accounting') !!}
               @endif
 
-              <div class="list-do-wrapper mt-2">
+              <div class="list-do-wrapper hide mt-2">
                 <h6 class="card-title">LIST DO</h6>
                 <hr>
                 Manifest No : <span id="text-detail-manifest-no"></span>
@@ -224,7 +224,12 @@
     dttable_list_manifest_receipt.on('click', '.btn-view', function(event) {
       event.preventDefault();
       /* Act on the event */
-      alert()
+      var tr = $(this).parent().parent();
+      var data = dttable_list_manifest_receipt.row(tr).data();
+      console.log(data)
+      $('#text-detail-manifest-no').text(data.do_manifest_no)
+      $('.list-do-wrapper').removeClass('hide')
+      dttable_list_manifest_receipt_do.ajax.reload(null, false)
     });
 
     dttable_list_manifest_receipt.on('click', '.btn-delete', function(event) {

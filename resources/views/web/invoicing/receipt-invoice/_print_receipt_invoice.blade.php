@@ -201,57 +201,119 @@
                                         </tr>
                                         {{-- Table Body --}}
 
+                                        @php
+                                        $noUrutManifest = 1;
+                                        @endphp
+                                        @foreach($invoiceReceiptHeader->getPrintReceiptData() AS $kManifest => $vManifest)
+                                        @php
+                                        $subTotalQty = 0;
+                                        $subTotalCbm = 0;
+                                        @endphp
                                         <tr>
-                                            <td rowspan="3" colspan="2"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                1
+                                                {{$noUrutManifest++}}.
 
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                KRW-200910-001
+                                                {{$vManifest['do_manifest_no']}}
                                             </td>
-                                            <td rowspan="3" colspan="2"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
                                                 style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                10/09/2020
+                                                {{date('d/m/Y', strtotime($vManifest['do_manifest_date']))}}
 
                                             </td>
-                                            <td rowspan="3" colspan="2"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                SERANG
+                                                {{ $vManifest['city_name'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                TRONTON 9 M
+                                                {{ $vManifest['vehicle_description'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                B 9610 BYW
+                                                {{ $vManifest['vehicle_number'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
+                                                {{ $vManifest['ritase'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                891,000
+                                                {{ $vManifest['cbm'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
+                                                {{ $vManifest['ritase2'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
+                                                {{ $vManifest['multidrop'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                150000
+                                                {{ $vManifest['unloading'] }}
                                             </td>
-                                            <td rowspan="3"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
+                                                {{ $vManifest['overstay'] }}
                                             </td>
+                                            @php
+                                            $do = array_values($vManifest['do']);
+                                            @endphp
+                                            <td rowspan="{{ count($do[0]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['no_do_sap'] }}
+                                            </td>
+                                            <td rowspan="{{ count($do[0]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ date('d/m/Y', strtotime($do[0]['tgl_do_sap'])) }}
+                                            </td>
+                                            <td rowspan="{{ count($do[0]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['ship_to_code'] }}
+                                            </td>
+                                            <td rowspan="{{ count($do[0]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['ship_to'] }}
+                                            </td>
+                                            <td rowspan="{{ count($do[0]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['acc_code'] }}
+                                            </td>
+                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['models'][0]['model'] }}
+                                            </td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['models'][0]['quantity'] }}
+                                            </td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[0]['models'][0]['cbm_do'] }}
+                                            </td>
+                                            @php
+                                            $subTotalQty += $do[0]['models'][0]['quantity'];
+                                            $subTotalCbm += $do[0]['models'][0]['cbm_do'];
+                                            @endphp
+                                        </tr>
+                                        @if(count($do[0]['models']) > 1)
+                                        @foreach($do[0]['models'] AS $kModel => $vModel)
+                                            @if($kModel != 0)
+                                            @php
+                                            $subTotalQty += $vModel['quantity'];
+                                            $subTotalCbm += $vModel['cbm_do'];
+                                            @endphp
+                                            <tr>
+                                                <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{$vModel['model']}}
+                                                </td>
+                                                <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                    {{$vModel['quantity']}}
+                                                </td>
+                                                <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                    {{$vModel['cbm_do']}}
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @endforeach
+                                        @endif
+                                        {{-- <tr>
                                             <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
@@ -279,251 +341,18 @@
                                                 3,45
 
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6"
-                                                style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>SUB
-                                                    TOTAL</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>40</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>6,90</strong></td>
-                                        {{-- </tr>
-                                        <tr>
-                                            <td rowspan="3" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                1
-
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                KRW-191213-029
-                                            </td>
-                                            <td rowspan="3" colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td rowspan="3" colspan="2"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                SERANG
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                TRONTON 9 M
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: left; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                B 9610 BYW
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                4541204
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                150000
-                                            </td>
-                                            <td rowspan="3"
-                                                style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                0
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                4915072395
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                13/12/2019
-
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                38000000
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                PT. SEID CAB. SERANG
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                Dec19-SRG-BR
-                                            </td>
-                                            <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
-                                                2T-C50AD1I
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                20
-
-                                            </td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                3,45
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="6"
-                                                style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>SUB
-                                                    TOTAL</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>203</strong></td>
-                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
-                                                <strong>60,333</strong></td>
                                         </tr> --}}
+                                        <tr>
+                                            <td colspan="6"
+                                                style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>SUB TOTAL</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>{{$subTotalQty}}</strong></td>
+                                            <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                <strong>{{$subTotalCbm}}</strong></td>
+                                        </tr>
+
+                                        @endforeach
 
                                         <tr>
 
