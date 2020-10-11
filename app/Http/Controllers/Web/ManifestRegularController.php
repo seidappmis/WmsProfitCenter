@@ -310,6 +310,7 @@ class ManifestRegularController extends Controller
     if ($request->ajax()) {
       $query = LMBHeader::noManifestLMBHeader()
         ->where('wms_lmb_header.expedition_code', '<>', 'AS')
+        ->where('wms_lmb_header.send_manifest', 1)
         ->get();
 
       $datatables = DataTables::of($query)

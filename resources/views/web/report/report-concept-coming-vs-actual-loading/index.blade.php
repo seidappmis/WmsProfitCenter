@@ -51,7 +51,8 @@
                 </div>
                 <div class="card">
                     <div class="card-content p-3">
-                        @include('web.report.report-concept-coming-vs-actual-loading.grap')
+                        <img src="" id="img_graph" width="100%">
+                        {{-- @include('web.report.report-concept-coming-vs-actual-loading.grap') --}}
                     </div>
                 </div>
             </div>
@@ -85,7 +86,11 @@
   });
 
     jQuery(document).ready(function($) {
-        
+        $('#form-concept-coming-vs-actual-loading').validate({
+            submitHandler: function (form){
+                $('#img_graph').attr('src', '{{url('report-concept-coming-vs-actual-loading/graph')}}' + '?' + $(form).serialize());
+            }
+        })
     });
 </script>
 @endpush

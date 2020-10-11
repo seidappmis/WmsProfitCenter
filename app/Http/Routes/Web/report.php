@@ -19,7 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('loading-status-list', 'Web\LoadingStatusListController@index');
   Route::post('loading-status-list', 'Web\LoadingStatusListController@index');
 
-  Route::view('report-concept-coming-vs-actual-loading', 'web.report.report-concept-coming-vs-actual-loading.index');
+  Route::get('report-concept-coming-vs-actual-loading', 'Web\ReportConceptComingActualLoadingController@index');
+  Route::get('report-concept-coming-vs-actual-loading/graph', 'Web\ReportConceptComingActualLoadingController@getGraph');
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::view('report-loading-lead-time', 'web.report.report-loading-lead-time.index');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
