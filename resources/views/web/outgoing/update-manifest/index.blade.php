@@ -202,7 +202,7 @@
   });
 
 function setManifestHQ(manifestHeader){
-  set_hq_select_expedition()
+  set_hq_select_expedition({expedition_code: manifestHeader.expedition_code})
   set_hq_select_vehicle_type({expedition_code: manifestHeader.expedition_code})
   set_hq_select_ship_to_city({expedition_code: manifestHeader.expedition_code})
 
@@ -228,10 +228,10 @@ function setManifestHQ(manifestHeader){
   })
 }
 
-function set_hq_select_expedition(){
+function set_hq_select_expedition(filter = {expedition_code: ''}){
     $('#form-update-manifest [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition', filter)
   })
 }
 
@@ -258,7 +258,7 @@ function set_hq_select_ship_to_city(filter = {expedition_code: ''}){
 }
 
 function setManifestBranch(manifestHeader){
-set_branch_select_expedition();
+set_branch_select_expedition({expedition_code: manifestHeader.expedition_code});
 set_branch_select_vehicle_type({expedition_code: manifestHeader.expedition_code});
 set_branch_select_ship_to_city({expedition_code: manifestHeader.expedition_code});
 $('#form-update-manifest [name="expedition_code"]').change(function(event) {
@@ -283,10 +283,11 @@ $('#form-update-manifest [name="expedition_code"]').change(function(event) {
   })
 }
 
-function set_branch_select_expedition(){
+function set_branch_select_expedition(filter = {expedition_code: ''}){
     $('#form-update-manifest [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
+        //ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
+        ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', filter)
   })
 }
 
