@@ -148,9 +148,10 @@
               setLoading(false)
               if (data.status) {
                 showSwalAutoClose("Success", "Save Vehicle No {{$driverRegistered->vehicle_number}}")
-                dttable_picking.ajax.reload(null, false)
-              }
-              // window.location.href = "{{ url('picking-list') }}"
+                //dttable_picking.ajax.reload(null, false)
+                setTimeout(function(){ window.location.href = "{{ url('picking-list') }}" }, 2000);
+
+              }             
             })
             .fail(function(xhr) {
                 setLoading(false); // Enable Button when failed
