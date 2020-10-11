@@ -402,12 +402,14 @@ class ManifestRegularController extends Controller
       ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
       ->where('expedition_code', $manifestHeader->expedition_code)
       ->where('city_code', $manifestHeader->city_code)
-      ->first();
+      ->first();    
+
+    if(empty($freightCost)){
+      return sendError('Failed Create new manifest', 'Fregith cost not found');   
+    }
 
     $manifestHeader->id_freight_cost = $freightCost->id;
-
     $manifestHeader->save();
-
     return $manifestHeader;
   }
 
