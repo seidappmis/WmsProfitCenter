@@ -406,6 +406,7 @@ class ManifestRegularController extends Controller
 
     if(empty($freightCost)){
       return sendError('Failed Create new manifest', 'Fregith cost not found');   
+      exit;
     }
 
     $manifestHeader->id_freight_cost = $freightCost->id;
