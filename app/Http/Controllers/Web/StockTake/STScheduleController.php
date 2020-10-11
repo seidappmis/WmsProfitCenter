@@ -132,6 +132,7 @@ class STScheduleController extends Controller
     $stockTakeSchedule->schedule_start_date = date('Y-m-d', strtotime($request->input('schedule_start_date')));
     $stockTakeSchedule->schedule_end_date   = date('Y-m-d', strtotime($request->input('schedule_end_date')));
     $stockTakeSchedule->urut                = $request->input('urut');
+    $stockTakeSchedule->status                = 'aOpen';
     // $stockTakeSchedule->urut                = $max_no;
 
     if (date('Y-m-d', strtotime($request->input('schedule_start_date'))) < date("Y-m-d")) {
@@ -288,6 +289,7 @@ class STScheduleController extends Controller
       'log_stocktake_schedule.schedule_end_date',
       'log_stocktake_schedule.description'
     )
+      ->where('log_stocktake_schedule.status', '!=', 'FINISH')
       ->orderBy('created_at', 'desc')
     ;
 

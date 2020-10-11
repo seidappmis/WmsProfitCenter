@@ -106,12 +106,16 @@
             $('#form-update-manifest [name="vehicle_number"]').val(manifestHeader.vehicle_number);
             $('#form-update-manifest .text-expedition_name').val(manifestHeader.expedition_name);
             $('#form-update-manifest [name="expedition_code"]').val(manifestHeader.expedition_code);
+            $('#form-update-manifest [name="expedition_name"]').val(manifestHeader.expedition_name);
             $('#form-update-manifest [name="driver_name"]').val(manifestHeader.driver_name);
             $('#form-update-manifest [name="text_vehicle_description"]').val(manifestHeader.vehicle_description);
             $('#form-update-manifest [name="destination_name_driver"]').val(manifestHeader.destination_name_driver);
             $('#form-update-manifest [name="container_no"]').val(manifestHeader.container_no);
             $('#form-update-manifest [name="seal_no"]').val(manifestHeader.seal_no);
             $('#form-update-manifest [name="pdo_no"]').val(manifestHeader.pdo_no);
+            $('#form-update-manifest [name="city_name"]').val(manifestHeader.city_name);
+            $('#form-update-manifest [name="city_code"]').val(manifestHeader.city_code);
+            $('#form-update-manifest [name="vehicle_description"]').val(manifestHeader.vehicle_description);
             $('#form-update-manifest [name="checker"]').val(manifestHeader.checker);
             set_select2_destination(manifestHeader.expedition_code)
 
@@ -245,6 +249,12 @@ function set_hq_select_ship_to_city(filter = {expedition_code: ''}){
     allowClear: true,
     ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
   })
+
+  $('#form-edit-do [name="city_code"]').select2({
+      placeholder: '-- Select Ship to City --',
+      allowClear: true,
+      ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+    })
 }
 
 function setManifestBranch(manifestHeader){
@@ -295,6 +305,12 @@ function set_branch_select_ship_to_city(filter = {expedition_code: ''}){
     allowClear: true,
     ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
   })
+
+   $('#form-edit-do [name="city_code"]').select2({
+      placeholder: '-- Select Ship to City --',
+      allowClear: true,
+      ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+    })
 }
 
 </script>

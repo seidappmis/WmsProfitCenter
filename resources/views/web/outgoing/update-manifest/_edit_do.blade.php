@@ -94,11 +94,11 @@
   });
 
   function set_select2_destination(expedition_code){
-    $('#form-edit-do [name="city_code"]').select2({
-        placeholder: '-- Select Ship to City --',
-        allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: expedition_code})
-      })
+    // $('#form-edit-do [name="city_code"]').select2({
+    //     placeholder: '-- Select Ship to City --',
+    //     allowClear: true,
+    //     ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: expedition_code})
+    //   })
   }
 </script>
 @endpush

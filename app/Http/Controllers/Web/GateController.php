@@ -148,6 +148,10 @@ class GateController extends Controller
       ->whereNull('driver_id')
       ;
 
+    if (!empty($request->input('area'))) {
+      $query->where('area', $request->input('area'));
+    }
+
     return get_select2_data($request, $query);
   }
 }

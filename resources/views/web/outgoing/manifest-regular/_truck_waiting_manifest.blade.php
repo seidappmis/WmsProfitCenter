@@ -93,7 +93,15 @@ jQuery(document).ready(function($) {
           { data: 'action', className: 'center-align', orderable: false, searchable: false },
       ]
   });
+
+  $("input#truck_waiting_manifest_filter").on("keyup click", function () {
+    filterGlobalTruckWaitingManifest();
+  });
 });
+
+function filterGlobalTruckWaitingManifest() {
+  dtdatatable_truck_waiting_manifest.search($("#truck_waiting_manifest_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+}
 
 </script>
 @endpush

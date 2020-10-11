@@ -67,7 +67,7 @@
 <script type="text/javascript">
   $('#gate_number').select2({
      placeholder: '-- Select Gate --',
-     ajax: get_select2_ajax_options('/master-gate/select2-free-gate')
+     ajax: get_select2_ajax_options('/master-gate/select2-free-gate', {area: '{{auth()->user()->area}}'})
   });
   $('#city_code').select2({
      placeholder: '-- Select Ship To City --',
@@ -149,8 +149,10 @@
               if (data.status) {
                 showSwalAutoClose("Success", "Save Vehicle No {{$driverRegistered->vehicle_number}}")
                 dttable_picking.ajax.reload(null, false)
+                window.location.href = "{{ url('picking-list') }}"
+              } else {
+                showSwalAutoClose("Warning", data.message)
               }
-              // window.location.href = "{{ url('picking-list') }}"
             })
             .fail(function(xhr) {
                 setLoading(false); // Enable Button when failed

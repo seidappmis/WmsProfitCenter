@@ -79,7 +79,15 @@ jQuery(document).ready(function($) {
           { data: 'action', className: 'center-align', orderable: false, searchable: false },
       ]
   });
+
+  $("input#data_manifest_normal_filter").on("keyup click", function () {
+    filterGlobalDataManifestNormal();
+  });
 });
+
+function filterGlobalDataManifestNormal() {
+  dtdatatable_data_manifest_normal.search($("#data_manifest_normal_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+}
 
 </script>
 @endpush

@@ -22,6 +22,7 @@ class CleanConceptController extends Controller
         ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
+          $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->where('area', $request->input('area'))

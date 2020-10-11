@@ -185,6 +185,10 @@ class PickingListController extends Controller
   {
     $driverRegistered = DriverRegistered::findOrFail($id);
 
+    if (empty(json_decode($request->input('data_picking'), true))) {
+      return sendError("Please Select Picking list");
+    }
+
     try {
       DB::beginTransaction();
       $driverRegistered->wk_step_number = 4;
