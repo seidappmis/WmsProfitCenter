@@ -203,8 +203,9 @@
 
                                         @php
                                         $noUrutManifest = 1;
+                                        $printData = $invoiceReceiptHeader->getPrintReceiptData();
                                         @endphp
-                                        @foreach($invoiceReceiptHeader->getPrintReceiptData() AS $kManifest => $vManifest)
+                                        @foreach( $printData['list'] AS $kManifest => $vManifest)
                                         @php
                                         $subTotalQty = 0;
                                         $subTotalCbm = 0;
@@ -368,27 +369,25 @@
                                                 Freight
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                2,433,680
+                                                {{ $printData['total_freight'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                0
+                                                {{ $printData['total_ritase'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                1,933,680
-
+                                                {{ $printData['total_cbm'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                0
+                                                {{ $printData['total_ritase2'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                0
+                                                {{ $printData['total_multidrop'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                500,000
-
+                                                {{ $printData['total_unloading'] }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                0
+                                                {{ $printData['total_overstay'] }}
                                             </td>
                                             <td colspan="8" style="text-align: center; ">
                                                 &nbsp;
@@ -402,7 +401,7 @@
                                             <td colspan="2" style="text-align: left;border: 1pt solid black;">Tax
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                0
+                                                {{ $printData['tax'] }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -413,7 +412,7 @@
                                                 Total
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                4.564.373
+                                                {{ $printData['grand_total'] }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -474,7 +473,7 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="2" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
@@ -578,7 +577,7 @@
                                             <td colspan="4" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                        </tr>
+                                        </tr> --}}
 
 
                                         {{-- End Main Table --}}

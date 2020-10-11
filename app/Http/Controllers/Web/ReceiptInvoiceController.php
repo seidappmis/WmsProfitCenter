@@ -144,11 +144,13 @@ class ReceiptInvoiceController extends Controller
       'log_manifest_header.vehicle_number',
       'log_manifest_header.vehicle_description',
       'log_manifest_header.driver_name',
+      DB::raw('log_cabang.short_description AS short_description_cabang'),
       DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
       DB::raw('log_manifest_header.city_code AS city_code_header'),
       DB::raw('log_manifest_header.city_name AS city_name_header')
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
       ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)->get();
 
     $rsInvoiceReceiptDetail = [];
@@ -185,7 +187,7 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
       $invoiceManifestDetail['region']              = $value->region;
       $invoiceManifestDetail['area']                = $value->area;
-      $invoiceManifestDetail['acc_code']            = date('My') . '-' . auth()->user()->cabang->short_description . '-' . $value->code_sales;
+      $invoiceManifestDetail['acc_code']            = date('My') . '-' . $value->short_description_cabang . '-' . $value->code_sales;
 
       $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
     }
