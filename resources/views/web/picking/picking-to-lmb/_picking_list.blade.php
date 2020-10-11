@@ -48,7 +48,7 @@
           },
           order: [0, 'asc'],
           columns: [
-              {data: 'picking_date', name: 'picking_date', className: 'detail'},
+              {data: 'created_at', name: 'created_at', className: 'detail'},
               {data: 'picking_no', name: 'picking_no', className: 'detail'},
               {data: 'driver_name', name: 'driver_name', className: 'detail'},
               {data: 'destination_name', name: 'destination_name', className: 'detail'},

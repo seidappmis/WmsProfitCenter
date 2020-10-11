@@ -86,7 +86,7 @@
   jQuery(document).ready(function($) {
     $('#form-input-manual-tag [name="model_id"]').select2({
       placeholder: '-- Select Model --',
-      ajax: get_select2_ajax_options('/master-model/select2-model')
+      ajax: get_select2_ajax_options('/stock-take-create-tag/select2-model?sto_id={{$schedule->sto_id}}')
     })
 
     $('#form-input-manual-tag [name="model_id"]').change(function(event) {

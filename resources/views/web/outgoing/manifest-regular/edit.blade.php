@@ -55,6 +55,7 @@
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
+    $('#form-manifest [name="city_code"]').attr('disabled', 'disabled');
     set_select2_value('#form-manifest [name="city_code"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-assign-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
     set_select2_value('#form-upload-do [name="ship_to"]', '{{$manifestHeader->city_code}}', '{{$manifestHeader->city_name}}')
@@ -95,8 +96,8 @@
           data: $(form).serialize() + '&selected_list=' + JSON.stringify(selected_list),
         })
         .done(function(data) { // selesai dan berhasil
+          setLoading(false); // Disable Button when ajax post data
           if (data.status) {
-            setLoading(false); // Disable Button when ajax post data
             showSwalAutoClose('Success', data.message)
             dttable_list_do.ajax.reload(null, false); // reload datatable
             dtdatatable_submit_to_logsys.rows()

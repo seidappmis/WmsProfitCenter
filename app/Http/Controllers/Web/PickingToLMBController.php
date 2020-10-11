@@ -450,6 +450,7 @@ class PickingToLMBController extends Controller
           'picking_id'    => $row[0],
           'ean_code'      => $row[1],
           'serial_number' => $row[2],
+          'created_at'    => $row[3],
         ];
 
         if (empty($rs_models[$serial_number['ean_code']])) {
@@ -485,6 +486,7 @@ class PickingToLMBController extends Controller
         $serial_number['city_code']          = $rs_picking_list_details[$serial_number['ean_code']]->header->city_code;
         $serial_number['city_name']          = $rs_picking_list_details[$serial_number['ean_code']]->header->city_name;
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->header->driver_register_id;
+        $serial_number['created_by']         = auth()->user()->id;
 
         $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
 
@@ -576,6 +578,9 @@ class PickingToLMBController extends Controller
       ->addIndexColumn() //DT_RowIndex (Penomoran)
       ->editColumn('destination_name', function ($data) {
         return $data->getDestinationName($data);
+      })
+      ->editColumn('created_at', function ($data) {
+        return date('Y-m-d H:i:s', strtotime($data->created_at));
       })
       ->addColumn('do_status', function ($data) {
         return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';

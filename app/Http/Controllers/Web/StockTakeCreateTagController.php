@@ -153,6 +153,21 @@ class StockTakeCreateTagController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2Model(Request $request)
+  {
+    $query = StockTakeInput1::select(
+      DB::raw('model AS id'),
+      DB::raw("model AS text"),
+    )
+      ->where('sto_id', $request->input('sto_id'))
+      ->groupBy('model')
+      ->orderBy('model')
+      ->toBase()
+    ;
+
+    return get_select2_data($request, $query);
+  }
+
   public function getSelect2Location(Request $request)
   {
     $query = StockTakeInput1::select(
@@ -212,6 +227,7 @@ class StockTakeCreateTagController extends Controller
     $data['tag'] = StockTakeInput1::select(
       'log_stocktake_input1.*',
       'log_stocktake_schedule.area',
+      'log_cabang.short_description',
       DB::raw('CONCAT("WH", log_cabang.short_description) AS warehouse')
     )
      ->leftjoin('log_stocktake_schedule', 'log_stocktake_schedule.sto_id', '=', 'log_stocktake_input1.sto_id')

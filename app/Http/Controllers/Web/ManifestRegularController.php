@@ -67,7 +67,7 @@ class ManifestRegularController extends Controller
         ->addColumn('desc', function ($data) {
           return $data->getDesc();
         })
-        ->editColumn('status_confirm', function($data){
+        ->editColumn('status_confirm', function ($data) {
           return $data->status();
         })
         ->addColumn('action', function ($data) {
@@ -402,10 +402,10 @@ class ManifestRegularController extends Controller
       ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
       ->where('expedition_code', $manifestHeader->expedition_code)
       ->where('city_code', $manifestHeader->city_code)
-      ->first();    
+      ->first();
 
-    if(empty($freightCost)){
-        abort(404, 'Freight Cost not found');
+    if (empty($freightCost)) {
+      abort(404, 'Freight Cost not found');
     }
 
     $manifestHeader->id_freight_cost = $freightCost->id;
@@ -503,11 +503,26 @@ class ManifestRegularController extends Controller
       $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
       $manifestDetail['code_sales']      = $concept->code_sales;
       $manifestDetail['tcs']             = 1;
-      $manifestDetail['base_price']      = '';
       $manifestDetail['kode_cabang']     = substr($value['kode_customer'], 0, 2);
       $manifestDetail['region']          = '';
       $manifestDetail['status_ds_done']  = 0;
       $manifestDetail['do_reject']       = 0;
+
+      $freightCost = FreightCost::where('area', $manifestHeader->area)
+        ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
+        ->where('expedition_code', $manifestHeader->expedition_code)
+        ->where('city_code', $manifestDetail['city_code'])
+        ->first();
+
+      if (empty($freightCost)) {
+        return sendError('Freight Cost Not Found');
+      }
+
+      $manifestDetail['nilai_ritase']  = $freightCost->ritase;
+      $manifestDetail['nilai_ritase2'] = $freightCost->ritase2;
+      $manifestDetail['lead_time']     = $freightCost->leadtime;
+      $manifestDetail['base_price']    = $freightCost->cbm;
+      $manifestDetail['nilai_cbm']     = $manifestDetail['base_price'] * $manifestDetail['cbm'];
 
       $rs_manifest_detail[] = $manifestDetail;
     }

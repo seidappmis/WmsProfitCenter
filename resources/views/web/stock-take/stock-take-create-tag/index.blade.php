@@ -274,6 +274,8 @@
       /* Act on the event */
       if ($('#sto_id').val() == '' || $('#sto_id').val() == null) {
         showSwalAutoClose('Warning', 'Please Select STO ID!')
+      } else if(dtdatatable.page.info().recordsDisplay == 0) {
+        showSwalAutoClose('Warning', 'Can Not Create Manual No Tag, Before No Tag in Upload!')
       } else {
         window.location.href = '{{ url('stock-take-create-tag/create') }}' + '?sto_id=' + $('#sto_id').val();
       }

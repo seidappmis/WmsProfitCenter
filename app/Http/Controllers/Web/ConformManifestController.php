@@ -130,6 +130,10 @@ class ConformManifestController extends Controller
           return sendError('Arival Date Required');
         }
 
+        if (empty($request->input('unloading_date'))) {
+          return sendError('Unloading Date Required');
+        }
+
         $date_now = date('Y-m-d H:i:s');
 
         $firstClassTMP = StorageMaster::where('sto_type_id', 1)->get();
@@ -159,11 +163,12 @@ class ConformManifestController extends Controller
             $manifesDetail = WMSBranchManifestDetail::findOrFail($key);
           }
 
-          $manifesDetail->status_confirm      = 1;
-          $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
-          $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-          $manifesDetail->confirm_by          = auth()->user()->username;
-          $manifesDetail->do_reject           = !empty($request->input('rejected')) ? 1 : 0;
+          $manifesDetail->status_confirm        = 1;
+          $manifesDetail->confirm_date          = date('Y-m-d H:i:s');
+          $manifesDetail->actual_time_arrival   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
+          $manifesDetail->actual_loading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
+          $manifesDetail->confirm_by            = auth()->user()->username;
+          $manifesDetail->do_reject             = !empty($request->input('rejected')) ? 1 : 0;
           $manifesDetail->save();
 
           if (empty($rs_model[$manifesDetail->model])) {

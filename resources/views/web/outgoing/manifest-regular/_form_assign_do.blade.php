@@ -132,7 +132,7 @@
         $('#form-assign-do [name="ship_to"]').select2({
         placeholder: '-- Select Ship to City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}'})
+        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}', vehicle_code_type: '{{$manifestHeader->vehicle_code_type}}'})
       })
    });
 

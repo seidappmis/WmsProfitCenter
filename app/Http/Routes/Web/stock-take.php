@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('stock-take-create-tag', 'Web\StockTakeCreateTagController@store');
   Route::get('stock-take-create-tag/create', 'Web\StockTakeCreateTagController@createManual');
   Route::post('stock-take-create-tag/create', 'Web\StockTakeCreateTagController@storeManual');
+  Route::get('stock-take-create-tag/select2-model', 'Web\StockTakeCreateTagController@getSelect2Model');
   Route::get('stock-take-create-tag/select2-location', 'Web\StockTakeCreateTagController@getSelect2Location');
   Route::get('stock-take-create-tag/select2-no-tag', 'Web\StockTakeCreateTagController@getSelect2NoTag');
   Route::get('stock-take-create-tag/print', 'Web\StockTakeCreateTagController@print');

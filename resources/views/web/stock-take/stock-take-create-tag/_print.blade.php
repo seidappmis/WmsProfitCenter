@@ -16,7 +16,7 @@
                 <td style="width: 30mm;">Area</td>
                 <td style="width: 5mm;">:</td>
                 <td style="width: 40mm; text-align: left;">{{$value->warehouse}}</td>
-                <td style="width: 60mm; text-align: center;">{{$value->area}}</td>
+                <td style="width: 60mm; text-align: center;">{{$value->area != '' ? $value->area : $value->short_description}}</td>
                 <td style="width: 30mm;">Tag No</td>
                 <td style="width: 5mm;">:</td>
                 <td style="width: 40mm; text-align: left;">{{$value->no_tag}}</td>
