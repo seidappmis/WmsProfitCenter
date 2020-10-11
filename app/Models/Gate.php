@@ -39,7 +39,9 @@ class Gate extends BaseModel
               ),
               't.picking_gate_number', '=', 'tr_gate.gate_number'
             )->orderBy('gate_number');
-      if(!auth()->user()->cabang->hq){
+      if(auth()->user()->cabang->hq){
+        // tampilkan all;
+      }else{
         $query->where('area', $area);
       }            
 
