@@ -183,6 +183,7 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.actual_time_arrival',
         DB::raw('log_manifest_detail.actual_loading_date AS actual_unloading_date'),
         'log_manifest_detail.doc_do_return_date',
+        'log_manifest_detail.confirm_by',
         DB::raw('log_manifest_detail.do_reject AS status_reject'),
         DB::raw('DATE_ADD(do_manifest_date, INTERVAL log_manifest_detail.lead_time DAY) AS eta'),
         DB::raw('log_manifest_detail.cbm AS detail_cbm'),
@@ -192,7 +193,7 @@ class SummaryOutgoingReportController extends Controller
         DB::raw('wms_master_model.description AS model_description'),
         DB::raw('IF(log_manifest_detail.status_confirm IS NULL, "", IF(log_manifest_detail.status_confirm = 1, "Confirmed", IF(log_manifest_detail.status_confirm = 0 && log_manifest_header.status_complete = 1, "Delivery", IF(log_manifest_detail.status_confirm = 0 && log_manifest_header.status_complete = 0, "Waiting Complete", "")))) AS status'),
         DB::raw('IF(log_manifest_detail.tcs IS NULL, "", IF(log_manifest_detail.tcs = 1, "TCS",IF(log_manifest_detail.tcs = 0 && log_manifest_detail.do_return = 0, "MANUAL", ""))) AS `desc`'),
-        DB::raw('uconfirm.username AS confirm_by'),
+        // DB::raw('log_manifest_detail.confirm_by AS confirm_by'),
         DB::raw('uc.username AS created_by_name'),
         DB::raw('um.username AS updated_by_name')
       )
@@ -200,7 +201,7 @@ class SummaryOutgoingReportController extends Controller
         ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'log_manifest_detail.model')
         ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'log_manifest_header.created_by')
         ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
-        ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
+        // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
       ;
 
       $queryHQ->where('log_manifest_header.area', $request->input('area'));
