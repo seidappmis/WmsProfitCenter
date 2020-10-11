@@ -34,12 +34,19 @@ class InvoiceReceiptHeader extends Model
       $data['list'][$value->do_manifest_no]['vehicle_description'] = $value->vehicle_description;
       $data['list'][$value->do_manifest_no]['vehicle_number']      = $value->vehicle_number;
 
-      $data['list'][$value->do_manifest_no]['ritase']    = $value->ritase;
-      $data['list'][$value->do_manifest_no]['cbm']       = $value->cbm;
-      $data['list'][$value->do_manifest_no]['ritase2']   = $value->ritase2;
-      $data['list'][$value->do_manifest_no]['multidrop'] = $value->multidrop;
-      $data['list'][$value->do_manifest_no]['unloading'] = $value->unloading;
-      $data['list'][$value->do_manifest_no]['overstay']  = $value->overstay;
+      $total_ritase += $value->ritase_amount;
+      $total_cbm += $value->cbm_amount;
+      $total_ritase2 += $value->ritase2_amount;
+      $total_multidrop += $value->multidro_amount;
+      $total_unloading += $value->unloading_amount;
+      $total_overstay += $value->overstay_amount;
+
+      $data['list'][$value->do_manifest_no]['ritase']    = empty($data['list'][$value->do_manifest_no]['ritase']) ? $value->ritase_amount : ($data['list'][$value->do_manifest_no]['ritase'] + $value->ritase_amount);
+      $data['list'][$value->do_manifest_no]['cbm']       = empty($data['list'][$value->do_manifest_no]['cbm']) ? $value->cbm_amount : ($data['list'][$value->do_manifest_no]['cbm'] + $value->cbm_amount);
+      $data['list'][$value->do_manifest_no]['ritase2']   = empty($data['list'][$value->do_manifest_no]['ritase2']) ? $value->ritase2_amount : ($data['list'][$value->do_manifest_no]['ritase2'] + $value->ritase2_amount);
+      $data['list'][$value->do_manifest_no]['multidrop'] = empty($data['list'][$value->do_manifest_no]['multidrop']) ? $value->multidro_amount : ($data['list'][$value->do_manifest_no]['multidrop'] + $value->multidro_amount);
+      $data['list'][$value->do_manifest_no]['unloading'] = empty($data['list'][$value->do_manifest_no]['unloading']) ? $value->unloading_amount : ($data['list'][$value->do_manifest_no]['unloading'] + $value->unloading_amount);
+      $data['list'][$value->do_manifest_no]['overstay']  = empty($data['list'][$value->do_manifest_no]['overstay']) ? $value->overstay_amount : ($data['list'][$value->do_manifest_no]['overstay'] + $value->overstay_amount);
 
       $data['list'][$value->do_manifest_no]['do'][$value->delivery_no]['no_do_sap']    = $value->delivery_no;
       $data['list'][$value->do_manifest_no]['do'][$value->delivery_no]['tgl_do_sap']   = $value->do_date;
