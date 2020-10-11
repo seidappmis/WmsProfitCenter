@@ -29,7 +29,7 @@
                         Receipt Period
                       </div>
                       <div class="app-search col s12 m4">
-                        <input type="text" class="datepicker">
+                        <input type="text" class="monthpicker">
                         </div>
                         <div class="col s12 m2">
                           <a class="waves-effect waves-light indigo btn btn-save">
@@ -58,8 +58,20 @@
 </div>
 @endsection
 
+@push('script_css')
+<link rel="stylesheet" href="{{ asset('vendors/datepicker/datepicker.css') }}">
+@endpush
+
+@push('vendor_js')
+<script src="{{ asset('vendors/datepicker/datepicker.js') }}"></script>
+@endpush
+
+
 @push('script_js')
 <script type="text/javascript">
-    
+    $('.monthpicker').datepicker({
+      format: 'mm/yyyy',
+      autoHide: true
+    });
 </script>
 @endpush
