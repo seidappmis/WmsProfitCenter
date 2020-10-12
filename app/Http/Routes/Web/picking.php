@@ -35,5 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
   Route::put('picking-to-lmb/{id}/update-vehicle-number', 'Web\PickingToLMBController@updateVehicleNumber');
   Route::post('picking-to-lmb/{id}/send-manifest', 'Web\PickingToLMBController@sendManifest');
   Route::get('picking-to-lmb/{id}/export', 'Web\PickingToLMBController@export');
+  Route::get('picking-to-lmb/{id}/details-lmb', 'Web\PickingToLMBController@getDetailsLMB');
   Route::resource('picking-to-lmb', 'Web\PickingToLMBController');
 });

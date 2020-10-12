@@ -849,6 +849,7 @@ class PickingListController extends Controller
         DB::raw('SUM(cbm) AS cbm')
       )
       ->groupBy('ean_code')
+      ->orderBy('model')
       ->get()
     ;
     $data['excel'] = '';

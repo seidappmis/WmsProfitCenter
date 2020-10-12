@@ -80,7 +80,7 @@
               type: 'DELETE',
             })
             .done(function() { // Kalau ajax nya success
-              swal("Good job!", "You clicked the button!", "success") // alert success
+              showSwalAutoClose('Success', 'LMB Canceled.')
               dtdatatable_picking_to_lmb.ajax.reload(null, false); // reload datatable
               dttable_picking_list.ajax.reload(null, false); // reload datatable
             })
