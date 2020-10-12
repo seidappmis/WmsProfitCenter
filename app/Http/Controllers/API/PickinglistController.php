@@ -39,17 +39,44 @@ class PickinglistController extends Controller
       'picking_no'   => $pickingList->picking_no,
       'picking_date' => $pickingList->picking_date,
     ];
-    $data['details'] = $pickingList->details()
+    $temp_details = $pickingList->details()
       ->select(
-        'id',
-        'header_id',
-        'ean_code',
-        'model',
-        DB::raw('SUM(quantity) AS quantity'),
-        DB::raw('SUM(cbm) AS cbm')
+        'wms_pickinglist_detail.id',
+        'wms_pickinglist_detail.header_id',
+        'wms_pickinglist_detail.ean_code',
+        'wms_pickinglist_detail.model',
+        'wms_pickinglist_detail.quantity',
+        'wms_pickinglist_detail.cbm',
+        DB::raw('COUNT(wms_lmb_detail.serial_number) AS quantity_in_lmb')
       )
-      ->groupBy('ean_code')
+      ->leftjoin('wms_lmb_detail', function ($join) {
+        $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+        $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+      })
+      ->groupBy(
+        'wms_pickinglist_detail.header_id',
+        'wms_pickinglist_detail.invoice_no',
+        'wms_pickinglist_detail.delivery_no',
+        'wms_pickinglist_detail.delivery_items',
+        'wms_pickinglist_detail.ean_code'
+      )
       ->get();
+
+    $details = [];
+    foreach ($temp_details as $key => $value) {
+      if ($value->quantity > $value->quantity_in_lmb) {
+        if (empty($details[$value->ean_code])) {
+          $details[$value->ean_code] = $value;
+        } else {
+          $details[$value->ean_code]->quantity += $value->quantity;
+          $details[$value->ean_code]->cbm += $value->cbm;
+        }
+      }
+    }
+
+    $data['details'] = array_values($details);
 
     return sendSuccess('Picing List Found.', $data);
   }
