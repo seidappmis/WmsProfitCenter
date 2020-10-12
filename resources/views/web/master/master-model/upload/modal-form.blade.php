@@ -46,13 +46,15 @@
         })
         .done(function(data) { // selesai dan berhasil
           console.log(data);
+          setLoading(false); // Enable Button when failed
           if (data.status == false) {
-            setLoading(false); // Enable Button when failed
             swal("Failed!", data.message, "warning");
             return;
           }
           showSwalAutoClose('Success', 'Data uploaded.')
-          window.location.href = "{{ url('master-model') }}"
+          table.ajax.reload(null, false);
+          $(form)[0].reset();
+          $('#modal-upload').modal('close')
         })
         .fail(function(xhr) {
           setLoading(false); // Enable Button when failed

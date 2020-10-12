@@ -111,7 +111,7 @@ class MasterModelController extends Controller
 
     $title         = true;
     $master_models = [];
-    $rs_key        = [];
+    $rs_ean        = [];
 
     $date = date('Y-m-d H:i:s');
 
@@ -139,6 +139,9 @@ class MasterModelController extends Controller
           'price2'           => $row[12],
           'price3'           => $row[13],
         ];
+
+        $rs_ean[] = $master_model['ean_code'];
+
         $master_model['created_at'] = $date;
         $master_model['created_by'] = auth()->user()->id;
         $master_models[]            = $master_model;
@@ -146,18 +149,11 @@ class MasterModelController extends Controller
 
     }
     // Cek apakah data pernah diupload
-    $cek_model = new MasterModel;
-    foreach ($rs_key as $ean_code) {
-      $cek_model->orWhereColumn([
-        ['ean_code', '=', $ean_code],
-      ]);
-    }
+    $cek_model = MasterModel::whereIn('ean_code', $rs_ean)->get();
 
-    if ($cek_model->get()->count() > 0) {
+    if ($cek_model->count() > 0) {
       // kalau ada data yang sudah diupload return
-      $result['status']  = false;
-      $result['message'] = 'Data Already Upload';
-      return $result;
+      return sendError('Data Already Upload', $cek_model);
     }
     // Akhir cek data
 
