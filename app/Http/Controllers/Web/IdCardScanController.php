@@ -22,7 +22,8 @@ class IdCardScanController extends Controller
     $driver = MasterDriver::findOrFail($id);
 
     $driverRegistered = DriverRegistered::where('driver_id', $id)
-      ->whereNull('datetime_out')
+      ->where('wk_step_number', '!=', 6)
+      // ->whereNull('datetime_out')
       ->first();
 
     if (!empty($driverRegistered)) {

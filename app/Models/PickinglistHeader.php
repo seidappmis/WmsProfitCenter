@@ -81,6 +81,11 @@ class PickinglistHeader extends Model
     return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');
   }
 
+  public function storage()
+  {
+    return $this->belongsTo('App\Models\StorageMaster');
+  }
+
   public static function noLMBPickingList()
   {
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')

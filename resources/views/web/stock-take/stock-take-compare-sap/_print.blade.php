@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
 
-<table style="font-family: Arial;">
+<table style="font-family: Arial;" width="100%">
   <tr>
     <td>
       <table style="width: 210.0003mm;">
@@ -46,7 +46,7 @@
               </tr>
               {{-- Body --}}
               @foreach($stockTakeDetail AS $key => $value)
-              <tr>
+              <tr style='page-break-inside:aa;'>
                 <td colspan="3" style="text-align: left; border: 1pt solid #000000;">{{$value->material_no}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantitySAP}}</td>
                 <td style="text-align: left; border: 1pt solid #000000;">{{$value->quantity}}</td>

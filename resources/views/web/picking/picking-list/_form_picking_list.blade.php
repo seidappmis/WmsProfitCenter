@@ -137,6 +137,7 @@
             {!! get_button_save('Save') !!}
           @else
             {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
+            {!! get_button_view('#!', 'Send To LMB', 'btn-send-to-lmb mt-2 hide') !!}
           @endif
             {!! get_button_cancel(url('picking-list'),'Back') !!}
             {!! get_button_delete('Delete', 'btn-delete-picking-list hide mt-2') !!}
@@ -190,6 +191,38 @@
             }
           })
         });
+
+        @if($pickinglistHeader->storage->sto_type_id == 2)
+        $('.btn-send-to-lmb').removeClass('hide')
+        $('.btn-send-to-lmb').click(function(event) {
+          /* Act on the event */
+          swal({
+            text: "Are you sure send to LMB?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              ok: 'Ok'
+            }
+          }).then(function (confirm){
+            if (confirm) {
+              setLoading(true)
+              $.ajax({
+                url: '{{url("picking-list/" . $pickinglistHeader->id . '/send-to-lmb')}}',
+                type: 'POST',
+                dataType: 'json',
+              })
+              .done(function(result) {
+                setLoading(false)
+                if (result.status) {
+                  showSwalAutoClose('Success', result.message)
+                  setTimeout(function() { window.location.reload(); }, 2000);
+                }
+              });
+              
+            }
+          })
+        });
+        @endif
       @endif
 
         @if(auth()->user()->cabang->hq)

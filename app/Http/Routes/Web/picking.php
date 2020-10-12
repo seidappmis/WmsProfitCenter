@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('picking-list/submit-do', 'Web\PickingListController@submitDO');
   Route::delete('picking-list/detail/{id}', 'Web\PickingListController@destroyDetail');
   
+  Route::post('picking-list/{id}/send-to-lmb', 'Web\PickingListController@sendToLMB');
   Route::get('picking-list/{id}/export', 'Web\PickingListController@export');
   Route::resource('picking-list', 'Web\PickingListController');
 

@@ -149,6 +149,7 @@ class StockTakeCompareSAPController extends Controller
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
+      $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");

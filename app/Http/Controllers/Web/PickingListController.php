@@ -531,6 +531,42 @@ class PickingListController extends Controller
     return view('web.picking.picking-list.view', $data);
   }
 
+  public function sendToLMB(Request $request, $id)
+  {
+    $pickingHeader = PickinglistHeader::findOrFail($id);
+
+    $rs_lmb_detail = [];
+    foreach ($pickingHeader->details as $key => $value) {
+      $prefix = $value->model;
+
+      $prefix_length = strlen($prefix);
+      $max_no        = DB::select('SELECT MAX(SUBSTR(serial_number, ?)) AS max_no FROM wms_lmb_detail WHERE SUBSTR(serial_number,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+      $max_no        = $max_no + 1;
+
+      for ($i = 0; $i < $value->quantity; $i++) {
+        $detail['picking_id']         = $pickingHeader->id;
+        $detail['ean_code']           = $value->ean_code;
+        $detail['serial_number']      = $value->model . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
+        $detail['created_at']         = date('Y-m-d H:i:s');
+        $detail['model']              = $value->model;
+        $detail['delivery_no']        = $value->delivery_no;
+        $detail['invoice_no']         = $value->invoice_no;
+        $detail['kode_customer']      = $value->kode_customer;
+        $detail['code_sales']         = $value->code_sales;
+        $detail['city_code']          = $pickingHeader->city_code;
+        $detail['city_name']          = $pickingHeader->city_name;
+        $detail['driver_register_id'] = $pickingHeader->driver_register_id;
+        $detail['cbm_unit']           = $value->cbm / $value->quantity;
+
+        $rs_lmb_detail[] = $detail;
+      }
+    }
+
+    LMBDetail::insert($rs_lmb_detail);
+
+    return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
+  }
+
   public function doOrShipmentData(Request $request)
   {
     $request->validate([
@@ -802,15 +838,15 @@ class PickingListController extends Controller
   public function export(Request $request, $id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
-    $data['excel']  = '';
-    $view_print = view('web.picking.picking-list._print', $data);
+    $data['excel']             = '';
+    $view_print                = view('web.picking.picking-list._print', $data);
 
     if ($request->input('filetype') == 'xls') {
-      $data['excel'] =1;
-      $view_print = view('web.picking.picking-list._excel', $data);
+      $data['excel'] = 1;
+      $view_print    = view('web.picking.picking-list._excel', $data);
 
     }
-    $title      = 'picking_list';
+    $title = 'picking_list';
 
     if ($request->input('filetype') == 'html') {
 
@@ -848,7 +884,7 @@ class PickingListController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      
+
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
       /*untuk lokas saya */
       // $mpdf = new \Mpdf\Mpdf(['tempDir' => 'C:\xampp\htdocs']);
