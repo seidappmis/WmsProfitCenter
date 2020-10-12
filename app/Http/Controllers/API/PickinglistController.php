@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
 
 class PickinglistController extends Controller
 {
@@ -42,7 +42,7 @@ class PickinglistController extends Controller
     $data['details'] = $pickingList->details()
       ->select(
         'id',
-        'id_header',
+        'header_id',
         'ean_code',
         'model',
         DB::raw('SUM(quantity) AS quantity'),
