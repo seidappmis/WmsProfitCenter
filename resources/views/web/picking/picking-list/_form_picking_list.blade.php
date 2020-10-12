@@ -192,7 +192,7 @@
           })
         });
 
-        @if($pickinglistHeader->storage->sto_type_id == 2)
+        @if($pickinglistHeader->storage->sto_type_id == 2 || auth()->user()->cabang->hq)
         $('.btn-send-to-lmb').removeClass('hide')
         $('.btn-send-to-lmb').click(function(event) {
           /* Act on the event */
