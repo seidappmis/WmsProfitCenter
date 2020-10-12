@@ -33,7 +33,7 @@ class PickingToLMBController extends Controller
           'picking_id'    => $postSerialNumber['pickingNo'],
           'ean_code'      => $postSerialNumber['eanCode'],
           'serial_number' => $postSerialNumber['serialNumber'],
-          'created_at'    => $postSerialNumber['inputDate'],
+          // 'created_at'    => $postSerialNumber['inputDate'],
         ];
 
         // return $serial_number;
