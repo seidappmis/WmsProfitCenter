@@ -103,7 +103,7 @@ foreach ($rs_shipment_no as $key => $value) {
               $total_cbm = 0;
               @endphp
 
-              @foreach($pickinglistHeader->details AS $key => $detail)
+              @foreach($details AS $key => $detail)
               @php
               $total_quantity += $detail->quantity;
               $total_cbm += $detail->cbm;

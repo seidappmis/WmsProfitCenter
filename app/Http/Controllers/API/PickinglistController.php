@@ -38,7 +38,17 @@ class PickinglistController extends Controller
       'picking_no'   => $pickingList->picking_no,
       'picking_date' => $pickingList->picking_date,
     ];
-    $data['details'] = $pickingList->details;
+    $data['details'] = $pickingList->details()
+      ->select(
+        'id',
+        'id_header',
+        'ean_code',
+        'model',
+        DB::raw('SUM(quantity) AS quantity'),
+        DB::raw('SUM(cbm) AS cbm')
+      )
+      ->groupBy('ean_code')
+      ->get();
 
     return sendSuccess('Picing List Found.', $data);
   }

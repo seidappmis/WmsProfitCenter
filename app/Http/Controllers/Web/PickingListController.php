@@ -838,6 +838,17 @@ class PickingListController extends Controller
   public function export(Request $request, $id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['details']            = $data['pickinglistHeader']
+    ->details()
+    ->select(
+      'ean_code',
+      'model',
+      DB::raw('SUM(quantity) AS quantity'),
+      DB::raw('SUM(cbm) AS cbm')
+    )
+    ->groupBy('ean_code')
+    ->get()
+    ;
     $data['excel']             = '';
     $view_print                = view('web.picking.picking-list._print', $data);
 
