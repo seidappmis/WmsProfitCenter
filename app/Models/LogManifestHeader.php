@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\LogManifestDetail;
+use App\Models\PickinglistDetail;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class LogManifestHeader extends Model
 {
@@ -39,17 +40,21 @@ class LogManifestHeader extends Model
    */
   public function status()
   {
-    $total_detail_tcs_do      = $this->lmb->do_details->count();
+    // $total_detail_tcs_do      = $this->lmb->do_details->count();
+    $total_detail_tcs_do = PickinglistDetail::select('wms_pickinglist_detail.*')
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+      ->where('wms_pickinglist_header.driver_register_id', $this->driver_register_id)
+      ->count();
     // $total_detail_manifest_do = $this->details->count();
     $total_detail_manifest_do = LogManifestDetail::select(DB::raw('COUNT(id) AS countManifestDO'))
-    ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-    ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
-    ->first()->countManifestDO;
-    $total_unconfirm_detail   = LogManifestDetail::select(DB::raw('COUNT(id) AS countUnconfirmDetail'))
-    ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-    ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
-    ->where('log_manifest_detail.status_confirm', 0)
-    ->first()->countUnconfirmDetail;
+      ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+      ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
+      ->first()->countManifestDO;
+    $total_unconfirm_detail = LogManifestDetail::select(DB::raw('COUNT(id) AS countUnconfirmDetail'))
+      ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+      ->where('log_manifest_header.driver_register_id', $this->driver_register_id)
+      ->where('log_manifest_detail.status_confirm', 0)
+      ->first()->countUnconfirmDetail;
 
     // if ($total_detail_tcs_do > $total_detail_manifest_do) {
     if ($total_detail_manifest_do == 0) {
@@ -80,5 +85,4 @@ class LogManifestHeader extends Model
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
   }
 
-  
 }
