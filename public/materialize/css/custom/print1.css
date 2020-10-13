@@ -3,7 +3,7 @@
     src: url(/fonts/ConnectCode39.ttf);
 }
 body {
-    background-color: #fff;
+    margin: 0;
 }
 .title {
     font-size: 12pt;
@@ -22,8 +22,8 @@ footer {
     text-align: center;
 }
 @page {
-    size: A4;
-    margin: 2mm 2mm 2mm 2mm;
+    /*size: A4;*/
+    /*margin: 2mm 2mm 2mm 2mm;*/
 }
 @media print {
     footer {
@@ -34,6 +34,7 @@ footer {
         page-break-inside: avoid;
     }
     html, body {
+        background-color: 
         width: 210mm;
         height: 297mm;
     }
