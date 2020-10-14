@@ -6,7 +6,7 @@
             <table style="width: 210.0003mm;">
                 <tr>
                     <td>
-                        <table width="100%" style="font-size: 9pt;">
+                        <table width="100%" style="font-size: 10pt;">
                             <tr>
                                 <td>&nbsp;</td>
                             </tr>
@@ -14,7 +14,7 @@
                                 <td>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP
+                                <td colspan="15" style="text-align: right; font-size: 10pt;"><strong>PT. SHARP
                                         ELECTRONICS INDONESIA</strong></td>
                             </tr>
                             <tr>
@@ -22,7 +22,7 @@
                                         BARANG</strong></td>
                             </tr>
                             <tr>
-                                <td colspan="15" style="text-align: center; font-size: 8pt;"><strong>(Loading Goods
+                                <td colspan="15" style="text-align: center; font-size: 10pt;"><strong>(Loading Goods
                                         Report)</strong></td>
                             </tr>
                             <tr>
@@ -79,7 +79,7 @@
                 <tr>
                     <td>
                         {{-- Main Table --}}
-                        <table width="100%" style="border-collapse: collapse; font-size: 9pt;">
+                        <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
                             {{-- Table Head --}}
                             <tr>
                                 <td style="text-align: center; border: 1pt solid #000000; width: 10mm;">NO</td>
@@ -186,7 +186,7 @@
                 <tr>
                     <td>
                         <footer>
-                        <table width="100%" style="font-size: 9pt;">
+                        <table width="100%" style="font-size: 10pt;">
                             <tr>
                                 <td rowspan="3" colspan="4"
                                     style="font-style: italic; width: 105mm; word-wrap: break-word;">

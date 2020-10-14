@@ -745,14 +745,14 @@ class PickingToLMBController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp'
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left' => 2,
         'margin_right' => 2,
         'margin_top' => 10,
         'margin_bottom' => 2,
         'margin_header' => 2,
         'margin_footer' => 2
-      ]]);
+      ]);
 
       $mpdf->WriteHTML($view_print);
 

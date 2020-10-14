@@ -84,7 +84,7 @@
                         type="text" 
                         class="validate" 
                         name="vehicle_description" 
-                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_description : $lmbHeader->picking->vehicle->vehicle_description}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_description : ($lmbHeader->picking->vehicle->vehicle_description)?$lmbHeader->picking->vehicle->vehicle_description:''}}"
                         readonly 
                         />
               </div>
