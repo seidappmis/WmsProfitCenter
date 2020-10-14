@@ -146,7 +146,8 @@
 
     $('#form-update-manifest .btn-print').click(function(event) {
       /* Act on the event */
-      initPrintPreviewPrintManifest('manifest-regular/' + $('#form-update-manifest [name="do_manifest_no"]').val() + '/export')
+      var base_modul = $('#form-update-manifest [name="type"]').val() == "HQ" ? "manifest-regular" : "branch-manifest";
+      initPrintPreviewPrintManifest(base_modul + "/" + $('#form-update-manifest [name="do_manifest_no"]').val() + '/export')
     });
     $('#form-update-manifest').validate({
       submitHandler: function(form){
@@ -184,7 +185,7 @@
           { data: 'invoice_no' },
           { data: 'delivery_no' },
           { data: 'do_internal' },
-          { data: 'city_name' },
+          { data: 'ship_to' },
           { data: 'delivery_items' },
           { data: 'model' },
           { data: 'quantity' },

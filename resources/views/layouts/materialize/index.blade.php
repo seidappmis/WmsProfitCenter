@@ -19,7 +19,7 @@
   <title>SEID - Warehouse Management System</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url('materialize/css/icon.css') }}" rel="stylesheet">
   <!-- BEGIN: VENDOR CSS-->
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/vendors.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('materialize/vendors/data-tables/css/jquery.dataTables.min.css') }}">
