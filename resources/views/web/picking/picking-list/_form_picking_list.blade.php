@@ -217,6 +217,9 @@
                   showSwalAutoClose('Success', result.message)
                   setTimeout(function() { window.location.reload(); }, 2000);
                 }
+              }).fail(function(xhr) {
+                setLoading(false); // Enable Button when failed
+                  showSwalError(xhr) // Custom function to show error with sweetAlert
               });
               
             }
