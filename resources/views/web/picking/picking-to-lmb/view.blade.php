@@ -85,7 +85,7 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                @foreach($lmbHeader->details as $key => $lmbDetail)
+                               {{--  @foreach($lmbHeader->details as $key => $lmbDetail)
                                   <tr>
                                     <td>{{$key+1}}</td>
                                     <td>{{$lmbDetail->serial_number}}</td>
@@ -93,7 +93,7 @@
                                     <td>{{$lmbDetail->model}}</td>
                                     <td>{{$lmbDetail->ean_code}}</td>
                                   </tr>
-                                @endforeach
+                                @endforeach --}}
                               </tbody>
                           </table>
                         </div>
@@ -192,7 +192,29 @@
     }
    })
 
+   var dttable_lmb_detail;
    jQuery(document).ready(function($) {
+    dttable_lmb_detail = $('#serial-number-table').DataTable({
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+            url: '{{ url('picking-to-lmb/' . $lmbHeader->driver_register_id  . '/details-lmb') }}',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val()
+              }
+        },
+        order: [3, 'asc'],
+        "pageLength": 10,
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'serial_number', name: 'serial_number', className: 'detail'},
+            {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
+            {data: 'model', name: 'model', className: 'detail'},
+            {data: 'ean_code', name: 'ean_code', className: 'detail'},
+        ],
+      });
      $('.btn-edit-vehicle-no').click(function(event) {
        /* Act on the event */
        $('#edit-vehicle_number-wrapper').removeClass('hide')

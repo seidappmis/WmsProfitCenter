@@ -39,40 +39,40 @@ mpdf-->
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td style="text-align: right;">DATE OF DESPATCH :</td>
-                <td>{{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
+                <td style="text-align: left;">DATE OF DESPATCH</td>
+                <td>: {{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td style="text-align: right;">DATE :</td>
-                <td>{{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
+                <td style="text-align: left;">DATE</td>
+                <td>: {{ date('d/m/Y', strtotime($pickinglistHeader->picking_date)) }}</td>
               </tr>
               <tr>
-                <td style="text-align: right;">SHARP WAREHOUSE :</td>
-                <td>SEID W/H {{auth()->user()->cabang->hq ? auth()->user()->area_data->code : auth()->user()->cabang->short_description}}</td>
+                <td style="text-align: left;">SHARP WAREHOUSE</td>
+                <td>: SEID W/H {{auth()->user()->cabang->hq ? auth()->user()->area_data->code : auth()->user()->cabang->short_description}}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td style="text-align: right;">SHIPMENT NO :</td>
-                <td style="text-align: left;">{!!$shipment_no!!}</td>
+                <td style="text-align: left;">SHIPMENT NO</td>
+                <td style="text-align: left;">: {!!$shipment_no!!}</td>
               </tr>
               <tr>
-                <td style="text-align: right;">CUSTOMER :</td>
+                <td style="text-align: left;">CUSTOMER</td>
+                <td>: &nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td style="text-align: right;">GATE# :</td>
-                <td style="text-align: left;">{{$pickinglistHeader->gate_number}}</td>
+                <td style="text-align: left;">GATE#</td>
+                <td style="text-align: left;">: {{$pickinglistHeader->gate_number}}</td>
               </tr>
               <tr>
-                <td style="text-align: right;">SHIP TO :</td>
-                <td>{{$pickinglistHeader->city_name}}</td>
+                <td style="text-align: left;">SHIP TO</td>
+                <td>: {{$pickinglistHeader->city_name}}</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td style="text-align: right;">ORDER NO :</td>
-                <td><strong>{{$pickinglistHeader->picking_no}}</strong></td>
+                <td style="text-align: left;">ORDER NO</td>
+                <td>: <strong>{{$pickinglistHeader->picking_no}}</strong></td>
               </tr>
               <tr>
                 <td colspan="5"></td>
@@ -97,7 +97,7 @@ mpdf-->
               {{-- Judul Tabel --}}
               <tr><td colspan="7" style="border-bottom: 1pt solid #000000;">&nbsp;</td></tr>
               <tr>
-                <td style="text-align: center;  width: 85mm;" colspan="3">MODEL NAME</td>
+                <td style="text-align: left;  width: 85mm;" colspan="3">MODEL NAME</td>
                 <td style="text-align: center;  width: 50mm;" colspan="2">EAN CODE</td>
                 <td style="text-align: center;  width: 30mm;">QUANTITY</td>
                 <td style="text-align: center;  width: 30mm;">CBM</td>
@@ -112,13 +112,13 @@ mpdf-->
               $total_cbm = 0;
               @endphp
 
-              @foreach($pickinglistHeader->details AS $key => $detail)
+              @foreach($details AS $key => $detail)
               @php
               $total_quantity += $detail->quantity;
               $total_cbm += $detail->cbm;
               @endphp
               <tr>
-                <td style="text-align: center;" colspan="3">{{$detail->model}}</td>
+                <td style="text-align: left;" colspan="3">{{$detail->model}}</td>
                 <td style="text-align: center;" colspan="2">{{$detail->ean_code}}</td>
                 <td style="text-align: center;">{{$detail->quantity}}</td>
                 <td style="text-align: center;">{{$detail->cbm}}</td>
