@@ -170,7 +170,7 @@
   $('#sto_id').select2({
        placeholder: '-- Select Schedule ID --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
+       ajax: get_select2_ajax_options('{{url('/stock-take-schedule/select2-schedule')}}')
     });
 
   var dttable_input_1

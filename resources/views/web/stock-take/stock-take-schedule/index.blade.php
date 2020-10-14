@@ -231,14 +231,14 @@
   $('#area_filter').select2({
        placeholder: '-- Select Area --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-code-area')
+       ajax: get_select2_ajax_options('{{url('/master-area/select2-code-area')}}')
     });
 
   // Select Branch/Cabang
   $('#branch_filter').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-cabang/select2-branch')
+       ajax: get_select2_ajax_options('{{url('/master-cabang/select2-branch')}}')
     });
 
   // Custom search

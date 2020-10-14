@@ -289,7 +289,7 @@
     function set_select2_no_tag(filter = {sto_id: null}){
       $('#form-input [name="id"]').select2({
          placeholder: '-- Select Tag --',
-         ajax: get_select2_ajax_options('/stock-take-create-tag/select2-no-tag-1', filter)
+         ajax: get_select2_ajax_options('{{url('/stock-take-create-tag/select2-no-tag-1')}}', filter)
       });
 
       $('#form-input [name="id"]').change(function(event) {
@@ -304,7 +304,7 @@
       $('#sto_id').select2({
          placeholder: '-- Select Schedule ID --',
          allowClear: true,
-         ajax: get_select2_ajax_options('/stock-take-schedule/select2-schedule')
+         ajax: get_select2_ajax_options('{{url('/stock-take-schedule/select2-schedule')}}')
       });
       $('#sto_id').change(function(event) {
         /* Act on the event */

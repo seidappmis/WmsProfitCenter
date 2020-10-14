@@ -86,12 +86,12 @@ class StockTakeCompareSAPController extends Controller
         'log_stocktake_input1.id',
         'log_stocktake_input1.no_tag',
         'log_stocktake_input1.model',
-        'log_stocktake_input1.quantity',
+        DB::raw('sum(log_stocktake_input1.quantity) as quantity'),
         'log_stocktake_input1.location',
         DB::raw('log_stocktake_input2.id AS id2'),
         DB::raw('log_stocktake_input2.no_tag AS no_tag2'),
         DB::raw('log_stocktake_input2.model AS model2'),
-        DB::raw('log_stocktake_input2.quantity AS quantity2'),
+        DB::raw('sum(log_stocktake_input2.quantity) AS quantity2'),
         DB::raw('log_stocktake_input2.location AS location2')
       )
         ->leftjoin('log_stocktake_input1', function ($join) {
@@ -103,6 +103,7 @@ class StockTakeCompareSAPController extends Controller
           $join->on('log_stocktake_input1.no_tag', '=', 'log_stocktake_input2.no_tag');
         })
         ->where('log_stocktake_schedule_detail.sto_id', $id)
+        ->groupBy('log_stocktake_schedule_detail.material_no')
         ->get()
       ;
 
