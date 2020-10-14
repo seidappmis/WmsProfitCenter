@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
-
+<body>
 <table style="font-family: Arial;">
     <tr>
         <td>
@@ -259,3 +259,4 @@
         </td>
     </tr>
 </table>
+</body>

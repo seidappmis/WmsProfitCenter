@@ -13,14 +13,23 @@ foreach ($rs_shipment_no as $key => $value) {
 }
 @endphp
 
+<body>
+<!--mpdf
+<htmlpagefooter name="myheader">
+  <div style="position:absolute;top:5mm;right:10mm;">
+  Page {PAGENO} of {nb}
+  </div>
+  </htmlpagefooter>
+<sethtmlpagefooter name="myheader" value="on" />
+mpdf-->
 <table style="font-family: courier New; font-size: 10pt;">
   <tr>
     <td>
-      <table style="font-family: courier New; font-size: 10pt; width: 210.0003mm;">
+      <table style="font-family: courier New; font-size: 10pt;width: 100%;">
         <tr>
           <td>
             <table width="100%">
-              <tr><td>&nbsp;</td></tr>
+              <!-- <tr><td>&nbsp;</td></tr> -->
               <tr><td>&nbsp;</td></tr>
               <tr><td style="height: 2px;"></td></tr>
               <tr>
@@ -178,3 +187,4 @@ foreach ($rs_shipment_no as $key => $value) {
   </tr>
 </table>
 <footer>
+</footer>
