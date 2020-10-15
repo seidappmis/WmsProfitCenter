@@ -639,6 +639,10 @@ class ManifestRegularController extends Controller
       
       $rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] = empty($rs_details[$value->ship_to_code . $value->ship_to]['rowspan']) ? 1 : ($rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] + 1);
 
+      if (empty($rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no])) {
+        $rs_details[$value->ship_to_code . $value->ship_to]['rowspan']++;
+      }
+
       $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['data']     = $value;
       $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['models'][] = $value;
     }
