@@ -634,11 +634,19 @@ class ManifestRegularController extends Controller
 
     $rs_details = [];
     foreach ($data['manifestHeader']->details as $key => $value) {
-      $rs_details[$value->ship_to_code . $value->ship_to . $value->delivery_no]['data']     = $value;
-      $rs_details[$value->ship_to_code . $value->ship_to . $value->delivery_no]['models'][] = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to]['ship_to_code'] = $value->ship_to_code;
+      $rs_details[$value->ship_to_code . $value->ship_to]['ship_to']      = $value->ship_to;
+      
+      $rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] = empty($rs_details[$value->ship_to_code . $value->ship_to]['rowspan']) ? 1 : ($rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] + 1);
+
+      $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['data']     = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['models'][] = $value;
     }
 
     $data['rs_details'] = $rs_details;
+
+    // echo "<pre>";
+    // return print_r($rs_details);
 
     $view_print = view('web.outgoing.manifest-regular._print', $data);
     $title      = 'Manifest Reguler';

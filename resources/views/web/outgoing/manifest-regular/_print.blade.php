@@ -83,38 +83,49 @@
               @endphp
               @foreach($rs_details as $key => $detail)
                 @php
-                $sub_total_qty = 0;
-                $sub_total_cbm = 0;
+                $start_do = 1;
                 @endphp
+                @foreach($detail['dos'] AS $kd => $vd)
+                  @php
+                  $sub_total_qty = 0;
+                  $sub_total_cbm = 0;
+                  @endphp
 
-                @foreach($detail['models'] AS $km => $vm)
-                @php
-                $sub_total_qty += $vm->quantity;
-                $sub_total_cbm += $vm->cbm;
-                @endphp
-                <tr>
-                  @if($km == 0)
-                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{$detail['data']->ship_to_code}}</td>
-                  <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
-                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{$detail['data']->ship_to}}</td>
-                  <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
-                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
-                  <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
-                  <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{!empty($detail['data']->do_internal) ? $detail['data']->do_internal : $detail['data']->delivery_no}}</td>
-                  <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
-                  @endif
+                  @foreach($vd['models'] AS $km => $vm)
+                  @php
+                  $sub_total_qty += $vm->quantity;
+                  $sub_total_cbm += $vm->cbm;
+                  @endphp
+                  <tr>
+                    @if($km == 0)
+                    @if($start_do == 1)
+                    <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to_code}}</td>
+                    <td rowspan="{{ $detail['rowspan'] }}" style="width: 5mm;"></td>
+                    <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to}}</td>
+                    @endif
+                    <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
+                    <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
+                    <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
+                    <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top;">{{!empty($vd['data']->delivery_no) ? $vd['data']->delivery_no : $vd['data']->delivery_no}}</td>
+                    <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
+                    @endif
 
-                  {{-- MODEL START --}}
-                  <td style="text-align: right;">{{$km+1}}.</td>
-                  <td style="width: 5mm;"></td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }}">{{$vm->model}}</td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->quantity}}</td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{setDecimal($vm->cbm / $vm->quantity)}}</td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
-                  <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->cbm}}</td>
-                </tr>
+                    {{-- MODEL START --}}
+                    <td style="text-align: right;">{{$km+1}}.</td>
+                    <td style="width: 5mm;"></td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }}">{{$vm->model}}</td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->quantity}}</td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{setDecimal($vm->cbm / $vm->quantity)}}</td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+                    <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->cbm}}</td>
+                  </tr>
+                  @endforeach
+
+                  @php
+                  $start_do++;
+                  @endphp
                 @endforeach
                 <tr>
                   <td colspan="10"></td>
