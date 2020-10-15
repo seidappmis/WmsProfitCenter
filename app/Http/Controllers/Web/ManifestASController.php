@@ -253,8 +253,8 @@ class ManifestASController extends Controller
 
     $rs_details = [];
     foreach ($data['manifestHeader']->details as $key => $value) {
-      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['data']     = $value;
-      $rs_details[$value->ship_to_code . $value->ship_to . $value->do_internal]['models'][] = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->delivery_no]['data']     = $value;
+      $rs_details[$value->ship_to_code . $value->ship_to . $value->delivery_no]['models'][] = $value;
     }
 
     $data['rs_details'] = $rs_details;
