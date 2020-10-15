@@ -134,12 +134,10 @@
                   </tr>
                   @php
                   $start_do++;
+                  $total_qty += $sub_total_qty;
+                  $total_cbm += $sub_total_cbm;
                   @endphp
                 @endforeach
-                @php
-                $total_qty += $sub_total_qty;
-                $total_cbm += $sub_total_cbm;
-                @endphp
               @endforeach
               <tr>
                 <td colspan="7" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Total</strong></td>
