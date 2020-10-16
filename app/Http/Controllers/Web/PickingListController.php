@@ -869,22 +869,28 @@ class PickingListController extends Controller
 
     } elseif ($request->input('filetype') == 'xls') {
 
+      // return $view_print;
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-
+      
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.5);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
       $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(false);
       $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);

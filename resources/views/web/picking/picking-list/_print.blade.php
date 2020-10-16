@@ -16,8 +16,8 @@ foreach ($rs_shipment_no as $key => $value) {
 <body>
 <!--mpdf
 <htmlpagefooter name="myheader">
-  <div style="position:absolute;top:5mm;right:10mm;">
-  Page {PAGENO} of {nb}
+  <div style="position:absolute;top:5mm;right:10mm;" v="Page {PAGENO} of {nb}">
+  
   </div>
   </htmlpagefooter>
 <sethtmlpagefooter name="myheader" value="on" />
@@ -133,7 +133,7 @@ mpdf-->
   <tr>
     <td>
       <footer>
-        <table style="width: 210.0003mm;">
+        <table width="100%">
           <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
           <tr>
             <td style="width: 30mm;">PICKED BY</td>

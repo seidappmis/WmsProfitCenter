@@ -51,7 +51,9 @@
               w.document.write(html);
               w.document.close();
               w.window.print();
-              w.window.close();
+              setTimeout(()=>{
+                w.window.close()
+              },500)
             },
             error: function (data) {
               console.log('Error:', data);

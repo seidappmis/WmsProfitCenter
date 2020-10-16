@@ -708,12 +708,18 @@ class PickingToLMBController extends Controller
 
     } elseif ($request->input('filetype') == 'xls') {
 
+      $view_print = view('web.picking.picking-to-lmb._excel', $data);
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
-
+ $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.5);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
+      
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
@@ -721,20 +727,20 @@ class PickingToLMBController extends Controller
 
       // Atur lebar kolom
       $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(12);
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
       $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(8);
+      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(4);
+      $spreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(4);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

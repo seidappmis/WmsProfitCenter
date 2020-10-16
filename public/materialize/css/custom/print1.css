@@ -22,20 +22,19 @@ footer {
     text-align: center;
 }
 @page {
-    /*size: A4;*/
+    size: 8.5in 11in;
     /*margin: 2mm 2mm 2mm 2mm;*/
 }
 @media print {
     footer {
-        position: fixed;
-        bottom: 0;
+        position: fixed!important;
+        bottom: 0!important;
     }
     .content-block, p {
         page-break-inside: avoid;
     }
     html, body {
-        background-color: 
-        width: 210mm;
-        height: 297mm;
+        width: 8.5in!important;
+        height: 11in!important;
     }
 }
