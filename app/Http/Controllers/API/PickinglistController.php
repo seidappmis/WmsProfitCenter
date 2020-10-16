@@ -62,6 +62,7 @@ class PickinglistController extends Controller
         'wms_pickinglist_detail.delivery_items',
         'wms_pickinglist_detail.ean_code'
       )
+      ->orderBy('wms_pickinglist_detail.model')
       ->get();
 
     $details = [];

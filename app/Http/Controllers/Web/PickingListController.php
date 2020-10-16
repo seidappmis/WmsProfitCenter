@@ -536,17 +536,20 @@ class PickingListController extends Controller
     $pickingHeader = PickinglistHeader::findOrFail($id);
 
     $rs_lmb_detail = [];
+    $rs_max_no     = [];
     foreach ($pickingHeader->details as $key => $value) {
       $prefix = $value->model;
 
-      $prefix_length = strlen($prefix);
-      $max_no        = DB::select('SELECT MAX(SUBSTR(serial_number, ?)) AS max_no FROM wms_lmb_detail WHERE SUBSTR(serial_number,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
-      $max_no        = $max_no + 1;
+      if (empty($rs_max_no[$value->ean_code])) {
+        $prefix_length               = strlen($prefix);
+        $max_no                      = DB::select('SELECT MAX(SUBSTR(serial_number, ?)) AS max_no FROM wms_lmb_detail WHERE SUBSTR(serial_number,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+        $rs_max_no[$value->ean_code] = $max_no + 1;
+      }
 
       for ($i = 0; $i < $value->quantity; $i++) {
         $detail['picking_id']         = $pickingHeader->id;
         $detail['ean_code']           = $value->ean_code;
-        $detail['serial_number']      = $value->model . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
+        $detail['serial_number']      = $value->model . str_pad($rs_max_no[$value->ean_code]++, 3, 0, STR_PAD_LEFT);
         $detail['created_at']         = date('Y-m-d H:i:s');
         $detail['model']              = $value->model;
         $detail['delivery_no']        = $value->delivery_no;
@@ -562,9 +565,16 @@ class PickingListController extends Controller
       }
     }
 
-    LMBDetail::insert($rs_lmb_detail);
+    try {
 
-    return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
+      if (!empty($rs_lmb_detail)) {
+        LMBDetail::insert($rs_lmb_detail);
+      }
+      return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
+    } catch (Exception $e) {
+
+    }
+
   }
 
   public function doOrShipmentData(Request $request)
@@ -905,12 +915,12 @@ class PickingListController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left' => 2,
-        'margin_right' => 2,
-        'margin_top' => 10,
-        'margin_bottom' => 2,
-        'margin_header' => 2,
-        'margin_footer' => 2
+        'margin_left'                     => 2,
+        'margin_right'                    => 2,
+        'margin_top'                      => 10,
+        'margin_bottom'                   => 2,
+        'margin_header'                   => 2,
+        'margin_footer'                   => 2,
       ]);
 
       $mpdf->WriteHTML($view_print);

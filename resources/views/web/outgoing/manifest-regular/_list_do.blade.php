@@ -1,5 +1,5 @@
 <br>
-<h6>Total Manifest: 1</h6>
+<h6>Total Manifest: {{!empty($rsManifest) ? $rsManifest->count() : 0 }}</h6>
 <h5 class="card-title">List DO</h5>
 <hr>
 <a href="#modal-upload-do" class="waves-effect waves-light indigo btn-small btn-upload modal-trigger mb-1">Upload DO</a>
