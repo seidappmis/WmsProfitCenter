@@ -116,7 +116,7 @@
   $('#form-upload-concept [name="area"]').select2({
      placeholder: '-- Select Area --',
      allowClear: true,
-     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+     ajax: get_select2_ajax_options('{{url('/master-area/select2-area-only')}}')
   });
   @if (auth()->user()->area != "All") 
     set_select2_value('#form-upload-concept [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')

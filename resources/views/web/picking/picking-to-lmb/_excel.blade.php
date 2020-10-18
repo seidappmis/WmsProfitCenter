@@ -130,10 +130,10 @@
                                 <td style="text-align: center;" colspan="3">
                                     {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
-                                <td style="text-align: center;" colspan="2">
+                                <td style="text-align: center; border-right: 1pt solid #000000; width: 1mm;" colspan="2">
                                     {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
-                                <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
+                                <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;  width: 1mm;"></td>
                             </tr>
 
                             @while($row_serial_pointer < $row_serial_total)
@@ -144,7 +144,7 @@
                                 <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">
                                     {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
-                                <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2">
+                                <td style="text-align: center; border-bottom: 1pt solid #000000;border-right: 1pt solid #000000; " colspan="2">
                                     {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
                                 </td>
                                 <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
@@ -179,13 +179,16 @@
                             <tr>
                                 <td colspan="14">&nbsp;</td>
                             </tr>
+                            @for($i=0;$i<(36-($row_no*2));$i++)
+                            <tr><td>&nbsp;</td></tr>
+                            @endfor
                         </table>
                         {{-- End Main Table --}}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <footer>
+                        <!-- <footer> -->
                         <table width="100%" style="font-size: 10pt;">
                             <tr>
                                 <td rowspan="3" colspan="4"
@@ -252,7 +255,7 @@
                 <td style="font-style: italic;">Cabang (Lampiran DO)</td>
               </tr> --}}
                         </table>
-                        </footer>
+                        <!-- </footer> -->
                     </td>
                 </tr>
             </table>

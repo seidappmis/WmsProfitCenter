@@ -59,6 +59,7 @@ class StockTakeCompareSAPController extends Controller
         })
         ->where('log_stocktake_schedule_detail.sto_id', $request->input('sto_id'))        
         ->groupBy('log_stocktake_schedule_detail.material_no')
+        ->orderBy('log_stocktake_schedule_detail.material_no','ASC')
       ;     
 
       $datatables = DataTables::of($query)
@@ -104,6 +105,7 @@ class StockTakeCompareSAPController extends Controller
         })
         ->where('log_stocktake_schedule_detail.sto_id', $id)
         ->groupBy('log_stocktake_schedule_detail.material_no')
+        ->orderBy('log_stocktake_schedule_detail.material_no','ASC')
         ->get()
       ;
 
