@@ -32,6 +32,7 @@ class ManifestRegularController extends Controller
       )
       // ->where('city_name', '<>', 'Ambil Sendiri')
         ->where('ambil_sendiri', 0)
+        ->where('area', $request->input('area'))
         ->groupBy('driver_register_id')
       ;
 

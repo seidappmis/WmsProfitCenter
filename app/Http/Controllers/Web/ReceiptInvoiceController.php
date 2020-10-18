@@ -209,6 +209,15 @@ class ReceiptInvoiceController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('multidro_amount', function ($data) {
+          return !empty($data->multidro_amount) ? $data->multidro_amount : 0;
+        })
+        ->editColumn('unloading_amount', function ($data) {
+          return !empty($data->unloading_amount) ? $data->unloading_amount : 0;
+        })
+        ->editColumn('overstay_amount', function ($data) {
+          return !empty($data->overstay_amount) ? $data->overstay_amount : 0;
+        })
         ->addColumn('total', function ($data) {
           return $data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount;
         })
@@ -441,11 +450,20 @@ class ReceiptInvoiceController extends Controller
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ->editColumn('multidro_amount', function ($data) {
+        return !empty($data->multidro_amount) ? $data->multidro_amount : 0;
+      })
+      ->editColumn('unloading_amount', function ($data) {
+        return !empty($data->unloading_amount) ? $data->unloading_amount : 0;
+      })
+      ->editColumn('overstay_amount', function ($data) {
+        return !empty($data->overstay_amount) ? $data->overstay_amount : 0;
+      })
       ->addColumn('total', function ($data) {
-        return 0;
+        return $data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount;
       })
       ->addColumn('action_view', function ($data) {
-        return get_button_view(url('receipt-invoice/' . $data->id));
+        return get_button_view('#!');
       })
       ->addColumn('action_delete', function ($data) {
         return get_button_delete();
@@ -453,5 +471,15 @@ class ReceiptInvoiceController extends Controller
       ->rawColumns(['action_view', 'action_delete']);
 
     return $datatables->make(true);
+  }
+
+  public function getDOData(Request $request, $id_header)
+  {
+    $query = LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
+      ->where('delivery_no', $request->input('delivery_no'))
+      ->get()
+      ;
+
+    return sendSuccess('Success retrive data', $query);
   }
 }

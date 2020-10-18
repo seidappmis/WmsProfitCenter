@@ -375,6 +375,11 @@ input:not([type]):disabled, input:not([type])[readonly='readonly'], input[type=t
     /*line-height: 40px;*/
     /*min-height: 40px !important;*/
 }
+
+.form-table.small th, .form-table.small td {
+    font-size: 12px !important;
+}
+
 .form-table table.datepicker-table td, .form-table table.datepicker-table th {
     border: none;
 }

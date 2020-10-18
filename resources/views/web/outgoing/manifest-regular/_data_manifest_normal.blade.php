@@ -65,6 +65,7 @@ jQuery(document).ready(function($) {
           type: 'GET',
           data: function(d) {
               d.search['value'] = $('#data_manifest_normal_filter').val()
+              d.area = $('#area_filter').val()
           }
       },
       order: [1, 'desc'],

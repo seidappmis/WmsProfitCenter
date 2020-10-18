@@ -97,6 +97,7 @@
                                             <th>No Tag</th>
                                             <th>Model</th>
                                             <th>Location</th>
+                                            <th width="20px"></th>
                                           </tr>
                                       </thead>
                                       <tbody>
@@ -238,7 +239,16 @@
             {data: 'no_tag', name: 'no_tag', className: 'detail'},
             {data: 'model', name: 'model', className: 'detail'},
             {data: 'location', name: 'location', className: 'detail'},
+            {data: 'action', orderable: false, searchable: false},
         ]
+      });
+
+      dtdatatable.on('click', '.btn-edit', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        var tr = $(this).parent().parent();
+        var data = dtdatatable.row(tr).data();
+        window.location.href = "{{url('stock-take-create-tag')}}" + '/' + $('#sto_id').val() + '/edit/' + data.no_tag
       });
 
       $("input#tag_filter").on("keyup click", function () {

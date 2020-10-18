@@ -65,6 +65,8 @@ class LMBHeader extends Model
         ->groupByRaw('delivery_no, model');
     }
 
+    $details->orderBy('wms_lmb_detail.delivery_no');
+
     return $details;
   }
 

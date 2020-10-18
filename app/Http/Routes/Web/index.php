@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use DB;
 
 Route::get('/', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::get('/login', 'Web\Auth\LoginController@showLoginForm')->name('login');
@@ -8,8 +9,8 @@ Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 Route::get('/test', function () {
   echo "<pre>";
-  $modules   = \App\Models\LogManifestHeader::findOrFail('JKT-200929-003');
-  print_r($modules->details->where('status_confirm', '!=', 0)->toArray());
+  $sql = DB::connection('sqlsrv')->table('LOG_Manifest_Header')->first();
+  print_r($sql);
 });
 
 Route::group(['middleware' => 'auth'], function () {

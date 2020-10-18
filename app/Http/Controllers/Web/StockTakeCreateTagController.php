@@ -23,7 +23,7 @@ class StockTakeCreateTagController extends Controller
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit('#input-wrapper');
+          $action .= ' ' . get_button_edit('#!');
           // $action .= ' ' . get_button_delete();
           return $action;
         });
@@ -90,6 +90,47 @@ class StockTakeCreateTagController extends Controller
 
     return view('web.stock-take.stock-take-create-tag.create', $data);
 
+  }
+
+  public function edit(Request $request, $sto_id, $no_tag)
+  {
+    $data['schedule'] = StockTakeSchedule::findOrFail($sto_id);
+    $data['input']    = StockTakeInput1::where('sto_id', $sto_id)
+      ->where('no_tag', $no_tag)->first();
+
+    return view('web.stock-take.stock-take-create-tag.edit', $data);
+  }
+
+  public function update(Request $request, $sto_id, $no_tag)
+  {
+    $schedule = StockTakeSchedule::findOrFail($sto_id);
+
+    $checkNoTag = StockTakeInput1::where('sto_id', $sto_id)
+      ->where('no_tag', $request->input('no_tag'))
+      ->first();
+
+    if (!empty($checkNoTag) and $no_tag != $request->input('no_tag')) {
+      return sendError('No Tag ' . $request->input('no_tag') . ' already exist.');
+    }
+
+    $data_update = [
+      'no_tag'   => $request->input('no_tag'),
+      'model'    => $request->input('model_id'),
+      'location' => $request->input('location'),
+    ];
+
+    try {
+      DB::beginTransaction();
+      StockTakeInput1::where('sto_id', $sto_id)->where('no_tag', $no_tag)->update($data_update);
+      StockTakeInput2::where('sto_id', $sto_id)->where('no_tag', $no_tag)->update($data_update);
+
+      DB::commit();
+
+      return sendSuccess('Tag update successfully', $schedule);
+    } catch (Exception $e) {
+      DB::rollback();
+
+    }
   }
 
   public function storeManual(Request $request)
@@ -221,18 +262,19 @@ class StockTakeCreateTagController extends Controller
 
     $page = empty($request->input('page')) ? 0 : ($request->input('page') - 1);
 
-    $start = $request->input('no_tag_start') + (2*$page);
+    $start = $request->input('no_tag_start') + (2 * $page);
     $end   = $request->input('no_tag_end');
 
     $data['tag'] = StockTakeInput1::select(
       'log_stocktake_input1.*',
       'log_stocktake_schedule.area',
       'log_cabang.short_description',
-      DB::raw('CONCAT("WH", log_cabang.short_description) AS warehouse')
+      DB::raw('IF(ISNULL(CONCAT("WH", log_cabang.short_description)), CONCAT("WH", tr_area.code), CONCAT("WH", log_cabang.short_description)) AS warehouse')
     )
-     ->leftjoin('log_stocktake_schedule', 'log_stocktake_schedule.sto_id', '=', 'log_stocktake_input1.sto_id')
-     ->leftjoin('log_cabang', 'log_stocktake_schedule.kode_cabang', '=', 'log_cabang.kode_cabang')
-      ->where('log_stocktake_input1.sto_id',$request->input('sto_id'))
+      ->leftjoin('log_stocktake_schedule', 'log_stocktake_schedule.sto_id', '=', 'log_stocktake_input1.sto_id')
+      ->leftjoin('log_cabang', 'log_stocktake_schedule.kode_cabang', '=', 'log_cabang.kode_cabang')
+      ->leftjoin('tr_area', 'log_stocktake_schedule.area', '=', 'tr_area.area')
+      ->where('log_stocktake_input1.sto_id', $request->input('sto_id'))
       ->where('log_stocktake_input1.no_tag', '>=', $start)
       ->where('log_stocktake_input1.no_tag', '<=', $end)
       ->orderBy('log_stocktake_input1.no_tag')

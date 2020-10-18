@@ -43,9 +43,9 @@
             @php
             if ($qty_loading == 0) {
               echo "DELETE IN PICKING";
-            } elseif ($qty_loading < $picking->quantity && $lmbHeader->expedition_code == 'AS'){
-              $allowSubmit = false;
-              echo "QTY MUST BE SAME IN PICKING AND LMB";
+            // } elseif ($qty_loading < $picking->quantity && $lmbHeader->expedition_code == 'AS'){
+            //   $allowSubmit = false;
+            //   echo "QTY MUST BE SAME IN PICKING AND LMB";
             } elseif ($qty_loading < $picking->quantity) {
               echo "OVERLOAD";
             } elseif ($qty_loading == $picking->quantity) {

@@ -315,3 +315,5 @@
   });
 </script>
 @endpush
+
+@include('web.invoicing.receipt-invoice.modal-detail-do')
