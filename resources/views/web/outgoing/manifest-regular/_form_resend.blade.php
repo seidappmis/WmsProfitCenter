@@ -13,7 +13,7 @@
             <td width="18%">Change Vehicle</td>
             <td width="32%" colspan="3">
                 <div class="input-field col s12">
-                    <select name="change_vehicle" class="select2-data-ajax browser-default" required="">
+                    <select name="change_vehicle" class="select2-data-ajax browser-default">
                     </select>
               </div>
             </td>
