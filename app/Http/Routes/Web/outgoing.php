@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('manifest-regular/truck-waiting-manifest', 'Web\ManifestRegularController@truckWaitingManifest');
   Route::get('manifest-regular/select2-resend-driver', 'Web\ManifestRegularController@getSelect2ResendDriver');
   Route::delete('manifest-regular/delete-do', 'Web\ManifestRegularController@destroyDO');
+  Route::delete('manifest-regular/delete-selected-do', 'Web\ManifestRegularController@destroySelectedDO');
   Route::delete('manifest-regular/{do_manifest_no}', 'Web\ManifestRegularController@destroy');
   Route::post('manifest-regular/new-manifest-lcl', 'Web\ManifestRegularController@newManifestLCL');
   Route::post('manifest-regular/resend', 'Web\ManifestRegularController@resend');

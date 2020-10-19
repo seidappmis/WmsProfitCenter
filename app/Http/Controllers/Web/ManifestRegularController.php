@@ -454,6 +454,26 @@ class ManifestRegularController extends Controller
     return sendSuccess('DO deleted.', $detail);
   }
 
+  public function destroySelectedDO(Request $request)
+  {
+    $data_list_do = json_decode($request->input('data_list_do'), true);
+
+    $rs_id = [];
+    try {
+      DB::beginTransaction();
+      foreach ($data_list_do as $key => $value) {
+        $rs_id[] = $value['id'];
+        LogManifestDetail::where('id', $value['id'])->delete();
+      }
+
+      DB::commit();
+      return sendSuccess("Selected DO deleted.", $rs_id);
+    } catch (Exception $e) {
+      DB::rollback();
+
+    }
+  }
+
   public function edit($id)
   {
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
