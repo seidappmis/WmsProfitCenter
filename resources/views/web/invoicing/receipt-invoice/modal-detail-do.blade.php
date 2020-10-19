@@ -53,7 +53,7 @@
         <span class="text-delivery_no"></span>
 
         <form id="form-cost-per-do">
-          
+          <input type="hidden" name="id">
           <table class="form-table">
             <tr>
               <td width="24%">Total CBM</td>
@@ -85,7 +85,7 @@
             </tr>
             <tr>
               <td>Cost Per DO</td>
-              <td><span class="text-total_cbm"></span></td>
+              <td><span class="text-cost-per-do"></span></td>
               <td></td>
               <td></td><td></td>
             </tr>
@@ -105,6 +105,37 @@
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
+    $('#form-cost-per-do').validate({
+      submitHandler: function (form){
+        setLoading(true);
+        $.ajax({
+          url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/do-data' )}}',
+          type: 'PUT',
+          dataType: 'json',
+          data: $(form).serialize(),
+        })
+        .done(function(result) {
+          setLoading(false);
+          if (result.status) {
+            showSwalAutoClose('Success', result.message)
+            loadDODetail(result.data);
+            dttable_list_manifest_receipt.ajax.reload(null, false)
+            dttable_list_manifest_receipt_do.ajax.reload(null, false)
+          } else {
+            showSwalAutoClose('Warning', result.message)
+          }
+        })
+        .fail(function() {
+          setLoading(false);
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+      }
+    })
+
     $('#table_list_manifest_receipt_do').on('click', '.btn-view', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -112,7 +143,15 @@
       var data = dttable_list_manifest_receipt_do.row(tr).data();
       console.log(data)
 
-      $.ajax({
+      loadDODetail(data)
+
+      $('#modal-detail-do').modal('open')
+      
+    });
+  });
+
+  function loadDODetail(data){
+    $.ajax({
         url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/do-data' )}}',
         type: 'GET',
         dataType: 'json',
@@ -133,6 +172,7 @@
           row += '</tr>';
           $('#modal-detail-do .table_do tbody').append(row)
 
+          $('#form-cost-per-do [name="id"]').val(data.id)
           $('#form-cost-per-do [name="freight_cost"]').val(data.freight_cost)
           $('#form-cost-per-do [name="multidro_amount"]').val(data.multidro_amount)
           $('#form-cost-per-do [name="unloading_amount"]').val(data.unloading_amount)
@@ -142,6 +182,8 @@
           $('#modal-detail-do .text-total_cbm').text(data.cbm_do)
           $('#modal-detail-do .text-cbm_amount').text(data.cbm_amount)
           $('#modal-detail-do .text-ritase_amount').text(data.ritase_amount)
+
+          getCostPerDO(data)
 
           $('#modal-detail-do .table_do_detail tbody').empty();
           $.each(result.data, function(index, val) {
@@ -158,8 +200,6 @@
               row += '</tr>';
               $('#modal-detail-do .table_do_detail tbody').append(row)
           });
-
-          $('#modal-detail-do').modal('open')
         }
       })
       .fail(function() {
@@ -168,8 +208,12 @@
       .always(function() {
         console.log("complete");
       });
-      
-    });
-  });
+  }
+
+  function getCostPerDO(data){
+    var cost_per_do = parseFloat(data.cbm_amount) + parseFloat(data.ritase_amount) + parseFloat(data.ritase2_amount) + parseFloat(data.multidro_amount) + parseFloat(data.unloading_amount) + parseFloat(data.overstay_amount);
+
+    $('.text-cost-per-do').text(cost_per_do.toFixed(3))
+  }
 </script>
 @endpush

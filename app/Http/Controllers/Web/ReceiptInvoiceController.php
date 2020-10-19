@@ -506,4 +506,18 @@ class ReceiptInvoiceController extends Controller
 
     return sendSuccess('Success retrive data', $query);
   }
+
+  public function updateDOData(Request $request, $id_header)
+  {
+    $detail = InvoiceReceiptDetail::findOrFail($request->input('id'));
+
+    $detail->multidro_amount  = $request->input('multidro_amount');
+    $detail->unloading_amount = $request->input('unloading_amount');
+    $detail->overstay_amount  = $request->input('overstay_amount');
+    $detail->ritase2_amount   = $request->input('ritase2_amount');
+
+    $detail->save();
+
+    return sendSuccess('Cost Per DO Updated.', $detail);
+  }
 }
