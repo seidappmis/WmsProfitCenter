@@ -520,4 +520,31 @@ class ReceiptInvoiceController extends Controller
 
     return sendSuccess('Cost Per DO Updated.', $detail);
   }
+
+  public function updateDODataDetail(Request $request, $id_header, $manifest_detail_id)
+  {
+    $invoiceReceiptDetail = InvoiceReceiptDetail::findOrFail($request->input('id'));
+    $manifestDetail       = LogManifestDetail::findOrFail($manifest_detail_id);
+
+    $manifestDetail->cbm = $request->input('cbm') * $manifestDetail->quantity;
+
+    $invoiceReceiptDetail->cbm_amount -= $manifestDetail->nilai_cbm;
+
+    $manifestDetail->nilai_cbm = $manifestDetail->cbm * $manifestDetail->base_price;
+    $invoiceReceiptDetail->cbm_amount += $manifestDetail->nilai_cbm;
+
+    try {
+      DB::beginTransaction();
+
+      $manifestDetail->save();
+      $invoiceReceiptDetail->save();
+
+      DB::commit();
+
+      return sendSuccess('DO Detail Updated.', $invoiceReceiptDetail);
+    } catch (Exception $e) {
+      DB::rollback();
+    }
+
+  }
 }

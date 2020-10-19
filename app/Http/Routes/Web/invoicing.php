@@ -9,6 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('receipt-invoice/{id_header}/manifest', 'Web\ReceiptInvoiceController@getListDo');
   Route::get('receipt-invoice/{id_header}/do-data', 'Web\ReceiptInvoiceController@getDOData');
   Route::put('receipt-invoice/{id_header}/do-data', 'Web\ReceiptInvoiceController@updateDOData');
+  Route::put('receipt-invoice/{id_header}/do-data/{manifest_detail_id}', 'Web\ReceiptInvoiceController@updateDODataDetail');
   Route::get('receipt-invoice/create', 'Web\ReceiptInvoiceController@create');
   Route::post('receipt-invoice', 'Web\ReceiptInvoiceController@store');
   Route::post('receipt-invoice/{id}/create-receipt-no', 'Web\ReceiptInvoiceController@createReceiptNo');

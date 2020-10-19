@@ -136,6 +136,39 @@
       }
     })
 
+    $('#modal-detail-do .table_do_detail').on('click', '.btn-update', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      var id = $(this).data('id');
+      var cbm = $('#modal-detail-do [name="cbm_item_' + id + '"]').val()
+      setLoading(true);
+      $.ajax({
+        url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/do-data' )}}' + '/' + id,
+        type: 'PUT',
+        dataType: 'json',
+        data: {cbm: cbm, id: $('#form-cost-per-do [name="id"]').val()},
+      })
+      .done(function(result) {
+        setLoading(false);
+        if (result.status) {
+          showSwalAutoClose('Success', result.message)
+          loadDODetail(result.data);
+          dttable_list_manifest_receipt.ajax.reload(null, false)
+          dttable_list_manifest_receipt_do.ajax.reload(null, false)
+        } else {
+          showSwalAutoClose('Warning', result.message)
+        }
+      })
+      .fail(function() {
+        setLoading(false);
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+      
+    });
+
     $('#table_list_manifest_receipt_do').on('click', '.btn-view', function(event) {
       event.preventDefault();
       /* Act on the event */
@@ -194,9 +227,9 @@
               row += '<td>' + val.model + '</td>';
               row += '<td>' + val.quantity + '</td>';
               var cbm = val.cbm / val.quantity;
-              row += '<td><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm" value="' + cbm + '"></div></td>';
+              row += '<td><div class="input-field col s12"><input type="text" class="validate" name="cbm_item_' + val.id + '" value="' + cbm + '"></div></td>';
               row += '<td>' + val.cbm + '</td>';
-              row += '<td><span class="waves-effect waves-light indigo btn-small btn-update">Update</span></td>';
+              row += '<td><span class="waves-effect waves-light indigo btn-small btn-update" data-id="' + val.id + '">Update</span></td>';
               row += '</tr>';
               $('#modal-detail-do .table_do_detail tbody').append(row)
           });
