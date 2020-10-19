@@ -24,6 +24,10 @@ class LogManifestDetail extends Model
     return $this->status_confirm ? 'Confirmed' : '';
   }
 
+  public function do_print(){
+    return !empty($this->do_internal) ? $this->do_internal : $this->delivery_no;
+  }
+
   public static function listDO($do_manifest_no)
   {
     return LogManifestDetail::select('log_manifest_detail.*', 'log_manifest_header.status_complete')

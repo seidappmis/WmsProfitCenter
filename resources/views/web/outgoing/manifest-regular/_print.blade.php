@@ -106,7 +106,7 @@
                     <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
                     <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
                     <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
-                    <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top;">{{!empty($vd['data']->delivery_no) ? $vd['data']->delivery_no : $vd['data']->delivery_no}}</td>
+                    <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top;">{{$vd['data']->do_print()}}</td>
                     <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
                     @endif
 
