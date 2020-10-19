@@ -563,6 +563,8 @@ class ManifestRegularController extends Controller
     $rs_model      = [];
     $rs_code_sales = [];
 
+    $rs_check_delivery_no = [];
+
     while (!feof($file)) {
       $row = fgetcsv($file);
       if ($title) {
@@ -608,6 +610,10 @@ class ManifestRegularController extends Controller
         if (empty($rs_model[$do['model']])) {
           $model = MasterModel::where('model_name', $do['model'])->first();
 
+          if (empty($model)) {
+            return sendError("Model Not Found in Master Model");
+          }
+
           $rs_model[$do['model']] = $model;
         }
 
@@ -620,8 +626,15 @@ class ManifestRegularController extends Controller
 
         // $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
 
-        $rs_do[] = $do;
+        $rs_do[]                = $do;
+        $rs_check_delivery_no[] = $do['delivery_no'];
       }
+    }
+
+    $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no);
+
+    if (!empty($rsCheckConcept)) {
+      return sendError('DO Already Exist');
     }
 
     LogManifestDetail::insert($rs_do);
@@ -637,7 +650,7 @@ class ManifestRegularController extends Controller
     foreach ($data['manifestHeader']->details as $key => $value) {
       $rs_details[$value->ship_to_code . $value->ship_to]['ship_to_code'] = $value->ship_to_code;
       $rs_details[$value->ship_to_code . $value->ship_to]['ship_to']      = $value->ship_to;
-      
+
       $rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] = empty($rs_details[$value->ship_to_code . $value->ship_to]['rowspan']) ? 1 : ($rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] + 1);
 
       if (empty($rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no])) {
