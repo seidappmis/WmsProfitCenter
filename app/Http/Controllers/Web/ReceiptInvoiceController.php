@@ -138,12 +138,31 @@ class ReceiptInvoiceController extends Controller
     }
 
     $rs_manifest_detail = LogManifestDetail::select(
-      'log_manifest_detail.*',
+      'log_manifest_detail.delivery_no',
+      'log_manifest_detail.do_manifest_no',
+      'log_manifest_detail.do_date',
+      'log_manifest_detail.model',
+      'log_manifest_detail.region',
+      'log_manifest_detail.area',
+      'log_manifest_detail.kode_cabang',
+      'log_manifest_detail.code_sales',
+      'log_manifest_detail.city_name',
+      'log_manifest_detail.city_code',
+      'log_manifest_detail.ship_to',
+      'log_manifest_detail.ship_to_code',
+      'log_manifest_detail.sold_to',
+      'log_manifest_detail.sold_to_code',
+      'log_manifest_detail.sold_to_street',
       'log_manifest_header.do_manifest_date',
       'log_manifest_header.vehicle_code_type',
       'log_manifest_header.vehicle_number',
       'log_manifest_header.vehicle_description',
       'log_manifest_header.driver_name',
+      DB::raw('SUM(log_manifest_detail.quantity) AS quantity'),
+      DB::raw('SUM(log_manifest_detail.cbm) AS cbm_do'),
+      DB::raw('SUM(log_manifest_detail.nilai_cbm) AS nilai_cbm'),
+      DB::raw('SUM(log_manifest_detail.nilai_ritase) AS nilai_ritase'),
+      DB::raw('SUM(log_manifest_detail.nilai_ritase2) AS nilai_ritase2'),
       DB::raw('log_cabang.short_description AS short_description_cabang'),
       DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
       DB::raw('log_manifest_header.city_code AS city_code_header'),
@@ -151,7 +170,9 @@ class ReceiptInvoiceController extends Controller
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
-      ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)->get();
+      ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
+      ->groupBy(['do_manifest_no', 'delivery_no'])
+      ->get();
 
     $rsInvoiceReceiptDetail = [];
     foreach ($rs_manifest_detail as $key => $value) {
@@ -176,14 +197,17 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['city_code_header']    = $value->city_code_header;
       $invoiceManifestDetail['city_name_header']    = $value->city_name_header;
       $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;
-      $invoiceManifestDetail['cbm_do']              = $value->cbm;
-      $invoiceManifestDetail['freight_cost_cbm']    = 1;
-      $invoiceManifestDetail['freight_cost']        = $value->base_price;
+      $invoiceManifestDetail['cbm_do']              = $value->cbm_do;
       $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
+      $invoiceManifestDetail['freight_cost_cbm']    = 1;
+      $invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
       $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase;
       $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2;
       $invoiceManifestDetail['code_sales']          = $value->code_sales;
-      $invoiceManifestDetail['lead_time']           = $value->lead_time;
+      $invoiceManifestDetail['lead_time']           = 0;
+      $invoiceManifestDetail['multidro_amount']     = 0;
+      $invoiceManifestDetail['unloading_amount']    = 0;
+      $invoiceManifestDetail['overstay_amount']     = 0;
       $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
       $invoiceManifestDetail['region']              = $value->region;
       $invoiceManifestDetail['area']                = $value->area;
@@ -478,7 +502,7 @@ class ReceiptInvoiceController extends Controller
     $query = LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
       ->where('delivery_no', $request->input('delivery_no'))
       ->get()
-      ;
+    ;
 
     return sendSuccess('Success retrive data', $query);
   }

@@ -60,28 +60,28 @@
               <td width="24%"><span class="text-total_cbm"></span></td>
               <td></td>
               <td width="24%" class="red">Master FC CBM</td>
-              <td width="24%" class="red"><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm"></div></td>
+              <td width="24%" class="red"><div class="input-field col s12"><input type="text" class="validate" name="freight_cost"></div></td>
             </tr>
             <tr>
               <td width="24%">Total Cost CBM</td>
-              <td width="24%"><span class="text-total_cbm"></span></td>
+              <td width="24%"><span class="text-cbm_amount"></span></td>
               <td></td>
               <td width="24%">Multidrop Cost</td>
-              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm"></div></td>
+              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="multidro_amount"></div></td>
             </tr>
             <tr>
               <td width="24%">Total Cost Ritase</td>
-              <td width="24%"><span class="text-total_cbm"></span></td>
+              <td width="24%"><span class="text-ritase_amount"></span></td>
               <td></td>
               <td width="24%">Unloading Cost</td>
-              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm"></div></td>
+              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="unloading_amount"></div></td>
             </tr>
             <tr>
               <td width="24%">Ritase 2 Cost</td>
-              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm"></div></td>
+              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="ritase2_amount"></div></td>
               <td></td>
               <td width="24%">Overstay Cost</td>
-              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm"></div></td>
+              <td width="24%"><div class="input-field col s12"><input type="text" class="validate" name="overstay_amount"></div></td>
             </tr>
             <tr>
               <td>Cost Per DO</td>
@@ -133,6 +133,16 @@
           row += '</tr>';
           $('#modal-detail-do .table_do tbody').append(row)
 
+          $('#form-cost-per-do [name="freight_cost"]').val(data.freight_cost)
+          $('#form-cost-per-do [name="multidro_amount"]').val(data.multidro_amount)
+          $('#form-cost-per-do [name="unloading_amount"]').val(data.unloading_amount)
+          $('#form-cost-per-do [name="ritase2_amount"]').val(data.ritase2_amount)
+          $('#form-cost-per-do [name="overstay_amount"]').val(data.overstay_amount)
+
+          $('#modal-detail-do .text-total_cbm').text(data.cbm_do)
+          $('#modal-detail-do .text-cbm_amount').text(data.cbm_amount)
+          $('#modal-detail-do .text-ritase_amount').text(data.ritase_amount)
+
           $('#modal-detail-do .table_do_detail tbody').empty();
           $.each(result.data, function(index, val) {
              /* iterate through array or object */
@@ -141,9 +151,9 @@
               row += '<td>' + val.delivery_items + '</td>';
               row += '<td>' + val.model + '</td>';
               row += '<td>' + val.quantity + '</td>';
-              row += '<td><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm" value="' + val.cbm + '"></div></td>';
-              var total_cbm = val.quantity * val.cbm;
-              row += '<td>' + total_cbm + '</td>';
+              var cbm = val.cbm / val.quantity;
+              row += '<td><div class="input-field col s12"><input type="text" class="validate" name="master_fc_cbm" value="' + cbm + '"></div></td>';
+              row += '<td>' + val.cbm + '</td>';
               row += '<td><span class="waves-effect waves-light indigo btn-small btn-update">Update</span></td>';
               row += '</tr>';
               $('#modal-detail-do .table_do_detail tbody').append(row)
