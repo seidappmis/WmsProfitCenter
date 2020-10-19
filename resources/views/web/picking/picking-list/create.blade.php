@@ -68,8 +68,8 @@
           }
         })
         .fail(function(xhr) {
+          showSwalError(xhr) // Custom function to show error with sweetAlert
           setLoading(false); // Enable Button when failed
-            showSwalError(xhr) // Custom function to show error with sweetAlert
         });
       }
     });

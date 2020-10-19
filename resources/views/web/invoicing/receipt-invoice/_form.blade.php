@@ -280,7 +280,8 @@
           $('#invoice_receipt_id').val(result.data.invoice_receipt_id)
         }
       })
-      .fail(function() {
+      .fail(function(xhr) {
+        showSwalError(xhr)
         console.log("error");
       })
       .always(function() {
@@ -303,7 +304,8 @@
           $('.btn-create-receipt-no').addClass('hide')
         }
       })
-      .fail(function() {
+      .fail(function(xhr) {
+        showSwalError(xhr)
         console.log("error");
       })
       .always(function() {

@@ -144,12 +144,12 @@ class StockTakeCreateTagController extends Controller
 
     $input1->sto_id   = $request->input('sto_id');
     $input1->no_tag   = $lastNoTag;
-    $input1->model    = $request->input('model');
+    $input1->model    = $request->input('model_id');
     $input1->location = $request->input('location');
 
     $input2->sto_id   = $request->input('sto_id');
     $input2->no_tag   = $lastNoTag;
-    $input2->model    = $request->input('model');
+    $input2->model    = $request->input('model_id');
     $input2->location = $request->input('location');
 
     try {

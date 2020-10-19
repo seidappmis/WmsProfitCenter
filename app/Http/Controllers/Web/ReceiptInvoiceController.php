@@ -285,6 +285,10 @@ class ReceiptInvoiceController extends Controller
 
   public function updateReceiptInvoice(Request $request, $id)
   {
+    $request->validate([
+      'kwitansi_no' => 'required',
+    ]);
+
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
