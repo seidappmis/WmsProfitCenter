@@ -89,14 +89,14 @@
 <script type="text/javascript">
   var dtdatatable;
   jQuery(document).ready(function($) {
-    @if (auth()->user()->cabang->hq && auth()->user()->area != "All")
+    @if (auth()->user()->cabang->hq)
     set_select2_value('#area_filter', '{{auth()->user()->area_data->code}}', '{{auth()->user()->area}}');
     $('#area_name_filter').val('{{auth()->user()->area}}');
-    $('#area_filter').attr('disabled', 'disabled');
-    $('.branch-filter-wrapper').addClass('hide')
+    // $('#area_filter').attr('disabled', 'disabled');
     
-    $('.global-filter-wrapper').removeClass('m3')
-    $('.global-filter-wrapper').addClass('m6')
+    // $('.branch-filter-wrapper').addClass('hide')
+    // $('.global-filter-wrapper').removeClass('m3')
+    // $('.global-filter-wrapper').addClass('m6')
     @elseif(!auth()->user()->cabang->hq)
     set_select2_value('#branch_filter', '{{auth()->user()->cabang->kode_cabang}}', '{{auth()->user()->cabang->long_description}}')
     $('.global-filter-wrapper').removeClass('m3')
