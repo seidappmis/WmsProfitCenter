@@ -834,6 +834,32 @@ class PickingListController extends Controller
     }
   }
 
+  public function destroySelectedDetails(Request $request)
+  {
+    $data_picking_list_details = json_decode($request->input('data_picking_list_details'), true);
+
+    try {
+      DB::beginTransaction();
+
+      foreach ($data_picking_list_details as $key => $value) {
+        $pickingDetail = PickinglistDetail::findOrFail($value['id']);
+
+        ConceptFlowDetail::where('invoice_no', $pickingDetail->invoice_no)
+          ->where('line_no', $pickingDetail->line_no)
+          ->where('delivery_no', $pickingDetail->delivery_no)
+          ->where('delivery_items', $pickingDetail->delivery_items)
+          ->delete();
+
+        $pickingDetail->delete();
+      }
+
+      DB::commit();
+      return sendSuccess('Item Deleted', $data_picking_list_details);
+    } catch (Exception $e) {
+      DB::rollback();
+    }
+  }
+
   public function edit($id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
@@ -886,7 +912,7 @@ class PickingListController extends Controller
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-      
+
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
       $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.5);
