@@ -11,7 +11,7 @@
           {{-- <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li> --}}
           <li>
             <a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown">
-              {{auth()->user()->first_name}} {{auth()->user()->last_name}} | {{auth()->user()->cabang->long_description}}
+              {{auth()->user()->first_name}} {{auth()->user()->last_name}} | {{!empty(auth()->user()->cabang) ? auth()->user()->cabang->long_description : ''}}
               <span class=""><i class="material-icons" style="vertical-align: middle;">arrow_drop_down</i></span>
             </a>
           </li>
