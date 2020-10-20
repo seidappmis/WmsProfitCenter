@@ -630,7 +630,7 @@ class ManifestRegularController extends Controller
         if (empty($rs_model[$do['model']])) {
           $model = MasterModel::where('model_name', $do['model'])->first();
 
-          if (empty($model)) {
+          if ($request->input('type') != 'return' && empty($model)) {
             return sendError("Model Not Found in Master Model");
           }
 
@@ -651,10 +651,12 @@ class ManifestRegularController extends Controller
       }
     }
 
-    $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no);
+    if ($request->input('type') != 'return') {
+      $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no);
 
-    if (!empty($rsCheckConcept)) {
-      return sendError('DO Already Exist');
+      if (!empty($rsCheckConcept)) {
+        return sendError('DO Already Exist');
+      }
     }
 
     LogManifestDetail::insert($rs_do);

@@ -154,15 +154,16 @@
             </td>
         </tr>
         <tr>
-            <td width="20%">PDO No.</td>
+            <td width="20%">Order No.</td>
             <td width="30%">
                 <div class="input-field col s12">
-                    <input 
+                    <input type="text" name="order_no" class="validate" value="{{!empty($manifestHeader) ? $manifestHeader->picking->picking_no : '' }}" readonly="">
+                    {{-- <input 
                         type="text" 
                         class="validate" 
                         name="pdo_no" 
                         value="{{!empty($manifestHeader->pdo_no) ? $manifestHeader->pdo_no : ''}}"
-                        />
+                        /> --}}
               </div>
             </td>
             <td colspan="2"></td>

@@ -43,7 +43,7 @@
                                 @push('script_css')
                                 <style type="text/css">
                                   .row.gate-row .col {
-                                    padding: 0 .5rem;
+                                    padding: 0 .2rem;
                                   }
                                   .row.gate-row .col p {
                                     font-size: 11px;

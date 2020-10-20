@@ -1,7 +1,16 @@
+@if($pickinglistHeader->lmb_details->count() == 0)
+{!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item mb-1') !!}
+@endif
 <div class="section-data-tables"> 
   <table id="picking-list-detail-table" class="display" width="100%">
       <thead>
           <tr>
+            <th data-priority="1" class="datatable-checkbox-cell" width="30px">
+              <label>
+                  <input type="checkbox" class="select-all" />
+                  <span></span>
+              </label>
+            </th>
             <th data-priority="2" width="30px">No.</th>
             <th>DELIVERY NO.</th>
             <th>DELIVERY ITEMS</th>
@@ -34,11 +43,26 @@
               d.search['value'] = $('#global_filter').val()
             }
       },
-      order: [2, 'asc'],
+      order: [
+        [2, 'asc'],
+        [3, 'asc']
+      ],
       "fnDrawCallback": function( oSettings ) {
-        $('#text-total-cbm-concept').text(setDecimal(oSettings.json.total_cbm))
+        var total_cbm = oSettings.json.total_cbm;
+        $('#text-total-cbm-concept').text(setDecimal(total_cbm != null ? total_cbm : 0))
       },
       columns: [
+          {
+            data: 'DT_RowIndex',
+            orderable: false,
+            render: function ( data, type, row ) {
+                if ( type === 'display' ) {
+                    return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+                }
+                return data;
+            },
+            className: "datatable-checkbox-cell"
+          },
           {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
           {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
           {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
@@ -49,6 +73,49 @@
           {data: 'ean_code', name: 'ean_code', className: 'detail'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ],
+    });
+
+    set_datatables_checkbox('#picking-list-detail-table', dtdatatable_picking_list_detail)
+
+    $('.btn-multi-delete-selected-item').click(function(event) {
+      /* Act on the event */
+      /* Act on the event */
+      swal({
+        title: "Are you sure?",
+        text: "Are you sure delete selected item?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function (confirm) { // proses confirm
+        var data_picking_list_details = [];
+        dtdatatable_picking_list_detail.$('input[type="checkbox"]').each(function() {
+           /* iterate through array or object */
+           if(this.checked){
+            var row = $(this).closest('tr');
+            var row_data = dtdatatable_picking_list_detail.row(row).data();
+            data_picking_list_details.push(row_data);
+           }
+        });
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+            url: '{{ url('picking-list/delete-selected-details') }}' ,
+            type: 'DELETE',
+            data: 'data_picking_list_details=' + JSON.stringify(data_picking_list_details),
+          })
+          .done(function() { // Kalau ajax nya success
+            showSwalAutoClose('Success', 'selected data deleted.')
+            dtdatatable_do_for_picking.ajax.reload(null, false)
+            dtdatatable_picking_list_detail.ajax.reload(null, false); // reload datatable
+          })
+          .fail(function() { // Kalau ajax nya gagal
+            console.log("error");
+          });
+          
+        }
+      })
     });
 
     dtdatatable_picking_list_detail.on('click', '.btn-delete', function(event) {

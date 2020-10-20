@@ -43,9 +43,9 @@
               </tr>
               <tr>
                 <td colspan="10" style="width: 65mm;"></td>
-                <td colspan="2">PDO. No</td>
+                <td colspan="2">Order No</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>{{$manifestHeader->pdo_no}}</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{$manifestHeader->picking->picking_no}}</strong></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>

@@ -25,6 +25,7 @@ class Gate extends BaseModel
               DB::raw(
                 '(SELECT
                 wms_pickinglist_header.`gate_number` AS picking_gate_number,
+                wms_pickinglist_header.area,
                 wms_pickinglist_header.vehicle_number,
                 IF(wms_pickinglist_header.city_code = "AS", "AS", wms_pickinglist_header.driver_id) AS driver_id,
                 wms_pickinglist_header.`driver_register_id`,
@@ -37,12 +38,15 @@ class Gate extends BaseModel
               GROUP BY wms_pickinglist_header.`driver_register_id`
             ) AS t'
               ),
-              't.picking_gate_number', '=', 'tr_gate.gate_number'
+              function($join){
+                $join->on('t.picking_gate_number', '=', 'tr_gate.gate_number');
+                $join->on('t.area', '=', 'tr_gate.area');
+              }
             )->orderBy('gate_number');
       if(strtoupper($area)=='ALL'){
         // tampilkan all;
       }else{
-        $query->where('area', $area);
+        $query->where('tr_gate.area', $area);
       }            
 
     return $query;          
