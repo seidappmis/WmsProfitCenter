@@ -129,6 +129,13 @@
 
     $('#remove-selected-do-items').click(function(event) {
       /* Act on the event */
+      var total_cbm = parseFloat($('#text-total-cbm-concept').text())
+      dtdatatable_picking.$('tr.selected').each(function() {
+        var row_data = dtdatatable_picking.row(this).data()
+        total_cbm -= parseFloat(row_data.cbm)
+      });
+      $('#text-total-cbm-concept').text(setDecimal(total_cbm))
+
       dtdatatable_picking
         .rows( '.selected' )
         .remove()
