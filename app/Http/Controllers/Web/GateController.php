@@ -149,7 +149,7 @@ class GateController extends Controller
       ;
 
     if (!empty($request->input('area'))) {
-      $query->where('area', $request->input('area'));
+      $query->where('tr_gate.area', $request->input('area'));
     }
 
     return get_select2_data($request, $query);
