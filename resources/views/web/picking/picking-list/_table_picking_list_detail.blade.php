@@ -48,7 +48,8 @@
         [3, 'asc']
       ],
       "fnDrawCallback": function( oSettings ) {
-        $('#text-total-cbm-concept').text(setDecimal(oSettings.json.total_cbm))
+        var total_cbm = oSettings.json.total_cbm;
+        $('#text-total-cbm-concept').text(setDecimal(total_cbm != null ? total_cbm : 0))
       },
       columns: [
           {

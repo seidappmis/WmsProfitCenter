@@ -198,6 +198,10 @@
       var tr = $(this).parent().parent();
       var data = dtdatatable_do_for_picking.row(tr).data();
 
+      var total_cbm = parseFloat($('#text-total-cbm-concept').text())
+      total_cbm += parseFloat(data.cbm)
+      $('#text-total-cbm-concept').text(setDecimal(total_cbm))
+
       dtdatatable_picking.row.add(data).draw()
       dtdatatable_do_for_picking.ajax.reload(null, false)
     })
@@ -241,15 +245,19 @@
       return;
     }
     $(ths).prop('disabled', true);
+    var total_cbm = parseFloat($('#text-total-cbm-concept').text())
     dtdatatable_do_for_picking.$('input[type="checkbox"]').each(function() {
        /* iterate through array or object */
        if(this.checked){
         var row = $(this).closest('tr');
         var row_data = dtdatatable_do_for_picking.row(row).data();
+        
+        total_cbm += parseFloat(row_data.cbm)
 
         dtdatatable_picking.row.add(row_data)
        }
     });
+    $('#text-total-cbm-concept').text(setDecimal(total_cbm))
 
     dtdatatable_picking.draw()
 
