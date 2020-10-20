@@ -255,6 +255,9 @@ class BranchManifestController extends Controller
     // echo "</pre>";exit;
 
     $view_print = view('web.outgoing.branch-manifest._print', $data);
+    if ($request->input('filetype') == 'xls') {
+      $view_print = view('web.outgoing.branch-manifest._excel', $data);
+    }
     $title      = 'Branch Manifest';
 
     if ($request->input('filetype') == 'html') {
@@ -269,30 +272,34 @@ class BranchManifestController extends Controller
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
-
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(20);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(5);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(2);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(0);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(0);
       $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(0);
       $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(1);
       $spreadsheet->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(5);
-      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(2);
+      $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(3);
+      $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(0);
       $spreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(5);
-      $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(1);
+      $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(10);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -303,17 +310,17 @@ class BranchManifestController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left' => 2,
-        'margin_right' => 2,
-        'margin_top' => 10,
-        'margin_bottom' => 2,
-        'margin_header' => 2,
-        'margin_footer' => 2
+       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left' => 7,
+        'margin_right' => 12,
+        'margin_top' => 5,
+        'margin_bottom' => 5,
+        'format' => 'Letter'
       ]);
+     $mpdf->shrink_tables_to_fit = 1;
+       $mpdf->WriteHTML($view_print);
 
-      $mpdf->WriteHTML($view_print);
-
+      // $mpdf->Output();
       $mpdf->Output($title . '.pdf', "D");
 
     } else {

@@ -3,10 +3,10 @@
     src: url(/fonts/ConnectCode39.ttf);
 }
 body {
-    margin-top: 5mm;
-    margin-bottom: 5mm;
-    margin-right: 12mm;
-    margin-left: 7mm;
+    
+    margin-bottom: 80mm;
+    margin-right: 0mm;
+    margin-left: 0mm;
 }
 .title {
     font-size: 12pt;

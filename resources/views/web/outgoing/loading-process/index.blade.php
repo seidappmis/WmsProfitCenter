@@ -95,7 +95,7 @@
      $('#area_filter').select2({
      placeholder: '-- Select Area --',
      allowClear: true,
-     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+     ajax: get_select2_ajax_options('{{url('/master-area/select2-area-only')}}')
   });
     jQuery(document).ready(function($) {
 

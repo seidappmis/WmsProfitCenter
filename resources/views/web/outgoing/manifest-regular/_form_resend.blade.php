@@ -152,7 +152,7 @@
   jQuery(document).ready(function($) {
     $('#form-resend [name="change_vehicle"]').select2({
       placeholder: '-- Select Driver --',
-      ajax: get_select2_ajax_options('/manifest-regular/select2-resend-driver', {area: '{{$manifestHeader->area}}'})
+      ajax: get_select2_ajax_options('{{url('/manifest-regular/select2-resend-driver', {area: '{{$manifestHeader->area}}'})}}')
     })
 
     $('#form-resend [name="change_vehicle"]').change(function(event) {

@@ -128,7 +128,7 @@
         $('#form-assign-do [name="city_code"]').select2({
           placeholder: '-- Select Ship to City --',
           allowClear: true,
-          ajax: get_select2_ajax_options('/destination-city-of-branch/select2')
+          ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}')
         })
         $('#form-assign-do [name="city_code"]').change(function(event) {
           /* Act on the event */

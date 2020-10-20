@@ -76,7 +76,7 @@
   $('#area_filter').select2({
      placeholder: '-- Select Area --',
      allowClear: true,
-     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+     ajax: get_select2_ajax_options('{{url('/master-area/select2-area-only')}}')
   });
   $('#branch_filter').select2({
      placeholder: '-- Select Branch --',
@@ -232,14 +232,14 @@ function setManifestHQ(manifestHeader){
 function set_hq_select_expedition(filter = {expedition_code: ''}){
     $('#form-update-manifest [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition', filter)
+        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-all-expedition')}}', filter)
   })
 }
 
 function set_hq_select_vehicle_type(filter = {expedition_code: ''}) {
   $('#form-update-manifest [name="vehicle_code_type"]').select2({
     placeholder: '-- Select Vehicle --',
-    ajax: get_select2_ajax_options('/master-freight-cost/select2-vehicle', filter)
+    ajax: get_select2_ajax_options('{{url('/master-freight-cost/select2-vehicle')}}', filter)
   })
 }
 
@@ -248,13 +248,13 @@ function set_hq_select_ship_to_city(filter = {expedition_code: ''}){
   $('#form-update-manifest [name="city_code"]').select2({
     placeholder: '-- Select Destination City --',
     allowClear: true,
-    ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+    ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', filter)
   })
 
   $('#form-edit-do [name="city_code"]').select2({
       placeholder: '-- Select Ship to City --',
       allowClear: true,
-      ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+      ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', filter)
     })
 }
 
@@ -287,8 +287,8 @@ $('#form-update-manifest [name="expedition_code"]').change(function(event) {
 function set_branch_select_expedition(filter = {expedition_code: ''}){
     $('#form-update-manifest [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        //ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
-        ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', filter)
+        //ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition', {onetime: true})}}')
+        ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition')}}', filter)
   })
 }
 
@@ -296,7 +296,7 @@ function set_branch_select_expedition(filter = {expedition_code: ''}){
 function set_branch_select_vehicle_type(filter = {expedition_code: ''}) {
     $('#form-update-manifest [name="vehicle_code_type"]').select2({
       placeholder: '-- Select Vehicle --',
-      ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle', filter)
+      ajax: get_select2_ajax_options('{{url('/branch-expedition-vehicle/select2-vehicle')}}', filter)
     })
 }
 
@@ -305,13 +305,13 @@ function set_branch_select_ship_to_city(filter = {expedition_code: ''}){
   $('#form-update-manifest [name="city_code"]').select2({
     placeholder: '-- Select Destination City --',
     allowClear: true,
-    ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+    ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}', filter)
   })
 
    $('#form-edit-do [name="city_code"]').select2({
       placeholder: '-- Select Ship to City --',
       allowClear: true,
-      ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+      ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}', filter)
     })
 }
 

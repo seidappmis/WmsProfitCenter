@@ -215,7 +215,7 @@
       $('#form-manifest [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}'})
+        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$lmbHeader->expedition_code}}'})}}')
       })
 
         $('#form-manifest [name="city_code"]').change(function(event) {

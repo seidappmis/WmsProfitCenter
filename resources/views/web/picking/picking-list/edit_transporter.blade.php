@@ -101,7 +101,7 @@
 
     $('#form-assign-vehicle [name="vehicle_code_type"]').select2({
          placeholder: '-- Select Vehicle --',
-         ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
+         ajax: get_select2_ajax_options('{{url('/master-vehicle/select2-vehicle')}}')
       });
 
     $('#form-assign-vehicle [name="vehicle_code_type"]').change(function(event) {
@@ -112,7 +112,7 @@
 
     $('#form-assign-vehicle [name="destination_number"]').select2({
          placeholder: '-- Select Destination --',
-         ajax: get_select2_ajax_options('/master-destination/select2-destination')
+         ajax: get_select2_ajax_options('{{url('/master-destination/select2-destination')}}')
       });
 
     $('#form-assign-vehicle [name="destination_number"]').change(function(event) {

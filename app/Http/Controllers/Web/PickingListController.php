@@ -889,7 +889,7 @@ class PickingListController extends Controller
       
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
-      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.5);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
@@ -900,13 +900,13 @@ class PickingListController extends Controller
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(false);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(false);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(false);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(false);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -917,19 +917,18 @@ class PickingListController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left'                     => 2,
-        'margin_right'                    => 2,
-        'margin_top'                      => 10,
-        'margin_bottom'                   => 2,
-        'margin_header'                   => 2,
-        'margin_footer'                   => 2,
+     $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left' => 7,
+        'margin_right' => 12,
+        'margin_top' => 5,
+        'margin_bottom' => 5,
+        'format' => 'Letter'
       ]);
+     $mpdf->shrink_tables_to_fit = 1;
+       $mpdf->WriteHTML($view_print);
 
-      $mpdf->WriteHTML($view_print);
-
-      // $mpdf->Output();
       $mpdf->Output($title . '.pdf', "D");
+       // $mpdf->Output();
 
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404

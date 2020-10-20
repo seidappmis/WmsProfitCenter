@@ -158,7 +158,7 @@
     jQuery(document).ready(function($) {
       $('#form-picking-list [name="storage_id"]').select2({
         placeholder: '-- Select Storage --',
-        ajax: get_select2_ajax_options('/storage-master/select2-user-storage-without-intransit')
+        ajax: get_select2_ajax_options('{{url('/storage-master/select2-user-storage-without-intransit')}}')
       })
       $('#form-picking-list [name="storage_id"]').change(function(event) {
           var data = $(this).select2('data')[0];
@@ -239,11 +239,11 @@
       $('.destination-input-wrapper').removeClass('hide');
       $('#select-gate-number').select2({
          placeholder: '-- Select Gate --',
-         ajax: get_select2_ajax_options('/master-gate/select2-free-gate')
+         ajax: get_select2_ajax_options('{{url('/master-gate/select2-free-gate')}}')
       });
       $('#form-picking-list [name="destination_number"]').select2({
         placeholder: '-- Select Destination --',
-        ajax: get_select2_ajax_options('/master-destination/select2-destination')
+        ajax: get_select2_ajax_options('{{url('/master-destination/select2-destination')}}')
       });
       $('#form-picking-list [name="destination_number"]').change(function(event) {
         /* Act on the event */
@@ -317,7 +317,7 @@
     function set_hq_select_driver_name(filter = {driver_register_id: ''}){
         $('#form-picking-list [name="driver_id"]').select2({
             placeholder: '-- Select Driver --',
-            ajax: get_select2_ajax_options('/picking-list/select2-driver-by-register-id', filter)
+            ajax: get_select2_ajax_options('{{url('/picking-list/select2-driver-by-register-id')}}', filter)
           })
         
     }
@@ -325,14 +325,14 @@
     function set_hq_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
         $('#form-picking-list select[name="vehicle_number"]').select2({
             placeholder: '-- Select Vehicle No. --',
-            ajax: get_select2_ajax_options('/picking-list/select2-vehicle-number', filter)
+            ajax: get_select2_ajax_options('{{url('/picking-list/select2-vehicle-number')}}', filter)
           })
     }
 
     function set_hq_select_expedition(){
         $('#form-picking-list [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
-            ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+            ajax: get_select2_ajax_options('{{url('/master-expedition/select2-all-expedition')}}')
       })
     }
 
@@ -340,7 +340,7 @@
     function set_hq_select_vehicle_type(filter = {expedition_code: ''}) {
         $('#form-picking-list [name="vehicle_code_type"]').select2({
           placeholder: '-- Select Vehicle --',
-          ajax: get_select2_ajax_options('/master-freight-cost/select2-vehicle', filter)
+          ajax: get_select2_ajax_options('{{url('/master-freight-cost/select2-vehicle')}}', filter)
         })
     }
 
@@ -349,7 +349,7 @@
       $('#form-picking-list [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', filter)
       })
     }
 
@@ -414,21 +414,21 @@
     function set_branch_select_driver_name(filter = {expedition_code: ''}){
         $('#form-picking-list [name="driver_id"]').select2({
             placeholder: '-- Select Driver --',
-            ajax: get_select2_ajax_options('/branch-master-driver/select2', filter)
+            ajax: get_select2_ajax_options('{{url('/branch-master-driver/select2')}}', filter)
           })
     }
 
     function set_branch_select_vehicle_number(filter = {expedition_code: '', vehicle_code_type: ''}){
         $('#form-picking-list select[name="vehicle_number"]').select2({
             placeholder: '-- Select Vehicle No. --',
-            ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle-number', filter)
+            ajax: get_select2_ajax_options('{{url('/branch-expedition-vehicle/select2-vehicle-number')}}', filter)
           })
     }
 
     function set_branch_select_expedition(){
         $('#form-picking-list [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
-            ajax: get_select2_ajax_options('/master-branch-expedition/select2-active-expedition', {onetime: true})
+            ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition')}}', {onetime: true})
       })
     }
 
@@ -436,7 +436,7 @@
     function set_branch_select_vehicle_type(filter = {expedition_code: ''}) {
         $('#form-picking-list [name="vehicle_code_type"]').select2({
           placeholder: '-- Select Vehicle --',
-          ajax: get_select2_ajax_options('/branch-expedition-vehicle/select2-vehicle', filter)
+          ajax: get_select2_ajax_options('{{url('/branch-expedition-vehicle/select2-vehicle')}}', filter)
         })
     }
 
@@ -445,7 +445,7 @@
       $('#form-picking-list [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/destination-city-of-branch/select2', filter)
+        ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}', filter)
       })
     }
 

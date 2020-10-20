@@ -236,14 +236,14 @@
     function set_lcl_select_expedition(){
         $('#form-new-lcl [name="expedition_code"]').select2({
             placeholder: '-- Select Expedition --',
-            ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+            ajax: get_select2_ajax_options('{{url('/master-expedition/select2-all-expedition')}}')
       })
     }
 
     function set_lcl_select_vehicle_type(filter = {expedition_code: ''}) {
         $('#form-new-lcl [name="vehicle_code_type"]').select2({
           placeholder: '-- Select Vehicle --',
-          ajax: get_select2_ajax_options('/master-freight-cost/select2-vehicle', filter)
+          ajax: get_select2_ajax_options('{{url('/master-freight-cost/select2-vehicle')}}', filter)
         })
     }
 
@@ -253,7 +253,7 @@
       $('#form-new-lcl [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', filter)
+        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', filter)
       })
     }
 </script>

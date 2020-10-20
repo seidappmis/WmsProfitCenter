@@ -3,10 +3,7 @@
     src: url(/fonts/ConnectCode39.ttf);
 }
 body {
-    margin-top: 5mm;
-    margin-bottom: 5mm;
-    margin-right: 12mm;
-    margin-left: 7mm;
+    margin: 0;
 }
 .title {
     font-size: 12pt;
@@ -26,20 +23,20 @@ footer {
 }
 @page {
     size: 8.5in 11in;
-    /*margin: 0mm;*/
+    margin-right: 12mm;
+    margin-left: 7mm;
 }
 @media print {
     footer {
-        position: absolute!important;
-        bottom: 5mm!important;
-        left: 7mm;
-        right: 12mm;
+        position: fixed!important;
+        bottom: 0!important;
+        width: 100%;
     }
     .content-block, p {
         page-break-inside: avoid;
     }
-    html, body {
-        /*width: 8.5in!important;
-        height: 11in!important;*/
-    }
+    /*html, body {
+        width: 8.5in!important;
+        height: 11in!important;
+    }*/
 }

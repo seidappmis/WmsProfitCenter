@@ -193,12 +193,12 @@
     jQuery(document).ready(function($) {
       $('#form-id-card-scan [name="destination_number"]').select2({
          placeholder: '-- Select Destination --',
-         ajax: get_select2_ajax_options('/master-destination/select2-destination')
+         ajax: get_select2_ajax_options('{{url('/master-destination/select2-destination')}}')
       });
 
       $('#form-id-card-scan [name="area"]').select2({
          placeholder: '-- Select Area --',
-         ajax: get_select2_ajax_options('/master-area/select2-areas')
+         ajax: get_select2_ajax_options('{{url('/master-area/select2-areas')}}')
       });
 
       @if (auth()->user()->area != 'All')
@@ -211,7 +211,7 @@
     function set_select2_vehicle_number(filter = {expedition_code: ''}){
       $('#form-id-card-scan [name="vehicle_number"]').select2({
          placeholder: '-- Select Vehicle Number --',
-         ajax: get_select2_ajax_options('/idcard-scan/select2-vehicle-number', filter)
+         ajax: get_select2_ajax_options('{{url('/idcard-scan/select2-vehicle-number')}}', filter)
       });
 
       $('#form-id-card-scan [name="vehicle_number"]').change(function(event) {
@@ -229,7 +229,7 @@
     function set_select2_vehicle_code_type(filter = {vehicle_group_id: ''}){
       $('#form-id-card-scan [name="vehicle_code_type"]').select2({
          placeholder: '-- Select Vehicle Type --',
-         ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle', filter)
+         ajax: get_select2_ajax_options('{{url('/master-vehicle/select2-vehicle')}}', filter)
       });
       $('#form-id-card-scan [name="vehicle_code_type"]').change(function(event) {
         /* Act on the event */

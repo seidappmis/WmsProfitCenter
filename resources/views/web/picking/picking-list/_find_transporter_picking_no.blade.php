@@ -67,11 +67,11 @@
 <script type="text/javascript">
   $('#gate_number').select2({
      placeholder: '-- Select Gate --',
-     ajax: get_select2_ajax_options('/master-gate/select2-free-gate', {area: '{{auth()->user()->area}}'})
+     ajax: get_select2_ajax_options('{{url('/master-gate/select2-free-gate')}}', {area: '{{auth()->user()->area}}'})
   });
   $('#city_code').select2({
      placeholder: '-- Select Ship To City --',
-     ajax: get_select2_ajax_options('/master-expedition/select2-expedition-destination-city', {expedition_code: '{{$driverRegistered->expedition_code}}'})
+     ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{$driverRegistered->expedition_code}}'})
   });
   $('#city_code').change(function(event) {
     /* Act on the event */

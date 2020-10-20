@@ -697,24 +697,30 @@ class PickingToLMBController extends Controller
     // echo "<pre>";
     // print_r($rs_details);
     // exit;
-
     $view_print = view('web.picking.picking-to-lmb._print', $data);
+
     $title      = 'Picking List LMB';
 
     if ($request->input('filetype') == 'html') {
+      if(auth()->user()->cabang->type-='HQ'){
 
+        $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
+      }
       // request HTML View
       return $view_print;
 
     } elseif ($request->input('filetype') == 'xls') {
-
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
+      // if(auth()->user()->cabang->type='HQ'){
+
+      //   $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
+      // }
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
- $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.5);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
@@ -749,20 +755,31 @@ class PickingToLMBController extends Controller
       $writer->save("php://output");
 
     } else if ($request->input('filetype') == 'pdf') {
+      if(auth()->user()->cabang->type=='HQ'){
 
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+          'margin_left' => 0,
+          'margin_right' => 0,
+          'margin_top' => 88,
+          'margin_bottom' => 80,
+          'format' => [216,275]
+        ]);
+        $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
+      }else{
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+          'margin_left' => 7,
+          'margin_right' => 12,
+          'margin_top' => 5,
+          'margin_bottom' => 5,
+          'format' => 'Letter'
+        ]);
+      }
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left' => 2,
-        'margin_right' => 2,
-        'margin_top' => 10,
-        'margin_bottom' => 2,
-        'margin_header' => 2,
-        'margin_footer' => 2
-      ]);
-
+      
+      // echo $view_print;
       $mpdf->WriteHTML($view_print);
-
       $mpdf->Output($title . '.pdf', "D");
+       // $mpdf->Output();
 
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404

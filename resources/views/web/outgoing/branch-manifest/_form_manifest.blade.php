@@ -84,7 +84,8 @@
                         type="text" 
                         class="validate" 
                         name="vehicle_description" 
-                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_description : ($lmbHeader->picking->vehicle->vehicle_description)?$lmbHeader->picking->vehicle->vehicle_description:''}}"
+                        value="{{!empty($manifestHeader) ? 
+                        $manifestHeader->vehicle_description : (($lmbHeader->picking->vehicle->vehicle_description)?$lmbHeader->picking->vehicle->vehicle_description:'')}}"
                         readonly 
                         />
               </div>
@@ -186,7 +187,7 @@
       $('#form-manifest [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('/destination-city-of-branch/select2')
+        ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}')
       })
 
         $('#form-manifest [name="city_code"]').change(function(event) {
