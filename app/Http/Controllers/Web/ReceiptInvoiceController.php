@@ -53,6 +53,7 @@ class ReceiptInvoiceController extends Controller
         ->whereNotNull('log_manifest_header.expedition_code')
         ->whereBetween(DB::raw('DATE(log_manifest_header.do_manifest_date)'), array($from_date, $to_date))
         ->whereNull('log_invoice_receipt_detail.id')
+        ->where('log_manifest_header.area', auth()->user()->area)
         ->groupBy('log_manifest_header.do_manifest_no')
       ;
 

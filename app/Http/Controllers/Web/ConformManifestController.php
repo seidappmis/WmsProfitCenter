@@ -49,7 +49,7 @@ class ConformManifestController extends Controller
           $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no) . '/hq', 'View for Conform');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['status', 'action']);
 
       return $datatables->make(true);
     }
@@ -81,7 +81,7 @@ class ConformManifestController extends Controller
           $action .= ' ' . get_button_view(url('conform-manifest/' . $data->do_manifest_no) . '/branch', 'View for Conform');
           return $action;
         })
-        ->rawColumns(['do_status', 'action']);
+        ->rawColumns(['status', 'action']);
 
       return $datatables->make(true);
     }

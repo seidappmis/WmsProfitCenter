@@ -299,8 +299,9 @@ class PickingToLMBController extends Controller
       $rs_models = [];
 
       foreach ($details as $key => $value) {
-        if (empty($rs_models[$value->model])) {
+        if (empty($rs_models[$value->model . $value->code_sales])) {
           $model                      = [];
+          $model['model']             = $value->model;
           $model['storage_id']        = $value->storage_id;
           $model['sto_loc_code_long'] = $value->sto_loc_code_long;
           $model['ean_code']          = $value->ean_code;
@@ -311,11 +312,11 @@ class PickingToLMBController extends Controller
 
           $model['kode_cabang'] = substr($value->kode_customer, 0, 2);
 
-          $rs_models[$value->model] = $model;
+          $rs_models[$value->model . $value->code_sales] = $model;
         }
 
-        $rs_models[$value->model]['qty'] += 1;
-        $rs_models[$value->model]['cbm_total'] += $value->cbm_unit;
+        $rs_models[$value->model . $value->code_sales]['qty'] += 1;
+        $rs_models[$value->model . $value->code_sales]['cbm_total'] += $value->cbm_unit;
 
       }
 
@@ -355,7 +356,7 @@ class PickingToLMBController extends Controller
           // Condition
           [
             'storage_id' => $value['storage_id'],
-            'model_name' => $key,
+            'model_name' => $value['model'],
           ],
           // Data Update
           [
@@ -370,7 +371,7 @@ class PickingToLMBController extends Controller
           // Condition
           [
             'storage_id' => $storageIntransit[$value['code_sales']][$value['kode_cabang']]->id,
-            'model_name' => $key,
+            'model_name' => $value['model'],
           ],
           // Data Update
           [
@@ -395,7 +396,7 @@ class PickingToLMBController extends Controller
         $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']][$value['kode_cabang']]->sto_loc_code_long;
         $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
         $movement_transaction_log['eancode']               = $value['ean_code'];
-        $movement_transaction_log['model']                 = $key;
+        $movement_transaction_log['model']                 = $value['model'];
         $movement_transaction_log['quantity']              = $value['qty'];
         $movement_transaction_log['created_at']            = $date_now;
         $movement_transaction_log['flow_id']               = '';
@@ -416,7 +417,7 @@ class PickingToLMBController extends Controller
         $movement_transaction_log['storage_location_to']   = $storageIntransit[$value['code_sales']][$value['kode_cabang']]->sto_loc_code_long;
         $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
         $movement_transaction_log['eancode']               = $value['ean_code'];
-        $movement_transaction_log['model']                 = $key;
+        $movement_transaction_log['model']                 = $value['model'];
         $movement_transaction_log['quantity']              = $value['qty'];
         $movement_transaction_log['created_at']            = $date_now;
         $movement_transaction_log['flow_id']               = '';
@@ -516,7 +517,7 @@ class PickingToLMBController extends Controller
           $picking_detail = $picking_detail->first();
 
           if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
-            $scan_summaries[$serial_number['ean_code']]['quantity_picking']  += $picking_detail->quantity;
+            $scan_summaries[$serial_number['ean_code']]['quantity_picking'] += $picking_detail->quantity;
             $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
           }
 
@@ -699,10 +700,10 @@ class PickingToLMBController extends Controller
     // exit;
     $view_print = view('web.picking.picking-to-lmb._print', $data);
 
-    $title      = 'Picking List LMB';
+    $title = 'Picking List LMB';
 
     if ($request->input('filetype') == 'html') {
-      if(auth()->user()->cabang->type=='HQ'){
+      if (auth()->user()->cabang->type == 'HQ') {
 
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
       }
@@ -725,7 +726,7 @@ class PickingToLMBController extends Controller
       $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
       $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
-      
+
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
@@ -755,31 +756,31 @@ class PickingToLMBController extends Controller
       $writer->save("php://output");
 
     } else if ($request->input('filetype') == 'pdf') {
-      if(auth()->user()->cabang->type=='HQ'){
+      if (auth()->user()->cabang->type == 'HQ') {
 
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-          'margin_left' => 0,
-          'margin_right' => 0,
-          'margin_top' => 88,
-          'margin_bottom' => 80,
-          'format' => [216,275]
+          'margin_left'                     => 0,
+          'margin_right'                    => 0,
+          'margin_top'                      => 88,
+          'margin_bottom'                   => 80,
+          'format'                          => [216, 275],
         ]);
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
-      }else{
+      } else {
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-          'margin_left' => 7,
-          'margin_right' => 12,
-          'margin_top' => 5,
-          'margin_bottom' => 5,
-          'format' => 'Letter'
+          'margin_left'                     => 7,
+          'margin_right'                    => 12,
+          'margin_top'                      => 5,
+          'margin_bottom'                   => 5,
+          'format'                          => 'Letter',
         ]);
       }
       // REQUEST PDF
-      
+
       // echo $view_print;
       $mpdf->WriteHTML($view_print);
       $mpdf->Output($title . '.pdf', "D");
-       // $mpdf->Output();
+      // $mpdf->Output();
 
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
