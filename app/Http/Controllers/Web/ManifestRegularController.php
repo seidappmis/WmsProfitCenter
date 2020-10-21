@@ -514,8 +514,8 @@ class ManifestRegularController extends Controller
       $manifestDetail['sold_to_street']  = $concept->sold_to_street;
       $manifestDetail['ship_to']         = $concept->ship_to;
       $manifestDetail['ship_to_code']    = $concept->ship_to_code;
-      $manifestDetail['city_code']       = $manifestHeader->city_code;
-      $manifestDetail['city_name']       = $manifestHeader->city_name;
+      $manifestDetail['city_code']       = $request->input('ship_to');
+      $manifestDetail['city_name']       = $request->input('city_name');
       $manifestDetail['do_date']         = $manifestHeader->do_manifest_date;
       $manifestDetail['quantity']        = $value['quantity'];
       $manifestDetail['cbm']             = $value['cbm'];

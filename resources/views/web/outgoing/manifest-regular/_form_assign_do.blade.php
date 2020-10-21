@@ -36,6 +36,7 @@
                           name="ship_to"
                           class="select2-data-ajax browser-default" required>
                   </select>
+                  <input type="hidden" name="city_name">
                   </div> 
                 </td>
             </tr>
@@ -133,11 +134,16 @@
         });
 
         $('#form-assign-do [name="ship_to"]').select2({
-        placeholder: '-- Select Ship to City --',
-        allowClear: true,
-        ajax: get_select2_ajax_options(
-          '{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{$lmbHeader->expedition_code}}', vehicle_code_type:'{{$manifestHeader->vehicle_code_type}}'})
-      })
+          placeholder: '-- Select Ship to City --',
+          allowClear: true,
+          ajax: get_select2_ajax_options(
+            '{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{$lmbHeader->expedition_code}}', vehicle_code_type:'{{$manifestHeader->vehicle_code_type}}'})
+        })
+        $('#form-assign-do [name="ship_to"]').change(function(event) {
+          /* Act on the event */
+          var data = $(this).select2('data')[0]
+          $('#form-assign-do [name="city_name"]').val(data.text)
+        });
    });
 
    function pickRowData(){

@@ -103,6 +103,8 @@
             dtdatatable_submit_to_logsys.rows()
               .remove()
               .draw();
+          } else {
+            showSwalAutoClose('Warning', data.message)
           }
           // window.location.href = '{{ url("manifest-regular/" . $manifestHeader->do_manifest_no . "/edit") }}'
         })
