@@ -287,7 +287,7 @@ $('#form-update-manifest [name="expedition_code"]').change(function(event) {
 function set_branch_select_expedition(filter = {expedition_code: ''}){
     $('#form-update-manifest [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        //ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition', {onetime: true})}}')
+        {{-- //ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition', {onetime: true})}}') --}}
         ajax: get_select2_ajax_options('{{url('/master-branch-expedition/select2-active-expedition')}}', filter)
   })
 }

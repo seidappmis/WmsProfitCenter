@@ -39,7 +39,7 @@
                 <td colspan="8" style="text-align: left; width: 65mm;"><strong>{{$manifestHeader->city_name}}</strong></td>
                 <td colspan="2">Container No.</td>
                 <td>:</td>
-                <td colspan="4" style="text-align: left;"><strong>{{$manifestHeader->container_no}}</strong></td>
+                <td colspan="4" style="text-align: left;"><strong>{{$manifestHeader->container_no}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{$manifestHeader->seal_no}} </strong></td>
               </tr>
               <tr>
                 <td colspan="10" style="width: 65mm;"></td>
