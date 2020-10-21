@@ -43,7 +43,7 @@
   jQuery(document).ready(function($) {
 
     @if($manifestHeader->status_complete)
-    $('#form-manifest .btn-save').addClass('hide')
+    $('.btn-save').addClass('hide')
     $('.btn-upload').addClass('hide')
     $('.btn-delete').addClass('hide')
     $('.btn-multi-delete-selected-item').addClass('hide')
