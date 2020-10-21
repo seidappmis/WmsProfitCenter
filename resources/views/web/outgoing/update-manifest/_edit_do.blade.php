@@ -97,7 +97,7 @@
     // $('#form-edit-do [name="city_code"]').select2({
     //     placeholder: '-- Select Ship to City --',
     //     allowClear: true,
-    //     ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city', {expedition_code: expedition_code})}}')
+    //     ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: expedition_code})
     //   })
   }
 </script>
