@@ -13,7 +13,9 @@ Route::get('/test', function () {
   // print_r($sql);
 });
 
+
 Route::group(['middleware' => 'auth'], function () {
+  Route::get('data-synchronization', 'DataSynchronizationController@index');
   Route::view('home', 'web.home.index');
   Route::view('only-branch-access', 'web.only-branch-access');
 });

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\LMBDetail;
 use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
-use Illuminate\Http\Request;
 use DB;
+use Illuminate\Http\Request;
 
 class PickingToLMBController extends Controller
 {
@@ -61,6 +61,8 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_header.driver_register_id',
             // 'wms_pickinglist_detail.quantity',
             'wms_pickinglist_detail.cbm',
+            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
+            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
             DB::raw('(wms_pickinglist_detail.quantity - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
             ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
@@ -74,7 +76,7 @@ class PickingToLMBController extends Controller
               'wms_pickinglist_detail.header_id',
               'wms_pickinglist_detail.invoice_no',
               'wms_pickinglist_detail.delivery_no',
-              'wms_pickinglist_detail.delivery_items',
+              // 'wms_pickinglist_detail.delivery_items',
               'wms_pickinglist_detail.ean_code'
             )
             ->where('wms_pickinglist_detail.ean_code', $serial_number['ean_code'])
@@ -87,14 +89,17 @@ class PickingToLMBController extends Controller
           }
           $picking_detail = $picking_detail->first();
 
-          if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
-            $scan_summaries[$serial_number['ean_code']]['quantity_picking']  += $picking_detail->quantity;
-            $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
-          }
-
           if (empty($picking_detail) || $picking_detail->quantity == 0) {
             return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
           }
+
+          if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
+            $scan_summaries[$serial_number['ean_code']]['quantity_picking'] += $picking_detail->quantity;
+            $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
+          }
+
+          $picking_detail->rs_delivery_items = explode(',', $picking_detail->rs_delivery_items);
+          $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
 
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
 
@@ -110,6 +115,8 @@ class PickingToLMBController extends Controller
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->driver_register_id;
         $serial_number['created_by']         = auth()->user()->id;
 
+        $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
+
         $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
 
         if (empty($scan_summaries[$serial_number['ean_code']])) {
@@ -124,6 +131,20 @@ class PickingToLMBController extends Controller
         if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan']) {
           $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
+
+          $quantity = $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity;
+          $quantity[0] -= 1;
+          $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity = $quantity;
+
+          if ($rs_picking_list_details[$serial_number['ean_code']]->rs_quantity[0] <= 0) {
+            $rs_quantity = $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity;
+            unset($rs_quantity[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity = array_values($rs_quantity);
+
+            $rs_delivery_items = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items;
+            unset($rs_delivery_items[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items = array_values($rs_delivery_items);
+          }
 
           if ($scan_summaries[$serial_number['ean_code']]['quantity_existing'] <= 0) {
             $delivery_exceptions[$serial_number['ean_code']][] = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
@@ -154,9 +175,16 @@ class PickingToLMBController extends Controller
       return sendError('No Serial Number Data.');
     }
 
-    LMBDetail::insert($serial_numbers);
+    try {
+      DB::beginTransaction();
+      LMBDetail::insert($serial_numbers);
+      DB::commit();
+      return sendSuccess('Serial Number uploaded.', $serial_numbers);
+    } catch (Exception $e) {
+      DB::rollBack();
+      return sendError('Duplicate Serial Number Entry', '0');
+    }
 
-    return sendSuccess('Serial Number uploaded.', $serial_numbers);
   }
 
 }

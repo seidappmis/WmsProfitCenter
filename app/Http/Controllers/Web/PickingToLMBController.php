@@ -524,15 +524,16 @@ class PickingToLMBController extends Controller
             $picking_detail->whereNotIn('wms_pickinglist_detail.delivery_no', $delivery_exceptions[$serial_number['ean_code']]);
           }
           $picking_detail = $picking_detail->first();
+          
+          if (empty($picking_detail) || $picking_detail->quantity == 0) {
+            return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
+          }
 
           if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
             $scan_summaries[$serial_number['ean_code']]['quantity_picking'] += $picking_detail->quantity;
             $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
           }
 
-          if (empty($picking_detail) || $picking_detail->quantity == 0) {
-            return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
-          }
 
           $picking_detail->rs_delivery_items = explode(',', $picking_detail->rs_delivery_items);
           $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
