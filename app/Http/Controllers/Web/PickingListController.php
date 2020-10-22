@@ -25,9 +25,19 @@ class PickingListController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = PickinglistHeader::select('wms_pickinglist_header.*')
+      $query = PickinglistHeader::select(
+        'wms_pickinglist_header.id',
+        'wms_pickinglist_header.picking_date',
+        'wms_pickinglist_header.vehicle_number',
+        'wms_pickinglist_header.driver_name',
+        'wms_pickinglist_header.city_name',
+        'wms_pickinglist_header.expedition_name',
+        'wms_pickinglist_header.storage_type',
+        DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
+      )
         ->where('wms_pickinglist_header.area', auth()->user()->area)
         ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('wms_pickinglist_header.driver_register_id')
       ;
 
       // Tampilkan data yang belum ada manifest bila tidak di search
@@ -88,7 +98,7 @@ class PickingListController extends Controller
           }
           return $action;
         })
-        ->rawColumns(['driver_name', 'do_status', 'action']);
+        ->rawColumns(['driver_name', 'do_status', 'picking_no', 'action']);
 
       return $datatables->make(true);
     }
@@ -863,6 +873,7 @@ class PickingListController extends Controller
   public function edit($id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $data['rsPickinglist'] = PickinglistHeader::where('driver_register_id', $data['pickinglistHeader']->driver_register_id)->get();
 
     return view('web.picking.picking-list.edit', $data);
   }

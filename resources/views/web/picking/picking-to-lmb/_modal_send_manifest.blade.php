@@ -27,12 +27,12 @@
           <td>{{$picking->code_sales}}</td>
           <td>
             @php
-            $qty_loading = empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model]) ? 0 :
-             ($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] >= 0 ? $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] : 0);
-             if (empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model])) {
-               $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] = 0;
+            $qty_loading = empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items]) ? 0 :
+             ($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items] >= 0 ? $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items] : 0);
+             if (empty($rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items])) {
+               $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items] = 0;
              }
-            $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model] -= $picking->quantity;
+            $rsLoadingQuantity[$picking->invoice_no.$picking->delivery_no.$picking->model.$picking->delivery_items] -= $picking->quantity;
             echo $qty_loading;
             @endphp
             <input type="hidden" name="picking_detail_id[]" value="{{$picking->id}}">

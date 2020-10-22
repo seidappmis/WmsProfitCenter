@@ -145,6 +145,34 @@
     </div>
 </form>
 
+@if(!empty($rsPickinglist) && $rsPickinglist->count() > 1)
+ @php
+ $prevLink = '#!';
+ $nextLink = '#!';
+ $activeFound = 0;
+ foreach ($rsPickinglist as $key => $value) {
+     $rsPickinglist[$key]->linkActive = $value->id == $pickinglistHeader->id;
+     $rsPickinglist[$key]->url = url('picking-list/' . $value->id . '/edit#!');
+
+     if (!$activeFound && $rsPickinglist[$key]->linkActive) {
+         $activeFound = 1;
+         $nextLink = !empty($rsPickinglist[$key + 1]) ? url('picking-list/' . $rsPickinglist[$key + 1]->id . '/edit#!') : '#!' ;
+     } elseif (!$activeFound) {
+        $prevLink = $rsPickinglist[$key]->url;
+     }
+ }
+ @endphp
+ <ul class="pagination mt-2 mb-2">
+  <li class="{{$prevLink == '#!' ? 'disabled' : 'waves-effect'}}"><a href="{{$prevLink}}"><i class="material-icons">chevron_left</i></a></li>
+  @foreach($rsPickinglist AS $key => $value)
+  <li class="{{ $value->linkActive ? 'active' : 'waves-effect' }}">
+    <a href="{{ $value->url }}">{{ ($key + 1) }}</a>
+  </li>
+  @endforeach
+  <li class="{{$nextLink == '#!' ? 'disabled' : 'waves-effect'}}"><a href="{{$nextLink}}"><i class="material-icons">chevron_right</i></a></li>
+</ul>
+@endif
+
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
   'title' => 'Print Pickinglist',

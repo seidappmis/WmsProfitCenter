@@ -92,19 +92,26 @@ class PickingToLMBController extends Controller
         wms_lmb_detail.delivery_no,
         wms_lmb_detail.model,
         wms_lmb_detail.code_sales,
+        wms_lmb_detail.delivery_items,
         COUNT(serial_number) AS qty_loading
       ')
       ->where('driver_register_id', $id)
-      ->groupBy('invoice_no', 'delivery_no', 'model')
+      ->groupBy('invoice_no', 'delivery_no', 'model', 'delivery_items')
       ->get();
 
     $rsLoadingQuantity = [];
     foreach ($tempDetailLMB as $key => $value) {
-      $rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model] = $value->qty_loading;
+      $rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model. $value->delivery_items] = $value->qty_loading;
     }
     $data['rsLoadingQuantity'] = $rsLoadingQuantity;
 
-    $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
+    // $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
+    $data['pickingListDetail'] = PickinglistDetail::select('wms_pickinglist_detail.*')
+    ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+    ->where('wms_pickinglist_header.driver_register_id', $id)
+    ->get()
+    ;
+
     // echo "<pre>";
     // print_r($data['rsLoadingQuantity']);
     // exit;
@@ -490,7 +497,9 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_header.driver_register_id',
             // 'wms_pickinglist_detail.quantity',
             'wms_pickinglist_detail.cbm',
-            DB::raw('(wms_pickinglist_detail.quantity - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
+            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
+            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
+            DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
             ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
             ->leftjoin('wms_lmb_detail', function ($join) {
@@ -503,7 +512,7 @@ class PickingToLMBController extends Controller
               'wms_pickinglist_detail.header_id',
               'wms_pickinglist_detail.invoice_no',
               'wms_pickinglist_detail.delivery_no',
-              'wms_pickinglist_detail.delivery_items',
+              // 'wms_pickinglist_detail.delivery_items',
               'wms_pickinglist_detail.ean_code'
             )
             ->where('wms_pickinglist_detail.ean_code', $serial_number['ean_code'])
@@ -525,6 +534,9 @@ class PickingToLMBController extends Controller
             return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
           }
 
+          $picking_detail->rs_delivery_items = explode(',', $picking_detail->rs_delivery_items);
+          $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
+
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
 
         }
@@ -538,6 +550,8 @@ class PickingToLMBController extends Controller
         $serial_number['city_name']          = $rs_picking_list_details[$serial_number['ean_code']]->city_name;
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->driver_register_id;
         $serial_number['created_by']         = auth()->user()->id;
+
+        $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
 
         $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
 
@@ -553,6 +567,20 @@ class PickingToLMBController extends Controller
         if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan']) {
           $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
+
+          $quantity = $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity;
+          $quantity[0] -= 1;
+          $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity = $quantity;
+
+          if ($rs_picking_list_details[$serial_number['ean_code']]->rs_quantity[0] <= 0) {
+            $rs_quantity = $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity;
+            unset($rs_quantity[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_quantity = array_values($rs_quantity);
+
+            $rs_delivery_items = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items;
+            unset($rs_delivery_items[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items = array_values($rs_delivery_items);
+          }
 
           if ($scan_summaries[$serial_number['ean_code']]['quantity_existing'] <= 0) {
             $delivery_exceptions[$serial_number['ean_code']][] = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;

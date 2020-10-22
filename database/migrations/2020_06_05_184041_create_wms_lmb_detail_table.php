@@ -17,6 +17,7 @@ class CreateWmsLmbDetailTable extends Migration
       $table->string('serial_number', 50);
       $table->string('delivery_no', 20);
       $table->string('model', 50);
+      $table->integer('delivery_items')->nullable();
       $table->string('invoice_no', 10)->nullable();
       $table->string('ean_code', 50)->nullable();
       $table->decimal('cbm_unit', 18, 3)->nullable();
