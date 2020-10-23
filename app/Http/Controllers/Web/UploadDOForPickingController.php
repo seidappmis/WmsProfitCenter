@@ -67,6 +67,9 @@ class UploadDOForPickingController extends Controller
       $row = fgetcsv($file);
       if ($title) {
         $title = false;
+        if (strtolower($row[9]) != 'material') {
+          return sendError('Please, Make sure there are no comma (,) for each column !');
+        }
         continue; // Skip baris judul
       }
 

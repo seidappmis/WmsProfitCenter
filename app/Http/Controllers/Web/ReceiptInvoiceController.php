@@ -226,6 +226,8 @@ class ReceiptInvoiceController extends Controller
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
 
     if ($request->ajax()) {
+      $amountInvoice = $data['invoiceReceiptHeader']->getAmountInvoice();
+
       $query = $data['invoiceReceiptHeader']->details()->select(
         'log_invoice_receipt_detail.*',
         DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do')
@@ -255,7 +257,7 @@ class ReceiptInvoiceController extends Controller
         })
         ->rawColumns(['action_view', 'action_delete']);
 
-      return $datatables->make(true);
+      return $datatables->with('amountInvoice', $amountInvoice)->make(true);
     }
 
     return view('web.invoicing.receipt-invoice.view', $data);
@@ -310,6 +312,20 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->save();
 
     return sendSuccess("Create Receipt ID " . $invoiceReceiptHeader->invoice_receipt_id . " success.", $invoiceReceiptHeader);
+  }
+
+  public function updatePPN(Request $request, $id)
+  {
+
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+
+    $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
+    $invoiceReceiptHeader->amount_pph = $request->input('amount_pph');
+    $invoiceReceiptHeader->amount_ppn = $request->input('amount_ppn');
+
+    $invoiceReceiptHeader->save();
+
+    return sendSuccess("Update PPN success.", $invoiceReceiptHeader);
   }
 
   public function createReceiptNo($id)
@@ -521,6 +537,9 @@ class ReceiptInvoiceController extends Controller
     $detail->unloading_amount = $request->input('unloading_amount');
     $detail->overstay_amount  = $request->input('overstay_amount');
     $detail->ritase2_amount   = $request->input('ritase2_amount');
+
+    $detail->freight_cost = $request->input('freight_cost');
+    $detail->cbm_amount   = $detail->cbm_do * $detail->freight_cost;
 
     $detail->save();
 

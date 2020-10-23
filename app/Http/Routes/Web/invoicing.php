@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::post('receipt-invoice', 'Web\ReceiptInvoiceController@store');
   Route::post('receipt-invoice/{id}/create-receipt-no', 'Web\ReceiptInvoiceController@createReceiptNo');
   Route::put('receipt-invoice/{id}/update-receipt-invoice', 'Web\ReceiptInvoiceController@updateReceiptInvoice');
+  Route::put('receipt-invoice/{id}/update-ppn', 'Web\ReceiptInvoiceController@updatePPN');
   Route::get('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@show');
   Route::put('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@update');
   Route::delete('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@destroy');

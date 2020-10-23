@@ -213,7 +213,7 @@
           $('#form-cost-per-do [name="overstay_amount"]').val(data.overstay_amount)
 
           $('#modal-detail-do .text-total_cbm').text(data.cbm_do)
-          $('#modal-detail-do .text-cbm_amount').text(data.cbm_amount)
+          $('#modal-detail-do .text-cbm_amount').text(parseFloat(data.cbm_amount).toFixed(3))
           $('#modal-detail-do .text-ritase_amount').text(data.ritase_amount)
 
           getCostPerDO(data)

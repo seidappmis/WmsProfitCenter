@@ -70,11 +70,11 @@
                     <label for="amount_ppn">PPn 10% (B)</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="name" type="text" placeholder="" readonly="readonly">
+                    <input id="amount_before_tax" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice (X)</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="name" type="text" placeholder="" readonly="readonly">
+                    <input id="amount_after_tax" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice + PPn(B+X)</label>
                 </div>
                 <div class="col s3">
@@ -166,6 +166,11 @@
             type: 'GET'
         },
         order: [1, 'asc'],
+        "fnDrawCallback": function( oSettings ) {
+          var amountInvoice = oSettings.json.amountInvoice;
+          $('#amount_before_tax').val(setDecimal(amountInvoice != null ? amountInvoice : 0))
+          calculateInvoice()
+        },
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
             {data: 'do_manifest_no'},
@@ -313,8 +318,38 @@
       });
       
     });
+
+    $('.btn-update-ppn').click(function(event) {
+      /* Act on the event */
+      $.ajax({
+        url: '{{url("receipt-invoice/" .  (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . '/update-ppn')}}',
+        type: 'PUT',
+        dataType: 'json',
+        data: {amount_pph: $('#amount_pph').val(), amount_ppn: $('#amount_ppn').val()}
+      })
+      .done(function(result) {
+        if(result.status){
+          showSwalAutoClose("Success", result.message)
+          calculateInvoice()
+        } else {
+          showSwalAutoClose("Warning", result.message)
+        }
+      })
+      .fail(function(xhr) {
+        showSwalError(xhr)
+        console.log("error");
+      })
+      .always(function() {
+        console.log("complete");
+      });
+    });
     @endif
   });
+
+function calculateInvoice(){
+  var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val())
+  $('#amount_after_tax').val(amount_after_tax.toFixed(3))
+}
 </script>
 @endpush
 

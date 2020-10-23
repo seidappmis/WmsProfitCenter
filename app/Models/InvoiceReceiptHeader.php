@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class InvoiceReceiptHeader extends Model
@@ -12,6 +13,16 @@ class InvoiceReceiptHeader extends Model
   public function details()
   {
     return $this->hasMany('App\Models\InvoiceReceiptDetail', 'id_header');
+  }
+
+  public function getAmountInvoice()
+  {
+    return InvoiceReceiptDetail::select(
+      DB::raw('SUM(cbm_amount + ritase_amount + ritase2_amount + multidro_amount + unloading_amount + overstay_amount) AS amount_before_tax')
+    )
+      ->where('id_header', $this->id)
+      ->first()
+      ->amount_before_tax;
   }
 
   public function getPrintReceiptData()
