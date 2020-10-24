@@ -154,7 +154,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable td {
     padding: 10px 5px;
-    color: #1b1818 !important;
+    color: #000 !important;
 }
 #main .section-data-tables .dataTables_wrapper table.dataTable th.sorting, #main .section-data-tables .dataTables_wrapper table.dataTable th.sorting_desc, #main .section-data-tables .dataTables_wrapper table.dataTable th.sorting_asc {
     padding: 10px 15px 10px 5px;
