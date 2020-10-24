@@ -49,6 +49,9 @@
                                   <th>DESTINATION CITY</th>
                                   <th>MODEL</th>
                                   <th>QUANTITY</th>
+                                  @if($type_show != 'showSubmit')
+                                  <th>BILLING RETURN DATE</th>
+                                  @endif
                                   <th width="50px;">
                                     @if($type_show == 'showSubmit')
                                     <label>
@@ -69,6 +72,11 @@
                                 @endif
                                 <td>{{$detail->model}}</td>
                                 <td>{{$detail->quantity}}</td>
+                                @if($type_show != 'showSubmit')
+                                <td>
+                                  {{$detail->doc_do_return_date}}
+                                </td>
+                                @endif
                                 <td>
                                   @if($type_show == 'showSubmit')
                                   <label>
@@ -97,9 +105,18 @@
 </div>
 @endsection
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/materializedatetimepicker.js') }}">
+</script>
+@endpush
+
+
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+
+      M.AutoInit();
+      MaterialDateTimePicker.create($('#form-billing-return [name="doc_do_return_date"]'))
 
         $('.checkbox_header').click(function(event) {
           /* Act on the event */
