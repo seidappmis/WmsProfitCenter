@@ -285,6 +285,7 @@ table .btn, table .btn-large, table .btn-small, table .btn-flat {
 }
 td, th {
     font-size: 13px;
+    font-weight: 400;
     color: #34363f;
     padding: 5px 5px;
     border: 1px solid #7b7b7b;
