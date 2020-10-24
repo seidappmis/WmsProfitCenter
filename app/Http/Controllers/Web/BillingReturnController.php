@@ -98,6 +98,10 @@ class BillingReturnController extends Controller
 
   public function conform(Request $request, $id)
   {
+    if (empty($request->input('doc_do_return_date'))) {
+      return sendError('Doc DO Return Date Required');
+    }
+
     $manifestHeader = WMSBranchManifestHeader::findOrFail($id);
     if (empty($request->input('manifest_detail'))) {
       return sendError('Please, Selected item');
