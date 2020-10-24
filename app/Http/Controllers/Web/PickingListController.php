@@ -747,6 +747,7 @@ class PickingListController extends Controller
           ->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
           ->whereNull('wms_lmb_header.send_manifest')
           ->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
+          ->where('wms_pickinglist_header.storage_id', $pickinglistHeader->storage_id)
           ->groupBy('wms_pickinglist_detail.ean_code')
           ->first();
 
