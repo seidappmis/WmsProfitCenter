@@ -52,7 +52,7 @@
                                   <th width="50px;">
                                     @if($type_show == 'showSubmit')
                                     <label>
-                                      <input type="checkbox" />
+                                      <input class="checkbox_header" type="checkbox" />
                                       <span class="red-text"></span>
                                     </label>
                                     @endif
@@ -72,7 +72,7 @@
                                 <td>
                                   @if($type_show == 'showSubmit')
                                   <label>
-                                    <input type="checkbox" name="manifest_detail[{{$detail->id}}]"/>
+                                    <input class="checkbox_detail" type="checkbox" name="manifest_detail[{{$detail->id}}]"/>
                                     <span class="red-text"></span>
                                   </label>
                                   @endif
@@ -100,6 +100,16 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
+
+        $('.checkbox_header').click(function(event) {
+          /* Act on the event */
+          if ($(this).is(':checked')) {
+            $('.checkbox_detail').prop('checked', true)
+          } else {
+            $('.checkbox_detail').prop('checked', false)
+          }
+        });
+          
         $('.btn-conform').click(function(event) {
           /* Act on the event */
           setLoading(true);
