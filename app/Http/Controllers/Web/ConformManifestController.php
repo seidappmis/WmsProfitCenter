@@ -166,7 +166,11 @@ class ConformManifestController extends Controller
           $manifesDetail->status_confirm        = 1;
           $manifesDetail->confirm_date          = date('Y-m-d H:i:s');
           $manifesDetail->actual_time_arrival   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-          $manifesDetail->actual_loading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
+          if (auth()->user()->cabang->hq) {
+            $manifesDetail->actual_loading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
+          } else {
+            $manifesDetail->actual_unloading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
+          }
           $manifesDetail->confirm_by            = auth()->user()->username;
           $manifesDetail->do_reject             = !empty($request->input('rejected')) ? 1 : 0;
           $manifesDetail->save();
