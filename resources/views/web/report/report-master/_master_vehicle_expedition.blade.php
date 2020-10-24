@@ -19,6 +19,7 @@
 
 @push('script_js')
 <script type="text/javascript">
+@if(auth()->user()->cabang->hq)
   var table = $('#data-table-master-vehicle-expedition').DataTable({
     serverSide: true,
     scrollX: true,
@@ -54,5 +55,7 @@
         {data: 'status_active', className: 'detail'},
     ]
   });
+@else
+@endif
 </script>
 @endpush
