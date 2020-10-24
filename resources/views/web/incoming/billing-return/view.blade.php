@@ -7,11 +7,11 @@
     @component('layouts.materialize.components.title-wrapper')
         <div class="row">
             <div class="col s12 m10">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Conform Manifest Branch</span></h5>
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Billing Return</span></h5>
                 <ol class="breadcrumbs mb-0">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('finish-good-production') }}">Conform Manifest</a></li>
-                    <li class="breadcrumb-item active">ARV-WHHYP-181003-019</li>
+                    <li class="breadcrumb-item"><a href="{{ url('billing-return') }}">Billing Return</a></li>
+                    <li class="breadcrumb-item active">{{$manifest->do_manifest_no}}</li>
                 </ol>
             </div>
             <div class="col s12 m2">
