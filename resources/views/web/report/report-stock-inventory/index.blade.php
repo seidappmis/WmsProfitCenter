@@ -27,8 +27,8 @@
                                        <td>BRANCH</td>
                                        <td>
                                          <div class="input-field col s8">
-                                           <select id="kode_cabang"
-                                                name="kode_cabang"
+                                           <select id="cabang"
+                                                name="cabang"
                                                 class="select2-data-ajax browser-default"
                                                 required="">
                                           </select>
@@ -39,15 +39,15 @@
                                  <tr>
                                     <td>MODEL</td>
                                     <td><div class="input-field col s12">
-                                       <input id="model_name" type="text" class="validate" name="" >
+                                       <input id="model" type="text" class="validate" name="model" >
                                      </div></td>
                                 <tr>
                                 
                                     <td>STRORAGE LOCATION</td>
                                     <td>
                                       <div class="input-field col s8">
-                                        <select id="storage_location"
-                                                name="storage_location"
+                                        <select id="location"
+                                                name="location"
                                                 class="select2-data-ajax browser-default"
                                                 >
                                           </select>
@@ -125,13 +125,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('report-stock-inventory/export?file_type=pdf')}}" + '&' + $('#form-report-stock-inventory').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('report-stock-inventory/export?file_type=xls')}}" + '&' + $('#form-report-stock-inventory').serialize();
           }
         }
       ],
@@ -139,9 +139,9 @@
           url: '{{ url('report-stock-inventory') }}',
           type: 'GET',
           data: function(d) {
-              d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
-              d.model =$('#model_name').val()
-              d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
+              d.cabang = $('#form-report-stock-inventory [name="cabang"]').val()
+              d.model =$('#form-report-stock-inventory [name="model"]').val()
+              d.location =$('#form-report-stock-inventory [name="location"]').val()
               d.search['value'] = $('#global_filter').val()
             }
       },
@@ -161,14 +161,14 @@
         dttable_report_stock_inventory.ajax.reload(null, false)
       }
     })
-    $('#form-report-stock-inventory [name="kode_cabang"]').select2({
+    $('#form-report-stock-inventory [name="cabang"]').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,
        ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
     });
-    $('#form-report-stock-inventory [name="kode_cabang"]').change(function(event) {
+    $('#form-report-stock-inventory [name="cabang"]').change(function(event) {
       /* Act on the event */
-      set_select2_value('#form-report-stock-inventory [name="storage_location"]', '', '')
+      set_select2_value('#form-report-stock-inventory [name="location"]', '', '')
       setSLOC({cabang: $(this).val()})
     });
 
@@ -181,7 +181,7 @@
   });
 
   function setSLOC(filter = {cabang: null}){
-    $('#form-report-stock-inventory [name="storage_location"]').select2({
+    $('#form-report-stock-inventory [name="location"]').select2({
        placeholder: '-- Select Storage Location --',
        allowClear: true,
        ajax: get_select2_ajax_options('/storage-master/select2-storage-cabang', filter)
