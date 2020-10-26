@@ -44,18 +44,53 @@
     },
     order: [[0, 'asc'], [1, 'asc']],  
     columns: [
-        {data: 'expedition_code', className: 'detail'},
-        {data: 'expedition_name', name:'tr_expedition.expedition_name', className: 'detail'},
-        {data: 'vehicle_number', className: 'detail'},
-        {data: 'destination_name', name: 'tr_destination.destination_description', className: 'detail'},
-        {data: 'vehicle_detail_description', className: 'detail'},
-        {data: 'remark1', className: 'detail'},
-        {data: 'remark2',  className: 'detail'},
-        {data: 'remark3',  className: 'detail'},
-        {data: 'status_active', className: 'detail'},
+        {data: 'expedition_code'},
+        {data: 'expedition_name', name:'tr_expedition.expedition_name'},
+        {data: 'vehicle_number'},
+        {data: 'destination_name', name: 'tr_destination.destination_description'},
+        {data: 'vehicle_detail_description'},
+        {data: 'remark1'},
+        {data: 'remark2'},
+        {data: 'remark3'},
+        {data: 'status_active'},
     ]
   });
 @else
+var table = $('#data-table-master-vehicle-expedition').DataTable({
+    serverSide: true,
+    scrollX: true,
+    dom: 'Bfrtip',
+    buttons: [
+            {
+                text: 'PDF',
+                action: function ( e, dt, node, config ) {
+                    window.location.href = "{{url('report-master/export?file_type=pdf')}}" + '&report-master=' + $('#report-master-value').val();
+                }
+            },
+             {
+                text: 'EXCEL',
+                action: function ( e, dt, node, config ) {
+                    window.location.href = "{{url('report-master/export?file_type=xls')}}" + '&report-master=' + $('#report-master-value').val();
+                }
+            }
+        ],
+    ajax: {
+        url: '{{ url('branch-expedition-vehicle') }}',
+        type: 'GET',
+    },
+    order: [[0, 'asc'], [1, 'asc']],  
+    columns: [
+        {data: 'expedition_code'},
+        {data: 'expedition_name'},
+        {data: 'vehicle_number'},
+        {data: 'destination_name'},
+        {data: 'vehicle_detail_description'},
+        {data: 'remark1'},
+        {data: 'remark2'},
+        {data: 'remark3'},
+        {data: 'status_active'},
+    ]
+  });
 @endif
 </script>
 @endpush
