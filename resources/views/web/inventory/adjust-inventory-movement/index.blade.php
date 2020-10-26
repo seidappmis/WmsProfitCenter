@@ -55,6 +55,7 @@
           }
           $('#form-adjust-inventory-movement [name="prev_quantity"]').val(qty_total)
           $('#form-adjust-inventory-movement [name="quantity"]').val(0)
+          setLoading(false)
         })
         .fail(function(xhr) {
             setLoading(false); // Enable Button when failed

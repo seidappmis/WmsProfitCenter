@@ -101,15 +101,15 @@ class PickingToLMBController extends Controller
 
     $rsLoadingQuantity = [];
     foreach ($tempDetailLMB as $key => $value) {
-      $rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model. $value->delivery_items] = $value->qty_loading;
+      $rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model . $value->delivery_items] = $value->qty_loading;
     }
     $data['rsLoadingQuantity'] = $rsLoadingQuantity;
 
     // $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
     $data['pickingListDetail'] = PickinglistDetail::select('wms_pickinglist_detail.*')
-    ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
-    ->where('wms_pickinglist_header.driver_register_id', $id)
-    ->get()
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+      ->where('wms_pickinglist_header.driver_register_id', $id)
+      ->get()
     ;
 
     // echo "<pre>";
@@ -488,6 +488,7 @@ class PickingToLMBController extends Controller
 
         if (empty($rs_picking_list_details[$serial_number['ean_code']])) {
           $picking_detail = PickinglistDetail::select(
+            'wms_pickinglist_detail.id',
             'wms_pickinglist_detail.delivery_no',
             'wms_pickinglist_detail.invoice_no',
             'wms_pickinglist_detail.kode_customer',
@@ -495,6 +496,7 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_header.city_code',
             'wms_pickinglist_header.city_name',
             'wms_pickinglist_header.driver_register_id',
+            'wms_pickinglist_detail.ean_code',
             // 'wms_pickinglist_detail.quantity',
             'wms_pickinglist_detail.cbm',
             DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
@@ -515,7 +517,7 @@ class PickingToLMBController extends Controller
               // 'wms_pickinglist_detail.delivery_items',
               'wms_pickinglist_detail.ean_code'
             )
-            ->where('wms_pickinglist_detail.ean_code', $serial_number['ean_code'])
+            ->where(DB::raw('CAST(wms_pickinglist_detail.ean_code AS UNSIGNED)'), $serial_number['ean_code'])
             ->where('wms_pickinglist_header.picking_no', $serial_number['picking_id'])
             ->orderBy('quantity', 'desc')
           ;
@@ -524,16 +526,23 @@ class PickingToLMBController extends Controller
             $picking_detail->whereNotIn('wms_pickinglist_detail.delivery_no', $delivery_exceptions[$serial_number['ean_code']]);
           }
           $picking_detail = $picking_detail->first();
-          
+
           if (empty($picking_detail) || $picking_detail->quantity == 0) {
             return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
+          }
+
+          // Cek apa EAN CODE ada karakter enter nya
+          if ($serial_number['ean_code'] != $picking_detail->ean_code) {
+            PickinglistDetail::where('id', $picking_detail->id)
+              ->update(['ean_code' => $serial_number['ean_code']]);
+            ManualConcept::where('ean_code', $picking_detail->ean_code)
+              ->update(['ean_code' => $serial_number['ean_code']]);
           }
 
           if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
             $scan_summaries[$serial_number['ean_code']]['quantity_picking'] += $picking_detail->quantity;
             $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
           }
-
 
           $picking_detail->rs_delivery_items = explode(',', $picking_detail->rs_delivery_items);
           $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
