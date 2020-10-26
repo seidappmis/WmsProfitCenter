@@ -102,15 +102,21 @@ class LMBHeader extends Model
     return $picking_no;
   }
 
-  public static function noManifestLMBHeader($as = false)
+  public static function noManifestLMBHeader($as = false, $branch = false)
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_lmb_header.kode_cabang')
       ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
 
+    if ($branch) {
+      $lmbHeader->where('log_cabang.hq', 0);
+    } else {
+      $lmbHeader->where('log_cabang.hq', 1);
+    }
+
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-        ->where('log_cabang.hq', 1)
+        // ->where('log_cabang.hq', 1)
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
 
@@ -121,7 +127,7 @@ class LMBHeader extends Model
       }
     } else {
       $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-        ->where('log_cabang.hq', 0)
+        // ->where('log_cabang.hq', 0)
         ->whereNull('wms_branch_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
     }

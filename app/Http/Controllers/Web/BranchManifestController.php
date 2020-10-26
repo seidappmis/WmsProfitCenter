@@ -42,7 +42,7 @@ class BranchManifestController extends Controller
   public function truckWaitingManifest(Request $request)
   {
     if ($request->ajax()) {
-      $query = LMBHeader::noManifestLMBHeader()
+      $query = LMBHeader::noManifestLMBHeader(false, true)
         ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang)
         ->get();
 
