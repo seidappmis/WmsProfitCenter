@@ -186,11 +186,21 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-      $('#form-manifest [name="city_code"]').select2({
-        placeholder: '-- Select Destination City --',
-        allowClear: true,
-        ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}')
-      })
+        @if($lmbHeader->destination_number == 'AS')
+        $('#form-manifest [name="vehicle_number"]').removeAttr('required')
+        var filter = {only_ambil_sendiri: true}
+        $('#form-manifest [name="city_code"]').select2({
+            placeholder: '-- Select Destination City --',
+            allowClear: true,
+            ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}', filter)
+          })
+        @else
+          $('#form-manifest [name="city_code"]').select2({
+            placeholder: '-- Select Destination City --',
+            allowClear: true,
+            ajax: get_select2_ajax_options('{{url('/destination-city-of-branch/select2')}}')
+          })
+        @endif
 
         $('#form-manifest [name="city_code"]').change(function(event) {
             var data = $(this).select2('data')[0];

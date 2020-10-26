@@ -24,7 +24,6 @@ class ReportMasterController extends Controller
       return $datatables->make(true);
     }
 
-
     $reportView = $this->getReportView($request);
 
     $data['report_master_value'] = $request->input('report-master');
@@ -404,7 +403,7 @@ class ReportMasterController extends Controller
 
     $sheet->setCellValue('A1', 'AREA');
     $sheet->setCellValue('B1', 'GATE NUMBER');
-    $sheet->setCellValue('C1', 'DESCRIPTION');;
+    $sheet->setCellValue('C1', 'DESCRIPTION');
 
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
     $sheet->getStyle('A1:C1')->applyFromArray(getPHPSpreadsheetTitleStyle());
@@ -513,12 +512,30 @@ class ReportMasterController extends Controller
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
     $sheet->getStyle('A1:I1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
-    $data = \App\Models\MasterVehicleExpedition::select(
-      'tr_vehicle_expedition.*',
-      DB::raw('tr_expedition.expedition_name as expedition_name')
-    )
-      ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
-      ->get();
+    if (auth()->user()->cabang->hq) {
+      $data = \App\Models\MasterVehicleExpedition::select(
+        'tr_vehicle_expedition.*',
+        DB::raw('tr_expedition.expedition_name as expedition_name')
+      )
+        ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code')
+        ->get();
+    } else {
+      $data = \App\Models\BranchExpeditionVehicle::select(
+        'wms_branch_vehicle_expedition.*',
+        DB::raw('tr_vehicle_type_detail.vehicle_description as vehicle_type'),
+        DB::raw('tr_vehicle_type_detail.cbm_min'),
+        DB::raw('tr_vehicle_type_detail.cbm_max'),
+        DB::raw('tr_vehicle_type_group.group_name AS vehicle_group'),
+        DB::raw('wms_branch_expedition.expedition_name'),
+        DB::raw('tr_destination.destination_description AS destination_name')
+      )
+        ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_vehicle_expedition.expedition_code')
+        ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'wms_branch_vehicle_expedition.vehicle_code_type')
+        ->leftjoin('tr_vehicle_type_group', 'tr_vehicle_type_group.id', '=', 'tr_vehicle_type_detail.vehicle_group_id')
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'wms_branch_vehicle_expedition.destination')
+        ->where('wms_branch_expedition.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->get();
+    }
 
     $row = 2;
     foreach ($data as $key => $vehicleExpedition) {

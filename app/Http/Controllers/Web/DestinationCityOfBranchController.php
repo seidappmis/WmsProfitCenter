@@ -133,6 +133,12 @@ class DestinationCityOfBranchController extends Controller
       $query->union($ambil_sendiri);
     }
 
+    if ($request->input('only_ambil_sendiri')) {
+      $ambil_sendiri = DB::table('tr_vehicle_type_detail')->selectRaw('"AS" as id, "Ambil Sendiri" AS `text` ');
+      $query->union($ambil_sendiri);
+      $query->where('kode_cabang', 0);
+    }
+
     $query->where('kode_cabang', auth()->user()->cabang->kode_cabang)
       ->orderBy('text');
 

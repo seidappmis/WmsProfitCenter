@@ -15,7 +15,7 @@ class CreateWmsManualConceptTable extends Migration
   {
     Schema::create('wms_manual_concept', function (Blueprint $table) {
       $table->string('invoice_no', 10);
-      $table->string('delivery_no', 10);
+      $table->string('delivery_no', 20);
       $table->integer('delivery_items');
       $table->string('do_date', 12)->nullable();
       $table->string('kode_customer', 8)->nullable();
