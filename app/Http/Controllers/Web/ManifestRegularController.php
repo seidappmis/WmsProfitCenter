@@ -646,16 +646,32 @@ class ManifestRegularController extends Controller
 
         // $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
 
+        $freightCost = FreightCost::where('area', $manifestHeader->area)
+          ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
+          ->where('expedition_code', $manifestHeader->expedition_code)
+          ->where('city_code', $do['city_code'])
+          ->first();
+
+        if (empty($freightCost)) {
+          return sendError('Freight Cost Not Found');
+        }
+
+        $do['nilai_ritase']  = $freightCost->ritase;
+        $do['nilai_ritase2'] = $freightCost->ritase2;
+        $do['lead_time']     = $freightCost->leadtime;
+        $do['base_price']    = $freightCost->cbm;
+        $do['nilai_cbm']     = $do['base_price'] * $do['cbm'];
+
         $rs_do[]                = $do;
         $rs_check_delivery_no[] = $do['delivery_no'];
       }
     }
 
     if ($request->input('type') != 'return') {
-      $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no);
+      $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no)->get();
 
-      if (!empty($rsCheckConcept)) {
-        return sendError('DO Already Exist');
+      if ($rsCheckConcept->count() > 0) {
+        return sendError('DO Already Exist', $rsCheckConcept);
       }
     }
 

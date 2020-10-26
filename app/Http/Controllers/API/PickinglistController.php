@@ -54,6 +54,7 @@ class PickinglistController extends Controller
         $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
         $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
         $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+        $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
       })
       ->groupBy(
         'wms_pickinglist_detail.header_id',
