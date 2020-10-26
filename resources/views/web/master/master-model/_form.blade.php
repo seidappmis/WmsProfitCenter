@@ -28,7 +28,7 @@
       <td>CBM</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="cbm" name="cbm" value="{{old('cbm', !empty($masterModel) ? $masterModel->cbm : '')}}" required>
+          <input type="text" id="cbm" name="cbm" value="{{old('cbm', !empty($masterModel) ? $masterModel->cbm : '')}}" required autocomplete="off">
         </div>
       </td>
     </tr>
@@ -96,7 +96,7 @@
       <td>Palet</td>
       <td>
         <div class="input-field col s12">
-          <input type="number" id="max_pallet" name="max_pallet" value="{{old('max_pallet', !empty($masterModel) ? $masterModel->max_pallet : '')}}" required>
+          <input type="number" id="max_pallet" name="max_pallet" value="{{old('max_pallet', !empty($masterModel) ? $masterModel->max_pallet : '')}}">
         </div>
       </td>
     </tr>
@@ -157,6 +157,9 @@
          placeholder: '-- Select Category--',
          ajax: get_select2_ajax_options('/master-model/select2-model-type')
       });
+
+      $('#cbm').inputmask('cbm_mask');
+
    });
 </script>
 @endpush

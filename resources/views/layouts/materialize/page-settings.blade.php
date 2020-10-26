@@ -11,6 +11,20 @@
         "searchDelay": 1000,
     });
 
+    Inputmask.extendAliases({
+        'cbm_mask': {
+          // alias: "numeric",
+          numericInput: true,
+          mask: "(9,999){+|1}.000",
+          placeholder: "0",
+          definitions: {
+              "0": {
+                  validator: "[0-9\uFF11-\uFF19]"
+              }
+          }
+        }
+      });
+
     $('.collapsible-header .no-propagation').click(function(e){ e.stopPropagation(); });
     $('.dataTable .input-filter-column').click(function(e){ e.stopPropagation(); });
 

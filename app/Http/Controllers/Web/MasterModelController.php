@@ -28,6 +28,9 @@ class MasterModelController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('cbm', function($data){
+          return setDecimal($data->cbm);
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_edit(url('master-model/' . $data->id . '/edit'));

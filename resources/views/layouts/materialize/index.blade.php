@@ -89,6 +89,7 @@
   <script src="{{ url('materialize/vendors/dropify/js/dropify.min.js') }}"></script>
   <script src="{{ url('materialize/vendors/form_repeater/jquery.repeater.min.js') }}"></script>
   <script src="{{ url('vendors/moment.js') }}"></script>
+  <script src="{{ url('vendors/jquery.inputmask.js') }}"></script>
   {{-- <script src="https://cdn.tiny.cloud/1/owjs6t5ywvk0rxqa5rd4xmlg8f2vg4c04wnstf7esi5sctw5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
 
 
