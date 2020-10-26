@@ -59,7 +59,7 @@ class MasterModelController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'model_name'       => 'required|max:50',
+      'model_name'       => 'required|unique:wms_master_model|max:50',
       'model_from_apbar' => 'max:50',
       'ean_code'         => 'required|max:50',
       'cbm'              => 'required',
@@ -67,12 +67,12 @@ class MasterModelController extends Controller
       'category'         => 'required',
       'model_type'       => 'required',
       'description'      => 'max:250',
-      'pcs_ctn'          => 'numeric',
-      'ctn_plt'          => 'numeric',
-      'max_pallet'       => 'numeric',
-      'price1'           => 'numeric',
-      'price2'           => 'numeric',
-      'price3'           => 'numeric',
+      // 'pcs_ctn'          => 'numeric',
+      // 'ctn_plt'          => 'numeric',
+      // 'max_pallet'       => 'numeric',
+      // 'price1'           => 'numeric',
+      // 'price2'           => 'numeric',
+      // 'price3'           => 'numeric',
     ]);
 
     $masterModel                   = new MasterModel;
