@@ -567,6 +567,7 @@ class PickingListController extends Controller
         $detail['model']              = $value->model;
         $detail['delivery_no']        = $value->delivery_no;
         $detail['invoice_no']         = $value->invoice_no;
+        $detail['delivery_items']     = $value->delivery_items;
         $detail['kode_customer']      = $value->kode_customer;
         $detail['code_sales']         = $value->code_sales;
         $detail['city_code']          = $pickingHeader->city_code;
@@ -874,7 +875,7 @@ class PickingListController extends Controller
   public function edit($id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
-    $data['rsPickinglist'] = PickinglistHeader::where('driver_register_id', $data['pickinglistHeader']->driver_register_id)->get();
+    $data['rsPickinglist']     = PickinglistHeader::where('driver_register_id', $data['pickinglistHeader']->driver_register_id)->get();
 
     return view('web.picking.picking-list.edit', $data);
   }
@@ -955,18 +956,18 @@ class PickingListController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-     $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left' => 7,
-        'margin_right' => 12,
-        'margin_top' => 5,
-        'margin_bottom' => 5,
-        'format' => 'Letter'
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'Letter',
       ]);
-     $mpdf->shrink_tables_to_fit = 1;
-       $mpdf->WriteHTML($view_print);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
-       // $mpdf->Output();
+      // $mpdf->Output();
 
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
