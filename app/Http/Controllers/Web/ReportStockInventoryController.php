@@ -16,14 +16,14 @@ class ReportStockInventoryController extends Controller
         ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_inventory_storage.storage_id')
         ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_master_storage.kode_cabang')
         ->where('log_cabang.kode_cabang', $request->input('cabang'))
-        ->get();
+        ;
 
       if (!empty($request->input('model'))) {
         $query->where('model_name', $request->input('model'));
       }
 
       if (!empty($request->input('location'))) {
-        $query->where('stoc_log_long', $request->input('location'));
+        $query->where('storage_id', $request->input('location'));
       }
 
       $datatables = DataTables::of($query)

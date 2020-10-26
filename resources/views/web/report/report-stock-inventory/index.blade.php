@@ -140,7 +140,7 @@
           type: 'GET',
           data: function(d) {
               d.cabang = $('#form-report-stock-inventory [name="kode_cabang"]').val()
-              d.model =$('').val()
+              d.model =$('#model_name').val()
               d.location =$('#form-report-stock-inventory [name="storage_location"]').val()
               d.search['value'] = $('#global_filter').val()
             }
