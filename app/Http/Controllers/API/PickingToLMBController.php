@@ -36,6 +36,7 @@ class PickingToLMBController extends Controller
           'ean_code'      => $postSerialNumber['eanCode'],
           'serial_number' => $postSerialNumber['serialNumber'],
           'created_at'    => $postSerialNumber['inputDate'],
+          'created_by'    => auth()->user()->id,
         ];
 
         // return $serial_number;

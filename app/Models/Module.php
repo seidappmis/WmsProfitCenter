@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-  protected $table = "tr_modules";
+  protected $table    = "tr_modules";
+  protected $fillable = ['id', 'modul_name', 'modul_link', 'group_name', 'order_menu'];
 }
