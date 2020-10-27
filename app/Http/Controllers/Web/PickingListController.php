@@ -932,7 +932,7 @@ class PickingListController extends Controller
       $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
       $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
-      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_LETTER);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
@@ -961,7 +961,7 @@ class PickingListController extends Controller
         'margin_right'                    => 12,
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
-        'format'                          => 'Letter',
+        'format'                          => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);

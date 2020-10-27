@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 {{-- @include('layouts.materialize.components.print-style') --}}
 
 @php
@@ -25,8 +25,7 @@ mpdf-->
 
 <table width="100%">
   <!-- <tr><td>&nbsp;</td></tr> -->
-  <tr><td>&nbsp;</td></tr>
-  <tr><td style="height: 2px;"></td></tr>
+  <!-- <tr><td>&nbsp;</td></tr> -->
   <tr>
     <td style="text-align: center; font-size: 12pt;" colspan="7"><strong>PICKING LIST</strong></td>
   </tr>
