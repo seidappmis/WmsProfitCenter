@@ -3,14 +3,13 @@
     <tr>
       <td>No. Berita Acara</td>
       <td>
-        <!-- <input id="berita_acara_no" name="berita_acara_no" type="text" class="validate" value="{{old('berita_acara_no', !empty($beritaAcara) ? $beritaAcara->berita_acara_no : $beritaAcaraNo)}}" readonly> -->
         <input id="berita_acara_no" name="berita_acara_no" type="text" class="validate" value="" placeholder="[AUTO]" readonly>
       </td>
     </tr>
     <tr>
       <td>Tanggal Terima</td>
       <td>
-        <input id="date_of_receipt" name="date_of_receipt" type="text" class="validate datepicker" value="{{date('yyyy-mm-dd')}}">
+        <input id="date_of_receipt" name="date_of_receipt" type="text" class="validate datepicker" value="{{date('Y-m-d')}}">
       </td>
     </tr>
     <tr>
@@ -47,6 +46,12 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
+        <div id="img_file_do_manifest" style="display: none;" class="text-center">
+          <img class="materialboxed" width="200" height="200" src="">
+          <a download="" href="/path/to/image" title="img_file_do_manifest" class="btn mt-1">
+            Download
+          </a>
+        </div>
       </td>
     </tr>
     <tr>
@@ -61,6 +66,12 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
+        <div id="img_file_internal_do" style="display: none;" class="text-center">
+          <img class="materialboxed" width="200" height="200" src="">
+          <a download="" href="/path/to/image" title="img_file_internal_do" class="btn mt-1">
+            Download
+          </a>
+        </div>
       </td>
     </tr>
     <tr>
@@ -74,6 +85,12 @@
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
           </div>
+        </div>
+        <div id="img_file_lmb" style="display: none;" class="text-center">
+          <img class="materialboxed" width="200" height="200" src="">
+          <a download="" href="/path/to/image" title="img_file_lmb" class="btn mt-1">
+            Download
+          </a>
         </div>
       </td>
     </tr>

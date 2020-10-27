@@ -91,17 +91,15 @@
           processData: false, // NEEDED, DON'T OMIT THIS
         })
         .done(function(result) {
-          console.log(result.status);
-          return;
           if (result.status) {
-            swal("Success!", "Data Created!", "success")
-              .then((result) => {
+            swal("Success!", 'No Berita Acara : ' + result.meta.berita_acara_no, "success")
+              .then((response) => {
                 // Kalau klik Ok redirect ke view
-                window.location.href = "{{ url('berita-acara') }}" + '/' + response.id
+                window.location.href = "{{ url('berita-acara') }}" + '/' + result.meta.id
               }) // alert success
           } else {
             setLoading(false);
-            showSwalAutoClose('Warning', result.message)
+            showSwalAutoClose('Warning', result.msg)
           }
         })
         .fail(function() {

@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('berita-acara', 'Web\BeritaAcaraController@index'); //index
   Route::get('berita-acara/create', 'Web\BeritaAcaraController@create'); //page insert berita acara
   Route::post('berita-acara/store', 'Web\BeritaAcaraController@store'); //proses insert berita acara
+  Route::get('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@show'); //page detail berita acara
 
   // Claim Notes
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');

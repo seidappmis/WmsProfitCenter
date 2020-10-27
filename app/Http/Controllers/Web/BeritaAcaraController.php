@@ -54,7 +54,7 @@ class BeritaAcaraController extends Controller
    */
   public function create(Request $request)
   {
-    return view('web.claim.berita-acara.create', $data);
+    return view('web.claim.berita-acara.create');
   }
 
   /**
@@ -80,7 +80,6 @@ class BeritaAcaraController extends Controller
           $action .= ' ' . get_button_delete();
           return $action;
         });
-
       return $datatables->make(true);
     }
 
@@ -101,16 +100,15 @@ class BeritaAcaraController extends Controller
         'expedition_code'   => 'required',
         'driver_name'       => 'required',
         'vehicle_number'    => 'required',
-        'file-do-manifest'  => 'nullable|mimes:xls,xlsb,xlsm,xlsx',
-        'file-internal-do'  => 'nullable|mimes:xls,xlsb,xlsm,xlsx',
-        'file-lmb'          => 'nullable|mimes:xls,xlsb,xlsm,xlsx',
+        'file-do-manifest'  => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-internal-do'  => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-lmb'          => 'nullable|mimes:jpeg,jpg,png,gif',
       ]);
 
       // Check validation failure
       if ($validator->fails()) {
-        return response()->json(['status' => false, 'msg' => $validator->messages()->first()]);
+        return ['status' => false, 'msg' => $validator->messages()->first()];
       }
-
       // Generate No. Berita Acara : No.urut/BA-Kode cabang/Bulan/Tahun
       $kode_cabang = auth()->user()->cabang->short_description;
       $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
@@ -122,45 +120,44 @@ class BeritaAcaraController extends Controller
       $beritaAcaraNo = $max_no . $formatNumber;
 
       try {
-        DB::transaction(function () use (&$request, &$beritaAcaraNo) {
-          $beritaAcara                  = new BeritaAcara;
-          $beritaAcara->berita_acara_no = $beritaAcaraNo;
-          $beritaAcara->date_of_receipt = date('Y-m-d', strtotime($request->input('date_of_receipt')));
-          $beritaAcara->expedition_code = $request->input('expedition_code');
-          $beritaAcara->driver_name     = $request->input('driver_name');
-          $beritaAcara->vehicle_number  = $request->input('vehicle_number');
+        $beritaAcara                  = new BeritaAcara;
+        $beritaAcara->berita_acara_no = $beritaAcaraNo;
+        $beritaAcara->date_of_receipt = date('Y-m-d', strtotime($request->input('date_of_receipt')));
+        $beritaAcara->expedition_code = $request->input('expedition_code');
+        $beritaAcara->driver_name     = $request->input('driver_name');
+        $beritaAcara->vehicle_number  = $request->input('vehicle_number');
+        // File DO Manifest
+        if ($request->hasFile('file-do-manifest')) {
+          $name = uniqid() . '.' . pathinfo($request->file('file-do-manifest')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/do-manifest/files', $request->file('file-do-manifest'), $name);
+          $beritaAcara->do_manifest  = 'do-manifest/files/' . $name;
+        }
 
-          // File DO Manifest
-          if ($request->hasFile('file-do-manifest')) {
-            $name = $request->file('file-do-manifest')->getClientOriginalName();
-            $path = Storage::putFileAs('do-manifest/files', $request->file('file-do-manifest'), $name);
-            $beritaAcara->do_manifest  = $path;
-          }
-
-          // File Internal DO
-          if ($request->hasFile('file-internal-do')) {
-            $name = $request->file('file-internal-do')->getClientOriginalName();
-            $path = Storage::putFileAs('internal-do/files', $request->file('file-internal-do'), $name);
-            $beritaAcara->internal_do   = $path;
-          }
+        // File Internal DO
+        if ($request->hasFile('file-internal-do')) {
+          $name = uniqid() . '.' . pathinfo($request->file('file-internal-do')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/internal-do/files', $request->file('file-internal-do'), $name);
+          $beritaAcara->internal_do   = 'internal-do/files' . $name;
+        }
 
 
-          // File LMB
-          if ($request->hasFile('file-lmb')) {
-            $name = $request->file('file-lmb')->getClientOriginalName();
-            $path = Storage::putFileAs('lmb/files', $request->file('file-lmb'), $name);
-            $beritaAcara->lmb             = $path;
-          }
+        // File LMB
+        if ($request->hasFile('file-lmb')) {
+          $name = uniqid() . '.' . pathinfo($request->file('file-lmb')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/lmb/files/', $request->file('file-lmb'), $name);
+          $beritaAcara->lmb             = 'lmb/files/' . $name;
+        }
 
-          $beritaAcara->kode_cabang         = auth()->user()->cabang->short_description;
+        $beritaAcara->kode_cabang         = auth()->user()->cabang->short_description;
 
+        DB::transaction(function () use (&$beritaAcara) {
           // dd($beritaAcara);
           $beritaAcara->save();
         });
 
-        return response()->json(['status' => true, 'msg' => 'successfully create date', 'meta' => $beritaAcara]);
+        return ['status' => true, 'msg' => 'successfully create date', 'meta' => $beritaAcara];
       } catch (\Exception $e) {
-        return $e->getMessage();
+        return ['status' => false, 'msg' => $e->getMessage()];
       }
     }
   }
