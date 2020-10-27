@@ -38,7 +38,7 @@
         $chunk = array_chunk($rs_details,10);
         
     @endphp
-    @foreach($chunk as $rs_details)
+    @foreach($chunk as $index=>$rs_details)
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;margin-top: 88mm;">
         <tr>
             <td style="text-align: center; width: 15mm;"></td>
@@ -110,7 +110,9 @@
         @endphp
         @endforeach
     </table>
+    @if($index < (count($chunk)-1))
     <div style="page-break-after: always;"></div>
+    @endif
     @endforeach
     {{-- End Main Table --}}
     </div>

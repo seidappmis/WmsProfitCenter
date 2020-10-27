@@ -741,7 +741,7 @@ class PickingToLMBController extends Controller
     $title = 'Picking List LMB';
 
     if ($request->input('filetype') == 'html') {
-      if (auth()->user()->cabang->type == 'HQ') {
+      if (auth()->user()->cabang->hq) {
 
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
       }
@@ -794,7 +794,7 @@ class PickingToLMBController extends Controller
       $writer->save("php://output");
 
     } else if ($request->input('filetype') == 'pdf') {
-      if (auth()->user()->cabang->type == 'HQ') {
+      if (auth()->user()->cabang->hq == 1) {
 
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 0,
