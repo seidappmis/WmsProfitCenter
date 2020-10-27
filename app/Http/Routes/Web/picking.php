@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Route::view('upload-do-for-picking', 'web.picking.upload-do-for-picking.index');
   Route::get('upload-do-for-picking', 'Web\UploadDOForPickingController@index');
   Route::post('upload-do-for-picking', 'Web\UploadDOForPickingController@upload');

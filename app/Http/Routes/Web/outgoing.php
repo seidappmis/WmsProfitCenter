@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Upload Concept
   Route::get('upload-concept', 'Web\UploadConceptController@index');
   Route::post('upload-concept', 'Web\UploadConceptController@store');

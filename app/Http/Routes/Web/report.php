@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   Route::get('report-master', 'Web\ReportMasterController@index');
   Route::get('report-master/export', 'Web\ReportMasterController@export');
 

@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Route::view('storage-inventory-monitoring', 'web.inventory.storage-inventory-monitoring.index');
   Route::get('storage-inventory-monitoring', 'Web\StorageInventoryMonitoringController@index');
   Route::get('storage-inventory-monitoring/{id}', 'Web\StorageInventoryMonitoringController@show');

@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   Route::get('task-notice', 'Web\TaskNoticeController@index');
   Route::post('task-notice', 'Web\TaskNoticeController@store');
   Route::put('task-notice', 'Web\TaskNoticeController@update');

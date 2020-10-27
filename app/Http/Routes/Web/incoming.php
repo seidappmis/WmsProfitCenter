@@ -1,7 +1,7 @@
 <?php
 use App\Http\Middleware\OnlyBranchAccess;
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
 
   // Finish Good Production
   Route::get('finish-good-production/{id}/export', 'Web\FinishGoodController@export');
