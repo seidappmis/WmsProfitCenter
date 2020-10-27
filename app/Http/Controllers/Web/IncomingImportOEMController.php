@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\IncomingManualDetail;
 use App\Models\IncomingManualHeader;
 use App\Models\InventoryStorage;
+use App\Models\MasterModel;
 use App\Models\MovementTransactionLog;
 use App\Models\MovementTransactionType;
 use App\Models\StorageMaster;
@@ -231,6 +232,64 @@ class IncomingImportOEMController extends Controller
 
   }
 
+  public function uploadModel(Request $request)
+  {
+    $request->validate([
+      'file_model' => 'required',
+    ]);
+
+    $incomingManualHeader = IncomingManualHeader::findOrFail($request->input('arrival_no'));
+
+    $file = fopen($request->file('file_model'), "r");
+
+    $rsUploadedModel = [];
+    $rsModels        = [];
+    $rsStorages      = [];
+
+    while (!feof($file)) {
+      $row = fgetcsv($file);
+
+      if (!empty($row[0])) {
+        $model['arrival_no_header'] = $request->input('arrival_no');
+        $model['no_gr_sap']         = $incomingManualHeader->no_gr_sap;
+        $model['model']             = $row[0];
+        $model['qty']               = $row[1];
+
+        if (empty($rsModels[$model['model']])) {
+          $checkModel = MasterModel::where('model_name', $model['model'])->first();
+          if (empty($checkModel)) {
+            return sendError("Model " . $model['model'] . " not found in master model.");
+          }
+          $rsModels[$model['model']] = $checkModel;
+        }
+
+        if (empty($rsStorages[$row[2]])) {
+          $checkStorage = StorageMaster::where('sto_loc_code_long', $row[2])->first();
+          if (empty($checkStorage)) {
+            return sendError("Storage " . $row[2] . " not found in master Storage.");
+          }
+          $rsStorages[$row[2]] = $checkStorage;
+        }
+
+        $model['cbm']         = $rsModels[$model['model']]->cbm;
+        $model['total_cbm']   = $model['cbm'] * $model['qty'];
+        $model['description'] = $rsModels[$model['model']]->description;
+        $model['storage_id']  = $rsStorages[$row[2]]->id;
+        $model['kode_cabang'] = $incomingManualHeader->kode_cabang;
+        $model['created_at']  = date('Y-m-d H:i:s');
+        $model['created_by']  = auth()->user()->id;
+
+        $rsUploadedModel[] = $model;
+      }
+    }
+
+    if (!empty($rsUploadedModel)) {
+      IncomingManualDetail::insert($rsUploadedModel);
+    }
+
+    return sendSuccess('Model Uploaded.', $rsUploadedModel);
+  }
+
   public function update(Request $request, $id)
   {
     $request->validate([
@@ -249,7 +308,7 @@ class IncomingImportOEMController extends Controller
     $incomingManualHeader->container_no        = $request->input('container_no');
     $incomingManualHeader->area                = $request->input('area');
     $incomingManualHeader->inc_type            = $request->input('inc_type');
-    $incomingManualHeader->kode_cabang = auth()->user()->cabang->kode_cabang;
+    $incomingManualHeader->kode_cabang         = auth()->user()->cabang->kode_cabang;
     // $incomingManualHeader->submit              = 0;
     // $incomingManualHeader->submit_date         = $request->input('submit_date');
     // $incomingManualHeader->submit_by           = $request->input('submit_by');

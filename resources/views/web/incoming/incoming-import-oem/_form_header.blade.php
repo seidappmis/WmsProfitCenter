@@ -93,7 +93,14 @@
   </table>
   {!! get_button_save('Save', 'btn-save mt-1') !!}
   <span class="waves-effect waves-light indigo btn-small btn-submit-to-inventory mt-1 mr-1 hide">Submit to Inventory</span>
+  @if(!empty($incomingManualHeader) && $incomingManualHeader->inc_type == "OTHERS" && $incomingManualHeader->vendor_name == "2nd Class" && !$incomingManualHeader->submit)
+  <a class="waves-effect waves-light btn btn-small modal-trigger btn-upload-model indigo btn mt-1 mr-1 " href="#modal1">Upload Model</a>
+  @include('web.incoming.incoming-import-oem.modal-upload-model')
+  @endif
 </form>
+
+
+
 @push('script_js')
 <script type="text/javascript">
    jQuery(document).ready(function($) {
