@@ -220,7 +220,7 @@
           })
         });
 
-        @if($pickinglistHeader->storage->sto_type_id == 2 || auth()->user()->cabang->hq)
+        @if($pickinglistHeader->storage->sto_type_id == 2 || auth()->user()->allowTo('edit', 'send-to-lmb'))
         $('.btn-send-to-lmb').removeClass('hide')
         $('.btn-send-to-lmb').click(function(event) {
           /* Act on the event */

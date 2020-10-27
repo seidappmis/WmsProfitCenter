@@ -479,6 +479,7 @@ class PickingToLMBController extends Controller
           'ean_code'      => $row[1],
           'serial_number' => $row[2],
           'created_at'    => $row[3],
+          'created_by'    => auth()->user()->id,
         ];
 
         if (empty($rs_models[$serial_number['ean_code']])) {
