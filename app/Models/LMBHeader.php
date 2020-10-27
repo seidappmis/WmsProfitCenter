@@ -106,12 +106,14 @@ class LMBHeader extends Model
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_lmb_header.kode_cabang')
-      ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      ;
 
     if ($branch) {
       $lmbHeader->where('log_cabang.hq', 0);
+      $lmbHeader->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
     } else {
       $lmbHeader->where('log_cabang.hq', 1);
+      $lmbHeader->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
     }
 
     if (auth()->user()->cabang->hq) {

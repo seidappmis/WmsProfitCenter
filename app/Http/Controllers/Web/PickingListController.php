@@ -35,10 +35,16 @@ class PickingListController extends Controller
         'wms_pickinglist_header.storage_type',
         DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
       )
-        ->where('wms_pickinglist_header.area', auth()->user()->area)
-        ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang)
         ->groupBy('wms_pickinglist_header.driver_register_id')
       ;
+
+      if (auth()->user()->area != "All") {
+        $query->where('wms_pickinglist_header.area', auth()->user()->area);
+        $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      } else {
+        $query->where('wms_pickinglist_header.hq', 1);
+
+      }
 
       // Tampilkan data yang belum ada manifest bila tidak di search
       $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');

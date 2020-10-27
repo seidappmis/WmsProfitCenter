@@ -48,6 +48,10 @@
       $('#area_filter').attr('disabled','disabled')
     @endif
   jQuery(document).ready(function($) {
+    $('#area_filter').change(function(event) {
+      /* Act on the event */
+      dtdatatable_data_manifest_normal.ajax.reload(null, false)
+    });
   });
 </script>
 @endpush
