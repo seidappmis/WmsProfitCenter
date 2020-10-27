@@ -18,7 +18,7 @@
                 
                 <!-- end search -->
             </div>
-        </>
+        </div>
     @endcomponent
     
     <div class="col s12">
@@ -353,13 +353,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('loading-status-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('loading-status-list/export?file_type=pdf')}}" + '&' + $('#form-loading-status-list').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('loading-status-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('loading-status-list/export?file_type=xls')}}" + '&' + $('#form-loading-status-list').serialize();
           }
         }
       ],

@@ -142,13 +142,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-overload-concept-or-do/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-overload-concept-or-do/export?file_type=pdf')}}" + '&' + $('#form-report-overload').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-overload-concept-or-do/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-overload-concept-or-do/export?file_type=xls')}}" + '&' + $('#form-report-overload').serialize();
           }
         }
       ],
