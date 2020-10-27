@@ -109,26 +109,28 @@ class MasterVehicleExpeditionController extends Controller
 
   public function getSelect2VehicleNumber(Request $request)
   {
-    $query = MasterVehicleExpedition::select(
-      DB::raw("vehicle_number AS id"),
-      DB::raw("vehicle_number AS text"),
-      'tr_vehicle_type_detail.vehicle_description',
-      'tr_vehicle_type_detail.vehicle_code_type',
-      'tr_vehicle_type_detail.vehicle_group_id',
-      'tr_vehicle_type_detail.cbm_min',
-      'tr_vehicle_type_detail.cbm_max',
-      'tr_expedition.code'
-    )->toBase();
+    if (auth()->user()->cabang->hq) {
+      $query = MasterVehicleExpedition::select(
+        DB::raw("vehicle_number AS id"),
+        DB::raw("vehicle_number AS text"),
+        'tr_vehicle_type_detail.vehicle_description',
+        'tr_vehicle_type_detail.vehicle_code_type',
+        'tr_vehicle_type_detail.vehicle_group_id',
+        'tr_vehicle_type_detail.cbm_min',
+        'tr_vehicle_type_detail.cbm_max',
+        'tr_expedition.code'
+      )->toBase();
 
-    $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
-    $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code');
+      $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');
+      $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_vehicle_expedition.expedition_code');
 
 
-    if (!empty($request->input('expedition_code'))) {
-      $query->where('expedition_code', $request->input('expedition_code'));
+      if (!empty($request->input('expedition_code'))) {
+        $query->where('expedition_code', $request->input('expedition_code'));
+      }
+
+      $query->orderBy('vehicle_number');
     }
-
-    $query->orderBy('vehicle_number');
 
     return get_select2_data($request, $query);
   }
@@ -137,7 +139,7 @@ class MasterVehicleExpeditionController extends Controller
   {
     $query = MasterVehicleExpedition::select(
       DB::raw("tr_vehicle_expedition.vehicle_code_type AS id"),
-      DB::raw("vehicle_description AS text"),
+      DB::raw("vehicle_description AS text")
     )->toBase();
 
     $query->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_vehicle_expedition.vehicle_code_type');

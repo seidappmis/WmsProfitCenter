@@ -7,7 +7,11 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::put('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@update');
   Route::get('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}/edit', 'Web\BeritaAcaraDetailController@edit');
   Route::delete('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@destroy');
-  Route::resource('berita-acara', 'Web\BeritaAcaraController');
+  // Route::resource('berita-acara', 'Web\BeritaAcaraController');
+  Route::get('berita-acara', 'Web\BeritaAcaraController@index'); //index
+  Route::get('berita-acara/create', 'Web\BeritaAcaraController@create'); //page insert berita acara
+  Route::post('berita-acara/store', 'Web\BeritaAcaraController@store'); //proses insert berita acara
+  Route::get('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@show'); //page detail berita acara
 
   // Claim Notes
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
