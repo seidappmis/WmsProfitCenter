@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // User Manager
   Route::post('user-manager/{id}/grant-cabang', 'Web\UserManagerController@grantCabang');
   Route::delete('user-manager/{id}/grant-cabang/{kode_cabang_grant}', 'Web\UserManagerController@destroyGrantCabang');
