@@ -229,7 +229,18 @@ class ReceiptInvoiceController extends Controller
       $amountInvoice = $data['invoiceReceiptHeader']->getAmountInvoice();
 
       $query = $data['invoiceReceiptHeader']->details()->select(
-        'log_invoice_receipt_detail.*',
+        'log_invoice_receipt_detail.do_manifest_no',
+        'log_invoice_receipt_detail.do_manifest_date',
+        'log_invoice_receipt_detail.vehicle_number',
+        'log_invoice_receipt_detail.vehicle_description',
+        'log_invoice_receipt_detail.city_name',
+        DB::raw('SUM(cbm_do) AS cbm_do'),
+        DB::raw('SUM(cbm_amount) AS cbm_amount'),
+        DB::raw('SUM(ritase_amount) AS ritase_amount'),
+        DB::raw('SUM(ritase2_amount) AS ritase2_amount'),
+        DB::raw('SUM(multidro_amount) AS multidro_amount'),
+        DB::raw('SUM(unloading_amount) AS unloading_amount'),
+        DB::raw('SUM(overstay_amount) AS overstay_amount'),
         DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do')
       )
         ->groupBy('do_manifest_no')
@@ -237,17 +248,26 @@ class ReceiptInvoiceController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->editColumn('cbm_amount', function ($data) {
+          return !empty($data->cbm_amount) ? thousand_reformat($data->cbm_amount) : 0;
+        })
+        ->editColumn('ritase_amount', function ($data) {
+          return !empty($data->ritase_amount) ? thousand_reformat($data->ritase_amount) : 0;
+        })
+        ->editColumn('ritase2_amount', function ($data) {
+          return !empty($data->ritase2_amount) ? thousand_reformat($data->ritase2_amount) : 0;
+        })
         ->editColumn('multidro_amount', function ($data) {
-          return !empty($data->multidro_amount) ? $data->multidro_amount : 0;
+          return !empty($data->multidro_amount) ? thousand_reformat($data->multidro_amount) : 0;
         })
         ->editColumn('unloading_amount', function ($data) {
-          return !empty($data->unloading_amount) ? $data->unloading_amount : 0;
+          return !empty($data->unloading_amount) ? thousand_reformat($data->unloading_amount) : 0;
         })
         ->editColumn('overstay_amount', function ($data) {
-          return !empty($data->overstay_amount) ? $data->overstay_amount : 0;
+          return !empty($data->overstay_amount) ? thousand_reformat($data->overstay_amount) : 0;
         })
         ->addColumn('total', function ($data) {
-          return $data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount;
+          return thousand_reformat($data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount);
         })
         ->addColumn('action_view', function ($data) {
           return get_button_view(url('receipt-invoice/' . $data->id));
@@ -320,8 +340,8 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
-    $invoiceReceiptHeader->amount_pph = $request->input('amount_pph');
-    $invoiceReceiptHeader->amount_ppn = $request->input('amount_ppn');
+    $invoiceReceiptHeader->amount_pph  = $request->input('amount_pph');
+    $invoiceReceiptHeader->amount_ppn  = $request->input('amount_ppn');
 
     $invoiceReceiptHeader->save();
 
@@ -496,17 +516,26 @@ class ReceiptInvoiceController extends Controller
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ->editColumn('cbm_amount', function ($data) {
+        return !empty($data->cbm_amount) ? thousand_reformat($data->cbm_amount) : 0;
+      })
+      ->editColumn('ritase_amount', function ($data) {
+        return !empty($data->ritase_amount) ? thousand_reformat($data->ritase_amount) : 0;
+      })
+      ->editColumn('ritase2_amount', function ($data) {
+        return !empty($data->ritase2_amount) ? thousand_reformat($data->ritase2_amount) : 0;
+      })
       ->editColumn('multidro_amount', function ($data) {
-        return !empty($data->multidro_amount) ? $data->multidro_amount : 0;
+        return !empty($data->multidro_amount) ? thousand_reformat($data->multidro_amount) : 0;
       })
       ->editColumn('unloading_amount', function ($data) {
-        return !empty($data->unloading_amount) ? $data->unloading_amount : 0;
+        return !empty($data->unloading_amount) ? thousand_reformat($data->unloading_amount) : 0;
       })
       ->editColumn('overstay_amount', function ($data) {
-        return !empty($data->overstay_amount) ? $data->overstay_amount : 0;
+        return !empty($data->overstay_amount) ? thousand_reformat($data->overstay_amount) : 0;
       })
       ->addColumn('total', function ($data) {
-        return $data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount;
+        return thousand_reformat($data->cbm_amount + $data->ritase_amount + $data->ritase2_amount + $data->multidro_amount + $data->unloading_amount + $data->overstay_amount);
       })
       ->addColumn('action_view', function ($data) {
         return get_button_view('#!');
