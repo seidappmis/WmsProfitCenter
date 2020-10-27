@@ -15,10 +15,12 @@ class DataSynchronizationController extends Controller
 
   protected function updateDatabaseModules()
   {
+    echo "Add Update Serial Number";
     \App\Models\Module::updateOrCreate(
       ['id' => 106],
       ['module_name' => 'Update Serial Number', 'modul_link' => 'update-serial-number', 'group_name' => 'Picking', 'order_menu' => 4]
     );
+    echo "Add Send To LMB";
     \App\Models\Module::updateOrCreate(
       ['id' => 107],
       ['module_name' => 'Send To LMB', 'modul_link' => 'send-to-lmb', 'group_name' => 'Picking', 'order_menu' => 5]
