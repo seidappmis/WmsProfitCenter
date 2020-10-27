@@ -97,6 +97,9 @@ class User extends Authenticatable
       return false;
     }
     if ($modul_link == '') {
+      if (Request::ajax()) {
+        return true;
+      }
       $modul_link = Request::segment(1);
     }
     $roleDetail = UserRoleDetail::leftjoin('tr_modules', 'tr_modules.id', '=', 'tr_user_roles_detail.modul_id')

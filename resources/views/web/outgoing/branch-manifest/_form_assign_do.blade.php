@@ -5,6 +5,7 @@
     <table>
         <tr>
             <td width="45%" style="vertical-align: top;">
+            <div class="red-text">Use (Shift or Ctrl) + left click mouse for range multi select.</div>
             <b>From TCS</b>
             <table id="from-tcs-table" class="table-pick-list-result display">
                 <thead><tr><th>Delivery No | CBM | Qty | Model</th></tr></thead>
@@ -72,6 +73,7 @@
           ordering: false,
           searching: false,
           info:     false,
+          select: true,
           data: [],
           columns: [
             {
@@ -102,6 +104,7 @@
           ordering: false,
           searching: false,
           info:     false,
+          select: true,
           data: {!!$lmbHeader->do_details->toJson()!!},
           columns: [
             {
