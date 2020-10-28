@@ -8,6 +8,7 @@ use App\Models\MasterExpedition;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\BranchExpedition;
 
 class MasterExpeditionController extends Controller
 {
@@ -79,7 +80,6 @@ class MasterExpeditionController extends Controller
     $masterExpedition->status_active   = !empty($request->input('status_active'));
 
     return $masterExpedition->save();
-
   }
 
   /**
@@ -103,7 +103,6 @@ class MasterExpeditionController extends Controller
   {
     $data['masterExpedition'] = MasterExpedition::findorfail($id);
     return view('web.master.master-expedition.edit', $data);
-
   }
 
   /**
@@ -151,12 +150,27 @@ class MasterExpeditionController extends Controller
 
   public function getSelect2ActiveExpedition(Request $request)
   {
-    $query = MasterExpedition::select(
-      DB::raw("code AS id"),
-      DB::raw("expedition_name AS text")
-    )
-      ->where('status_active', 1)
-      ->toBase();
+    if (auth()->user()->cabang->hq) {
+      $query = MasterExpedition::select(
+        DB::raw("code AS id"),
+        DB::raw("expedition_name AS text")
+      )
+        ->where('status_active', 1)
+        ->toBase();
+    } else {
+      $query = BranchExpedition::select(
+        DB::raw("code AS id"),
+        DB::raw("expedition_name AS text")
+      )
+        ->where('status_active', 1)
+        ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->toBase();
+
+      if ($request->input('onetime')) {
+        $onetime = DB::table('wms_branch_expedition')->selectRaw('"ON1" as id, "ONE TIME" AS `text` ');
+        $query->union($onetime);
+      }
+    }
 
     return get_select2_data($request, $query);
   }
@@ -190,13 +204,13 @@ class MasterExpeditionController extends Controller
       ->where('expedition_code', $request->input('expedition_code'))
       //->where('area', $area)
       ->groupBy('log_freight_cost.city_code')
-      ->orderBy('text');  
+      ->orderBy('text');
 
-    if(empty($request->input('area'))){
-      if(strtoupper(auth()->user()->area)=='ALL'){
+    if (empty($request->input('area'))) {
+      if (strtoupper(auth()->user()->area) == 'ALL') {
         // tampilkan semua area atau tidak pakai where
       }
-    }else{
+    } else {
       $area = $request->input('area');
       $query->where('area', $area);
     }

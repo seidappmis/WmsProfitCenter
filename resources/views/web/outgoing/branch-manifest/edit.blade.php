@@ -95,10 +95,15 @@
         })
         .done(function(result) { // selesai dan berhasil
           // setLoading(true); // Disable Button when ajax post data
+          setLoading(false);
           if (result.status) {
-            window.location.href = '{{ url("branch-manifest/" . $manifestHeader->do_manifest_no . "/edit") }}'
+             showSwalAutoClose('Success', result.message)
+              dttable_list_do.ajax.reload(null, false); // reload datatable
+              dtdatatable_submit_to_logsys.rows()
+                .remove()
+                .draw();
           } else{
-            setLoading(false);
+             showSwalAutoClose('Warning', result.message)
           }
         })
         .fail(function(xhr) {

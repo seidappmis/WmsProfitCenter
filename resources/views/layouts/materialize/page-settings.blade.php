@@ -113,6 +113,12 @@ function setDecimal(number, precision = 3){
   return parseFloat(number).toFixed(precision)
 }
 
+function getDecimal(value){
+  value = typeof value == "string" ? parseFloat(value.replace(",", '')) : value;
+
+  return value
+}
+
 function get_select2_search_term(params, extraFilter){
   var search_term = {
     q: params.term || '', // search term

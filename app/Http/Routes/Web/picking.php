@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Route::view('upload-do-for-picking', 'web.picking.upload-do-for-picking.index');
   Route::get('upload-do-for-picking', 'Web\UploadDOForPickingController@index');
   Route::post('upload-do-for-picking', 'Web\UploadDOForPickingController@upload');
@@ -38,4 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('picking-to-lmb/{id}/export', 'Web\PickingToLMBController@export');
   Route::get('picking-to-lmb/{id}/details-lmb', 'Web\PickingToLMBController@getDetailsLMB');
   Route::resource('picking-to-lmb', 'Web\PickingToLMBController');
+
+  Route::get('update-serial-no', 'Web\UpdateSerialNoController@index');
+  Route::post('update-serial-no/upload', 'Web\UpdateSerialNoController@upload');
 });

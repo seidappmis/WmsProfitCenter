@@ -206,15 +206,15 @@
           $('#modal-detail-do .table_do tbody').append(row)
 
           $('#form-cost-per-do [name="id"]').val(data.id)
-          $('#form-cost-per-do [name="freight_cost"]').val(data.freight_cost)
-          $('#form-cost-per-do [name="multidro_amount"]').val(data.multidro_amount)
-          $('#form-cost-per-do [name="unloading_amount"]').val(data.unloading_amount)
-          $('#form-cost-per-do [name="ritase2_amount"]').val(data.ritase2_amount)
-          $('#form-cost-per-do [name="overstay_amount"]').val(data.overstay_amount)
+          $('#form-cost-per-do [name="freight_cost"]').val(getDecimal(data.freight_cost))
+          $('#form-cost-per-do [name="multidro_amount"]').val(getDecimal(data.multidro_amount))
+          $('#form-cost-per-do [name="unloading_amount"]').val(getDecimal(data.unloading_amount))
+          $('#form-cost-per-do [name="ritase2_amount"]').val(getDecimal(data.ritase2_amount))
+          $('#form-cost-per-do [name="overstay_amount"]').val(getDecimal(data.overstay_amount))
 
           $('#modal-detail-do .text-total_cbm').text(data.cbm_do)
-          $('#modal-detail-do .text-cbm_amount').text(parseFloat(data.cbm_amount).toFixed(3))
-          $('#modal-detail-do .text-ritase_amount').text(data.ritase_amount)
+          $('#modal-detail-do .text-cbm_amount').text(parseFloat(getDecimal(data.cbm_amount)).toFixed(3))
+          $('#modal-detail-do .text-ritase_amount').text(getDecimal(data.ritase_amount))
 
           getCostPerDO(data)
 
@@ -244,7 +244,7 @@
   }
 
   function getCostPerDO(data){
-    var cost_per_do = parseFloat(data.cbm_amount) + parseFloat(data.ritase_amount) + parseFloat(data.ritase2_amount) + parseFloat(data.multidro_amount) + parseFloat(data.unloading_amount) + parseFloat(data.overstay_amount);
+    var cost_per_do = parseFloat(getDecimal(data.cbm_amount)) + parseFloat(getDecimal(data.ritase_amount)) + parseFloat(getDecimal(data.ritase2_amount)) + parseFloat(getDecimal(data.multidro_amount)) + parseFloat(getDecimal(data.unloading_amount)) + parseFloat(getDecimal(data.overstay_amount));
 
     $('.text-cost-per-do').text(cost_per_do.toFixed(3))
   }

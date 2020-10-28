@@ -28,7 +28,6 @@ class PickingToLMBController extends Controller
     if ($request->ajax()) {
       $query = LMBHeader::select('wms_lmb_header.*')
         ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-        ->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang)
       ;
 
       if (auth()->user()->cabang->hq) {
@@ -37,12 +36,18 @@ class PickingToLMBController extends Controller
         if (empty($request->input('search')['value'])) {
           $query->whereNull('log_manifest_header.driver_register_id');
         }
+        if (auth()->user()->area == 'All') {
+          $query->where('wms_pickinglist_header.hq', 1);
+        } else {
+          $query->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+        }
       } else {
         // Tampilkan data yang belum ada manifest bila tidak di search
         $query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
         if (empty($request->input('search')['value'])) {
           $query->whereNull('wms_branch_manifest_header.driver_register_id');
         }
+        $query->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
       }
 
       $query->groupBy('wms_lmb_header.driver_register_id');
@@ -474,6 +479,7 @@ class PickingToLMBController extends Controller
           'ean_code'      => $row[1],
           'serial_number' => $row[2],
           'created_at'    => $row[3],
+          'created_by'    => auth()->user()->id,
         ];
 
         if (empty($rs_models[$serial_number['ean_code']])) {

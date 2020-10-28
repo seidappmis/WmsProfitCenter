@@ -9,6 +9,7 @@ Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 Route::get('/test', function () {
   echo "<pre>";
+  print_r(auth()->user()->allowTo('edit', 'send-to-lmb'));
   // $sql = DB::connection('sqlsrv')->table('LOG_Manifest_Header')->first();
   // print_r($sql);
 });

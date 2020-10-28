@@ -89,13 +89,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-master-freight-cost/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-master-freight-cost/export?file_type=pdf')}}" + '&area=' + $('#form-report-master-freight-cost [name="area"]').val();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-master-freight-cost/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-master-freight-cost/export?file_type=xls')}}" + '&area=' + $('#form-report-master-freight-cost [name="area"]').val();
           }
         }
       ],

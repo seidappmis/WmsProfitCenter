@@ -9,7 +9,22 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateDeliveryItemsLMB();
+    $this->updateDatabaseModules();
+    // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateDatabaseModules()
+  {
+    echo "Add Update Serial Number <br>";
+    \App\Models\Module::updateOrCreate(
+      ['id' => 106],
+      ['modul_name' => 'Update Serial Number', 'modul_link' => 'update-serial-number', 'group_name' => 'Picking', 'order_menu' => 4]
+    );
+    echo "Add Send To LMB <br>";
+    \App\Models\Module::updateOrCreate(
+      ['id' => 107],
+      ['modul_name' => 'Send To LMB', 'modul_link' => 'send-to-lmb', 'group_name' => 'Picking', 'order_menu' => 5]
+    );
   }
 
   protected function updateDeliveryItemsLMB()

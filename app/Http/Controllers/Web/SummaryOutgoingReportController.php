@@ -140,7 +140,7 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_detail.delivery_no', $request->input('delivery_no'));
     }
 
-    if ($request->input('include_hq') == 'true') {
+    if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on') {
       $queryHQ = LogManifestHeader::select(
         'log_manifest_header.driver_register_id',
         'log_manifest_header.do_manifest_no',
@@ -261,7 +261,6 @@ class SummaryOutgoingReportController extends Controller
 
   public function export(Request $request)
   {
-    return;
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $sheet       = $spreadsheet->getActiveSheet();
 

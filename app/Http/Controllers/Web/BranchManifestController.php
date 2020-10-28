@@ -156,9 +156,56 @@ class BranchManifestController extends Controller
     return view('web.outgoing.branch-manifest.edit', $data);
   }
 
+  public function listDO(Request $request, $do_manifest_no)
+  {
+    if ($request->ajax()) {
+      $query = WMSBranchManifestDetail::listDO($do_manifest_no)
+      ;
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('desc', function ($data) {
+          return $data->getDesc($data);
+        })
+        ->editColumn('status_confirm', function ($data) {
+          return $data->status();
+        })
+        ->addColumn('action', function ($data) {
+          $action = '';
+          if (!$data->status_confirm) {
+            $action .= ' ' . get_button_delete();
+          }
+          return $action;
+        })
+        ->rawColumns(['do_status', 'action']);
+
+      return $datatables->make(true);
+    }
+  }
+
   public function destroyDetail($id, $detail_id)
   {
     return sendSuccess('Line deleted.', WMSBranchManifestDetail::destroy($detail_id));
+  }
+
+  public function destroySelectedDO(Request $request)
+  {
+    $data_list_do = json_decode($request->input('data_list_do'), true);
+
+    $rs_id = [];
+    try {
+      DB::beginTransaction();
+      foreach ($data_list_do as $key => $value) {
+        $rs_id[] = $value['id'];
+        WMSBranchManifestDetail::where('id', $value['id'])->delete();
+      }
+
+      DB::commit();
+      return sendSuccess("Selected DO deleted.", $rs_id);
+    } catch (Exception $e) {
+      DB::rollback();
+
+    }
   }
 
   public function assignDO(Request $request, $id)
@@ -258,7 +305,7 @@ class BranchManifestController extends Controller
     if ($request->input('filetype') == 'xls') {
       $view_print = view('web.outgoing.branch-manifest._excel', $data);
     }
-    $title      = 'Branch Manifest';
+    $title = 'Branch Manifest';
 
     if ($request->input('filetype') == 'html') {
 
@@ -310,15 +357,15 @@ class BranchManifestController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left' => 7,
-        'margin_right' => 12,
-        'margin_top' => 5,
-        'margin_bottom' => 5,
-        'format' => 'Letter'
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'Letter',
       ]);
-     $mpdf->shrink_tables_to_fit = 1;
-       $mpdf->WriteHTML($view_print);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
 
       // $mpdf->Output();
       $mpdf->Output($title . '.pdf', "D");

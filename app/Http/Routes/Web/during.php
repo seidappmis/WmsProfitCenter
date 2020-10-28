@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Berita Acara
   Route::get('/berita-acara-during', 'Web\BeritaAcaraDuringController@index');
   Route::get('/berita-acara-during/create', 'Web\BeritaAcaraDuringController@create');

@@ -314,6 +314,64 @@
                                             @endif
                                         @endforeach
                                         @endif
+
+                                        @if(count($do) > 1)
+                                        @foreach($do AS $kdo => $vdo)
+                                            @if($kdo != 0)
+                                            <tr>
+                                                <td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                {{ $do[$kdo]['no_do_sap'] }}
+                                                </td>
+                                                <td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ date('d/m/Y', strtotime($do[$kdo]['tgl_do_sap'])) }}
+                                                </td>
+                                                <td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['ship_to_code'] }}
+                                                </td>
+                                                <td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['ship_to'] }}
+                                                </td>
+                                                <td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['acc_code'] }}
+                                                </td>
+                                                <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['models'][0]['model'] }}
+                                                </td>
+                                                <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['models'][0]['quantity'] }}
+                                                </td>
+                                                <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                    {{ $do[$kdo]['models'][0]['cbm_do'] }}
+                                                </td>
+                                                @php
+                                                $subTotalQty += $do[$kdo]['models'][0]['quantity'];
+                                                $subTotalCbm += $do[$kdo]['models'][0]['cbm_do'];
+                                                @endphp
+                                            </tr>
+                                            @if(count($do[$kdo]['models']) > 1)
+                                            @foreach($do[$kdo]['models'] AS $kModel => $vModel)
+                                                @if($kModel != 0)
+                                                @php
+                                                $subTotalQty += $vModel['quantity'];
+                                                $subTotalCbm += $vModel['cbm_do'];
+                                                @endphp
+                                                <tr>
+                                                    <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
+                                                        {{$vModel['model']}}
+                                                    </td>
+                                                    <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                        {{$vModel['quantity']}}
+                                                    </td>
+                                                    <td style="text-align: right; font-size: 10pt;border: 1pt solid black;">
+                                                        {{$vModel['cbm_do']}}
+                                                    </td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
+                                            @endif
+                                            @endif
+                                        @endforeach
+                                        @endif
                                         {{-- <tr>
                                             <td style="text-align: left; font-size: 10pt;border: 1pt solid black;">
                                                 4915072395

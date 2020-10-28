@@ -1,7 +1,7 @@
 <?php
 use App\Http\Middleware\OnlyBranchAccess;
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
 
   // Finish Good Production
   Route::get('finish-good-production/{id}/export', 'Web\FinishGoodController@export');
@@ -9,6 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // Incoming Import OEM
   Route::get('incoming-import-oem/{id}/export', 'Web\IncomingImportOEMController@export');
+  Route::post('incoming-import-oem/upload-model', 'Web\IncomingImportOEMController@uploadModel');
   Route::post('incoming-import-oem/{id}/submit-to-inventory', 'Web\IncomingImportOEMController@submitToInventory');
   Route::post('incoming-import-oem/{id}/detail', 'Web\IncomingImportOEMDetailController@store');
   Route::delete('incoming-import-oem/{incoming_manual_id}/detail/{detail_id}', 'Web\IncomingImportOEMDetailController@destroy');

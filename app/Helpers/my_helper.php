@@ -33,7 +33,7 @@ function percentage_reformat($percentage)
 
 function thousand_reformat($number)
 {
-  return number_format($number, 0, ',', '.');
+  return number_format($number, 0, '.', ',');
 }
 
 function setDecimal($number)

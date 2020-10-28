@@ -1,7 +1,7 @@
 <?php
 use App\Http\Middleware\OnlyBranchAccess;
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
   Route::get('master-gate/select2-free-gate', 'Web\GateController@getSelect2FreeGate');
   Route::resource('master-gate', 'Web\GateController');

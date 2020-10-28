@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   Route::get('report-master', 'Web\ReportMasterController@index');
   Route::get('report-master/export', 'Web\ReportMasterController@export');
 
@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('loading-status-list', 'Web\LoadingStatusListController@index');
   Route::post('loading-status-list', 'Web\LoadingStatusListController@index');
+  Route::get('loading-status-list/export', 'Web\LoadingStatusListController@export');
 
   Route::get('report-concept-coming-vs-actual-loading', 'Web\ReportConceptComingActualLoadingController@index');
   Route::get('report-concept-coming-vs-actual-loading/graph', 'Web\ReportConceptComingActualLoadingController@getGraph');
@@ -35,11 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('summary-outgoing-report/export', 'Web\SummaryOutgoingReportController@export');
 
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
+  Route::get('report-master-freight-cost/export', 'Web\ReportMasterFreightCostController@export');
   Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
 
   Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
+  Route::get('report-overload-concept-or-do/export', 'Web\ReportOverloadConceptOrDOController@export');
 
 
   Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');

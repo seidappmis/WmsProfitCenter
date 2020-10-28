@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   Route::view('dashboard', 'web.dashboard.dashboard1.index');
   Route::get('dashboard/loading-daily-status', 'Web\DashboardController@getLoadingDailyStatus');
   Route::get('dashboard/waiting-truck-all-area', 'Web\DashboardController@getWaitingTruckAllArea');

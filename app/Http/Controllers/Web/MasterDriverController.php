@@ -8,6 +8,7 @@ use App\Models\MasterExpedition;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\BranchDriver;
 
 class MasterDriverController extends Controller
 {
@@ -83,7 +84,8 @@ class MasterDriverController extends Controller
     if (!empty($request->file('photo_name'))) {
       $photo_name = $masterDriver->expedition_code . date('y') . $max_no . '.' . $request->file('photo_name')->extension();
       $path       = $request->file('photo_name')->storeAs(
-        'Photo', $photo_name
+        'Photo',
+        $photo_name
       );
       $masterDriver->photo_name = $photo_name;
     }
@@ -114,7 +116,6 @@ class MasterDriverController extends Controller
    */
   public function show($id)
   {
-
   }
 
   /**
@@ -156,10 +157,10 @@ class MasterDriverController extends Controller
     if (!empty($request->file('photo_name'))) {
       $photo_name = str_replace('-', '', $masterDriver->driver_id) . '.' . $request->file('photo_name')->extension();
       $path       = $request->file('photo_name')->storeAs(
-        'public/Photo', $photo_name
+        'public/Photo',
+        $photo_name
       );
       $masterDriver->photo_name = $photo_name;
-
     }
     // $masterDriver->expedition_code      = $request->input('expedition_code');
     $masterDriver->driver_id            = $request->input('driver_id');
@@ -203,23 +204,35 @@ class MasterDriverController extends Controller
 
   public function getSelect2DriverExpedition(Request $request)
   {
-    $query = MasterDriver::select(
-      DB::raw("driver_name AS id"),
-      DB::raw("driver_name AS text"),
-      'tr_expedition.code'
-    )->toBase();
 
-    $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
+    if (auth()->user()->cabang->hq) {
 
-     if (!empty($request->input('expedition_code'))) {
-      $query->where('expedition_code', $request->input('expedition_code'));
+      $query = MasterDriver::select(
+        DB::raw("driver_name AS id"),
+        DB::raw("driver_name AS text"),
+        'tr_expedition.code'
+      )->toBase();
+
+      $query->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver.expedition_code');
+
+      if (!empty($request->input('expedition_code'))) {
+        $query->where('expedition_code', $request->input('expedition_code'));
+      }
+
+      // $query->where('expedition_code', $request->input('expedition_code'));
+
+      $query->orderBy('driver_name');
+    } else {
+      $query = BranchDriver::select(
+        DB::raw("driver_id AS id"),
+        DB::raw("driver_name AS text")
+      )
+        ->where('active_status', 1)
+        ->where('expedition_code', $request->input('expedition_code'))
+        ->orderBy('text')
+        ->toBase();
     }
-
-    // $query->where('expedition_code', $request->input('expedition_code'));
-
-    $query->orderBy('driver_name');
 
     return get_select2_data($request, $query);
   }
-
 }

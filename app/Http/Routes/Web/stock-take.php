@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Stock Take Schedule
   Route::put('stock-take-schedule/{sto_id}/view-detail/{id}', 'Web\StockTake\STScheduleDetailController@update');
   Route::get('stock-take-schedule/{sto_id}/view-detail/{id}/edit', 'Web\StockTake\STScheduleDetailController@edit');
