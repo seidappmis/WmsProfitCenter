@@ -72,6 +72,36 @@
 {{-- Main Table --}}
 <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
 {{-- Table Head --}}
+@php
+$totaldata=0;
+$list=[];
+$s_row_total=0;
+$chunk=[];
+$chunks=[];
+$c_row_size=0;
+for($i=0;$i<140;$i++){
+    foreach($rs_details as $c=>$v){
+    $totaldata++;
+        $s_row_total = ceil(count($v['serial_numbers']) / 3);
+        $cc=50;
+        if(count($chunks)==0){
+            $cc=43;
+        }
+        if(($c_row_size+=$s_row_total)>$cc){
+            $chunks[]=$chunk;
+            $chunk=[];
+            $c_row_size=0;
+        }
+        $chunk[$c.$i]=$v;
+    }
+}
+if(count($chunk)>0){
+    $chunks[]=$chunk;
+}
+$row_no = 1;
+
+@endphp
+@foreach($chunks as $index=>$rs_details)
 <tr>
     <td style="text-align: center; border: 1pt solid #000000; width: 10mm;">NO</td>
     <td colspan="4" style="text-align: center; border: 1pt solid #000000; width: 50mm;">MODEL</td>
@@ -81,10 +111,11 @@
 </tr>
 {{-- Table Body --}}
 @php
-$row_no = 1;
+$row_c=0;
 @endphp
 @foreach($rs_details AS $k_model => $v_model)
 @php 
+$row_c++;
 $row_serial_pointer = 1;
 $row_serial_total = ceil(count($v_model['serial_numbers']) / 3);
 $serial_pointer = 0;
@@ -96,7 +127,7 @@ $qty = count($v_model['serial_numbers']);
     border-left: 1pt solid #000000; 
     border-right: 1pt solid #000000; 
     vertical-align: top;
-    {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+    {{$row_no == $totaldata ? 'border-bottom: 1pt solid #000000;' : ''}}">
         {{$row_no}}
     </td>
     <td rowspan="{{$row_serial_total}}" colspan="4" style="
@@ -104,7 +135,7 @@ $qty = count($v_model['serial_numbers']);
     border-left: 1pt solid #000000; 
     border-right: 1pt solid #000000; 
     vertical-align: top;
-    {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+    {{$row_no == $totaldata ? 'border-bottom: 1pt solid #000000;' : ''}}">
         {{$k_model}}
     </td>
     <td rowspan="{{$row_serial_total}}" colspan="2"  style="
@@ -112,7 +143,7 @@ $qty = count($v_model['serial_numbers']);
     border-left: 1pt solid #000000; 
     border-right: 1pt solid #000000; 
     vertical-align: top;
-    {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+    {{$row_no == $totaldata ? 'border-bottom: 1pt solid #000000;' : ''}}">
         {{$qty}}
     </td>
     <td style="text-align: center;" colspan="3">
@@ -143,6 +174,7 @@ $qty = count($v_model['serial_numbers']);
 
 @php
 $row_serial_pointer ++;
+$row_c++;
 @endphp
 @endwhile
 
@@ -150,29 +182,28 @@ $row_serial_pointer ++;
 $row_no++;
 @endphp
 @endforeach
-{{-- <tr>
-    <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
-    <td rowspan="2" colspan="4" style="text-align: center; border: 1pt solid #000000;">AH-A9SAY</td>
-    <td colspan="2" rowspan="2" style="text-align: center; border: 1pt solid #000000;">5</td>
-    <td style="text-align: center;" colspan="3">581910101</td>
-    <td style="text-align: center;" colspan="3">581910101</td>
-    <td style="text-align: center;" colspan="2">581910101</td>
-    <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
-</tr>
-<tr>
-    <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">581910101
-    </td>
-    <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">581910101
-    </td>
-    <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2"></td>
-    <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
-</tr> --}}
-<tr>
-    <td colspan="14">&nbsp;</td>
-</tr>
-@for($i=0;$i<(36-($row_no*2));$i++)
+    <tr>
+        <td style="border-top: 1pt solid #000000;" colspan="16">&nbsp;</td></tr>
+@php
+$row_no++;
+$c=57;
+if($index==0){
+  $c=44;
+}
+if($index==(count($chunks)-1)){
+    $c=50;
+}
+@endphp
+
+@for($i=0;$i<($c-($row_c));$i++)
 <tr><td>&nbsp;</td></tr>
 @endfor
+@if(($c-($row_c)<=0) && $index==(count($chunks)-1))
+    @for($b=0;$b<52;$b++)
+    <tr><td>&nbsp;</td></tr>
+    @endfor
+@endif
+@endforeach
 </table>
 {{-- End Main Table --}}
 

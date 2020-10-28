@@ -33,7 +33,11 @@
     <div style="padding-left: 15mm;padding-right: 20mm;">
     {{-- Main Table --}}
     @php
-        $chunk = array_chunk($rs_details,10);
+    $list=[];
+    foreach($rs_details as $row){
+    $list[]=$row;
+    }
+    $chunk = array_chunk($list,10);
         
     @endphp
     @foreach($chunk as $rs_details)
@@ -107,8 +111,8 @@
         $row_no++;
         @endphp
         @endforeach
+        <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
     </table>
-    <div style="page-break-after: always;"></div>
     @endforeach
     {{-- End Main Table --}}
     </div>

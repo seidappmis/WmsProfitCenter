@@ -743,13 +743,15 @@ class PickingToLMBController extends Controller
     if ($request->input('filetype') == 'html') {
       if (auth()->user()->cabang->hq) {
 
-        $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
+        // $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
       }
       // request HTML View
       return $view_print;
 
     } elseif ($request->input('filetype') == 'xls') {
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
+      // echo $view_print;
+      // return;
       // if(auth()->user()->cabang->type='HQ'){
 
       //   $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);

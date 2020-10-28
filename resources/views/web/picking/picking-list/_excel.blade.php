@@ -68,6 +68,18 @@ foreach ($rs_shipment_no as $key => $value) {
     </td>
   </tr>
     {{-- Judul Tabel --}}
+    @php
+    $list=[];
+    foreach($details as $row){
+      $list[]=$row;
+    }
+    $chunk[]=array_splice($list,0,53);
+    $chunks = array_chunk($list,62);
+    foreach($chunks as $c){
+      $chunk[]=$c;
+    }
+    @endphp
+    @foreach($chunk as $index=>$details)
     <tr><td colspan="7" style="border-bottom: 1pt solid #000000;">&nbsp;</td></tr>
     <tr>
       <td style="text-align: left; " colspan="3">MODEL NAME</td>
@@ -90,15 +102,25 @@ foreach ($rs_shipment_no as $key => $value) {
     @endphp
     <tr>
       <td style="text-align: left;" colspan="3">{{$detail->model}}</td>
-      <td style="text-align: center;" colspan="2">{{$detail->ean_code}}</td>
+      <td style="text-align: center;" colspan="2">&nbsp;{{$detail->ean_code}}</td>
       <td style="text-align: center;">{{$detail->quantity}}</td>
       <td style="text-align: center;">{{$detail->cbm}}</td>
     </tr>
     @endforeach
-    @for($i=0;$i<(36-(count($details)));$i++)
+    @if($index==(count($chunk)-1))
+    @php
+    $c=49;
+    if($index==0){
+      $c=43;
+    }
+    @endphp
+    <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
+    @for($i=0;$i<($c-(count($details)));$i++)
     <tr><td>&nbsp;</td></tr>
     @endfor
-  <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
+    @endif
+    @endforeach
+    
   <tr>
     <td style="">PICKED BY</td>
     <td>&nbsp;</td>
