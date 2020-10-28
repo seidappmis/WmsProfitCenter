@@ -79,21 +79,19 @@ $s_row_total=0;
 $chunk=[];
 $chunks=[];
 $c_row_size=0;
-for($i=0;$i<140;$i++){
-    foreach($rs_details as $c=>$v){
+foreach($rs_details as $c=>$v){
     $totaldata++;
-        $s_row_total = ceil(count($v['serial_numbers']) / 3);
-        $cc=50;
-        if(count($chunks)==0){
-            $cc=43;
-        }
-        if(($c_row_size+=$s_row_total)>$cc){
-            $chunks[]=$chunk;
-            $chunk=[];
-            $c_row_size=0;
-        }
-        $chunk[$c.$i]=$v;
+    $s_row_total = ceil(count($v['serial_numbers']) / 3);
+    $cc=50;
+    if(count($chunks)==0){
+        $cc=43;
     }
+    if(($c_row_size+=$s_row_total)>$cc){
+        $chunks[]=$chunk;
+        $chunk=[];
+        $c_row_size=0;
+    }
+    $chunk[$c]=$v;
 }
 if(count($chunk)>0){
     $chunks[]=$chunk;
@@ -188,9 +186,8 @@ $row_no++;
 $row_no++;
 $c=57;
 if($index==0){
-  $c=44;
-}
-if($index==(count($chunks)-1)){
+  $c=36;
+}else if($index==(count($chunks)-1)){
     $c=50;
 }
 @endphp
