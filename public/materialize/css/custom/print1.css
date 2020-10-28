@@ -25,7 +25,7 @@ footer {
     text-align: center;
 }
 @page {
-    size: 8.5in 11in;
+    size: 215mm 279mm;
     /*margin: 0mm;*/
 }
 @media print {

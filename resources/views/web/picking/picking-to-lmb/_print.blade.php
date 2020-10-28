@@ -1,7 +1,5 @@
 <html>
-<head>
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
-</head>
 <body style="font-family: Arial;">
     <table width="100%" style="font-size: 10pt;line-height: 1.4">
         <tr>
@@ -137,6 +135,7 @@
         $row_no++;
         @endphp
         @endforeach
+        <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
         {{-- <tr>
             <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
             <td rowspan="2"  style="text-align: center; border: 1pt solid #000000;">AH-A9SAY</td>

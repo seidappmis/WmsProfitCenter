@@ -1,3 +1,4 @@
+<html>
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 {{-- @include('layouts.materialize.components.print-style') --}}
 
@@ -13,7 +14,7 @@ foreach ($rs_shipment_no as $key => $value) {
 }
 @endphp
 
-<body style="font-family: courier New; font-size: 10pt;width: 100%;">
+<body style="font-family: courier New; font-size: 10pt;">
 <!--mpdf
 <htmlpagefooter name="myheader">
   <div style="position:absolute;top:5mm;right:10mm;" v="Page {PAGENO} of {nb}">
@@ -169,3 +170,5 @@ mpdf-->
   </table>
 </footer>
 
+</body>
+</html>

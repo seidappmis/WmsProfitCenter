@@ -756,10 +756,12 @@ class PickingToLMBController extends Controller
 
     } elseif ($request->input('filetype') == 'xls') {
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
-      // if(auth()->user()->cabang->type='HQ'){
+      // echo $view_print;
+      // return;
+      if(auth()->user()->cabang->hq){
 
-      //   $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
-      // }
+        $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
+      }
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -800,7 +802,7 @@ class PickingToLMBController extends Controller
       $writer->save("php://output");
 
     } else if ($request->input('filetype') == 'pdf') {
-      if (auth()->user()->cabang->hq == 1) {
+      if (auth()->user()->cabang->hq) {
 
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 0,

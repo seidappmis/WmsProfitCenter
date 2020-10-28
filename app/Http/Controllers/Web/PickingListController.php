@@ -915,6 +915,8 @@ class PickingListController extends Controller
 
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
+      // print_r($data['details']->toArray());
+      // return;
       $view_print    = view('web.picking.picking-list._excel', $data);
 
     }
