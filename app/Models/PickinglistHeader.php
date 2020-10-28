@@ -15,6 +15,33 @@ class PickinglistHeader extends Model
     return $this->hasMany('App\Models\PickinglistDetail', 'header_id', 'id');
   }
 
+  public function getConceptData()
+  {
+    if ($this->HQ) {
+      $concept = $this->details()->select(
+        'tr_concept.*'
+      )
+        ->leftjoin('tr_concept', function ($join) {
+          $join->on('tr_concept.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+          $join->on('tr_concept.line_no', '=', 'wms_pickinglist_detail.line_no');
+        })
+      ;
+    } else {
+      $concept = $this->details()->select(
+        'wms_manual_concept.*',
+        DB::raw('wms_manual_concept.long_description_customer AS ship_to')
+      )
+        ->leftjoin('wms_manual_concept', function ($join) {
+          $join->on('wms_manual_concept.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+          $join->on('wms_manual_concept.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+          $join->on('wms_manual_concept.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+        })
+      ;
+    }
+
+    return $concept->get();
+  }
+
   public function detailWithLMB()
   {
     return $this
@@ -40,7 +67,6 @@ class PickinglistHeader extends Model
       )
     ;
   }
-
 
   public function driver_register()
   {

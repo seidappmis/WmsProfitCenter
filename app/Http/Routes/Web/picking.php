@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   
   Route::post('picking-list/{id}/send-to-lmb', 'Web\PickingListController@sendToLMB');
   Route::get('picking-list/{id}/export', 'Web\PickingListController@export');
+  Route::get('picking-list/{id}/export-concept', 'Web\PickingListController@exportConcept');
   Route::resource('picking-list', 'Web\PickingListController');
 
   // Route::view('picking-to-lmb', 'web.picking.picking-to-lmb.index');

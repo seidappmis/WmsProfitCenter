@@ -917,7 +917,85 @@ class PickingListController extends Controller
       $data['excel'] = 1;
       // print_r($data['details']->toArray());
       // return;
-      $view_print    = view('web.picking.picking-list._excel', $data);
+      $view_print = view('web.picking.picking-list._excel', $data);
+
+    }
+    $title = 'picking_list';
+
+    if ($request->input('filetype') == 'html') {
+
+      // request HTML View
+      return $view_print;
+
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // return $view_print;
+      // Request FILE EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+      // Set warna background putih
+      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      // Set Font
+      $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+
+      // Atur lebar kolom
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10);
+
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+      $writer->save("php://output");
+
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output($title . '.pdf', "D");
+      // $mpdf->Output();
+
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
+    }
+  }
+
+  public function exportConcept(Request $request, $picking_id)
+  {
+    $data['pickinglistHeader'] = PickinglistHeader::findOrFail($picking_id);
+    $data['details'] = $data['pickinglistHeader']->getConceptData();
+
+    $data['excel'] = '';
+    $view_print    = view('web.picking.picking-list._print_concept', $data);
+
+    if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      // print_r($data['details']->toArray());
+      // return;
+      $view_print = view('web.picking.picking-list._excel', $data);
 
     }
     $title = 'picking_list';

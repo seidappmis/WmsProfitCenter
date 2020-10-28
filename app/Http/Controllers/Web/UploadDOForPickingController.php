@@ -85,7 +85,8 @@ class UploadDOForPickingController extends Controller
         $do['model']                     = $row[9];
         // $do['ean_code']                  = '';
         $do['quantity'] = $row[10];
-        $do['cbm']      = $row[15];
+        // $do['cbm']      = $row[15];
+        $do['cbm']      = $row[16]; //Total Volume
         // $do['code_sales']  = 'DS';
         $do['area']        = auth()->user()->area;
         $do['kode_cabang'] = auth()->user()->cabang->kode_cabang;

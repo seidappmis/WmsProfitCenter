@@ -136,7 +136,8 @@
           @if(empty($pickinglistHeader))
             {!! get_button_save('Save') !!}
           @else
-            {!! get_button_print('#', 'Print', 'btn-print mt-2') !!}
+            {!! get_button_print('#!', 'Print', 'btn-print mt-2') !!}
+            {!! get_button_print('#!', 'Print Concept', 'btn-print-concept mt-2') !!}
             {!! get_button_view('#!', 'Send To LMB', 'btn-send-to-lmb mt-2 hide') !!}
           @endif
             {!! get_button_cancel(url('picking-list'),'Back') !!}
@@ -178,6 +179,12 @@
   'title' => 'Print Pickinglist',
   'url' => 'picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export',
   'trigger' => '.btn-print'
+  ])
+
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print Pickinglist Concept',
+  'url' => 'picking-list/' . (!empty($pickinglistHeader) ? $pickinglistHeader->id : '') . '/export-concept',
+  'trigger' => '.btn-print-concept'
   ])
 
 @push('script_js')
