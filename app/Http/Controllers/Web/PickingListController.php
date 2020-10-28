@@ -38,13 +38,13 @@ class PickingListController extends Controller
         ->groupBy('wms_pickinglist_header.driver_register_id')
       ;
 
-      if (auth()->user()->area != "All") {
-        $query->where('wms_pickinglist_header.area', auth()->user()->area);
-        $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
-      } else {
-        $query->where('wms_pickinglist_header.hq', 1);
+      $query->where('wms_pickinglist_header.area', auth()->user()->area);
+      $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      // if (auth()->user()->area != "All") {
+      // } else {
+      //   $query->where('wms_pickinglist_header.hq', 1);
 
-      }
+      // }
 
       // Tampilkan data yang belum ada manifest bila tidak di search
       $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
