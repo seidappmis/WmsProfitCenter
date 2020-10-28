@@ -991,30 +991,19 @@ class PickingListController extends Controller
     $data['excel'] = '';
     $view_print    = view('web.picking.picking-list._print_concept', $data);
 
-    if ($request->input('filetype') == 'xls') {
-      $data['excel'] = 1;
-      // print_r($data['details']->toArray());
-      // return;
-      $view_print = view('web.picking.picking-list._excel', $data);
+    // if ($request->input('filetype') == 'xls') {
+    //   $data['excel'] = 1;
+    //   // print_r($data['details']->toArray());
+    //   // return;
+    //   $view_print = view('web.picking.picking-list._excel_concept', $data);
 
-    }
-    $title = 'picking_list';
+    // }
+    $title = 'Pickinglist Concept';
 
     if ($request->input('filetype') == 'html') {
 
       // request HTML View
-    $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left'                     => 7,
-        'margin_right'                    => 12,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 50,
-        'format'                          => 'A4',
-      ]);
-      $mpdf->shrink_tables_to_fit = 1;
-      $mpdf->WriteHTML($view_print);
-
-      // $mpdf->Output($title . '.pdf', "D");
-      $mpdf->Output();
+      return $view_print;
 
     } elseif ($request->input('filetype') == 'xls') {
 
