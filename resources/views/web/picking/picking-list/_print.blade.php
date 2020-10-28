@@ -1,4 +1,5 @@
 <html>
+<head>
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 {{-- @include('layouts.materialize.components.print-style') --}}
 
@@ -13,7 +14,7 @@ foreach ($rs_shipment_no as $key => $value) {
   $shipment_no .= $value;
 }
 @endphp
-
+</head>
 <body style="font-family: courier New; font-size: 10pt;">
 <!--mpdf
 <htmlpagefooter name="myheader">
@@ -84,8 +85,8 @@ mpdf-->
   </tr>
 </table>
 
-<table width="100%" >
-  <thead>
+<table width="100%">
+  <thead > 
     {{-- Judul Tabel --}}
     <tr><td colspan="7" style="border-bottom: 1pt solid #000000;">&nbsp;</td></tr>
     <tr>
@@ -104,6 +105,7 @@ mpdf-->
     $total_quantity = 0;
     $total_cbm = 0;
     @endphp
+    @for($i=0;$i<100;$i++)
     @foreach($details AS $key => $detail)
     @php
     $total_quantity += $detail->quantity;
@@ -116,6 +118,7 @@ mpdf-->
       <td style="text-align: center;">{{$detail->cbm}}</td>
     </tr>
     @endforeach
+    @endfor
   </tbody>
 </table>
 <footer>

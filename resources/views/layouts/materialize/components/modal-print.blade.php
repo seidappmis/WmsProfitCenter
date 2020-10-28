@@ -40,23 +40,39 @@
       $('#btn-print-export-pdf-{{$print_selector_id}}').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : ''));
       $('#btn-print-{{$print_selector_id}}').click(function(event) {
         /* Act on the event */
-        $.ajax({
-            type: 'GET',
-            url: url + '?filetype=html' + (extraParams != null ? '&' + extraParams : ''),
-            dataType: 'html',
-            timeout: 10000,
-            success: function (html) {
-              w = window.open(window.location.href,"_blank");
-              w.document.open();
-              w.document.write(html);
-              w.document.close();
-              w.window.print();
-              w.window.close()
-            },
-            error: function (data) {
-              console.log('Error:', data);
+        // w = window.open(url + '?filetype=html' + (extraParams != null ? '&' + extraParams : ''),"_popup");
+        // w.document.open();
+        // w.document.write(html);
+        // w.document.close();
+        w=document.querySelector("#modal-print-{{$print_selector_id}} #frame").contentWindow;
+        function printDocument(w) {
+            // var doc = document.getElementById(documentId);
+
+            //Wait until PDF is ready to print    
+            if (typeof w.print === 'undefined') {    
+                setTimeout(function(){printDocument(w);}, 1500);
+            } else {
+                w.print();
             }
-          });
+        }
+        printDocument(w);
+        // $.ajax({
+        //     type: 'GET',
+        //     url: url + '?filetype=html' + (extraParams != null ? '&' + extraParams : ''),
+        //     dataType: 'html',
+        //     timeout: 10000,
+        //     success: function (html) {
+        //       w = window.open(window.location.href,"_blank");
+        //       w.document.open();
+        //       w.document.write(html);
+        //       w.document.close();
+        //       w.window.print();
+        //       w.window.close()
+        //     },
+        //     error: function (data) {
+        //       console.log('Error:', data);
+        //     }
+        //   });
       });
     }
   </script>

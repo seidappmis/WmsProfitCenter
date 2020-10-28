@@ -1003,7 +1003,18 @@ class PickingListController extends Controller
     if ($request->input('filetype') == 'html') {
 
       // request HTML View
-      return $view_print;
+    $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 50,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      // $mpdf->Output($title . '.pdf', "D");
+      $mpdf->Output();
 
     } elseif ($request->input('filetype') == 'xls') {
 
@@ -1046,13 +1057,14 @@ class PickingListController extends Controller
         'margin_left'                     => 7,
         'margin_right'                    => 12,
         'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
+        'margin_bottom'                   => 50,
         'format'                          => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
+      // $mpdf->Output();
       // $mpdf->Output();
 
     } else {
