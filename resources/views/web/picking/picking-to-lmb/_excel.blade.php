@@ -30,17 +30,17 @@
 <tr>
     <td colspan="2" style="width: 30mm;">Tanggal</td>
     <td style="width: 5mm;">:</td>
-    <td colspan="6" style="width: 60mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
-    <td colspan="2" style="width: 40mm;">No. Mobil/Jenis</td>
+    <td colspan="4" style="width: 60mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+    <td colspan="4" style="width: 40mm;">No. Mobil/Jenis</td>
     <td style="width: 5mm;">:</td>
     <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
 </tr>
 <tr>
     <td colspan="2">Expedisi</td>
     <td>:</td>
-    <td colspan="6">{{$lmbHeader->expedition_name}}</td>
+    <td colspan="4">{{$lmbHeader->expedition_name}}</td>
     @if($lmbHeader->cabang->hq)
-    <td colspan="2">No. Container</td>
+    <td colspan="4">No. Container</td>
     <td>:</td>
     <td colspan="3">{{$lmbHeader->container_no}}</td>
     @else 
@@ -52,16 +52,16 @@
 <tr>
     <td colspan="2">Tujuan</td>
     <td>:</td>
-    <td colspan="6">{{$lmbHeader->destination_name}}</td>
-    <td colspan="2">No. Seal</td>
+    <td colspan="4">{{$lmbHeader->destination_name}}</td>
+    <td colspan="4">No. Seal</td>
     <td>:</td>
     <td colspan="3">{{$lmbHeader->seal_no}}</td>
 </tr>
 <tr>
     <td colspan="2">Lokasi Gudang</td>
     <td>:</td>
-    <td colspan="6">{{$lmbHeader->short_description_cabang}}</td>
-    <td colspan="2">No. Picking</td>
+    <td colspan="4">{{$lmbHeader->short_description_cabang}}</td>
+    <td colspan="4">No. Picking</td>
     <td>:</td>
     <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
 </tr>
