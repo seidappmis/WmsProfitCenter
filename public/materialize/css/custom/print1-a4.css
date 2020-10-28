@@ -28,10 +28,6 @@ footer {
     /*size: 120mm 297mm;*/
     /*margin: 0mm;*/
 }
-html{
-    /*height: 100vh;*/
-    position:relative;
-}
 @media print {
     footer {
         position: absolute!important;
