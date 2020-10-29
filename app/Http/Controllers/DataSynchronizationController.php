@@ -9,7 +9,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateDatabaseModules();
+    // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
 

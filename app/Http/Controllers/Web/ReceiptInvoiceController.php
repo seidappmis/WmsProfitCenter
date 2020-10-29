@@ -53,10 +53,13 @@ class ReceiptInvoiceController extends Controller
         ->whereNotNull('log_manifest_header.expedition_code')
         ->whereBetween(DB::raw('DATE(log_manifest_header.do_manifest_date)'), array($from_date, $to_date))
         ->whereNull('log_invoice_receipt_detail.id')
-        ->where('log_manifest_header.area', auth()->user()->area)
         ->where('log_manifest_header.status_complete', 1)
         ->groupBy('log_manifest_header.do_manifest_no')
       ;
+
+      if (auth()->user()->area != 'All') {
+        $query->where('log_manifest_header.area', auth()->user()->area);
+      }
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

@@ -226,6 +226,7 @@ class PickingListController extends Controller
       $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
       $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
       $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
+      $conceptTruckFlow->area                = $driverRegistered->area;
       $conceptFlowHeader->driver_register_id = $driverRegistered->id;
       $conceptFlowHeader->save();
 
@@ -989,7 +990,7 @@ class PickingListController extends Controller
   public function exportConcept(Request $request, $picking_id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($picking_id);
-    $data['details'] = $data['pickinglistHeader']->getConceptData();
+    $data['details']           = $data['pickinglistHeader']->getConceptData();
 
     $data['excel'] = '';
     $view_print    = view('web.picking.picking-list._print_concept', $data);
