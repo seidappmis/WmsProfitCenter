@@ -5,7 +5,7 @@
     <thead>
       <tr>
         <td>{{ date('d-M-y') }}</td>
-        <td></td>
+        <td>{{ $pickinglistHeader->picking_no }}</td>
         <td style="text-align: center;">{{ date('H:i') }}</td>
         <td colspan="7"></td>
       </tr>

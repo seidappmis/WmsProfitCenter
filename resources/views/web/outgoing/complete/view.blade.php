@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-content">
                       <p>VEHICLE NO. : <b class="green-text text-darken-3">{{$rsManifestHeader[0]->vehicle_number}}</b></p>
-                      <p>STATUS : <b class="green-text text-darken-3">{{$rsManifestHeader[0]->status()}}</b></p>
+                      <p>STATUS : <b class="green-text text-darken-3">{!! $rsManifestHeader[0]->status() !!}</b></p>
                       <br>
                       <div class="section-data-tables"> 
                         <table id="data-table-section-contents" class="bordered" width="100%">
