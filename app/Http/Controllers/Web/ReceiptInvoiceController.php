@@ -82,6 +82,8 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->id                = date("Y-m-d H:i:s");
     $invoiceReceiptHeader->expedition_code   = $request->input('expedition_code');
     $invoiceReceiptHeader->expedition_name   = $request->input('expedition_name');
+    $invoiceReceiptHeader->pph               = 2;
+    $invoiceReceiptHeader->ppn               = 10;
     $invoiceReceiptHeader->amount_ppn        = 0;
     $invoiceReceiptHeader->amount_pph        = 0;
     $invoiceReceiptHeader->amount_before_tax = 0;
@@ -94,6 +96,8 @@ class ReceiptInvoiceController extends Controller
 
       $invoiceReceiptHeader->save();
       InvoiceReceiptDetail::insert($rsInvoiceReceiptDetail);
+
+      $invoiceReceiptHeader->updateAmountInvoice();
 
       DB::commit();
 
@@ -118,8 +122,8 @@ class ReceiptInvoiceController extends Controller
     try {
       DB::beginTransaction();
 
-      $invoiceReceiptHeader->save();
       InvoiceReceiptDetail::insert($rsInvoiceReceiptDetail);
+      $invoiceReceiptHeader->updateAmountInvoice();
 
       DB::commit();
 
@@ -226,7 +230,7 @@ class ReceiptInvoiceController extends Controller
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
 
     if ($request->ajax()) {
-      $amountInvoice = $data['invoiceReceiptHeader']->getAmountInvoice();
+      // $amountInvoice = $data['invoiceReceiptHeader']->getAmountInvoice();
 
       $query = $data['invoiceReceiptHeader']->details()->select(
         'log_invoice_receipt_detail.do_manifest_no',
@@ -277,7 +281,7 @@ class ReceiptInvoiceController extends Controller
         })
         ->rawColumns(['action_view', 'action_delete']);
 
-      return $datatables->with('amountInvoice', $amountInvoice)->make(true);
+      return $datatables->with('invoiceReceiptHeader', $data['invoiceReceiptHeader'])->make(true);
     }
 
     return view('web.invoicing.receipt-invoice.view', $data);
@@ -300,9 +304,12 @@ class ReceiptInvoiceController extends Controller
 
   public function destroyManifest($id, $do_manifest_no)
   {
-    $detail = InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no);
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
+    $detail = InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no);
     $detail->delete();
+
+    $invoiceReceiptHeader->updateAmountInvoice();
 
     return sendSuccess('Manifest deleted.', $detail);
   }
@@ -560,6 +567,8 @@ class ReceiptInvoiceController extends Controller
 
   public function updateDOData(Request $request, $id_header)
   {
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id_header);
+
     $detail = InvoiceReceiptDetail::findOrFail($request->input('id'));
 
     $detail->multidro_amount  = $request->input('multidro_amount');
@@ -571,12 +580,15 @@ class ReceiptInvoiceController extends Controller
     $detail->cbm_amount   = $detail->cbm_do * $detail->freight_cost;
 
     $detail->save();
+    $invoiceReceiptHeader->updateAmountInvoice();
 
     return sendSuccess('Cost Per DO Updated.', $detail);
   }
 
   public function updateDODataDetail(Request $request, $id_header, $manifest_detail_id)
   {
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id_header);
+
     $invoiceReceiptDetail = InvoiceReceiptDetail::findOrFail($request->input('id'));
     $manifestDetail       = LogManifestDetail::findOrFail($manifest_detail_id);
 
@@ -592,6 +604,7 @@ class ReceiptInvoiceController extends Controller
 
       $manifestDetail->save();
       $invoiceReceiptDetail->save();
+      $invoiceReceiptHeader->updateAmountInvoice();
 
       DB::commit();
 

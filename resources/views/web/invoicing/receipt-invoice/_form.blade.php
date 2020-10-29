@@ -167,9 +167,12 @@
         },
         order: [1, 'asc'],
         "fnDrawCallback": function( oSettings ) {
-          var amountInvoice = oSettings.json.amountInvoice;
-          $('#amount_before_tax').val(setDecimal(amountInvoice != null ? amountInvoice : 0))
-          calculateInvoice()
+          var invoiceReceiptHeader = oSettings.json.invoiceReceiptHeader;
+          $('#amount_before_tax').val(setDecimal(invoiceReceiptHeader.amount_before_tax != null ? invoiceReceiptHeader.amount_before_tax : 0))
+          $('#amount_after_tax').val(setDecimal(invoiceReceiptHeader.amount_after_tax != null ? invoiceReceiptHeader.amount_after_tax : 0))
+          $('#amount_ppn').val(setDecimal(invoiceReceiptHeader.amount_ppn != null ? invoiceReceiptHeader.amount_ppn : 0))
+          $('#amount_pph').val(setDecimal(invoiceReceiptHeader.amount_pph != null ? invoiceReceiptHeader.amount_pph : 0))
+          // calculateInvoice()
         },
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
