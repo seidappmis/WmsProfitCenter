@@ -24,10 +24,7 @@ footer {
     color: #f00;
     text-align: center;
 }
-@page {
-    size: 8.5in 11in;
-    /*margin: 0mm;*/
-}
+
 @media print {
     footer {
         position: absolute!important;

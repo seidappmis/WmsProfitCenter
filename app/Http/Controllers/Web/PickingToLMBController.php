@@ -724,7 +724,7 @@ class PickingToLMBController extends Controller
   public function export(Request $request, $id)
   {
     $data['lmbHeader'] = LMBHeader::findOrFail($id);
-
+    $data['picking_no'] = (new LMBHeader)->getPickingNo($data['lmbHeader']);
     $rs_details = [];
 
     foreach ($data['lmbHeader']->details as $key => $value) {
@@ -749,7 +749,17 @@ class PickingToLMBController extends Controller
     if ($request->input('filetype') == 'html') {
       if (auth()->user()->cabang->hq) {
 
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+          'margin_left'                     => 0,
+          'margin_right'                    => 0,
+          'margin_top'                      => 88,
+          'margin_bottom'                   => 80,
+          'format'                          => [241.3, 279.4],
+        ]);
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
+      $mpdf->WriteHTML($view_print);
+        $mpdf->Output();
+        return;
       }
       // request HTML View
       return $view_print;
@@ -760,7 +770,7 @@ class PickingToLMBController extends Controller
       // return;
       if(auth()->user()->cabang->hq){
 
-        $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
+        // $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
       }
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
