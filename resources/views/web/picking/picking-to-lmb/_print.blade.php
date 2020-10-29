@@ -80,10 +80,10 @@
         <tr>
             <td rowspan="{{$row_serial_total}}" style="
             text-align: center; 
-            border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000; 
+             border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;
             vertical-align: top;
-            {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+            ">
                 {{$row_no}}
             </td>
             <td rowspan="{{$row_serial_total}}"  style="
@@ -91,7 +91,7 @@
             border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000; 
             vertical-align: top;
-            {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+            ">
                 {{$k_model}}
             </td>
             <td rowspan="{{$row_serial_total}}"  style="
@@ -99,7 +99,7 @@
             border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000; 
             vertical-align: top;
-            {{$row_no == count($rs_details) ? 'border-bottom: 1pt solid #000000;' : ''}}">
+            ">
                 {{$qty}}
             </td>
             <td style="text-align: center;" colspan="4">
@@ -115,45 +115,37 @@
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
-            <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="4">
+            <td style="text-align: center; " colspan="4">
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
             </td>
-            <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="4">
+            <td style="text-align: center; " colspan="4">
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
             </td>
-            <td style="text-align: center; border-bottom: 1pt solid #000000; border-right: 1pt solid #000000;" colspan="4">
+            <td style="text-align: center;  border-right: 1pt solid #000000;" colspan="4">
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
             </td>
         </tr>
-
         @php
         $row_serial_pointer ++;
         @endphp
         @endwhile
-
+        <tr>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
+        </tr>
         @php
         $row_no++;
         @endphp
         @endforeach
-        <tr><td style="border-top: 1pt solid #000000;" colspan="7">&nbsp;</td></tr>
-        {{-- <tr>
-            <td rowspan="2" style="text-align: center; border: 1pt solid #000000;">1</td>
-            <td rowspan="2"  style="text-align: center; border: 1pt solid #000000;">AH-A9SAY</td>
-            <td  rowspan="2" style="text-align: center; border: 1pt solid #000000;">5</td>
-            <td style="text-align: center;" colspan="3">581910101</td>
-            <td style="text-align: center;" colspan="3">581910101</td>
-            <td style="text-align: center;" colspan="2">581910101</td>
-            <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
-        </tr>
+        <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr>
         <tr>
-            <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">581910101
-            </td>
-            <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="3">581910101
-            </td>
-            <td style="text-align: center; border-bottom: 1pt solid #000000;" colspan="2"></td>
-        </tr> --}}
-        <tr>
-            <td colspan="14">&nbsp;</td>
+            <td colspan="15">&nbsp;</td>
         </tr>
     </table>
     {{-- End Main Table --}}

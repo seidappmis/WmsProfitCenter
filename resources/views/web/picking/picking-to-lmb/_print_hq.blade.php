@@ -3,11 +3,14 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-hq.css') }}">
 </head>
 <body style="font-family: Arial;">
-    <header style="position: absolute;top: 46mm">
+    <div style="position: absolute;top: 38mm;left: 156mm;font-size: 10pt;">
+        {{$picking_no}}
+    </div>
+    <div style="position: absolute;top: 48mm">
         <table width="100%" style="font-size: 10pt;line-height: 1.4">
             
             <tr>
-                <td style="width: 64mm;"></td>
+                <td style="width: 63mm;"></td>
                 <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                 <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
             </tr>
@@ -31,20 +34,20 @@
                 <td ><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
             </tr>
         </table>
-    </header>
-    <div style="padding-left: 15mm;padding-right: 20mm;">
+    </div>
+    <div style="padding-left: 25mm;padding-right: 20mm;">
     {{-- Main Table --}}
     @php
-        $chunk = array_chunk($rs_details,10);
+        $chunk = array_chunk($rs_details,10,true);
         
     @endphp
     @foreach($chunk as $index=>$rs_details)
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;margin-top: 88mm;">
         <tr>
-            <td style="text-align: center; width: 15mm;"></td>
-            <td style="text-align: center; width: 38mm;"></td>
-            <td style="text-align: center; width: 19mm;"></td>
-            <td style="text-align: center;" colspan="12" ></td>
+            <td style="text-align: center; width: 13mm;"></td>
+            <td style="text-align: center; width: 36mm;"></td>
+            <td style="text-align: center; width: 18mm;"></td>
+            <td style="text-align: center; width: 10.3mm;" colspan="12" ></td>
         </tr>
         {{-- Table Body --}}
         @php

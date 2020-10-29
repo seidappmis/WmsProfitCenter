@@ -105,7 +105,6 @@ mpdf-->
     $total_quantity = 0;
     $total_cbm = 0;
     @endphp
-    @for($i=0;$i<100;$i++)
     @foreach($details AS $key => $detail)
     @php
     $total_quantity += $detail->quantity;
@@ -118,7 +117,6 @@ mpdf-->
       <td style="text-align: center;">{{$detail->cbm}}</td>
     </tr>
     @endforeach
-    @endfor
   </tbody>
 </table>
 <footer>
