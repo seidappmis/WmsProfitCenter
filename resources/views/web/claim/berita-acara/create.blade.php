@@ -25,14 +25,6 @@
             <hr>
             @include('web.claim.berita-acara._form_berita_acara')
           </div>
-          <div class="card-content">
-            <!-- Berita Acara Detail -->
-            <h4 class="card-title">Berita Acara Detail</h4>
-            <hr>
-            <form class="form-table">
-              <table></table>
-            </form>
-          </div>
         </div>
       </div>
     </div>
@@ -61,25 +53,6 @@
     submitHandler: function(form) {
       var formBiasa = $(form).serialize(); // form biasa
       var isiForm = new FormData($(form)[0]); // form data untuk browse file
-      // $.ajax({
-      //     url: '{{ url("berita-acara/store") }}',
-      //     type: 'POST',
-      //     data: isiForm,
-      //     contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-      //     processData: false, // NEEDED, DON'T OMIT THIS
-      //   })
-      //   .done(function(response) { // selesai dan berhasil
-      //     console.log(response);
-      //     return;
-      //     swal("Success!", "Data Created!", "success")
-      //       .then((result) => {
-      //         // Kalau klik Ok redirect ke view
-      //         window.location.href = "{{ url('berita-acara') }}" + '/' + response.id
-      //       }) // alert success
-      //   })
-      //   .fail(function(xhr) {
-      //     showSwalError(xhr) // Custom function to show error with sweetAlert
-      //   });
 
       /* Act on the event */
       setLoading(true);
@@ -104,11 +77,9 @@
         })
         .fail(function() {
           setLoading(false);
-          // console.log("error");
         })
         .always(function() {
           setLoading(false);
-          // console.log("complete");
         });
     }
   });

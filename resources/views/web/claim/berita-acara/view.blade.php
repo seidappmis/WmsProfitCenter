@@ -1,4 +1,5 @@
 @extends('layouts.materialize.index')
+@include('web.claim.berita-acara.modal-upload-bulk')
 
 @section('content')
 <div class="row">
@@ -27,6 +28,8 @@
           </div>
           <div class="card-content">
             <!-- Berita Acara Detail -->
+            <button class="btn float-right modal-trigger" id="upload-bulk-excel" href="#modal-upload-bulk">Upload Bulk</button>
+            <a href='{{ url("berita-acara/". $beritaAcara->id . "/bulk-template")}}' class="btn float-right indigo">Download Template</a>
             <h4 class="card-title">Berita Acara Detail</h4>
             <hr>
             <!-- Add Detail -->
@@ -241,6 +244,40 @@
           });
       }
     });
-  }
+  };
+
+  // upload bulk excell
+  $("#form-upload-bulk").validate({
+    submitHandler: function(form) {
+      var fdata = new FormData(form);
+      setLoading(true);
+      $.ajax({
+          url: '{{ url("berita-acara/". $beritaAcara->id . "/upload-bulk") }}',
+          type: 'POST',
+          data: fdata,
+          contentType: "application/json",
+          dataType: "json",
+          contentType: false,
+          processData: false
+        })
+        .done(function(data) { // selesai dan berhasil
+          data_concept = data;
+          $(form)[0].reset();
+          $('#modal-upload-bulk').modal('close');
+          if (data.status == false) {
+            // $('#table-concept tbody').empty();
+            swal("Failed!", data.message, "warning");
+            return;
+          }
+          showSwalAutoClose('Success', 'Data uploaded.')
+          dtdatatable_detail.ajax.reload(null, false);
+          setLoading(false);
+        })
+        .fail(function(xhr) {
+          setLoading(false);
+          showSwalError(xhr) // Custom function to show error with sweetAlert
+        });
+    }
+  });
 </script>
 @endpush

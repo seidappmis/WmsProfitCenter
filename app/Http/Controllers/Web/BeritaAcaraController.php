@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\BeritaAcara;
+use App\Models\BeritaAcaraDetail;
+use App\Models\MasterModel;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
@@ -30,7 +32,8 @@ class BeritaAcaraController extends Controller
           'tr_expedition.code',
           '=',
           'clm_berita_acara.expedition_code'
-        );
+        )
+        ->orderBy('clm_berita_acara.created_at', 'DESC');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -109,12 +112,17 @@ class BeritaAcaraController extends Controller
       if ($validator->fails()) {
         return ['status' => false, 'msg' => $validator->messages()->first()];
       }
+
       // Generate No. Berita Acara : No.urut/BA-Kode cabang/Bulan/Tahun
       $kode_cabang = auth()->user()->cabang->short_description;
       $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
 
       $prefix_length = strlen($formatNumber);
-      $max_no        = DB::select('SELECT MAX(SUBSTR(berita_acara_no, 1, 2)) AS max_no FROM clm_berita_acara WHERE SUBSTR(berita_acara_no,1,1) = 0 ', [$prefix_length + 2, $prefix_length, $formatNumber])[0]->max_no;
+      $max_no  = DB::table('clm_berita_acara')
+        ->select(DB::raw('MAX(SUBSTR(berita_acara_no, 1, 2)) AS max_no'))
+        ->orderBy('created_at', 'DESC')
+        ->first()
+        ->max_no;
       $max_no        = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
 
       $beritaAcaraNo = $max_no . $formatNumber;
@@ -137,7 +145,7 @@ class BeritaAcaraController extends Controller
         if ($request->hasFile('file-internal-do')) {
           $name = uniqid() . '.' . pathinfo($request->file('file-internal-do')->getClientOriginalName(), PATHINFO_EXTENSION);
           $path = Storage::putFileAs('public/internal-do/files', $request->file('file-internal-do'), $name);
-          $beritaAcara->internal_do   = 'internal-do/files' . $name;
+          $beritaAcara->internal_do   = 'internal-do/files/' . $name;
         }
 
 
@@ -218,33 +226,49 @@ class BeritaAcaraController extends Controller
    */
   public function export(Request $request, $id)
   {
-    $view_print = view('web.claim.berita-acara.print');
-    $title      = 'berita_acara';
+    $data['beritaAcara'] = BeritaAcara::where('id', $id)->first();
+    $data['beritaAcaraDetail'] = BeritaAcaraDetail::where('berita_acara_id', $id)->get();
+    $view_print    = view('web.claim.berita-acara._print', $data);
+
+    if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      // print_r($data['details']->toArray());
+      // return;
+      $view_print = view('web.claim.berita-acara._print_excel', $data);
+    }
+    $title = 'berita-acara';
 
     if ($request->input('filetype') == 'html') {
-      // Request HTML View
+
+      // request HTML View
       return $view_print;
-    } else if ($request->input('filetype') == 'xls') {
-      // Request File EXCEL
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // return $view_print;
+      // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
-
       // Set Font
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -252,15 +276,118 @@ class BeritaAcaraController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
-      // Request File PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
+      // $mpdf->Output();
+
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
+    }
+  }
+
+  // func get template excell 
+  public function bulkTemplate()
+  {
+    $view_print = view('web.claim.berita-acara._excel', []);
+    $title = 'template_berita_acara';
+    // return $view_print;
+    // Request FILE EXCEL
+    $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+    $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+    $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+    $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+    $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+    $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+    $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+
+    // Set Font
+    $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+
+    // Atur lebar kolom
+    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+    $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+
+    $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+    $writer->save("php://output");
+  }
+
+
+  // func get template excell 
+  public function uploadBulk(Request $req, $id)
+  {
+    $beritaAcara = BeritaAcara::where('id', $id)->first();
+
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $inputFileType = pathinfo($req->file('file-bulk')->getClientOriginalName(), PATHINFO_EXTENSION);
+    $inputFileName = $req->file('file-bulk')->getPathName();
+
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($inputFileName);
+    $reader->setReadDataOnly(TRUE);
+    $spreadsheet = $reader->load($inputFileName);
+    $bulk = $spreadsheet->getActiveSheet()->toArray();
+    unset($bulk[0]);
+
+    $model = [];
+    $db = [];
+    // dd($bulk);
+    // dd($spreadsheet);
+
+    try {
+      if (!empty($bulk)) {
+        foreach ($bulk as $key => $value) {
+
+          $db[$key]['berita_acara_no'] = $beritaAcara->berita_acara_no;
+          $db[$key]['berita_acara_id'] = $beritaAcara->id;
+          $db[$key]['do_no'] = $value[1];
+          $db[$key]['model_name'] = $value[2];
+          $db[$key]['serial_number'] = $value[3];
+          $db[$key]['qty'] = $value[4];
+          $db[$key]['description'] = $value[5];
+          $db[$key]['keterangan'] = $value[6];
+          $db[$key]['created_by'] = auth()->user()->id;
+          $db[$key]['created_at'] = date('Y-m-d H:i:s');
+
+          if (empty($model[$value[2]])) {
+            $masterModel = MasterModel::where('model_name', $value[2])->first();
+            if (empty($masterModel)) {
+              return sendError('Model ' . $value[2] . ' not found in master model !');
+            }
+            $model[$value[2]] = $masterModel;
+          }
+        }
+
+        DB::transaction(function () use (&$db) {
+          BeritaAcaraDetail::insert($db);
+        });
+      }
+
+      return sendSuccess('Bulk Success uploaded.', []);
+    } catch (\Exception $e) {
+      return sendError($e->getMessage());
     }
   }
 }
