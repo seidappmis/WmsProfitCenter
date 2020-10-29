@@ -16,7 +16,9 @@ class ManifestASController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = LogManifestHeader::where('city_name', '=', 'Ambil Sendiri');
+      $query = LogManifestHeader::where('city_name', '=', 'Ambil Sendiri')
+      ->where('area', $request->input('area'))
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

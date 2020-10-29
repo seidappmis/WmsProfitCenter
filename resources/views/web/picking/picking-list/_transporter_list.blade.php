@@ -127,6 +127,7 @@
   $('#area_filter').change(function(event) {
     /* Act on the event */
     dt_table_transporter.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+    dtdatatable.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
   });
 
   $("input#transporter_filter").on("keyup click", function () {

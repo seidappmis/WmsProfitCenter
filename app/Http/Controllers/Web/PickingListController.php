@@ -38,8 +38,11 @@ class PickingListController extends Controller
         ->groupBy('wms_pickinglist_header.driver_register_id')
       ;
 
-      $query->where('wms_pickinglist_header.area', auth()->user()->area);
-      $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      if (!auth()->user()->cabang->hq) {
+        $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
+      } else {
+        $query->where('wms_pickinglist_header.area', $request->input('area'));
+      }
       // if (auth()->user()->area != "All") {
       // } else {
       //   $query->where('wms_pickinglist_header.hq', 1);

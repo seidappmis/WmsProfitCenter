@@ -96,6 +96,7 @@
               type: 'GET',
               data: function(d) {
                 d.search['value'] = $('#picking_list_filter').val()
+                d.area = $('#area_filter').val()
               }
           },
           order: [1, 'desc'],

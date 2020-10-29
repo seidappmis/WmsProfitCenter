@@ -43,11 +43,15 @@
      allowClear: true,
      ajax: get_select2_ajax_options('{{url('/master-area/select2-area-only')}}')
   });
+  @if (auth()->user()->area != 'All')
+      set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+      $('#area_filter').attr('disabled','disabled')
+    @endif
   jQuery(document).ready(function($) {
-    @if (auth()->user()->area != 'All')
-        set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
-        $('#area_filter').attr('disabled','disabled')
-      @endif
+    $('#area_filter').change(function(event) {
+      /* Act on the event */
+      dtdatatable_data_manifest_normal.ajax.reload(null, false)
+    });
   });
 </script>
 @endpush
