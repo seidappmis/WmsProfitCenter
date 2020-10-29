@@ -53,6 +53,13 @@
 <script type="text/javascript">
   var dttable_list_do
   jQuery(document).ready(function($) {
+    @if($manifestHeader->status_complete)
+    $('.btn-save').addClass('hide')
+    $('.btn-upload').addClass('hide')
+    $('.btn-delete').addClass('hide')
+    $('.btn-multi-delete-selected-item').addClass('hide')
+    @endif
+    
     dttable_list_do = $('#list-do-table').DataTable({
     serverSide: true,
     scrollX: true,
