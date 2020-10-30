@@ -708,9 +708,18 @@ class ManifestRegularController extends Controller
     $title      = 'Manifest Reguler';
 
     if ($request->input('filetype') == 'html') {
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 3,
+        'margin_right'                    => 3,
+        'margin_top'                      => 7,
+        'margin_bottom'                   => 25,
+        'format'                          => 'Letter',
+      ]);
 
-      // request HTML View
-      return $view_print;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
 
     } elseif ($request->input('filetype') == 'xls') {
 
@@ -753,10 +762,15 @@ class ManifestRegularController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 3,
+        'margin_right'                    => 3,
+        'margin_top'                      => 7,
+        'margin_bottom'                   => 25,
+        'format'                          => 'Letter',
+      ]);
 
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
-
+      $mpdf->WriteHTML($view_print);
       $mpdf->Output($title . '.pdf', "D");
 
     } else {
