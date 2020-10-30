@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-concept-coming-vs-actual-loading/graph', 'Web\ReportConceptComingActualLoadingController@getGraph');
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::get('report-loading-lead-time', 'Web\ReportLoadingLeadTimeController@index');
+  Route::get('report-loading-lead-time/graph', 'Web\ReportLoadingLeadTimeController@getGraph');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
 
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');

@@ -137,6 +137,27 @@
                 console.log("complete");
             });
         });
+
+        $('#form-normal-time').validate({
+            submitHandler: function (form){
+                $.ajax({
+                    url: '{{url("report-loading-lead-time/graph")}}',
+                    type: 'GET',
+                    dataType: 'html',
+                    data: $(form).serialize() + '&' + $('#form-filter').serialize(),
+                })
+                .done(function() {
+                    console.log("success");
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            }
+        })
     });
 
     function loadFormNormalTime(data){
@@ -148,7 +169,7 @@
                 row += '<tr>';
                 row += '<td>' + (index+1) + '</td>';
                 row += '<td>' + val.reg_vehicle_type + '</td>';
-                row += '<td><input type="text"></td>';
+                row += '<td><input name="normal_time[' + val.reg_vehicle_type + ']" type="text"></td>';
                 row += '</tr>';
 
                 $('#form-normal-time tbody').append(row)

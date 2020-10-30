@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
+use Amenadiel\JpGraph\Graph;
+use Amenadiel\JpGraph\Plot;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
@@ -15,6 +17,91 @@ class ReportLoadingLeadTimeController extends Controller
     }
 
     return view('web.report.report-loading-lead-time.index');
+  }
+
+  public function cbFmtPercentage($aVal)
+  {
+    return sprintf('%.1f%%', 100 * $aVal); // Convert to string
+  }
+
+  public function getGraph(Request $request)
+  {
+    $loadingLeadTime = $this->getLoadingLeadTime($request);
+
+    $datay1  = [];
+    $datay2  = [];
+    $datay3  = [];
+    $datay4  = [];
+    $datay5  = [];
+    $xLegend = [];
+
+    foreach ($loadingLeadTime as $key => $value) {
+      $datay1[] = getSecondFromTime($value->i);
+      $datay2[] = getSecondFromTime($value->ii);
+      $datay3[] = getSecondFromTime($value->iii);
+      $datay4[] = getSecondFromTime($value->iv);
+      $datay5[] = 100;
+
+      $xLegend[] = $value->reg_vehicle_type;
+    }
+
+    // return $datay3;
+
+    // Setup the graph
+    $__width  = 1200;
+    $__height = 800;
+    $graph    = new Graph\Graph($__width, $__height);
+
+    $graph->SetMarginColor('white');
+    $graph->SetScale('textlin');
+    $graph->SetFrame(false);
+    $graph->SetMargin(100, 100, 100, 100);
+
+    $graph->title->Set('Loading Lead Time - ' . $request->input('area'));
+    $graph->subtitle->Set('Month/Year - ' . $request->input('periode'));
+
+    $graph->yaxis->HideZeroLabel();
+    $graph->ygrid->SetFill(true, '#EFEFEF@0.5', '#BBCCFF@0.5');
+    // $graph->yaxis->SetLabelFormatCallback('cbFmtPercentage');
+
+    $graph->xgrid->Show();
+    $graph->xaxis->SetLabelAngle(90);
+
+    $graph->xaxis->SetTickLabels($xLegend);
+
+    // Create the first line
+    $p1 = new Plot\LinePlot($datay1);
+    $p1->SetColor('blue');
+    $p1->SetLegend('I (1-10)');
+    $graph->Add($p1);
+
+    // Create the second line
+    $p2 = new Plot\LinePlot($datay2);
+    $p2->SetColor('orange');
+    $p2->SetLegend('II (11-20)');
+    $graph->Add($p2);
+
+    // Create the third line
+    $p3 = new Plot\LinePlot($datay3);
+    $p3->SetColor('red');
+    $p3->SetLegend('III (21-25)');
+    $graph->Add($p3);
+
+    $p4 = new Plot\LinePlot($datay4);
+    $p4->SetColor('green');
+    $p4->SetLegend('IV (26-31)');
+    $graph->Add($p4);
+
+    $p5 = new Plot\LinePlot($datay5);
+    $p5->SetColor('gray');
+    $p5->SetLegend('NORMAL TIME');
+    $graph->Add($p5);
+
+    $graph->legend->SetShadow('gray@0.4', 5);
+    $graph->legend->SetPos(0.1, 0.1, 'center', 'bottom');
+    // Output line
+    $graph->Stroke();
+
   }
 
   protected function getLoadingLeadTime($request)
@@ -38,7 +125,7 @@ class ReportLoadingLeadTimeController extends Controller
         CASE
           WHEN EXTRACT(DAY FROM tctf.created_start_date) BETWEEN 1 AND 10 THEN 1
           WHEN EXTRACT(DAY FROM tctf.created_start_date) BETWEEN 11 AND 20 THEN 2
-          WHEN EXTRACT(DAY FROM tctf.created_start_date) BETWEEN 21 AND 30 THEN 3
+          WHEN EXTRACT(DAY FROM tctf.created_start_date) BETWEEN 21 AND 25 THEN 3
           ELSE 4
         END AS 'weeks'
       FROM

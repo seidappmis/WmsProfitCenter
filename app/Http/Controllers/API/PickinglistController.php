@@ -72,7 +72,7 @@ class PickinglistController extends Controller
         if (empty($details[$value->ean_code])) {
           $details[$value->ean_code] = $value;
         } else {
-          $details[$value->ean_code]->quantity += $value->quantity;
+          $details[$value->ean_code]->quantity += ($value->quantity - $value->quantity_in_lmb);
           $details[$value->ean_code]->cbm += $value->cbm;
         }
       }
