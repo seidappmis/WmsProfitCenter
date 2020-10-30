@@ -1,4 +1,8 @@
 <?php
+function serial_no_explode($serial){
+  $s = explode(' ', $serial);
+  return isset($s[0])?$s[0]:$serial;
+}
 function date_reformat($date)
 {
   if (empty($date)) {
