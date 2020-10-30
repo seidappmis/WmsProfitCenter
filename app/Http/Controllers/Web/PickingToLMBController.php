@@ -765,7 +765,7 @@ class PickingToLMBController extends Controller
           'margin_left'                     => 7,
           'margin_right'                    => 12,
           'margin_top'                      => 5,
-        'margin_bottom'                   => 50,
+        'margin_bottom'                   => 5,
           'format'                          => 'Letter',
         ]);
       $mpdf->WriteHTML($view_print);
