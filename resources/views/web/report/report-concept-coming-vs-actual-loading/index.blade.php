@@ -42,7 +42,7 @@
                                 </tr>
                             </table>
                             <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                <a href="#!" type="submit" class="waves-effect btn-submit waves-light indigo btn">Submit</a>
                               </div>
                               <br>
                         </form>
@@ -51,7 +51,25 @@
                 </div>
                 <div class="card">
                     <div class="card-content p-3">
-                        <img src="" id="img_graph" width="100%">
+                        <div id="print-area" class="hide">
+                          <h4>
+                            <div class="row mb-0 mt-0">
+                              <div class="col m6 print-pagination">
+                              </div>
+                              <div class="col m6">
+                                <span class="right">
+                                  <a id="btn-reload" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1"><i class="material-icons">refresh</i></a>
+                                  <a id="btn-print-export-xls" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">EXCEL</a>
+                                  <a id="btn-print-export-pdf" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">PDF</a>
+                                  <a id="btn-print" href="#!" class="waves-effect waves-light indigo lighten-5 black-text btn mb-1">Print</a>
+                                </span>
+                              </div>
+                            </div>
+                        </h4>
+                        <iframe id="frame" class="frame-print" src="" width="100%" height="700px">
+                        </iframe>
+                        </div>
+                        {{-- <img src="" id="img_graph" width="100%"> --}}
                         {{-- @include('web.report.report-concept-coming-vs-actual-loading.grap') --}}
                     </div>
                 </div>
@@ -91,6 +109,44 @@
                 $('#img_graph').attr('src', '{{url('report-concept-coming-vs-actual-loading/graph')}}' + '?' + $(form).serialize());
             }
         })
+
+        $('.btn-submit').click(function(event) {
+            /* Act on the event */
+            initPrintPreview('{{ url('report-concept-coming-vs-actual-loading/export') }}')
+           $('#print-area').removeClass('hide');
+        });
     });
+
+    function initPrintPreview(url, extraParams = null, page = 1){
+    // loadPrintPagination(page)
+      $('.frame-print').attr("src", url + "?filetype=html" + (extraParams != null ? '&' + extraParams : '') + '&' + $("#form-concept-coming-vs-actual-loading").serialize());
+      
+      $('#btn-reload').click(function(event) {
+        /* Act on the event */
+        $('.frame-print').attr("src", $('.frame-print').attr("src"))
+      });
+      $('#btn-print-export-xls').attr('href', url + '?filetype=xls' + (extraParams != null ? '&' + extraParams : '') + '&' + $("#form-concept-coming-vs-actual-loading").serialize());
+      $('#btn-print-export-pdf').attr('href', url + '?filetype=pdf' + (extraParams != null ? '&' + extraParams : '') + '&' + $("#form-concept-coming-vs-actual-loading").serialize());
+      $('#btn-print').click(function(event) {
+        /* Act on the event */
+        $.ajax({
+            type: 'GET',
+            url: url + '?filetype=html' + (extraParams != null ? '&' + extraParams : '') + '&' + $("#form-concept-coming-vs-actual-loading").serialize(),
+            dataType: 'html',
+            timeout: 10000,
+            success: function (html) {
+              w = window.open(window.location.href,"_blank");
+              w.document.open();
+              w.document.write(html);
+              w.document.close();
+              w.window.print();
+              w.window.close();
+            },
+            error: function (data) {
+              console.log('Error:', data);
+            }
+          });
+      });
+    }
 </script>
 @endpush
