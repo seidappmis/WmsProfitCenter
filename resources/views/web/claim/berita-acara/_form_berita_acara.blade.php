@@ -46,12 +46,14 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
+        @if(isset($beritaAcara->do_manifest))
         <div id="img_file_do_manifest" style="display: none;" class="text-center">
           <img class="materialboxed" width="200" height="200" src="">
           <a download="" href="/path/to/image" title="img_file_do_manifest" class="btn mt-1">
             Download
           </a>
         </div>
+        @endif
       </td>
     </tr>
     <tr>
@@ -66,12 +68,14 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
+        @if(isset($beritaAcara->internal_do))
         <div id="img_file_internal_do" style="display: none;" class="text-center">
           <img class="materialboxed" width="200" height="200" src="">
           <a download="" href="/path/to/image" title="img_file_internal_do" class="btn mt-1">
             Download
           </a>
         </div>
+        @endif
       </td>
     </tr>
     <tr>
@@ -86,12 +90,14 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
+        @if(isset($beritaAcara->lmb))
         <div id="img_file_lmb" style="display: none;" class="text-center">
           <img class="materialboxed" width="200" height="200" src="">
           <a download="" href="/path/to/image" title="img_file_lmb" class="btn mt-1">
             Download
           </a>
         </div>
+        @endif
       </td>
     </tr>
 

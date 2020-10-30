@@ -154,7 +154,8 @@ class ConformManifestController extends Controller
         $movementIncreaseSLOC      = MovementTransactionType::where('movement_code', '9X5')->where('action', 'INCREASE')->first();
         $movementDecreaseIntransit = MovementTransactionType::where('movement_code', '9X5')->where('action', 'DECREASE')->first();
 
-        $rs_model = [];
+        $rs_model                    = [];
+        $rs_movement_transaction_log = [];
 
         foreach ($request->input('manifest_detail') as $key => $value) {
           if ($request->input('type_conform') == 'HQ') {
@@ -163,24 +164,27 @@ class ConformManifestController extends Controller
             $manifesDetail = WMSBranchManifestDetail::findOrFail($key);
           }
 
-          $manifesDetail->status_confirm        = 1;
-          $manifesDetail->confirm_date          = date('Y-m-d H:i:s');
-          $manifesDetail->actual_time_arrival   = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
+          // Skip bila sudah diconfirm user.
+          if ($manifesDetail->status_confirm == 1) {
+            continue;
+          }
+
+          $manifesDetail->status_confirm      = 1;
+          $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
+          $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
           if (auth()->user()->cabang->hq) {
             $manifesDetail->actual_loading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
           } else {
             $manifesDetail->actual_unloading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
           }
-          $manifesDetail->confirm_by            = auth()->user()->username;
-          $manifesDetail->do_reject             = !empty($request->input('rejected')) ? 1 : 0;
+          $manifesDetail->confirm_by = auth()->user()->username;
+          $manifesDetail->do_reject  = !empty($request->input('rejected')) ? 1 : 0;
           $manifesDetail->save();
 
           if (empty($rs_model[$manifesDetail->model])) {
             $model                           = MasterModel::where('model_name', $manifesDetail->model)->first();
             $rs_model[$manifesDetail->model] = $model;
           }
-
-          // return $rs_model;
 
           // Jika CODE SALES BRANCH Stock Branch Bertambah
           if ($manifesDetail->code_sales == 'BR') {
@@ -217,6 +221,7 @@ class ConformManifestController extends Controller
             $movement_transaction_log['created_at']            = $date_now;
             $movement_transaction_log['flow_id']               = '';
             $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
+            $movement_transaction_log['created_by']            = auth()->user()->id;
 
             $rs_movement_transaction_log[] = $movement_transaction_log;
 
@@ -252,12 +257,15 @@ class ConformManifestController extends Controller
           $movement_transaction_log['created_at']            = $date_now;
           $movement_transaction_log['flow_id']               = '';
           $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
+          $movement_transaction_log['created_by']            = auth()->user()->id;
 
           $rs_movement_transaction_log[] = $movement_transaction_log;
 
         }
 
-        MovementTransactionLog::insert($rs_movement_transaction_log);
+        if (!empty($rs_movement_transaction_log)) {
+          MovementTransactionLog::insert($rs_movement_transaction_log);
+        }
       }
 
       DB::commit();

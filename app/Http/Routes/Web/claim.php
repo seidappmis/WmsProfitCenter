@@ -12,6 +12,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('berita-acara/create', 'Web\BeritaAcaraController@create'); //page insert berita acara
   Route::post('berita-acara/store', 'Web\BeritaAcaraController@store'); //proses insert berita acara
   Route::get('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@show'); //page detail berita acara
+  Route::get('berita-acara/{berita_acara_id}/bulk-template', 'Web\BeritaAcaraController@bulkTemplate'); //download template berita acara
+  Route::post('berita-acara/{berita_acara_id}/upload-bulk', 'Web\BeritaAcaraController@uploadBulk'); //upload bulk berita acara
+  Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses insert berita acara
 
   // Claim Notes
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
