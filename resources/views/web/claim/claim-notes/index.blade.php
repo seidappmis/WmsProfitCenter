@@ -136,7 +136,7 @@
         });
 
         $('#create-claim-unit').click(function() {
-            var checkedData = [];
+            var checkedData = $();
             $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
                 var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
                 array = generateArray(row, 'unit');
@@ -150,11 +150,12 @@
             /* Act on the event */
             setLoading(true);
             $.ajax({
+                    type: "POST",
                     url: '{{ url("claim-notes/create") }}',
-                    type: 'POST',
-                    data: checkedData,
-                    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                    processData: false, // NEEDED, DON'T OMIT THIS
+                    data: {
+                        data: JSON.stringify(checkedData)
+                    },
+                    cache: false,
                 })
                 .done(function(result) {
                     if (result.status) {
@@ -177,19 +178,21 @@
         };
 
         function generateArray(row, type) {
-            var array = [];
-            array['berita_acara_detail'] = row.id;
-            array['berita_acara_no'] = row.berita_acara_no;
-            array['date_of_receipt'] = row.date_of_receipt;
-            array['expedition_code'] = row.expedition_code;
-            array['driver_name'] = row.driver_name;
-            array['vehicle_number'] = row.vehicle_number;
-            array['do_no'] = row.do_no;
-            array['model_name'] = row.model_name;
-            array['serial_number'] = row.serial_number;
-            array['qty'] = row.qty;
-            array['description'] = row.description;
-            array['claim'] = type;
+            var array = $();
+            array = {
+                berita_acara_detail_id: row.id,
+                berita_acara_no: row.berita_acara_no,
+                date_of_receipt: row.date_of_receipt,
+                expedition_code: row.expedition_code,
+                driver_name: row.driver_name,
+                vehicle_number: row.vehicle_number,
+                do_no: row.do_no,
+                model_name: row.model_name,
+                serial_number: row.serial_number,
+                qty: row.qty,
+                description: row.description,
+                claim: type
+            }
             return array;
         }
     </script>

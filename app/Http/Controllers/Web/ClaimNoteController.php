@@ -32,7 +32,8 @@ class ClaimNoteController extends Controller
                     'clm_berita_acara_detail.*',
                     'clm_berita_acara.expedition_code',
                     'clm_berita_acara.vehicle_number',
-                    'clm_berita_acara.date_of_receipt'
+                    'clm_berita_acara.date_of_receipt',
+                    'clm_berita_acara.driver_name'
                 )
                 ->orderBy('created_at', 'DESC')
                 ->get();
@@ -86,7 +87,39 @@ class ClaimNoteController extends Controller
 
     public function create(Request $req)
     {
-        dd($req->all());
+        if ($req->ajax()) {
+            // parsing from string to array
+            $data = json_decode($req->data, true);
+            // unset length
+            unset($data['length']);
+
+            try {
+                if (!empty($data)) {
+                    $dataClaimNote = [];
+                    // set key of array claim note to berita acara id
+                    foreach ($data as $kb => $vb) {
+                        $dataClaimNote[$vb['berita_acara_detail_id']] = $vb;
+                    }
+                    // unset berita acara id from array claim note for parsing
+                    foreach ($dataClaimNote as $kc => $vc) {
+                        unset($dataClaimNote[$kc]['berita_acara_detail_id']);
+                    }
+
+                    DB::transaction(function () use (&$dataClaimNote) {
+                        foreach ($dataClaimNote as $key => $value) {
+                            // insert to claim note and return id
+                            $claimNoteID = ClaimNote::insertGetId($value);
+                            // update berita acara detail _> claim note id from before
+                            BeritaAcaraDetail::whereId($key)->update(['claim_note_id' => $claimNoteID]);
+                        }
+                    });
+                }
+
+                return sendSuccess('Data Successfully Created.', []);
+            } catch (\Exception $e) {
+                return sendError($e->getMessage());
+            }
+        }
     }
 
     /**
