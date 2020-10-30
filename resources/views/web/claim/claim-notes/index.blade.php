@@ -65,7 +65,8 @@
                             </li>
                         </ul>
 
-                        <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-unit">Create Note Unit</button>
+                        <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-carton-box">Claim Note Carton Box</button>
+                        <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-unit">Claim Note Unit</button>
                     </div>
                 </div>
             </div>
@@ -146,6 +147,17 @@
             push(checkedData);
         });
 
+        $('#create-claim-carton-box').click(function() {
+            var checkedData = $();
+            $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
+                var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+                array = generateArray(row, 'carton-box');
+                checkedData.push(array);
+            });
+
+            push(checkedData);
+        });
+
         function push(checkedData) {
             /* Act on the event */
             setLoading(true);
@@ -159,14 +171,14 @@
                 })
                 .done(function(result) {
                     if (result.status) {
-                        swal("Success!", 'No Berita Acara : ' + result.meta.berita_acara_no, "success")
+                        swal("Success!", result.message)
                             .then((response) => {
                                 // Kalau klik Ok redirect ke view
-                                window.location.href = "{{ url('berita-acara') }}" + '/' + result.meta.id
+                                dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                             }) // alert success
                     } else {
                         setLoading(false);
-                        showSwalAutoClose('Warning', result.msg)
+                        showSwalAutoClose('Warning', result.message)
                     }
                 })
                 .fail(function() {
