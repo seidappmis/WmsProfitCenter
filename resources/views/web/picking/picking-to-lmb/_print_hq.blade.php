@@ -13,7 +13,7 @@
         {{$lmbHeader->picking->picking_no}}
     </div>
     <div style="position: absolute;top: 48mm">
-        <table width="100%" style="font-size: 10pt;line-height: 1.4">
+        <table  style="font-size: 10pt;line-height: 1.4">
             
             <tr>
                 <td style="width: 63mm;"></td>
@@ -53,7 +53,7 @@
             <td style="text-align: center; width: 13mm;"></td>
             <td style="text-align: center; width: 36mm;"></td>
             <td style="text-align: center; width: 18mm;"></td>
-            <td style="text-align: center; width: 10.3mm;" colspan="12" ></td>
+            <td style="text-align: center; " colspan="12" ></td>
         </tr>
         {{-- Table Body --}}
         @php
@@ -85,26 +85,26 @@
             {{$row_no == count($rs_details) ? '' : ''}}">
                 {{$qty}}
             </td>
-            <td style="text-align: center;" colspan="4">
+            <td style="text-align: center; width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
-            <td style="text-align: center;" colspan="4">
+            <td style="text-align: center; width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
-            <td style="text-align: center;" colspan="4">
+            <td style="text-align: center; width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
-            <td style="text-align: center; " colspan="4">
+            <td style="text-align: center;  width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
-            <td style="text-align: center; " colspan="4">
+            <td style="text-align: center;  width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
-            <td style="text-align: center; " colspan="4">
+            <td style="text-align: center;  width: 34mm" >
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
