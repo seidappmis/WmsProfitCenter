@@ -74,7 +74,6 @@
         @php
         $row_no = 1;
         @endphp
-        @for($i=0;$i<100;$i++)
         @foreach($rs_details AS $k_model => $v_model)
         @php 
         $row_serial_pointer = 1;
@@ -149,11 +148,10 @@
         $row_no++;
         @endphp
         @endforeach
-        @endfor
     </tbody>
     <tfoot>
         <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr> 
-        
+
         <tr>
             <td colspan="15">&nbsp;</td>
         </tr>       
