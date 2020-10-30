@@ -117,26 +117,26 @@
                 {{$qty}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;  border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
         @php

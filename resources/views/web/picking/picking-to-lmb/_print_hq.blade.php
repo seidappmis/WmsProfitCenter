@@ -3,8 +3,14 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-hq.css') }}">
 </head>
 <body style="font-family: Arial;">
+    @php
+        
+        $chunk = array_chunk($rs_details,10,true);
+        
+    @endphp
+    @foreach($chunk as $index=>$rs_details)
     <div style="position: absolute;top: 38mm;left: 156mm;font-size: 10pt;">
-        {{$picking_no}}
+        {{$lmbHeader->picking->picking_no}}
     </div>
     <div style="position: absolute;top: 48mm">
         <table width="100%" style="font-size: 10pt;line-height: 1.4">
@@ -12,11 +18,19 @@
             <tr>
                 <td style="width: 63mm;"></td>
                 <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
-                <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
+                <td>{{$lmbHeader->expedition_name}}</td>
+                
             </tr>
             <tr>
                 <td ></td>
-                <td >{{$lmbHeader->expedition_name}}</td>
+                <td >- </td>
+                <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
+
+            </tr>
+            <tr>
+                <td ></td>
+                <td >{{$lmbHeader->destination_name}}</td>
+
                 @if($lmbHeader->cabang->hq)
                 <td >{{$lmbHeader->container_no}}</td>
                 @else 
@@ -25,23 +39,15 @@
             </tr>
             <tr>
                 <td ></td>
-                <td >{{$lmbHeader->destination_name}}</td>
-                <td >{{$lmbHeader->seal_no}}</td>
-            </tr>
-            <tr>
-                <td ></td>
                 <td >{{$lmbHeader->short_description_cabang}}</td>
-                <td ><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
+                <td >{{$lmbHeader->seal_no}}</td>
+
             </tr>
         </table>
     </div>
     <div style="padding-left: 25mm;padding-right: 20mm;">
     {{-- Main Table --}}
-    @php
-        $chunk = array_chunk($rs_details,10,true);
-        
-    @endphp
-    @foreach($chunk as $index=>$rs_details)
+    
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;margin-top: 88mm;">
         <tr>
             <td style="text-align: center; width: 13mm;"></td>
@@ -80,26 +86,26 @@
                 {{$qty}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
 
@@ -116,7 +122,7 @@
     @if($index < (count($chunk)-1))
     <div style="page-break-after: always;"></div>
     @endif
-    @endforeach
     {{-- End Main Table --}}
     </div>
+    @endforeach
 </body>
