@@ -711,8 +711,8 @@ class ManifestRegularController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
-        'margin_top'                      => 7,
-        'margin_bottom'                   => 25,
+        'margin_top'                      => 60,
+        'margin_bottom'                   => 60,
         'format'                          => 'Letter',
       ]);
 
@@ -765,8 +765,8 @@ class ManifestRegularController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
-        'margin_top'                      => 7,
-        'margin_bottom'                   => 25,
+        'margin_top'                      => 60,
+        'margin_bottom'                   => 60,
         'format'                          => 'Letter',
       ]);
 

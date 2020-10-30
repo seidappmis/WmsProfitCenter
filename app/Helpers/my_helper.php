@@ -1,7 +1,8 @@
 <?php
-function serial_no_explode($serial){
+function serial_no_explode($serial)
+{
   $s = explode(' ', $serial);
-  return isset($s[0])?$s[0]:$serial;
+  return isset($s[0]) ? $s[0] : $serial;
 }
 function date_reformat($date)
 {
@@ -44,6 +45,11 @@ function getSecondFromTime($time)
 {
   $seconds = strtotime("1970-01-01 $time UTC");
   return $seconds;
+}
+
+function getTimeFromSeconds($seconds)
+{
+  return gmdate("H:i:s", $seconds);
 }
 
 function setDecimal($number)
