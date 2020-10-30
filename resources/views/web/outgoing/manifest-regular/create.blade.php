@@ -60,7 +60,7 @@
         })
         .done(function(data) { // selesai dan berhasil
           showSwalAutoClose("Success", "Manifest created.")
-          window.location.href = "{{ url('manifest-regular') }}" + '/' + data.do_manifest_no + '/edit';
+          setTimeout(function() {window.location.href = "{{ url('manifest-regular') }}" + '/' + data.do_manifest_no + '/edit'}, 2000);;
         })
         .fail(function(xhr) {
           setLoading(false); // Enable Button when failed

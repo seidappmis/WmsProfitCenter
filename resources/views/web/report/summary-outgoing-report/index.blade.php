@@ -355,7 +355,7 @@
           {data: 'manifest_type'},
           {data: 'do_manifest_date'},
           {data: 'do_manifest_no'},
-          {data: 'do_manifest_no'},
+          {data: 'picking_no'},
           {data: 'invoice_no'},
           {data: 'delivery_no'},
           {data: 'do_internal'},

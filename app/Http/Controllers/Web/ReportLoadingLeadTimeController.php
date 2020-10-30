@@ -19,11 +19,6 @@ class ReportLoadingLeadTimeController extends Controller
     return view('web.report.report-loading-lead-time.index');
   }
 
-  public function cbFmtPercentage($aVal)
-  {
-    return sprintf('%.1f%%', 100 * $aVal); // Convert to string
-  }
-
   public function getGraph(Request $request)
   {
     $loadingLeadTime = $this->getLoadingLeadTime($request);
@@ -62,7 +57,8 @@ class ReportLoadingLeadTimeController extends Controller
 
     $graph->yaxis->HideZeroLabel();
     $graph->ygrid->SetFill(true, '#EFEFEF@0.5', '#BBCCFF@0.5');
-    // $graph->yaxis->SetLabelFormatCallback('cbFmtPercentage');
+    // $graph->yaxis->SetLabelFormatCallback('getTimeFromSeconds');
+    $graph->yaxis->title->SetMargin(5);
 
     $graph->xgrid->Show();
     $graph->xaxis->SetLabelAngle(90);

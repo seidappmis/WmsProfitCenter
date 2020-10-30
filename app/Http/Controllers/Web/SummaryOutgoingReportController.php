@@ -29,6 +29,7 @@ class SummaryOutgoingReportController extends Controller
   {
 
     $query = WMSBranchManifestHeader::select(
+      DB::raw('wms_pickinglist_detail.header_id AS picking_no'),
       'wms_branch_manifest_header.driver_register_id',
       'wms_branch_manifest_header.do_manifest_no',
       'wms_branch_manifest_header.expedition_code',
@@ -85,10 +86,18 @@ class SummaryOutgoingReportController extends Controller
       DB::raw('um.username AS updated_by_name')
     )
       ->leftjoin('wms_branch_manifest_detail', 'wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_branch_manifest_header.driver_register_id')
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_branch_manifest_detail.invoice_no');
+        $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_branch_manifest_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.model', '=', 'wms_branch_manifest_detail.model');
+        $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
+      })
       ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_branch_manifest_detail.model')
       ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'wms_branch_manifest_header.created_by')
       ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'wms_branch_manifest_header.updated_by')
       ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'wms_branch_manifest_header.updated_by')
+      ->groupBy('wms_branch_manifest_detail.id')
     ;
 
     $query->where('wms_branch_manifest_header.kode_cabang', $request->input('kode_cabang'));
@@ -142,6 +151,7 @@ class SummaryOutgoingReportController extends Controller
 
     if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on') {
       $queryHQ = LogManifestHeader::select(
+        DB::raw('wms_pickinglist_detail.header_id AS picking_no'),
         'log_manifest_header.driver_register_id',
         'log_manifest_header.do_manifest_no',
         'log_manifest_header.expedition_code',
@@ -199,9 +209,17 @@ class SummaryOutgoingReportController extends Controller
       )
         ->leftjoin('log_manifest_detail', 'log_manifest_detail.do_manifest_no', '=', 'log_manifest_header.do_manifest_no')
         ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'log_manifest_detail.model')
+        ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
+          $join->on('wms_pickinglist_detail.invoice_no', '=', 'log_manifest_detail.invoice_no');
+          $join->on('wms_pickinglist_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
+          $join->on('wms_pickinglist_detail.model', '=', 'log_manifest_detail.model');
+          $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
+        })
         ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'log_manifest_header.created_by')
         ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
-        // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
+      // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
+        ->groupBy('log_manifest_detail.id')
       ;
 
       $queryHQ->where('log_manifest_header.area', $request->input('area'));
@@ -328,7 +346,7 @@ class SummaryOutgoingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->manifest_type);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
-      $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $sheet->setCellValue(($col++) . $row, $value->picking_no);
       $sheet->setCellValue(($col++) . $row, $value->invoice_no);
       $sheet->setCellValue(($col++) . $row, $value->delivery_no);
       $sheet->setCellValue(($col++) . $row, $value->do_internal);
