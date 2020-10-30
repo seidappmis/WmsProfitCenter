@@ -19,7 +19,63 @@ class ReportLoadingLeadTimeController extends Controller
     return view('web.report.report-loading-lead-time.index');
   }
 
-  public function getGraph(Request $request)
+  public function export(Request $request)
+  {
+    $data['graph'] = $this->getGraph($request);
+
+    $view_print = view('web.report.report-loading-lead-time.print', $data);
+    $title      = 'Loading Lead Time Report';
+
+    if ($request->input('filetype') == 'html') {
+
+      // request HTML View
+      return $view_print;
+
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // Request FILE EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      // Set warna background putih
+      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      // Set Font
+      $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+
+      // Atur lebar kolom
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+      $writer->save("php://output");
+
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+
+      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+
+      $mpdf->Output($title . '.pdf', "D");
+
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
+    }
+  }
+
+  protected function getGraph($request)
   {
     $loadingLeadTime = $this->getLoadingLeadTime($request);
 
@@ -35,7 +91,7 @@ class ReportLoadingLeadTimeController extends Controller
       $datay2[] = getSecondFromTime($value->ii);
       $datay3[] = getSecondFromTime($value->iii);
       $datay4[] = getSecondFromTime($value->iv);
-      $datay5[] = 100;
+      $datay5[] = getSecondFromTime($request->input('normal_time')[$value->reg_vehicle_type]);
 
       $xLegend[] = $value->reg_vehicle_type;
     }
@@ -53,12 +109,17 @@ class ReportLoadingLeadTimeController extends Controller
     $graph->SetMargin(100, 100, 100, 100);
 
     $graph->title->Set('Loading Lead Time - ' . $request->input('area'));
+    $graph->title->SetFont(FF_ARIAL, FS_BOLD, 12);
     $graph->subtitle->Set('Month/Year - ' . $request->input('periode'));
+    $graph->subtitle->SetFont(FF_ARIAL, FS_BOLD, 12);
 
     $graph->yaxis->HideZeroLabel();
     $graph->ygrid->SetFill(true, '#EFEFEF@0.5', '#BBCCFF@0.5');
-    // $graph->yaxis->SetLabelFormatCallback('getTimeFromSeconds');
-    $graph->yaxis->title->SetMargin(5);
+    $graph->yaxis->SetLabelFormatCallback('getTimeFromSeconds');
+    $graph->yaxis->title->set('Time');
+    $graph->yaxis->title->SetMargin(40);
+
+    // return getTimeFromSeconds(500);
 
     $graph->xgrid->Show();
     $graph->xaxis->SetLabelAngle(90);
@@ -94,10 +155,10 @@ class ReportLoadingLeadTimeController extends Controller
     $graph->Add($p5);
 
     $graph->legend->SetShadow('gray@0.4', 5);
-    $graph->legend->SetPos(0.1, 0.1, 'center', 'bottom');
+    $graph->legend->SetPos(0.5, 0.98, 'center', 'bottom');
     // Output line
-    $graph->Stroke();
-
+    return $graph;
+    // $graph->Stroke();
   }
 
   protected function getLoadingLeadTime($request)

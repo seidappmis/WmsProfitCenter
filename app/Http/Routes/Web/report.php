@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::get('report-loading-lead-time', 'Web\ReportLoadingLeadTimeController@index');
   Route::get('report-loading-lead-time/graph', 'Web\ReportLoadingLeadTimeController@getGraph');
+  Route::get('report-loading-lead-time/export', 'Web\ReportLoadingLeadTimeController@export');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
 
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
@@ -45,7 +46,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::get('report-overload-concept-or-do/export', 'Web\ReportOverloadConceptOrDOController@export');
 
-
   Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');
 
   // Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('report-occupancy', 'Web\ReportOccupancyController@index');
   Route::get('report-occupancy/export', 'Web\ReportOccupancyController@export');
-  
+
   Route::get('summary-wh-transporter-report', 'Web\SummaryWHTransporterReportController@index');
   Route::get('summary-wh-transporter-report/export', 'Web\SummaryWHTransporterReportController@export');
 
