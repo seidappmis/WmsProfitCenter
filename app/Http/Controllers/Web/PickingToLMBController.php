@@ -774,8 +774,17 @@ class PickingToLMBController extends Controller
         $mpdf->Output();
         return;
       }
-      // request HTML View
-      return $view_print;
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+          'margin_left'                     => 7,
+          'margin_right'                    => 12,
+          'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+          'format'                          => 'Letter',
+        ]);
+      $mpdf->WriteHTML($view_print);
+      $mpdf->Output();
+        
+      return ;
 
     } elseif ($request->input('filetype') == 'xls') {
       $view_print = view('web.picking.picking-to-lmb._excel', $data);

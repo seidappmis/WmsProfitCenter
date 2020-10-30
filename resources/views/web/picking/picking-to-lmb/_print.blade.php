@@ -60,12 +60,16 @@
     {{-- Main Table --}}
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
         {{-- Table Head --}}
+        <thead>
         <tr>
             <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
             <td style="text-align: center; border: 1pt solid #000000; width: 53mm;">MODEL</td>
             <td style="text-align: center; border: 1pt solid #000000; width: 13mm;">QTY</td>
             <td style="text-align: center; border: 1pt solid #000000;" colspan="12" >NO. SERI</td>
         </tr>
+            
+        </thead>
+        <tbody>
         {{-- Table Body --}}
         @php
         $row_no = 1;
@@ -139,14 +143,19 @@
             <td style="border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
         </tr>
+        <
         @php
         $row_no++;
         @endphp
         @endforeach
-        <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr>
+    </tbody>
+    <tfoot>
+        <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr> 
+
         <tr>
             <td colspan="15">&nbsp;</td>
-        </tr>
+        </tr>       
+    </tfoot>
     </table>
     {{-- End Main Table --}}
     <footer >
