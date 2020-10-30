@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
 use App\Models\ConceptFlowHeader;
+use App\Models\ConceptTruckFlow;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
@@ -193,6 +194,11 @@ class PickingToLMBController extends Controller
     $lmbHeader->container_no             = $request->input('container_no');
     $lmbHeader->send_manifest            = 0;
 
+    $lmbHeader->start_date  = $lmbHeader->getStartDate();
+    $lmbHeader->finish_date = date('Y-m-d H:i:s');
+    $lmbHeader->finish_by   = auth()->user()->id;
+    $lmbHeader->created_by  = auth()->user()->id;
+
     if ($picking->expedition_code == 'AS') {
       $lmbHeader->destination_number = $picking->expedition_code;
       $lmbHeader->destination_name   = $picking->expedition_name;
@@ -221,6 +227,13 @@ class PickingToLMBController extends Controller
         $conceptFlowHeader              = ConceptFlowHeader::findOrFail($lmbHeader->driver_register_id);
         $conceptFlowHeader->workflow_id = 5;
         $conceptFlowHeader->save();
+
+        $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+        if (!empty($conceptTruckFlow)) {
+          $conceptTruckFlow->start_date = $lmbHeader->start_date;
+          $conceptTruckFlow->end_date   = $lmbHeader->finish_date;
+          $conceptTruckFlow->save();
+        }
       }
 
       $lmbHeader->send_manifest = 1;
@@ -723,9 +736,9 @@ class PickingToLMBController extends Controller
 
   public function export(Request $request, $id)
   {
-    $data['lmbHeader'] = LMBHeader::findOrFail($id);
+    $data['lmbHeader']  = LMBHeader::findOrFail($id);
     $data['picking_no'] = (new LMBHeader)->getPickingNo($data['lmbHeader']);
-    $rs_details = [];
+    $rs_details         = [];
 
     foreach ($data['lmbHeader']->details as $key => $value) {
       if (empty($rs_details[$value->model])) {
@@ -757,7 +770,7 @@ class PickingToLMBController extends Controller
           'format'                          => [241.3, 279.4],
         ]);
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
-      $mpdf->WriteHTML($view_print);
+        $mpdf->WriteHTML($view_print);
         $mpdf->Output();
         return;
       }
@@ -768,7 +781,7 @@ class PickingToLMBController extends Controller
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
       // echo $view_print;
       // return;
-      if(auth()->user()->cabang->hq){
+      if (auth()->user()->cabang->hq) {
 
         // $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
       }
@@ -827,7 +840,7 @@ class PickingToLMBController extends Controller
           'margin_left'                     => 7,
           'margin_right'                    => 12,
           'margin_top'                      => 5,
-        'margin_bottom'                   => 50,
+          'margin_bottom'                   => 50,
           'format'                          => 'Letter',
         ]);
       }
