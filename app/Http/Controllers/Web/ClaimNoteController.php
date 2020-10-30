@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\BeritaAcara;
+use App\Models\BeritaAcaraDetail;
 use App\Models\ClaimNote;
 use DataTables;
 use DB;
@@ -19,6 +20,28 @@ class ClaimNoteController extends Controller
     public function index()
     {
         return view('web.claim.claim-notes.index');
+    }
+
+    // DataTable Outstanding Index
+    public function listOutstanding(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = BeritaAcaraDetail::whereNull('claim_note_id')
+                ->leftJoin('clm_berita_acara', 'clm_berita_acara.id', '=', 'clm_berita_acara_detail.berita_acara_id')
+                ->select(
+                    'clm_berita_acara_detail.*',
+                    'clm_berita_acara.expedition_code',
+                    'clm_berita_acara.vehicle_number',
+                    'clm_berita_acara.date_of_receipt'
+                )
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+            $datatables = DataTables::of($query)
+                ->addIndexColumn(); //DT_RowIndex (Penomoran)
+
+            return $datatables->make(true);
+        }
     }
 
     // DataTable Claim Note Carton Box Indez
@@ -61,6 +84,11 @@ class ClaimNoteController extends Controller
         }
     }
 
+    public function create(Request $req)
+    {
+        dd($req->all());
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -77,7 +105,7 @@ class ClaimNoteController extends Controller
             $datatables = DataTables::of($query)
                 ->addIndexColumn() //DT_RowIndex (Penomoran)
                 ->addColumn('location', function ($data) {
-                    $location = $data->kode_cabang == null || 'HQ'? 'WH Return' : 'WH Branch';
+                    $location = $data->kode_cabang == null || 'HQ' ? 'WH Return' : 'WH Branch';
                     return $location;
                 })
                 ->addColumn('total', function ($data) {
@@ -180,48 +208,45 @@ class ClaimNoteController extends Controller
         $title      = 'claim_letter';
 
         if ($request->input('filetype') == 'html') {
-          // Request HTML View
-          return $view_print;
-
+            // Request HTML View
+            return $view_print;
         } else if ($request->input('filetype') == 'xls') {
-          // Request File EXCEL
-          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-          $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            // Request File EXCEL
+            $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
-          $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+            $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
-          // Set warna background putih
-          $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+            // Set warna background putih
+            $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
 
-          // Set Font
-          $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+            // Set Font
+            $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
-          // Atur lebar kolom
-          $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-          $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+            // Atur lebar kolom
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
-          $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-          header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
-          $writer->save("php://output");
-
+            $writer->save("php://output");
         } else if ($request->input('filetype') == 'pdf') {
-          // Request File PDF
-          $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+            // Request File PDF
+            $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
-          $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+            $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
-          $mpdf->Output($title . '.pdf', "D");
-
+            $mpdf->Output($title . '.pdf', "D");
         } else {
-          // Parameter filetype tidak valid / tidak ditemukan return 404
-          return redirect(404);
+            // Parameter filetype tidak valid / tidak ditemukan return 404
+            return redirect(404);
         }
     }
 
@@ -236,48 +261,45 @@ class ClaimNoteController extends Controller
         $title      = 'claim_letter_detail';
 
         if ($request->input('filetype') == 'html') {
-          // Request HTML View
-          return $view_print;
-
+            // Request HTML View
+            return $view_print;
         } else if ($request->input('filetype') == 'xls') {
-          // Request File EXCEL
-          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-          $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+            // Request File EXCEL
+            $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+            $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
-          $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+            $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
-          // Set warna background putih
-          $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+            // Set warna background putih
+            $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
 
-          // Set Font
-          $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+            // Set Font
+            $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
-          // Atur lebar kolom
-          $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-          $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-          $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+            // Atur lebar kolom
+            $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
+            $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+            $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
-          $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-          header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-          header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
-          $writer->save("php://output");
-
+            $writer->save("php://output");
         } else if ($request->input('filetype') == 'pdf') {
-          // Request File PDF
-          $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+            // Request File PDF
+            $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
-          $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+            $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
-          $mpdf->Output($title . '.pdf', "D");
-
+            $mpdf->Output($title . '.pdf', "D");
         } else {
-          // Parameter filetype tidak valid / tidak ditemukan return 404
-          return redirect(404);
+            // Parameter filetype tidak valid / tidak ditemukan return 404
+            return redirect(404);
         }
     }
 }

@@ -22,9 +22,11 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes', 'Web\ClaimNoteController@index');
   Route::get('claim-notes/carton-box', 'Web\ClaimNoteController@listCartonBox');
   Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
+  Route::get('claim-notes/list-outstanding', 'Web\ClaimNoteController@listOutstanding'); //get datatable outstanding
   Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
   Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
   Route::view('claim-notes/{id}', 'web.claim.claim-notes.view');
+  Route::post('claim-notes/create', 'Web\ClaimNoteController@create');
 
   // Claim Insurance
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');
