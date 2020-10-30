@@ -757,12 +757,21 @@ class PickingToLMBController extends Controller
           'format'                          => [241.3, 279.4],
         ]);
         $view_print = view('web.picking.picking-to-lmb._print_hq', $data);
-      $mpdf->WriteHTML($view_print);
+        $mpdf->WriteHTML($view_print);
         $mpdf->Output();
         return;
       }
-      // request HTML View
-      return $view_print;
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+          'margin_left'                     => 7,
+          'margin_right'                    => 12,
+          'margin_top'                      => 5,
+        'margin_bottom'                   => 50,
+          'format'                          => 'Letter',
+        ]);
+      $mpdf->WriteHTML($view_print);
+      $mpdf->Output();
+        
+      return ;
 
     } elseif ($request->input('filetype') == 'xls') {
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
