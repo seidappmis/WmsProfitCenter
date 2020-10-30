@@ -60,24 +60,34 @@
     {{-- Main Table --}}
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
         {{-- Table Head --}}
-        <thead>
-        <tr>
-            <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
-            <td style="text-align: center; border: 1pt solid #000000; width: 53mm;">MODEL</td>
-            <td style="text-align: center; border: 1pt solid #000000; width: 13mm;">QTY</td>
-            <td style="text-align: center; border: 1pt solid #000000;" colspan="12" >NO. SERI</td>
-        </tr>
-            
+
+        
+        <thead style="display: table-header-group">
+            <tr>
+                <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 53mm;">MODEL</td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 13mm;">QTY</td>
+                <td style="text-align: center; border: 1pt solid #000000;" colspan="12" >NO. SERI</td>
+            </tr>
         </thead>
+        <tfoot>
+            <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr> 
+
+            <tr>
+                <td colspan="15">&nbsp;</td>
+            </tr>       
+        </tfoot>
         <tbody>
         {{-- Table Body --}}
         @php
         $row_no = 1;
+        $row_c = 0;
         @endphp
         @foreach($rs_details AS $k_model => $v_model)
         @php 
         $row_serial_pointer = 1;
         $row_serial_total = ceil(count($v_model['serial_numbers']) / 3);
+        $row_c+=($row_serial_total+1);
         $serial_pointer = 0;
         $qty = count($v_model['serial_numbers']);
         @endphp
@@ -107,26 +117,26 @@
                 {{$qty}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
             <td style="text-align: center;  border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
         </tr>
         @php
@@ -143,19 +153,34 @@
             <td style="border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
         </tr>
-        <
         @php
         $row_no++;
         @endphp
         @endforeach
-    </tbody>
-    <tfoot>
-        <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr> 
-
+        @php
+        $total_row = ($row_c+8);
+        $total_row += 2;
+        $total_page_floor = floor($total_row/51);
+        $space = (($total_row - ($total_page_floor*51)));
+        
+            $fill_row = 44 - $space;
+            if($fill_row<0){
+            $fill_row = 42 + ($fill_row * (-1)); 
+        }
+        @endphp
+        @for($i=0;$i<$fill_row;$i++)
         <tr>
-            <td colspan="15">&nbsp;</td>
-        </tr>       
-    </tfoot>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
+        </tr>
+        @endfor
+    </tbody>
     </table>
     {{-- End Main Table --}}
     <footer >

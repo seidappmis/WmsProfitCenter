@@ -266,9 +266,18 @@ class ManifestASController extends Controller
 
     if ($request->input('filetype') == 'html') {
 
-      // request HTML View
-      return $view_print;
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 3,
+        'margin_right'                    => 3,
+        'margin_top'                      => 7,
+        'margin_bottom'                   => 25,
+        'format'                          => 'Letter',
+      ]);
 
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      // return $view_print;
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -310,9 +319,15 @@ class ManifestASController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+     $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 3,
+        'margin_right'                    => 3,
+        'margin_top'                      => 7,
+        'margin_bottom'                   => 25,
+        'format'                          => 'Letter',
+      ]);
 
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+      $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
 

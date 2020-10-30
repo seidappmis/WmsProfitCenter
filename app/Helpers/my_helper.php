@@ -1,4 +1,8 @@
 <?php
+function serial_no_explode($serial){
+  $s = explode(' ', $serial);
+  return isset($s[0])?$s[0]:$serial;
+}
 function date_reformat($date)
 {
   if (empty($date)) {
@@ -34,6 +38,12 @@ function percentage_reformat($percentage)
 function thousand_reformat($number)
 {
   return number_format($number, 0, '.', ',');
+}
+
+function getSecondFromTime($time)
+{
+  $seconds = strtotime("1970-01-01 $time UTC");
+  return $seconds;
 }
 
 function setDecimal($number)
