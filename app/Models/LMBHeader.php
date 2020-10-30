@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class LMBHeader extends Model
 {
@@ -13,6 +14,11 @@ class LMBHeader extends Model
   public function details()
   {
     return $this->hasMany('App\Models\LMBDetail', 'driver_register_id', 'driver_register_id');
+  }
+
+  public function getStartDate()
+  {
+    return $this->details()->select(DB::raw('MIN(created_at) as start_date'))->first()->start_date;
   }
 
   // public function do_details()
@@ -106,7 +112,7 @@ class LMBHeader extends Model
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_lmb_header.kode_cabang')
-      ;
+    ;
 
     if ($branch) {
       $lmbHeader->where('log_cabang.hq', 0);
@@ -118,7 +124,7 @@ class LMBHeader extends Model
 
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-        // ->where('log_cabang.hq', 1)
+      // ->where('log_cabang.hq', 1)
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
 
@@ -129,7 +135,7 @@ class LMBHeader extends Model
       }
     } else {
       $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-        // ->where('log_cabang.hq', 0)
+      // ->where('log_cabang.hq', 0)
         ->whereNull('wms_branch_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
     }

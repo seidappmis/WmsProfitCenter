@@ -21,13 +21,13 @@
             <div class="section">
                 <div class="card">
                     <div class="card-content p-3">
-                        <form class="form-table" id="form-loading-lead-time">
+                        <form class="form-table" id="form-filter">
                             <table>
                                 <tr>
                                     <td>Area</td>
                                     <td>
                                       <div class="input-field col s12">
-                                        <select name="area" class="select2-data-ajax browser-default">
+                                        <select name="area" class="select2-data-ajax browser-default" required="">
                                         </select>
                                       </div>
                                     </td>
@@ -35,39 +35,12 @@
                                 <tr>
                                     <td>Period</td>
                                     <td>
-                                        <input placeholder="-Period-" id="first_name" type="text" class="validate datepicker" readonly>
+                                        <input placeholder="" name="periode" type="text" class="validate monthpicker" required autocomplete="off">
                                     </td>
                                 </tr>
                             </table>
-                            <br>
-                            
-                            <div class="input-field col s12">
-                                <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                              </div>
-                              <br>
                         </form>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content p-3">
-                        <form class="form-table">
-                            <table>
-                                <tr>
-                                    <td>Area</td>
-                                    <td>
-                                      <div class="input-field col s12">
-                                        <select name="area" class="select2-data-ajax browser-default">
-                                        </select>
-                                      </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Period</td>
-                                    <td>
-                                        <input placeholder="-Period-" id="first_name" type="text" class="validate datepicker" readonly>
-                                    </td>
-                                </tr>
-                            </table>
+                        <form class="form-table hide" id="form-normal-time">
                             <br>
                             <div class="section-data-tables"> 
                                 <table  class="display centered" width="100%">
@@ -79,7 +52,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>1</td>
                                         <td>CD 4 BAN (CDE)</td>
                                         <td><input type="text"></td>
@@ -102,11 +75,13 @@
                                         <td>CON 20</td>
                                         <td><input type="text"></td>
                                        
-                                    </tr>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                             </div>
-                            <br>
+                            <div class="input-field col s12">
+                               <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
+                             </div>
                         </form>
                     </div>
                 </div>
@@ -117,3 +92,94 @@
     </div>
 </div>
 @endsection
+
+@push('script_css')
+<link rel="stylesheet" href="{{ asset('vendors/datepicker/datepicker.css') }}">
+@endpush
+
+@push('vendor_js')
+<script src="{{ asset('vendors/datepicker/datepicker.js') }}"></script>
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
+
+@push('script_js')
+<script type="text/javascript">
+    $('.monthpicker').datepicker({
+      format: 'mm/yyyy',
+      autoHide: true
+    });
+
+    $('#form-filter [name="area"]').select2({
+     placeholder: '-- Select Area --',
+     allowClear: true,
+     ajax: get_select2_ajax_options('/master-area/select2-area-only')
+  });
+
+    jQuery(document).ready(function($) {
+        $('#form-filter').change(function(event) {
+            /* Act on the event */
+            $.ajax({
+                url: '{{url("report-loading-lead-time")}}',
+                type: 'GET',
+                dataType: 'json',
+                data: $(this).serialize(),
+            })
+            .done(function(result) {
+                if (result.status) {
+                    loadFormNormalTime(result.data)
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+        });
+
+        $('#form-normal-time').validate({
+            submitHandler: function (form){
+                $.ajax({
+                    url: '{{url("report-loading-lead-time/graph")}}',
+                    type: 'GET',
+                    dataType: 'html',
+                    data: $(form).serialize() + '&' + $('#form-filter').serialize(),
+                })
+                .done(function() {
+                    console.log("success");
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
+            }
+        })
+    });
+
+    function loadFormNormalTime(data){
+        if (data.length > 0) {
+            $('#form-normal-time tbody').empty();
+            $.each(data, function(index, val) {
+                 /* iterate through array or object */
+                var row = '';
+                row += '<tr>';
+                row += '<td>' + (index+1) + '</td>';
+                row += '<td>' + val.reg_vehicle_type + '</td>';
+                row += '<td><input name="normal_time[' + val.reg_vehicle_type + ']" type="text"></td>';
+                row += '</tr>';
+
+                $('#form-normal-time tbody').append(row)
+            });
+            $('#form-normal-time').removeClass('hide')
+        } else {
+            $('#form-normal-time').addClass('hide')
+        }
+    }
+</script>
+@endpush
+
+

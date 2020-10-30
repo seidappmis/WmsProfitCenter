@@ -40,6 +40,12 @@ function thousand_reformat($number)
   return number_format($number, 0, '.', ',');
 }
 
+function getSecondFromTime($time)
+{
+  $seconds = strtotime("1970-01-01 $time UTC");
+  return $seconds;
+}
+
 function setDecimal($number)
 {
   return number_format($number, 3);

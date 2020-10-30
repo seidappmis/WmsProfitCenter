@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Concept;
 use App\Models\ConceptFlowHeader;
+use App\Models\ConceptTruckFlow;
 use App\Models\InventoryStorage;
 use App\Models\LMBDetail;
 use App\Models\LMBHeader;
@@ -193,6 +194,11 @@ class PickingToLMBController extends Controller
     $lmbHeader->container_no             = $request->input('container_no');
     $lmbHeader->send_manifest            = 0;
 
+    $lmbHeader->start_date  = $lmbHeader->getStartDate();
+    $lmbHeader->finish_date = date('Y-m-d H:i:s');
+    $lmbHeader->finish_by   = auth()->user()->id;
+    $lmbHeader->created_by  = auth()->user()->id;
+
     if ($picking->expedition_code == 'AS') {
       $lmbHeader->destination_number = $picking->expedition_code;
       $lmbHeader->destination_name   = $picking->expedition_name;
@@ -221,6 +227,13 @@ class PickingToLMBController extends Controller
         $conceptFlowHeader              = ConceptFlowHeader::findOrFail($lmbHeader->driver_register_id);
         $conceptFlowHeader->workflow_id = 5;
         $conceptFlowHeader->save();
+
+        $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+        if (!empty($conceptTruckFlow)) {
+          $conceptTruckFlow->start_date = $lmbHeader->start_date;
+          $conceptTruckFlow->end_date   = $lmbHeader->finish_date;
+          $conceptTruckFlow->save();
+        }
       }
 
       $lmbHeader->send_manifest = 1;
@@ -495,7 +508,7 @@ class PickingToLMBController extends Controller
         if (empty($rs_picking_list_details[$serial_number['ean_code']])) {
           $picking_detail = PickinglistDetail::select(
             'wms_pickinglist_detail.id',
-            'wms_pickinglist_detail.delivery_no',
+            // 'wms_pickinglist_detail.delivery_no',
             'wms_pickinglist_detail.invoice_no',
             'wms_pickinglist_detail.kode_customer',
             'wms_pickinglist_detail.code_sales',
@@ -505,21 +518,23 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_detail.ean_code',
             // 'wms_pickinglist_detail.quantity',
             'wms_pickinglist_detail.cbm',
-            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
-            DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
-            DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
+            // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
+            // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
+            DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity) ORDER BY wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_dn_di_q'),
+            DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
+            // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
             ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
             ->leftjoin('wms_lmb_detail', function ($join) {
               $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
-              $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+              // $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
               $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
               $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
             })
             ->groupBy(
               'wms_pickinglist_detail.header_id',
               'wms_pickinglist_detail.invoice_no',
-              'wms_pickinglist_detail.delivery_no',
+              // 'wms_pickinglist_detail.delivery_no',
               // 'wms_pickinglist_detail.delivery_items',
               'wms_pickinglist_detail.ean_code'
             )
@@ -528,10 +543,36 @@ class PickingToLMBController extends Controller
             ->orderBy('quantity', 'desc')
           ;
 
-          if (!empty($delivery_exceptions[$serial_number['ean_code']])) {
-            $picking_detail->whereNotIn('wms_pickinglist_detail.delivery_no', $delivery_exceptions[$serial_number['ean_code']]);
-          }
           $picking_detail = $picking_detail->first();
+
+          // return $picking_detail;
+          $rs_delivery_no    = [];
+          $rs_delivery_items = [];
+          $rs_quantity       = [];
+          $quantity          = 0;
+
+          if (empty($picking_detail->rs_dn_di_q)) {
+            return $model_not_exist_in_pickinglist;
+          }
+
+          foreach (explode(',', $picking_detail->rs_dn_di_q) as $key => $value) {
+            $tempDQ = explode(':', $value);
+            if ($picking_detail->quantity_lmb <= $tempDQ[2]) {
+              $tempDQ[2] -= $picking_detail->quantity_lmb;
+              $picking_detail->quantity_lmb = 0;
+
+              if ($tempDQ[2] > 0) {
+                $rs_delivery_no[]    = $tempDQ[0];
+                $rs_delivery_items[] = $tempDQ[1];
+                $rs_quantity[]       = $tempDQ[2];
+                $quantity += $tempDQ[2];
+              }
+            } else {
+              $picking_detail->quantity_lmb -= $tempDQ[2];
+            }
+          }
+
+          $picking_detail->quantity = $quantity - $picking_detail->quantity_lmb;
 
           if (empty($picking_detail) || $picking_detail->quantity == 0) {
             return sendError('EAN ' . $serial_number['ean_code'] . ' not found in picking_list !');
@@ -550,15 +591,16 @@ class PickingToLMBController extends Controller
             $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
           }
 
-          $picking_detail->rs_delivery_items = explode(',', $picking_detail->rs_delivery_items);
-          $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
+          $picking_detail->rs_delivery_no    = $rs_delivery_no;
+          $picking_detail->rs_delivery_items = $rs_delivery_items;
+          $picking_detail->rs_quantity       = $rs_quantity;
 
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
 
         }
 
-        $serial_number['model']              = $rs_models[$serial_number['ean_code']]->model_name;
-        $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
+        $serial_number['model'] = $rs_models[$serial_number['ean_code']]->model_name;
+        // $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
         $serial_number['invoice_no']         = $rs_picking_list_details[$serial_number['ean_code']]->invoice_no;
         $serial_number['kode_customer']      = $rs_picking_list_details[$serial_number['ean_code']]->kode_customer;
         $serial_number['code_sales']         = $rs_picking_list_details[$serial_number['ean_code']]->code_sales;
@@ -566,8 +608,6 @@ class PickingToLMBController extends Controller
         $serial_number['city_name']          = $rs_picking_list_details[$serial_number['ean_code']]->city_name;
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->driver_register_id;
         $serial_number['created_by']         = auth()->user()->id;
-
-        $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
 
         $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
 
@@ -580,7 +620,10 @@ class PickingToLMBController extends Controller
           ];
         }
 
-        if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan']) {
+        if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] && !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])) {
+          $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
+          $serial_number['delivery_no']    = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no[0];
+
           $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
 
@@ -596,12 +639,12 @@ class PickingToLMBController extends Controller
             $rs_delivery_items = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items;
             unset($rs_delivery_items[0]);
             $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items = array_values($rs_delivery_items);
+
+            $rs_delivery_no = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no;
+            unset($rs_delivery_no[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no = array_values($rs_delivery_no);
           }
 
-          if ($scan_summaries[$serial_number['ean_code']]['quantity_existing'] <= 0) {
-            $delivery_exceptions[$serial_number['ean_code']][] = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
-            unset($rs_picking_list_details[$serial_number['ean_code']]);
-          }
         } else {
           $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
           $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model']      = $rs_models[$serial_number['ean_code']]->model_name;
@@ -723,9 +766,9 @@ class PickingToLMBController extends Controller
 
   public function export(Request $request, $id)
   {
-    $data['lmbHeader'] = LMBHeader::findOrFail($id);
+    $data['lmbHeader']  = LMBHeader::findOrFail($id);
     $data['picking_no'] = (new LMBHeader)->getPickingNo($data['lmbHeader']);
-    $rs_details = [];
+    $rs_details         = [];
 
     foreach ($data['lmbHeader']->details as $key => $value) {
       if (empty($rs_details[$value->model])) {
@@ -762,22 +805,22 @@ class PickingToLMBController extends Controller
         return;
       }
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-          'margin_left'                     => 7,
-          'margin_right'                    => 12,
-          'margin_top'                      => 5,
+        'margin_left'                     => 7,
+        'margin_right'                    => 12,
+        'margin_top'                      => 5,
         'margin_bottom'                   => 5,
-          'format'                          => 'Letter',
-        ]);
+        'format'                          => 'Letter',
+      ]);
       $mpdf->WriteHTML($view_print);
       $mpdf->Output();
-        
-      return ;
+
+      return;
 
     } elseif ($request->input('filetype') == 'xls') {
       $view_print = view('web.picking.picking-to-lmb._excel', $data);
       // echo $view_print;
       // return;
-      if(auth()->user()->cabang->hq){
+      if (auth()->user()->cabang->hq) {
 
         // $view_print = view('web.picking.picking-to-lmb._excel_hq', $data);
       }
@@ -836,7 +879,7 @@ class PickingToLMBController extends Controller
           'margin_left'                     => 7,
           'margin_right'                    => 12,
           'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
+          'margin_bottom'                   => 5,
           'format'                          => 'Letter',
         ]);
       }
