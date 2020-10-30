@@ -9,6 +9,7 @@ use DataTables;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class BeritaAcaraDetailController extends Controller
 {
@@ -20,34 +21,47 @@ class BeritaAcaraDetailController extends Controller
      */
     public function store(Request $request, $berita_acara_id)
     {
-        $request->validate([
-          'berita_acara_id'   => 'max:20',
-          'do_no'             => 'nullable',
-          'model_name'        => 'nullable',
-          'qty'               => 'nullable',
-          'description'       => 'nullable',
-          'photo'             => 'nullable',
-          'keterangan'        => 'nullable',
-        ]);
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'do_no'             => 'required',
+                'model_name'        => 'required',
+                'qty'               => 'required',
+                'description'       => 'required',
+                'photo'             => 'nullable|mimes:jpeg,jpg,png,gif',
+                'keterangan'        => 'required',
+            ]);
 
-        $beritaAcaraDetail                  = new BeritaAcaraDetail;
-        $beritaAcaraDetail->berita_acara_id = $berita_acara_id;
-        $beritaAcaraDetail->berita_acara_no = $request->input('berita_acara_no');
-        $beritaAcaraDetail->do_no           = $request->input('do_no');
-        $beritaAcaraDetail->model_name      = $request->input('model_name');
-        $beritaAcaraDetail->serial_number   = $request->input('serial_number');
-        $beritaAcaraDetail->qty             = $request->input('qty');
-        $beritaAcaraDetail->description     = $request->input('description');
+            // Check validation failure
+            if ($validator->fails()) {
+                return sendError($validator->messages()->first());
+            }
 
-        // cek photo upload
-        if ($request->hasFile('photo')) {
-            $path = Storage::putFileAs('berita-acara-detail/photos', $request->file('photo'), 'photo');
-            $beritaAcaraDetail->photo_url   = $path;
+            try {
+                $beritaAcaraDetail                  = new BeritaAcaraDetail;
+                $beritaAcaraDetail->berita_acara_id = $berita_acara_id;
+                $beritaAcaraDetail->berita_acara_no = $request->input('berita_acara_no');
+                $beritaAcaraDetail->do_no           = $request->input('do_no');
+                $beritaAcaraDetail->model_name      = $request->input('model_name');
+                $beritaAcaraDetail->serial_number   = $request->input('serial_number');
+                $beritaAcaraDetail->qty             = $request->input('qty');
+                $beritaAcaraDetail->description     = $request->input('description');
+
+                // cek photo upload
+                if ($request->hasFile('photo')) {
+                    $name = uniqid() . '.' . pathinfo($request->file('photo')->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $path = Storage::putFileAs('public/berita-acara-detail/photos', $request->file('photo'), $name);
+                    $beritaAcaraDetail->photo_url  = 'berita-acara-detail/photos/' . $name;
+                }
+
+                $beritaAcaraDetail->keterangan      = $request->input('keterangan');
+                DB::transaction(function () use (&$beritaAcaraDetail) {
+                    $beritaAcaraDetail->save();
+                });
+                return sendSuccess('Data Successfully Created.', []);
+            } catch (\Exception $e) {
+                return sendError($e->getMessage());
+            }
         }
-        
-        $beritaAcaraDetail->keterangan      = $request->input('keterangan');
-
-        return $beritaAcaraDetail->save();
     }
 
     /**
@@ -59,8 +73,8 @@ class BeritaAcaraDetailController extends Controller
     public function edit($berita_acara_id, $berita_acara_detail_id)
     {
         $data = [
-          'beritaAcara'       => BeritaAcara::find($berita_acara_id),
-          'beritaAcaraDetail' => BeritaAcaraDetail::find($berita_acara_detail_id),
+            'beritaAcara'       => BeritaAcara::find($berita_acara_id),
+            'beritaAcaraDetail' => BeritaAcaraDetail::find($berita_acara_detail_id),
         ];
 
         return view('web.claim.berita-acara.edit', $data);
@@ -75,34 +89,48 @@ class BeritaAcaraDetailController extends Controller
      */
     public function update(Request $request, $berita_acara_id, $berita_acara_detail_id)
     {
-        $request->validate([
-          'berita_acara_id'   => 'max:20',
-          'do_no'             => 'nullable',
-          'model_name'        => 'nullable',
-          'qty'               => 'nullable',
-          'description'       => 'nullable',
-          'photo'             => 'nullable',
-          'keterangan'        => 'nullable',
-        ]);
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'do_no'             => 'required',
+                'model_name'        => 'required',
+                'qty'               => 'required',
+                'description'       => 'required',
+                'photo'             => 'nullable|mimes:jpeg,jpg,png,gif',
+                'keterangan'        => 'required',
+            ]);
 
-        $beritaAcaraDetail                  = BeritaAcaraDetail::find($berita_acara_detail_id);
-        $beritaAcaraDetail->berita_acara_id = $berita_acara_id;
-        $beritaAcaraDetail->berita_acara_no = $request->input('berita_acara_no');
-        $beritaAcaraDetail->do_no           = $request->input('do_no');
-        $beritaAcaraDetail->model_name      = $request->input('model_name');
-        $beritaAcaraDetail->serial_number   = $request->input('serial_number');
-        $beritaAcaraDetail->qty             = $request->input('qty');
-        $beritaAcaraDetail->description     = $request->input('description');
+            // Check validation failure
+            if ($validator->fails()) {
+                return sendError($validator->messages()->first());
+            }
 
-        // cek photo upload
-        if ($request->hasFile('photo')) {
-            $path = Storage::putFileAs('berita-acara-detail/photos', $request->file('photo'), 'photo');
-            $beritaAcaraDetail->photo_url   = $path;
+            try {
+                $beritaAcaraDetail                  = BeritaAcaraDetail::find($berita_acara_detail_id);
+                $beritaAcaraDetail->berita_acara_id = $berita_acara_id;
+                $beritaAcaraDetail->berita_acara_no = $request->input('berita_acara_no');
+                $beritaAcaraDetail->do_no           = $request->input('do_no');
+                $beritaAcaraDetail->model_name      = $request->input('model_name');
+                $beritaAcaraDetail->serial_number   = $request->input('serial_number');
+                $beritaAcaraDetail->qty             = $request->input('qty');
+                $beritaAcaraDetail->description     = $request->input('description');
+
+                // cek photo upload
+                if ($request->hasFile('photo')) {
+                    unlink(storage_path('app/public/' . $request->old_file));
+                    $name = uniqid() . '.' . pathinfo($request->file('photo')->getClientOriginalName(), PATHINFO_EXTENSION);
+                    $path = Storage::putFileAs('public/berita-acara-detail/photos', $request->file('photo'), $name);
+                    $beritaAcaraDetail->photo_url  = 'berita-acara-detail/photos/' . $name;
+                }
+
+                $beritaAcaraDetail->keterangan      = $request->input('keterangan');
+                DB::transaction(function () use (&$beritaAcaraDetail) {
+                    $beritaAcaraDetail->save();
+                });
+                return sendSuccess('Data Successfully Updated.', []);
+            } catch (\Exception $e) {
+                return sendError($e->getMessage());
+            }
         }
-        
-        $beritaAcaraDetail->keterangan      = $request->input('keterangan');
-
-        return $beritaAcaraDetail->save();
     }
 
     /**
@@ -113,6 +141,20 @@ class BeritaAcaraDetailController extends Controller
      */
     public function destroy($berita_acara_id, $berita_acara_detail_id)
     {
-        return BeritaAcaraDetail::destroy($berita_acara_detail_id);
+        try {
+            $file = BeritaAcaraDetail::where('id', $berita_acara_detail_id)->first()->photo_url;
+
+            DB::transaction(function () use (&$berita_acara_detail_id) {
+                BeritaAcaraDetail::destroy($berita_acara_detail_id);
+            });
+
+            if (!empty($file)) {
+                unlink(storage_path('app/public/' . $file));
+            }
+
+            return sendSuccess('Data Has Been Deleted.', []);
+        } catch (\Exception $e) {
+            return sendError($e->getMessage());
+        }
     }
 }
