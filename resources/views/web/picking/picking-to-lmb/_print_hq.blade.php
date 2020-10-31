@@ -3,48 +3,46 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-hq.css') }}">
 </head>
 <body style="font-family: Arial;">
-    @php
-        
-        $chunk = array_chunk($rs_details,10,true);
-        
-    @endphp
-    @foreach($chunk as $index=>$rs_details)
-    <div style="position: absolute;top: 38mm;left: 156mm;font-size: 10pt;">
-        {{$lmbHeader->picking->picking_no}}
-    </div>
-    <div style="position: absolute;top: 48mm">
-        <table  style="font-size: 10pt;line-height: 1.4">
-            
-            <tr>
-                <td style="width: 63mm;"></td>
-                <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
-                <td>{{$lmbHeader->expedition_name}}</td>
+    <htmlpageheader name="myHeader1">
+        <div style="position: absolute;top: 38mm;left: 156mm;font-size: 10pt;">
+            {{$lmbHeader->picking->picking_no}}
+        </div>
+        <div style="position: absolute;top: 48mm">
+            <table  style="font-size: 10pt;line-height: 1.4">
                 
-            </tr>
-            <tr>
-                <td ></td>
-                <td >- </td>
-                <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
+                <tr>
+                    <td style="width: 63mm;"></td>
+                    <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+                    <td>{{$lmbHeader->expedition_name}}</td>
+                    
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td >- </td>
+                    <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
 
-            </tr>
-            <tr>
-                <td ></td>
-                <td >{{$lmbHeader->destination_name}}</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td >{{$lmbHeader->destination_name}}</td>
 
-                @if($lmbHeader->cabang->hq)
-                <td >{{$lmbHeader->container_no}}</td>
-                @else 
-                <td >{!! $lmbHeader->getCustomer() !!}</td>
-                @endif
-            </tr>
-            <tr>
-                <td ></td>
-                <td >{{$lmbHeader->short_description_cabang}}</td>
-                <td >{{$lmbHeader->seal_no}}</td>
+                    @if($lmbHeader->cabang->hq)
+                    <td >{{$lmbHeader->container_no}}</td>
+                    @else 
+                    <td >{!! $lmbHeader->getCustomer() !!}</td>
+                    @endif
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td >{{$lmbHeader->short_description_cabang}}</td>
+                    <td >{{$lmbHeader->seal_no}}</td>
 
-            </tr>
-        </table>
-    </div>
+                </tr>
+            </table>
+        </div>
+    </htmlpageheader>
+    <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
+
     <div style="padding-left: 25mm;padding-right: 20mm;">
     {{-- Main Table --}}
     
@@ -119,10 +117,6 @@
         @endphp
         @endforeach
     </table>
-    @if($index < (count($chunk)-1))
-    <div style="page-break-after: always;"></div>
-    @endif
     {{-- End Main Table --}}
     </div>
-    @endforeach
 </body>

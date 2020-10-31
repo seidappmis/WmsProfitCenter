@@ -1,7 +1,6 @@
 <?php
 function serial_no_explode($serial){
-  $s = explode(' ', $serial);
-  return isset($s[0])?$s[0]:$serial;
+  return substr($serial, 0,15);
 }
 function date_reformat($date)
 {

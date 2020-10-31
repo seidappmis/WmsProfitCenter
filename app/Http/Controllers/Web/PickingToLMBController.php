@@ -807,8 +807,8 @@ class PickingToLMBController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
+        'margin_top'                      => 65,
+        'margin_bottom'                   => 40,
         'format'                          => 'Letter',
       ]);
       $mpdf->WriteHTML($view_print);
@@ -878,8 +878,8 @@ class PickingToLMBController extends Controller
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 7,
           'margin_right'                    => 12,
-          'margin_top'                      => 5,
-          'margin_bottom'                   => 5,
+        'margin_top'                      => 65,
+        'margin_bottom'                   => 40,
           'format'                          => 'Letter',
         ]);
       }
