@@ -153,7 +153,6 @@
         $row_no = 1;
         $row_c = 0;
         @endphp
-        @for($i=0;$i<85;$i++)
         @foreach($rs_details AS $k_model => $v_model)
         @php 
         $row_serial_pointer = 1;
@@ -163,7 +162,7 @@
         $qty = count($v_model['serial_numbers']);
         @endphp
         <tr>
-            <td rowspan="{{$row_serial_total}}" style="
+            <td style="
             text-align: center; 
              border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000;
@@ -171,7 +170,7 @@
             ">
                 {{$row_no}}
             </td>
-            <td rowspan="{{$row_serial_total}}"  style="
+            <td  style="
             text-align: center; 
             border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000; 
@@ -179,7 +178,7 @@
             ">
                 {{$k_model}}
             </td>
-            <td rowspan="{{$row_serial_total}}"  style="
+            <td  style="
             text-align: center; 
             border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000; 
@@ -200,6 +199,12 @@
 
         @while($row_serial_pointer < $row_serial_total)
         <tr>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
             <td style="text-align: center; " colspan="4">
                 {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
             </td>
@@ -230,7 +235,6 @@
         $row_no++;
         @endphp
         @endforeach
-        @endfor
         @php
         $total_row = ($row_c);
         $total_row += 2 * ceil($total_row/33);
