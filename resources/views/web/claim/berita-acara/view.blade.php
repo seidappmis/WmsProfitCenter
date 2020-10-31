@@ -49,14 +49,15 @@
               <table id="data-table-berita-acara-detail" class="display" width="100%">
                 <thead>
                   <tr>
-                    <th data-priority="1" width="30px">No.</th>
-                    <th>No DO</th>
-                    <th>Model/Item No.</th>
-                    <th>No Seri</th>
-                    <th>Qty</th>
-                    <th>Jenis Kerusakan</th>
-                    <th>Keterangan</th>
-                    <th width="50px;"></th>
+                    <th class="center-align" data-priority="1" width="30px">No.</th>
+                    <th class="center-align">No DO</th>
+                    <th class="center-align">Model/Item No.</th>
+                    <th class="center-align">No Seri</th>
+                    <th class="center-align">Qty</th>
+                    <th class="center-align">Jenis Kerusakan</th>
+                    <th class="center-align">Keterangan</th>
+                    <th class="center-align">Damaged Unit Photo</th>
+                    <th class="center-align" width="50px;"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,6 +141,17 @@
         className: 'detail'
       },
       {
+        data: 'photo_url',
+        orderable: false,
+        render: function(data, type, row) {
+          if (data) {
+            return '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + data + '">';
+          }
+          return '-';
+        },
+        className: "center-align"
+      },
+      {
         data: 'action',
         className: 'center-align',
         searchable: false,
@@ -217,6 +229,7 @@
       submitHandler: function(form) {
         var formBiasa = $(form).serialize(); // form biasa
         var isiForm = new FormData($(form)[0]); // form data untuk browse file
+        setLoading(true);
         $.ajax({
             url: '{{ url("berita-acara/". $beritaAcara->id . "/detail") }}',
             type: 'POST',
@@ -225,22 +238,20 @@
             processData: false, // NEEDED, DON'T OMIT THIS
           })
           .done(function(data) { // selesai dan berhasil
-            swal({
-                icon: "success",
-                title: "Good job!",
-                text: "Detail has been created!",
-                timer: 1500,
-                buttons: false
-              })
-              .then((result) => {
-                // Kalau klik Ok reload datatable
-                dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                $('#form-berita-acara-detail')[0].reset(); // reset form
-                $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
-              }) // alert success
+            // $('#table-concept tbody').empty();
+            showSwalAutoClose('Warning', data.message)
+            dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+            $('#form-berita-acara-detail')[0].reset(); // reset form
+            $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
+
+            setLoading(false);
           })
           .fail(function(xhr) {
+            setLoading(false);
             showSwalError(xhr) // Custom function to show error with sweetAlert
+          })
+          .always(function() {
+            setLoading(false);
           });
       }
     });

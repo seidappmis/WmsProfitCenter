@@ -22,9 +22,11 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('report-concept-coming-vs-actual-loading', 'Web\ReportConceptComingActualLoadingController@index');
   Route::get('report-concept-coming-vs-actual-loading/graph', 'Web\ReportConceptComingActualLoadingController@getGraph');
+  Route::get('report-concept-coming-vs-actual-loading/export', 'Web\ReportConceptComingActualLoadingController@export');
   Route::view('concept-issue', 'web.report.concept-issue.index');
   Route::get('report-loading-lead-time', 'Web\ReportLoadingLeadTimeController@index');
   Route::get('report-loading-lead-time/graph', 'Web\ReportLoadingLeadTimeController@getGraph');
+  Route::get('report-loading-lead-time/export', 'Web\ReportLoadingLeadTimeController@export');
   Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
 
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
@@ -38,13 +40,12 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::get('report-master-freight-cost/export', 'Web\ReportMasterFreightCostController@export');
-  Route::view('summary-freight-cost-report-per-manifest', 'web.report.summary-freight-cost-report-per-manifest.index');
+  Route::get('summary-freight-cost-report-per-manifest', 'Web\SummaryFreightCostReportPerManifestController@index');
   Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
 
   Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::get('report-overload-concept-or-do/export', 'Web\ReportOverloadConceptOrDOController@export');
-
 
   Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');
 
@@ -65,7 +66,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('report-occupancy', 'Web\ReportOccupancyController@index');
   Route::get('report-occupancy/export', 'Web\ReportOccupancyController@export');
-  
+
   Route::get('summary-wh-transporter-report', 'Web\SummaryWHTransporterReportController@index');
   Route::get('summary-wh-transporter-report/export', 'Web\SummaryWHTransporterReportController@export');
 

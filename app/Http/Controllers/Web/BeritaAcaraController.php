@@ -159,7 +159,6 @@ class BeritaAcaraController extends Controller
         $beritaAcara->kode_cabang         = auth()->user()->cabang->short_description;
 
         DB::transaction(function () use (&$beritaAcara) {
-          // dd($beritaAcara);
           $beritaAcara->save();
         });
 

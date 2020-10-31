@@ -226,7 +226,7 @@ class PickingListController extends Controller
       $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
       $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
       $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
-      $conceptTruckFlow->area                = $driverRegistered->area;
+      $conceptFlowHeader->area                = $driverRegistered->area;
       $conceptFlowHeader->driver_register_id = $driverRegistered->id;
       $conceptFlowHeader->save();
 

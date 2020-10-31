@@ -45,6 +45,16 @@ function getSecondFromTime($time)
   return $seconds;
 }
 
+function getTimeFromSeconds($seconds)
+{
+  // return $seconds;
+  $hours   = floor($seconds / 3600);
+  $minutes = floor(($seconds / 60) % 60);
+  $seconds = $seconds % 60;
+
+  return sprintf('%02d.%02d', $hours, $minutes);
+}
+
 function setDecimal($number)
 {
   return number_format($number, 3);

@@ -31,7 +31,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_date" type="text" class="validate datepicker" readonly required>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -39,7 +39,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_end" type="text" class="validate datepicker" readonly required>
                                     </div>
                                   </div>
                                 </td>
@@ -48,47 +48,29 @@
                               <tr>
                                 <td>DO Manifest</td>
                                 <td><div class="input-field col s5">
-                                  <input id="" type="text" class="validate " name="">
+                                  <input id="" type="text" class="validate " name="do_manifest_no">
                                 </div></td>
                               </tr>
                               <tr>
-                                <td>ReceipetID.</td>
+                                <td>ReceiptID</td>
                                 <td><div class="input-field col s5">
-                                  <input id="" type="text" class="validate " name="">
+                                  <input id="" type="text" class="validate " name="receipt_id">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Expeditions</td>
                                 <td>
-                                    <div class="input-field col s5">
-                                      <select>
-                                        <option value="" disabled selected>-All-</option>
-                                        <option value="1">BITAN MEGAH ABADI, PT.</option>
-                                        <option value="2">SUA SAMUDRA EXPRESS, CV.</option>
-                                        <option value="3">DUA SAMUDERA EKSPRESS, CV.</option>
-                                        <option value="4">DUNIA PARSEL EXPRESS, PT.</option>
-                                        <option value="5">GCL LOGISTIC INDONESIA, PT.</option>
-                                        <option value="6">GEMA SARANA TRANSPORTASI, PT.</option>
-                                        <option value="7">EXPRESSINDO 88 NUSANTARA, PT.</option>
-                                        <option value="8">KARUNA FREIGHT FORWAWARDING DAN LOGISTIC, PT.</option>
-                                      </select>
-                                    </div>
+                                    <div class="input-field col s12">
+                                    <select name="expedition" class="select2-data-ajax browser-default">
+                                    </select>
+                                  </div>
                                   </td>
                               </tr>
                               <tr >
-                                <td>Destinations</td>
+                                <td>Destination</td>
                                 <td>
-                                  <div class="input-field col s5">
-                                    <select>
-                                      <option value="" disabled selected>-All-</option>
-                                      <option value="1">AMBON</option>
-                                      <option value="2">BALIKPAPAPAN</option>
-                                      <option value="3">BANDUNG</option>
-                                      <option value="4">BANAJARMASIN</option>
-                                      <option value="5">BANYUWANINGI</option>
-                                      <option value="6">BATAM</option>
-                                      <option value="7">BAUBAU</option>
-                                      <option value="8">BATAM</option>
+                                  <div class="input-field col s12">
+                                    <select name="city_code" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -96,24 +78,17 @@
                               <tr>
                                 <td>Region</td>
                                 <td>
-                                  <div class="input-field col s4">
-                                    <select name="" id="">
-                                      <option value="" disabled selected>-All-</option>
-                                      <option value="1">JABODETABEK</option>
-                                      <option value="2">JAWA</option>
-                                      <option value="3">KALIMANTAN</option>
-                                      <option value="4">SULAWESI</option>
-                                      <option value="5">SUMATRA</option> 
+                                  <div class="input-field col s12">
+                                    <select name="region" class="select2-data-ajax browser-default">
                                     </select>
-
                                   </div>
                                 </td>
                               </tr>
                               <tr>
-                                <td>Status Region</td>
+                                <td>Status Receipt</td>
                                 <td>
                                   <div class="input-field col s4">
-                                    <select name="" id="">
+                                    <select name="status_region" id="">
                                       <option value="" disabled selected>-All-</option>
                                       <option value="1">Unreceipt</option>
                                       <option value="2">Draft Receipt</option>
@@ -126,7 +101,7 @@
                              
                             </table>
                             <div class="input-field col s12">
-                              <button type="submit" class="waves-effect waves-light indigo btn">Print</button>
+                              <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Print</button>
                             </div>
                           </form>
                    </div>
@@ -134,6 +109,64 @@
             </div>
         </div>
         <div class="content-overlay"></div>
+    </div>
+
+    <div class="col s12 summary-freight-cost-report-per-manifest-wrapper">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                        <div class="section-data-tables">
+                            <table class="display" id="data-concept-or-do-outstanding-list-area" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ReceiptID</th>
+                                        <th>ReceiptNum</th>
+                                        <th>Invoice Number</th>
+                                        <th>ReceiptDate</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Paid Status</th>
+                                        <th>Bulan</th>
+                                        <th>ACC Code</th>
+                                        <th>Branch Code</th>
+                                        <th>SLOC</th>
+                                        <th>Manifest No</th>
+                                        <th>Tgl Manifest</th>
+                                        <th>Transporter</th>
+                                        <th>Destination</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Vehicle No</th>
+                                        <th>DO No</th>
+                                        <th>Branch Short Description</th>
+                                        <th>Ship To Code</th>
+                                        <th>Ship to Description</th>
+                                        <th>Destination City DO</th>
+                                        <th>Total CBM DO</th>
+                                        <th>SumOfTotalCBM</th>
+                                        <th>BaseCostCBM</th>
+                                        <th>CostPerDO</th>
+                                        <th>BaseCostRitase</th>
+                                        <th>RitaseCost</th>
+                                        <th>Ritase2Cost</th>
+                                        <th>MultiDrop</th>
+                                        <th>Unloading</th>
+                                        <th>OverStay</th>
+                                        <th>Total</th>
+                                        <th>Region</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay">
+        </div>
     </div>
 </div>
 @endsection
