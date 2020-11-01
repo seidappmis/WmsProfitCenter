@@ -350,8 +350,9 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
-    $invoiceReceiptHeader->amount_pph  = $request->input('amount_pph');
-    $invoiceReceiptHeader->amount_ppn  = $request->input('amount_ppn');
+    $invoiceReceiptHeader->amount_pph  = str_replace(',', '', $request->input('amount_pph'));
+    $invoiceReceiptHeader->amount_ppn  = str_replace(',', '', $request->input('amount_ppn'));
+    $invoiceReceiptHeader->amount_after_tax = $invoiceReceiptHeader->amount_before_tax + $invoiceReceiptHeader->amount_pph + $invoiceReceiptHeader->amount_ppn;
 
     $invoiceReceiptHeader->save();
 

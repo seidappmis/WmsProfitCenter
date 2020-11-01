@@ -62,19 +62,19 @@
               <hr>
               <div class="row">
                   <div class="input-field col s2">
-                    <input id="amount_pph" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_pph : ''}}" placeholder="" required>
+                    <input id="amount_pph" class="mask_money" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_pph : ''}}" placeholder="" required>
                     <label for="amount_pph">PPh 2% (A)</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="amount_ppn" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_ppn : ''}}" placeholder="" required>
+                    <input id="amount_ppn" class="mask_money" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_ppn : ''}}" placeholder="" required>
                     <label for="amount_ppn">PPn 10% (B)</label>
                 </div>
                 <div class="input-field col s2">
-                    <input id="amount_before_tax" type="text" placeholder="" readonly="readonly">
+                    <input id="amount_before_tax" class="mask_money" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice (X)</label>
                 </div>
                 <div class="input-field col s3">
-                    <input id="amount_after_tax" type="text" placeholder="" readonly="readonly">
+                    <input id="amount_after_tax" class="mask_money" type="text" placeholder="" readonly="readonly">
                     <label for="first_name">Amount Invoice + PPn(B+X)</label>
                 </div>
                 <div class="col s3">
@@ -154,6 +154,7 @@
   var dttable_list_manifest_receipt
   var dttable_list_manifest_receipt_do
   jQuery(document).ready(function($) {
+    $('.mask_money').inputmask('currency');
     @if(!empty($invoiceReceiptHeader))
     dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
         serverSide: true,
@@ -333,7 +334,8 @@
       .done(function(result) {
         if(result.status){
           showSwalAutoClose("Success", result.message)
-          calculateInvoice()
+          $('#amount_after_tax').val(result.data.amount_after_tax)
+          // calculateInvoice()
         } else {
           showSwalAutoClose("Warning", result.message)
         }
@@ -350,7 +352,7 @@
   });
 
 function calculateInvoice(){
-  var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val())
+  var amount_after_tax = parseFloat($('#amount_pph').val().replace(',', '')) + parseFloat($('#amount_ppn').val().replace(',', '')) + parseFloat($('#amount_before_tax').val().replace(',', ''))
   $('#amount_after_tax').val(amount_after_tax.toFixed(3))
 }
 </script>
