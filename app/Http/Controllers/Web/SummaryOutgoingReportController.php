@@ -222,7 +222,13 @@ class SummaryOutgoingReportController extends Controller
         ->groupBy('log_manifest_detail.id')
       ;
 
-      $queryHQ->where('log_manifest_header.area', $request->input('area'));
+      if ($request->input('area') != 'All') {
+        $queryHQ->where('log_manifest_header.area', $request->input('area'));
+      }
+
+      if ($request->input('do_received')) {
+        $queryHQ->where('log_manifest_detail.status_confirm', 1);
+      }
 
       if (!empty($request->input('start_do_manifest_date'))) {
         $queryHQ->where('log_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));

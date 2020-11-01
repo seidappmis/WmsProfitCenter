@@ -75,7 +75,7 @@ class ReportConceptComingActualLoadingController extends Controller
   {
     $conceptComingActualLoading = $this->getConceptComingActualLoading($request);
 
-    $databary = ["10.000", "10.000", "10.000", "10.000"];
+    $databary = ["0.000", "0.000", "0.000", "0.000"];
     foreach ($conceptComingActualLoading as $key => $value) {
       $databary[($value->weeks - 1)] = $value->percentage;
     }

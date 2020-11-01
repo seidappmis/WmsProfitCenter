@@ -226,8 +226,10 @@ class PickingListController extends Controller
       $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
       $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
       $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
-      $conceptFlowHeader->area                = $driverRegistered->area;
+      $conceptFlowHeader->area               = $driverRegistered->area;
       $conceptFlowHeader->driver_register_id = $driverRegistered->id;
+      $conceptFlowHeader->created_at         = date('Y-m-d H:i:s');
+      $conceptFlowHeader->created_by         = auth()->user()->id;
       $conceptFlowHeader->save();
 
       // concept truck flow

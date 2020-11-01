@@ -46,6 +46,22 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="card report-loading-summary-wrapper hide">
+                    <div class="card-content center-align p-0">
+                        <table id="table_report_loading_summary" class="display" width="100%">
+                            <thead>
+                                <tr>
+                                  <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -76,8 +92,47 @@
      ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
 
+    var dttable_report_loading_summary
     jQuery(document).ready(function($) {
-        
+        dttable_report_loading_summary = $('#table_report_loading_summary').DataTable({
+          serverSide: true,
+          scrollX: true,
+          dom: 'Brtip',
+          pageLength: 1,
+          scrollY: '60vh',
+          buttons: [
+                  {
+                      text: 'PDF',
+                      action: function ( e, dt, node, config ) {
+                          window.location.href = "{{url('report-loading-summary/export?file_type=pdf')}}" + '&' + $('#form-report-loading-summary').serialize();
+                      }
+                  },
+                   {
+                      text: 'EXCEL',
+                      action: function ( e, dt, node, config ) {
+                          window.location.href = "{{url('report-loading-summary/export?file_type=xls')}}" + '&' + $('#form-report-loading-summary').serialize();
+                      }
+                  }
+              ],
+          ajax: {
+              url: '{{ url('report-loading-summary') }}',
+              type: 'GET',
+              data: function(d) {
+                d.area = $('#form-report-loading-summary [name="area"]').val()
+                d.periode = $('#form-report-loading-summary [name="periode"]').val()
+              }
+          },
+          columns: [
+              {data: 'tabeldata'},
+          ]
+        });
+
+        $('#form-report-loading-summary').validate({
+            submitHandler: function(form){
+                $('.report-loading-summary-wrapper').removeClass('hide')
+                dttable_report_loading_summary.ajax.reload(null, false)
+            }
+        })
     });
 </script>
 @endpush
