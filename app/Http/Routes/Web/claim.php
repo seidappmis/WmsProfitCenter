@@ -20,12 +20,14 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
   Route::get('claim-notes/{id}/detail/{detail_id}/export', 'Web\ClaimNoteController@exportDetail');
   Route::get('claim-notes', 'Web\ClaimNoteController@index');
+  Route::get('claim-notes/list-claim-notes', 'Web\ClaimNoteController@listClaimNotes'); //list datatable claim notes index
   Route::get('claim-notes/carton-box', 'Web\ClaimNoteController@listCartonBox');
   Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
   Route::get('claim-notes/list-outstanding', 'Web\ClaimNoteController@listOutstanding'); //get datatable outstanding
   Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
   Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
-  Route::view('claim-notes/{id}', 'web.claim.claim-notes.view');
+  Route::get('claim-notes/{id}', 'Web\ClaimNoteController@show'); //detail claim notes
+  Route::get('claim-notes/{id}/list-claim-notes', 'Web\ClaimNoteController@listDetailClaimNotes'); //list datatable claim notes detail
   Route::post('claim-notes/create', 'Web\ClaimNoteController@create');
 
   // Claim Insurance

@@ -45,6 +45,31 @@ class ClaimNoteController extends Controller
         }
     }
 
+    // DataTable claim note Index
+    public function listClaimNotes(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = ClaimNote::from('clm_claim_notes AS n')
+                ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_note_id', '=', 'n.id')
+                ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+                ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+                ->orderBy('n.created_at', 'DESC')
+                // ->groupBy('n.id')
+                ->groupBy('ba.id')
+                ->select(
+                    'n.*',
+                    DB::raw("group_concat(bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
+                    'e.expedition_name'
+                );
+
+            $datatables = DataTables::of($query)
+                ->addIndexColumn(); //DT_RowIndex (Penomoran)
+
+            return $datatables->make(true);
+        }
+    }
+
+
     // DataTable Claim Note Carton Box Indez
     public function listCartonBox(Request $request)
     {
@@ -87,26 +112,59 @@ class ClaimNoteController extends Controller
 
     public function create(Request $req)
     {
+        dd($req->all());
         if ($req->ajax()) {
             // parsing from string to array
             $data = json_decode($req->data, true);
             // unset length
             unset($data['length']);
 
+
+            // Generate No. Claim Note :  01/Claim U-Log/Des/2019
+            $format =  "%s/Claim %s-log/" . date('M') . "/" . date('Y');
+
+            $max_no  = DB::table('clm_claim_notes')
+                ->select(DB::raw('MAX(SUBSTR(claim_note_no, 1, 2)) AS max_no'))
+                ->orderBy('created_at', 'DESC')
+                ->first()
+                ->max_no;
+
             try {
                 if (!empty($data)) {
-                    $dataClaimNote = [];
+                    $beritaAcaraDetail = [];
+                    $dataClaimNote = [
+                        'claim_note_no' => null,
+                        'berita_acara_no' => null,
+                        'date_of_receipt' => null,
+                        'expedition_code' => null,
+                        'driver_name' => null,
+                        'vehicle_number' => null,
+                        'destination' => null,
+                        'do_no' => null,
+                        'model_name' => null,
+                        'serial_number' => null,
+                        'qty' => null,
+                        'description' => null,
+                        'price' => null,
+                        'total_price' => null
+                    ];
                     // set key of array claim note to berita acara id
                     foreach ($data as $kb => $vb) {
-                        $dataClaimNote[$vb['berita_acara_detail_id']] = $vb;
+                        $beritaAcaraDetail[$vb['berita_acara_detail_id']] = $vb;
                     }
                     // unset berita acara id from array claim note for parsing
-                    foreach ($dataClaimNote as $kc => $vc) {
-                        unset($dataClaimNote[$kc]['berita_acara_detail_id']);
-                    }
+                    foreach ($beritaAcaraDetail as $kc => $vc) {
+                        // adding claim note number
+                        $type = ($vc['claim'] == 'carton-box') ? 'C' : 'U';
+                        $max_no = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
+                        $beritaAcaraDetail[$kc]['claim_note_no'] = sprintf($format, $max_no, $type);
 
-                    DB::transaction(function () use (&$dataClaimNote) {
-                        foreach ($dataClaimNote as $key => $value) {
+                        // unset berita_acara_detail_id not used in table clm_claim_note
+                        unset($beritaAcaraDetail[$kc]['berita_acara_detail_id']);
+                    }
+                    dd($beritaAcaraDetail);
+                    DB::transaction(function () use (&$beritaAcaraDetail) {
+                        foreach ($beritaAcaraDetail as $key => $value) {
                             // insert to claim note and return id
                             $claimNoteID = ClaimNote::insertGetId($value);
                             // update berita acara detail _> claim note id from before
@@ -193,7 +251,30 @@ class ClaimNoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['claimNote'] =  ClaimNote::where('id', $id)->first();
+        return view('web.claim.claim-notes.view', $data);
+    }
+
+    // DataTable claim note detail
+    public function listDetailClaimNotes(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $query = ClaimNote::from('clm_claim_notes AS n')
+                ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_note_id', '=', 'n.id')
+                ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+                ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+                ->orderBy('n.created_at')
+                ->where('n.id', $id)
+                ->select(
+                    'n.*',
+                    'e.expedition_name'
+                );
+
+            $datatables = DataTables::of($query)
+                ->addIndexColumn(); //DT_RowIndex (Penomoran)
+
+            return $datatables->make(true);
+        }
     }
 
     /**
