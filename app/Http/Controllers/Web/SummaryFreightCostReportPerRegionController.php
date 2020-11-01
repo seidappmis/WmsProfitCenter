@@ -71,11 +71,6 @@ class SummaryFreightCostReportPerRegionController extends Controller
       $condition_params[] = $request->input('branch');
     }
 
-    if (!empty($request->input('paid_status'))) {
-      $sql .= ' HAVING paid_status = ?';
-      $condition_params[] = $request->input('paid_status');
-    }
-
     $sql .= " GROUP BY lc.region, lc.short_description, lird.code_sales, DATE_FORMAT(lird.do_manifest_date, '%m%Y'), lird.city_name";
 
     $query = DB::select(DB::raw($sql), $condition_params);
