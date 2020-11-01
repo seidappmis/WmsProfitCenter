@@ -239,27 +239,27 @@
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['ritase'] }}
+                                                {{ thousand_reformat($vManifest['ritase']) }}
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['cbm'] }}
+                                                {{ thousand_reformat($vManifest['cbm']) }}
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['ritase2'] }}
+                                                {{ thousand_reformat($vManifest['ritase2']) }}
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['multidrop'] }}
+                                                {{ thousand_reformat($vManifest['multidrop']) }}
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['unloading'] }}
+                                                {{ thousand_reformat($vManifest['unloading']) }}
                                             </td>
                                             <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: right; vertical-align: top; font-size: 10pt;border: 1pt solid black;">
-                                                {{ $vManifest['overstay'] }}
+                                                {{ thousand_reformat($vManifest['overstay']) }}
                                             </td>
                                             @php
                                             $do = array_values($vManifest['do']);
@@ -427,25 +427,25 @@
                                                 Freight
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_freight'] }}
+                                                {{ thousand_reformat($printData['total_freight']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_ritase'] }}
+                                                {{ thousand_reformat($printData['total_ritase']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_cbm'] }}
+                                                {{ thousand_reformat($printData['total_cbm']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_ritase2'] }}
+                                                {{ thousand_reformat($printData['total_ritase2']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_multidrop'] }}
+                                                {{ thousand_reformat($printData['total_multidrop']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_unloading'] }}
+                                                {{ thousand_reformat($printData['total_unloading']) }}
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['total_overstay'] }}
+                                                {{ thousand_reformat($printData['total_overstay']) }}
                                             </td>
                                             <td colspan="8" style="text-align: center; ">
                                                 &nbsp;
@@ -459,7 +459,7 @@
                                             <td colspan="2" style="text-align: left;border: 1pt solid black;">Tax
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['tax'] }}
+                                                {{ thousand_reformat($printData['tax']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -470,7 +470,7 @@
                                                 Total
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black;">
-                                                {{ $printData['grand_total'] }}
+                                                {{ thousand_reformat($printData['grand_total']) }}
                                             </td>
                                         </tr>
                                         <tr>
