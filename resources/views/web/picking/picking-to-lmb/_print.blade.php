@@ -1,7 +1,8 @@
 <html>
-<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-lmb.css') }}">
 <body style="font-family: Arial;">
-    <table width="100%" style="font-size: 10pt;line-height: 1.4">
+    <htmlpageheader name="myHeader1">
+        <table width="100%" style="font-size: 10pt;line-height: 1.4">
         <tr>
             <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP
                     ELECTRONICS INDONESIA</strong></td>
@@ -56,134 +57,10 @@
             <td>:</td>
             <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
         </tr>
-    </table>
-    {{-- Main Table --}}
-    <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
-        {{-- Table Head --}}
-
-        
-        <thead style="display: table-header-group">
-            <tr>
-                <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 53mm;">MODEL</td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 13mm;">QTY</td>
-                <td style="text-align: center; border: 1pt solid #000000;" colspan="12" >NO. SERI</td>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr> 
-
-            <tr>
-                <td colspan="15">&nbsp;</td>
-            </tr>       
-        </tfoot>
-        <tbody>
-        {{-- Table Body --}}
-        @php
-        $row_no = 1;
-        $row_c = 0;
-        @endphp
-        @foreach($rs_details AS $k_model => $v_model)
-        @php 
-        $row_serial_pointer = 1;
-        $row_serial_total = ceil(count($v_model['serial_numbers']) / 3);
-        $row_c+=($row_serial_total+1);
-        $serial_pointer = 0;
-        $qty = count($v_model['serial_numbers']);
-        @endphp
-        <tr>
-            <td rowspan="{{$row_serial_total}}" style="
-            text-align: center; 
-             border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;
-            vertical-align: top;
-            ">
-                {{$row_no}}
-            </td>
-            <td rowspan="{{$row_serial_total}}"  style="
-            text-align: center; 
-            border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000; 
-            vertical-align: top;
-            ">
-                {{$k_model}}
-            </td>
-            <td rowspan="{{$row_serial_total}}"  style="
-            text-align: center; 
-            border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000; 
-            vertical-align: top;
-            ">
-                {{$qty}}
-            </td>
-            <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-            <td style="text-align: center;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-            <td style="text-align: center;border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-        </tr>
-
-        @while($row_serial_pointer < $row_serial_total)
-        <tr>
-            <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-            <td style="text-align: center; " colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-            <td style="text-align: center;  border-right: 1pt solid #000000;" colspan="4">
-                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
-            </td>
-        </tr>
-        @php
-        $row_serial_pointer ++;
-        @endphp
-        @endwhile
-        <tr>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
-        </tr>
-        @php
-        $row_no++;
-        @endphp
-        @endforeach
-        @php
-        $total_row = ($row_c+8);
-        $total_row += 2;
-        $total_page_floor = floor($total_row/51);
-        $space = (($total_row - ($total_page_floor*51)));
-        
-            $fill_row = 44 - $space;
-            if($fill_row<0){
-            $fill_row = 42 + ($fill_row * (-1)); 
-        }
-        @endphp
-        @for($i=0;$i<$fill_row;$i++)
-        <tr>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;">&nbsp;</td>
-            <td style="border-left: 1pt solid #000000; 
-            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
-        </tr>
-        @endfor
-    </tbody>
-    </table>
-    {{-- End Main Table --}}
-    <footer >
+        </table>
+    </htmlpageheader>
+    <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
+    <htmlpagefooter name="myFooter1">
         <table width="100%" style="font-size: 9pt;">
             <tr>
                 <td rowspan="3" colspan="4"
@@ -250,5 +127,141 @@
             <td style="font-style: italic;">Cabang (Lampiran DO)</td>
           </tr> --}}
         </table>
+    </htmlpagefooter>
+    <sethtmlpagefooter name="myFooter1" value="on" />
+    
+    {{-- Main Table --}}
+    <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
+        {{-- Table Head --}}
+
+        
+        <thead style="display: table-header-group">
+            <tr>
+                <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 53mm;">MODEL</td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 13mm;">QTY</td>
+                <td style="text-align: center; border: 1pt solid #000000;" colspan="12" >NO. SERI</td>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr><td style="border-top: 1pt solid #000000;" colspan="15">&nbsp;</td></tr>     
+        </tfoot>
+        <tbody>
+        {{-- Table Body --}}
+
+        @php
+        $row_no = 1;
+        $row_c = 0;
+        @endphp
+        @foreach($rs_details AS $k_model => $v_model)
+        @php 
+        $row_serial_pointer = 1;
+        $row_serial_total = ceil(count($v_model['serial_numbers']) / 3);
+        $row_c+=($row_serial_total+1);
+        $serial_pointer = 0;
+        $qty = count($v_model['serial_numbers']);
+        @endphp
+        <tr>
+            <td style="
+            text-align: center; 
+             border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;
+            vertical-align: top;
+            ">
+                {{$row_no}}
+            </td>
+            <td  style="
+            text-align: center; 
+            border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000; 
+            vertical-align: top;
+            ">
+                {{$k_model}}
+            </td>
+            <td  style="
+            text-align: center; 
+            border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000; 
+            vertical-align: top;
+            ">
+                {{$qty}}
+            </td>
+            <td style="text-align: center;" colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+            <td style="text-align: center;" colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+            <td style="text-align: center;border-right: 1pt solid #000000;" colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+        </tr>
+
+        @while($row_serial_pointer < $row_serial_total)
+        <tr>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;"></td>
+            <td style="text-align: center; " colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+            <td style="text-align: center; " colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+            <td style="text-align: center;  border-right: 1pt solid #000000;" colspan="4">
+                {{!empty($v_model['serial_numbers'][$serial_pointer]) ? serial_no_explode($v_model['serial_numbers'][$serial_pointer++]) : ''}}
+            </td>
+        </tr>
+        @php
+        $row_serial_pointer ++;
+        @endphp
+        @endwhile
+        @if($row_no < ((count($rs_details)*85)))
+        <tr>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
+        </tr>
+        @endif
+        @php
+        $row_no++;
+        @endphp
+        @endforeach
+        @php
+        $total_row = ($row_c);
+        $total_row += 2 * ceil($total_row/33);
+        $total_page_floor = floor($total_row/35);
+        $space = (($total_row - ($total_page_floor*35)));
+        $fill_row=0;
+        if($space>0){
+            $fill_row = 33 - $space;
+        }
+            
+        @endphp
+        @for($i=0;$i<$fill_row;$i++)
+        <tr>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;">&nbsp;</td>
+            <td style="border-left: 1pt solid #000000; 
+            border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
+        </tr>
+        @endfor
+    </tbody>
+    </table>
+    {{-- End Main Table --}}
+    <footer >
+        
     </footer>
 </body>

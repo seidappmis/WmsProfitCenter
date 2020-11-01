@@ -793,7 +793,7 @@ class PickingToLMBController extends Controller
       if (auth()->user()->cabang->hq) {
 
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-          'margin_left'                     => 0,
+          'margin_left'                     => 25,
           'margin_right'                    => 0,
           'margin_top'                      => 88,
           'margin_bottom'                   => 80,
@@ -807,8 +807,8 @@ class PickingToLMBController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
+        'margin_top'                      => 65,
+        'margin_bottom'                   => 40,
         'format'                          => 'Letter',
       ]);
       $mpdf->WriteHTML($view_print);
@@ -868,7 +868,7 @@ class PickingToLMBController extends Controller
 
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 0,
-          'margin_right'                    => 0,
+          'margin_right'                    => 25,
           'margin_top'                      => 88,
           'margin_bottom'                   => 80,
           'format'                          => [216, 275],
@@ -878,8 +878,8 @@ class PickingToLMBController extends Controller
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 7,
           'margin_right'                    => 12,
-          'margin_top'                      => 5,
-          'margin_bottom'                   => 5,
+        'margin_top'                      => 65,
+        'margin_bottom'                   => 40,
           'format'                          => 'Letter',
         ]);
       }

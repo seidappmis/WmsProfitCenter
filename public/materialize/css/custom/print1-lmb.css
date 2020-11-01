@@ -1,0 +1,41 @@
+@font-face {
+    font-family: CCode39;
+    src: url(/fonts/ConnectCode39.ttf);
+}
+body {
+    margin-top: 5mm;
+    margin-bottom: 5mm;
+    margin-right: 12mm;
+    margin-left: 7mm;
+}
+.title {
+    font-size: 12pt;
+    font-weight: 700;
+}
+.barcode {
+    font-family: CCode39;
+    font-size: 11pt;
+}
+.main-table-border td {
+    border: 1px solid black;
+}
+footer {
+    font-size: 9px;
+    color: #f00;
+    text-align: center;
+}
+@media print {
+    footer {
+        position: absolute!important;
+        bottom: 5mm!important;
+        left: 7mm;
+        right: 12mm;
+    }
+    .content-block, p {
+        page-break-inside: avoid;
+    }
+    html, body {
+        /*width: 8.5in!important;
+        height: 11in!important;*/
+    }
+}
