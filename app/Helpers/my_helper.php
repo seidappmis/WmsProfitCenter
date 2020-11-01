@@ -1,6 +1,7 @@
 <?php
-function serial_no_explode($serial){
-  return substr($serial, 0,15);
+function serial_no_explode($serial)
+{
+  return substr($serial, 0, 15);
 }
 function date_reformat($date)
 {
@@ -75,6 +76,27 @@ function money_reformat($number, $currency = null)
 
     default:
       $prefix = '';
+      break;
+  }
+
+  return $prefix . number_format($number, 2, ',', '.');
+}
+
+function money_currency($number = 0, $currency = null)
+{
+  switch ($currency) {
+    case 'IDR':
+      $prefix = 'Rp ';
+      break;
+    case 'EUR':
+      $prefix = '€ ';
+      break;
+    case 'USD':
+      $prefix = '$ ';
+      break;
+
+    default:
+      $prefix = 'Rp ';
       break;
   }
 

@@ -73,6 +73,8 @@
         </div>
     </div>
 
+    @include('web.claim.claim-notes._list_claim_notes')
+
     @push('script_js')
     <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -133,6 +135,51 @@
                 ]
             });
 
+            dtdatatable_claim_note = $('#table-claim-notes').DataTable({
+                serverSide: true,
+                scrollX: true,
+                responsive: true,
+                ajax: {
+                    url: '{{url("claim-notes/list-claim-notes")}}',
+                    type: 'GET',
+                },
+                columns: [{
+                    data: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false,
+                    className: 'center-align'
+                }, {
+                    data: 'berita_acara_group',
+                    name: 'berita_acara_group',
+                    className: 'detail'
+                }, {
+                    data: 'claim_note_no',
+                    name: 'claim_note_no',
+                    className: 'detail'
+                }, {
+                    data: 'date_of_receipt',
+                    name: 'date_of_receipt',
+                    className: 'detail'
+                }, {
+                    data: 'expedition_name',
+                    name: 'expedition_name',
+                    className: 'detail'
+                }, {
+                    data: 'destination',
+                    name: 'destination',
+                    className: 'center-align'
+                }, {
+                    data: 'id',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return '<?= get_button_view(url("claim-notes/:id")) ?>'.replace(':id', data) +
+                            ' ' + '<?= get_button_print() ?>';
+                    },
+                    className: "center-align"
+                }]
+            });
+
             set_datatables_checkbox('#table-outstanding', dtOutstanding)
         });
 
@@ -144,7 +191,7 @@
                 checkedData.push(array);
             });
 
-            push(checkedData);
+            push(checkedData, 'unit');
         });
 
         $('#create-claim-carton-box').click(function() {
@@ -155,17 +202,18 @@
                 checkedData.push(array);
             });
 
-            push(checkedData);
+            push(checkedData, 'carton-box');
         });
 
-        function push(checkedData) {
+        function push(checkedData, type) {
             /* Act on the event */
             setLoading(true);
             $.ajax({
                     type: "POST",
                     url: '{{ url("claim-notes/create") }}',
                     data: {
-                        data: JSON.stringify(checkedData)
+                        data: JSON.stringify(checkedData),
+                        type: type
                     },
                     cache: false,
                 })
@@ -175,6 +223,7 @@
                             .then((response) => {
                                 // Kalau klik Ok redirect ke view
                                 dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                                dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                             }) // alert success
                     } else {
                         setLoading(false);
@@ -210,8 +259,6 @@
     </script>
     @endpush
 
-    @include('web.claim.claim-notes._carton_box')
-    @include('web.claim.claim-notes._unit')
 
 </div>
 @endsection
