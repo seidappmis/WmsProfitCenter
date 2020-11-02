@@ -149,7 +149,8 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_detail.delivery_no', $request->input('delivery_no'));
     }
 
-    if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on') {
+    if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on'
+      || (!auth()->user()->cabang->hq && $request->input('do_received') == 'true')) {
       $queryHQ = LogManifestHeader::select(
         DB::raw('wms_pickinglist_detail.header_id AS picking_no'),
         'log_manifest_header.driver_register_id',
@@ -222,11 +223,12 @@ class SummaryOutgoingReportController extends Controller
         ->groupBy('log_manifest_detail.id')
       ;
 
-      if ($request->input('area') != 'All') {
+      if ($request->input('area') != 'All' && auth()->user()->cabang->hq) {
         $queryHQ->where('log_manifest_header.area', $request->input('area'));
       }
 
       if ($request->input('do_received') == 'true') {
+        // $queryHQ->where('log_manifest_header.area', 'All');
         $queryHQ->where('log_manifest_detail.kode_cabang', $request->input('kode_cabang'));
       }
 
