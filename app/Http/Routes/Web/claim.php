@@ -14,7 +14,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@show'); //page detail berita acara
   Route::get('berita-acara/{berita_acara_id}/bulk-template', 'Web\BeritaAcaraController@bulkTemplate'); //download template berita acara
   Route::post('berita-acara/{berita_acara_id}/upload-bulk', 'Web\BeritaAcaraController@uploadBulk'); //upload bulk berita acara
-  Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses insert berita acara
+  Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses cetak berita acara
 
   // Claim Notes
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
@@ -27,7 +27,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
   Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
   Route::get('claim-notes/{id}', 'Web\ClaimNoteController@show'); //detail claim notes
+  Route::post('claim-notes/{id}/update', 'Web\ClaimNoteController@update'); //update detail claim notes
   Route::get('claim-notes/{id}/list-claim-notes', 'Web\ClaimNoteController@listDetailClaimNotes'); //list datatable claim notes detail
+  Route::get('claim-notes/{berita_acara_id}/print', 'Web\ClaimNoteController@export'); //proses cetak claim note
   Route::post('claim-notes/create', 'Web\ClaimNoteController@create');
 
   // Claim Insurance

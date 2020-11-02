@@ -55,7 +55,7 @@
                       <tbody>
                       </tbody>
                     </table>
-                    <a class="waves-effect waves-light btn btn-small indigo darken-4 btn-save mt-2" href="{{ url('claim-notes') }}">Back</a>
+                    <a class="waves-effect waves-light btn btn-small indigo darken-4 mt-2" href="{{ url('claim-notes') }}">Back</a>
                     {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
                   </div>
                 </div>
@@ -80,11 +80,11 @@
 <script type="text/javascript">
   jQuery(document).ready(function() {
     $('.mask-currency').inputmask('currency');
-
-    var dtdatatable_claim_note = $('#table-claim-notes').DataTable({
+    dtdatatable_claim_note = $('#table-claim-notes').DataTable({
       serverSide: true,
       scrollX: true,
       responsive: true,
+      paging: false,
       ajax: {
         url: '{{url("claim-notes/".$claimNote->id."/list-claim-notes")}}',
         type: 'GET',
@@ -131,28 +131,28 @@
         name: 'destination',
         className: 'center-align',
         render: function(data, type, row, meta) {
-          return '<textarea id="description' + row.id + '" class="description materialize-textarea" placeholder="Description" style="resize: vertical;" data-id="' + row.id + '">' + (data ? data : '') + '</textarea>';
+          return '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
         }
       }, {
         data: 'qty',
         name: 'qty',
         className: 'center-align',
         render: function(data, type, row, meta) {
-          return '<input placeholder="Qty" data-id="' + row.id + '" type="number" onChange="calculate(this)" id="qty' + row.id + '" class="qty" value="' + data + '">';
+          return '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
         }
       }, {
         data: 'price',
         name: 'price',
         render: function(data, type, row, meta) {
-          return '<input placeholder="Price" data-id="' + row.id + '" type="number" onChange="calculate(this)" id="price' + row.id + '" class="price mask-currency" value="' + data + '">';
+          return '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
         },
         className: 'center-align'
       }, {
-        data: 'id',
+        data: 'claim_note_detail',
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
-          return '<tag class="sub-total"> ' + format_currency(row.qty * row.price) + ' < /tag>';
+          return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
         },
         className: "center-align"
       }]
@@ -168,16 +168,57 @@
       classPrice = tr.find('.price'),
       classSubTotal = tr.find('.sub-total');
 
-    classSubTotal.html(format_currency(classQty.val() * classPrice.val()))
-    // console.log(input, td, tr, classSubTotal);
+    classSubTotal.html(format_currency(classQty.val() * classPrice.val()));
   };
 
-  $('.btn-save').click(function() {
-    var array = [];
-    var arrNumber = new Array();
-    $('input[type=number]').each(function() {
-      arrNumber.push($(this).val());
+  $('.btn-save').click(function(e) {
+    e.preventDefault();
+
+    var array = $();
+
+    $('#table-claim-notes .qty').each(function() {
+      var input = $(this),
+        td = input.parent(),
+        tr = td.parent(),
+        id = input.attr('data-id');
+
+      if (typeof array[id] === 'undefined') {
+        array[id] = {
+          destination: tr.find('.destination').val(),
+          qty: tr.find('.qty').val(),
+          price: tr.find('.price').val(),
+          total_price: tr.find('.qty').val() * tr.find('.price').val()
+        }
+      }
     })
+
+    setLoading(true);
+    $.ajax({
+        type: "POST",
+        url: "{{ url('claim-notes', $claimNote->id) }}" + '/update',
+        data: {
+          data: JSON.stringify(array),
+        },
+        cache: false,
+      })
+      .done(function(result) {
+        if (result.status) {
+          swal("Success!", result.message)
+            .then((response) => {
+              // Kalau klik Ok redirect ke view
+              dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+            }) // alert success
+        } else {
+          setLoading(false);
+          showSwalAutoClose('Warning', result.message)
+        }
+      })
+      .fail(function() {
+        setLoading(false);
+      })
+      .always(function() {
+        setLoading(false);
+      });
   });
   // convert to format currency
   function format_currency(nStr) {
