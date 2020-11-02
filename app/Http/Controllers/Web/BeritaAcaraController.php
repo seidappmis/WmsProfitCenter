@@ -231,8 +231,6 @@ class BeritaAcaraController extends Controller
 
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
-      // print_r($data['details']->toArray());
-      // return;
       $view_print = view('web.claim.berita-acara._print_excel', $data);
     }
     $title = 'berita-acara';
@@ -243,7 +241,6 @@ class BeritaAcaraController extends Controller
       return $view_print;
     } elseif ($request->input('filetype') == 'xls') {
 
-      // return $view_print;
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
