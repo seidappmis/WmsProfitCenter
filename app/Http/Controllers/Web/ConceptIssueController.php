@@ -79,7 +79,12 @@ class ConceptIssueController extends Controller
     $datay2  = [];
     $datay3  = [];
     $datay4  = [];
-    $xLegend = [];
+    $xLegend = [
+      '8 AM - 12 PM',
+      '1 PM - 4 PM',
+      '5 PM - 9 PM',
+      '10 PM - 1 AM'
+    ];
 
     $total1 = 0;
     $total2 = 0;
