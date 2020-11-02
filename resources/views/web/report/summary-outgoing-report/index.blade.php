@@ -23,7 +23,8 @@
                     <div class="card-content p-0">
                         <form class="form-table" id="form-summary-outgoing-report">
                             <table>
-                              <tr>
+                              @if(auth()->user()->cabang->hq)
+                              <tr id="area-wrapper">
                                 <td>Area</td>
                                 <td>
                                   <div class="input-field col s12">
@@ -36,6 +37,7 @@
                                  </label>
                                 </td>
                               </tr>
+                              @endif
                               <tr>
                                   <td>Do Received</td>
                                   <td> <label>
