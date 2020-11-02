@@ -108,6 +108,8 @@ class ConceptIssueController extends Controller
       $xLegend[] = $value->category;
     }
 
+    // return $datay2;
+
     // new Graph\Graph with a drop shadow
     $__width  = 1200;
     $__height = 800;
@@ -128,7 +130,7 @@ class ConceptIssueController extends Controller
     $b1plot->setLegend($xLegend[0]);
     $b1plot->value->Show();
     $b1plot->value->SetFont(FF_ARIAL, FS_NORMAL, 12);
-    $b1plot->value->SetFormat('%3d.0%%');
+    $b1plot->value->SetFormat('%01.2f%%');
     $b1plot->value->SetColor('darkred');
 
     $b2plot = new Plot\BarPlot($datay2);
@@ -136,7 +138,7 @@ class ConceptIssueController extends Controller
     $b2plot->setLegend($xLegend[1]);
     $b2plot->value->Show();
     $b2plot->value->SetFont(FF_ARIAL, FS_NORMAL, 12);
-    $b2plot->value->SetFormat('%3d.0%%');
+    $b2plot->value->SetFormat('%01.2f%%');
     $b2plot->value->SetColor('darkred');
 
     $b3plot = new Plot\BarPlot($datay3);
@@ -144,7 +146,7 @@ class ConceptIssueController extends Controller
     $b3plot->setLegend($xLegend[2]);
     $b3plot->value->Show();
     $b3plot->value->SetFont(FF_ARIAL, FS_NORMAL, 12);
-    $b3plot->value->SetFormat('%3d.0%%');
+    $b3plot->value->SetFormat('%01.2f%%');
     $b3plot->value->SetColor('darkred');
 
     $b4plot = new Plot\BarPlot($datay4);
@@ -152,7 +154,7 @@ class ConceptIssueController extends Controller
     $b4plot->setLegend($xLegend[3]);
     $b4plot->value->Show();
     $b4plot->value->SetFont(FF_ARIAL, FS_NORMAL, 12);
-    $b4plot->value->SetFormat('%3d.0%%');
+    $b4plot->value->SetFormat('%01.2f%%');
     $b4plot->value->SetColor('darkred');
 
     // Create the grouped bar plot
@@ -173,7 +175,7 @@ class ConceptIssueController extends Controller
     $graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 14);
     $graph->xaxis->SetColor('darkblue', 'black');
 
-    $graph->yaxis->SetLabelFormat('%3d.0%%');
+    $graph->yaxis->SetLabelFormat('%01.2f%%');
     $graph->yaxis->SetFont(FF_ARIAL, FS_NORMAL, 14);
 
     $graph->legend->SetFrameWeight(2);
