@@ -226,7 +226,7 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_header.area', $request->input('area'));
       }
 
-      if ($request->input('do_received')) {
+      if ($request->input('do_received') == 'true') {
         $queryHQ->where('log_manifest_detail.status_confirm', 1);
       }
 
