@@ -40,7 +40,7 @@
                                   From
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                  <input placeholder="" name="start_date" type="text" class="validate datepicker" readonly required>
                                 </div>
                               </div>
                               <div class="input-field col s6">
@@ -48,7 +48,7 @@
                                   To
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly required="">
+                                  <input placeholder="" name="end_date" type="text" class="validate datepicker" readonly required>
                                 </div>
                               </div>
                             </td>
@@ -61,7 +61,7 @@
                                   From
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                  <input placeholder="" name="start_date_do" type="text" class="validate datepicker" readonly>
                                 </div>
                               </div>
                               <div class="input-field col s6">
@@ -69,7 +69,7 @@
                                   To
                                 </div>
                                 <div class="col s9 m10">
-                                  <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                  <input placeholder="" name="end_date_do" type="text" class="validate datepicker" readonly>
                                 </div>
                               </div>
                             </td>
@@ -78,7 +78,7 @@
                             <td>DO Manifest</td>
                             <td>
                               <div class="input-field col s12">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
+                                  <input placeholder="" name="do_manifest_no" id="first_name" type="text" class="validate">
                                   {{-- <label for="first_name">From</label> --}}
                               </div>
                             </td>
@@ -87,7 +87,7 @@
                             <td>Recipt ID</td>
                             <td>
                               <div class="input-field col s12">
-                                  <input placeholder="" id="first_name" type="text" class="validate">
+                                  <input placeholder="" name="invoice_receipt_id" id="first_name" type="text" class="validate">
                                   {{-- <label for="first_name">From</label> --}}
                               </div>
                             </td>
@@ -96,7 +96,7 @@
                             <td>Destination</td>
                             <td>
                               <div class="input-field col s12">
-                                <select name="destination_number" class="select2-data-ajax browser-default">
+                                <select name="city_code" class="select2-data-ajax browser-default">
                                 </select>
                               </div>
                             </td>
@@ -135,6 +135,62 @@
         </div>
         <div class="content-overlay"></div>
     </div>
+
+    <div class="col s12 summary-freight-cost-analysis-wrapper">
+        <div class="container">
+            <div class="section">
+                <div class="card">
+                    <div class="card-content p-0">
+                        <div class="section-data-tables">
+                            <table class="display" id="tabel-freight-cost-report-per-manifest" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ReceiptID</th>
+                                        <th>ReceiptNum</th>
+                                        <th>Invoice Number</th>
+                                        <th>ReceiptDate</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Bulan</th>
+                                        <th>ACC Code</th>
+                                        <th>Kode Cabang</th>
+                                        <th>Code Sales</th>
+                                        <th>Expedition Code</th>
+                                        <th>DO Manifest No</th>
+                                        <th>DO Manifest Date</th>
+                                        <th>Expedition Name</th>
+                                        <th>Vehicle Description</th>
+                                        <th>Destination Manifest</th>
+                                        <th>Delivery No</th>
+                                        <th>DO Date</th>
+                                        <th>MODEL</th>
+                                        <th>Total CBM DO</th>
+                                        <th>Qty</th>
+                                        <th>Base Cost Ritase</th>
+                                        <th>Base Cost CBM</th>
+                                        <th>Total CBM Truck</th>
+                                        <th>Total Freight Cost</th>
+                                        <th>Ritase2</th>
+                                        <th>Multidrop</th>
+                                        <th>Unloading</th>
+                                        <th>Overstay</th>
+                                        <th>Ship To Code</th>
+                                        <th>Ship To</th>
+                                        <th>Region</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- datatable ends -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay">
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -145,14 +201,89 @@
 
 @push('script_js')
 <script type="text/javascript">
+  var dttable_summary_incoming_report;
   jQuery(document).ready(function($) {
+    dttable_summary_incoming_report = $('#tabel-freight-cost-report-per-manifest').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      scrollY: '60vh',
+      buttons: [
+        {
+          text: 'PDF',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('summary-freight-cost-analysis/export?file_type=pdf')}}" + '&' + $('#form-summary-freight-cost-analysis').serialize();
+          }
+        },
+         {
+          text: 'EXCEL',
+          action: function ( e, dt, node, config ) {
+              window.location.href = "{{url('summary-freight-cost-analysis/export?file_type=xls')}}" + '&' + $('#form-summary-freight-cost-analysis').serialize();
+          }
+        }
+      ],
+      ajax: {
+          url: '{{ url('summary-freight-cost-analysis') }}',
+          type: 'GET',
+          data: function(d) {
+            d.expedition_code = $('#form-summary-freight-cost-analysis [name="expedition_code"]').val();
+            d.start_date = $('#form-summary-freight-cost-analysis [name="start_date"]').val();
+            d.end_date = $('#form-summary-freight-cost-analysis [name="end_date"]').val();
+            d.start_date_do = $('#form-summary-freight-cost-analysis [name="start_date_do"]').val();
+            d.end_date_do = $('#form-summary-freight-cost-analysis [name="end_date_do"]').val();
+            d.do_manifest_no = $('#form-summary-freight-cost-analysis [name="do_manifest_no"]').val();
+            d.invoice_receipt_id = $('#form-summary-freight-cost-analysis [name="invoice_receipt_id"]').val();
+            d.city_code = $('#form-summary-freight-cost-analysis [name="city_code"]').val();
+            d.region = $('#form-summary-freight-cost-analysis [name="region"]').val();
+            d.paid_status = $('#form-summary-freight-cost-analysis [name="paid_status"]').val();
+          }
+      },
+      columns: [
+          {data: 'invoice_receipt_id'},
+          {data: 'invoice_receipt_no'},
+          {data: 'kwitansi_no'},
+          {data: 'invoice_receipt_date'},
+          {data: 'amount_after_tax'},
+          {data: 'manifest_type'},
+          {data: 'month'},
+          {data: 'acc_code'},
+          {data: 'kode_cabang'},
+          {data: 'code_sales'},
+          {data: 'expedition_code'},
+          {data: 'do_manifest_no'},
+          {data: 'do_manifest_date'},
+          {data: 'expedition_name'},
+          {data: 'vehicle_description'},
+          {data: 'destination_manifest'},
+          {data: 'delivery_no'},
+          {data: 'do_date'},
+          {data: 'model'},
+          {data: 'total_cbm_do'},
+          {data: 'qty'},
+          {data: 'base_cost_ritase'},
+          {data: 'base_cost_cbm'},
+          {data: 'total_cbm_truck'},
+          {data: 'total_freight_cost'},
+          {data: 'ritase2'},
+          {data: 'multidrop'},
+          {data: 'unloading'},
+          {data: 'overstay'},
+          {data: 'ship_to_code'},
+          {data: 'ship_to'},
+          {data: 'region'},
+      ]
+    });
+
     $('#form-summary-freight-cost-analysis [name="expedition_code"]').select2({
         placeholder: '-- Select Expedition --',
-        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
+        ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition', {
+          'tambah_ambil_sendiri': true,
+          'tambah_all': true
+        })
     })
-    $('#form-summary-freight-cost-analysis [name="destination_number"]').select2({
+    $('#form-summary-freight-cost-analysis [name="city_code"]').select2({
         placeholder: '-- All --',
-        ajax: get_select2_ajax_options('/master-destination/select2-destination')
+        ajax: get_select2_ajax_options('/destination-city/select2-destination-city')
     })
     $('#form-summary-freight-cost-analysis [name="region"]').select2({
         placeholder: '-- All --',
@@ -164,6 +295,7 @@
 
     $("#form-summary-freight-cost-analysis").validate({
       submitHandler: function(form) {
+        dttable_summary_incoming_report.ajax.reload(null, false)
       }
     });
   });

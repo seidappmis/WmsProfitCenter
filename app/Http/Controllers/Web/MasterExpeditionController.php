@@ -183,6 +183,18 @@ class MasterExpeditionController extends Controller
     )
       ->toBase();
 
+    if ($request->input('tambah_all')) {
+      $ambil_sendiri = DB::table('tr_vehicle_type_detail')->selectRaw('"All" as id, "-- ALL --" AS `text` ');
+      $query->union($ambil_sendiri);
+    }
+
+    if ($request->input('tambah_ambil_sendiri')) {
+      $ambil_sendiri = DB::table('tr_vehicle_type_detail')->selectRaw('"AS" as id, "Ambil Sendiri" AS `text` ');
+      $query->union($ambil_sendiri);
+    }
+
+    $query->orderBy('text');
+
     return get_select2_data($request, $query);
   }
 
