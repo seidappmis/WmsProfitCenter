@@ -227,7 +227,7 @@ class SummaryOutgoingReportController extends Controller
       }
 
       if ($request->input('do_received') == 'true') {
-        $queryHQ->where('log_manifest_detail.status_confirm', 1);
+        $queryHQ->where('log_manifest_detail.kode_cabang', $request->input('kode_cabang'));
       }
 
       if (!empty($request->input('start_do_manifest_date'))) {
