@@ -230,8 +230,11 @@ class PickingToLMBController extends Controller
 
         $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
         if (!empty($conceptTruckFlow)) {
-          $conceptTruckFlow->start_date = $lmbHeader->start_date;
-          $conceptTruckFlow->end_date   = $lmbHeader->finish_date;
+          $conceptTruckFlow->start_date         = $lmbHeader->start_date;
+          $conceptTruckFlow->end_date           = $lmbHeader->finish_date;
+          $lmbCreatedDetail                     = $lmbHeader->detail_created_date();
+          $conceptTruckFlow->created_start_date = $lmbCreatedDetail->created_start_date;
+          $conceptTruckFlow->created_end_date   = $lmbCreatedDetail->created_end_date;
           $conceptTruckFlow->save();
         }
       }
@@ -878,8 +881,8 @@ class PickingToLMBController extends Controller
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 7,
           'margin_right'                    => 12,
-        'margin_top'                      => 65,
-        'margin_bottom'                   => 40,
+          'margin_top'                      => 65,
+          'margin_bottom'                   => 40,
           'format'                          => 'Letter',
         ]);
       }

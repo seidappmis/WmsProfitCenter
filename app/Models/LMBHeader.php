@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class LMBHeader extends Model
 {
@@ -19,6 +19,11 @@ class LMBHeader extends Model
   public function getStartDate()
   {
     return $this->details()->select(DB::raw('MIN(created_at) as start_date'))->first()->start_date;
+  }
+
+  public function detail_created_date()
+  {
+    return $this->details()->select(DB::raw('MIN(created_at) as created_start_date, MAX(created_at) AS created_end_date'))->first();
   }
 
   // public function do_details()
