@@ -507,7 +507,9 @@ class PickingListController extends Controller
       DB::beginTransaction();
       if (auth()->user()->cabang->hq) {
         Concept::where('invoice_no', $request->input('invoice_no'))
-          ->where('line_no', $request->input('line_no'))->delete();
+          ->where('line_no', $request->input('line_no'))
+          ->where('delivery_items', $request->input('delivery_items'))
+          ->delete();
         Concept::insert($rs_split_concept);
       } else {
         ManualConcept::where('invoice_no', $request->input('invoice_no'))
