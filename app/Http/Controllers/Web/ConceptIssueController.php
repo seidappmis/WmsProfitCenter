@@ -100,10 +100,10 @@ class ConceptIssueController extends Controller
     }
 
     foreach ($data as $key => $value) {
-      $datay1[] = round($value->i / $total2 * 100, 2);
+      $datay1[] = round($value->i / $total1 * 100, 2);
       $datay2[] = round($value->ii / $total2 * 100, 2);
-      $datay3[] = round($value->iii / $total2 * 100, 2);
-      $datay4[] = round($value->iv / $total2 * 100, 2);
+      $datay3[] = round($value->iii / $total3 * 100, 2);
+      $datay4[] = round($value->iv / $total4 * 100, 2);
 
       $xLegend[] = $value->category;
     }
