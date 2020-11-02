@@ -3,6 +3,7 @@
   <table id="item-split-table" class="display form-table" width="100%">
     <input type="hidden" name="invoice_no">
     <input type="hidden" name="delivery_no">
+    <input type="hidden" name="delivery_items">
     <input type="hidden" name="line_no">
     <input type="hidden" name="quantity">
     <input type="hidden" name="max_delivery_items">

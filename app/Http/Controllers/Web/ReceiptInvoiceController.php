@@ -328,7 +328,8 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
 
     if (empty($invoiceReceiptHeader->invoice_receipt_id)) {
-      $prefix = auth()->user()->area_data->code . '-FAKTUR-' . date('ymd') . '-N';
+      $kode   = auth()->user()->area == 'All' ? 'INV' : 'FAKTUR';
+      $prefix = auth()->user()->area_data->code . '-' . $kode . '-' . date('ymd') . '-N';
 
       $prefix_length = strlen($prefix);
       $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
@@ -349,9 +350,9 @@ class ReceiptInvoiceController extends Controller
 
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
-    $invoiceReceiptHeader->amount_pph  = str_replace(',', '', $request->input('amount_pph'));
-    $invoiceReceiptHeader->amount_ppn  = str_replace(',', '', $request->input('amount_ppn'));
+    $invoiceReceiptHeader->kwitansi_no      = $request->input('kwitansi_no');
+    $invoiceReceiptHeader->amount_pph       = str_replace(',', '', $request->input('amount_pph'));
+    $invoiceReceiptHeader->amount_ppn       = str_replace(',', '', $request->input('amount_ppn'));
     $invoiceReceiptHeader->amount_after_tax = $invoiceReceiptHeader->amount_before_tax + $invoiceReceiptHeader->amount_pph + $invoiceReceiptHeader->amount_ppn;
 
     $invoiceReceiptHeader->save();

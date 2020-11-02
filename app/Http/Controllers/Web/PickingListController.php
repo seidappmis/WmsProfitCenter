@@ -511,7 +511,9 @@ class PickingListController extends Controller
         Concept::insert($rs_split_concept);
       } else {
         ManualConcept::where('invoice_no', $request->input('invoice_no'))
-          ->where('delivery_no', $request->input('delivery_no'))->delete();
+          ->where('delivery_no', $request->input('delivery_no'))
+          ->where('delivery_items', $request->input('delivery_items'))
+          ->delete();
         ManualConcept::insert($rs_split_concept);
       }
       DB::commit();

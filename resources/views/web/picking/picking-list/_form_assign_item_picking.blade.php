@@ -232,6 +232,7 @@
 
       $('#form-split-concept [name="delivery_no"]').val(data.delivery_no)
       $('#form-split-concept [name="invoice_no"]').val(data.invoice_no)
+      $('#form-split-concept [name="delivery_items"]').val(data.delivery_items)
       $('#form-split-concept [name="line_no"]').val(data.line_no)
       $('#form-split-concept [name="quantity"]').val(data.quantity)
       $('#form-split-concept [name="max_delivery_items"]').val(data.max_delivery_items)
