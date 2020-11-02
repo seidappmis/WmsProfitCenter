@@ -328,8 +328,8 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
 
     if (empty($invoiceReceiptHeader->invoice_receipt_id)) {
-      $kode   = auth()->user()->area == 'All' ? 'INV' : 'FAKTUR';
-      $prefix = auth()->user()->area_data->code . '-' . $kode . '-' . date('ymd') . '-N';
+      $kode   = auth()->user()->area == 'All' ? 'INV' : auth()->user()->area_data->code;
+      $prefix = $kode . '-FAKTUR-' . date('ymd') . '-N';
 
       $prefix_length = strlen($prefix);
       $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
