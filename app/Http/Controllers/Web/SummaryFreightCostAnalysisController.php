@@ -25,6 +25,112 @@ class SummaryFreightCostAnalysisController extends Controller
     return view('web.invoicing.summary-freight-cost-analysis.index');
   }
 
+  public function export(Request $request)
+  {
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $sheet       = $spreadsheet->getActiveSheet();
+
+    $col = 'A';
+    $sheet->setCellValue(($col++) . '1', 'ReceiptID');
+    $sheet->setCellValue(($col++) . '1', 'ReceiptNum');
+    $sheet->setCellValue(($col++) . '1', 'Invoice Number');
+    $sheet->setCellValue(($col++) . '1', 'ReceiptDate');
+    $sheet->setCellValue(($col++) . '1', 'Amount');
+    $sheet->setCellValue(($col++) . '1', 'Status');
+    $sheet->setCellValue(($col++) . '1', 'Bulan');
+    $sheet->setCellValue(($col++) . '1', 'ACC Code');
+    $sheet->setCellValue(($col++) . '1', 'Kode Cabang');
+    $sheet->setCellValue(($col++) . '1', 'Code Sales');
+    $sheet->setCellValue(($col++) . '1', 'Expedition Code');
+    $sheet->setCellValue(($col++) . '1', 'DO Manifest No');
+    $sheet->setCellValue(($col++) . '1', 'DO Manifest Date');
+    $sheet->setCellValue(($col++) . '1', 'Expedition Name');
+    $sheet->setCellValue(($col++) . '1', 'Vehicle Description');
+    $sheet->setCellValue(($col++) . '1', 'Destination Manifest');
+    $sheet->setCellValue(($col++) . '1', 'Delivery No');
+    $sheet->setCellValue(($col++) . '1', 'DO Date');
+    $sheet->setCellValue(($col++) . '1', 'MODEL');
+    $sheet->setCellValue(($col++) . '1', 'Total CBM DO');
+    $sheet->setCellValue(($col++) . '1', 'Qty');
+    $sheet->setCellValue(($col++) . '1', 'Base Cost Ritase');
+    $sheet->setCellValue(($col++) . '1', 'Base Cost CBM');
+    $sheet->setCellValue(($col++) . '1', 'Total CBM Truck');
+    $sheet->setCellValue(($col++) . '1', 'Total Freight Cost');
+    $sheet->setCellValue(($col++) . '1', 'Ritase2');
+    $sheet->setCellValue(($col++) . '1', 'Multidrop');
+    $sheet->setCellValue(($col++) . '1', 'Unloading');
+    $sheet->setCellValue(($col++) . '1', 'Overstay');
+    $sheet->setCellValue(($col++) . '1', 'Ship To Code');
+    $sheet->setCellValue(($col++) . '1', 'Ship To');
+    $sheet->setCellValue(($col) . '1', 'Region');
+
+    // getPHPSpreadsheetTitleStyle() ada di wms Helper
+    $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+
+    $data = $this->getData($request)
+      ;
+
+    $row = 2;
+    foreach ($data as $key => $value) {
+      $col = 'A';
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_id);
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_no);
+      $sheet->setCellValue(($col++) . $row, $value->kwitansi_no);
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_date);
+      $sheet->setCellValue(($col++) . $row, $value->amount_after_tax);
+      $sheet->setCellValue(($col++) . $row, $value->manifest_type);
+      $sheet->setCellValue(($col++) . $row, $value->month);
+      $sheet->setCellValue(($col++) . $row, $value->acc_code);
+      $sheet->setCellValue(($col++) . $row, $value->kode_cabang);
+      $sheet->setCellValue(($col++) . $row, $value->code_sales);
+      $sheet->setCellValue(($col++) . $row, $value->expedition_code);
+      $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
+      $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+      $sheet->setCellValue(($col++) . $row, $value->vehicle_description);
+      $sheet->setCellValue(($col++) . $row, $value->destination_manifest);
+      $sheet->setCellValue(($col++) . $row, $value->delivery_no);
+      $sheet->setCellValue(($col++) . $row, $value->do_date);
+      $sheet->setCellValue(($col++) . $row, $value->model);
+      $sheet->setCellValue(($col++) . $row, $value->total_cbm_do);
+      $sheet->setCellValue(($col++) . $row, $value->qty);
+      $sheet->setCellValue(($col++) . $row, $value->base_cost_ritase);
+      $sheet->setCellValue(($col++) . $row, $value->base_cost_cbm);
+      $sheet->setCellValue(($col++) . $row, $value->total_cbm_truck);
+      $sheet->setCellValue(($col++) . $row, $value->total_freight_cost);
+      $sheet->setCellValue(($col++) . $row, $value->ritase2);
+      $sheet->setCellValue(($col++) . $row, $value->multidrop);
+      $sheet->setCellValue(($col++) . $row, $value->unloading);
+      $sheet->setCellValue(($col++) . $row, $value->overstay);
+      $sheet->setCellValue(($col++) . $row, $value->ship_to_code);
+      $sheet->setCellValue(($col++) . $row, $value->ship_to);
+      $sheet->setCellValue(($col++) . $row, $value->region);
+      $row++;
+    }
+
+    $sheet->getColumnDimension('A')->setAutoSize(true);
+    $sheet->getColumnDimension('B')->setAutoSize(true);
+    $sheet->getColumnDimension('C')->setAutoSize(true);
+    $sheet->getColumnDimension('D')->setAutoSize(true);
+    $sheet->getColumnDimension('E')->setAutoSize(true);
+    $sheet->getColumnDimension('F')->setAutoSize(true);
+
+    $title = 'Summary Freight Cost Analysis ' . $request->input('area');
+
+    if ($request->input('file_type') == 'pdf') {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      header('Cache-Control: max-age=0');
+    } else {
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+    }
+
+    $writer->save("php://output");
+  }
+
   public function getData($request)
   {
 

@@ -43,7 +43,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::get('report-master-freight-cost/export', 'Web\ReportMasterFreightCostController@export');
   Route::get('summary-freight-cost-report-per-manifest', 'Web\SummaryFreightCostReportPerManifestController@index');
+  Route::get('summary-freight-cost-report-per-manifest/export', 'Web\SummaryFreightCostReportPerManifestController@export');
   Route::get('summary-freight-cost-report-per-region', 'Web\SummaryFreightCostReportPerRegionController@index');
+  Route::get('summary-freight-cost-report-per-region/export', 'Web\SummaryFreightCostReportPerRegionController@export');
 
   Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');

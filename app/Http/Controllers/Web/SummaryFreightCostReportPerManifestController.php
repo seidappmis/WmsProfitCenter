@@ -23,6 +23,116 @@ class SummaryFreightCostReportPerManifestController extends Controller
     return view('web.report.summary-freight-cost-report-per-manifest.index');
   }
 
+  public function export(Request $request)
+  {
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $sheet       = $spreadsheet->getActiveSheet();
+
+    $col = 'A';
+    $sheet->setCellValue(($col++) . '1', 'ReceiptID');
+    $sheet->setCellValue(($col++) . '1', 'ReceiptNum');
+    $sheet->setCellValue(($col++) . '1', 'Invoice Number');
+    $sheet->setCellValue(($col++) . '1', 'ReceiptDate');
+    $sheet->setCellValue(($col++) . '1', 'Amount');
+    $sheet->setCellValue(($col++) . '1', 'Status');
+    $sheet->setCellValue(($col++) . '1', 'Paid Status');
+    $sheet->setCellValue(($col++) . '1', 'Bulan');
+    $sheet->setCellValue(($col++) . '1', 'ACC Code');
+    $sheet->setCellValue(($col++) . '1', 'Branch Code');
+    $sheet->setCellValue(($col++) . '1', 'SLOC');
+    $sheet->setCellValue(($col++) . '1', 'Manifest No');
+    $sheet->setCellValue(($col++) . '1', 'Tgl Manifest');
+    $sheet->setCellValue(($col++) . '1', 'Transporter');
+    $sheet->setCellValue(($col++) . '1', 'Destination');
+    $sheet->setCellValue(($col++) . '1', 'Vehicle Type');
+    $sheet->setCellValue(($col++) . '1', 'Vehicle No');
+    $sheet->setCellValue(($col++) . '1', 'DO No');
+    $sheet->setCellValue(($col++) . '1', 'Branch Short Description');
+    $sheet->setCellValue(($col++) . '1', 'Ship To Code');
+    $sheet->setCellValue(($col++) . '1', 'Ship to Description');
+    $sheet->setCellValue(($col++) . '1', 'Destination City DO');
+    $sheet->setCellValue(($col++) . '1', 'Total CBM DO');
+    $sheet->setCellValue(($col++) . '1', 'SumOfTotalCBM');
+    $sheet->setCellValue(($col++) . '1', 'BaseCostCBM');
+    $sheet->setCellValue(($col++) . '1', 'CostPerDO');
+    $sheet->setCellValue(($col++) . '1', 'BaseCostRitase');
+    $sheet->setCellValue(($col++) . '1', 'RitaseCost');
+    $sheet->setCellValue(($col++) . '1', 'Ritase2Cost');
+    $sheet->setCellValue(($col++) . '1', 'MultiDrop');
+    $sheet->setCellValue(($col++) . '1', 'Unloading');
+    $sheet->setCellValue(($col++) . '1', 'OverStay');
+    $sheet->setCellValue(($col++) . '1', 'Total');
+    $sheet->setCellValue(($col) . '1', 'Region');
+
+    // getPHPSpreadsheetTitleStyle() ada di wms Helper
+    $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+
+    $data = $this->getData($request)
+    ;
+
+    $row = 2;
+    foreach ($data as $key => $value) {
+      $col = 'A';
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_id);
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_no);
+      $sheet->setCellValue(($col++) . $row, $value->kwitansi_no);
+      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_date);
+      $sheet->setCellValue(($col++) . $row, $value->amount_after_tax);
+      $sheet->setCellValue(($col++) . $row, $value->status);
+      $sheet->setCellValue(($col++) . $row, $value->paid_status);
+      $sheet->setCellValue(($col++) . $row, $value->bulan);
+      $sheet->setCellValue(($col++) . $row, $value->acc_code);
+      $sheet->setCellValue(($col++) . $row, $value->kode_cabang);
+      $sheet->setCellValue(($col++) . $row, $value->code_sales);
+      $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
+      $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+      $sheet->setCellValue(($col++) . $row, $value->city_name);
+      $sheet->setCellValue(($col++) . $row, $value->vehicle_description);
+      $sheet->setCellValue(($col++) . $row, $value->vehicle_number);
+      $sheet->setCellValue(($col++) . $row, $value->delivery_no);
+      $sheet->setCellValue(($col++) . $row, $value->branch_short_description);
+      $sheet->setCellValue(($col++) . $row, $value->ship_to_code);
+      $sheet->setCellValue(($col++) . $row, $value->ship_to);
+      $sheet->setCellValue(($col++) . $row, $value->city_name);
+      $sheet->setCellValue(($col++) . $row, $value->cbm_do);
+      $sheet->setCellValue(($col++) . $row, $value->cbm_vehicle);
+      $sheet->setCellValue(($col++) . $row, $value->freight_cost);
+      $sheet->setCellValue(($col++) . $row, $value->cbm_amount);
+      $sheet->setCellValue(($col++) . $row, $value->ritase_freight_cost);
+      $sheet->setCellValue(($col++) . $row, $value->ritase_amount);
+      $sheet->setCellValue(($col++) . $row, $value->ritase2_amount);
+      $sheet->setCellValue(($col++) . $row, $value->multidro_amount);
+      $sheet->setCellValue(($col++) . $row, $value->unloading_amount);
+      $sheet->setCellValue(($col++) . $row, $value->overstay_amount);
+      $sheet->setCellValue(($col++) . $row, $value->amount_before_tax);
+      $sheet->setCellValue(($col++) . $row, $value->region);
+      $row++;
+    }
+
+    $sheet->getColumnDimension('A')->setAutoSize(true);
+    $sheet->getColumnDimension('B')->setAutoSize(true);
+    $sheet->getColumnDimension('C')->setAutoSize(true);
+    $sheet->getColumnDimension('D')->setAutoSize(true);
+    $sheet->getColumnDimension('E')->setAutoSize(true);
+    $sheet->getColumnDimension('F')->setAutoSize(true);
+
+    $title = 'Summary Freight Cost Report Per Manifest ' . $request->input('area');
+
+    if ($request->input('file_type') == 'pdf') {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      header('Cache-Control: max-age=0');
+    } else {
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+    }
+
+    $writer->save("php://output");
+  }
+
   protected function getData($request)
   {
     $sql = "
@@ -108,7 +218,6 @@ class SummaryFreightCostReportPerManifestController extends Controller
     }
 
     $query = DB::select(DB::raw($sql), $condition_params);
-
 
     return $query;
   }

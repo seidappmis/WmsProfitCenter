@@ -23,6 +23,68 @@ class SummaryFreightCostReportPerRegionController extends Controller
     return view('web.report.summary-freight-cost-report-per-region.index');
   }
 
+  public function export(Request $request)
+  {
+    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $sheet       = $spreadsheet->getActiveSheet();
+
+    $col = 'A';
+    $sheet->setCellValue(($col++) . '1', 'REGION');
+    $sheet->setCellValue(($col++) . '1', 'BRANCH DESC');
+    $sheet->setCellValue(($col++) . '1', 'SALES CODE');
+    $sheet->setCellValue(($col++) . '1', 'MONT');
+    $sheet->setCellValue(($col++) . '1', 'YEAR');
+    $sheet->setCellValue(($col++) . '1', 'DESTINATION');
+    $sheet->setCellValue(($col++) . '1', 'FREIGHT COST');
+    $sheet->setCellValue(($col++) . '1', 'MULTI DROP');
+    $sheet->setCellValue(($col++) . '1', 'UNLOADING');
+    $sheet->setCellValue(($col) . '1', 'OVERSTAY');
+
+    // getPHPSpreadsheetTitleStyle() ada di wms Helper
+    $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+
+    $data = $this->getData($request)
+    ;
+
+    $row = 2;
+    foreach ($data as $key => $value) {
+      $col = 'A';
+      $sheet->setCellValue(($col++) . $row, $value->region);
+      $sheet->setCellValue(($col++) . $row, $value->branch_short_description);
+      $sheet->setCellValue(($col++) . $row, $value->code_sales);
+      $sheet->setCellValue(($col++) . $row, $value->bulan);
+      $sheet->setCellValue(($col++) . $row, $value->tahun);
+      $sheet->setCellValue(($col++) . $row, $value->destination);
+      $sheet->setCellValue(($col++) . $row, $value->freight_cost);
+      $sheet->setCellValue(($col++) . $row, $value->multi_drop);
+      $sheet->setCellValue(($col++) . $row, $value->unloading);
+      $sheet->setCellValue(($col++) . $row, $value->overstay);
+      $row++;
+    }
+
+    $sheet->getColumnDimension('A')->setAutoSize(true);
+    $sheet->getColumnDimension('B')->setAutoSize(true);
+    $sheet->getColumnDimension('C')->setAutoSize(true);
+    $sheet->getColumnDimension('D')->setAutoSize(true);
+    $sheet->getColumnDimension('E')->setAutoSize(true);
+    $sheet->getColumnDimension('F')->setAutoSize(true);
+
+    $title = 'Summary Freight Cost Report Per Region' . $request->input('area');
+
+    if ($request->input('file_type') == 'pdf') {
+      $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+      header('Content-Type: application/pdf');
+      header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+      header('Cache-Control: max-age=0');
+    } else {
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+    }
+
+    $writer->save("php://output");
+  }
+
   protected function getData($request)
   {
     $sql = "
@@ -49,7 +111,6 @@ class SummaryFreightCostReportPerRegionController extends Controller
       $request->input('start_date'),
       $request->input('end_date'),
     ];
-
 
     if (!empty($request->input('city_code'))) {
       $sql .= ' AND lmh.city_code = ?';
