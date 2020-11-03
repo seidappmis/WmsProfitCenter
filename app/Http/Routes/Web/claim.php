@@ -35,7 +35,11 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   // Claim Insurance
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');
   Route::get('claim-insurance/{id}/detail/{detail_id}/export', 'Web\ClaimInsuranceController@exportDetail');
-  Route::view('claim-insurance', 'web.claim.claim-insurance.index');
-  Route::view('claim-insurance/create', 'web.claim.claim-insurance.create');
-  Route::view('claim-insurance/{id}', 'web.claim.claim-insurance.edit');
+  Route::get('claim-insurance', 'Web\ClaimInsuranceController@index');
+  Route::get('claim-insurance/list-claim-insurance', 'Web\ClaimInsuranceController@listClaimInsurance'); //list datatable claim insurance index
+  Route::get('claim-insurance/{id}/list-claim-insurance', 'Web\ClaimInsuranceController@listDetailClaimInsurance'); //list datatable claim insurance detail
+  Route::post('claim-insurance/{id}/update', 'Web\ClaimInsuranceController@update'); //update detail claim notes
+  Route::post('claim-insurance/create', 'Web\ClaimInsuranceController@create');
+  Route::get('claim-insurance/{id}',  'Web\ClaimInsuranceController@show'); //detail claim insurance
+  Route::get('claim-insurance/{berita_acara_id}/print', 'Web\ClaimInsuranceController@exportDetail'); //proses cetak claim note
 });

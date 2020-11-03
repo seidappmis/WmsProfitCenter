@@ -17,6 +17,8 @@ class CreateClmBeritaAcaraDetailTable extends Migration
             $table->id();
             $table->string('berita_acara_no', 20);
             $table->integer('berita_acara_id')->nullable();
+            $table->integer('claim_note_detail_id', 20)->nullable();
+            $table->integer('claim_insurance_detail_id', 20)->nullable();
             $table->string('do_no', 15)->nullable();
             $table->string('model_name', 50)->nullable();
             $table->string('serial_number', 50)->nullable();
