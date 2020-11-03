@@ -450,6 +450,7 @@ class ReceiptInvoiceController extends Controller
   public function exportReceiptInvoice(Request $request, $id)
   {
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+    $data['request']              = $request;
 
     // echo "<pre>";
     // print_r($data['invoiceReceiptHeader']->getPrintReceiptData());
@@ -510,8 +511,16 @@ class ReceiptInvoiceController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 2,
+        'margin_right'                    => 2,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A3',
+        'orientation'                     => 'L',
+      ]);
 
+      $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
