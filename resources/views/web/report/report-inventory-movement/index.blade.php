@@ -200,7 +200,7 @@
     $('#form-report-inventory-movement [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+       ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
     });
     $('#form-report-inventory-movement [name="kode_cabang"]').change(function(event) {
       /* Act on the event */

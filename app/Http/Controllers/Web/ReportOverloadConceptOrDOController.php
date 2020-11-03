@@ -159,7 +159,16 @@ class ReportOverloadConceptOrDOController extends Controller
     )
     ;
 
-    $query->where('log_concept_overload.area', $request->input('area'));
+    if (auth()->user()->cabang->hq) {
+      $query->where('log_concept_overload.area', $request->input('area'));
+    } else {
+      $query->leftjoin('wms_manual_concept', function($join){
+        $join->on('wms_manual_concept.invoice_no', '=', 'log_concept_overload.invoice_no');
+        $join->on('wms_manual_concept.delivery_no', '=', 'log_concept_overload.delivery_no');
+        $join->on('wms_manual_concept.delivery_items', '=', 'log_concept_overload.delivery_items');
+      })
+      ->where('wms_manual_concept.kode_cabang', auth()->user()->cabang->kode_cabang);
+    }
     $query->where('log_concept_overload.created_at', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
     $query->where('log_concept_overload.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
 

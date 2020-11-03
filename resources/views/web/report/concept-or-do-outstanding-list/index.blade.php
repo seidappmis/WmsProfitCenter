@@ -25,6 +25,7 @@
                         <form id="form-report-outstanding-list" class="form-table" onsubmit="return false;">
                           <input type="hidden" name="type">
                             <table>
+                              @if(auth()->user()->cabang->hq)
                               <tr style="background-color: darkgray">
                                 <td>Area</td>
                                 <td>
@@ -38,6 +39,7 @@
                                 <td>OR</td>
                                 <td></td>
                               </tr>
+                              @endif
                               <tr style="background-color: darkgray">
                                 <td>Branch</td>
                                 <td>
@@ -337,6 +339,10 @@
         }
       }
     })
+
+    @if (!auth()->user()->cabang->hq) 
+    init_form_branch();
+    @endif
 
     $('#form-report-outstanding-list [name="branch"]').change(function(event) {
       /* Act on the event */

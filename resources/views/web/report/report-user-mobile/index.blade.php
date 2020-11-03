@@ -137,7 +137,7 @@
     $('#cabang_filter').select2({
        placeholder: '-- Select Cabang --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-cabang/select2-cabang-only')
+       ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
     });
 
 
