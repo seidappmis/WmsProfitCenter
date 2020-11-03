@@ -151,7 +151,7 @@ class ClaimNoteController extends Controller
                         // unset berita_acara_detail_id not used in table clm_claim_note
                         unset($beritaAcaraDetail[$kc]['berita_acara_detail_id']);
                     }
-                    // dd($beritaAcaraDetail);
+
                     DB::transaction(function () use (&$beritaAcaraDetail, &$req) {
 
                         // Generate No. Claim Note :  01/Claim U-Log/Des/2019
@@ -171,7 +171,9 @@ class ClaimNoteController extends Controller
                         // insert to claim note and return id
                         $claimNoteID = ClaimNote::insertGetId([
                             'claim_note_no' => $claim_note_no,
-                            'claim' => $req->type
+                            'claim' => $req->type,
+                            'created_by' => auth()->user()->id,
+                            'created_at' => date('Y-m-d H:i:s')
                         ]);
 
                         foreach ($beritaAcaraDetail as $key => $value) {
@@ -288,6 +290,7 @@ class ClaimNoteController extends Controller
                 ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
                 ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
                 ->orderBy('n.created_at', 'DESC')
+                ->where('i.id', $id)
                 ->select(
                     'n.*',
                     'e.expedition_name',
@@ -339,7 +342,12 @@ class ClaimNoteController extends Controller
             try {
                 if (!empty($data)) {
 
-                    DB::transaction(function () use (&$data) {
+                    DB::transaction(function () use (&$data, &$id) {
+
+                        ClaimNote::whereId($id)->update([
+                            'updated_by' => auth()->user()->id,
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ]);
 
                         foreach ($data as $key => $value) {
                             // update berita acara detail _> claim note id from before

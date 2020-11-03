@@ -46,7 +46,8 @@ class BeritaAcaraController extends Controller
         });
 
       return $datatables->make(true);
-    }
+    };
+
     return view('web.claim.berita-acara.index');
   }
 

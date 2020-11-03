@@ -25,12 +25,12 @@
                      </div>
                      <div class="collapsible-body p-0">
                         <div class="section-data-tables">
-                           <table id="table-claim-notes" class="display" width="100%">
+                           <table id="table-claim-insurance" class="display" width="100%">
                               <thead>
                                  <tr>
                                     <th data-priority="1" width="30px">NO.</th>
                                     <th>BERITA ACARA</th>
-                                    <th>CLAIM NOTE</th>
+                                    <th>INSURANCE DATE</th>
                                     <th>REPORTING DATE</th>
                                     <th>EXPEDITION NAME</th>
                                     <th>DESTINATION</th>
@@ -60,11 +60,11 @@
          'title' => 'Print',
       ])
 
-      dtdatatable_claim_note = $('#table-claim-notes').DataTable({
+      dtdatatable_claim_note = $('#table-claim-insurance').DataTable({
          serverSide: true,
          scrollX: true,
          ajax: {
-            url: '{{url("claim-notes/list-claim-notes")}}',
+            url: '{{url("claim-insurance/list-claim-insurance")}}',
             type: 'GET',
          },
          columns: [{
@@ -80,8 +80,8 @@
                return truncate(data, 35);
             }
          }, {
-            data: 'claim_note_no',
-            name: 'claim_note_no',
+            data: 'insurance_date',
+            name: 'insurance_date',
             className: 'detail'
          }, {
             data: 'date_of_receipt',
@@ -101,7 +101,7 @@
             searchable: false,
             render: function(data, type, row, meta) {
                return ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
-                  ' ' + '<?= get_button_view(url("claim-notes/:id")) ?>'.replace(':id', data) +
+                  ' ' + '<?= get_button_view(url("claim-insurance/:id")) ?>'.replace(':id', data) +
                   ' ' + '<?= get_button_print() ?>';
             },
             className: "center-align"
@@ -112,14 +112,14 @@
          var tr = $(this).parent().parent();
          var data = dtdatatable_claim_note.row(tr).data();
          initPrintPreviewPrint(
-            '{{url("claim-notes")}}' + '/' + data.id + '/print'
+            '{{url("claim-insurance")}}' + '/' + data.id + '/print'
          )
       });
    });
 
 
    // Add event listener for opening and closing details
-   $('#table-claim-notes tbody').on('click', '.btn-detail', function() {
+   $('#table-claim-insurance tbody').on('click', '.btn-detail', function() {
       var tr = $(this).closest('tr');
       var row = dtdatatable_claim_note.row(tr);
 
@@ -152,11 +152,11 @@
       html += '</td>' +
          '</tr>' +
          '<tr>' +
-         '<td>Claim Note:</td>' +
-         '<td>' + d.claim_note_no + '</td>' +
+         '<td>Insurance Date:</td>' +
+         '<td>' + d.insurance_date + '</td>' +
          '</tr>' +
          '<tr>' +
-         '<td>Reporting Date:</td>' +
+         '<td>Date of Receipt:</td>' +
          '<td>' + d.date_of_receipt + '</td>' +
          '</tr>' +
          '<tr>' +
@@ -173,7 +173,11 @@
    };
 
    function truncate(source, size) {
-      return source.length > size ? source.slice(0, size - 1) + "…" : source;
+      if (source) {
+         return source.length > size ? source.slice(0, size - 1) + "…" : source;
+      } else {
+         return source
+      }
    }
 </script>
 @endpush
