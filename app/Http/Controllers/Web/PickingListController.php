@@ -457,7 +457,9 @@ class PickingListController extends Controller
       $max_delivery_items = $maxConcept->max_delivery_items;
 
       $concept = Concept::where('invoice_no', $request->input('invoice_no'))
-        ->where('line_no', $request->input('line_no'))->first();
+        ->where('line_no', $request->input('line_no'))
+        ->where('delivery_items', $request->input('delivery_items'))
+        ->first();
     } else {
       $maxConcept = ManualConcept::select(
         // DB::raw('MAX(line_no) AS max_line_no'),
@@ -472,6 +474,7 @@ class PickingListController extends Controller
 
       $concept = ManualConcept::where('invoice_no', $request->input('invoice_no'))
         ->where('delivery_no', $request->input('delivery_no'))
+        ->where('delivery_items', $request->input('delivery_items'))
         ->first();
     }
 
