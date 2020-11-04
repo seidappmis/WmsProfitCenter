@@ -3,60 +3,60 @@
 <body style="font-family: Arial;">
     <htmlpageheader name="myHeader1">
         <table width="100%" style="font-size: 10pt;line-height: 1.4">
-        <tr>
-            <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP
-                    ELECTRONICS INDONESIA</strong></td>
-        </tr>
-        <tr>
-            <td colspan="15" style="text-align: center; font-size: 13pt;"><strong>LAPORAN MUATAN
-                    BARANG</strong></td>
-        </tr>
-        <tr>
-            <td colspan="15" style="text-align: center; font-size: 8pt;"><strong>(Loading Goods
-                    Report)</strong></td>
-        </tr>
-        <tr>
-            <td colspan="15" style="text-align: center; font-size: 12pt;"><strong>SHARP -
-                    PRODUCT</strong></td>
-        </tr>
-        <tr>
-            <td colspan="1" style="width: 33mm;">Tanggal</td>
-            <td style="width: 5mm;">:</td>
-            <td colspan="6" style="width: 66mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
-            <td colspan="2" style="width: 33mm;">No. Mobil/Jenis</td>
-            <td style="width: 6mm;">:</td>
-            <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
-        </tr>
-        <tr>
-            <td colspan="1">Expedisi</td>
-            <td>:</td>
-            <td colspan="6">{{$lmbHeader->expedition_name}}</td>
-            @if($lmbHeader->cabang->hq)
-            <td colspan="2">No. Container</td>
-            <td>:</td>
-            <td colspan="3">{{$lmbHeader->container_no}}</td>
-            @else 
-            <td colspan="2">Customer</td>
-            <td>:</td>
-            <td colspan="3">{!! $lmbHeader->getCustomer() !!}</td>
-            @endif
-        </tr>
-        <tr>
-            <td colspan="1">Tujuan</td>
-            <td>:</td>
-            <td colspan="6">{{$lmbHeader->destination_name}}</td>
-            <td colspan="2">No. Seal</td>
-            <td>:</td>
-            <td colspan="3">{{$lmbHeader->seal_no}}</td>
-        </tr>
-        <tr>
-            <td colspan="1">Lokasi Gudang</td>
-            <td>:</td>
-            <td colspan="6">{{$lmbHeader->short_description_cabang}}</td>
-            <td colspan="2">No. Picking</td>
-            <td>:</td>
-            <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
-        </tr>
+            <tr>
+                <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP
+                        ELECTRONICS INDONESIA</strong></td>
+            </tr>
+            <tr>
+                <td colspan="15" style="text-align: center; font-size: 13pt;"><strong>LAPORAN MUATAN
+                        BARANG</strong></td>
+            </tr>
+            <tr>
+                <td colspan="15" style="text-align: center; font-size: 8pt;"><strong>(Loading Goods
+                        Report)</strong></td>
+            </tr>
+            <tr>
+                <td colspan="15" style="text-align: center; font-size: 12pt;"><strong>SHARP -
+                        PRODUCT</strong></td>
+            </tr>
+            <tr>
+                <td colspan="1" style="width: 33mm;">Tanggal</td>
+                <td style="width: 5mm;">:</td>
+                <td colspan="6" style="width: 66mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+                <td colspan="2" style="width: 33mm;">No. Mobil/Jenis</td>
+                <td style="width: 6mm;">:</td>
+                <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
+            </tr>
+            <tr>
+                <td colspan="1">Expedisi</td>
+                <td>:</td>
+                <td colspan="6">{{$lmbHeader->expedition_name}}</td>
+                @if($lmbHeader->cabang->hq)
+                <td colspan="2">No. Container</td>
+                <td>:</td>
+                <td colspan="3">{{$lmbHeader->container_no}}</td>
+                @else 
+                <td colspan="2">Customer</td>
+                <td>:</td>
+                <td colspan="3">{!! $lmbHeader->getCustomer() !!}</td>
+                @endif
+            </tr>
+            <tr>
+                <td colspan="1">Tujuan</td>
+                <td>:</td>
+                <td colspan="6">{{$lmbHeader->destination_name}}</td>
+                <td colspan="2">No. Seal</td>
+                <td>:</td>
+                <td colspan="3">{{$lmbHeader->seal_no}}</td>
+            </tr>
+            <tr>
+                <td colspan="1">Lokasi Gudang</td>
+                <td>:</td>
+                <td colspan="6">{{$lmbHeader->short_description_cabang}}</td>
+                <td colspan="2">No. Picking</td>
+                <td>:</td>
+                <td colspan="3"><strong>{{$lmbHeader->picking->picking_no}}</strong></td>
+            </tr>
         </table>
     </htmlpageheader>
     <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
