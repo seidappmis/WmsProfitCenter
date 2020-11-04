@@ -51,7 +51,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="table-finish-good-production" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -59,6 +59,9 @@
                                     <th>TICKET NO</th>
                                     <th>WAREHOUSE</th>
                                     <th>FACTORY</th>
+                                    <th width="50px;"></th>
+                                    <th width="50px;"></th>
+                                    <th width="50px;"></th>
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -87,14 +90,48 @@
 </div>
 @endsection
 
+@push('page-modal')
+<div id="modal-form-print" class="modal" style="">
+    <div class="modal-content">
+      <form id="form-print" class="form-table">
+        <input type="hidden" name="receipt_no">
+        <table>
+          <tr>
+            <td width="100px">Transfer By</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="transfer_by">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">Checked By</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="checked_by">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="100px">Locate</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="locate">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview btn green darken-4">Print Report</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
-  var dtdatatable = $('#data-table-section-contents').DataTable({
-    // serverSide: true,
-    scrollX: true,
-    responsive: true,
-    order: [1, 'asc'],
-  });
 
   // Filter Area
   $('#area_filter').select2({
@@ -102,13 +139,118 @@
     allowClear: true,
     ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
+  @if (auth()->user()->area != 'All')
+    set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#area_filter').attr('disabled','disabled')
+  @endif
 
+  var table
   jQuery(document).ready(function($) {
-    @if (auth()->user()->area != 'All')
-      set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
-      $('#area_filter').attr('disabled','disabled')
-    @endif
-    
+    table = $('#table-finish-good-production').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: false,
+      ajax: {
+          url: '{{ url('finish-good-production') }}',
+          type: 'GET',
+          data: function(d) {
+              d.search['value'] = $('#global_filter').val(),
+              d.area = $('#area_filter').val()
+            }
+      },
+      order: [1, 'desc'],
+      columns: [
+          {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+          {data: 'receipt_no'},
+          {data: 'bar_ticket_header'},
+          {data: 'warehouse'},
+          {data: 'supplier'},
+          {data: 'action_view', className: 'center-align', searchable: false, orderable: false},
+          {data: 'action_delete', className: 'center-align', searchable: false, orderable: false},
+          {data: 'action_submit_to_inventory', className: 'center-align', searchable: false, orderable: false},
+          {data: 'action_print', className: 'center-align', searchable: false, orderable: false},
+      ]
+    });
+
+    table.on('click', '.btn-delete', function(event) {
+          event.preventDefault();
+          /* Act on the event */
+          // Ditanyain dulu usernya mau beneran delete data nya nggak.
+          var tr = $(this).parent().parent();
+          var data = table.row(tr).data();
+          swal({
+            text: "Are you sure want to delete " + data.receipt_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
+            }
+          }).then(function (confirm) { // proses confirm
+            if (confirm) {
+                $.ajax({
+                url: '{{ url('finish-good-production') }}' + '/' + data.receipt_no ,
+                type: 'DELETE',
+                dataType: 'json',
+              })
+              .done(function() {
+                showSwalAutoClose('Success', "Data with Receipt No No. " + data.receipt_no + " has been deleted.")
+                table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              })
+              .fail(function() {
+                console.log("error");
+              });
+            }
+          })
+        });
+
+    table.on('click', '.btn-print', function(event) {
+      var tr = $(this).parent().parent();
+      var data = table.row(tr).data();
+      $('#form-print [name="receipt_no"]').val(data.receipt_no)
+      $('#modal-form-print').modal('open')
+    })
+
+    {{-- Load Modal Print --}}
+    @include('layouts.materialize.components.modal-print', [
+      'title' => 'Print',
+    ])
+
+    $('.btn-show-print-preview').click(function(event) {
+      /* Act on the event */
+      initPrintPreviewPrint(
+        '{{url("finish-good-production")}}' + '/' + $('#form-print [name="receipt_no"]').val() + '/export',
+        $('#form-print').serialize()
+      )
+    });
+
+    table.on('click', '.btn-submit-to-inventory', function(event) {
+          var tr = $(this).parent().parent();
+          var data = table.row(tr).data();
+          swal({
+            text: "Are you sure want to Submit to Inventory " + data.receipt_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Submit It'
+            }
+          }).then(function (confirm) { // proses confirm
+            if (confirm) {
+              $.ajax({
+                url: '{{ url('finish-good-production') }}' + '/' + data.receipt_no + '/submit-to-inventory',
+                type: 'POST',
+                dataType: 'json',
+              })
+              .done(function() {
+                showSwalAutoClose("Success", "Data with Receipt No. " + data.receipt_no + " has been submited to inventory.")
+                table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
+              })
+              .fail(function() {
+                console.log("error");
+              });
+            }
+          })
+          
+        });
   });
 
 </script>

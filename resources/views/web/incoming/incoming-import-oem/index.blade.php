@@ -79,7 +79,7 @@
 @push('page-modal')
 <div id="modal-form-print" class="modal" style="">
     <div class="modal-content">
-      <form id="form-print">
+      <form id="form-print" class="form-table">
         <input type="hidden" name="arrival_no">
         <table>
           <tr>
