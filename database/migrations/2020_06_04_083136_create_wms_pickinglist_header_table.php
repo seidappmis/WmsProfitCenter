@@ -47,6 +47,8 @@ class CreateWmsPickinglistHeaderTable extends Migration
       $table->timestamps();
       $table->integer('created_by')->nullable();
       $table->integer('updated_by')->nullable();
+      $table->datetime('deleted_at')->nullable();
+      $table->integer('deleted_by')->nullable();
 
       $table->primary('id');
     });

@@ -35,6 +35,7 @@ class PickingListController extends Controller
         'wms_pickinglist_header.storage_type',
         DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
       )
+        ->whereNull('wms_pickinglist_header.deleted_at')
         ->groupBy('wms_pickinglist_header.driver_register_id')
       ;
 
@@ -838,7 +839,10 @@ class PickingListController extends Controller
         $conceptFlowHeader->delete();
       }
 
-      $pickingHeader->delete();
+      $pickingHeader->deleted_at = date('Y-m-d H:i:s');
+      $pickingHeader->deleted_by = auth()->user()->id;
+      $pickingHeader->save();
+      // $pickingHeader->delete();
 
       DB::commit();
       return sendSuccess('Picking List Deleted', $pickingHeader);
@@ -945,15 +949,15 @@ class PickingListController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
-          'margin_top'                      => 55,
-          'margin_bottom'                   => 65,
+        'margin_top'                      => 55,
+        'margin_bottom'                   => 65,
         'format'                          => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
 
       $mpdf->Output();
-      return ;
+      return;
 
     } elseif ($request->input('filetype') == 'xls') {
 
@@ -995,8 +999,8 @@ class PickingListController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
-          'margin_top'                      => 55,
-          'margin_bottom'                   => 65,
+        'margin_top'                      => 55,
+        'margin_bottom'                   => 65,
         'format'                          => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
