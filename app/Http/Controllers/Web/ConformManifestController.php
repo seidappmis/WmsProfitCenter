@@ -172,7 +172,8 @@ class ConformManifestController extends Controller
           $manifesDetail->status_confirm      = 1;
           $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
           $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
-          if (auth()->user()->cabang->hq) {
+          // if (auth()->user()->cabang->hq) {
+          if ($request->input('type_conform') == 'HQ') {
             $manifesDetail->actual_loading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));
           } else {
             $manifesDetail->actual_unloading_date = date('Y-m-d H:i:s', strtotime($request->input('unloading_date')));

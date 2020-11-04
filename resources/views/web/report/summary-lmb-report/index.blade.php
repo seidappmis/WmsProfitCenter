@@ -43,7 +43,7 @@
                                          From
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required>
+                                         <input name="picking_date_start" type="text" class="validate datepicker" required>
                                        </div>
                                      </div>
                                      <div class="input-field col s6">
@@ -51,7 +51,7 @@
                                          To
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" required >
+                                         <input name="picking_date_end" type="text" class="validate datepicker" required >
                                        </div>
                                      </div>
                                    </td>
@@ -64,7 +64,7 @@
                                          From
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" >
+                                         <input name="lmb_date_start" type="text" class="validate datepicker" >
                                        </div>
                                      </div>
                                      <div class="input-field col s6">
@@ -72,7 +72,7 @@
                                          To
                                        </div>
                                        <div class="col s9 m10">
-                                         <input placeholder="" id="first_name" type="text" class="validate datepicker" >
+                                         <input name="lmb_date_start" type="text" class="validate datepicker" >
                                        </div>
                                      </div>
                                    </td>
@@ -80,13 +80,13 @@
                                  <tr>
                                      <td>Picking List NO.</td>
                                      <td><div class="input-field col s12">
-                                        <input id="" type="text" class="validate" name="" >
+                                        <input id="" type="text" class="validate" name="picking_no" >
                                       </div></td>
                                  </tr>
                                  <tr>
                                     <td>Model</td>
                                     <td><div class="input-field col s12">
-                                       <input id="" type="text" class="validate" name="" >
+                                       <input id="" type="text" class="validate" name="model" >
                                      </div></td>
                                 </tr>
                                </table>
@@ -97,6 +97,18 @@
                             </form>
                       </div>
                 </div>
+            </div>
+
+            <div class="secion">
+              <div class="card">
+                <div class="card-content p-0">
+                  <table id="summary-lmb-report-table" width="100%">
+                    <thead>
+                      <tr><th></th></tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
             </div>
         </div>
         <div class="content-overlay"></div>
@@ -111,7 +123,51 @@
 
 @push('script_js')
 <script type="text/javascript">
+  var dttable_summary_lmb_report;
   jQuery(document).ready(function($) {
+    $('#form-summary-lmb-report').validate({
+        submitHandler: function(form){
+          dttable_summary_lmb_report.ajax.reload(null, false);
+        }
+      })
+    dttable_summary_lmb_report = $('#summary-lmb-report-table').DataTable({
+      serverSide: true,
+      scrollX: true,
+      dom: 'Brtip',
+      // pageLength: 1,
+      scrollY: '60vh',
+      buttons: [
+              {
+                  text: 'PDF',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('summary-lmb-report/export?file_type=pdf')}}" + '&' + $('#form-summary-lmb-report').serialize();
+                  }
+              },
+               {
+                  text: 'EXCEL',
+                  action: function ( e, dt, node, config ) {
+                      window.location.href = "{{url('summary-lmb-report/export?file_type=xls')}}" + '&' + $('#form-summary-lmb-report').serialize();
+                  }
+              }
+          ],
+      ajax: {
+          url: '{{ url('summary-lmb-report') }}',
+          type: 'GET',
+          data: function(d) {
+            d.kode_cabang =$('#form-summary-lmb-report [name="kode_cabang"]').val()
+            d.picking_date_start =$('#form-summary-lmb-report [name="picking_date_start"]').val()
+            d.picking_date_end =$('#form-summary-lmb-report [name="picking_date_end"]').val()
+            d.lmb_date_start =$('#form-summary-lmb-report [name="lmb_date_start"]').val()
+            d.lmb_date_end =$('#form-summary-lmb-report [name="lmb_date_end"]').val()
+            d.picking_no =$('#form-summary-lmb-report [name="picking_no"]').val()
+            d.model =$('#form-summary-lmb-report [name="model"]').val()
+          }
+      },
+      columns: [
+          {data: 'tabeldata', className: 'detail'},
+      ]
+    });
+
     $('#form-summary-lmb-report [name="kode_cabang"]').select2({
        placeholder: '-- Select Branch --',
        allowClear: true,

@@ -158,13 +158,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-inventory-movement/export?file_type=pdf')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-inventory-movement/export?file_type=pdf')}}" + '&' + $('#form-report-inventory-movement').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('report-inventory-movement/export?file_type=xls')}}" + '&area=' + $('#area_filter').val();
+              window.location.href = "{{url('report-inventory-movement/export?file_type=xls')}}" + '&' + $('#form-report-inventory-movement').serialize();
           }
         }
       ],

@@ -141,12 +141,16 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_header.do_manifest_no', $request->input('do_manifest_no'));
     }
 
-    if (!empty($request->input('invoice_no'))) {
-      $query->where('wms_branch_manifest_detail.invoice_no', $request->input('invoice_no'));
+    if (!empty($request->input('shipment_no'))) {
+      $query->where('wms_branch_manifest_detail.invoice_no', $request->input('shipment_no'));
     }
 
     if (!empty($request->input('delivery_no'))) {
       $query->where('wms_branch_manifest_detail.delivery_no', $request->input('delivery_no'));
+    }
+
+    if (!empty($request->input('outgoing_type'))) {
+      $query->having('desc', $request->input('outgoing_type'));
     }
 
     if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on'
@@ -271,13 +275,17 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_header.do_manifest_no', $request->input('do_manifest_no'));
       }
 
-      if (!empty($request->input('invoice_no'))) {
-        $queryHQ->where('log_manifest_detail.invoice_no', $request->input('invoice_no'));
+      if (!empty($request->input('shipment_no'))) {
+        $queryHQ->where('log_manifest_detail.invoice_no', $request->input('shipment_no'));
       }
 
       if (!empty($request->input('delivery_no'))) {
         $queryHQ->where('log_manifest_detail.delivery_no', $request->input('delivery_no'));
       }
+
+      if (!empty($request->input('outgoing_type'))) {
+      $query->having('desc', $request->input('outgoing_type'));
+    }
 
       $query->union($queryHQ);
     }

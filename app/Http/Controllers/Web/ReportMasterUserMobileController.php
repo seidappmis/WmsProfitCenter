@@ -4,69 +4,58 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserScanner;
-use DB;
-use App\User;
-use App\Models\MasterCabang;
-use DataTables;
 use Illuminate\Http\Request;
-
 
 class ReportMasterUserMobileController extends Controller
 {
-    public function index(Request $request){
-        if ($request->ajax()) {
-            $query = UserScanner::select('wms_user_scanner.*','users.first_name','users.status')
-            ->leftjoin ('users','users.username','=', 'wms_user_scanner.userid')
-            ->leftjoin ('log_cabang','log_cabang.kode_customer','=', 'users.kode_customer')
-            ->where ('kode_cabang', $request->input('cabang'))
-            ;
-
-            if(!empty($request->input('role')))
-                $query->where ('roles_id',$request->input('role'));
-            if(!empty($request->input('userStatus')))
-                $query->where('status',$request->input('userStatus'));
-
-            $tabeldata ='';
-            $tabeldata .= '<h4 style="text-align: center;">Report User Mobile</h4>';
-            $tabeldata .= '<table>';
-            $tabeldata .= '<tr><th>Username</th><th>name</th><th>Status</th><th>Privilage</th></tr>';
-
-            foreach($query->get() AS $key => $value){
-                $tabeldata .= '<tr><td>' . $value->userid . '</td><td>'. $value->first_name . '</td><td>'. ($value->status ? 'Active' : 'Not Active') . '</td><td>'. ($value->roles ? 'Admin' : 'User') . '</td></tr>';
-            }
-
-            $tabeldata .= '</table>';
-
-      
-            $result=[
-                // 'data' => [
-                //     [
-                //         'tabeldata' => '<table>
-                //             <tr><th>Bobby</th><th>Sevri</th></tr>
-                            
-                //             <tr><td>asdf</td><td>asdfewer</td></tr>
-                //             <tr><td>asdf</td><td>asdfewer</td></tr>
-                //             </table>'
-                //     ]
-                // ],
-                'data' => [ 
-                    ['tabeldata' => $tabeldata] 
-                ],
-                'draw' => 0,
-                'recordsFiltered' => 0,
-                'recordsTotal' => 0
-            ];
-      
-            return $result;
-          }
-          return view('web.report.report-user-mobile.index');
-    }
-    public function export(Request $request)
+  public function index(Request $request)
   {
-    $query = UserScanner::select('wms_user_scanner.*','users.first_name','users.status')
-      ->leftjoin ('users','users.username','=', 'wms_user_scanner.userid')
-      ->leftjoin ('log_cabang','log_cabang.kode_customer','=', 'users.kode_customer')
-      ->where ('kode_cabang', $request->input('cabang'))
+    if ($request->ajax()) {
+      $query = UserScanner::select('wms_user_scanner.*', 'users.first_name', 'users.status')
+        ->leftjoin('users', 'users.username', '=', 'wms_user_scanner.userid')
+        ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
+        ->where('kode_cabang', $request->input('cabang'))
+      ;
+
+      if (!empty($request->input('role'))) {
+        $query->where('wms_user_scanner.roles', $request->input('role'));
+      }
+
+      if (!empty($request->input('userStatus'))) {
+        $query->where('status', $request->input('userStatus'));
+      }
+
+      $tabeldata = '';
+      $tabeldata .= '<h4 style="text-align: center;">Report User Mobile</h4>';
+      $tabeldata .= '<table>';
+      $tabeldata .= '<tr><th>Username</th><th>name</th><th>Status</th><th>Privilage</th></tr>';
+
+      foreach ($query->get() as $key => $value) {
+        $tabeldata .= '<tr><td>' . $value->userid . '</td><td>' . $value->first_name . '</td><td>' . ($value->status ? 'Active' : 'Not Active') . '</td><td>' . ($value->roles ? 'Admin' : 'User') . '</td></tr>';
+      }
+
+      $tabeldata .= '</table>';
+
+      $result = [
+        'data'            => [
+          ['tabeldata' => $tabeldata],
+        ],
+        'draw'            => 0,
+        'recordsFiltered' => 0,
+        'recordsTotal'    => 0,
+      ];
+
+      return $result;
+    }
+    return view('web.report.report-user-mobile.index');
+  }
+  
+  public function export(Request $request)
+  {
+    $query = UserScanner::select('wms_user_scanner.*', 'users.first_name', 'users.status')
+      ->leftjoin('users', 'users.username', '=', 'wms_user_scanner.userid')
+      ->leftjoin('log_cabang', 'log_cabang.kode_customer', '=', 'users.kode_customer')
+      ->where('kode_cabang', $request->input('cabang'))
       ->get();
 
     $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
@@ -99,10 +88,10 @@ class ReportMasterUserMobileController extends Controller
 
     $writer->save("php://output");
   }
-  
+
   protected function getUserMobileTableData($data)
   {
-    
+
     $table = '';
     $table .= '<table  style="border-collapse: collapse; border: 1px solid black; width: 210mm;">';
 
@@ -122,9 +111,6 @@ class ReportMasterUserMobileController extends Controller
 
     $table .= '</table>';
 
-
     return $table;
   }
 }
-
-

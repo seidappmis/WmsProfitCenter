@@ -33,6 +33,20 @@
                                       </div>
                                     </td>
                                   </tr>
+                                @else
+                                <tr>
+                                    <td>Area</td>
+                                    <td>
+                                      <div class="input-field col s12">
+                                        <select id="kode_cabang"
+                                          name="kode_cabang"
+                                          class="select2-data-ajax browser-default"
+                                          required="" 
+                                          >
+                                    </select>
+                                      </div>
+                                    </td>
+                                  </tr>
                                 @endif
                               <tr>
                                 <td>Overload Concept Date</td>
@@ -159,6 +173,7 @@
           type: 'POST',
           data: function(d) {
             d.area = $('#form-report-overload [name="area"]').val()
+            d.kode_cabang = $('#form-report-overload [name="kode_cabang"]').val()
             d.start_date = $('#form-report-overload [name="start_date"]').val()
             d.end_date = $('#form-report-overload [name="end_date"]').val()
           }
@@ -221,5 +236,11 @@
      allowClear: true,
      ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
+
+  $('#form-report-overload [name="kode_cabang"]').select2({
+       placeholder: '-- Select Branch --',
+       allowClear: true,
+       ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
+    });
 </script>
 @endpush

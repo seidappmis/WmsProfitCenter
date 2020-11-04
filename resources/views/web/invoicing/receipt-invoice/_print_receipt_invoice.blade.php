@@ -425,28 +425,28 @@
                                             <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Total
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 11pt;">Total
                                                 Freight
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_freight']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_ritase']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_cbm']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_ritase2']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_multidrop']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_unloading']) }}
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['total_overstay']) }}
                                             </td>
                                             <td colspan="8" style="text-align: center; ">
@@ -458,9 +458,9 @@
                                             <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Tax
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 11pt;">Tax
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['tax']) }}
                                             </td>
                                         </tr>
@@ -468,10 +468,10 @@
                                             <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="2" style="text-align: left;border: 1pt solid black;">Grand
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 11pt;">Grand
                                                 Total
                                             </td>
-                                            <td style="text-align: right;border: 1pt solid black;">
+                                            <td style="text-align: right;border: 1pt solid black; font-size: 11pt;">
                                                 {{ thousand_reformat($printData['grand_total']) }}
                                             </td>
                                         </tr>
@@ -486,11 +486,11 @@
                                             <td colspan="5" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="6" style="text-align: center;border: 1pt solid black;">BR
+                                            <td colspan="6" style="text-align: center;border: 1pt solid black; font-size: 11pt;">BR
                                             </td>
-                                            <td colspan="4" style="text-align: center;border: 1pt solid black;">DS
+                                            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 11pt;">DS
                                             </td>
-                                            <td colspan="4" style="text-align: center;border: 1pt solid black;">Total
+                                            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 11pt;">Total
                                             </td>
                                             <td colspan="4" style="text-align: center; ">
                                                 &nbsp;
@@ -502,31 +502,31 @@
                                             <td colspan="5" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="3" style="text-align: center;border: 1pt solid black;">FREIGHT
+                                            <td colspan="3" style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT
                                                 COST
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">UNLOADING
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">OVERSTAY
                                             </td>
 
-                                            <td style="text-align: center;border: 1pt solid black;">FREIGHT COST
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT COST
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">UNLOADING
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">OVERSTAY
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">FREIGHT COST
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT COST
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">MULTIDROP
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">UNLOADING
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">UNLOADING
                                             </td>
-                                            <td style="text-align: center;border: 1pt solid black;">OVERSTAY
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">OVERSTAY
                                             </td>
                                             <td colspan="4" style="text-align: center; ">
                                                 &nbsp;
@@ -572,7 +572,7 @@
                                             <td colspan="2" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="3" style="text-align: left;border: 1pt solid black;">
+                                            <td colspan="3" style="text-align: left;border: 1pt solid black; font-size: 11pt;">
                                                 Dec19-SRG-BR
                                             </td>
                                             <td colspan="3" style="text-align: right;border: 1pt solid black;">5.888.888

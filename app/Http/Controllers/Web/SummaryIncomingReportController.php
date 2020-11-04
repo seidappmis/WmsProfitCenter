@@ -139,6 +139,10 @@ class SummaryIncomingReportController extends Controller
       $query->where('log_incoming_manual_header.kode_cabang', $request->input('cabang'));
     }
 
+    if (!empty($request->input('model'))) {
+      $query->where('log_incoming_manual_detail.model', $request->input('model'));
+    }
+
     return $query;
   }
 }

@@ -59,8 +59,10 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Summary LMB REPORT
    */
   Route::get('summary-lmb-report', 'Web\SummaryLMBReportController@index');
+  Route::get('summary-lmb-report/export', 'Web\SummaryLMBReportController@export');
 
   Route::get('report-inventory-movement', 'Web\ReportInventoryMovementController@index');
+  Route::get('report-inventory-movement/export', 'Web\ReportInventoryMovementController@export');
 
   Route::get('report-stock-inventory', 'Web\ReportStockInventoryController@index');
   Route::get('report-stock-inventory/export', 'Web\ReportStockInventoryController@export');

@@ -39,9 +39,9 @@
                                         <td>
                                           <div class="input-field col s4">
                                             <select name="" id="role">
-                                              <option value="" disabled selected>-All-</option>
-                                              <option value="1">Admin</option>
-                                              <option value="2">User</option>
+                                              <option value="" selected>-All-</option>
+                                              <option value="2">Admin</option>
+                                              <option value="1">User</option>
                                             </select>
         
                                           </div>
@@ -51,18 +51,17 @@
                                         <td>
                                           <div class="input-field col s4">
                                             <select name="" id="userStatus">
-                                              <option value="" disabled selected>-All-</option>
-                                              <option value="1">Not Active</option>
-                                              <option value="2">Active</option>
+                                              <option value="" selected>-All-</option>
+                                              <option value="0">Not Active</option>
+                                              <option value="1">Active</option>
                                             </select>
         
                                           </div>
                                         </td>
                                       </tr>
                                </table>
-                               <br>
                                <div class="input-field col s12">
-                                 <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                                 <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
                                </div>
                             </form>
                       </div>
@@ -70,7 +69,7 @@
             </div>
             <div class="secion">
               <div class="card">
-                <div class="card-conten">
+                <div class="card-content p-0">
                   <table id="master-user-mobile" width="100%">
                     <thead>
                       <tr><th></th></tr>

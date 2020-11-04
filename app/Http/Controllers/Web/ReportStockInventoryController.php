@@ -54,7 +54,7 @@ class ReportStockInventoryController extends Controller
     $sheet->setCellValue(($col++) . '1', 'Branch');
     $sheet->setCellValue(($col++) . '1', 'Model');
     $sheet->setCellValue(($col++) . '1', 'SLOC');
-    $sheet->setCellValue(($col++) . '1', 'QTY');
+    $sheet->setCellValue(($col) . '1', 'QTY');
     // getPHPSpreadsheetTitleStyle() ada di wms Helper
     $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
