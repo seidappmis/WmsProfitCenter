@@ -25,12 +25,6 @@ footer {
     color: #f00;
     text-align: center;
 }
-@page {
-    /*size: 120mm 297mm;*/
-    /*margin: 0mm;*//*
-    margin-bottom: 50mm;*/
-
-}
 @media print {
     footer {
         position: absolute!important;
