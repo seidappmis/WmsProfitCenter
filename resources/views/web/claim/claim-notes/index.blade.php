@@ -73,6 +73,8 @@
         </div>
     </div>
 
+    @include('web.claim.claim-notes._list_claim_notes')
+
     @push('script_js')
     <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -144,7 +146,7 @@
                 checkedData.push(array);
             });
 
-            push(checkedData);
+            push(checkedData, 'unit');
         });
 
         $('#create-claim-carton-box').click(function() {
@@ -155,17 +157,18 @@
                 checkedData.push(array);
             });
 
-            push(checkedData);
+            push(checkedData, 'carton-box');
         });
 
-        function push(checkedData) {
+        function push(checkedData, type) {
             /* Act on the event */
             setLoading(true);
             $.ajax({
                     type: "POST",
                     url: '{{ url("claim-notes/create") }}',
                     data: {
-                        data: JSON.stringify(checkedData)
+                        data: JSON.stringify(checkedData),
+                        type: type
                     },
                     cache: false,
                 })
@@ -175,6 +178,7 @@
                             .then((response) => {
                                 // Kalau klik Ok redirect ke view
                                 dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                                dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                             }) // alert success
                     } else {
                         setLoading(false);
@@ -210,8 +214,6 @@
     </script>
     @endpush
 
-    @include('web.claim.claim-notes._carton_box')
-    @include('web.claim.claim-notes._unit')
 
 </div>
 @endsection

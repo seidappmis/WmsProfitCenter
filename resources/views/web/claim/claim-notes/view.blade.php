@@ -2,354 +2,72 @@
 
 @section('content')
 <div class="row">
-
-    @component('layouts.materialize.components.title-wrapper')
-        <div class="row">
-            <div class="col s12 m10">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Claim Note Carton Box</span></h5>
-                <ol class="breadcrumbs mb-0">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('claim-notes') }}">Claim Notes</a></li>
-                    <li class="breadcrumb-item active">Create Claim Note Carton Box</li>
-                </ol>
-            </div>
-            <div class="col s12 m2">
-                <a class="btn btn-large waves-effect waves-light indigo" href="{{ url('claim-notes') }}">Back</a>
-            </div>
-        </div>
-    @endcomponent
-    
-    <div class="col s12">
-        <div class="container">
-            <div class="section">
-                <!-- <div class="card"> -->
-                    <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="active">
-                            <div class="collapsible-header p-0">
-                              <div class="row">
-                                <div class="col s12 m8">
-                                  <div class="collapsible-main-header">
-                                    <i class="material-icons expand">expand_less</i>
-                                    <span>Outstanding List Berita Acara</span>
-                                  </div>
-                                </div>
-                                <div class="col s12 m4">
-                                  <div class="app-wrapper">
-                                    <div class="datatable-search mb-0">
-                                      <i class="material-icons mr-2 search-icon">search</i>
-                                      <input type="text" placeholder="Search" class="app-filter no-propagation" id="from-manifest-hq-filter">
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                             <div class="collapsible-body white p-0">
-                                <div class="section-data-tables"> 
-                                    <table id="data-table-section-contents" class="display" width="100%">
-                                      <thead>
-                                          <tr>
-                                            <th data-priority="1" width="30px">NO.</th>
-                                            <th>BERITA ACARA</th>
-                                            <th>DATE</th>
-                                            <th>EXPEDITION NAME</th>
-                                            <th>DRIVER</th>
-                                            <th>VEHICLE NO.</th>
-                                            <th width="50px;"></th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                        {{-- <tr>
-                                          <td>1.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>2.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>3.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>4.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>5.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>6.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>7.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>8.</td>
-                                          <td>01/BA-HQ/02/2015</td>
-                                          <td>May 21, 2020</td>
-                                          <td>Expedition 1</td>
-                                          <td>Driver 1</td>
-                                          <td>B 1231 DE</td>
-                                          <td>
-                                            {!! get_button_view('#', 'Select') !!}
-                                          </td>
-                                        </tr> --}}
-                                      </tbody>
-                                  </table>
-                              </div>
-                             </div>
-                           </li>
-                        </ul>
-                    </div>
-                <!-- </div> -->
-            </div>
-        </div>
-        <div class="content-overlay"></div>
+  @component('layouts.materialize.components.title-wrapper')
+  <div class="row">
+    <div class="col s12 m10">
+      <h5 class="breadcrumbs-title mt-0 mb-0"><span>Detail Claim Note {{$claimNote->claim_note_no}}</span></h5>
+      <ol class="breadcrumbs mb-0">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('claim-notes') }}">Claim Notes</a></li>
+        <li class="breadcrumb-item active">Detail Claim Note {{$claimNote->claim_note_no}}</li>
+      </ol>
     </div>
-
-    <div class="col s12">
-        <div class="container">
-            <div class="section">
-                <!-- <div class="card"> -->
-                    <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="active">
-                            <div class="collapsible-header p-0">
-                              <div class="row">
-                                <div class="col s12 m8">
-                                  <div class="collapsible-main-header">
-                                    <i class="material-icons expand">expand_less</i>
-                                    <span>Berita Acara Detail</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                             <div class="collapsible-body white p-0">
-                                <div class="section-data-tables"> 
-                                  <div class="pl-2 pr-2 pb-2">
-                                      <table id="data-table-section-contents" class="bordered striped" width="100%">
-                                          <thead>
-                                              <tr>
-                                                <th data-priority="1" width="30px">No.</th>
-                                                <th>Berita Acara</th>
-                                                <th>Expediton Name</th>
-                                                <th>Driver</th>
-                                                <th>Car No</th>
-                                                <th>Destination</th>
-                                                <th>DO NO</th>
-                                                <th>Model</th>
-                                                <th>Serial No</th>
-                                                <th>Qty</th>
-                                                <th>Location</th>
-                                                <th>Damage Description</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                {{-- <th width="50px;"></th> --}}
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                                <td>1.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD001</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD002</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                            </tr>
-                                          </tbody>
-                                      </table>
-                                      {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
-                                  </div>  
-                              </div>
-                             </div>
-                           </li>
-                        </ul>
+  </div>
+  @endcomponent
+  <div class="col s12">
+    <div class="container">
+      <div class="section">
+        <!-- <div class="card"> -->
+        <div class="card-content">
+          <ul class="collapsible">
+            <li class="active">
+              <div class="collapsible-header p-0">
+                <div class="row">
+                  <div class="col s12 m8">
+                    <div class="collapsible-main-header">
+                      <i class="material-icons expand">expand_less</i>
+                      <span>Berita Acara Detail</span>
                     </div>
-                <!-- </div> -->
-            </div>
+                  </div>
+                </div>
+              </div>
+              <div class="collapsible-body white p-0">
+                <div class="section-data-tables">
+                  <div class="pl-2 pr-2 pb-2">
+                    <table id="table-claim-notes" class="bordered striped" width="100%">
+                      <thead>
+                        <tr>
+                          <th data-priority="1" width="30px">No.</th>
+                          <th>Berita Acara</th>
+                          <th>Expediton Name</th>
+                          <th>Driver</th>
+                          <th>Car No</th>
+                          <th>DO NO</th>
+                          <th>Model</th>
+                          <th>Serial No</th>
+                          <th>Damage Description</th>
+                          <th>Destination</th>
+                          <th>Qty</th>
+                          <th>Price</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                    <a class="waves-effect waves-light btn btn-small indigo darken-4 mt-2" href="{{ url('claim-notes') }}">Back</a>
+                    {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
-        <div class="content-overlay"></div>
+        <!-- </div> -->
+      </div>
     </div>
-
-    {{-- <div class="col s12">
-        <div class="container">
-            <div class="section">
-                <!-- <div class="card"> -->
-                    <div class="card-content">
-                        <ul class="collapsible">
-                           <li class="active">
-                             <div class="collapsible-header">Claim Note Carton Box</div>
-                             <div class="collapsible-body white p-0">
-                                <div class="section-data-tables"> 
-                                  <div class="pl-2 pr-2 pb-2">
-                                    {!!get_button_print()!!}
-                                      <table id="data-table-section-contents" class="bordered striped" width="100%">
-                                          <thead>
-                                              <tr>
-                                                <th data-priority="1" width="30px">No.</th>
-                                                <th>Berita Acara</th>
-                                                <th>Expediton Name</th>
-                                                <th>Driver</th>
-                                                <th>Car No</th>
-                                                <th>Destination</th>
-                                                <th>DO NO</th>
-                                                <th>Model</th>
-                                                <th>Serial No</th>
-                                                <th>Qty</th>
-                                                <th>Location</th>
-                                                <th>Damage Description</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                <th width="170px;"></th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                                <td>1.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD001</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                                <td>
-                                                    {!!get_button_edit('#', 'Update')!!}
-                                                    {!!get_button_delete()!!}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2.</td>
-                                                <td>01/BA-HQ/02/2015</td>
-                                                <td>Expedition 1</td>
-                                                <td>Driver 1</td>
-                                                <td>B 1231 DE</td>
-                                                <td>Yogyakarta</td>
-                                                <td>DO</td>
-                                                <td>MOD002</td>
-                                                <td>124141</td>
-                                                <td>2</td>
-                                                <td>LOC</td>
-                                                <td>Kerusakan</td>
-                                                <td>
-                                                    <div class="form-table">
-                                                      <input placeholder="Price" id="first_name" type="text" class="validate">
-                                                  </div>
-                                                </td>
-                                                <td>12.000.000</td>
-                                                <td>
-                                                    {!!get_button_edit('#', 'Update')!!}
-                                                    {!!get_button_delete()!!}
-                                                </td>
-                                            </tr>
-                                          </tbody>
-                                      </table>
-                                  </div>  
-                              </div>
-                             </div>
-                           </li>
-                        </ul>
-                    </div>
-                <!-- </div> -->
-            </div>
-        </div>
-        <div class="content-overlay"></div>
-    </div> --}}
+    <div class="content-overlay"></div>
+  </div>
 </div>
 @endsection
 
@@ -360,13 +78,164 @@
 
 @push('script_js')
 <script type="text/javascript">
+  jQuery(document).ready(function() {
+    $('.mask-currency').inputmask('currency');
+    dtdatatable_claim_note = $('#table-claim-notes').DataTable({
+      serverSide: true,
+      scrollX: true,
+      responsive: true,
+      paging: false,
+      ajax: {
+        url: '{{url("claim-notes/".$claimNote->id."/list-claim-notes")}}',
+        type: 'GET',
+      },
+      columns: [{
+        data: 'DT_RowIndex',
+        orderable: false,
+        searchable: false,
+        className: 'center-align'
+      }, {
+        data: 'berita_acara_no',
+        name: 'berita_acara_no',
+        className: 'detail'
+      }, {
+        data: 'expedition_name',
+        name: 'expedition_name',
+        className: 'detail'
+      }, {
+        data: 'driver_name',
+        name: 'driver_name',
+        className: 'detail'
+      }, {
+        data: 'vehicle_number',
+        name: 'vehicle_number',
+        className: 'detail'
+      }, {
+        data: 'do_no',
+        name: 'do_no',
+        className: 'center-align'
+      }, {
+        data: 'model_name',
+        name: 'model_name',
+        className: 'center-align'
+      }, {
+        data: 'serial_number',
+        name: 'serial_number',
+        className: 'center-align'
+      }, {
+        data: 'description',
+        name: 'description',
+        className: 'center-align'
+      }, {
+        data: 'destination',
+        name: 'destination',
+        className: 'center-align',
+        render: function(data, type, row, meta) {
+          return '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+        }
+      }, {
+        data: 'qty',
+        name: 'qty',
+        className: 'center-align',
+        render: function(data, type, row, meta) {
+          return '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
+        }
+      }, {
+        data: 'price',
+        name: 'price',
+        render: function(data, type, row, meta) {
+          return '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
+        },
+        className: 'center-align'
+      }, {
+        data: 'claim_note_detail',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+          return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
+        },
+        className: "center-align"
+      }]
+    });
+
+  });
+
+  function calculate(ths) {
+    var input = $(ths),
+      td = input.parent(),
+      tr = td.parent(),
+      classQty = tr.find('.qty'),
+      classPrice = tr.find('.price'),
+      classSubTotal = tr.find('.sub-total');
+
+    classSubTotal.html(format_currency(classQty.val() * classPrice.val()));
+  };
+
+  $('.btn-save').click(function(e) {
+    e.preventDefault();
+
+    var array = $();
+
+    $('#table-claim-notes .qty').each(function() {
+      var input = $(this),
+        td = input.parent(),
+        tr = td.parent(),
+        id = input.attr('data-id');
+
+      if (typeof array[id] === 'undefined') {
+        array[id] = {
+          destination: tr.find('.destination').val(),
+          qty: tr.find('.qty').val(),
+          price: tr.find('.price').val(),
+          total_price: tr.find('.qty').val() * tr.find('.price').val()
+        }
+      }
+    })
+
+    setLoading(true);
+    $.ajax({
+        type: "POST",
+        url: "{{ url('claim-notes', $claimNote->id) }}" + '/update',
+        data: {
+          data: JSON.stringify(array),
+        },
+        cache: false,
+      })
+      .done(function(result) {
+        if (result.status) {
+          swal("Success!", result.message)
+            .then((response) => {
+              // Kalau klik Ok redirect ke view
+              dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+            }) // alert success
+        } else {
+          setLoading(false);
+          showSwalAutoClose('Warning', result.message)
+        }
+      })
+      .fail(function() {
+        setLoading(false);
+      })
+      .always(function() {
+        setLoading(false);
+      });
+  });
+  // convert to format currency
+  function format_currency(nStr) {
+    if (nStr === null) return '0,00';
+    nStr += '';
+    x = nStr.split(',');
+    x1 = x[0];
+    x2 = x.length > 1 ? ',' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return 'Rp. ' + x1 + x2;
+  }
+
   $('.collapsible').collapsible({
-        accordion:true
-    });
-var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
-        pageLength: 5,
-        order: [1, 'asc'],
-    });
+    accordion: true
+  });
 </script>
 @endpush

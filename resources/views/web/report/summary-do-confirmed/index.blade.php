@@ -173,7 +173,7 @@
   $('#form-summary-do-confirmed [name="cabang"]').select2({
      placeholder: '-- Select Branch --',
      allowClear: true,
-     ajax: get_select2_ajax_options('/master-cabang/select2-all-cabang')
+     ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
   });
 </script>
 @endpush

@@ -67,7 +67,7 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable_submit_to_logsys, dtdatatable_from_tcs;
+    var dtdatatable_submit_to_logsys, dttable_from_tcs;
    jQuery(document).ready(function($) {
         dtdatatable_submit_to_logsys = $('#submit-to-logsys-table').DataTable({
           scrollY: '60vh',

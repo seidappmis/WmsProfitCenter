@@ -19,26 +19,26 @@
               <tr>
                 <td colspan="2" style="width: 20mm;">Warehouse</td>
                 <td style="width: 5mm;">:</td>
-                <td colspan="5" style="width: 120mm;">SHARP KARAWANG W/H</td>
+                <td colspan="5" style="width: 120mm;">{{$finishGoodHeader->warehouse}}</td>
                 <td colspan="2" style="width: 20mm;">Factory</td>
                 <td style="width: 5mm;">:</td>
-                <td>TV</td>
+                <td>{{$finishGoodHeader->supplier}}</td>
               </tr>
               <tr>
                 <td colspan="2">Ticket No.</td>
                 <td>:</td>
-                <td colspan="5">L-TV-1810010006</td>
+                <td colspan="5">{{$finishGoodHeader->ticketNo()}}</td>
                 <td colspan="2">Date</td>
                 <td>:</td>
-                <td>03-10-2018</td>
+                <td>{{date('d-M-Y', strtotime($finishGoodHeader->created_at))}}</td>
               </tr>
               <tr>
                 <td colspan="2">Arrival No.</td>
                 <td>:</td>
-                <td colspan="5">ARV-WHHYP-181003-019</td>
+                <td colspan="5">{{$finishGoodHeader->receipt_no}}</td>
                 <td colspan="2">Time</td>
                 <td>:</td>
-                <td>9:17:49 AM</td>
+                <td>{{date('h:i:s A', strtotime($finishGoodHeader->created_at))}}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -58,19 +58,30 @@
               </tr>
               {{-- AKHIR Judul Tabel --}}
 
+              @php
+              $total_quantity = 0;
+              @endphp
+
+              @foreach($finishGoodHeader->details AS $key => $detail)
+              @php
+              $total_quantity += $detail->quantity;
+              @endphp
+
               <tr>
                 <td style="text-align: right; border: 1pt solid #000000;">1</td>
-                <td style="text-align: left; border: 1pt solid #000000;" colspan="3">LC24LE175I</td>
-                <td style="text-align: center; border: 1pt solid #000000;" colspan="2">8997401961233</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">118</td>
+                <td style="text-align: left; border: 1pt solid #000000;" colspan="3">{{$detail->model}}</td>
+                <td style="text-align: center; border: 1pt solid #000000;" colspan="2">{{$detail->ean_code}}</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$detail->quantity}}</td>
                 <td style="text-align: right; border: 1pt solid #000000;" colspan="5"></td>
                 <td style="border-left: 1pt solid #000000; width: 5mm;"></td>
               </tr>
+
+              @endforeach
               
 
               <tr>
                 <td style="text-align: center; border: 1pt solid #000000;" colspan="6">TOTAL</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">118</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$total_quantity}}</td>
                 <td style="text-align: right; border: 1pt solid #000000; width: 5mm;" colspan="5"></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
@@ -88,15 +99,15 @@
             <table style="font-family: courier New; font-size: 8pt;">
               <tr>
                 <td colspan="3" style="width: 30mm;">TRANSFER BY</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">123</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['transfer_by']) ? $request['transfer_by'] : '' }}</td>
               </tr>
               <tr>
                 <td colspan="3" style="width: 30mm;">CHECKED BY</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">123</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['checked_by']) ? $request['checked_by'] : '' }}</td>
               </tr>
               <tr>
                 <td colspan="3" style="width: 30mm;">LOCATE</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">123</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['locate']) ? $request['locate'] : '' }}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>

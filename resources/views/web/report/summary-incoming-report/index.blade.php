@@ -23,6 +23,7 @@
                     <div class="card-content p-0">
                         <form class="form-table" id="form-summary-incoming-report">
                             <table>
+                              @if(auth()->user()->cabang->hq)
                               <tr>
                                 <td>WAREHOUSE</td>
                                 <td>
@@ -32,6 +33,7 @@
                                   </div>
                                 </td>
                               </tr>
+                              @endif
                               <tr>
                                 <td>BRANCH</td>
                                 <td>

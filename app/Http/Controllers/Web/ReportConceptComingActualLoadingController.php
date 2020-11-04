@@ -75,7 +75,7 @@ class ReportConceptComingActualLoadingController extends Controller
   {
     $conceptComingActualLoading = $this->getConceptComingActualLoading($request);
 
-    $databary = ["10.000", "10.000", "10.000", "10.000"];
+    $databary = ["0.000", "0.000", "0.000", "0.000"];
     foreach ($conceptComingActualLoading as $key => $value) {
       $databary[($value->weeks - 1)] = $value->percentage;
     }
@@ -104,7 +104,7 @@ class ReportConceptComingActualLoadingController extends Controller
     // Must use TTF fonts if we want text at an arbitrary angle
     $bplot->value->Show();
     $bplot->value->SetFont(FF_ARIAL, FS_NORMAL, 20);
-    $bplot->value->SetFormat('%3d.0%%');
+    $bplot->value->SetFormat('%01.2f%%');
     $bplot->value->SetColor('darkred');
     // $bplot->value->SetAngle(45);
     $graph->Add($bplot);
@@ -120,7 +120,7 @@ class ReportConceptComingActualLoadingController extends Controller
     $graph->xaxis->SetFont(FF_ARIAL, FS_NORMAL, 14);
     $graph->xaxis->SetColor('darkblue', 'black');
 
-    $graph->yaxis->SetLabelFormat('%3d.0%%');
+    $graph->yaxis->SetLabelFormat('%01.2f%%');
     $graph->yaxis->SetFont(FF_ARIAL, FS_NORMAL, 14);
 
     // The order the plots are added determines who's ontop

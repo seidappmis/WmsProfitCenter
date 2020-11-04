@@ -5,6 +5,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Finish Good Production
   Route::get('finish-good-production/{id}/export', 'Web\FinishGoodController@export');
+  Route::get('finish-good-production/search-delivery-ticket', 'Web\FinishGoodController@searchDeliveryTicket');
+  Route::post('finish-good-production/{receipt_no}/submit-to-inventory', 'Web\FinishGoodController@submitToInventory');
   Route::resource('finish-good-production', 'Web\FinishGoodController');
 
   // Incoming Import OEM

@@ -143,6 +143,7 @@ class IncomingImportOEMController extends Controller
         $movement_transaction_log['model']                 = $v_detail->model;
         $movement_transaction_log['quantity']              = $v_detail->qty;
         $movement_transaction_log['created_at']            = $date_now;
+        $movement_transaction_log['created_by']            = auth()->user()->id;
         $movement_transaction_log['flow_id']               = '';
         $movement_transaction_log['kode_cabang']           = auth()->user()->cabang->kode_cabang;
 

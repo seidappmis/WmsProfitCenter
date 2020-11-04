@@ -23,6 +23,7 @@
                     <div class="card-content pb-1 pt-1 pl-1 pr-1">
                      <form class="form-table" id="form-report-overload">
                             <table>
+                              @if(auth()->user()->cabang->hq)
                                 <tr>
                                     <td>Area</td>
                                     <td>
@@ -32,6 +33,7 @@
                                       </div>
                                     </td>
                                   </tr>
+                                @endif
                               <tr>
                                 <td>Overload Concept Date</td>
                                 <td>

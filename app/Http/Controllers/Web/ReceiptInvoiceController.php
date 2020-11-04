@@ -328,7 +328,8 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
 
     if (empty($invoiceReceiptHeader->invoice_receipt_id)) {
-      $prefix = auth()->user()->area_data->code . '-FAKTUR-' . date('ymd') . '-N';
+      $kode   = auth()->user()->area == 'All' ? 'INV' : auth()->user()->area_data->code;
+      $prefix = $kode . '-FAKTUR-' . date('ymd') . '-N';
 
       $prefix_length = strlen($prefix);
       $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
@@ -349,9 +350,10 @@ class ReceiptInvoiceController extends Controller
 
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $invoiceReceiptHeader->kwitansi_no = $request->input('kwitansi_no');
-    $invoiceReceiptHeader->amount_pph  = $request->input('amount_pph');
-    $invoiceReceiptHeader->amount_ppn  = $request->input('amount_ppn');
+    $invoiceReceiptHeader->kwitansi_no      = $request->input('kwitansi_no');
+    $invoiceReceiptHeader->amount_pph       = str_replace(',', '', $request->input('amount_pph'));
+    $invoiceReceiptHeader->amount_ppn       = str_replace(',', '', $request->input('amount_ppn'));
+    $invoiceReceiptHeader->amount_after_tax = $invoiceReceiptHeader->amount_before_tax + $invoiceReceiptHeader->amount_pph + $invoiceReceiptHeader->amount_ppn;
 
     $invoiceReceiptHeader->save();
 
@@ -448,6 +450,7 @@ class ReceiptInvoiceController extends Controller
   public function exportReceiptInvoice(Request $request, $id)
   {
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+    $data['request']              = $request;
 
     // echo "<pre>";
     // print_r($data['invoiceReceiptHeader']->getPrintReceiptData());
@@ -508,8 +511,16 @@ class ReceiptInvoiceController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 2,
+        'margin_right'                    => 2,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A3',
+        'orientation'                     => 'L',
+      ]);
 
+      $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");

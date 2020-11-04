@@ -23,11 +23,13 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-concept-coming-vs-actual-loading', 'Web\ReportConceptComingActualLoadingController@index');
   Route::get('report-concept-coming-vs-actual-loading/graph', 'Web\ReportConceptComingActualLoadingController@getGraph');
   Route::get('report-concept-coming-vs-actual-loading/export', 'Web\ReportConceptComingActualLoadingController@export');
-  Route::view('concept-issue', 'web.report.concept-issue.index');
+  Route::get('concept-issue', 'Web\ConceptIssueController@index');
+  Route::get('concept-issue/graph', 'Web\ConceptIssueController@getGraph');
+  Route::get('concept-issue/export', 'Web\ConceptIssueController@export');
   Route::get('report-loading-lead-time', 'Web\ReportLoadingLeadTimeController@index');
   Route::get('report-loading-lead-time/graph', 'Web\ReportLoadingLeadTimeController@getGraph');
   Route::get('report-loading-lead-time/export', 'Web\ReportLoadingLeadTimeController@export');
-  Route::view('report-loading-summary', 'web.report.report-loading-summary.index');
+  Route::get('report-loading-summary', 'Web\ReportLoadingSummaryController@index');
 
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
 
@@ -41,7 +43,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-master-freight-cost', 'Web\ReportMasterFreightCostController@index');
   Route::get('report-master-freight-cost/export', 'Web\ReportMasterFreightCostController@export');
   Route::get('summary-freight-cost-report-per-manifest', 'Web\SummaryFreightCostReportPerManifestController@index');
-  Route::view('summary-freight-cost-report-per-region', 'web.report.summary-freight-cost-report-per-region.index');
+  Route::get('summary-freight-cost-report-per-manifest/export', 'Web\SummaryFreightCostReportPerManifestController@export');
+  Route::get('summary-freight-cost-report-per-region', 'Web\SummaryFreightCostReportPerRegionController@index');
+  Route::get('summary-freight-cost-report-per-region/export', 'Web\SummaryFreightCostReportPerRegionController@export');
 
   Route::get('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');
   Route::post('report-overload-concept-or-do', 'Web\ReportOverloadConceptOrDOController@index');

@@ -38,5 +38,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('branch-invoicing/{id}/export', 'Web\BranchInvoicingController@export');
 
   Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
+  Route::get('summary-freight-cost-analysis/export', 'Web\SummaryFreightCostAnalysisController@export');
 
 });

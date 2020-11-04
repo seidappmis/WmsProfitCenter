@@ -230,8 +230,11 @@ class PickingToLMBController extends Controller
 
         $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
         if (!empty($conceptTruckFlow)) {
-          $conceptTruckFlow->start_date = $lmbHeader->start_date;
-          $conceptTruckFlow->end_date   = $lmbHeader->finish_date;
+          $conceptTruckFlow->start_date         = $lmbHeader->start_date;
+          $conceptTruckFlow->end_date           = $lmbHeader->finish_date;
+          $lmbCreatedDetail                     = $lmbHeader->detail_created_date();
+          $conceptTruckFlow->created_start_date = $lmbCreatedDetail->created_start_date;
+          $conceptTruckFlow->created_end_date   = $lmbCreatedDetail->created_end_date;
           $conceptTruckFlow->save();
         }
       }
@@ -520,7 +523,7 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_detail.cbm',
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
-            DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity) ORDER BY wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_dn_di_q'),
+            DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_q'),
             DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
             // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
@@ -528,12 +531,12 @@ class PickingToLMBController extends Controller
             ->leftjoin('wms_lmb_detail', function ($join) {
               $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
               // $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
-              $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+              // $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
               $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
             })
             ->groupBy(
               'wms_pickinglist_detail.header_id',
-              'wms_pickinglist_detail.invoice_no',
+              // 'wms_pickinglist_detail.invoice_no',
               // 'wms_pickinglist_detail.delivery_no',
               // 'wms_pickinglist_detail.delivery_items',
               'wms_pickinglist_detail.ean_code'
@@ -546,31 +549,35 @@ class PickingToLMBController extends Controller
           $picking_detail = $picking_detail->first();
 
           // return $picking_detail;
+          $rs_invoice_no     = [];
           $rs_delivery_no    = [];
           $rs_delivery_items = [];
           $rs_quantity       = [];
           $quantity          = 0;
 
-          if (empty($picking_detail->rs_dn_di_q)) {
+          if (empty($picking_detail->rs_in_dn_di_q)) {
             return $model_not_exist_in_pickinglist;
           }
 
-          foreach (explode(',', $picking_detail->rs_dn_di_q) as $key => $value) {
+          foreach (explode(',', $picking_detail->rs_in_dn_di_q) as $key => $value) {
             $tempDQ = explode(':', $value);
-            if ($picking_detail->quantity_lmb <= $tempDQ[2]) {
-              $tempDQ[2] -= $picking_detail->quantity_lmb;
+            if ($picking_detail->quantity_lmb <= $tempDQ[3]) {
+              $tempDQ[3] -= $picking_detail->quantity_lmb;
               $picking_detail->quantity_lmb = 0;
 
-              if ($tempDQ[2] > 0) {
-                $rs_delivery_no[]    = $tempDQ[0];
-                $rs_delivery_items[] = $tempDQ[1];
-                $rs_quantity[]       = $tempDQ[2];
-                $quantity += $tempDQ[2];
+              if ($tempDQ[3] > 0) {
+                $rs_invoice_no[]     = $tempDQ[0];
+                $rs_delivery_no[]    = $tempDQ[1];
+                $rs_delivery_items[] = $tempDQ[2];
+                $rs_quantity[]       = $tempDQ[3];
+                $quantity += $tempDQ[3];
               }
             } else {
-              $picking_detail->quantity_lmb -= $tempDQ[2];
+              $picking_detail->quantity_lmb -= $tempDQ[3];
             }
           }
+
+          // return $rs_invoice_no;
 
           $picking_detail->quantity = $quantity - $picking_detail->quantity_lmb;
 
@@ -591,6 +598,7 @@ class PickingToLMBController extends Controller
             $scan_summaries[$serial_number['ean_code']]['quantity_existing'] += $picking_detail->quantity;
           }
 
+          $picking_detail->rs_invoice_no     = $rs_invoice_no;
           $picking_detail->rs_delivery_no    = $rs_delivery_no;
           $picking_detail->rs_delivery_items = $rs_delivery_items;
           $picking_detail->rs_quantity       = $rs_quantity;
@@ -601,7 +609,7 @@ class PickingToLMBController extends Controller
 
         $serial_number['model'] = $rs_models[$serial_number['ean_code']]->model_name;
         // $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
-        $serial_number['invoice_no']         = $rs_picking_list_details[$serial_number['ean_code']]->invoice_no;
+        // $serial_number['invoice_no']         = $rs_picking_list_details[$serial_number['ean_code']]->invoice_no;
         $serial_number['kode_customer']      = $rs_picking_list_details[$serial_number['ean_code']]->kode_customer;
         $serial_number['code_sales']         = $rs_picking_list_details[$serial_number['ean_code']]->code_sales;
         $serial_number['city_code']          = $rs_picking_list_details[$serial_number['ean_code']]->city_code;
@@ -623,6 +631,7 @@ class PickingToLMBController extends Controller
         if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] && !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])) {
           $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
           $serial_number['delivery_no']    = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no[0];
+          $serial_number['invoice_no']     = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no[0];
 
           $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
@@ -643,6 +652,10 @@ class PickingToLMBController extends Controller
             $rs_delivery_no = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no;
             unset($rs_delivery_no[0]);
             $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no = array_values($rs_delivery_no);
+
+            $rs_invoice_no = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no;
+            unset($rs_invoice_no[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no = array_values($rs_invoice_no);
           }
 
         } else {
@@ -878,8 +891,8 @@ class PickingToLMBController extends Controller
         $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
           'margin_left'                     => 7,
           'margin_right'                    => 12,
-        'margin_top'                      => 65,
-        'margin_bottom'                   => 40,
+          'margin_top'                      => 65,
+          'margin_bottom'                   => 40,
           'format'                          => 'Letter',
         ]);
       }

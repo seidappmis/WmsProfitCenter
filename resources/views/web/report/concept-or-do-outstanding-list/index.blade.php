@@ -25,6 +25,7 @@
                         <form id="form-report-outstanding-list" class="form-table" onsubmit="return false;">
                           <input type="hidden" name="type">
                             <table>
+                              @if(auth()->user()->cabang->hq)
                               <tr style="background-color: darkgray">
                                 <td>Area</td>
                                 <td>
@@ -38,11 +39,12 @@
                                 <td>OR</td>
                                 <td></td>
                               </tr>
+                              @endif
                               <tr style="background-color: darkgray">
                                 <td>Branch</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select name="cabang" class="select2-data-ajax browser-default">
+                                    <select name="branch" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -283,13 +285,13 @@
         {
           text: 'PDF',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=pdf')}}" + '&' + $('#form-report-outstanding-list').serialize();
           }
         },
          {
           text: 'EXCEL',
           action: function ( e, dt, node, config ) {
-              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&branch=' + $('#branch_filter').val();
+              window.location.href = "{{url('concept-or-do-outstanding-list/export?file_type=xls')}}" + '&' + $('#form-report-outstanding-list').serialize();
           }
         }
       ],
@@ -298,8 +300,8 @@
           type: 'GET',
           data: function(d) {
             d.type = 'branch'
-            d.branch = $('#form-report-outstanding-list [name="cabang"]').val()
-            d.branch = $('#form-report-outstanding-list [name="cabang"]').val()
+            d.branch = $('#form-report-outstanding-list [name="branch"]').val()
+            d.branch = $('#form-report-outstanding-list [name="branch"]').val()
           }
       },
       columns: [
@@ -338,7 +340,11 @@
       }
     })
 
-    $('#form-report-outstanding-list [name="cabang"]').change(function(event) {
+    @if (!auth()->user()->cabang->hq) 
+    init_form_branch();
+    @endif
+
+    $('#form-report-outstanding-list [name="branch"]').change(function(event) {
       /* Act on the event */
       if ($(this).val() != '') {
         init_form_branch();
@@ -364,7 +370,7 @@
   function init_form_area() {
     $('.area-wrapper').removeClass('hide')
     $('#form-report-outstanding-list [name="type"]').val('area');
-    set_select2_value('#form-report-outstanding-list [name="cabang"]', '', '');
+    set_select2_value('#form-report-outstanding-list [name="branch"]', '', '');
 
   }
 
@@ -373,7 +379,7 @@
      allowClear: true,
      ajax: get_select2_ajax_options('/master-area/select2-area-only')
   });
-  $('#form-report-outstanding-list [name="cabang"]').select2({
+  $('#form-report-outstanding-list [name="branch"]').select2({
      placeholder: '-- Select Branch --',
      allowClear: true,
      ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')

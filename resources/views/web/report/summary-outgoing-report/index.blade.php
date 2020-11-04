@@ -23,7 +23,8 @@
                     <div class="card-content p-0">
                         <form class="form-table" id="form-summary-outgoing-report">
                             <table>
-                              <tr>
+                              @if(auth()->user()->cabang->hq)
+                              <tr id="area-wrapper">
                                 <td>Area</td>
                                 <td>
                                   <div class="input-field col s12">
@@ -36,6 +37,7 @@
                                  </label>
                                 </td>
                               </tr>
+                              @endif
                               <tr>
                                   <td>Do Received</td>
                                   <td> <label>
@@ -334,7 +336,7 @@
               d.do_manifest_no = $('#form-summary-outgoing-report [name="do_manifest_no"]').val()
               d.kode_cabang = $('#form-summary-outgoing-report [name="kode_cabang"]').val()
               d.include_hq = $('#form-summary-outgoing-report [name="include_hq"]').is(":checked")
-              d.do_received = $('#form-summary-outgoing-report [name="do_received"]').val()
+              d.do_received = $('#form-summary-outgoing-report [name="do_received"]').is(":checked")
               d.not_include_manifest_as = $('#form-summary-outgoing-report [name="not_include_manifest_as"]').val()
               d.invoice_no = $('#form-summary-outgoing-report [name="invoice_no"]').val()
               d.delivery_no = $('#form-summary-outgoing-report [name="delivery_no"]').val()

@@ -226,8 +226,10 @@ class PickingListController extends Controller
       $conceptFlowHeader->expedition_name    = $driverRegistered->expedition_name;
       $conceptFlowHeader->cbm_truck          = $driverRegistered->vehicle->cbm_max;
       $conceptFlowHeader->cbm_concept        = $driverRegistered->cbm_concept;
-      $conceptFlowHeader->area                = $driverRegistered->area;
+      $conceptFlowHeader->area               = $driverRegistered->area;
       $conceptFlowHeader->driver_register_id = $driverRegistered->id;
+      $conceptFlowHeader->created_at         = date('Y-m-d H:i:s');
+      $conceptFlowHeader->created_by         = auth()->user()->id;
       $conceptFlowHeader->save();
 
       // concept truck flow
@@ -455,7 +457,9 @@ class PickingListController extends Controller
       $max_delivery_items = $maxConcept->max_delivery_items;
 
       $concept = Concept::where('invoice_no', $request->input('invoice_no'))
-        ->where('line_no', $request->input('line_no'))->first();
+        ->where('line_no', $request->input('line_no'))
+        ->where('delivery_items', $request->input('delivery_items'))
+        ->first();
     } else {
       $maxConcept = ManualConcept::select(
         // DB::raw('MAX(line_no) AS max_line_no'),
@@ -470,6 +474,7 @@ class PickingListController extends Controller
 
       $concept = ManualConcept::where('invoice_no', $request->input('invoice_no'))
         ->where('delivery_no', $request->input('delivery_no'))
+        ->where('delivery_items', $request->input('delivery_items'))
         ->first();
     }
 
@@ -505,11 +510,15 @@ class PickingListController extends Controller
       DB::beginTransaction();
       if (auth()->user()->cabang->hq) {
         Concept::where('invoice_no', $request->input('invoice_no'))
-          ->where('line_no', $request->input('line_no'))->delete();
+          ->where('line_no', $request->input('line_no'))
+          ->where('delivery_items', $request->input('delivery_items'))
+          ->delete();
         Concept::insert($rs_split_concept);
       } else {
         ManualConcept::where('invoice_no', $request->input('invoice_no'))
-          ->where('delivery_no', $request->input('delivery_no'))->delete();
+          ->where('delivery_no', $request->input('delivery_no'))
+          ->where('delivery_items', $request->input('delivery_items'))
+          ->delete();
         ManualConcept::insert($rs_split_concept);
       }
       DB::commit();

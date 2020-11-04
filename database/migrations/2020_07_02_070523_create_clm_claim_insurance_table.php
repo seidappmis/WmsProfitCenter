@@ -15,7 +15,11 @@ class CreateClmClaimInsuranceTable extends Migration
     {
         Schema::create('clm_claim_insurance', function (Blueprint $table) {
             $table->id();
+            $table->date('insurance_date')->nullable();
+
             $table->timestamps();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
         });
     }
 

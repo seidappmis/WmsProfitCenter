@@ -9,8 +9,30 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateConceptTruckFlow();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateConceptTruckFlow()
+  {
+    echo "Update Concept Truck Flow <br>";
+
+    $conceptTruckFlow = \App\Models\ConceptTruckFlow::whereNull('created_start_date')->get();
+
+    foreach ($conceptTruckFlow as $key => $value) {
+      $lmbHeader = \App\Models\LMBHeader::find($value->concept_flow_header);
+      if (!empty($lmbHeader)) {
+        $detail_created_date       = $lmbHeader->detail_created_date();
+        // print_r($detail_created_date);
+        // return;
+        $value->created_start_date = $detail_created_date->created_start_date;
+        $value->created_end_date   = $detail_created_date->created_end_date;
+
+        $value->save();
+        echo 'Updating Concept Truck Flow ' . $value->concept_flow_header . '<br>';
+      }
+    }
   }
 
   protected function updateDatabaseModules()
