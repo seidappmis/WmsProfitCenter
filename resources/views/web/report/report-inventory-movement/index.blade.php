@@ -226,7 +226,7 @@
     $('#form-report-inventory-movement [name="storage_location"]').select2({
        placeholder: '-- Select Storage Location --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/storage-master/select2-storage-cabang', filter)
+       ajax: get_select2_ajax_options('/storage-master/select2-storage-cabang-id-sto-code', filter)
     });
   }
 </script>

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('storage-master/select2-user-storage-without-intransit', 'Web\StorageMasterController@getSelect2UserStorageWithoutIntransit');
   Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
   Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
+  Route::get('storage-master/select2-storage-cabang-id-sto-code', 'Web\StorageMasterController@getSelect2StorageCabangIdStoCode');
   Route::resource('storage-master', 'Web\StorageMasterController');
 
   // Master Model

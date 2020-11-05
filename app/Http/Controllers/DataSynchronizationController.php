@@ -9,9 +9,23 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updatePickinglist();
     $this->updateConceptTruckFlow();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updatePickinglist()
+  {
+    echo "Update deleted picking list";
+
+    $pickinglistHeader = \App\Models\PickinglistHeader::whereNotNull('deleted_at')->get();
+
+    foreach ($pickinglistHeader as $key => $value) {
+      $value->driver_register_id = \Ramsey\Uuid\Uuid::uuid4();
+      $value->save();
+      echo "Update deleted picking list no " . $value->picking_no . '<br>';
+    }
   }
 
   protected function updateConceptTruckFlow()
@@ -23,7 +37,7 @@ class DataSynchronizationController extends Controller
     foreach ($conceptTruckFlow as $key => $value) {
       $lmbHeader = \App\Models\LMBHeader::find($value->concept_flow_header);
       if (!empty($lmbHeader)) {
-        $detail_created_date       = $lmbHeader->detail_created_date();
+        $detail_created_date = $lmbHeader->detail_created_date();
         // print_r($detail_created_date);
         // return;
         $value->created_start_date = $detail_created_date->created_start_date;

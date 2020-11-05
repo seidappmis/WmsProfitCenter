@@ -110,10 +110,10 @@ class SummaryOutgoingReportController extends Controller
     }
 
     if (!empty($request->input('start_do_date'))) {
-      $query->where('wms_branch_manifest_header.do_date', '>=', $request->input('start_do_date'));
+      $query->where('wms_branch_manifest_detail.do_date', '>=', $request->input('start_do_date'));
     }
     if (!empty($request->input('end_do_date'))) {
-      $query->where('wms_branch_manifest_header.do_date', '<=', $request->input('end_do_date'));
+      $query->where('wms_branch_manifest_detail.do_date', '<=', $request->input('end_do_date'));
     }
 
     if (!empty($request->input('start_actual_time_arrival'))) {
@@ -151,6 +151,29 @@ class SummaryOutgoingReportController extends Controller
 
     if (!empty($request->input('outgoing_type'))) {
       $query->having('desc', $request->input('outgoing_type'));
+    }
+
+    if (!empty($request->input('status'))) {
+      switch ($request->input('status')) {
+        case 'UNCONFIRM':
+          $query->where('wms_branch_manifest_detail.status_confirm', 0);
+          break;
+        case 'CONFIRM':
+          $query->where('wms_branch_manifest_detail.status_confirm', 1);
+          break;
+        case 'CONFIRM RECEIPT':
+          $query->where('wms_branch_manifest_detail.status_confirm', 1);
+          $query->where('wms_branch_manifest_detail.status_reject', 0);
+          break;
+        case 'CONFIRM REJECTED':
+          $query->where('wms_branch_manifest_detail.status_confirm', 1);
+          $query->where('wms_branch_manifest_detail.status_reject', 1);
+          break;
+
+        default:
+          # code...
+          break;
+      }
     }
 
     if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on'
@@ -244,10 +267,10 @@ class SummaryOutgoingReportController extends Controller
       }
 
       if (!empty($request->input('start_do_date'))) {
-        $queryHQ->where('log_manifest_header.do_date', '>=', $request->input('start_do_date'));
+        $queryHQ->where('log_manifest_detail.do_date', '>=', $request->input('start_do_date'));
       }
       if (!empty($request->input('end_do_date'))) {
-        $queryHQ->where('log_manifest_header.do_date', '<=', $request->input('end_do_date'));
+        $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date'));
       }
 
       if (!empty($request->input('start_actual_time_arrival'))) {
@@ -284,8 +307,31 @@ class SummaryOutgoingReportController extends Controller
       }
 
       if (!empty($request->input('outgoing_type'))) {
-      $query->having('desc', $request->input('outgoing_type'));
-    }
+        $queryHQ->having('desc', $request->input('outgoing_type'));
+      }
+
+      if (!empty($request->input('status'))) {
+        switch ($request->input('status')) {
+          case 'UNCONFIRM':
+            $queryHQ->where('log_manifest_detail.status_confirm', 0);
+            break;
+          case 'CONFIRM':
+            $queryHQ->where('log_manifest_detail.status_confirm', 1);
+            break;
+          case 'CONFIRM RECEIPT':
+            $queryHQ->where('log_manifest_detail.status_confirm', 1);
+            $queryHQ->where('log_manifest_detail.status_reject', 0);
+            break;
+          case 'CONFIRM REJECTED':
+            $queryHQ->where('log_manifest_detail.status_confirm', 1);
+            $queryHQ->where('log_manifest_detail.status_reject', 1);
+            break;
+
+          default:
+            # code...
+            break;
+        }
+      }
 
       $query->union($queryHQ);
     }

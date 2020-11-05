@@ -149,7 +149,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" name="start_document_do_return_date" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_doc_do_return_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -157,7 +157,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" name="end_document_do_return_date" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_doc_do_return_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -200,12 +200,12 @@
                                   <div class="input-field col s4">
                                     <select name="status" id="">
                                       <option value="" selected>-select status-</option>
-                                      <option value="1">ALL</option>
-                                      <option value="2">UNCONFIRM</option>
-                                      <option value="3">HOLD</option>
-                                      <option value="4">CONFIRMED RECEIPT</option>
-                                      <option value="5">CONFIRMED REJECTED</option>
-                                      <option value="6">NO DETAIL</option>   
+                                      <option value="ALL">ALL</option>
+                                      <option value="UNCONFIRM">UNCONFIRM</option>
+                                      <option value="HOLD">HOLD</option>
+                                      <option value="CONFIRMED RECEIPT">CONFIRMED RECEIPT</option>
+                                      <option value="CONFIRMED REJECTED">CONFIRMED REJECTED</option>
+                                      <option value="NO DETAIL">NO DETAIL</option>   
                                     </select>
 
                                   </div>

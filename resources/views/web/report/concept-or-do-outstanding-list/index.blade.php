@@ -52,20 +52,20 @@
                               <tr>
                                 <td>Shipment No</td>
                                 <td><div class="input-field col s12">
-                                  <input id="model" type="text" class="validate" name="invoice_no">
+                                  <input id="invoice_no" type="text" class="validate" name="invoice_no">
                                 </div></td>
                               </tr>
                               <tr>
                                 <td>Do NO</td>
                                 <td><div class="input-field col s12">
-                                  <input id="aqty" type="text" class="validate " name="delivery_no">
+                                  <input id="delivery_no" type="text" class="validate " name="delivery_no">
                                 </div></td>
                               </tr>
                               <tr class="area-wrapper">
                                 <td>Expedition</td>
                                 <td>
                                   <div class="input-field col s12">
-                                    <select name="expedition" class="select2-data-ajax browser-default">
+                                    <select name="expedition_code" class="select2-data-ajax browser-default">
                                     </select>
                                   </div>
                                 </td>
@@ -78,7 +78,7 @@
                                       From
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="start_upload_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                   <div class="input-field col s6">
@@ -86,7 +86,7 @@
                                       To
                                     </div>
                                     <div class="col s9 m10">
-                                      <input placeholder="" id="first_name" type="text" class="validate datepicker" readonly>
+                                      <input placeholder="" name="end_upload_concept_date" type="text" class="validate datepicker" readonly>
                                     </div>
                                   </div>
                                 </td>
@@ -94,7 +94,7 @@
                               <tr class="area-wrapper">
                                 <td>Vahicle Type</td>
                                 <td><div class="input-field col s12">
-                                  <select name="vehicle_type" class="select2-data-ajax browser-default">
+                                  <select name="vehicle_code_type" class="select2-data-ajax browser-default">
                                     </select>
                                 </div></td>
                               </tr>
@@ -242,7 +242,12 @@
           data: function(d) {
             d.type = $('#form-report-outstanding-list [name="type"]').val()
             d.area = $('#form-report-outstanding-list [name="area"]').val()
-            d.branch = $('#form-report-outstanding-list [name="branch"]').val()
+            d.expedition_code = $('#form-report-outstanding-list [name="expedition_code"]').val()
+            d.invoice_no = $('#form-report-outstanding-list [name="invoice_no"]').val()
+            d.delivery_no = $('#form-report-outstanding-list [name="delivery_no"]').val()
+            d.start_upload_concept_date = $('#form-report-outstanding-list [name="start_upload_concept_date"]').val()
+            d.end_upload_concept_date = $('#form-report-outstanding-list [name="end_upload_concept_date"]').val()
+            d.vehicle_code_type = $('#form-report-outstanding-list [name="vehicle_code_type"]').val()
           }
       },
       columns: [
@@ -301,7 +306,10 @@
           data: function(d) {
             d.type = 'branch'
             d.branch = $('#form-report-outstanding-list [name="branch"]').val()
-            d.branch = $('#form-report-outstanding-list [name="branch"]').val()
+            d.invoice_no = $('#form-report-outstanding-list [name="invoice_no"]').val()
+            d.delivery_no = $('#form-report-outstanding-list [name="delivery_no"]').val()
+            d.start_upload_concept_date = $('#form-report-outstanding-list [name="start_upload_concept_date"]').val()
+            d.end_upload_concept_date = $('#form-report-outstanding-list [name="end_upload_concept_date"]').val()
           }
       },
       columns: [
@@ -364,7 +372,7 @@
     $('#form-report-outstanding-list [name="type"]').val('branch');
     set_select2_value('#form-report-outstanding-list [name="area"]', '', '');
     set_select2_value('#form-report-outstanding-list [name="expedition"]', '', '');
-    set_select2_value('#form-report-outstanding-list [name="vehicle_type"]', '', '');
+    set_select2_value('#form-report-outstanding-list [name="vehicle_code_type"]', '', '');
   }
 
   function init_form_area() {
@@ -384,12 +392,12 @@
      allowClear: true,
      ajax: get_select2_ajax_options('/master-cabang/select2-grant-cabang')
   });
-  $('#form-report-outstanding-list [name="expedition"]').select2({
+  $('#form-report-outstanding-list [name="expedition_code"]').select2({
      placeholder: '-- All --',
      allowClear: true,
      ajax: get_select2_ajax_options('/master-expedition/select2-all-expedition')
   });
-  $('#form-report-outstanding-list [name="vehicle_type"]').select2({
+  $('#form-report-outstanding-list [name="vehicle_code_type"]').select2({
      placeholder: '-- All --',
      allowClear: true,
      ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')

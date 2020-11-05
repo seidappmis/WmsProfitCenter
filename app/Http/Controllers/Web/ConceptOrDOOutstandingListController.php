@@ -45,6 +45,31 @@ class ConceptOrDOOutstandingListController extends Controller
         ->whereNull('tr_concept_flow_detail.id_header')
         ->where('tr_concept.area', $request->input('area'))
       ;
+      if (!empty($request->input('expedition_code'))) {
+        $query->leftjoin('tr_expedition', 'tr_expedition.id', '=', 'tr_concept.expedition_id')
+          ->where('tr_expedition.code', $request->input('expedition_code'));
+      }
+
+      if (!empty($request->input('invoice_no'))) {
+        $query->where('tr_concept.invoice_no', $request->input('invoice_no'));
+      }
+
+      if (!empty($request->input('delivery_no'))) {
+        $query->where('tr_concept.delivery_no', $request->input('delivery_no'));
+      }
+
+      if (!empty($request->input('start_upload_concept_date'))) {
+        $query->where('tr_concept.created_at', '>=', $request->input('start_upload_concept_date'));
+      }
+
+      if (!empty($request->input('end_upload_concept_date'))) {
+        $query->where('tr_concept.created_at', '<=', $request->input('end_upload_concept_date'));
+      }
+
+      if (!empty($request->input('vehicle_code_type'))) {
+        $query->where('tr_concept.vehicle_code_type', $request->input('vehicle_code_type'));
+      }
+
     } else {
       $query = ManualConcept::select(
         'wms_manual_concept.*'
@@ -57,6 +82,22 @@ class ConceptOrDOOutstandingListController extends Controller
         ->whereNull('wms_pickinglist_detail.id')
         ->where('wms_manual_concept.kode_cabang', $request->input('branch'))
       ;
+
+      if (!empty($request->input('invoice_no'))) {
+        $query->where('wms_manual_concept.invoice_no', $request->input('invoice_no'));
+      }
+
+      if (!empty($request->input('delivery_no'))) {
+        $query->where('wms_manual_concept.delivery_no', $request->input('delivery_no'));
+      }
+
+      if (!empty($request->input('start_upload_concept_date'))) {
+        $query->where('wms_manual_concept.created_at', '>=', $request->input('start_upload_concept_date'));
+      }
+
+      if (!empty($request->input('end_upload_concept_date'))) {
+        $query->where('wms_manual_concept.created_at', '<=', $request->input('end_upload_concept_date'));
+      }
     }
 
     return $query;

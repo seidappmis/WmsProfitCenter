@@ -20,6 +20,7 @@
         <td style="border: 1px solid #000;">CONSIGNEE(SHIP TO)</td>
         <td style="border: 1px solid #000;">DISTRICT(SHIP TO)</td>
         <td style="border: 1px solid #000;">STREET(SHIP TO)</td>
+        <td style="border: 1px solid #000;">REMARKS</td>
       </tr>
     </thead>
     <tbody>
@@ -43,6 +44,7 @@
         <td style="border: 1px solid #000;">{{$detail->ship_to}}</td>
         <td style="border: 1px solid #000;">{{$detail->ship_to_district}}</td>
         <td style="border: 1px solid #000;">{{$detail->ship_to_street}}</td>
+        <td style="border: 1px solid #000;">{{$detail->remarks}}</td>
       </tr>
       @endforeach
       <tr>

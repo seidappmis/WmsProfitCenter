@@ -21,7 +21,7 @@ class ReportMasterUserMobileController extends Controller
         $query->where('wms_user_scanner.roles', $request->input('role'));
       }
 
-      if (!empty($request->input('userStatus'))) {
+      if ($request->input('userStatus') != '') {
         $query->where('status', $request->input('userStatus'));
       }
 
