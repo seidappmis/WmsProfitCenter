@@ -120,11 +120,11 @@ class BeritaAcaraController extends Controller
 
       $prefix_length = strlen($formatNumber);
       $max_no  = DB::table('clm_berita_acara')
-        ->select(DB::raw('MAX(SUBSTR(berita_acara_no, 1, 2)) AS max_no'))
+        ->select(DB::raw('berita_acara_no AS max_no'))
         ->orderBy('created_at', 'DESC')
         ->first()
         ->max_no;
-      $max_no        = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
+      $max_no        = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
 
       $beritaAcaraNo = $max_no . $formatNumber;
 

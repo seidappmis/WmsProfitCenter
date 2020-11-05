@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\BeritaAcaraDuring;
 use Illuminate\Http\Request;
+use DB;
 
 class BeritaAcaraDuringController extends Controller
 {
@@ -23,7 +26,6 @@ class BeritaAcaraDuringController extends Controller
 
       // request HTML View
       return $view_print;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -52,7 +54,6 @@ class BeritaAcaraDuringController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
@@ -61,7 +62,6 @@ class BeritaAcaraDuringController extends Controller
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
@@ -79,7 +79,6 @@ class BeritaAcaraDuringController extends Controller
 
       // request HTML View
       return $view_print;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -108,7 +107,6 @@ class BeritaAcaraDuringController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
@@ -117,15 +115,120 @@ class BeritaAcaraDuringController extends Controller
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
     }
   }
 
-  public function create(Request $request)
+  public function create(Request $req)
   {
+    // display create page
     return view('web.during.berita-acara-during.create');
+  }
+
+  public function prosesCreate(Request $req)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
+      $format =  "%s/DR-" . auth()->user()->area_data->code . "/" .  $this->rome((int)date('m')) . "/" . date('Y');
+
+      $max_no  = DB::table('dur_berita_acara')
+        ->select(DB::raw('berita_acara_during_no AS max_no'))
+        ->orderBy('created_at', 'DESC')
+        ->first()
+        ->max_no;
+      $max_no        = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
+      $no = sprintf($format, $max_no);
+      try {
+        $data                  = new BeritaAcaraDuring;
+        $data->berita_acara_during_no = $no;
+        $data->tanggal_berita_acara = date('Y-m-d H:i:s');
+        $data->ship_name = $req->ship_name;
+        $data->invoice_no = $req->invoice_no;
+        $data->container_no = $req->container_no;
+        $data->bl_no = $req->bl_no;
+        $data->seal_no = $req->seal_no;
+        $data->damage_type = $req->damage_type;
+        $data->expedition_code = $req->expedition_code;
+        $data->vehicle_number = $req->vehicle_number;
+        $data->weather = $req->weather;
+        $data->working_hour = $req->working_hour;
+        $data->location = $req->location;
+
+        if ($req->hasFile('photo_container_came')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
+          $data->photo_container_came  = 'berita-acara-during/files/photo-container-came/' . $name;
+        }
+
+        if ($req->hasFile('photo_container_loading')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
+          $data->photo_container_loading  = 'berita-acara-during/files/photo-container-loading/' . $name;
+        }
+
+        if ($req->hasFile('photo_seal_no')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
+          $data->photo_seal_no  = 'berita-acara-during/files/photo-seal-no/' . $name;
+        }
+
+        if ($req->hasFile('photo_loading')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
+          $data->photo_loading  = 'berita-acara-during/files/photo-loading/' . $name;
+        }
+
+        $data->created_at =  date('Y-m-d H:i:s');
+        $data->created_by = auth()->user()->id;
+
+        DB::transaction(function () use (&$data) {
+          $data->save();
+        });
+
+        if (auth()->user()->cabang->hq) {
+          $return_data = BeritaAcaraDuring::where('dur_berita_acara.id', $data->id)
+            ->leftJoin('tr_expedition', 'tr_expedition.code', '=', 'dur_berita_acara.expedition_code')
+            ->select(
+              'dur_berita_acara.*',
+              'tr_expedition.expedition_name'
+            )
+            ->first();
+        } else {
+          $return_data = BeritaAcaraDuring::where('dur_berita_acara.id', $data->id)
+            ->leftJoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'dur_berita_acara.expedition_code')
+            ->select(
+              'dur_berita_acara.*',
+              'wms_branch_expedition.expedition_name'
+            )
+            ->first();
+        }
+
+        return sendSuccess('Data Successfully Created.', [
+          'during' => $return_data
+        ]);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
+  }
+
+  public function rome($number)
+  {
+    $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+    $returnValue = '';
+    while ($number > 0) {
+      foreach ($map as $roman => $int) {
+        if ($number >= $int) {
+          $number -= $int;
+          $returnValue .= $roman;
+          break;
+        }
+      }
+    }
+    return $returnValue;
   }
 }

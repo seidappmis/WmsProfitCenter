@@ -158,14 +158,14 @@ class ClaimNoteController extends Controller
                         $format =  "%s/Claim %s-log/" . date('M') . "/" . date('Y');
 
                         $max_no  = DB::table('clm_claim_notes')
-                            ->select(DB::raw('MAX(SUBSTR(claim_note_no, 1, 2)) AS max_no'))
+                            ->select(DB::raw('claim_note_no AS max_no'))
                             ->orderBy('created_at', 'DESC')
                             ->first()
                             ->max_no;
 
                         // adding claim note number
                         $type = ($req->type == 'carton-box') ? 'C' : 'U';
-                        $max_no = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
+                        $max_no = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
                         $claim_note_no = sprintf($format, $max_no, $type);
 
                         // insert to claim note and return id
@@ -290,7 +290,7 @@ class ClaimNoteController extends Controller
                 ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
                 ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
                 ->orderBy('n.created_at', 'DESC')
-                ->where('i.id', $id)
+                ->where('n.id', $id)
                 ->select(
                     'n.*',
                     'e.expedition_name',
