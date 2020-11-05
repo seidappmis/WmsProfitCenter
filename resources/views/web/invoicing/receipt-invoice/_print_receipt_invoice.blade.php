@@ -483,13 +483,17 @@
 
                                         </tr>
                                         <tr>
-                                            <td colspan="5" style="text-align: center; ">
+                                            <td colspan="7" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="6" style="text-align: center;border: 1pt solid black; font-size: 11pt;">BR
+                                            @if($printData['summary']['BR'])
+                                            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 11pt;">BR
                                             </td>
+                                            @endif
+                                            @if($printData['summary']['DS'])
                                             <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 11pt;">DS
                                             </td>
+                                            @endif
                                             <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 11pt;">Total
                                             </td>
                                             <td colspan="4" style="text-align: center; ">
@@ -499,10 +503,11 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="5" style="text-align: center; ">
+                                            <td colspan="7" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="3" style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT
+                                            @if($printData['summary']['BR'])
+                                            <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT
                                                 COST
                                             </td>
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
@@ -511,7 +516,8 @@
                                             </td>
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">OVERSTAY
                                             </td>
-
+                                            @endif
+                                            @if($printData['summary']['DS'])
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT COST
                                             </td>
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
@@ -520,6 +526,7 @@
                                             </td>
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">OVERSTAY
                                             </td>
+                                            @endif
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">FREIGHT COST
                                             </td>
                                             <td style="text-align: center;border: 1pt solid black; font-size: 11pt;">MULTIDROP
@@ -532,6 +539,57 @@
                                                 &nbsp;
                                             </td>
                                         </tr>
+
+
+                                        @foreach($printData['summary']['data'] AS $key => $value)
+                                        <tr>
+                                            <td colspan="3" style="font-size: 11pt;text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                            <td colspan="4" style="font-size: 11pt;text-align: left; border: 1pt solid black;">
+                                                {{$key}}
+                                            </td>
+                                            <td colspan="1" style="font-size: 11pt;text-align: right;border: 1pt solid black;">
+                                                {{!empty($value['BR']) ? thousand_reformat($value['BR']['freight_cost']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['BR']) ? thousand_reformat($value['BR']['multidro_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['BR']) ? thousand_reformat($value['BR']['unloading_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['BR']) ? thousand_reformat($value['BR']['overstay_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right;border: 1pt solid black;">
+                                                {{!empty($value['DS']) ? thousand_reformat($value['DS']['freight_cost']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['DS']) ? thousand_reformat($value['DS']['multidro_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['DS']) ? thousand_reformat($value['DS']['unloading_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{!empty($value['DS']) ? thousand_reformat($value['DS']['overstay_amount']) : 0}}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{ thousand_reformat((!empty($value['BR']) ? $value['BR']['freight_cost'] : 0) + (!empty($value['DS']) ? $value['DS']['freight_cost'] : 0)) }}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{ thousand_reformat((!empty($value['BR']) ? $value['BR']['multidro_amount'] : 0) + (!empty($value['DS']) ? $value['DS']['multidro_amount'] : 0)) }}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{ thousand_reformat((!empty($value['BR']) ? $value['BR']['unloading_amount'] : 0) + (!empty($value['DS']) ? $value['DS']['unloading_amount'] : 0)) }}
+                                            </td>
+                                            <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
+                                                {{ thousand_reformat((!empty($value['BR']) ? $value['BR']['overstay_amount'] : 0) + (!empty($value['DS']) ? $value['DS']['overstay_amount'] : 0)) }}
+                                            </td>
+                                            <td colspan="4" style="font-size: 11pt;text-align: center; ">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        @endforeach
 
                                         {{-- <tr>
                                             <td colspan="2" style="text-align: center; ">
