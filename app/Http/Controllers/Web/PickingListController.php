@@ -839,8 +839,9 @@ class PickingListController extends Controller
         $conceptFlowHeader->delete();
       }
 
-      $pickingHeader->deleted_at = date('Y-m-d H:i:s');
-      $pickingHeader->deleted_by = auth()->user()->id;
+      $pickingHeader->deleted_at         = date('Y-m-d H:i:s');
+      $pickingHeader->deleted_by         = auth()->user()->id;
+      $pickingHeader->driver_register_id = Uuid::uuid4();
       $pickingHeader->save();
       // $pickingHeader->delete();
 
