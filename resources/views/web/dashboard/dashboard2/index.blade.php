@@ -64,6 +64,11 @@
       $('#area_filter').attr('disabled','disabled')
     @endif
     jQuery(document).ready(function($) {
+      $('#area_filter').change(function(event) {
+        /* Act on the event */
+        loadDailyByCategory();
+        
+      });
     });
 </script>
 @endpush

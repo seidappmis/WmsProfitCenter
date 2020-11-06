@@ -121,6 +121,11 @@
     jQuery(document).ready(function($) {
         loadWaitingTruckAllArea()
         setInterval( loadWaitingTruckAllArea, 60000 );
+        $('#area_filter').change(function(event) {
+            /* Act on the event */
+            loadWaitingTruckAllArea()
+            loadLoadingDailyStatus()
+        });
     });
 
     function loadWaitingTruckAllArea(){
