@@ -9,10 +9,29 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateReceiptInvoiceDetail();
     $this->updatePickinglist();
     $this->updateConceptTruckFlow();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateReceiptInvoiceDetail()
+  {
+    $details = \App\Models\InvoiceReceiptDetail::select(
+      'log_invoice_receipt_detail.*',
+      DB::raw('log_cabang.short_description AS short_description_cabang')
+    )
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_invoice_receipt_detail.kode_cabang')
+      ->get();
+
+    echo "Update Receive Invoice Detail";
+    foreach ($details as $key => $value) {
+      $value->acc_code = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+      echo "Update ACC CODE  " . $value->acc_code . '<br>';
+      $value->save();
+
+    }
   }
 
   protected function updatePickinglist()

@@ -220,7 +220,7 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
       $invoiceManifestDetail['region']              = $value->region;
       $invoiceManifestDetail['area']                = $value->area;
-      $invoiceManifestDetail['acc_code']            = date('My') . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+      $invoiceManifestDetail['acc_code']            = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
 
       $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
     }
