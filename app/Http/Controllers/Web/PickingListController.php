@@ -125,6 +125,7 @@ class PickingListController extends Controller
         ->where('wms_pickinglist_header.area', auth()->user()->area)
         ->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
         ->whereNull('tr_driver_registered.id')
+        ->whereNull('wms_pickinglist_header.deleted_at')
         ->get();
 
       $datatables = DataTables::of($query)
