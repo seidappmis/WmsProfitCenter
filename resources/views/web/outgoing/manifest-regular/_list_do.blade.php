@@ -76,7 +76,7 @@
         {data: 'invoice_no', name: 'invoice_no', className: 'detail'},
         {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
         {data: 'do_internal', name: 'do_internal', className: 'detail'},
-        {data: 'ship_to', name: 'ship_to', className: 'detail'},
+        {data: 'city_name', name: 'city_name', className: 'detail'},
         {data: 'delivery_items', name: 'delivery_items', className: 'detail'},
         {data: 'model', name: 'model', className: 'detail'},
         {data: 'quantity', name: 'quantity', className: 'detail'},
