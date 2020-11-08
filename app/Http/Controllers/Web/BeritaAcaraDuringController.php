@@ -131,6 +131,37 @@ class BeritaAcaraDuringController extends Controller
   {
     // proses create
     if ($req->ajax()) {
+      return [
+        "status" => true,
+        "message" => "Data Successfully Created.",
+        "data" =>  [
+          "during" => [
+            "id" => 14,
+            "berita_acara_during_no" => "009/DR-KRW/XI/2020",
+            "tanggal_berita_acara" => "2020-11-08",
+            "ship_name" => "Ella Barrera",
+            "invoice_no" => "Maxime est qui labor",
+            "container_no" => "Ea labore fugiat la",
+            "bl_no" => "Fuga Deserunt in mo",
+            "seal_no" => "Sapiente impedit do",
+            "damage_type" => "Rusak sebelum di bongkar dari truck(Lokal)",
+            "expedition_code" => "BMA",
+            "vehicle_number" => "B 9035 ML",
+            "weather" => "Nostrum ducimus vel",
+            "working_hour" => "Commodo sunt qui omn",
+            "location" => "Sit doloribus optio",
+            "photo_container_came" => "berita-acara-during/files/photo-container-came/5fa80d935ae62.png",
+            "photo_container_loading" => "berita-acara-during/files/photo-container-loading/5fa80d936086a.png",
+            "photo_seal_no" => "berita-acara-during/files/photo-seal-no/5fa80d9360a6c.png",
+            "photo_loading" => "berita-acara-during/files/photo-loading/5fa80d9360d1f.webp",
+            "created_at" => "2020-11-08 22:24:03",
+            "updated_at" => "2020-11-08 22:24:03",
+            "created_by" => 167,
+            "updated_by" => 167,
+            "expedition_name" => "BINTAN MEGAH ABADI, PT."
+          ]
+        ]
+      ];
 
       // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
       $format =  "%s/DR-" . auth()->user()->area_data->code . "/" .  $this->rome((int)date('m')) . "/" . date('Y');
@@ -138,10 +169,11 @@ class BeritaAcaraDuringController extends Controller
       $max_no  = DB::table('dur_berita_acara')
         ->select(DB::raw('berita_acara_during_no AS max_no'))
         ->orderBy('created_at', 'DESC')
-        ->first()
-        ->max_no;
+        ->first();
+      $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
       $max_no        = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
       $no = sprintf($format, $max_no);
+
       try {
         $data                  = new BeritaAcaraDuring;
         $data->berita_acara_during_no = $no;
@@ -214,6 +246,11 @@ class BeritaAcaraDuringController extends Controller
         return sendError($e->getMessage());
       }
     };
+  }
+
+  public function prosesCreateDetail(Request $req, $id)
+  {
+    dd($req->all(), $id);
   }
 
   public function rome($number)

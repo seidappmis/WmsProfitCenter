@@ -160,8 +160,8 @@ class ClaimNoteController extends Controller
                         $max_no  = DB::table('clm_claim_notes')
                             ->select(DB::raw('claim_note_no AS max_no'))
                             ->orderBy('created_at', 'DESC')
-                            ->first()
-                            ->max_no;
+                            ->first();
+                        $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
 
                         // adding claim note number
                         $type = ($req->type == 'carton-box') ? 'C' : 'U';
