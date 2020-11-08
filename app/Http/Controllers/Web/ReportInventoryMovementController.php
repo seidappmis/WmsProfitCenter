@@ -126,7 +126,15 @@ class ReportInventoryMovementController extends Controller
     $query->where('wms_movement_transaction_log.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
 
     if (!empty($request->input('model'))) {
-      $query->where('model', $request->input('model'));
+      $query->where('wms_movement_transaction_log.model', $request->input('model'));
+    }
+
+    if (!empty($request->input('movement_code'))) {
+      $query->where('wms_movement_transaction_log.movement_code', $request->input('movement_code'));
+    }
+
+    if (!empty($request->input('storage_location'))) {
+      $query->having('storage_location', $request->input('storage_location'));
     }
 
     return $query;

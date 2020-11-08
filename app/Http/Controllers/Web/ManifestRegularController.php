@@ -685,18 +685,18 @@ class ManifestRegularController extends Controller
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
 
     $rs_details = [];
-    foreach ($data['manifestHeader']->details as $key => $value) {
-      $rs_details[$value->ship_to_code . $value->ship_to]['ship_to_code'] = $value->ship_to_code;
-      $rs_details[$value->ship_to_code . $value->ship_to]['ship_to']      = $value->ship_to;
+    foreach (LogManifestDetail::listDO($data['manifestHeader']->do_manifest_no)->get() as $key => $value) {
+      $rs_details[$value->delivery_no]['ship_to_code'] = $value->ship_to_code;
+      $rs_details[$value->delivery_no]['ship_to']      = $value->ship_to;
 
-      $rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] = empty($rs_details[$value->ship_to_code . $value->ship_to]['rowspan']) ? 1 : ($rs_details[$value->ship_to_code . $value->ship_to]['rowspan'] + 1);
+      $rs_details[$value->delivery_no]['rowspan'] = empty($rs_details[$value->delivery_no]['rowspan']) ? 1 : ($rs_details[$value->delivery_no]['rowspan'] + 1);
 
-      if (empty($rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no])) {
-        $rs_details[$value->ship_to_code . $value->ship_to]['rowspan']++;
+      if (empty($rs_details[$value->delivery_no]['dos'][$value->delivery_no])) {
+        $rs_details[$value->delivery_no]['rowspan']++;
       }
 
-      $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['data']     = $value;
-      $rs_details[$value->ship_to_code . $value->ship_to]['dos'][$value->delivery_no]['models'][] = $value;
+      $rs_details[$value->delivery_no]['dos'][$value->delivery_no]['data']     = $value;
+      $rs_details[$value->delivery_no]['dos'][$value->delivery_no]['models'][] = $value;
     }
 
     $data['rs_details'] = $rs_details;

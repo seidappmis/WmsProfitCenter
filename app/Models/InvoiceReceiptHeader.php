@@ -46,6 +46,9 @@ class InvoiceReceiptHeader extends Model
     $total_unloading = 0;
     $total_overstay  = 0;
 
+    $data['summary']['BR'] = false;
+    $data['summary']['DS'] = false;
+
     foreach ($this->details as $key => $value) {
       $data['list'][$value->do_manifest_no]['total_model'] = empty($data['list'][$value->do_manifest_no]['total_model']) ? 1 : ($data['list'][$value->do_manifest_no]['total_model'] + 1);
 
@@ -80,6 +83,29 @@ class InvoiceReceiptHeader extends Model
       $model['cbm_do']   = $value->cbm_do;
 
       $data['list'][$value->do_manifest_no]['do'][$value->delivery_no]['models'][] = $model;
+
+      if (empty($data['summary']['data'][$value->acc_code][$value->code_sales]['freight_cost'])) {
+        $data['summary']['data'][$value->acc_code][$value->code_sales]['freight_cost'] = 0;
+      }
+
+      if (empty($data['summary']['data'][$value->acc_code][$value->code_sales]['multidro_amount'])) {
+        $data['summary']['data'][$value->acc_code][$value->code_sales]['multidro_amount'] = 0;
+      }
+
+      if (empty($data['summary']['data'][$value->acc_code][$value->code_sales]['unloading_amount'])) {
+        $data['summary']['data'][$value->acc_code][$value->code_sales]['unloading_amount'] = 0;
+      }
+
+      if (empty($data['summary']['data'][$value->acc_code][$value->code_sales]['overstay_amount'])) {
+        $data['summary']['data'][$value->acc_code][$value->code_sales]['overstay_amount'] = 0;
+      }
+
+      $data['summary'][$value->code_sales] = true;
+
+      $data['summary']['data'][$value->acc_code][$value->code_sales]['freight_cost'] += ($value->cbm_amount + $value->ritase_amount + $value->ritase2_amount);
+      $data['summary']['data'][$value->acc_code][$value->code_sales]['multidro_amount'] += $value->multidro_amount;
+      $data['summary']['data'][$value->acc_code][$value->code_sales]['unloading_amount'] += $value->unloading_amount;
+      $data['summary']['data'][$value->acc_code][$value->code_sales]['overstay_amount'] += $value->overstay_amount;
     }
 
     $data['total_ritase']    = $total_ritase;

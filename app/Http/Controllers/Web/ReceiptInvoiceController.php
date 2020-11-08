@@ -220,7 +220,7 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
       $invoiceManifestDetail['region']              = $value->region;
       $invoiceManifestDetail['area']                = $value->area;
-      $invoiceManifestDetail['acc_code']            = date('My') . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+      $invoiceManifestDetail['acc_code']            = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
 
       $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
     }
@@ -436,7 +436,13 @@ class ReceiptInvoiceController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 2,
+        'margin_right'                    => 2,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        'orientation'                     => 'L']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 

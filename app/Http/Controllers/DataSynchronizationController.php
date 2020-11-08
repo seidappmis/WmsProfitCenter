@@ -9,9 +9,42 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateReceiptInvoiceDetail();
+    $this->updatePickinglist();
     $this->updateConceptTruckFlow();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateReceiptInvoiceDetail()
+  {
+    $details = \App\Models\InvoiceReceiptDetail::select(
+      'log_invoice_receipt_detail.*',
+      DB::raw('log_cabang.short_description AS short_description_cabang')
+    )
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_invoice_receipt_detail.kode_cabang')
+      ->get();
+
+    echo "Update Receive Invoice Detail";
+    foreach ($details as $key => $value) {
+      $value->acc_code = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+      echo "Update ACC CODE  " . $value->acc_code . '<br>';
+      $value->save();
+
+    }
+  }
+
+  protected function updatePickinglist()
+  {
+    echo "Update deleted picking list";
+
+    $pickinglistHeader = \App\Models\PickinglistHeader::whereNotNull('deleted_at')->get();
+
+    foreach ($pickinglistHeader as $key => $value) {
+      $value->driver_register_id = \Ramsey\Uuid\Uuid::uuid4();
+      $value->save();
+      echo "Update deleted picking list no " . $value->picking_no . '<br>';
+    }
   }
 
   protected function updateConceptTruckFlow()
@@ -23,7 +56,7 @@ class DataSynchronizationController extends Controller
     foreach ($conceptTruckFlow as $key => $value) {
       $lmbHeader = \App\Models\LMBHeader::find($value->concept_flow_header);
       if (!empty($lmbHeader)) {
-        $detail_created_date       = $lmbHeader->detail_created_date();
+        $detail_created_date = $lmbHeader->detail_created_date();
         // print_r($detail_created_date);
         // return;
         $value->created_start_date = $detail_created_date->created_start_date;

@@ -103,6 +103,7 @@
     $total_qty = 0;
     $total_cbm = 0;
     @endphp
+    
     @foreach($rs_details as $key => $detail)
       @php
       $start_do = 1;
@@ -161,6 +162,7 @@
         @endphp
       @endforeach
     @endforeach
+
     <tr>
       <td colspan="7" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Total</strong></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"></td>

@@ -120,11 +120,12 @@ class PickingListController extends Controller
   {
     if ($request->ajax()) {
       $query = PickinglistHeader::select('wms_pickinglist_header.*')
-        ->has('details')
+      // ->has('details')
         ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
         ->where('wms_pickinglist_header.area', auth()->user()->area)
         ->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
         ->whereNull('tr_driver_registered.id')
+        ->whereNull('wms_pickinglist_header.deleted_at')
         ->get();
 
       $datatables = DataTables::of($query)
@@ -1081,6 +1082,7 @@ class PickingListController extends Controller
         'margin_top'                      => 5,
         'margin_bottom'                   => 50,
         'format'                          => 'A4',
+        'orientation'                     => 'L',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);

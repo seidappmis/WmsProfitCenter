@@ -176,6 +176,18 @@ class StorageMasterController extends Controller
     return get_select2_data($request, $query);
   }
 
+  public function getSelect2StorageCabangIdStoCode(Request $request)
+  {
+    $query = StorageMaster::select(
+      DB::raw('sto_loc_code_long AS id'),
+      DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
+    );
+
+    $query->where('kode_cabang', $request->input('cabang'));
+
+    return get_select2_data($request, $query);
+  }
+
   public function getSelect2UserStorageWithoutIntransit(Request $request)
   {
     $query = StorageMaster::select(

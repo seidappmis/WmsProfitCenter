@@ -72,7 +72,7 @@
                                          To
                                        </div>
                                        <div class="col s9 m10">
-                                         <input name="lmb_date_start" type="text" class="validate datepicker" >
+                                         <input name="lmb_date_end" type="text" class="validate datepicker" >
                                        </div>
                                      </div>
                                    </td>

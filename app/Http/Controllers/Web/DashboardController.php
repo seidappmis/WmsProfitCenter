@@ -118,9 +118,11 @@ class DashboardController extends Controller
   {
     $rs_concept_waiting_truck_temp = Concept::getLoadingDailyStatusWaitingTruck();
 
+    // return $rs_concept_waiting_truck_temp->get();
+
     $rs_cbm             = [];
     $rs_unit_truck_temp = [];
-    foreach ($rs_concept as $key => $value) {
+    foreach ($rs_concept_waiting_truck_temp->get() as $key => $value) {
       $area = strtolower(str_replace(' ', '-', $value->area));
       if (empty($rs_cbm[$area])) {
         $rs_cbm[$area] = 0;
