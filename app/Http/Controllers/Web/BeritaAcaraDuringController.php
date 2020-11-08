@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraDuring;
+use App\Models\BeritaAcaraDuringDetail;
 use Illuminate\Http\Request;
 use DB;
 
@@ -131,37 +132,6 @@ class BeritaAcaraDuringController extends Controller
   {
     // proses create
     if ($req->ajax()) {
-      return [
-        "status" => true,
-        "message" => "Data Successfully Created.",
-        "data" =>  [
-          "during" => [
-            "id" => 14,
-            "berita_acara_during_no" => "009/DR-KRW/XI/2020",
-            "tanggal_berita_acara" => "2020-11-08",
-            "ship_name" => "Ella Barrera",
-            "invoice_no" => "Maxime est qui labor",
-            "container_no" => "Ea labore fugiat la",
-            "bl_no" => "Fuga Deserunt in mo",
-            "seal_no" => "Sapiente impedit do",
-            "damage_type" => "Rusak sebelum di bongkar dari truck(Lokal)",
-            "expedition_code" => "BMA",
-            "vehicle_number" => "B 9035 ML",
-            "weather" => "Nostrum ducimus vel",
-            "working_hour" => "Commodo sunt qui omn",
-            "location" => "Sit doloribus optio",
-            "photo_container_came" => "berita-acara-during/files/photo-container-came/5fa80d935ae62.png",
-            "photo_container_loading" => "berita-acara-during/files/photo-container-loading/5fa80d936086a.png",
-            "photo_seal_no" => "berita-acara-during/files/photo-seal-no/5fa80d9360a6c.png",
-            "photo_loading" => "berita-acara-during/files/photo-loading/5fa80d9360d1f.webp",
-            "created_at" => "2020-11-08 22:24:03",
-            "updated_at" => "2020-11-08 22:24:03",
-            "created_by" => 167,
-            "updated_by" => 167,
-            "expedition_name" => "BINTAN MEGAH ABADI, PT."
-          ]
-        ]
-      ];
 
       // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
       $format =  "%s/DR-" . auth()->user()->area_data->code . "/" .  $this->rome((int)date('m')) . "/" . date('Y');
@@ -248,9 +218,124 @@ class BeritaAcaraDuringController extends Controller
     };
   }
 
+
+
+  public function prosesUpdate(Request $req)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        $data                  = BeritaAcaraDuring::whereId($req->berita_acara_id)->first();
+
+        $data->ship_name = $req->ship_name;
+        $data->invoice_no = $req->invoice_no;
+        $data->container_no = $req->container_no;
+        $data->bl_no = $req->bl_no;
+        $data->seal_no = $req->seal_no;
+        $data->damage_type = $req->damage_type;
+        $data->expedition_code = $req->expedition_code;
+        $data->vehicle_number = $req->vehicle_number;
+        $data->weather = $req->weather;
+        $data->working_hour = $req->working_hour;
+        $data->location = $req->location;
+
+        if ($req->hasFile('photo_container_came')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
+          $data->photo_container_came  = 'berita-acara-during/files/photo-container-came/' . $name;
+        }
+
+        if ($req->hasFile('photo_container_loading')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
+          $data->photo_container_loading  = 'berita-acara-during/files/photo-container-loading/' . $name;
+        }
+
+        if ($req->hasFile('photo_seal_no')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
+          $data->photo_seal_no  = 'berita-acara-during/files/photo-seal-no/' . $name;
+        }
+
+        if ($req->hasFile('photo_loading')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
+          $data->photo_loading  = 'berita-acara-during/files/photo-loading/' . $name;
+        }
+
+        $data->updated_at =  date('Y-m-d H:i:s');
+        $data->updated_by = auth()->user()->id;
+
+        DB::transaction(function () use (&$data) {
+          $data->save();
+        });
+
+        if (auth()->user()->cabang->hq) {
+          $return_data = BeritaAcaraDuring::where('dur_berita_acara.id', $data->id)
+            ->leftJoin('tr_expedition', 'tr_expedition.code', '=', 'dur_berita_acara.expedition_code')
+            ->select(
+              'dur_berita_acara.*',
+              'tr_expedition.expedition_name'
+            )
+            ->first();
+        } else {
+          $return_data = BeritaAcaraDuring::where('dur_berita_acara.id', $data->id)
+            ->leftJoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'dur_berita_acara.expedition_code')
+            ->select(
+              'dur_berita_acara.*',
+              'wms_branch_expedition.expedition_name'
+            )
+            ->first();
+        }
+
+        return sendSuccess('Data Successfully Created.', [
+          'during' => $return_data
+        ]);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
+  }
+
   public function prosesCreateDetail(Request $req, $id)
   {
-    dd($req->all(), $id);
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        $data                  = new BeritaAcaraDuringDetail;
+        $data->berita_acara_during_id = $id;
+        $data->model_name = $req->model_name;
+        $data->qty = $req->qty;
+        $data->pom = $req->pom;
+        $data->serial_number = $req->serial_number;
+        $data->damage = $req->damage;
+
+        if ($req->hasFile('photo_serial_number')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_serial_number')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-serial-number', $req->file('photo_serial_number'), $name);
+          $data->photo_serial_number  = 'berita-acara-during/files/photo-serial-number/' . $name;
+        }
+
+        if ($req->hasFile('photo_damage')) {
+          $name = uniqid() . '.' . pathinfo($req->file('photo_damage')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path = Storage::putFileAs('public/berita-acara-during/files/photo-damage', $req->file('photo_damage'), $name);
+          $data->photo_damage  = 'berita-acara-during/files/photo-damage/' . $name;
+        }
+
+        $data->created_at =  date('Y-m-d H:i:s');
+        $data->created_by = auth()->user()->id;
+
+        DB::transaction(function () use (&$data) {
+          $data->save();
+        });
+
+        return sendSuccess('Data Successfully Created.', []);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
   }
 
   public function rome($number)
