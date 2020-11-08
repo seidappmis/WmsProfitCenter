@@ -44,7 +44,11 @@ class DashboardController extends Controller
     $rs_cbm                             = [];
     $rs_status_cbm_of_concept_list_temp = [];
 
+
     foreach ($rs_concept as $key => $value) {
+      if (empty($rs_vehicle_detail[$value->vehicle_code_type])) {
+        continue;
+      }
       if (empty($rs_cbm[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name])) {
         $rs_cbm[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name] = 0;
       }
