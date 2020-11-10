@@ -1041,7 +1041,7 @@ class PickingListController extends Controller
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
         'margin_left'                     => 20,
         'margin_right'                    => 20,
-        'margin_top'                      => 5,
+        'margin_top'                      => 50,
         'margin_bottom'                   => 50,
         'format'                          => 'A4',
         'orientation'                     => 'L',

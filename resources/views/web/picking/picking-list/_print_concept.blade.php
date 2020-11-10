@@ -1,8 +1,10 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
 
-<body style="font-family: courier New; font-size: 8pt; width: 260mm;">
-  <table width="100%" style="border-collapse: collapse; font-size: 8pt; margin-left: 20mm; margin-right: 20mm;">
+<body style="font-family: courier New; font-size: 8pt; padding-top: 20mm;">
+  <table width="100%" style="border-collapse: collapse; font-size: 8pt; margin-left: 20mm; margin-right: 20mm; margin-top: 20mm; margin-bottom: 20mm;">
     <thead>
+      <tr><td colspan="4">&nbsp;</td></tr>
+      <tr><td colspan="4">&nbsp;</td></tr>
       <tr>
         <td>{{ date('d-M-y') }}</td>
         <td>{{ $pickinglistHeader->picking_no }}</td>
