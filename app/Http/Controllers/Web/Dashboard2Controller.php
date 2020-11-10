@@ -40,6 +40,9 @@ class Dashboard2Controller extends Controller
     $rs_unit_truck_temp             = [];
     $rs_daily_status_by_destination = [];
     foreach ($rs_concept as $key => $value) {
+      if (empty($rs_vehicle_detail[$value->vehicle_code_type])) {
+        continue;
+      }
       $rs_unit_truck_temp[$value->status][$rs_vehicle_detail[$value->vehicle_code_type]->group_name][$value->invoice_no . $value->expedition_id . $value->vehicle_code_type] = $value;
       $rs_daily_status_by_destination[$value->reg_region][$value->invoice_no . $value->expedition_id . $value->vehicle_code_type]                                            = $value;
     }

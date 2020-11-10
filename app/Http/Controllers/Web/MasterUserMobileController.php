@@ -44,7 +44,7 @@ class MasterUserMobileController extends Controller
         ->editColumn('status_active', '{{$status_active ? "True" : "False"}}')
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit(url('master-user-mobile/' . $data->id . '/edit'));
+          $action .= ' ' . get_button_edit(url('master-user-mobile/' . $data->userid . '/edit'));
           $action .= ' ' . get_button_delete();
           return $action;
         });

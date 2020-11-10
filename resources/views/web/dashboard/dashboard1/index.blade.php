@@ -112,11 +112,11 @@
     $('#area_filter').select2({
        placeholder: '-- Select Area --',
        allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+       ajax: get_select2_ajax_options('/master-area/select2-area-only-all')
     });
     @if (auth()->user()->area != 'All')
     set_select2_value('#area_filter', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
-    $('#area_filter').attr('disabled','disabled')
+    // $('#area_filter').attr('disabled','disabled')
   @endif
     jQuery(document).ready(function($) {
         loadWaitingTruckAllArea()

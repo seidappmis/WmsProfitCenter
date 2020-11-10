@@ -68,7 +68,7 @@ class SummaryFreightCostAnalysisController extends Controller
     $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = $this->getData($request)
-      ;
+    ;
 
     $row = 2;
     foreach ($data as $key => $value) {
@@ -135,8 +135,10 @@ class SummaryFreightCostAnalysisController extends Controller
   {
 
     $log_manifest_header = LogManifestHeader::select(
-      DB::raw('GROUP_CONCAT(DISTINCT QUOTE(log_manifest_header.do_manifest_no)) AS in_do_manifest_no')
+      'log_manifest_header.do_manifest_no'
+      // DB::raw('GROUP_CONCAT(DISTINCT QUOTE(log_manifest_header.do_manifest_no)) AS in_do_manifest_no')
     )
+      ->whereNotNull('log_manifest_header.expedition_code')
       ->whereBetween('log_manifest_header.do_manifest_date', [$request->input('start_date'), $request->input('end_date')])
     ;
 
@@ -161,7 +163,16 @@ class SummaryFreightCostAnalysisController extends Controller
         ->where('log_manifest_detail.city_code', $request->input('city_code'));
     }
 
-    $str_do_manifest_no = $log_manifest_header->first()->in_do_manifest_no;
+    $rs_do_manifest_no = [];
+    foreach ($log_manifest_header->get() as $key => $value) {
+      $rs_do_manifest_no[] = "'" . $value->do_manifest_no . "'";
+    }
+
+    $str_do_manifest_no = implode(',', $rs_do_manifest_no);
+    // $str_do_manifest_no = $log_manifest_header->first()->in_do_manifest_no;
+
+    // echo $str_do_manifest_no;
+    // return $str_do_manifest_no;
 
     if (empty($str_do_manifest_no)) {
       $str_do_manifest_no = '1';

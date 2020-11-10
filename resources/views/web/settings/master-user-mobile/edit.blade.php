@@ -38,23 +38,27 @@
 
 @push('script_js')
 <script type="text/javascript">
- 	$("#form-user-mobile").validate({
-      submitHandler: function(form) {
-        setLoading(true); // Disable Button when ajax post data
-        $.ajax({
-          url: '{{ url("master-user-mobile", $userMobile->userid) }}',
-          type: 'PUT',
-          data: $(form).serialize(),
-        })
-        .done(function() { // selesai dan berhasil
-            showSwalAutoClose('Success', 'Data Updated.')
-          window.location.href = "{{ url('master-user-mobile') }}"
-        })
-        .fail(function(xhr) {
-            setLoading(false); // Enable Button when failed
-            showSwalError(xhr) // Custom function to show error with sweetAlert
+    jQuery(document).ready(function($) {
+        set_select2_value('#form-user-mobile [name="userid"]', '{{$userMobile->userid}}', '{{$userMobile->userid}}')
+        $('#form-user-mobile [name="userid"]').attr('disabled', 'disabled')
+     	$("#form-user-mobile").validate({
+          submitHandler: function(form) {
+            setLoading(true); // Disable Button when ajax post data
+            $.ajax({
+              url: '{{ url("master-user-mobile", $userMobile->userid) }}',
+              type: 'PUT',
+              data: $(form).serialize(),
+            })
+            .done(function() { // selesai dan berhasil
+                showSwalAutoClose('Success', 'Data Updated.')
+              window.location.href = "{{ url('master-user-mobile') }}"
+            })
+            .fail(function(xhr) {
+                setLoading(false); // Enable Button when failed
+                showSwalError(xhr) // Custom function to show error with sweetAlert
+            });
+          }
         });
-      }
     });
 </script>
 @endpush
