@@ -2,14 +2,14 @@
 @if($request->input('filetype') != 'pdf')
 <style type="text/css">
 @page {
-    size: A3;
+    size: A4;
     margin: 2mm 2mm 2mm 2mm;
     size: landscape;
 }
 @media print {
     html, body {
-        width: 550mm;
-        height: 420mm;
+        width: 270mm;
+        /*height: 420mm;*/
     }
 }
 @endif
@@ -17,7 +17,7 @@
 <table style="font-family: Arial;">
     <tr>
         <td>
-            <table style="width: 550mm;">
+            <table style="width: 270mm;">
                 <tr>
                     <td>
                         <table width="100%" style="font-size: 11pt;">
