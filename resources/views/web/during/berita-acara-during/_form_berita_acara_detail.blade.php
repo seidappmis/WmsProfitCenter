@@ -1,8 +1,8 @@
 <form class="form-table" id="form-berita-acara-during-detail">
-    <input type="hidden" name="berita_acara_id" value="0" readonly>
+    <input type="hidden" name="berita_acara_id" value="{{!empty($berita_acara['id'])?$berita_acara['id']:0}}" readonly>
     <table>
         <tr>
-            <td>MODEL</td>
+            <td>MODEL {{!empty($berita_acara['id'])?$berita_acara['id']:0}}</td>
             <td>
                 <select id="model_name" name="model_name" class="select2-data-ajax browser-default">
                 </select>
@@ -174,7 +174,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>KERUSAKAN</td>
+                    <td>KERUSAKAN {{ url("/berita-acara-during/detail-list") }}</td>
                     <td colspan="3">
                         <textarea class="materialize-textarea" name="damage" placeholder="damage" style="resize: vertical;"></textarea>
                     </td>
@@ -196,11 +196,10 @@
         scrollX: true,
         responsive: true,
         ajax: {
-            url: '{{ url("/berita-acara-during/detail-list") }}',
+            url: '{{ url("/berita-acara-during/:id/detail-list") }}'.replace(':id', $('#form-berita-acara-during-detail [name="berita_acara_id"]').val()),
             type: 'GET',
             data: function(d) {
                 d.search['value'] = $('#global_filter').val();
-                d.beritaAcaraID = $('#form-berita-acara-during-detail [name="berita_acara_id"]').val();
             }
         },
         order: [1, 'asc'],

@@ -47,8 +47,6 @@
                     <th>INVOICE NO</th>
                     <th>B/L NO</th>
                     <th>CONTAINER NO</th>
-                    <th>STATUS</th>
-                    <th width="50px;"></th>
                     <th width="50px;"></th>
                   </tr>
                 </thead>
@@ -73,7 +71,7 @@
     scrollX: true,
     responsive: true,
     ajax: {
-      url: "{{ url('berita-acara') }}",
+      url: "{{ url('berita-acara-during') }}",
       type: 'GET',
       data: function(d) {
         d.search['value'] = $('#global_filter').val()
@@ -87,49 +85,50 @@
         className: 'center-align'
       },
       {
-        data: 'berita_acara_no',
-        name: 'berita_acara_no',
+        data: 'berita_acara_during_no',
+        name: 'berita_acara_during_no',
         className: 'detail'
       },
       {
-        data: 'date_of_receipt',
-        name: 'date_of_receipt',
+        data: 'invoice_no',
+        name: 'invoice_no',
         className: 'detail'
       },
       {
-        data: 'expedition_name',
-        name: 'expedition_name',
+        data: 'bl_no',
+        name: 'bl_no',
         className: 'detail'
       },
       {
-        data: 'driver_name',
-        name: 'driver_name',
+        data: 'container_no',
+        name: 'container_no',
         className: 'detail'
       },
       {
-        data: 'vehicle_number',
-        name: 'vehicle_number',
-        className: 'detail'
-      },
-      {
-        data: 'vehicle_number',
-        name: 'vehicle_number',
-        className: 'detail'
-      },
-      {
-        data: 'action',
+        data: 'id',
+        name: 'id',
         className: 'center-align',
         searchable: false,
-        orderable: false
+        orderable: false,
+        render: function(data, type, row, meta) {
+          return ' ' + '<?= get_button_view(url("berita-acara-during/:id")) ?>'.replace(':id', data) +
+            ' ' + '<?= get_button_print('#', 'Print Letter', 'btn-print-letter') ?>' +
+            ' ' + '<?= get_button_print() ?>';
+        }
       },
     ]
   });
 
-  dtdatatable.on('click', '.btn-print', function(event) {
+  @include('layouts.materialize.components.modal-print', [
+    'title' => 'Print',
+  ]);
+
+  dtdatatable.on('click', '.btn-print-letter', function(event) {
     var tr = $(this).parent().parent();
     var data = dtdatatable.row(tr).data();
+
     swal({
-      text: "Are you sure want to print Berita Acara During No. " + data.berita_acara_no + " and the details?",
+      text: "Are you sure want to print Berita Acara During No. " + data.berita_acara_during_no + " and the details?",
       icon: 'warning',
       buttons: {
         cancel: true,
@@ -137,18 +136,29 @@
       }
     }).then(function(confirm) { // proses confirm
       if (confirm) {
-        $.ajax({
-            url: "{{ url('berita-acara') }}" + '/' + data.id + '/print',
-            type: 'GET',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "Berita Acara During No. " + data.berita_acara_no + " has been printed.", "success") // alert success
-            // table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
+        initPrintPreviewPrint(
+          '{{url("/berita-acara-during/{id}/export")}}'.replace('{id}', data.id)
+        )
+      }
+    })
+  });
+
+  dtdatatable.on('click', '.btn-print', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+
+    swal({
+      text: "Are you sure want to print Berita Acara During No. " + data.berita_acara_during_no + " and the details?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        delete: 'Yes, Print It'
+      }
+    }).then(function(confirm) { // proses confirm
+      if (confirm) {
+        initPrintPreviewPrint(
+          '{{url("/berita-acara-during/{id}/export-attach")}}'.replace('{id}', data.id)
+        )
       }
     })
   });
@@ -160,7 +170,7 @@
     var tr = $(this).parent().parent();
     var data = dtdatatable.row(tr).data();
     swal({
-      text: "Are you sure want to delete " + data.berita_acara_no + " and the details?",
+      text: "Are you sure want to delete " + data.berita_acara_during_no + " and the details?",
       icon: 'warning',
       buttons: {
         cancel: true,
@@ -174,7 +184,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal("Good job!", "Berita Acara During with Berita Acara During No. " + data.berita_acara_no + " has been deleted.", "success") // alert success
+            swal("Good job!", "Berita Acara During with Berita Acara During No. " + data.berita_acara_during_no + " has been deleted.", "success") // alert success
             dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -191,6 +201,6 @@
   // Custom search
   function filterGlobal() {
     table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
+  };
 </script>
 @endpush

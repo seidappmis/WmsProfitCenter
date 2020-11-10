@@ -52,10 +52,10 @@ class BeritaAcaraDuringDetailController extends Controller
    }
 
    // DataTable claim note Index
-   public function list(Request $req)
+   public function list(Request $req, $beritaAcaraID)
    {
       if ($req->ajax()) {
-         $query = BeritaAcaraDuringDetail::where('berita_acara_during_id', $req->beritaAcaraID)->get();
+         $query = BeritaAcaraDuringDetail::where('berita_acara_during_id', $beritaAcaraID)->orderBy('created_at', 'DESC')->get();
 
          $datatables = DataTables::of($query)
             ->addIndexColumn(); //DT_RowIndex (Penomoran)

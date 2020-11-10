@@ -8,28 +8,70 @@ use App\Models\BeritaAcaraDuring;
 use App\Models\BeritaAcaraDuringDetail;
 use Illuminate\Http\Request;
 use DB;
+use DataTables;
 
 class BeritaAcaraDuringController extends Controller
 {
   public function index(Request $request)
   {
+    if ($request->ajax()) {
+      $query = BeritaAcaraDuring::orderBy('created_at', 'DESC')->get();
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+      ;
+
+      return $datatables->make(true);
+    };
     return view('web.during.berita-acara-during.index');
   }
 
-  public function exportBA(Request $request, $id)
+  public function detail(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $berita_acara = BeritaAcaraDuring::where('dur_berita_acara.id', $id);
 
-    $view_print = view('web.during.berita-acara-during._print_BA');
+    if (auth()->user()->cabang->hq) {
+      $berita_acara->leftJoin('tr_expedition', 'dur_berita_acara.expedition_code', '=', 'tr_expedition.code')
+        ->select('dur_berita_acara.*', 'tr_expedition.expedition_name');
+    } else {
+      $berita_acara->leftJoin('wms_branch_expedition', 'dur_berita_acara.expedition_code', '=', 'wms_branch_expedition.code')
+        ->select('dur_berita_acara.*', 'wms_branch_expedition.expedition_name');
+    }
+
+    $data['berita_acara'] = $berita_acara->first()->toArray();
+
+    return view('web.during.berita-acara-during.detail', $data);
+  }
+
+  public function export(Request $req, $id)
+  {
+    $berita_acara = BeritaAcaraDuring::where('dur_berita_acara.id', $id);
+
+    if (auth()->user()->cabang->hq) {
+      $berita_acara->leftJoin('tr_expedition', 'dur_berita_acara.expedition_code', '=', 'tr_expedition.code')
+        ->select('dur_berita_acara.*', 'tr_expedition.expedition_name');
+    } else {
+      $berita_acara->leftJoin('wms_branch_expedition', 'dur_berita_acara.expedition_code', '=', 'wms_branch_expedition.code')
+        ->select('dur_berita_acara.*', 'wms_branch_expedition.expedition_name');
+    }
+
+    $data['berita_acara'] = $berita_acara->first();
+    $data['detail'] = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
+
+    $view_print = view('web.during.berita-acara-during._print_BA', $data);
+    if ($req->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      $view_print = view('web.during.berita-acara-during._print_BA_excel', $data);
+    }
     $title      = 'Berita Acara Barang During';
 
-    if ($request->input('filetype') == 'html') {
+    if ($req->input('filetype') == 'html') {
 
-      // request HTML View
+      // req HTML View
       return $view_print;
-    } elseif ($request->input('filetype') == 'xls') {
+    } elseif ($req->input('filetype') == 'xls') {
 
-      // Request FILE EXCEL
+      // req FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
@@ -55,7 +97,7 @@ class BeritaAcaraDuringController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-    } else if ($request->input('filetype') == 'pdf') {
+    } else if ($req->input('filetype') == 'pdf') {
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
@@ -71,9 +113,25 @@ class BeritaAcaraDuringController extends Controller
 
   public function exportAttach(Request $request, $id)
   {
-    // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+    $berita_acara = BeritaAcaraDuring::where('dur_berita_acara.id', $id);
 
-    $view_print = view('web.during.berita-acara-during._print_attach');
+    if (auth()->user()->cabang->hq) {
+      $berita_acara->leftJoin('tr_expedition', 'dur_berita_acara.expedition_code', '=', 'tr_expedition.code')
+        ->select('dur_berita_acara.*', 'tr_expedition.expedition_name');
+    } else {
+      $berita_acara->leftJoin('wms_branch_expedition', 'dur_berita_acara.expedition_code', '=', 'wms_branch_expedition.code')
+        ->select('dur_berita_acara.*', 'wms_branch_expedition.expedition_name');
+    }
+
+    $data['berita_acara'] = $berita_acara->first();
+    $data['detail'] = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
+
+
+    $view_print = view('web.during.berita-acara-during._print_attach', $data);
+    if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      $view_print = view('web.during.berita-acara-during._print_attach_excel', $data);
+    }
     $title      = 'Berita Acara Barang During';
 
     if ($request->input('filetype') == 'html') {
@@ -289,7 +347,7 @@ class BeritaAcaraDuringController extends Controller
             ->first();
         }
 
-        return sendSuccess('Data Successfully Created.', [
+        return sendSuccess('Data Successfully Updated.', [
           'during' => $return_data
         ]);
       } catch (\Exception $e) {

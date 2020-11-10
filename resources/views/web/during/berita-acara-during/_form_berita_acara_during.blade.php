@@ -1,5 +1,5 @@
 <form class="form-table" id="form-berita-acara-during">
-    <input type="hidden" value="" name="berita_acara_id" readonly>
+    <input type="hidden" value="{{!empty($berita_acara['id'])?$berita_acara['id']:0}}" name="berita_acara_id" readonly>
     <table>
         <tr>
             <td>No. BERITA ACARA DURING</td>
@@ -16,11 +16,11 @@
         <tr>
             <td>KAPAL</td>
             <td>
-                <input type="text" name="ship_name">
+                <input type="text" name="ship_name" required>
             </td>
             <td>EKSPEDISI</td>
             <td>
-                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default">
+                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
                 </select>
             </td>
         </tr>
@@ -31,44 +31,44 @@
             </td>
             <td>TRUCK NO</td>
             <td>
-                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default">
+                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" required>
                 </select>
             </td>
         </tr>
         <tr>
             <td>CONTAINER NO</td>
             <td>
-                <input type="text" name="container_no">
+                <input type="text" name="container_no" required>
             </td>
             <td>CUACA</td>
             <td>
-                <input type="text" name="weather">
+                <input type="text" name="weather" required>
             </td>
         </tr>
         <tr>
             <td>B/L NO</td>
             <td>
-                <input type="text" name="bl_no">
+                <input type="text" name="bl_no" required>
             </td>
             <td>JAM KERJA</td>
             <td>
-                <input type="text" name="working_hour">
+                <input type="text" name="working_hour" class="timepicker" required>
             </td>
         </tr>
         <tr>
             <td>SEAL NO</td>
             <td>
-                <input type="text" name="seal_no">
+                <input type="text" name="seal_no" required>
             </td>
             <td>LOKASI</td>
             <td>
-                <input type="text" name="location">
+                <input type="text" name="location" required>
             </td>
         </tr>
         <tr>
             <td>JENIS KERUSAKAN</td>
             <td>
-                <select name="damage_type" class="select2-data-ajax browser-default">
+                <select name="damage_type" class="select2-data-ajax browser-default" required>
                     <option value="Rusak EX Bea Cukai">Rusak EX Bea Cukai</option>
                     <option value="Rusak dari dalam container(Import)">Rusak dari dalam container(Import)</option>
                     <option value="Rusak sebelum di bongkar dari truck(Lokal)">Rusak sebelum di bongkar dari truck(Lokal)</option>
@@ -309,6 +309,14 @@
 
         $('#form-berita-acara-during-detail [name="berita_acara_id"]').val(data.id)
         dtTableDetail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-    }
+    };
+
+    $('.timepicker').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 5,
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
 </script>
 @endpush
