@@ -1,4 +1,5 @@
 <form class="form-table" id="form-berita-acara-during">
+    <input type="hidden" value="" name="berita_acara_id" readonly>
     <table>
         <tr>
             <td>No. BERITA ACARA DURING</td>
@@ -202,7 +203,7 @@
         })
     };
 
-
+    // create
     $("#form-berita-acara-during").validate({
         submitHandler: function(form) {
             var formBiasa = $(form).serialize(); // form biasa
@@ -222,9 +223,9 @@
                         showSwalAutoClose('Success', result.message);
                         set_form_data(result.data.during);
                     } else {
-                        setLoading(false);
                         showSwalAutoClose('Warning', result.message)
                     }
+                    setLoading(false);
                 })
                 .fail(function() {
                     setLoading(false);
@@ -235,12 +236,44 @@
         }
     });
 
+    // update
+    $('#form-berita-acara-during #btn-update').click(function() {
+        var form = '#form-berita-acara-during',
+            formBiasa = $(form).serialize(), // form biasa
+            isiForm = new FormData($(form)[0]); // form data untuk browse file
+
+        /* Act on the event */
+        setLoading(true);
+        $.ajax({
+                url: '{{ url("/berita-acara-during/update") }}',
+                type: 'POST',
+                data: isiForm,
+                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                processData: false, // NEEDED, DON'T OMIT THIS
+            })
+            .done(function(result) {
+                if (result.status) {
+                    showSwalAutoClose('Success', result.message);
+                    set_form_data(result.data.during);
+                } else {
+                    showSwalAutoClose('Warning', result.message)
+                }
+                setLoading(false);
+            })
+            .fail(function() {
+                setLoading(false);
+            })
+            .always(function() {
+                setLoading(false);
+            });
+    });
 
     function set_form_data(data) {
         $('#section-berita-acara-during-detail').show();
         $('#form-berita-acara-during #btn-update').show();
         $('#form-berita-acara-during [type="submit"]').hide();
 
+        $('#form-berita-acara-during [name="berita_acara_id"]').val(data.id)
         $('#form-berita-acara-during [name="berita_acara_during_no"]').val(data.berita_acara_during_no);
         $('#form-berita-acara-during [name="tanggal_berita_acara"]').val(data.tanggal_berita_acara);
         $('#form-berita-acara-during [name="ship_name"]').val(data.ship_name);
