@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
 
 <body style="font-family: courier New; font-size: 9pt; width: 260mm;">
-  <table width="100%" style="border-collapse: collapse; font-size: 9pt;">
+  <table width="100%" style="border-collapse: collapse; font-size: 9pt; margin-left: 10mm; margin-right: 10mm;">
     <thead>
       <tr>
         <td>{{ date('d-M-y') }}</td>

@@ -1039,8 +1039,8 @@ class PickingListController extends Controller
       // request HTML View
       // return $view_print;
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
-        'margin_left'                     => 7,
-        'margin_right'                    => 12,
+        'margin_left'                     => 20,
+        'margin_right'                    => 20,
         'margin_top'                      => 5,
         'margin_bottom'                   => 50,
         'format'                          => 'A4',
