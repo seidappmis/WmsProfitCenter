@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
 
-<body style="font-family: courier New; font-size: 9pt; width: 290mm;">
+<body style="font-family: courier New; font-size: 9pt; width: 260mm;">
   <table width="100%" style="border-collapse: collapse; font-size: 9pt;">
     <thead>
       <tr>
