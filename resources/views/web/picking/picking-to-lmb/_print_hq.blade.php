@@ -48,7 +48,7 @@
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;" autosize="1">
         <tbody>
             <tr>
-                <td style="text-align: center; width: 13mm;"></td>
+                <td style="text-align: center; width: 20mm;"></td>
                 <td style="text-align: center; width: 36mm;"></td>
                 <td style="text-align: center; width: 18mm;"></td>
                 <td style="text-align: center; " colspan="12" ></td>
