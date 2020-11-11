@@ -315,15 +315,19 @@
         });
         $('#area_filter').change(function(event) {
             /* Act on the event */
-          loadDeliveryOrderList();
-          loadVehicleStandby();
-          dttable_loading_status.ajax.reload(null, false)
+          reloadData()
         });
       loadDeliveryOrderList();
-      setInterval( loadDeliveryOrderList, 60000 );
       loadVehicleStandby();
-      setInterval( loadVehicleStandby, 60000 );
+      setInterval( reloadData, 60000 );
     });
+
+    function reloadData(){
+        loadDeliveryOrderList();
+        loadVehicleStandby();
+        dttable_loading_status.ajax.reload(null, false);
+        dttable_after_loading_status.ajax.reload(null, false);
+    }
 
     function loadDeliveryOrderList(){
         $.ajax({
