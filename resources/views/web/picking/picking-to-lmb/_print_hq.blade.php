@@ -11,7 +11,7 @@
             <table  style="font-size: 10pt;line-height: 1.4">
                 
                 <tr>
-                    <td style="width: 63mm;"></td>
+                    <td style="width: 70mm;"></td>
                     <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                     <td>{{$lmbHeader->expedition_name}}</td>
                     
