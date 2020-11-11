@@ -64,6 +64,46 @@
 </div>
 @endsection
 
+@push('page-modal')
+<div id="modal-form-print-letter" class="modal" style="">
+    <div class="modal-content">
+      <form id="form-print-letter" class="form-table">
+        <input type="hidden" name="id">
+        <table>
+          <tr>
+            <td width="150px">Checker</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="checker">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Driver/Operator</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="driver_or_operator">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="150px">Kepala Operasional</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="kepala_operasional">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-letter btn green darken-4">Print Letter</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+  </div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
   var dtdatatable = $('#data-table-berita-acara').DataTable({
@@ -127,20 +167,16 @@
     var tr = $(this).parent().parent();
     var data = dtdatatable.row(tr).data();
 
-    swal({
-      text: "Are you sure want to print Berita Acara During No. " + data.berita_acara_during_no + " and the details?",
-      icon: 'warning',
-      buttons: {
-        cancel: true,
-        delete: 'Yes, Print It'
-      }
-    }).then(function(confirm) { // proses confirm
-      if (confirm) {
-        initPrintPreviewPrint(
-          '{{url("/berita-acara-during/{id}/export")}}'.replace('{id}', data.id)
-        )
-      }
-    })
+    $('#form-print-letter [name="id"]').val(data.id)
+    $('#modal-form-print-letter').modal('open');
+  });
+
+  $('.btn-show-print-preview-letter').click(function(event) {
+    /* Act on the event */
+    initPrintPreviewPrint(
+      '{{url("/berita-acara-during/{id}/export")}}'.replace('{id}', $('#form-print-letter [name="id"]').val()),
+            $('#form-print-letter').serialize()
+    )
   });
 
   dtdatatable.on('click', '.btn-print', function(event) {

@@ -97,41 +97,13 @@
                         },
                         className: "datatable-checkbox-cell"
                     },
-                    {
-                        data: 'berita_acara_no',
-                        name: 'berita_acara_no',
-                        className: 'detail'
-                    },
-                    {
-                        data: 'do_no',
-                        name: 'do_no',
-                        className: 'detail'
-                    },
-                    {
-                        data: 'model_name',
-                        name: 'model_name',
-                        className: 'detail'
-                    },
-                    {
-                        data: 'serial_number',
-                        name: 'serial_number',
-                        className: 'detail'
-                    },
-                    {
-                        data: 'qty',
-                        name: 'qty',
-                        className: 'center-align'
-                    },
-                    {
-                        data: 'description',
-                        name: 'description',
-                        className: 'detail'
-                    },
-                    {
-                        data: 'keterangan',
-                        name: 'keterangan',
-                        className: 'detail'
-                    },
+                    { data: 'berita_acara_no'},
+                    { data: 'do_no'},
+                    { data: 'model_name'},
+                    { data: 'serial_number'},
+                    { data: 'qty'},
+                    { data: 'description'},
+                    { data: 'keterangan'},
                 ]
             });
 

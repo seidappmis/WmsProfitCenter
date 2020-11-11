@@ -9,12 +9,21 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateReceiptInvoiceDetail();
-    $this->updatePickinglist();
-    $this->updateConceptTruckFlow();
-    $this->updateClaimDatabase();
+    
+    $this->updateBeritaAcaraTable();
+    // $this->updateReceiptInvoiceDetail();
+    // $this->updatePickinglist();
+    // $this->updateConceptTruckFlow();
+    // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateBeritaAcaraTable(){
+    DB::statement('ALTER TABLE `clm_berita_acara` 
+    ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `kode_cabang`,
+    ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`
+    ');
   }
 
   protected function updateClaimDatabase()

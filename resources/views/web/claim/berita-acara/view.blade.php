@@ -26,7 +26,7 @@
             <hr>
             @include('web.claim.berita-acara._form_berita_acara')
           </div>
-          <div class="card-content">
+          <div class="card-content form-berita-acara-detail-wrapper hide">
             <!-- Berita Acara Detail -->
             <button class="btn float-right modal-trigger" id="upload-bulk-excel" href="#modal-upload-bulk">Upload Bulk</button>
             <a href='{{ url("berita-acara/". $beritaAcara->id . "/bulk-template")}}' class="btn float-right indigo">Download Template</a>
@@ -35,7 +35,7 @@
             <!-- Add Detail -->
             <div class="card-content p-0">
               <ul class="collapsible">
-                <li class="active">
+                <li class="">
                   <div class="collapsible-header">Add New Detail</div>
                   <div class="collapsible-body white pt-1 pb-1">
                     @include('web.claim.berita-acara._form_detail')
@@ -44,7 +44,7 @@
               </ul>
             </div>
           </div>
-          <div class="card-content">
+          <div class="card-content pt-0">
             <div class="section-data-tables">
               <table id="data-table-berita-acara-detail" class="display" width="100%">
                 <thead>
@@ -80,6 +80,10 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if(empty($beritaAcara->submit_date))
+  $('.form-berita-acara-detail-wrapper').removeClass('hide')
+  @endif
+
   jQuery(document).ready(function($) {
     $('.collapsible').collapsible({
       accordion: true
@@ -104,42 +108,19 @@
       }
     },
     order: [1, 'asc'],
-    columns: [{
+    columns: [
+      {
         data: 'DT_RowIndex',
         orderable: false,
         searchable: false,
         className: 'center-align'
       },
-      {
-        data: 'do_no',
-        name: 'do_no',
-        className: 'detail'
-      },
-      {
-        data: 'model_name',
-        name: 'model_name',
-        className: 'detail'
-      },
-      {
-        data: 'serial_number',
-        name: 'serial_number',
-        className: 'detail'
-      },
-      {
-        data: 'qty',
-        name: 'qty',
-        className: 'detail'
-      },
-      {
-        data: 'description',
-        name: 'description',
-        className: 'detail'
-      },
-      {
-        data: 'keterangan',
-        name: 'keterangan',
-        className: 'detail'
-      },
+      { data: 'do_no' },
+      { data: 'model_name' },
+      { data: 'serial_number' },
+      { data: 'qty' },
+      { data: 'description' },
+      { data: 'keterangan' },
       {
         data: 'photo_url',
         orderable: false,
@@ -181,13 +162,7 @@
             dataType: 'json',
           })
           .done(function() {
-            swal({
-              icon: "success",
-              title: "Good job!",
-              text: "Berita Acara Detail with No. Do " + data.do_no + " has been deleted.",
-              timer: 1000,
-              buttons: false
-            }) // alert success
+            showSwalAutoClose('Success', "Berita Acara Detail with No. Do " + data.do_no + " has been deleted.")
             dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
           })
           .fail(function() {
@@ -237,12 +212,16 @@
             contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
             processData: false, // NEEDED, DON'T OMIT THIS
           })
-          .done(function(data) { // selesai dan berhasil
+          .done(function(result) { // selesai dan berhasil
             // $('#table-concept tbody').empty();
-            showSwalAutoClose('Warning', data.message)
-            dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-            $('#form-berita-acara-detail')[0].reset(); // reset form
-            $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
+            if(result.status){
+              showSwalAutoClose('success', result.message)
+              dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+              $('#form-berita-acara-detail')[0].reset(); // reset form
+              $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
+            } else {
+              showSwalAutoClose('Warning', result.message)
+            }
 
             setLoading(false);
           })

@@ -4,7 +4,7 @@
             <td>No. Do</td>
             <td>
                 <input type="hidden" name="berita_acara_no" value="{{$beritaAcara->berita_acara_no}}">
-                <input type="text" class="validate" name="do_no" value="{{old('do_no', !empty($beritaAcaraDetail) ? $beritaAcaraDetail->do_no : '')}}">
+                <input type="text" class="validate" name="do_no" value="{{old('do_no', !empty($beritaAcaraDetail) ? $beritaAcaraDetail->do_no : '')}}" required="">
             </td>
         </tr>
         <tr>

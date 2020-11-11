@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraDuring;
 use App\Models\BeritaAcaraDuringDetail;
-use Illuminate\Http\Request;
-use DB;
 use DataTables;
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaAcaraDuringController extends Controller
 {
@@ -56,14 +56,15 @@ class BeritaAcaraDuringController extends Controller
     }
 
     $data['berita_acara'] = $berita_acara->first();
-    $data['detail'] = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
+    $data['detail']       = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
+    $data['request']      = $req;
 
     $view_print = view('web.during.berita-acara-during._print_BA', $data);
     if ($req->input('filetype') == 'xls') {
       $data['excel'] = 1;
-      $view_print = view('web.during.berita-acara-during._print_BA_excel', $data);
+      $view_print    = view('web.during.berita-acara-during._print_BA_excel', $data);
     }
-    $title      = 'Berita Acara Barang During';
+    $title = 'Berita Acara Barang During';
 
     if ($req->input('filetype') == 'html') {
 
@@ -124,15 +125,14 @@ class BeritaAcaraDuringController extends Controller
     }
 
     $data['berita_acara'] = $berita_acara->first();
-    $data['detail'] = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
-
+    $data['detail']       = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
 
     $view_print = view('web.during.berita-acara-during._print_attach', $data);
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
-      $view_print = view('web.during.berita-acara-during._print_attach_excel', $data);
+      $view_print    = view('web.during.berita-acara-during._print_attach_excel', $data);
     }
-    $title      = 'Berita Acara Barang During';
+    $title = 'Berita Acara Barang During';
 
     if ($request->input('filetype') == 'html') {
 
@@ -192,57 +192,57 @@ class BeritaAcaraDuringController extends Controller
     if ($req->ajax()) {
 
       // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
-      $format =  "%s/DR-" . auth()->user()->area_data->code . "/" .  $this->rome((int)date('m')) . "/" . date('Y');
+      $format = "%s/DR-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m')) . "/" . date('Y');
 
-      $max_no  = DB::table('dur_berita_acara')
+      $max_no = DB::table('dur_berita_acara')
         ->select(DB::raw('berita_acara_during_no AS max_no'))
         ->orderBy('created_at', 'DESC')
         ->first();
       $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
-      $max_no        = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
-      $no = sprintf($format, $max_no);
+      $max_no = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
+      $no     = sprintf($format, $max_no);
 
       try {
-        $data                  = new BeritaAcaraDuring;
+        $data                         = new BeritaAcaraDuring;
         $data->berita_acara_during_no = $no;
-        $data->tanggal_berita_acara = date('Y-m-d H:i:s');
-        $data->ship_name = $req->ship_name;
-        $data->invoice_no = $req->invoice_no;
-        $data->container_no = $req->container_no;
-        $data->bl_no = $req->bl_no;
-        $data->seal_no = $req->seal_no;
-        $data->damage_type = $req->damage_type;
-        $data->expedition_code = $req->expedition_code;
-        $data->vehicle_number = $req->vehicle_number;
-        $data->weather = $req->weather;
-        $data->working_hour = $req->working_hour;
-        $data->location = $req->location;
+        $data->tanggal_berita_acara   = date('Y-m-d H:i:s');
+        $data->ship_name              = $req->ship_name;
+        $data->invoice_no             = $req->invoice_no;
+        $data->container_no           = $req->container_no;
+        $data->bl_no                  = $req->bl_no;
+        $data->seal_no                = $req->seal_no;
+        $data->damage_type            = $req->damage_type;
+        $data->expedition_code        = $req->expedition_code;
+        $data->vehicle_number         = $req->vehicle_number;
+        $data->weather                = $req->weather;
+        $data->working_hour           = $req->working_hour;
+        $data->location               = $req->location;
 
         if ($req->hasFile('photo_container_came')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
-          $data->photo_container_came  = 'berita-acara-during/files/photo-container-came/' . $name;
+          $name                       = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                       = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
+          $data->photo_container_came = 'berita-acara-during/files/photo-container-came/' . $name;
         }
 
         if ($req->hasFile('photo_container_loading')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
-          $data->photo_container_loading  = 'berita-acara-during/files/photo-container-loading/' . $name;
+          $name                          = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                          = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
+          $data->photo_container_loading = 'berita-acara-during/files/photo-container-loading/' . $name;
         }
 
         if ($req->hasFile('photo_seal_no')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
-          $data->photo_seal_no  = 'berita-acara-during/files/photo-seal-no/' . $name;
+          $name                = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
+          $data->photo_seal_no = 'berita-acara-during/files/photo-seal-no/' . $name;
         }
 
         if ($req->hasFile('photo_loading')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
-          $data->photo_loading  = 'berita-acara-during/files/photo-loading/' . $name;
+          $name                = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
+          $data->photo_loading = 'berita-acara-during/files/photo-loading/' . $name;
         }
 
-        $data->created_at =  date('Y-m-d H:i:s');
+        $data->created_at = date('Y-m-d H:i:s');
         $data->created_by = auth()->user()->id;
 
         DB::transaction(function () use (&$data) {
@@ -268,7 +268,7 @@ class BeritaAcaraDuringController extends Controller
         }
 
         return sendSuccess('Data Successfully Created.', [
-          'during' => $return_data
+          'during' => $return_data,
         ]);
       } catch (\Exception $e) {
         return sendError($e->getMessage());
@@ -276,53 +276,51 @@ class BeritaAcaraDuringController extends Controller
     };
   }
 
-
-
   public function prosesUpdate(Request $req)
   {
     // proses create
     if ($req->ajax()) {
 
       try {
-        $data                  = BeritaAcaraDuring::whereId($req->berita_acara_id)->first();
+        $data = BeritaAcaraDuring::whereId($req->berita_acara_id)->first();
 
-        $data->ship_name = $req->ship_name;
-        $data->invoice_no = $req->invoice_no;
-        $data->container_no = $req->container_no;
-        $data->bl_no = $req->bl_no;
-        $data->seal_no = $req->seal_no;
-        $data->damage_type = $req->damage_type;
+        $data->ship_name       = $req->ship_name;
+        $data->invoice_no      = $req->invoice_no;
+        $data->container_no    = $req->container_no;
+        $data->bl_no           = $req->bl_no;
+        $data->seal_no         = $req->seal_no;
+        $data->damage_type     = $req->damage_type;
         $data->expedition_code = $req->expedition_code;
-        $data->vehicle_number = $req->vehicle_number;
-        $data->weather = $req->weather;
-        $data->working_hour = $req->working_hour;
-        $data->location = $req->location;
+        $data->vehicle_number  = $req->vehicle_number;
+        $data->weather         = $req->weather;
+        $data->working_hour    = $req->working_hour;
+        $data->location        = $req->location;
 
         if ($req->hasFile('photo_container_came')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
-          $data->photo_container_came  = 'berita-acara-during/files/photo-container-came/' . $name;
+          $name                       = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                       = Storage::putFileAs('public/berita-acara-during/files/photo-container-came', $req->file('photo_container_came'), $name);
+          $data->photo_container_came = 'berita-acara-during/files/photo-container-came/' . $name;
         }
 
         if ($req->hasFile('photo_container_loading')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
-          $data->photo_container_loading  = 'berita-acara-during/files/photo-container-loading/' . $name;
+          $name                          = uniqid() . '.' . pathinfo($req->file('photo_container_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                          = Storage::putFileAs('public/berita-acara-during/files/photo-container-loading', $req->file('photo_container_loading'), $name);
+          $data->photo_container_loading = 'berita-acara-during/files/photo-container-loading/' . $name;
         }
 
         if ($req->hasFile('photo_seal_no')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
-          $data->photo_seal_no  = 'berita-acara-during/files/photo-seal-no/' . $name;
+          $name                = uniqid() . '.' . pathinfo($req->file('photo_seal_no')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                = Storage::putFileAs('public/berita-acara-during/files/photo-seal-no', $req->file('photo_seal_no'), $name);
+          $data->photo_seal_no = 'berita-acara-during/files/photo-seal-no/' . $name;
         }
 
         if ($req->hasFile('photo_loading')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
-          $data->photo_loading  = 'berita-acara-during/files/photo-loading/' . $name;
+          $name                = uniqid() . '.' . pathinfo($req->file('photo_loading')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                = Storage::putFileAs('public/berita-acara-during/files/photo-loading', $req->file('photo_loading'), $name);
+          $data->photo_loading = 'berita-acara-during/files/photo-loading/' . $name;
         }
 
-        $data->updated_at =  date('Y-m-d H:i:s');
+        $data->updated_at = date('Y-m-d H:i:s');
         $data->updated_by = auth()->user()->id;
 
         DB::transaction(function () use (&$data) {
@@ -348,7 +346,7 @@ class BeritaAcaraDuringController extends Controller
         }
 
         return sendSuccess('Data Successfully Updated.', [
-          'during' => $return_data
+          'during' => $return_data,
         ]);
       } catch (\Exception $e) {
         return sendError($e->getMessage());
@@ -362,27 +360,27 @@ class BeritaAcaraDuringController extends Controller
     if ($req->ajax()) {
 
       try {
-        $data                  = new BeritaAcaraDuringDetail;
+        $data                         = new BeritaAcaraDuringDetail;
         $data->berita_acara_during_id = $id;
-        $data->model_name = $req->model_name;
-        $data->qty = $req->qty;
-        $data->pom = $req->pom;
-        $data->serial_number = $req->serial_number;
-        $data->damage = $req->damage;
+        $data->model_name             = $req->model_name;
+        $data->qty                    = $req->qty;
+        $data->pom                    = $req->pom;
+        $data->serial_number          = $req->serial_number;
+        $data->damage                 = $req->damage;
 
         if ($req->hasFile('photo_serial_number')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_serial_number')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-serial-number', $req->file('photo_serial_number'), $name);
-          $data->photo_serial_number  = 'berita-acara-during/files/photo-serial-number/' . $name;
+          $name                      = uniqid() . '.' . pathinfo($req->file('photo_serial_number')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                      = Storage::putFileAs('public/berita-acara-during/files/photo-serial-number', $req->file('photo_serial_number'), $name);
+          $data->photo_serial_number = 'berita-acara-during/files/photo-serial-number/' . $name;
         }
 
         if ($req->hasFile('photo_damage')) {
-          $name = uniqid() . '.' . pathinfo($req->file('photo_damage')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/berita-acara-during/files/photo-damage', $req->file('photo_damage'), $name);
-          $data->photo_damage  = 'berita-acara-during/files/photo-damage/' . $name;
+          $name               = uniqid() . '.' . pathinfo($req->file('photo_damage')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path               = Storage::putFileAs('public/berita-acara-during/files/photo-damage', $req->file('photo_damage'), $name);
+          $data->photo_damage = 'berita-acara-during/files/photo-damage/' . $name;
         }
 
-        $data->created_at =  date('Y-m-d H:i:s');
+        $data->created_at = date('Y-m-d H:i:s');
         $data->created_by = auth()->user()->id;
 
         DB::transaction(function () use (&$data) {
@@ -398,7 +396,7 @@ class BeritaAcaraDuringController extends Controller
 
   public function rome($number)
   {
-    $map = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
+    $map         = array('M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1);
     $returnValue = '';
     while ($number > 0) {
       foreach ($map as $roman => $int) {

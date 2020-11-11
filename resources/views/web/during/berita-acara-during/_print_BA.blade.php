@@ -206,9 +206,9 @@
                   <td>&nbsp;</td>
                 </tr>
                 <tr>
-                  <td colspan="2" style="text-align: center; width: 30mm; text-decoration: underline;"><strong>SULAM</strong></td>
-                  <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>RIYAN</strong></td>
-                  <td colspan="2" style="text-align: center; width: 60mm; text-decoration: underline;"><strong>RONY PASLAH</strong></td>
+                  <td colspan="2" style="text-align: center; width: 30mm; text-decoration: underline;"><strong>{{$request->input('checker')}}</strong></td>
+                  <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>{{$request->input('driver_or_operator')}}</strong></td>
+                  <td colspan="2" style="text-align: center; width: 60mm; text-decoration: underline;"><strong>{{$request->input('kepala_operasional')}}</strong></td>
                   <td style="width: 30mm;"></td>
                   <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>HARDIAN</strong></td>
                   <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>KUKUH</strong></td>

@@ -90,34 +90,13 @@
         searchable: false,
         className: 'center-align'
       },
-      {
-        data: 'berita_acara_no',
-        name: 'berita_acara_no',
-        className: 'detail'
-      },
-      {
-        data: 'date_of_receipt',
-        name: 'date_of_receipt',
-        className: 'detail'
-      },
-      {
-        data: 'expedition_name',
-        name: 'expedition_name',
-        className: 'detail'
-      },
-      {
-        data: 'driver_name',
-        name: 'driver_name',
-        className: 'detail'
-      },
-      {
-        data: 'vehicle_number',
-        name: 'vehicle_number',
-        className: 'detail'
-      },
+      { data: 'berita_acara_no'},
+      { data: 'date_of_receipt'},
+      { data: 'expedition_name'},
+      { data: 'driver_name'},
+      { data: 'vehicle_number'},
       {
         data: 'action',
-        className: 'center-align',
         searchable: false,
         orderable: false
       },
@@ -134,6 +113,38 @@
     initPrintPreviewPrint(
       '{{url("berita-acara")}}' + '/' + data.id + '/print'
     )
+  });
+
+  dtdatatable.on('click', '.btn-submit', function(event) {
+    event.preventDefault();
+    /* Act on the event */
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+    swal({
+      text: "Are you sure want to submit " + data.berita_acara_no + " and the details?",
+      icon: 'warning',
+      buttons: {
+        cancel: true,
+        delete: 'Yes, Submit It'
+      }
+    }).then(function(confirm) { // proses confirm
+      if (confirm) {
+        $.ajax({
+            url: "{{ url('berita-acara') }}" + '/' + data.id + '/submit',
+            type: 'PUT',
+            dataType: 'json',
+          })
+          .done(function(result) {
+            if (result.status) {
+              showSwalAutoClose('Success', "Berita Acara with Berita Acara No. " + data.berita_acara_no + " has been submited.")
+              dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+            }
+          })
+          .fail(function() {
+            console.log("error");
+          });
+      }
+    })
   });
 
 
@@ -157,9 +168,11 @@
             type: 'DELETE',
             dataType: 'json',
           })
-          .done(function() {
-            swal("Good job!", "Berita Acara with Berita Acara No. " + data.berita_acara_no + " has been deleted.", "success") // alert success
-            dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+          .done(function(result) {
+            if (result.status) {
+              showSwalAutoClose("Success", "Berita Acara with Berita Acara No. " + data.berita_acara_no + " has been deleted.")
+              dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+            }
           })
           .fail(function() {
             console.log("error");

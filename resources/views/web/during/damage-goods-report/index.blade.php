@@ -49,8 +49,8 @@
                                     <th>B/L NO</th>
                                     <th>CONTAINER NO</th>
                                     <th>CLAIM NO</th>
-                                    <th width="50px;"></th>
-                                    <th width="50px;"></th>
+                                    {{-- <th width="50px;"></th> --}}
+                                    {{-- <th width="50px;"></th> --}}
                                     <th width="50px;"></th>
                                   </tr>
                               </thead>
@@ -75,7 +75,7 @@
     scrollX: true,
     responsive: true,
     ajax: {
-        url: '{{ url('berita-acara') }}',
+        url: '{{ url('berita-acara-during') }}',
         type: 'GET',
         data: function(d) {
             d.search['value'] = $('#global_filter').val()
@@ -84,14 +84,12 @@
     order: [1, 'asc'],
     columns: [
         {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        {data: 'berita_acara_no'},
-        {data: 'date_of_receipt'},
-        {data: 'expedition_name'},
-        {data: 'driver_name'},
-        {data: 'vehicle_number'},
-        {data: 'vehicle_number'},
-        {data: 'vehicle_number'},
-        {data: 'vehicle_number'},
+        {data: 'berita_acara_during_no'},
+        {data: 'damage_type'},
+        {data: 'invoice_no'},
+        {data: 'bl_no'},
+        {data: 'container_no'},
+        {data: 'claim_no'},
         {data: 'action', className: 'center-align', searchable: false, orderable: false},
     ]
   });
