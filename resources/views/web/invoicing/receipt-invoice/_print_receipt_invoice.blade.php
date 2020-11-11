@@ -549,6 +549,7 @@
                                             <td colspan="4" style="font-size: 11pt;text-align: left; border: 1pt solid black;">
                                                 {{$key}}
                                             </td>
+                                            @if($printData['summary']['BR'])
                                             <td colspan="1" style="font-size: 11pt;text-align: right;border: 1pt solid black;">
                                                 {{!empty($value['BR']) ? thousand_reformat($value['BR']['freight_cost']) : 0}}
                                             </td>
@@ -561,6 +562,8 @@
                                             <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
                                                 {{!empty($value['BR']) ? thousand_reformat($value['BR']['overstay_amount']) : 0}}
                                             </td>
+                                            @endif
+                                            @if($printData['summary']['DS'])
                                             <td style="font-size: 11pt;text-align: right;border: 1pt solid black;">
                                                 {{!empty($value['DS']) ? thousand_reformat($value['DS']['freight_cost']) : 0}}
                                             </td>
@@ -573,6 +576,7 @@
                                             <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
                                                 {{!empty($value['DS']) ? thousand_reformat($value['DS']['overstay_amount']) : 0}}
                                             </td>
+                                            @endif
                                             <td style="font-size: 11pt;text-align: right; border: 1pt solid black;">
                                                 {{ thousand_reformat((!empty($value['BR']) ? $value['BR']['freight_cost'] : 0) + (!empty($value['DS']) ? $value['DS']['freight_cost'] : 0)) }}
                                             </td>
