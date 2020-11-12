@@ -40,7 +40,7 @@ class BeritaAcaraController extends Controller
           $action = '';
           $action .= ' ' . get_button_view(url('berita-acara/' . $data->id));
           $action .= ' ' . get_button_print();
-          if (empty($data->submit_date)) {
+          if (empty($data->submit_date)  && $data->details()->count() > 0) {
             $action .= ' ' . get_button_edit('#!', 'Submit', 'btn-submit');
             $action .= ' ' . get_button_delete();
           }
