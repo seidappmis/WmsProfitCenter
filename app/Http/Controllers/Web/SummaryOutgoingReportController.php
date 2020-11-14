@@ -17,6 +17,18 @@ class SummaryOutgoingReportController extends Controller
       $query = $this->getSummaryOutgoingReport($request);
 
       $datatables = DataTables::of($query)
+        ->editColumn('do_manifest_date', function ($data) {
+          return format_tanggal_jam_wms($data->do_manifest_date);
+        })
+        ->editColumn('eta', function ($data) {
+          return format_tanggal_jam_wms($data->eta);
+        })
+        ->editColumn('created_at', function ($data) {
+          return format_tanggal_jam_wms($data->created_at);
+        })
+        ->editColumn('updated_at', function ($data) {
+          return format_tanggal_jam_wms($data->updated_at);
+        })
       ;
 
       return $datatables->make(true);
@@ -408,6 +420,7 @@ class SummaryOutgoingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->manifest_type);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $sheet->getStyle($col . $row)->getNumberFormat()->setFormatCode('#');
       $sheet->setCellValue(($col++) . $row, $value->picking_no);
       $sheet->setCellValue(($col++) . $row, $value->invoice_no);
       $sheet->setCellValue(($col++) . $row, $value->delivery_no);
@@ -444,13 +457,13 @@ class SummaryOutgoingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->created_by_name);
       $sheet->setCellValue(($col++) . $row, $value->created_at);
       $sheet->setCellValue(($col++) . $row, $value->updated_by_name);
-      $sheet->setCellValue(($col++) . $row, $value->updated_at);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->updated_at));
       $sheet->setCellValue(($col++) . $row, $value->desc);
       $sheet->setCellValue(($col++) . $row, $value->delivery_status);
       $sheet->setCellValue(($col++) . $row, $value->confirm);
       $sheet->setCellValue(($col++) . $row, $value->status_confirm);
       $sheet->setCellValue(($col++) . $row, $value->confirm_by);
-      $sheet->setCellValue(($col++) . $row, $value->confirm_date);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->confirm_date));
       $sheet->setCellValue(($col++) . $row, $value->actual_time_arrival);
       $sheet->setCellValue(($col++) . $row, $value->actual_unloading_date);
       $sheet->setCellValue(($col++) . $row, $value->doc_do_return_date);
@@ -458,12 +471,10 @@ class SummaryOutgoingReportController extends Controller
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Summary Outgoing Report ' . $request->input('area');
 

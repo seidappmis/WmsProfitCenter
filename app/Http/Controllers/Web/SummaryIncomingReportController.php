@@ -17,7 +17,7 @@ class SummaryIncomingReportController extends Controller
 
       $datatables = DataTables::of($query)
         ->editColumn('created_at', function ($data) {
-          return $data->created_at;
+          return format_tanggal_jam_wms($data->created_at);
         })
       ;
 
@@ -65,6 +65,7 @@ class SummaryIncomingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->receipt_no);
       $sheet->setCellValue(($col++) . $row, $value->delivery_ticket);
       $sheet->setCellValue(($col++) . $row, $value->type);
+      $sheet->getStyle($col . $row)->getNumberFormat()->setFormatCode('#');
       $sheet->setCellValue(($col++) . $row, $value->ean_code);
       $sheet->setCellValue(($col++) . $row, $value->invoice_no);
       $sheet->setCellValue(($col++) . $row, $value->no_gr_sap);
@@ -79,17 +80,15 @@ class SummaryIncomingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->cbm);
       $sheet->setCellValue(($col++) . $row, $value->total_cbm);
       $sheet->setCellValue(($col++) . $row, $value->storage_location);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->created_by_name);
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Summary Incoming Report ' . $request->input('area');
 

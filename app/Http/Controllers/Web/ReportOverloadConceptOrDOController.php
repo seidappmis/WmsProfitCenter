@@ -129,12 +129,10 @@ class ReportOverloadConceptOrDOController extends Controller
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Report Overload Concept or DO ' . $request->input('area');
 

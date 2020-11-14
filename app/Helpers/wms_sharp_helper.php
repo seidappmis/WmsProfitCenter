@@ -51,6 +51,11 @@ function format_tanggal_wms($date)
   return date('d-M-Y', strtotime($date));
 }
 
+function format_tanggal_jam_wms($date)
+{
+  return date('d/m/Y h:i A', strtotime($date));
+}
+
 function getPHPSpreadsheetTitleStyle()
 {
   $style = [

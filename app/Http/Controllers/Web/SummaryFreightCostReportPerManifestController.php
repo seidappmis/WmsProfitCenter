@@ -15,6 +15,12 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $query = $this->getData($request);
 
       $datatables = DataTables::of($query)
+        ->editColumn('do_manifest_date', function ($data) {
+          return format_tanggal_wms($data->do_manifest_date);
+        })
+        ->editColumn('invoice_receipt_date', function ($data) {
+          return format_tanggal_wms($data->invoice_receipt_date);
+        })
       ;
 
       return $datatables->make(true);
@@ -76,7 +82,7 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_id);
       $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_no);
       $sheet->setCellValue(($col++) . $row, $value->kwitansi_no);
-      $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_date);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->invoice_receipt_date));
       $sheet->setCellValue(($col++) . $row, $value->amount_after_tax);
       $sheet->setCellValue(($col++) . $row, $value->status);
       $sheet->setCellValue(($col++) . $row, $value->paid_status);
@@ -85,7 +91,7 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->kode_cabang);
       $sheet->setCellValue(($col++) . $row, $value->code_sales);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
-      $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_manifest_date));
       $sheet->setCellValue(($col++) . $row, $value->expedition_name);
       $sheet->setCellValue(($col++) . $row, $value->city_name);
       $sheet->setCellValue(($col++) . $row, $value->vehicle_description);
@@ -110,12 +116,10 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Summary Freight Cost Report Per Manifest ' . $request->input('area');
 

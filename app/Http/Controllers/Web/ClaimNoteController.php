@@ -65,8 +65,9 @@ class ClaimNoteController extends Controller
         ->groupBy('n.id')
         ->select(
           'n.*',
-          DB::raw("group_concat(bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
-          'e.expedition_name',
+          DB::raw("group_concat(DISTINCT bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
+          DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
+          // 'e.expedition_name',
           'ba.date_of_receipt',
           'nd.destination'
         );
@@ -323,7 +324,7 @@ class ClaimNoteController extends Controller
     if ($request->ajax()) {
       $query = ClaimNote::from('clm_claim_notes AS n')
         ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
-        ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_note_detail_id', '=', 'nd.id')
+        ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nd.berita_acara_detail_id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')

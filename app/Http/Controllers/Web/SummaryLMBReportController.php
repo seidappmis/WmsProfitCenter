@@ -53,6 +53,8 @@ class SummaryLMBReportController extends Controller
     } else {
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      $spreadsheet->getActiveSheet()->getDefaultColumnDimension()->setWidth(15);
+      $spreadsheet->getActiveSheet()->getStyle('A1:Z1000')->getNumberFormat()->setFormatCode('#');
 
       $spreadsheet = $reader->loadFromString($table, $spreadsheet);
 
@@ -203,9 +205,9 @@ class SummaryLMBReportController extends Controller
           $tabeldata .= '<td>' . $value['kode_customer'] . '</td>';
           $tabeldata .= '<td>' . $value['nama_cabang'] . '</td>';
           $tabeldata .= '<td>' . $value['vehicle_number_expedition'] . '</td>';
-          $tabeldata .= '<td>' . $value['lmb_date'] . '</td>';
+          $tabeldata .= '<td>' . format_tanggal_wms($value['lmb_date']) . '</td>';
           $tabeldata .= '<td>' . $value['picking_no'] . '</td>';
-          $tabeldata .= '<td>' . $value['picking_date'] . '</td>';
+          $tabeldata .= '<td>' . format_tanggal_wms($value['picking_date']) . '</td>';
           $tabeldata .= '<td>' . $value['model'] . '</td>';
           $tabeldata .= '<td>' . $value['fromsn'] . '</td>';
           $tabeldata .= '<td>' . $value['tosn'] . '</td>';

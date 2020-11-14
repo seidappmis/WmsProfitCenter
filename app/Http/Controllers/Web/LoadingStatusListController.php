@@ -15,6 +15,27 @@ class LoadingStatusListController extends Controller
       $query = $this->getLoadingStatusListData($request);
 
       $datatables = DataTables::of($query)
+        ->editColumn('created_at', function($data){
+          return format_tanggal_jam_wms($data->created_at);
+        })
+        ->editColumn('mapping_concept_date', function($data){
+          return format_tanggal_jam_wms($data->mapping_concept_date);
+        })
+        ->editColumn('select_gate_date', function($data){
+          return format_tanggal_jam_wms($data->select_gate_date);
+        })
+        ->editColumn('load_loading_start', function($data){
+          return format_tanggal_jam_wms($data->load_loading_start);
+        })
+        ->editColumn('load_loading_end', function($data){
+          return format_tanggal_jam_wms($data->load_loading_end);
+        })
+        ->editColumn('reg_date_in', function($data){
+          return format_tanggal_jam_wms($data->reg_date_in);
+        })
+        ->editColumn('reg_date_out', function($data){
+          return format_tanggal_jam_wms($data->reg_date_out);
+        })
       ;
 
       return $datatables->make(true);
@@ -108,24 +129,24 @@ class LoadingStatusListController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->sold_to_district);
       $sheet->setCellValue(($col++) . $row, $value->sold_to_street);
       $sheet->setCellValue(($col++) . $row, $value->remarks);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->reg_driver_id);
       $sheet->setCellValue(($col++) . $row, $value->reg_driver_name);
       $sheet->setCellValue(($col++) . $row, $value->reg_vehicle_no);
       $sheet->setCellValue(($col++) . $row, $value->reg_vehicle_description);
       $sheet->setCellValue(($col++) . $row, $value->reg_vehicle_type);
       $sheet->setCellValue(($col++) . $row, $value->reg_cbm_truck);
-      $sheet->setCellValue(($col++) . $row, $value->reg_date_in);
-      $sheet->setCellValue(($col++) . $row, $value->reg_date_out);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reg_date_in));
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reg_date_out));
       $sheet->setCellValue(($col++) . $row, $value->reg_destination);
       $sheet->setCellValue(($col++) . $row, $value->reg_region);
       $sheet->setCellValue(($col++) . $row, $value->reg_expedition_code);
       $sheet->setCellValue(($col++) . $row, $value->reg_expedition_name);
-      $sheet->setCellValue(($col++) . $row, $value->mapping_concept_date);
-      $sheet->setCellValue(($col++) . $row, $value->select_gate_date);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->mapping_concept_date));
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->select_gate_date));
       $sheet->setCellValue(($col++) . $row, $value->load_gate_number);
-      $sheet->setCellValue(($col++) . $row, $value->load_loading_start);
-      $sheet->setCellValue(($col++) . $row, $value->load_loading_end);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->load_loading_start));
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->load_loading_end));
       $sheet->setCellValue(($col++) . $row, $value->load_loading_minutes);
       $sheet->setCellValue(($col++) . $row, $value->load_do_manifest_no);
       $sheet->setCellValue(($col++) . $row, $value->status);
@@ -135,12 +156,10 @@ class LoadingStatusListController extends Controller
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Loading Status List ' . $request->input('area');
 

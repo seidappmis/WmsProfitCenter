@@ -40,8 +40,11 @@
 								</tr>
 								<tr>
 									<td style="width: 5mm;">&nbsp;</td>
-									<td colspan="4" style="color: red;">Shall be reported to HO & Insurance <u>within 2 days</u> after the accident</td>
-									<td colspan="6" style="color: red;">Shall be reported to HO & Insurance <u>within a week</u> after the accident happened</td>
+									<td colspan="10" style="color: red;">Shall be reported to HO & Insurance <u> within 2 days</u> after the accident Shall be reported to HO and Insurance within </td>
+								</tr>
+								<tr>
+									<td style="width: 5mm;">&nbsp;</td>
+									<td colspan="10" style="color: red;"><u>within a week</u> after the accident happened</td>
 								</tr>
 							</table>
 						</td>
@@ -89,7 +92,7 @@
 									<td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->qty*$v->price)}}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->description}}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->location}}</td>
-									<td style="border: 1pt solid #000000; text-align: center;">{{!empty($v->photo_url)?'<img class="materialboxed center-align" width="200" height="200" src="'.asset('storage/').'/'.$v->photo_url.'">':'-'}}</td>
+									<td style="border: 1pt solid #000000; text-align: center;">{!!!empty($v->photo_url)?'<img class="materialboxed center-align" width="200" height="200" src="'.asset('storage/').'/'.$v->photo_url.'">':'-'!!}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->keterangan}}</td>
 								</tr>
 								<?php
