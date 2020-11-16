@@ -40,7 +40,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_note_detail.id')
-      // ->whereNull('claim_note_detail_id')
+        // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -61,7 +61,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')
-      // ->groupBy('n.id')
+        // ->groupBy('n.id')
         ->groupBy('n.id')
         ->select(
           'n.*',
@@ -130,22 +130,7 @@ class ClaimNoteController extends Controller
       try {
         if (!empty($data)) {
           $beritaAcaraDetail = [];
-          // $dataClaimNote = [
-          //     'claim_note_no' => null,
-          //     'berita_acara_no' => null,
-          //     'date_of_receipt' => null,
-          //     'expedition_code' => null,
-          //     'driver_name' => null,
-          //     'vehicle_number' => null,
-          //     'destination' => null,
-          //     'do_no' => null,
-          //     'model_name' => null,
-          //     'serial_number' => null,
-          //     'qty' => null,
-          //     'description' => null,
-          //     'price' => null,
-          //     'total_price' => null
-          // ];
+
           // set key of array claim note to berita acara id
           foreach ($data as $kb => $vb) {
             $beritaAcaraDetail[$vb['berita_acara_detail_id']] = $vb;
@@ -438,7 +423,29 @@ class ClaimNoteController extends Controller
       })
       ->where('id', $id)
       ->first();
-    $data['claimNoteDetail'] = ClaimNoteDetail::where('claim_note_id', $id)->get();
+
+    $data['claimNoteDetail'] = ClaimNoteDetail::select(
+      'clm_claim_note_detail.*',
+      DB::raw('tr_expedition.expedition_name AS expedition_name')
+    )->leftJoin(
+      'tr_expedition',
+      'tr_expedition.code',
+      '=',
+      'clm_claim_note_detail.expedition_code'
+    )
+      ->where('clm_claim_note_detail.claim_note_id', $id)
+      ->get();
+
+    $data['qty'] = 0;
+    $data['price'] = 0;
+    $data['subTotal'] = 0;
+    if (!$data['claimNoteDetail']->isEmpty()) {
+      foreach ($data['claimNoteDetail'] as $key => $value) {
+        $data['qty'] += $value->qty;
+        $data['price'] += $value->price;
+        $data['subTotal'] += $value->price * $value->price;
+      }
+    }
 
     $view_print = view('web.claim.claim-notes._print', $data);
 

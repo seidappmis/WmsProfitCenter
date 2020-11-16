@@ -57,8 +57,8 @@
 									<td rowspan="2" style="border: 2pt solid #000000; width: 5mm; text-align: center;"><strong>NO</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SERIAL NUMBER</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 30mm; text-align: center;"><strong>PRODUCT</strong></td>
-									<td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>Unit</strong></td>
-									<!-- <td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>CURR</strong></td> -->
+									<td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>UNIT</strong></td>
+									<td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>CURR</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 15mm; text-align: center;"><strong>PRICE/UNIT</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>TOTAL</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 25mm; text-align: center;"><strong>NATURE OF LOSS</strong></td>
@@ -88,6 +88,7 @@
 									<td style="border: 1pt solid #000000; text-align: center;">{{$v->serial_number}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{{$v->model_name}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{{$v->qty}}</td>
+									<td style="border: 1pt solid #000000; text-align: center;">IDR</td>
 									<td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->price)}}</td>
 									<td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->qty*$v->price)}}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->description}}</td>
@@ -108,7 +109,7 @@
 									<td style="border: 1pt solid #000000; text-align: center;"><strong>{{$totalUnit}}</strong></td>
 									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 									<td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
-									<td colspan="4" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+									<td colspan="5" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 								</tr>
 							</table>
 						</td>

@@ -47,6 +47,7 @@
                           <th>Serial No</th>
                           <th>Damage Description</th>
                           <th>Destination</th>
+                          <th>Photo</th>
                           <th>Qty</th>
                           <th>Price</th>
                           <th>Total</th>
@@ -133,6 +134,16 @@
         render: function(data, type, row, meta) {
           return '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
         }
+      }, {
+        data: 'photo_url',
+        orderable: false,
+        render: function(data, type, row) {
+          if (data) {
+            return '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + data + '">';
+          }
+          return '-';
+        },
+        className: "center-align"
       }, {
         data: 'qty',
         name: 'qty',
