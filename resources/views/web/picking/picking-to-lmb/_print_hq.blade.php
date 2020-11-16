@@ -115,6 +115,15 @@
             @endphp
             @endwhile
 
+            {{-- Add Space --}}
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
             @php
             $row_no++;
             @endphp
