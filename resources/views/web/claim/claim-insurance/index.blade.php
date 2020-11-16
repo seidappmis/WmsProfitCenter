@@ -36,7 +36,7 @@
                       <div class="app-wrapper">
                         <div class="datatable-search mb-0">
                           <i class="material-icons mr-2 search-icon">search</i>
-                          <input type="text" placeholder="Search" class="app-filter no-propagation">
+                          <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
                         </div>
                       </div>
                     </div>
@@ -135,6 +135,11 @@
       });
 
       set_datatables_checkbox('#table-outstanding', dtOutstanding)
+    });
+
+
+    $("input#outstanding-search").on("keyup click", function() {
+      dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
     });
 
     $('#create-claim-insurance').click(function() {

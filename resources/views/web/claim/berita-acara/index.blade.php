@@ -91,19 +91,29 @@
         className: 'center-align'
       },
       {
-        data: 'berita_acara_no'
+        data: 'berita_acara_no',
+        name: 'berita_acara_no',
+        className: 'detail'
       },
       {
-        data: 'date_of_receipt'
+        data: 'date_of_receipt',
+        name: 'date_of_receipt',
+        className: 'detail'
       },
       {
-        data: 'expedition_name'
+        data: 'expedition_name',
+        name: 'tr_expedition.expedition_name',
+        className: 'detail'
       },
       {
-        data: 'driver_name'
+        data: 'driver_name',
+        name: 'driver_name',
+        className: 'detail'
       },
       {
-        data: 'vehicle_number'
+        data: 'vehicle_number',
+        name: 'vehicle_number',
+        className: 'detail'
       },
       {
         data: 'action',

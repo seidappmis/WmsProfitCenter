@@ -180,7 +180,7 @@
 
   // Custom search
   function filterGlobal() {
-    table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 </script>
 @endpush

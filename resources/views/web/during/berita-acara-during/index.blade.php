@@ -66,42 +66,42 @@
 
 @push('page-modal')
 <div id="modal-form-print-letter" class="modal" style="">
-    <div class="modal-content">
-      <form id="form-print-letter" class="form-table">
-        <input type="hidden" name="id">
-        <table>
-          <tr>
-            <td width="150px">Checker</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="checker">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Driver/Operator</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="driver_or_operator">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Kepala Operasional</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="kepala_operasional">
-              </div>
-            </td>
-          </tr>
-        </table>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-letter btn green darken-4">Print Letter</a>
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-    </div>
+  <div class="modal-content">
+    <form id="form-print-letter" class="form-table">
+      <input type="hidden" name="id">
+      <table>
+        <tr>
+          <td width="150px">Checker</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="checker">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Driver/Operator</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="driver_or_operator">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Kepala Operasional</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="kepala_operasional">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
   </div>
+  <div class="modal-footer">
+    <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-letter btn green darken-4">Print Letter</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
 @endpush
 
 @push('script_js')
@@ -175,7 +175,7 @@
     /* Act on the event */
     initPrintPreviewPrint(
       '{{url("/berita-acara-during/{id}/export")}}'.replace('{id}', $('#form-print-letter [name="id"]').val()),
-            $('#form-print-letter').serialize()
+      $('#form-print-letter').serialize()
     )
   });
 
@@ -236,7 +236,7 @@
 
   // Custom search
   function filterGlobal() {
-    table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   };
 </script>
 @endpush

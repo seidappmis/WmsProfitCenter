@@ -17,7 +17,7 @@
                               <div class="app-wrapper">
                                  <div class="datatable-search mb-0">
                                     <i class="material-icons mr-2 search-icon">search</i>
-                                    <input type="text" placeholder="Search" class="app-filter no-propagation" id="global_filter">
+                                    <input type="text" placeholder="Search" class="app-filter no-propagation" id="claim-note-search">
                                  </div>
                               </div>
                            </div>
@@ -74,26 +74,28 @@
             className: 'center-align'
          }, {
             data: 'berita_acara_group',
-            name: 'berita_acara_group',
+            name: 'bad.berita_acara_no',
             className: 'detail',
+            // searchable: false,
             render: function(data, type, row, meta) {
                return truncate(data, 35);
             }
          }, {
             data: 'claim_note_no',
-            name: 'claim_note_no',
+            name: 'n.claim_note_no',
             className: 'detail'
          }, {
             data: 'date_of_receipt',
-            name: 'date_of_receipt',
+            name: 'ba.date_of_receipt',
             className: 'detail'
          }, {
             data: 'expedition_name',
-            name: 'expedition_name',
+            name: 'e.expedition_name',
+            searchable: false,
             className: 'detail'
          }, {
             data: 'destination',
-            name: 'destination',
+            name: 'nd.destination',
             className: 'center-align'
          }, {
             data: 'id',
@@ -117,6 +119,9 @@
       });
    });
 
+   $("input#claim-note-search").on("keyup click", function() {
+      dtdatatable_claim_note.search($("#claim-note-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+   });
 
    // Add event listener for opening and closing details
    $('#table-claim-notes tbody').on('click', '.btn-detail', function() {
