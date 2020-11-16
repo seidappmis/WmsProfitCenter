@@ -20,7 +20,7 @@
             <table style="width: 270mm;">
                 <tr>
                     <td>
-                        <table width="100%" style="font-size: 8pt;">
+                        <table width="100%" style="font-size: 5pt;">
                             <tr>
                                 <td>&nbsp;</td>
                             </tr>
@@ -39,45 +39,45 @@
                                 <td rowspan="4" colspan="1" style="width: 10px;">
                                     &nbsp;
                                 </td>
-                                <td colspan="2" style="text-align: left; font-size: 8pt;">
+                                <td colspan="2" style="text-align: left; font-size: 5pt;">
                                     <strong>ReceiptID</strong>
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="6" style="text-align: left; font-size: 8pt;">
+                                <td colspan="6" style="text-align: left; font-size: 5pt;">
                                     <strong>{{$invoiceReceiptHeader->invoice_receipt_id}}</strong>
                                 </td>
                                 <td rowspan="4" colspan="13"
-                                    style="text-align: left; font-size: 9pt; vertical-align: top;">
+                                    style="text-align: left; font-size: 7pt; vertical-align: top;">
                                     <strong>PT. SHARP ELECTRONICS INDONESIA - TRUCKING CHARGES OF TRANSPORTER</strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: left; font-size: 8pt;"><strong>No Tanda
+                                <td colspan="2" style="text-align: left; font-size: 5pt;"><strong>No Tanda
                                         Terima</strong>
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="4" style="text-align: left; font-size: 8pt;">
+                                <td colspan="5" style="text-align: left; font-size: 5pt;">
                                     <strong>{{$invoiceReceiptHeader->invoice_receipt_no}}</strong>
                                 </td>
-                                <td colspan="2" style="text-align: left; font-size: 8pt;">
+                                <td colspan="1" style="text-align: left; font-size: 5pt;">
                                     <strong>{{date('Y-m-d')}}</strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: left; font-size: 8pt;">
+                                <td colspan="2" style="text-align: left; font-size: 5pt;">
                                     <strong>No Kwitansi</strong>
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="6" style="text-align: left; font-size: 8pt;">
+                                <td colspan="6" style="text-align: left; font-size: 5pt;">
                                     <strong>{{$invoiceReceiptHeader->kwitansi_no}}</strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style="text-align: left; font-size: 8pt;">
+                                <td colspan="2" style="text-align: left; font-size: 5pt;">
                                     <strong>Ekspedisi</strong>
                                 </td>
                                 <td style="width: 5mm;">:</td>
-                                <td colspan="6" style="text-align: left; font-size: 8pt;">
+                                <td colspan="6" style="text-align: left; font-size: 5pt;">
                                     <strong>{{$invoiceReceiptHeader->expedition_name}}</strong>
                                 </td>
                             </tr>
@@ -111,12 +111,12 @@
 
                                             </td>
                                             <td colspan="1"
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>TANGGAL</strong>
 
                                             </td>
                                             <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>TUJUAN</strong>
 
                                             </td>
@@ -126,12 +126,12 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>NO POLISI</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>RITASE</strong>
 
                                             </td>
@@ -141,52 +141,52 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>RITASE2</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>MULTIDROP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>UNLOADING</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>OVERSTAY</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 10mm;border: 1pt solid black;">
                                                 <strong>NO DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 10mm;border: 1pt solid black;">
                                                 <strong>TGL DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 25mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 10mm;border: 1pt solid black;">
                                                 <strong>SHIP TO</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 70mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 170mm;border: 1pt solid black;">
                                                 <strong>SHIP TO DETAIL</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 20mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 10mm;border: 1pt solid black;">
                                                 <strong>ACC CODE</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 20mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt; width: 10mm;border: 1pt solid black;">
                                                 <strong>MODEL</strong>
 
                                             </td>
@@ -196,7 +196,7 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 20mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 5pt;width: 10mm;border: 1pt solid black;">
                                                 <strong>TOTAL CBM</strong>
 
                                             </td>
@@ -375,30 +375,30 @@
                                         @endforeach
                                         @endif
                                         {{-- <tr>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 4915072395
                                             </td>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 13/12/2019
 
                                             </td>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 38000000
                                             </td>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 PT. SEID CAB. SERANG
                                             </td>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 Dec19-SRG-BR
                                             </td>
-                                            <td style="text-align: left; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: left; font-size: 5pt;border: 1pt solid black;">
                                                 2T-C50AD1I
                                             </td>
-                                            <td style="text-align: right; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: right; font-size: 5pt;border: 1pt solid black;">
                                                 20
 
                                             </td>
-                                            <td style="text-align: right; font-size: 8pt;border: 1pt solid black;">
+                                            <td style="text-align: right; font-size: 5pt;border: 1pt solid black;">
                                                 3,45
 
                                             </td>
@@ -633,7 +633,7 @@
                                             <td colspan="2" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="3" style="text-align: left;border: 1pt solid black; font-size: 8pt;">
+                                            <td colspan="3" style="text-align: left;border: 1pt solid black; font-size: 5pt;">
                                                 Dec19-SRG-BR
                                             </td>
                                             <td colspan="3" style="text-align: right;border: 1pt solid black;">5.888.888
@@ -719,7 +719,7 @@
                                 </td>
                                 <td rowspan="3" style="text-align: center; border: 1pt solid #000000;">Total Freight
                                 </td>
-                                <td style="text-align: left; font-size: 8pt;">
+                                <td style="text-align: left; font-size: 5pt;">
                                     Total Freight
                                 </td>
 
