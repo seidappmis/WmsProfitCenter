@@ -105,13 +105,13 @@
                                                 <strong>No.</strong>
 
                                             </td>
-                                            <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 60mm;border: 1pt solid black;">
+                                            <td colspan="2"
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
                                                 <strong>NO MANIFEST</strong>
 
                                             </td>
-                                            <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                            <td colspan="1"
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>TANGGAL</strong>
 
                                             </td>
@@ -218,11 +218,11 @@
                                                 {{$noUrutManifest++}}.
 
                                             </td>
-                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
                                                 style="text-align: left; vertical-align: top; font-size: 9pt;border: 1pt solid black;">
                                                 {{$vManifest['do_manifest_no']}}
                                             </td>
-                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: center; vertical-align: top; font-size: 9pt;border: 1pt solid black;">
                                                 {{date('d/m/Y', strtotime($vManifest['do_manifest_date']))}}
 
