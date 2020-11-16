@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
-@if($request->input('filetype') != 'pdf')
-<style type="text/css">
+@if($request->input('filetype') != 'pdf' || $request->input('filetype') != 'html')
+{{-- <style type="text/css">
 @page {
     size: A4;
     margin: 2mm 2mm 2mm 2mm;
@@ -12,8 +12,8 @@
         /*height: 420mm;*/
     }
 }
+</style> --}}
 @endif
-</style>
 <table style="font-family: Arial;">
     <tr>
         <td>
@@ -36,7 +36,7 @@
                                 {{-- <td rowspan="28">
                                     &nbsp;
                                 </td> --}}
-                                <td rowspan="4" colspan="2" style="width: 10px;">
+                                <td rowspan="4" colspan="1" style="width: 10px;">
                                     &nbsp;
                                 </td>
                                 <td colspan="2" style="text-align: left; font-size: 11pt;">
