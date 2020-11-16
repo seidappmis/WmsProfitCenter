@@ -11,7 +11,6 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use PDF;
 
 class BeritaAcaraController extends Controller
 {
@@ -41,7 +40,10 @@ class BeritaAcaraController extends Controller
           $action = '';
           $action .= ' ' . get_button_view(url('berita-acara/' . $data->id));
           $action .= ' ' . get_button_print();
-          $action .= ' ' . get_button_delete();
+          if (empty($data->submit_date)  && $data->details()->count() > 0) {
+            $action .= ' ' . get_button_edit('#!', 'Submit', 'btn-submit');
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         });
 
@@ -74,14 +76,18 @@ class BeritaAcaraController extends Controller
     if ($request->ajax()) {
       $query = $data['beritaAcara']
         ->details()
+        ->select('clm_berita_acara_detail.*', 'clm_berita_acara.submit_date')
+        ->leftjoin('clm_berita_acara', 'clm_berita_acara.id', '=', 'clm_berita_acara_detail.berita_acara_id')
         ->get();
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('action', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_edit(url('berita-acara/' . $data->berita_acara_id . '/detail/' . $data->id . '/edit'));
-          $action .= ' ' . get_button_delete();
+          if (empty($data->submit_date)) {
+            $action .= ' ' . get_button_edit(url('berita-acara/' . $data->berita_acara_id . '/detail/' . $data->id . '/edit'));
+            $action .= ' ' . get_button_delete();
+          }
           return $action;
         });
       return $datatables->make(true);
@@ -101,12 +107,12 @@ class BeritaAcaraController extends Controller
     if ($request->ajax()) {
 
       $validator = Validator::make($request->all(), [
-        'expedition_code'   => 'required',
-        'driver_name'       => 'required',
-        'vehicle_number'    => 'required',
-        'file-do-manifest'  => 'nullable|mimes:jpeg,jpg,png,gif',
-        'file-internal-do'  => 'nullable|mimes:jpeg,jpg,png,gif',
-        'file-lmb'          => 'nullable|mimes:jpeg,jpg,png,gif',
+        'expedition_code'  => 'required',
+        'driver_name'      => 'required',
+        'vehicle_number'   => 'required',
+        'file-do-manifest' => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-internal-do' => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-lmb'         => 'nullable|mimes:jpeg,jpg,png,gif',
       ]);
 
       // Check validation failure
@@ -115,15 +121,15 @@ class BeritaAcaraController extends Controller
       }
 
       // Generate No. Berita Acara : No.urut/BA-Kode cabang/Bulan/Tahun
-      $kode_cabang = auth()->user()->cabang->short_description;
+      $kode_cabang  = auth()->user()->cabang->short_description;
       $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
 
       $prefix_length = strlen($formatNumber);
-      $max_no  = DB::table('clm_berita_acara')
+      $max_no        = DB::table('clm_berita_acara')
         ->select(DB::raw('berita_acara_no AS max_no'))
         ->orderBy('created_at', 'DESC')
         ->first();
-      $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
+      $max_no        = isset($max_no->max_no) ? $max_no->max_no : 0;
       $max_no        = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
       $beritaAcaraNo = $max_no . $formatNumber;
 
@@ -136,27 +142,26 @@ class BeritaAcaraController extends Controller
         $beritaAcara->vehicle_number  = $request->input('vehicle_number');
         // File DO Manifest
         if ($request->hasFile('file-do-manifest')) {
-          $name = uniqid() . '.' . pathinfo($request->file('file-do-manifest')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/do-manifest/files', $request->file('file-do-manifest'), $name);
-          $beritaAcara->do_manifest  = 'do-manifest/files/' . $name;
+          $name                     = uniqid() . '.' . pathinfo($request->file('file-do-manifest')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                     = Storage::putFileAs('public/do-manifest/files', $request->file('file-do-manifest'), $name);
+          $beritaAcara->do_manifest = 'do-manifest/files/' . $name;
         }
 
         // File Internal DO
         if ($request->hasFile('file-internal-do')) {
-          $name = uniqid() . '.' . pathinfo($request->file('file-internal-do')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/internal-do/files', $request->file('file-internal-do'), $name);
-          $beritaAcara->internal_do   = 'internal-do/files/' . $name;
+          $name                     = uniqid() . '.' . pathinfo($request->file('file-internal-do')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                     = Storage::putFileAs('public/internal-do/files', $request->file('file-internal-do'), $name);
+          $beritaAcara->internal_do = 'internal-do/files/' . $name;
         }
-
 
         // File LMB
         if ($request->hasFile('file-lmb')) {
-          $name = uniqid() . '.' . pathinfo($request->file('file-lmb')->getClientOriginalName(), PATHINFO_EXTENSION);
-          $path = Storage::putFileAs('public/lmb/files/', $request->file('file-lmb'), $name);
-          $beritaAcara->lmb             = 'lmb/files/' . $name;
+          $name             = uniqid() . '.' . pathinfo($request->file('file-lmb')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path             = Storage::putFileAs('public/lmb/files/', $request->file('file-lmb'), $name);
+          $beritaAcara->lmb = 'lmb/files/' . $name;
         }
 
-        $beritaAcara->kode_cabang         = auth()->user()->cabang->short_description;
+        $beritaAcara->kode_cabang = auth()->user()->cabang->short_description;
 
         DB::transaction(function () use (&$beritaAcara) {
           $beritaAcara->save();
@@ -192,6 +197,17 @@ class BeritaAcaraController extends Controller
     //
   }
 
+  public function submit(Request $request, $berita_acara_id)
+  {
+    $beritaAcara              = BeritaAcara::findOrFail($berita_acara_id);
+    $beritaAcara->submit_by   = auth()->user()->id;
+    $beritaAcara->submit_date = date('Y-m-d H:i:s');
+
+    $beritaAcara->save();
+
+    return sendSuccess('Berita Acara submited.', $beritaAcara);
+  }
+
   /**
    * Remove the specified resource from storage.
    *
@@ -209,13 +225,13 @@ class BeritaAcaraController extends Controller
 
       DB::commit();
 
-      return true;
+      return sendSuccess("Berita acara berhasil dihapus.", $beritaAcara);
     } catch (Exception $e) {
       DB::rollBack();
 
       return false;
     }
-    return BeritaAcara::destroy($id);
+    // return BeritaAcara::destroy($id);
   }
 
   /**
@@ -225,13 +241,13 @@ class BeritaAcaraController extends Controller
    */
   public function export(Request $request, $id)
   {
-    $data['beritaAcara'] = BeritaAcara::where('id', $id)->first();
+    $data['beritaAcara']       = BeritaAcara::where('id', $id)->first();
     $data['beritaAcaraDetail'] = BeritaAcaraDetail::where('berita_acara_id', $id)->get();
-    $view_print    = view('web.claim.berita-acara._print', $data);
+    $view_print                = view('web.claim.berita-acara._print', $data);
 
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
-      $view_print = view('web.claim.berita-acara._print_excel', $data);
+      $view_print    = view('web.claim.berita-acara._print_excel', $data);
     }
     $title = 'berita-acara';
 
@@ -275,12 +291,12 @@ class BeritaAcaraController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 7,
-        'margin_right'                    => 12,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 7,
+        'margin_right'  => 12,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -294,11 +310,11 @@ class BeritaAcaraController extends Controller
     }
   }
 
-  // func get template excell 
+  // func get template excell
   public function bulkTemplate()
   {
     $view_print = view('web.claim.berita-acara._excel', []);
-    $title = 'template_berita_acara';
+    $title      = 'template_berita_acara';
     // return $view_print;
     // Request FILE EXCEL
     $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
@@ -331,24 +347,23 @@ class BeritaAcaraController extends Controller
     $writer->save("php://output");
   }
 
-
-  // func get template excell 
+  // func get template excell
   public function uploadBulk(Request $req, $id)
   {
     $beritaAcara = BeritaAcara::where('id', $id)->first();
 
-    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+    $spreadsheet   = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $inputFileType = pathinfo($req->file('file-bulk')->getClientOriginalName(), PATHINFO_EXTENSION);
     $inputFileName = $req->file('file-bulk')->getPathName();
 
     $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($inputFileName);
-    $reader->setReadDataOnly(TRUE);
+    $reader->setReadDataOnly(true);
     $spreadsheet = $reader->load($inputFileName);
-    $bulk = $spreadsheet->getActiveSheet()->toArray();
+    $bulk        = $spreadsheet->getActiveSheet()->toArray();
     unset($bulk[0]);
 
     $model = [];
-    $db = [];
+    $db    = [];
     // dd($bulk);
     // dd($spreadsheet);
 
@@ -358,14 +373,14 @@ class BeritaAcaraController extends Controller
 
           $db[$key]['berita_acara_no'] = $beritaAcara->berita_acara_no;
           $db[$key]['berita_acara_id'] = $beritaAcara->id;
-          $db[$key]['do_no'] = $value[1];
-          $db[$key]['model_name'] = $value[2];
-          $db[$key]['serial_number'] = $value[3];
-          $db[$key]['qty'] = $value[4];
-          $db[$key]['description'] = $value[5];
-          $db[$key]['keterangan'] = $value[6];
-          $db[$key]['created_by'] = auth()->user()->id;
-          $db[$key]['created_at'] = date('Y-m-d H:i:s');
+          $db[$key]['do_no']           = $value[1];
+          $db[$key]['model_name']      = $value[2];
+          $db[$key]['serial_number']   = $value[3];
+          $db[$key]['qty']             = $value[4];
+          $db[$key]['description']     = $value[5];
+          $db[$key]['keterangan']      = $value[6];
+          $db[$key]['created_by']      = auth()->user()->id;
+          $db[$key]['created_at']      = date('Y-m-d H:i:s');
 
           if (empty($model[$value[2]])) {
             $masterModel = MasterModel::where('model_name', $value[2])->first();

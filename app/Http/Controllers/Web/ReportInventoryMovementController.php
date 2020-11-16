@@ -61,7 +61,7 @@ class ReportInventoryMovementController extends Controller
     $row = 2;
     foreach ($data as $key => $value) {
       $col = 'A';
-      $sheet->setCellValue(($col++) . $row, ($key + 1));
+      // $sheet->setCellValue(($col++) . $row, ($key + 1));
       $sheet->setCellValue(($col++) . $row, $value->log_id);
       $sheet->setCellValue(($col++) . $row, $value->created_at);
       $sheet->setCellValue(($col++) . $row, $value->model);
@@ -78,12 +78,12 @@ class ReportInventoryMovementController extends Controller
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $sheet->getStyle('A1:' . $col . $row)->getNumberFormat()->setFormatCode('#');
+
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Report Stock Inventory ';
 

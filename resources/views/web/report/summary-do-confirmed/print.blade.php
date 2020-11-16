@@ -13,7 +13,7 @@
   @foreach($details AS $key => $value)
   <tr style="border: 1px solid black;">
     <td style="border: 1px solid black;">{{$value->kode_customer}}</td>
-    <td style="border: 1px solid black;">{{$value->do_date}}</td>
+    <td style="border: 1px solid black;">{{ format_tanggal_wms($value->do_date) }}</td>
     <td style="border: 1px solid black;">{{$value->delivery_no}}</td>
     <td style="border: 1px solid black;">{{$value->do_internal}}</td>
     <td style="border: 1px solid black;">{{$value->confirm_date}}</td>

@@ -469,7 +469,21 @@ class ReceiptInvoiceController extends Controller
     if ($request->input('filetype') == 'html') {
 
       // request HTML View
-      return $view_print;
+      // return $view_print;
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 2,
+        'margin_right'                    => 2,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        'orientation'                     => 'L',
+      ]);
+
+      // $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+
+      $mpdf->Output();
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -522,7 +536,7 @@ class ReceiptInvoiceController extends Controller
         'margin_right'                    => 2,
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
-        'format'                          => 'A3',
+        'format'                          => 'A4',
         'orientation'                     => 'L',
       ]);
 

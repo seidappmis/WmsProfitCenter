@@ -83,7 +83,7 @@
     dtdatatable_claim_note = $('#table-claim-notes').DataTable({
       serverSide: true,
       scrollX: true,
-      responsive: true,
+      responsive: false,
       paging: false,
       ajax: {
         url: '{{url("claim-notes/".$claimNote->id."/list-claim-notes")}}',

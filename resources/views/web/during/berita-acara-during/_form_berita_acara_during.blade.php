@@ -16,7 +16,7 @@
         <tr>
             <td>KAPAL</td>
             <td>
-                <input type="text" name="ship_name" required>
+                <input type="text" name="ship_name">
             </td>
             <td>EKSPEDISI</td>
             <td>
@@ -58,7 +58,7 @@
         <tr>
             <td>SEAL NO</td>
             <td>
-                <input type="text" name="seal_no" required>
+                <input type="text" name="seal_no">
             </td>
             <td>LOKASI</td>
             <td>

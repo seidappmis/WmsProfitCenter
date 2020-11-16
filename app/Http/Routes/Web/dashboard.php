@@ -9,6 +9,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('dashboard2/daily-by-category', 'Web\Dashboard2Controller@getDailyByCategory');
 
   Route::view('trucking-monitor', 'web.dashboard.trucking-monitor.index');
+  Route::get('trucking-monitor/loading-status', 'Web\TruckingMonitorController@getLoadingStatus');
+  Route::get('trucking-monitor/after-loading-status', 'Web\TruckingMonitorController@getAfterLoadingStatus');
   Route::get('trucking-monitor/vehicle-standby', 'Web\TruckingMonitorController@getVehicleStandby');
   Route::get('trucking-monitor/delivery-order', 'Web\TruckingMonitorController@getDeliveryOrder');
 });

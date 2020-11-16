@@ -18,7 +18,7 @@ class ConceptOrDOOutstandingListController extends Controller
 
       $datatables = DataTables::of($query)
         ->editColumn('created_at', function ($data) {
-          return $data->created_at;
+          return format_tanggal_jam_wms($data->created_at);
         })
       ;
 
@@ -170,17 +170,16 @@ class ConceptOrDOOutstandingListController extends Controller
         $sheet->setCellValue(($col++) . $row, $value->sold_to_street);
         $sheet->setCellValue(($col++) . $row, $value->remarks);
         $sheet->setCellValue(($col++) . $row, $value->area);
-        $sheet->setCellValue(($col++) . $row, $value->created_at);
+        $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
         $sheet->setCellValue(($col++) . $row, $value->upload_by);
         $row++;
       }
 
-      $sheet->getColumnDimension('A')->setAutoSize(true);
-      $sheet->getColumnDimension('B')->setAutoSize(true);
-      $sheet->getColumnDimension('C')->setAutoSize(true);
-      $sheet->getColumnDimension('D')->setAutoSize(true);
-      $sheet->getColumnDimension('E')->setAutoSize(true);
-      $sheet->getColumnDimension('F')->setAutoSize(true);
+      $colResize = 'A';
+      while($colResize != $col){
+        $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+      }
+      
     } else {
       $col = 'A';
       $sheet->setCellValue(($col++) . '1', 'INVOICE NO');
@@ -219,7 +218,7 @@ class ConceptOrDOOutstandingListController extends Controller
         $sheet->setCellValue(($col++) . $row, $value->ean_code);
         $sheet->setCellValue(($col++) . $row, $value->quantity);
         $sheet->setCellValue(($col++) . $row, $value->cbm);
-        $sheet->setCellValue(($col++) . $row, $value->created_at);
+        $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
         $sheet->setCellValue(($col++) . $row, $value->created_by);
         $sheet->setCellValue(($col++) . $row, $value->code_sales);
         $sheet->setCellValue(($col++) . $row, $value->area);
@@ -230,12 +229,10 @@ class ConceptOrDOOutstandingListController extends Controller
         $row++;
       }
 
-      $sheet->getColumnDimension('A')->setAutoSize(true);
-      $sheet->getColumnDimension('B')->setAutoSize(true);
-      $sheet->getColumnDimension('C')->setAutoSize(true);
-      $sheet->getColumnDimension('D')->setAutoSize(true);
-      $sheet->getColumnDimension('E')->setAutoSize(true);
-      $sheet->getColumnDimension('F')->setAutoSize(true);
+      $colResize = 'A';
+      while($colResize != $col){
+        $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+      }
 
     }
 

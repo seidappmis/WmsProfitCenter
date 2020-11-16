@@ -11,7 +11,7 @@
             <table  style="font-size: 10pt;line-height: 1.4">
                 
                 <tr>
-                    <td style="width: 63mm;"></td>
+                    <td style="width: 66mm;"></td>
                     <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                     <td>{{$lmbHeader->expedition_name}}</td>
                     
@@ -48,8 +48,8 @@
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;" autosize="1">
         <tbody>
             <tr>
-                <td style="text-align: center; width: 13mm;"></td>
-                <td style="text-align: center; width: 36mm;"></td>
+                <td style="text-align: center; width: 19mm;"></td>
+                <td style="text-align: center; width: 33mm;"></td>
                 <td style="text-align: center; width: 18mm;"></td>
                 <td style="text-align: center; " colspan="12" ></td>
             </tr>
@@ -72,7 +72,7 @@
                     {{$row_no}}
                 </td>
                 <td   style="
-                text-align: center;  
+                text-align: left;  
                 vertical-align: top;
                 {{$row_no == count($rs_details) ? '' : ''}}">
                     {{$k_model}}
@@ -115,6 +115,15 @@
             @endphp
             @endwhile
 
+            {{-- Add Space --}}
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
             @php
             $row_no++;
             @endphp

@@ -20,6 +20,9 @@ class StandbyDriverListController extends Controller
         ->editColumn('driver_id', function ($data) {
           return $data->driver_id . '<br>' . $data->driver_name;
         })
+        ->editColumn('created_at', function ($data) {
+          return format_tanggal_jam_wms($data->created_at);
+        })
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('picking-list/transporter/' . $data->id), 'Assign Picking');
@@ -76,7 +79,7 @@ class StandbyDriverListController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->expedition_code);
       $sheet->setCellValue(($col++) . $row, $value->sap_vendor_code);
       $sheet->setCellValue(($col++) . $row, $value->expedition_name);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->area);
       $row++;
     }
