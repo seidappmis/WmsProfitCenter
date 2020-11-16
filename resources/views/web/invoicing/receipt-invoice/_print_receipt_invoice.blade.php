@@ -46,7 +46,7 @@
                                 <td colspan="6" style="text-align: left; font-size: 11pt;">
                                     <strong>{{$invoiceReceiptHeader->invoice_receipt_id}}</strong>
                                 </td>
-                                <td rowspan="4" colspan="14"
+                                <td rowspan="4" colspan="13"
                                     style="text-align: left; font-size: 14pt; vertical-align: top;">
                                     <strong>PT. SHARP ELECTRONICS INDONESIA - TRUCKING CHARGES OF TRANSPORTER</strong>
                                 </td>
@@ -100,38 +100,38 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"
+                                            <td
                                                 style="text-align: center; vertical-align: top; font-size: 9pt; border: 1pt solid black;">
                                                 <strong>No.</strong>
 
                                             </td>
-                                            <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                            <td colspan="2" 
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 30;border: 1pt solid black;">
                                                 <strong>NO MANIFEST</strong>
 
                                             </td>
                                             <td colspan="1"
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 20mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>TANGGAL</strong>
 
                                             </td>
                                             <td colspan="2"
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>TUJUAN</strong>
 
                                             </td>
-                                            <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                            <td colspan="2"
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>KENDARAAN</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>NO POLISI</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>RITASE</strong>
 
                                             </td>
@@ -141,37 +141,37 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>RITASE2</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>MULTIDROP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>UNLOADING</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 25mm;border: 1pt solid black;">
                                                 <strong>OVERSTAY</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 25mm;border: 1pt solid black;">
                                                 <strong>NO DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 25mm;border: 1pt solid black;">
                                                 <strong>TGL DO SAP</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 25mm;border: 1pt solid black;">
                                                 <strong>SHIP TO</strong>
 
                                             </td>
@@ -181,12 +181,12 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 20mm;border: 1pt solid black;">
                                                 <strong>ACC CODE</strong>
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt; width: 20mm;border: 1pt solid black;">
                                                 <strong>MODEL</strong>
 
                                             </td>
@@ -196,7 +196,7 @@
 
                                             </td>
                                             <td
-                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 40mm;border: 1pt solid black;">
+                                                style="text-align: center; vertical-align: top; font-size: 9pt;width: 20mm;border: 1pt solid black;">
                                                 <strong>TOTAL CBM</strong>
 
                                             </td>
@@ -213,7 +213,7 @@
                                         $subTotalCbm = 0;
                                         @endphp
                                         <tr>
-                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
                                                 style="text-align: center; vertical-align: top; font-size: 9pt;border: 1pt solid black;">
                                                 {{$noUrutManifest++}}.
 
@@ -231,7 +231,7 @@
                                                 style="text-align: left; vertical-align: top; font-size: 9pt;border: 1pt solid black;">
                                                 {{ $vManifest['city_name'] }}
                                             </td>
-                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}"
+                                            <td rowspan="{{ ($vManifest['total_model'] + 1) }}" colspan="2"
                                                 style="text-align: left; vertical-align: top; font-size: 9pt;border: 1pt solid black;">
                                                 {{ $vManifest['vehicle_description'] }}
                                             </td>
@@ -417,7 +417,7 @@
 
                                         <tr>
 
-                                            <td colspan="20" style="text-align: center; ">
+                                            <td >
                                                 &nbsp;
                                             </td>
                                         </tr>
@@ -425,8 +425,7 @@
                                             <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 9pt;">Total
-                                                Freight
+                                            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 9pt;">Total Freight
                                             </td>
                                             <td style="text-align: right;border: 1pt solid black; font-size: 9pt;">
                                                 {{ thousand_reformat($printData['total_freight']) }}
@@ -483,7 +482,7 @@
 
                                         </tr>
                                         <tr>
-                                            <td colspan="7" style="text-align: center; ">
+                                            <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
                                             @if($printData['summary']['BR'])
@@ -503,7 +502,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="7" style="text-align: center; ">
+                                            <td colspan="6" style="text-align: center; ">
                                                 &nbsp;
                                             </td>
                                             @if($printData['summary']['BR'])
@@ -546,7 +545,7 @@
                                             <td colspan="3" style="font-size: 9pt;text-align: center; ">
                                                 &nbsp;
                                             </td>
-                                            <td colspan="4" style="font-size: 9pt;text-align: left; border: 1pt solid black;">
+                                            <td colspan="3" style="font-size: 9pt;text-align: left; border: 1pt solid black;">
                                                 {{$key}}
                                             </td>
                                             @if($printData['summary']['BR'])

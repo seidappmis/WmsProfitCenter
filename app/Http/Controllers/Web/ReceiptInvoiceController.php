@@ -480,7 +480,7 @@ class ReceiptInvoiceController extends Controller
         'orientation'                     => 'L',
       ]);
 
-      $mpdf->shrink_tables_to_fit = 1;
+      // $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output();
