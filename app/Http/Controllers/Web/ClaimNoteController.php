@@ -197,22 +197,6 @@ class ClaimNoteController extends Controller
               }
 
               $rsDetailClaim[] = $detailClaim;
-              // $claimNoteDetailID = ClaimNoteDetail::insertGetId([
-              //   'claim_note_id'          => $claimNoteID,
-              //   'berita_acara_detail_id' => $key,
-              //   'date_of_receipt'        => $value['date_of_receipt'],
-              //   'expedition_code'        => $value['expedition_code'],
-              //   'driver_name'            => $value['driver_name'],
-              //   'vehicle_number'         => $value['vehicle_number'],
-              //   'do_no'                  => $value['do_no'],
-              //   'model_name'             => $value['model_name'],
-              //   'serial_number'          => $value['serial_number'],
-              //   'description'            => $value['description'],
-              //   'created_by'             => auth()->user()->id,
-              //   'created_at'             => date('Y-m-d H:i:s'),
-              // ]);
-              // update berita acara detail _> claim note id from before
-              // BeritaAcaraDetail::whereId($key)->update(['claim_note_detail_id' => $claimNoteDetailID]);// Ga jadi dipakai
             }
 
             if (!empty($rsDetailClaim)) {
@@ -328,7 +312,8 @@ class ClaimNoteController extends Controller
           'nd.description',
           'nd.qty',
           'nd.price',
-          'nd.id AS claim_note_detail'
+          'nd.id AS claim_note_detail',
+          'bad.photo_url'
         );
 
       $datatables = DataTables::of($query)
@@ -447,8 +432,6 @@ class ClaimNoteController extends Controller
       }
     }
 
-    $view_print = view('web.claim.claim-notes._print', $data);
-
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
       $view_print    = view('web.claim.claim-notes._print_excel', $data);
@@ -457,7 +440,8 @@ class ClaimNoteController extends Controller
     $title = 'claim_letter';
 
     if ($request->input('filetype') == 'html') {
-      // Request HTML View
+
+      $view_print = view('web.claim.claim-notes._print', $data);
       return $view_print;
     } else if ($request->input('filetype') == 'xls') {
 
@@ -500,35 +484,75 @@ class ClaimNoteController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function exportDetail(Request $request, $id, $detail_id)
+  public function exportDetail(Request $request, $id)
   {
-    $view_print = view('web.claim.claim-notes._print_detail');
-    $title      = 'claim_letter_detail';
+    // $data['claimNote'] = ClaimNote::where('id', $id)->first();
+    $claimNoteSubQuery = ClaimNoteDetail::where('claim_note_id', $id)
+      ->select(
+        'claim_note_id',
+        DB::raw("sum(1) as unit"),
+        DB::raw("sum(qty) as sum_qty"),
+        DB::raw("sum(price) as sum_price"),
+        DB::raw("sum(price*qty) as sub_total")
+      );
+
+    $data['claimNote'] = ClaimNote::from('clm_claim_notes AS n')
+      ->joinSub($claimNoteSubQuery, 'nd', function ($join) {
+        $join->on('n.id', '=', 'nd.claim_note_id');
+      })
+      ->where('id', $id)
+      ->first();
+
+    $data['claimNoteDetail'] = ClaimNoteDetail::select(
+      'clm_claim_note_detail.*',
+      DB::raw('tr_expedition.expedition_name AS expedition_name')
+    )->leftJoin(
+      'tr_expedition',
+      'tr_expedition.code',
+      '=',
+      'clm_claim_note_detail.expedition_code'
+    )
+      ->where('clm_claim_note_detail.claim_note_id', $id)
+      ->get();
+
+    $data['qty'] = 0;
+    $data['price'] = 0;
+    $data['subTotal'] = 0;
+    if (!$data['claimNoteDetail']->isEmpty()) {
+      foreach ($data['claimNoteDetail'] as $key => $value) {
+        $data['qty'] += $value->qty;
+        $data['price'] += $value->price;
+        $data['subTotal'] += $value->price * $value->price;
+      }
+    }
+
+    $view_print = view('web.claim.claim-notes._print_detail', $data);
+    if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      $view_print    = view('web.claim.claim-notes._print_detail', $data);
+    }
+
+    $title = 'claim_letter';
 
     if ($request->input('filetype') == 'html') {
-      // Request HTML View
       return $view_print;
     } else if ($request->input('filetype') == 'xls') {
-      // Request File EXCEL
+
+      // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
-
       // Set Font
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
-
-      // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(20);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

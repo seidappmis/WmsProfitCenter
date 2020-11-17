@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('claim-notes/{id}/update', 'Web\ClaimNoteController@update'); //update detail claim notes
   Route::get('claim-notes/{id}/list-claim-notes', 'Web\ClaimNoteController@listDetailClaimNotes'); //list datatable claim notes detail
   Route::get('claim-notes/{berita_acara_id}/print', 'Web\ClaimNoteController@export'); //proses cetak claim note
+  Route::get('claim-notes/{berita_acara_id}/print-detail', 'Web\ClaimNoteController@exportDetail');
   Route::post('claim-notes/create', 'Web\ClaimNoteController@create');
 
   // Claim Insurance
