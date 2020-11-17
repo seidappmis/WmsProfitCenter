@@ -188,7 +188,7 @@ class ConformManifestController extends Controller
           }
 
           // yang bukan return
-          if ($manifestDetail->do_return != 1) {
+          if ($manifesDetail->do_return != 1) {
             // Jika CODE SALES BRANCH Stock Branch Bertambah
             if ($manifesDetail->code_sales == 'BR') {
               InventoryStorage::updateOrCreate(
