@@ -187,32 +187,70 @@ class ConformManifestController extends Controller
             $rs_model[$manifesDetail->model] = $model;
           }
 
-          // Jika CODE SALES BRANCH Stock Branch Bertambah
-          if ($manifesDetail->code_sales == 'BR') {
+          // yang bukan return
+          if ($manifestDetail->do_return != 1) {
+            // Jika CODE SALES BRANCH Stock Branch Bertambah
+            if ($manifesDetail->code_sales == 'BR') {
+              InventoryStorage::updateOrCreate(
+                // Condition
+                [
+                  'storage_id' => $firstClass[$manifesDetail->kode_cabang]->id,
+                  'model_name' => $manifesDetail->model,
+                ],
+                // Data Update
+                [
+                  'ean_code'       => (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : ''),
+                  'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $manifesDetail->quantity),
+                  'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $manifesDetail->cbm),
+                  'last_updated'   => $date_now,
+                ]
+              );
+
+              // ADD MOVEMENT
+              // Movement Code
+              // id 9 Code 9X5 Increase Menambah Sloc Intransit HQ
+              $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
+              $movement_transaction_log['do_manifest_no']        = $manifesDetail->do_manifest_no;
+              $movement_transaction_log['mvt_master_id']         = $movementIncreaseSLOC->id;
+              $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementIncreaseSLOC->action;
+              $movement_transaction_log['movement_code']         = $movementIncreaseSLOC->movement_code;
+              $movement_transaction_log['transactions_desc']     = $movementIncreaseSLOC->action_description;
+              $movement_transaction_log['storage_location_from'] = $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->sto_loc_code_long;
+              $movement_transaction_log['storage_location_to']   = $firstClass[$manifesDetail->kode_cabang]->sto_loc_code_long;
+              $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
+              $movement_transaction_log['eancode']               = (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : '');
+              $movement_transaction_log['model']                 = $manifesDetail->model;
+              $movement_transaction_log['quantity']              = $manifesDetail->quantity;
+              $movement_transaction_log['created_at']            = $date_now;
+              $movement_transaction_log['flow_id']               = '';
+              $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
+              $movement_transaction_log['created_by']            = auth()->user()->id;
+
+              $rs_movement_transaction_log[] = $movement_transaction_log;
+
+            } // END OF CODE SALES BRANCH
+
             InventoryStorage::updateOrCreate(
               // Condition
               [
-                'storage_id' => $firstClass[$manifesDetail->kode_cabang]->id,
+                'storage_id' => $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->id,
                 'model_name' => $manifesDetail->model,
               ],
               // Data Update
               [
                 'ean_code'       => (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : ''),
-                'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $manifesDetail->quantity),
-                'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $manifesDetail->cbm),
+                'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $manifesDetail->quantity),
+                'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $manifesDetail->cbm),
                 'last_updated'   => $date_now,
               ]
             );
 
-            // ADD MOVEMENT
-            // Movement Code
-            // id 9 Code 9X5 Increase Menambah Sloc Intransit HQ
             $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
             $movement_transaction_log['do_manifest_no']        = $manifesDetail->do_manifest_no;
-            $movement_transaction_log['mvt_master_id']         = $movementIncreaseSLOC->id;
-            $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementIncreaseSLOC->action;
-            $movement_transaction_log['movement_code']         = $movementIncreaseSLOC->movement_code;
-            $movement_transaction_log['transactions_desc']     = $movementIncreaseSLOC->action_description;
+            $movement_transaction_log['mvt_master_id']         = $movementDecreaseIntransit->id;
+            $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementDecreaseIntransit->action;
+            $movement_transaction_log['movement_code']         = $movementDecreaseIntransit->movement_code;
+            $movement_transaction_log['transactions_desc']     = $movementDecreaseIntransit->action_description;
             $movement_transaction_log['storage_location_from'] = $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->sto_loc_code_long;
             $movement_transaction_log['storage_location_to']   = $firstClass[$manifesDetail->kode_cabang]->sto_loc_code_long;
             $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
@@ -225,42 +263,7 @@ class ConformManifestController extends Controller
             $movement_transaction_log['created_by']            = auth()->user()->id;
 
             $rs_movement_transaction_log[] = $movement_transaction_log;
-
-          } // END OF CODE SALES BRANCH
-
-          InventoryStorage::updateOrCreate(
-            // Condition
-            [
-              'storage_id' => $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->id,
-              'model_name' => $manifesDetail->model,
-            ],
-            // Data Update
-            [
-              'ean_code'       => (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : ''),
-              'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $manifesDetail->quantity),
-              'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $manifesDetail->cbm),
-              'last_updated'   => $date_now,
-            ]
-          );
-
-          $movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
-          $movement_transaction_log['do_manifest_no']        = $manifesDetail->do_manifest_no;
-          $movement_transaction_log['mvt_master_id']         = $movementDecreaseIntransit->id;
-          $movement_transaction_log['inventory_movement']    = 'Stock ' . $movementDecreaseIntransit->action;
-          $movement_transaction_log['movement_code']         = $movementDecreaseIntransit->movement_code;
-          $movement_transaction_log['transactions_desc']     = $movementDecreaseIntransit->action_description;
-          $movement_transaction_log['storage_location_from'] = $storageIntransit[$manifesDetail->code_sales][$manifesDetail->kode_cabang]->sto_loc_code_long;
-          $movement_transaction_log['storage_location_to']   = $firstClass[$manifesDetail->kode_cabang]->sto_loc_code_long;
-          $movement_transaction_log['storage_location_code'] = $movement_transaction_log['storage_location_from'] . ' & ' . $movement_transaction_log['storage_location_to'];
-          $movement_transaction_log['eancode']               = (!empty($rs_model[$manifesDetail->model]) ? $rs_model[$manifesDetail->model]->ean_code : '');
-          $movement_transaction_log['model']                 = $manifesDetail->model;
-          $movement_transaction_log['quantity']              = $manifesDetail->quantity;
-          $movement_transaction_log['created_at']            = $date_now;
-          $movement_transaction_log['flow_id']               = '';
-          $movement_transaction_log['kode_cabang']           = $manifesDetail->kode_cabang;
-          $movement_transaction_log['created_by']            = auth()->user()->id;
-
-          $rs_movement_transaction_log[] = $movement_transaction_log;
+          }
 
         }
 
