@@ -20,15 +20,18 @@ class ClaimInsuranceController extends Controller
   public function index(Request $req)
   {
     if ($req->ajax()) {
-      $query = BeritaAcaraDetail::whereNull('claim_insurance_detail_id')
+      $query = BeritaAcaraDetail::select(
+        'clm_berita_acara_detail.*',
+        'clm_berita_acara.expedition_code',
+        'clm_berita_acara.vehicle_number',
+        'clm_berita_acara.date_of_receipt',
+        'clm_berita_acara.driver_name'
+      )
         ->leftJoin('clm_berita_acara', 'clm_berita_acara.id', '=', 'clm_berita_acara_detail.berita_acara_id')
-        ->select(
-          'clm_berita_acara_detail.*',
-          'clm_berita_acara.expedition_code',
-          'clm_berita_acara.vehicle_number',
-          'clm_berita_acara.date_of_receipt',
-          'clm_berita_acara.driver_name'
-        )
+        ->leftJoin('clm_claim_insurance_detail', 'clm_claim_insurance_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
+        ->whereNotNull('clm_berita_acara.submit_date')
+        ->whereNull('clm_claim_insurance_detail.id')
+        // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
