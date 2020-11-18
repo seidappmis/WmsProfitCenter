@@ -645,6 +645,8 @@ class PickingListController extends Controller
       // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
       // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
+        ->orderBy('delivery_no', 'asc')
+        ->orderBy('delivery_items', 'asc')
       ;
 
       if (empty($request->input('do_or_shipment'))) {
@@ -679,6 +681,8 @@ class PickingListController extends Controller
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
+        ->orderBy('delivery_no', 'asc')
+        ->orderBy('delivery_items', 'asc')
       // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
       ;
 
