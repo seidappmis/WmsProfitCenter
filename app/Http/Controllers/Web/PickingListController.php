@@ -679,6 +679,7 @@ class PickingListController extends Controller
           $join->on('wmcT.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wmcT.delivery_no', '=', 'wms_manual_concept.delivery_no');
         })
+        ->where('wmcT.kode_cabang', auth()->user()->cabang->kode_cabang)
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
         ->orderBy('delivery_no', 'asc')
