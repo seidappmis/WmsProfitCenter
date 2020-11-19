@@ -117,7 +117,7 @@
         d.search['value'] = $('#global_filter').val()
       }
     },
-    order: [1, 'asc'],
+    // order: [1, 'asc'],
     columns: [{
         data: 'DT_RowIndex',
         orderable: false,

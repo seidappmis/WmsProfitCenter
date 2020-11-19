@@ -60,29 +60,56 @@
 				<table style="font-family: Arial Narrow;border-collapse: collapse; font-size: 9pt;">
 					<tr>
 						<td colspan="">Reason :</td>
-						<td colspan="">{{$claimNote->claim=='carton-box'?'Claim Carton Box':'Claim Note Unit'}}</td>
 					</tr>
 					<tr>
 						<td style="height: 10px;" colspan="8"></td>
 					</tr>
 					<tr>
-						<td colspan="" style=" text-align: left;"><strong>Claim Unit : &nbsp; {{$claimNote->sum_qty}} Unit</strong></td>
-						<td colspan="" style="width: 7mm;">&nbsp;</td>
+						<td></td>
+						<td colspan="2"><strong>Claim Carton Box : {{$claimNote->claim=='carton-box'?$claimNote->sum_qty.' Unit':''}}</strong></td>
+						<td colspan="" style="width: 7mm;"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Wet Carton Box</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Damage Carton Box</td>
 					</tr>
 					<tr>
 						<td style="height: 10px;" colspan="8"></td>
 					</tr>
-					@foreach($claimNoteDetail as $key => $value)
 					<tr>
-						<td>
-							<div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:15px; height:15px; float: right;"></div>
-						</td>
-						<td colspan="">{{$value['description']}}</td>
+						<td></td>
+						<td colspan="2"><strong>Claim Unit : {{$claimNote->claim=='unit'?$claimNote->sum_qty.' Unit':''}}</strong></td>
+						<td colspan="" style="width: 7mm;"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Unit of F/G Damaged</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Unit of F/G Scratched</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Unit of F/G Dented</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="width: 5mm;"><input type="checkbox" /></td>
+						<td>Unit of F/G Broken</td>
 					</tr>
 					<tr>
 						<td style="height: 10px;" colspan="8"></td>
 					</tr>
-					@endforeach
 				</table>
 			</td>
 			<td colspan="8" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000; border-left: 1pt solid #000000; border-bottom: 2pt solid #000000;">
@@ -99,7 +126,7 @@
 						<td width="500px" colspan="2" style="">Material Cost Amount</td>
 						<td colspan="2">&nbsp;</td>
 						<td>=</td>
-						<td width="300px">&nbsp;</td>
+						<td width="300px" style="text-align: right;">{{number_format($claimNote->sub_total, 2, ',', '.')}}</td>
 						<td>&nbsp;</td>
 					</tr>
 					<tr>
@@ -241,8 +268,8 @@
 		<!-- Company Name -->
 		<tr>
 			<td colspan="5" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Company Name :</strong></td>
-			<td colspan="3" style="border-top: 2pt solid #000000; font-size: 12pt;"><strong>SEJAHTERA BERSAMA TRANSINDO, PT.</strong></td>
-			<td colspan="7" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;"><strong>Supplier Code :</strong></td>
+			<td colspan="3" style="border-top: 2pt solid #000000; font-size: 12pt;"><strong>{{$claimNote->expedition_name}}</strong></td>
+			<td colspan="7" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;"><strong>Supplier Code : {{$claimNote->expedition_code}}</strong></td>
 		</tr>
 		<tr>
 			<td colspan="5" style="border-left: 2pt solid #000000;"><strong>Opinion :</strong></td>
@@ -260,7 +287,7 @@
 			</td>
 			<td>&nbsp;Deduct Payment</td>
 			<td colspan="">Claim Amount(IDR, JYP, USD)</td>
-			<td style="">: <span style="border-bottom: 1pt solid #000000;"><strong>{{money_currency($subTotal)}}</strong></span> </td>
+			<td style="">: <span style="border-bottom: 1pt solid #000000;"><strong>{{number_format($claimNote->sub_total, 2, ',', '.')}}</strong></span> </td>
 			<td colspan="" style="border-right: 2pt solid #000000;">
 				<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
 					<tr>

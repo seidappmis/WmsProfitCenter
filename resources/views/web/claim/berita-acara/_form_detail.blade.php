@@ -35,7 +35,7 @@
                     <option value=""></option>
                     <option value="Carton Box Damage">Carton Box Damage</option>
                     <option value="Unit Damage">Unit Damage</option>
-                    <option value="Unit Damage">Unit Damage</option>
+                    <option value="Unit Missing">Unit Missing</option>
                     <option value="Others">Others</option>
                 </select>
             </td>

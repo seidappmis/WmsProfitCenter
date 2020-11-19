@@ -194,7 +194,7 @@
     var dtTableDetail = $('#table-detail').DataTable({
         serverSide: true,
         scrollX: true,
-        responsive: true,
+        // responsive: true,
         ajax: {
             url: '{{ url("/berita-acara-during/:id/detail-list") }}'.replace(':id', $('#form-berita-acara-during-detail [name="berita_acara_id"]').val()),
             type: 'GET',
@@ -202,7 +202,7 @@
                 d.search['value'] = $('#global_filter').val();
             }
         },
-        order: [1, 'asc'],
+        // order: [1, 'asc'],
         columns: [{
                 data: 'DT_RowIndex',
                 orderable: false,
@@ -263,7 +263,7 @@
                 render: function(data, type, row, meta) {
                     return ' ' + '<?= get_button_edit() ?>' + ' ' + '<?= get_button_delete() ?>';
                 },
-                className: "center-align"
+                className: "detail center-align"
             }
         ]
     });
@@ -293,6 +293,75 @@
 
         $('#modal-update').modal('open');
     })
+
+    $('#table-detail tbody').on('click', '.btn-edit', function() {
+        var tr = $(this).closest('tr');
+        var d = dtTableDetail.row(tr).data();
+
+        $('#form-update [name="id"]').val(d.id);
+        $('#form-update [name="qty"]').val(d.qty);
+        $('#form-update [name="pom"]').val(d.pom);
+        $('#form-update [name="damage"]').val(d.damage);
+
+        set_select2_value('#form-update [name="model_name"]', d.model_name, d.model_name);
+        $('#form-update [name="model_name"]').select2({
+            placeholder: '-- Select Model/Item No. --',
+            ajax: get_select2_ajax_options('/master-model/select2-model2')
+        });
+
+        $('#form-update #file_photo_serial_number').show();
+        $('#form-update #file_photo_serial_number img').attr("src", "{{asset('storage')}}" + '/' + d.photo_serial_number);
+        $('#form-update #file_photo_serial_number a').attr("href", "{{asset('storage')}}" + '/' + d.photo_serial_number);
+
+        $('#form-update #file_photo_damage').show();
+        $('#form-update #file_photo_damage img').attr("src", "{{asset('storage')}}" + '/' + d.photo_damage);
+        $('#form-update #file_photo_damage a').attr("href", "{{asset('storage')}}" + '/' + d.photo_damage);
+
+        $('#modal-update').modal('open');
+    });
+
+
+    dtTableDetail.on('click', '.btn-delete', function(event) {
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        var tr = $(this).parent().parent();
+        var data = dtTableDetail.row(tr).data();
+        setLoading(true);
+        swal({
+            text: "Are you sure want to delete " + data.pom + " ?",
+            icon: 'warning',
+            buttons: {
+                cancel: true,
+                delete: 'Yes, Delete It'
+            }
+        }).then(function(confirm) { // proses confirm
+            if (confirm) {
+                $.ajax({
+                        url: ('{{ url("/berita-acara-during/:id/create") }}').replace(':id', data.id),
+                        type: 'POST',
+                        data: isiForm,
+                        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                        processData: false, // NEEDED, DON'T OMIT THIS
+                    })
+                    .done(function(result) {
+                        if (result.status) {
+                            showSwalAutoClose('Success', result.message);
+                            dtTableDetail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                        } else {
+                            showSwalAutoClose('Warning', result.message)
+                        }
+                        setLoading(false);
+                    })
+                    .fail(function() {
+                        setLoading(false);
+                    })
+                    .always(function() {
+                        setLoading(false);
+                    });
+            }
+        })
+    });
 
     $('#form-berita-acara-during-detail [name="model_name"]').select2({
         placeholder: '-- Select Model/Item No. --',
