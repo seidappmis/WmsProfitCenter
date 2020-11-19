@@ -102,7 +102,7 @@
     $start_no = 1;
     $total_qty = 0;
     $total_cbm = 0;
-    $total_model = 0;
+    $total_do = 0;
     @endphp
     
     @foreach($rs_details as $key => $detail)
@@ -121,15 +121,15 @@
         $sub_total_cbm += $vm->cbm;
         @endphp
         <tr>
-          @php
-          $total_model++;
-          @endphp
           @if($km == 0)
           @if($start_do == 1)
           <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to_code}}</td>
           <td rowspan="{{ $detail['rowspan'] }}" style="width: 5mm;"></td>
           <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to}}</td>
           @endif
+          @php
+          $total_do++;
+          @endphp
           <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
           <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
           <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
@@ -170,7 +170,7 @@
     <tr>
       <td colspan="7" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Total</strong></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;">{{$total_model}}</td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;">{{$total_do}}</td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
       <td colspan="2" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;">{{$total_qty}}</td>
