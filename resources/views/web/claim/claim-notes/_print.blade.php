@@ -37,7 +37,7 @@
             <td colspan="6" style="text-align: left; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
             <td colspan="5">&nbsp;</td>
             <td colspan="2" style="text-align: left;"><strong>Date:</strong></td>
-            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000;"><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
+            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000; width: 18mm;"><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
             <td style="border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
         </tr>
         <tr>
@@ -59,7 +59,7 @@
             <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">Reason :</td>
             <td style="border-right: 2px solid #000000;" colspan="21">Claim Amount :</td>
         </tr>
-        <tr>
+       {{number_format($claimNote->sub_total, 2, ',', '.')}} <tr>
             <td style="border-left: 2px solid #000000;"></td>
             <td colspan="13" style="width: 7mm; border-right: 1px solid #000000;"><strong>Claim Carton Box : {{$claimNote->claim=='carton-box'?$claimNote->sum_qty.' Unit':''}}</strong></td>
             <td colspan="21" style="width: 7mm; border-right: 2px solid #000000;"></td>
@@ -207,7 +207,7 @@
             <td colspan="5" style="border-left: 2pt solid #000000; border-bottom: 2pt solid #000000;">
             	<strong>Total Claim Amount</strong>
             </td>
-            <td style="border-bottom: 2pt solid #000000;">
+            <td style="border-bottom: 2pt solid #0000{{number_format($claimNote->sub_total, 2, ',', '.')}}00;">
             	<input type="checkbox" name="">
             </td>
             <td style="border-bottom: 2pt solid #000000;">
@@ -321,7 +321,7 @@
             <td colspan="5">Deduct Payment</td>
             <td colspan="6">Claim Amount (IDR, JPY, USD) : </td>
             <td colspan="1" style="border-bottom: 1px solid #000000;"></td>
-            <td colspan="5" style="border-bottom: 1px solid #000000;"></td>
+            <td colspan="5" style="border-bottom: 1px solid #000000;">{{number_format($claimNote->sub_total, 2, ',', '.')}}</td>
             <td style="width: 5mm;"></td>
             <td colspan="4" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000; text-align: center;"><strong></strong></td>
         </tr>
@@ -427,240 +427,6 @@
         	<td colspan="29">&nbsp;</td>
         </tr>
 
-
-        <!-- Total Claim -->
-        {{-- <tr>
-            <td colspan="5" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; width: 130mm;"><strong>Total Claim Amount</strong></td>
-            <td>
-                <table width="100%" style="font-size: 8pt;">
-                    <tr>
-                        <td>
-                            <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:35px; height:35px; float: right;"></div>
-                        </td>
-                        <td style="width: 5mm; text-align: left;"><strong>IDR</strong></td>
-                        <td>
-                            <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:35px; height:35px; float: right;"></div>
-                        </td>
-                        <td style="width: 5mm; text-align: left;"><strong>USD</strong></td>
-                        <td>
-                            <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:35px; height:35px; float: right;"></div>
-                        </td>
-                        <td style="width: 5mm; text-align: left;"><strong>JYP</strong></td>
-                    </tr>
-                </table>
-            </td>
-            <td colspan="2" style="border-bottom: 2pt solid #000000;"><strong>OTHERS:</strong></td>
-            <td colspan="7" style="border-bottom: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="5" style="border-left: 2pt solid #000000;"><strong>Logistic Dept. Opinion :</strong></td>
-            <td colspan="2" style="border-top: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="8" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="7" style="border-left: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="2">&nbsp;</td>
-            <td colspan="6" style="border-right: 2pt solid #000000;">
-                <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
-                    <tr>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>Div. Head</strong></td>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>Div. Head</strong></td>
-                        <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>Dept Head</strong></td>
-                        <td colspan="2" rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>PIC</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>(Japanese)</strong></td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>(Local)</strong></td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Denny A</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Firman</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Tomi S</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Hardian</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
-        </tr>
-        <!-- Company Name -->
-        <tr>
-            <td colspan="5" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Company Name :</strong></td>
-            <td colspan="3" style="border-top: 2pt solid #000000; font-size: 10pt;"><strong>{{$claimNote->expedition_name}}</strong></td>
-            <td colspan="7" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;"><strong>Supplier Code : {{$claimNote->expedition_code}}</strong></td>
-        </tr>
-        <tr>
-            <td colspan="5" style="border-left: 2pt solid #000000;"><strong>Opinion :</strong></td>
-            <td colspan="10" style="border-right: 2pt solid #000000;"></td>
-        </tr>
-        <tr>
-            <td colspan="6" style="border-left: 2pt solid #000000;">Payment Method( &radic; ):</td>
-            <td>
-                <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:35px; height:35px; float: right;"></div>
-            </td>
-            <td>&nbsp;Transfer</td>
-            <td colspan="2">&nbsp;</td>
-            <td>
-                <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:35px; height:35px; float: right;"></div>
-            </td>
-            <td>&nbsp;Deduct Payment</td>
-            <td colspan="">Claim Amount(IDR, JYP, USD)</td>
-            <td style="">: <span style="border-bottom: 1pt solid #000000;"><strong>{{number_format($claimNote->sub_total, 2, ',', '.')}}</strong></span> </td>
-            <td colspan="" style="border-right: 2pt solid #000000;">
-                <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
-                    <tr>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center; width: 35mm;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000;text-align: center; width: 35mm;"><strong>PIC</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 35mm;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-left: 2pt solid #000000; border-right: 2pt solid #000000"></td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000"></td>
-        </tr>
-        <tr>
-            <td colspan="6" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Accounting Dept. Opinion :</strong></td>
-            <td colspan="9" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="8" style="border-left: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="3">&nbsp;</td>
-            <td colspan="4" style="border-right: 2pt solid #000000;">
-                <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
-                    <tr>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>Div. Head</strong></td>
-                        <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>Dept. Head</strong></td>
-                        <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 35mm;"><strong>PIC</strong></td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>(Japanese)</strong></td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">K. Tani</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Syaalom</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
-        </tr>
-        <tr>
-            <td colspan="6" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000;"><strong>Management Opinion :</strong></td>
-            <td style="border-top: 2pt solid #000000;"></td>
-            <td colspan="8" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="8" style="border-left: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="3">&nbsp;</td>
-            <td colspan="4" style="border-right: 2pt solid #000000;">
-                <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
-                    <tr>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>President<br>Director</strong></td>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>Vice<br>President</strong></td>
-                        <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>Finance<br>Director</strong></td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Mr. Teraoka</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
-                        <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;">Yagura</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="35" style="height: 1px; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
-        </tr>
-        <tr>
-            <td colspan="4" style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; height: 40px;"><strong>Debit Note No :</strong></td>
-            <td colspan="2" style="border-top: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="9" style="border-top: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="6" style="border-top: 2pt solid #000000; font-size: 7pt"> Note: Harga diatas dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya</td>
-            <td colspan="7" style="border-top: 2pt solid #000000;"></td>
-            <td colspan="2" style="text-align: center; font-size: 8pt; border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; border-top: 2pt solid #000000;">QUALITY-FORM-003</td>
-        </tr> --}}
     </table>
 </body>
 
