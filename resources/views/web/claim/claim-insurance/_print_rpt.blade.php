@@ -87,7 +87,7 @@
 								<td style="border-bottom: 1pt solid #000000; width: 40mm;">&nbsp;</td>
 								<td style="border-bottom: 1pt solid #000000; width: 10mm;">&nbsp;</td>
 								<td style="border-bottom: 1pt solid #000000;">&nbsp;</td>
-								<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;"><strong>: Des 2019 ( Input )</strong></td>
+								<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;"><strong>: {{date('F Y', strtotime($claimInsurance->created_at))}}</strong></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
