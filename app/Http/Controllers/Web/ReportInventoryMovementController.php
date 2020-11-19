@@ -63,7 +63,10 @@ class ReportInventoryMovementController extends Controller
       $col = 'A';
       // $sheet->setCellValue(($col++) . $row, ($key + 1));
       $sheet->setCellValue(($col++) . $row, $value->log_id);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->model);
       $sheet->setCellValue(($col++) . $row, $value->quantity);
       $sheet->setCellValue(($col++) . $row, $value->debit_credit);

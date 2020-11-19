@@ -25,6 +25,7 @@ class PickinglistHeader extends Model
           $join->on('tr_concept.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
           $join->on('tr_concept.line_no', '=', 'wms_pickinglist_detail.line_no');
         })
+        ->orderBy('tr_concept.delivery_no')
       ;
     } else {
       $concept = $this->details()->select(
@@ -36,6 +37,7 @@ class PickinglistHeader extends Model
           $join->on('wms_manual_concept.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
           $join->on('wms_manual_concept.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
         })
+        ->orderBy('wms_manual_concept.delivery_no')
       ;
     }
 

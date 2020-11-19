@@ -48,11 +48,17 @@ function get_button_cancel($url = '#', $label = "Cancel", $class = 'mt-2')
 
 function format_tanggal_wms($date)
 {
+  if (empty($date)) {
+    return '';
+  }
   return date('d-M-Y', strtotime($date));
 }
 
 function format_tanggal_jam_wms($date)
 {
+  if (empty($date)) {
+    return '';
+  }
   return date('d/m/Y h:i A', strtotime($date));
 }
 

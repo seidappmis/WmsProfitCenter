@@ -82,6 +82,9 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_id);
       $sheet->setCellValue(($col++) . $row, $value->invoice_receipt_no);
       $sheet->setCellValue(($col++) . $row, $value->kwitansi_no);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->invoice_receipt_date));
       $sheet->setCellValue(($col++) . $row, $value->amount_after_tax);
       $sheet->setCellValue(($col++) . $row, $value->status);
@@ -91,6 +94,9 @@ class SummaryFreightCostReportPerManifestController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->kode_cabang);
       $sheet->setCellValue(($col++) . $row, $value->code_sales);
       $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_manifest_date));
       $sheet->setCellValue(($col++) . $row, $value->expedition_name);
       $sheet->setCellValue(($col++) . $row, $value->city_name);

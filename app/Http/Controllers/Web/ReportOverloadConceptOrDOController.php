@@ -32,6 +32,7 @@ class ReportOverloadConceptOrDOController extends Controller
     $sheet       = $spreadsheet->getActiveSheet();
 
     $col = 'A';
+    $sheet->setCellValue(($col++) . '1', 'AREA');
     $sheet->setCellValue(($col++) . '1', 'INVOICE');
     $sheet->setCellValue(($col++) . '1', 'LINE NO');
     $sheet->setCellValue(($col++) . '1', 'OUTPUT DATE');
@@ -109,9 +110,15 @@ class ReportOverloadConceptOrDOController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->sold_to_district);
       $sheet->setCellValue(($col++) . $row, $value->sold_to_street);
       $sheet->setCellValue(($col++) . $row, $value->remarks);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->created_by);
-      $sheet->setCellValue(($col++) . $row, $value->split_date);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->split_date));
       $sheet->setCellValue(($col++) . $row, $value->split_by);
       $sheet->setCellValue(($col++) . $row, $value->area);
       $sheet->setCellValue(($col++) . $row, $value->concept_type);

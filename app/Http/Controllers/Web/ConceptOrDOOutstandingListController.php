@@ -170,6 +170,9 @@ class ConceptOrDOOutstandingListController extends Controller
         $sheet->setCellValue(($col++) . $row, $value->sold_to_street);
         $sheet->setCellValue(($col++) . $row, $value->remarks);
         $sheet->setCellValue(($col++) . $row, $value->area);
+        $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
         $sheet->setCellValue(($col++) . $row, $value->upload_by);
         $row++;
@@ -218,6 +221,9 @@ class ConceptOrDOOutstandingListController extends Controller
         $sheet->setCellValue(($col++) . $row, $value->ean_code);
         $sheet->setCellValue(($col++) . $row, $value->quantity);
         $sheet->setCellValue(($col++) . $row, $value->cbm);
+        $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
         $sheet->setCellValue(($col++) . $row, $value->created_by);
         $sheet->setCellValue(($col++) . $row, $value->code_sales);

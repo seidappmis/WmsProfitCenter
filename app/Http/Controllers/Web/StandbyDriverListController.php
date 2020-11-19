@@ -79,17 +79,18 @@ class StandbyDriverListController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->expedition_code);
       $sheet->setCellValue(($col++) . $row, $value->sap_vendor_code);
       $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->area);
       $row++;
     }
 
-    $sheet->getColumnDimension('A')->setAutoSize(true);
-    $sheet->getColumnDimension('B')->setAutoSize(true);
-    $sheet->getColumnDimension('C')->setAutoSize(true);
-    $sheet->getColumnDimension('D')->setAutoSize(true);
-    $sheet->getColumnDimension('E')->setAutoSize(true);
-    $sheet->getColumnDimension('F')->setAutoSize(true);
+    $colResize = 'A';
+    while ($colResize != $col) {
+      $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+    }
 
     $title = 'Standby Driver List Area ' . $request->input('area');
 

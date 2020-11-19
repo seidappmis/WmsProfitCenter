@@ -426,10 +426,19 @@ class SummaryOutgoingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->delivery_no);
       $sheet->setCellValue(($col++) . $row, $value->do_internal);
       $sheet->setCellValue(($col++) . $row, $value->reservasi_no);
-      $sheet->setCellValue(($col++) . $row, $value->do_date);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_date));
       $sheet->setCellValue(($col++) . $row, $value->delivery_items);
-      $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
-      $sheet->setCellValue(($col++) . $row, $value->eta);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_manifest_date));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->eta));
       $sheet->setCellValue(($col++) . $row, $value->lead_time);
       $sheet->setCellValue(($col++) . $row, $value->checker);
       $sheet->setCellValue(($col++) . $row, $value->sold_to_code);
@@ -455,18 +464,36 @@ class SummaryOutgoingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->code_sales);
       $sheet->setCellValue(($col++) . $row, $value->status);
       $sheet->setCellValue(($col++) . $row, $value->created_by_name);
-      $sheet->setCellValue(($col++) . $row, $value->created_at);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->updated_by_name);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->updated_at));
       $sheet->setCellValue(($col++) . $row, $value->desc);
       $sheet->setCellValue(($col++) . $row, $value->delivery_status);
       $sheet->setCellValue(($col++) . $row, $value->confirm);
       $sheet->setCellValue(($col++) . $row, $value->status_confirm);
       $sheet->setCellValue(($col++) . $row, $value->confirm_by);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->confirm_date));
-      $sheet->setCellValue(($col++) . $row, $value->actual_time_arrival);
-      $sheet->setCellValue(($col++) . $row, $value->actual_unloading_date);
-      $sheet->setCellValue(($col++) . $row, $value->doc_do_return_date);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->actual_time_arrival));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->actual_unloading_date));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->doc_do_return_date));
       $sheet->setCellValue(($col++) . $row, $value->status_reject);
       $row++;
     }

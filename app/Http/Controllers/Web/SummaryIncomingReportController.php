@@ -69,7 +69,10 @@ class SummaryIncomingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->ean_code);
       $sheet->setCellValue(($col++) . $row, $value->invoice_no);
       $sheet->setCellValue(($col++) . $row, $value->no_gr_sap);
-      $sheet->setCellValue(($col++) . $row, $value->document_date);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->document_date));
       $sheet->setCellValue(($col++) . $row, $value->vendor_name);
       $sheet->setCellValue(($col++) . $row, $value->expedition_name);
       $sheet->setCellValue(($col++) . $row, $value->area);
@@ -80,6 +83,9 @@ class SummaryIncomingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->cbm);
       $sheet->setCellValue(($col++) . $row, $value->total_cbm);
       $sheet->setCellValue(($col++) . $row, $value->storage_location);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->created_by_name);
       $row++;

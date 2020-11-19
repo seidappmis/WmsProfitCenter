@@ -129,6 +129,9 @@ class LoadingStatusListController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->sold_to_district);
       $sheet->setCellValue(($col++) . $row, $value->sold_to_street);
       $sheet->setCellValue(($col++) . $row, $value->remarks);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
       $sheet->setCellValue(($col++) . $row, $value->reg_driver_id);
       $sheet->setCellValue(($col++) . $row, $value->reg_driver_name);
@@ -136,16 +139,34 @@ class LoadingStatusListController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->reg_vehicle_description);
       $sheet->setCellValue(($col++) . $row, $value->reg_vehicle_type);
       $sheet->setCellValue(($col++) . $row, $value->reg_cbm_truck);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reg_date_in));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reg_date_out));
       $sheet->setCellValue(($col++) . $row, $value->reg_destination);
       $sheet->setCellValue(($col++) . $row, $value->reg_region);
       $sheet->setCellValue(($col++) . $row, $value->reg_expedition_code);
       $sheet->setCellValue(($col++) . $row, $value->reg_expedition_name);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->mapping_concept_date));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->select_gate_date));
       $sheet->setCellValue(($col++) . $row, $value->load_gate_number);
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->load_loading_start));
+      $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
+        ->getNumberFormat()
+        ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->load_loading_end));
       $sheet->setCellValue(($col++) . $row, $value->load_loading_minutes);
       $sheet->setCellValue(($col++) . $row, $value->load_do_manifest_no);
