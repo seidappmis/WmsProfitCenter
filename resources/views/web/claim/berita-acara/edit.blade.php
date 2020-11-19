@@ -177,7 +177,7 @@
           .done(function() {
             swal({
               icon: "success",
-              title: "Good job!",
+              title: "Success !",
               text: "Berita Acara Detail with No. Do " + data.do_no + " has been deleted.",
               timer: 1000,
               buttons: false

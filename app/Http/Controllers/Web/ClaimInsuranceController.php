@@ -357,21 +357,20 @@ class ClaimInsuranceController extends Controller
           'id.description',
           'id.qty',
           'id.price',
-          'id.id AS claim_insurance_detail'
+          'id.id AS claim_insurance_detail',
+          'id.created_at'
         )->get()
     ];
 
     $view_print = view('web.claim.claim-insurance._print_detail', $data);
     $title      = 'claim_insurance_detail';
 
-    if ($request->input('filetype') == 'xls') {
-      $data['excel'] = 1;
-      $view_print = view('web.claim.claim-insurance._print_detail_excel', $data);
-    }
     if ($request->input('filetype') == 'html') {
       // Request HTML View
       return $view_print;
     } else if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      $view_print = view('web.claim.claim-insurance._print_detail_excel', $data);
       // Request File EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -399,8 +398,9 @@ class ClaimInsuranceController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
+      $view_print = view('web.claim.claim-insurance._print_detail_pdf', $data);
       // Request File PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp', 'orientation' => 'L']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 

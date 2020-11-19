@@ -392,7 +392,6 @@ class ClaimNoteController extends Controller
    */
   public function export(Request $request, $id)
   {
-    // $data['claimNote'] = ClaimNote::where('id', $id)->first();
     $claimNoteSubQuery = ClaimNoteDetail::where('claim_note_id', $id)
       ->select(
         'claim_note_id',
@@ -401,12 +400,30 @@ class ClaimNoteController extends Controller
         DB::raw("sum(price) as sum_price"),
         DB::raw("sum(price*qty) as sub_total")
       );
+    $claimNoteSubQuery2 = ClaimNoteDetail::where('claim_note_id', $id)
+      ->select(
+        'claim_note_id',
+        'berita_acara_detail_id'
+      )->limit(1);
 
     $data['claimNote'] = ClaimNote::from('clm_claim_notes AS n')
       ->joinSub($claimNoteSubQuery, 'nd', function ($join) {
         $join->on('n.id', '=', 'nd.claim_note_id');
       })
-      ->where('id', $id)
+      ->joinSub($claimNoteSubQuery2, 'nds', function ($join) {
+        $join->on('n.id', '=', 'nds.claim_note_id');
+      })
+      ->leftJoin('clm_claim_note_detail AS nd', 'nds.claim_note_id', '=', 'n.id')
+      ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nds.berita_acara_detail_id')
+      ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+      ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+      ->select(
+        'n.*',
+        'nd.*',
+        'e.expedition_name',
+        'ba.expedition_code'
+      )
+      ->where('n.id', $id)
       ->first();
 
     $data['claimNoteDetail'] = ClaimNoteDetail::select(
@@ -432,6 +449,9 @@ class ClaimNoteController extends Controller
       }
     }
 
+    // dd($data);
+    $view_print = view('web.claim.claim-notes._print', $data);
+
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
       $view_print    = view('web.claim.claim-notes._print_excel', $data);
@@ -441,7 +461,6 @@ class ClaimNoteController extends Controller
 
     if ($request->input('filetype') == 'html') {
 
-      $view_print = view('web.claim.claim-notes._print', $data);
       return $view_print;
     } else if ($request->input('filetype') == 'xls') {
 
@@ -467,6 +486,7 @@ class ClaimNoteController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
+      $view_print = view('web.claim.claim-notes._print_pdf', $data);
       // Request File PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 

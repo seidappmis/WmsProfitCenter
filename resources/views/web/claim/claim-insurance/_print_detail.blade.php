@@ -3,7 +3,13 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 	{{-- @include('layouts.materialize.components.print-style') --}}
-
+	<style>
+		@media print {
+			@page {
+				size: landscape
+			}
+		}
+	</style>
 </head>
 
 <body style="font-family: courier New; font-size: 10pt;">
@@ -54,26 +60,24 @@
 							{{-- Table --}}
 							<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
 								<tr>
-									<td rowspan="2" style="border: 2pt solid #000000; width: 5mm; text-align: center;"><strong>NO</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>NO</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SERIAL NUMBER</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 30mm; text-align: center;"><strong>PRODUCT</strong></td>
-									<td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>UNIT</strong></td>
-									<td rowspan="2" style="border: 2pt solid #000000; width: 7mm; text-align: center;"><strong>CURR</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 15mm; text-align: center;"><strong>PRICE/UNIT</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>UNIT</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRODUCT</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CURR</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRICE/UNIT</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>TOTAL</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 25mm; text-align: center;"><strong>NATURE OF LOSS</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>NATURE OF LOSS</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>LOCATION</strong></td>
-									<td rowspan="2" style="border: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PHOTO</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PHOTO</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
-								</tr>
-								<tr>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;">(no seri barang)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 30mm; text-align: center;">(jenis barang)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 15mm; text-align: center;">(harga barang)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;">(Total harga barang)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 25mm; text-align: center;">(keterangan kerusakan)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;">(lokasi kejadian)</td>
-									<td style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;">(keterangan)</td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
 								</tr>
 
 								<?php
@@ -86,8 +90,8 @@
 								<tr>
 									<td style="border: 1pt solid #000000; text-align: center;">{{$no}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{{$v->serial_number}}</td>
-									<td style="border: 1pt solid #000000; text-align: center;">{{$v->model_name}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{{$v->qty}}</td>
+									<td style="border: 1pt solid #000000; text-align: center;">{{$v->model_name}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">IDR</td>
 									<td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->price)}}</td>
 									<td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->qty*$v->price)}}</td>
@@ -95,6 +99,13 @@
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->location}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{!!!empty($v->photo_url)?'<img class="materialboxed center-align" width="200" height="200" src="'.asset('storage/').'/'.$v->photo_url.'">':'-'!!}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->keterangan}}</td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									<td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td>
+									<td style="border: 1pt solid #000000; text-align: left;"></td>
 								</tr>
 								<?php
 								$totalUnit += $v->qty;
@@ -105,11 +116,13 @@
 								@endif
 
 								<tr>
-									<td colspan="3" style="border: 1pt solid #000000; text-align: center;"><strong>Total</strong></td>
+									<td colspan="2" style="border: 1pt solid #000000; text-align: center;"><strong>Total</strong></td>
 									<td style="border: 1pt solid #000000; text-align: center;"><strong>{{$totalUnit}}</strong></td>
 									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 									<td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
-									<td colspan="5" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+									<td colspan="11" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 								</tr>
 							</table>
 						</td>
