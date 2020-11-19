@@ -13,7 +13,7 @@
 								<td>TO</td>
 								<td>:</td>
 								<td>PT. ASURANSI MSIG INDONESIA</td>
-								<td>CLAIM REPORT NO : C27031219</td>
+								<td>CLAIM REPORT NO : {{$claimInsurance->claim_report}}</td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -34,7 +34,7 @@
 						<table width="100%" style="font-size: 12pt; border-collapse: collapse;">
 							<tr>
 								<td>&nbsp;</td>
-								<td colspan="12" style="text-align: center; border: 1px solid #000000"><strong>DATE OF REPORT : 03 Desember 2019</strong></td>
+								<td colspan="12" style="text-align: center; border: 1px solid #000000"><strong>DATE OF REPORT : {{date('d F Y', strtotime($claimInsurance->created_at))}}</strong></td>
 								<td>&nbsp;</td>
 							</tr>
 							<tr><td>&nbsp;</td></tr>

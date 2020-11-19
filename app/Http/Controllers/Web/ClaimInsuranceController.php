@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraDetail;
 use App\Models\ClaimInsurance;
 use App\Models\ClaimInsuranceDetail;
-use Illuminate\Http\Request;
 use DataTables;
 use DB;
+use Illuminate\Http\Request;
 
 class ClaimInsuranceController extends Controller
 {
@@ -31,7 +31,7 @@ class ClaimInsuranceController extends Controller
         ->leftJoin('clm_claim_insurance_detail', 'clm_claim_insurance_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_insurance_detail.id')
-        // ->whereNull('claim_note_detail_id')
+      // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -85,21 +85,21 @@ class ClaimInsuranceController extends Controller
       try {
         if (!empty($data)) {
           $beritaAcaraDetail = [];
-          $dataClaimNote = [
-            'claim_note_no' => null,
+          $dataClaimNote     = [
+            'claim_note_no'   => null,
             'berita_acara_no' => null,
             'date_of_receipt' => null,
             'expedition_code' => null,
-            'driver_name' => null,
-            'vehicle_number' => null,
-            'destination' => null,
-            'do_no' => null,
-            'model_name' => null,
-            'serial_number' => null,
-            'qty' => null,
-            'description' => null,
-            'price' => null,
-            'total_price' => null
+            'driver_name'     => null,
+            'vehicle_number'  => null,
+            'destination'     => null,
+            'do_no'           => null,
+            'model_name'      => null,
+            'serial_number'   => null,
+            'qty'             => null,
+            'description'     => null,
+            'price'           => null,
+            'total_price'     => null,
           ];
           // set key of array claim insurance to berita acara id
           foreach ($data as $kb => $vb) {
@@ -115,26 +115,28 @@ class ClaimInsuranceController extends Controller
 
             // insert to claim insurance and return id
             $claiminsuranceID = ClaimInsurance::insertGetId([
-              'insurance_date' => date('Y-m-d H:i:s'),
-              'created_by' => auth()->user()->id,
-              'created_at' => date('Y-m-d H:i:s')
+              'claim_report'        => $req->input('claim_report'),
+              'keterangan_kejadian' => $req->input('keterangan_kejadian'),
+              'insurance_date'      => date('Y-m-d H:i:s'),
+              'created_by'          => auth()->user()->id,
+              'created_at'          => date('Y-m-d H:i:s'),
             ]);
 
             foreach ($beritaAcaraDetail as $key => $value) {
               // insert into claim insurance detail
               $claimInsuranceDetailID = ClaimInsuranceDetail::insertGetId([
-                'claim_insurance_id' => $claiminsuranceID,
+                'claim_insurance_id'     => $claiminsuranceID,
                 'berita_acara_detail_id' => $key,
-                'date_of_receipt' => $value['date_of_receipt'],
-                'expedition_code' => $value['expedition_code'],
-                'driver_name' => $value['driver_name'],
-                'vehicle_number' => $value['vehicle_number'],
-                'do_no' => $value['do_no'],
-                'model_name' => $value['model_name'],
-                'serial_number' => $value['serial_number'],
-                'description' => $value['description'],
-                'created_by' => auth()->user()->id,
-                'created_at' => date('Y-m-d H:i:s')
+                'date_of_receipt'        => $value['date_of_receipt'],
+                'expedition_code'        => $value['expedition_code'],
+                'driver_name'            => $value['driver_name'],
+                'vehicle_number'         => $value['vehicle_number'],
+                'do_no'                  => $value['do_no'],
+                'model_name'             => $value['model_name'],
+                'serial_number'          => $value['serial_number'],
+                'description'            => $value['description'],
+                'created_by'             => auth()->user()->id,
+                'created_at'             => date('Y-m-d H:i:s'),
               ]);
               // update berita acara detail _> claim note id from before
               BeritaAcaraDetail::whereId($key)->update(['claim_insurance_detail_id' => $claimInsuranceDetailID]);
@@ -168,7 +170,7 @@ class ClaimInsuranceController extends Controller
    */
   public function show($id)
   {
-    $data['claimInsurance'] =  ClaimInsurance::where('id', $id)->first();
+    $data['claimInsurance'] = ClaimInsurance::where('id', $id)->first();
     return view('web.claim.claim-insurance.edit', $data);
   }
 
@@ -203,14 +205,12 @@ class ClaimInsuranceController extends Controller
           'id.id AS claim_insurance_detail'
         );
 
-
       $datatables = DataTables::of($query)
         ->addIndexColumn(); //DT_RowIndex (Penomoran)
 
       return $datatables->make(true);
     }
   }
-
 
   /**
    * Show the form for editing the specified resource.
@@ -243,7 +243,7 @@ class ClaimInsuranceController extends Controller
 
             ClaimInsurance::whereId($id)->update([
               'updated_by' => auth()->user()->id,
-              'updated_at' => date('Y-m-d H:i:s')
+              'updated_at' => date('Y-m-d H:i:s'),
             ]);
 
             foreach ($data as $key => $value) {
@@ -281,7 +281,8 @@ class ClaimInsuranceController extends Controller
    */
   public function exportRPT(Request $request, $id)
   {
-    $view_print = view('web.claim.claim-insurance._print_rpt');
+    $data['claimInsurance'] = ClaimInsurance::findOrFail($id);
+    $view_print = view('web.claim.claim-insurance._print_rpt', $data);
     $title      = 'rpt';
 
     if ($request->input('filetype') == 'html') {
@@ -335,7 +336,7 @@ class ClaimInsuranceController extends Controller
   public function exportDetail(Request $request, $id)
   {
     $data = [
-      'claimInsurance' => ClaimInsurance::whereId($id)->first(),
+      'claimInsurance'       => ClaimInsurance::whereId($id)->first(),
       'claimInsuranceDetail' => ClaimInsuranceDetail::from('clm_claim_insurance_detail AS id')
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_insurance_detail_id', '=', 'id.id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
@@ -359,7 +360,7 @@ class ClaimInsuranceController extends Controller
           'id.price',
           'id.id AS claim_insurance_detail',
           'id.created_at'
-        )->get()
+        )->get(),
     ];
 
     $view_print = view('web.claim.claim-insurance._print_detail', $data);
@@ -370,7 +371,7 @@ class ClaimInsuranceController extends Controller
       return $view_print;
     } else if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
-      $view_print = view('web.claim.claim-insurance._print_detail_excel', $data);
+      $view_print    = view('web.claim.claim-insurance._print_detail_excel', $data);
       // Request File EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

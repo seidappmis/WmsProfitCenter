@@ -60,6 +60,10 @@
          'title' => 'Print',
       ])
 
+      @include('layouts.materialize.components.modal-print', [
+         'title' => 'Print RPT',
+      ])
+
       dtdatatable_claim_note = $('#table-claim-insurance').DataTable({
          serverSide: true,
          scrollX: true,
@@ -100,9 +104,12 @@
             orderable: false,
             searchable: false,
             render: function(data, type, row, meta) {
-               return ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
+               var btn = ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
                   ' ' + '<?= get_button_view(url("claim-insurance/:id")) ?>'.replace(':id', data) +
-                  ' ' + '<?= get_button_print() ?>';
+                  ' ' + '<?= get_button_print("#!", "Print RPT", "btn-print-rpt") ?>' +
+                  ' ' + '<?= get_button_print() ?>'
+                  ;
+               return btn;
             },
             className: "center-align"
          }]
@@ -113,6 +120,14 @@
          var data = dtdatatable_claim_note.row(tr).data();
          initPrintPreviewPrint(
             '{{url("claim-insurance")}}' + '/' + data.id + '/print'
+         )
+      });
+
+      dtdatatable_claim_note.on('click', '.btn-print-rpt', function(event) {
+         var tr = $(this).parent().parent();
+         var data = dtdatatable_claim_note.row(tr).data();
+         initPrintPreviewPrintRPT(
+            '{{url("claim-insurance")}}' + '/' + data.id + '/print-rpt'
          )
       });
    });

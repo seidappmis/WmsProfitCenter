@@ -15,6 +15,8 @@ class CreateClmClaimInsuranceTable extends Migration
     {
         Schema::create('clm_claim_insurance', function (Blueprint $table) {
             $table->id();
+            $table->string('claim_report')->nullable();
+            $table->string('keterangan_kejadian')->nullable();
             $table->date('insurance_date')->nullable();
 
             $table->timestamps();

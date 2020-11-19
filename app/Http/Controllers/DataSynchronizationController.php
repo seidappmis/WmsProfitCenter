@@ -10,13 +10,22 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
     
-    $this->updateBeritaAcaraTable();
+    $this->updateClaimInsuranceTable();
+    // $this->updateBeritaAcaraTable();
     // $this->updateReceiptInvoiceDetail();
     // $this->updatePickinglist();
     // $this->updateConceptTruckFlow();
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateClaimInsuranceTable(){
+    echo "Update Table Insurance";
+    DB::statement('ALTER TABLE `clm_claim_insurance` 
+    ADD COLUMN `claim_report` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+    ADD COLUMN `keterangan_kejadian` VARCHAR(255) NULL DEFAULT NULL AFTER `claim_report`
+    ');
   }
 
   protected function updateBeritaAcaraTable(){
