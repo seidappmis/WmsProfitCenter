@@ -556,7 +556,13 @@ class PickingToLMBController extends Controller
           $quantity          = 0;
 
           if (empty($picking_detail->rs_in_dn_di_q)) {
-            return $model_not_exist_in_pickinglist;
+            $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
+            $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model']      = $rs_models[$serial_number['ean_code']]->model_name;
+            if (empty($model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'])) {
+              $model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] = 0;
+            }
+            $model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] += 1;
+            continue;
           }
 
           foreach (explode(',', $picking_detail->rs_in_dn_di_q) as $key => $value) {
@@ -627,6 +633,8 @@ class PickingToLMBController extends Controller
             'quantity_existing' => $rs_picking_list_details[$serial_number['ean_code']]->quantity,
           ];
         }
+
+        // return $scan_summaries;
 
         if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] && !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])) {
           $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];

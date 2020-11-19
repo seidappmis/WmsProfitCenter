@@ -97,7 +97,7 @@ class PickingToLMBController extends Controller
           $quantity          = 0;
 
           if (empty($picking_detail->rs_in_dn_di_q)) {
-            return $model_not_exist_in_pickinglist;
+            return sendError('Model Not Exist in pickinglist.');
           }
 
           foreach (explode(',', $picking_detail->rs_in_dn_di_q) as $key => $value) {
