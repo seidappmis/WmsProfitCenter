@@ -147,7 +147,7 @@
             <td>&#9316;</td>
             <td colspan="12">Claim Cost (&#9312; + &#9313; + &#9314; + &#9315;)</td>
             <td>=</td>
-            <td colspan="6" style="text-align: right;"></td>
+            <td colspan="6" style="text-align: right;">{{number_format($claimNote->sub_total, 2, ',', '.')}}</td>
             <td style="border-right: 2px solid #000000;"></td>
             <!-- END RIGHT SIDE -->
         </tr>
@@ -207,7 +207,7 @@
             <td colspan="5" style="border-left: 2pt solid #000000; border-bottom: 2pt solid #000000;">
             	<strong>Total Claim Amount</strong>
             </td>
-            <td style="border-bottom: 2pt solid #0000{{number_format($claimNote->sub_total, 2, ',', '.')}}00;">
+            <td style="border-bottom: 2pt solid #000000;">
             	<input type="checkbox" name="">
             </td>
             <td style="border-bottom: 2pt solid #000000;">
