@@ -512,11 +512,15 @@ class ClaimNoteController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
-      $view_print = view('web.claim.claim-notes._print_pdf', $data);
-      // Request File PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
-
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
     } else {
