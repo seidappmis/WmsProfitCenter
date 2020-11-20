@@ -7,16 +7,8 @@
 </head>
 
 <body style="font-family: courier New; font-size: 10pt;">
-   <!--mpdf
-<htmlpagefooter name="myheader">
-  <div style="position:absolute;top:5mm;right:10mm;" v="Page {PAGENO} of {nb}">
-  
-  </div>
-  </htmlpagefooter>
-<sethtmlpagefooter name="myheader" value="on" />
-mpdf-->
 
-   <table width="100%">
+   <table width="100%" style="border-collapse: collapse;">
       <!-- <tr><td>&nbsp;</td></tr> -->
       <!-- <tr><td>&nbsp;</td></tr> -->
       <tr>
@@ -68,47 +60,48 @@ mpdf-->
       </tr>
       <tr>
          {{-- Detail Table --}}
-         <table width="100%" style="border-collapse: collapse; text-align: center;">
-            {{-- Head --}}
-            <tr>
-               <td style="border: 1pt solid #000000;">No.</td>
-               <td style="border: 1pt solid #000000;">No. DO</td>
-               <td style="border: 1pt solid #000000;">Model/Item No.</td>
-               <td style="border: 1pt solid #000000;">No. Seri</td>
-               <td style="border: 1pt solid #000000;">Qty</td>
-               <td style="border: 1pt solid #000000;">Jenis Kerusakan</td>
-               <td style="border: 1pt solid #000000; width: 50mm;">Keterangan</td>
-            </tr>
-            {{-- Body --}}
-            @php
-            $no = 1;
-            $qty = 0;
-            @endphp
-            @if(!empty($beritaAcaraDetail))
-            @foreach($beritaAcaraDetail as $key => $value)
-            <tr>
-               <td style="border: 1pt solid #000000;">{{$no}}.</td>
-               <td style="border: 1pt solid #000000;">{{$value['do_no']}}</td>
-               <td style="border: 1pt solid #000000;">{{$value['model_name']}}</td>
-               <td style="border: 1pt solid #000000;">{{$value['serial_number']}}</td>
-               <td style="border: 1pt solid #000000;">{{$value['qty']}}</td>
-               <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
-               <td style="border: 1pt solid #000000; width: 50mm;">{{$value['keterangan']}}</td>
-            </tr>
-            @php
-            $no ++;
-            $qty+=$value['qty'];
-            @endphp
-            @endforeach
-            @endif
-            <tr>
-               <td>&nbsp;</td>
-            </tr>
-            <tr>
-               <td colspan="4" style="border: 1pt solid #000000;"><strong>Total</strong></td>
-               <td style="border: 1pt solid #000000;">{{$qty}}</td>
-            </tr>
-         </table>
+      <tr>
+         <td style="border: 1pt solid #000000; text-align:center;">No.</td>
+         <td style="border: 1pt solid #000000; text-align:center;width: 15mm;">No. DO</td>
+         <td style="border: 1pt solid #000000; text-align:center;">Model/Item No.</td>
+         <td style="border: 1pt solid #000000; text-align:center;">No. Seri</td>
+         <td style="border: 1pt solid #000000; text-align:center;">Qty</td>
+         <td style="border: 1pt solid #000000; text-align:center;">Jenis Kerusakan</td>
+         <td style="border: 1pt solid #000000; text-align:center; width: 50mm;">Keterangan</td>
+      </tr>
+      {{-- Body --}}
+      @php
+      $no = 1;
+      $qty = 0;
+      @endphp
+      @if(!empty($beritaAcaraDetail))
+      @forelse($beritaAcaraDetail as $key => $value)
+      <tr>
+         <td style="border: 1pt solid #000000;">{{$no}}.</td>
+         <td style="border: 1pt solid #000000;">{{$value['do_no']}}</td>
+         <td style="border: 1pt solid #000000;">{{$value['model_name']}}</td>
+         <td style="border: 1pt solid #000000;">{{$value['serial_number']}}</td>
+         <td style="border: 1pt solid #000000;">{{$value['qty']}}</td>
+         <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
+         <td style="border: 1pt solid #000000; width: 50mm;">{{$value['keterangan']}}</td>
+      </tr>
+      @php
+      $no ++;
+      $qty+=$value['qty'];
+      @endphp
+      @empty
+      <tr>
+         <td colspan="7" style="border: 1pt solid #000000;text-align:center;"><i>no data avalaible</i></td>
+      </tr>
+      @endforelse
+      @endif
+      <tr>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td colspan="4" style="border: 1pt solid #000000;"><strong>Total</strong></td>
+         <td style="border: 1pt solid #000000;">{{$qty}}</td>
+      </tr>
       </tr>
    </table>
 

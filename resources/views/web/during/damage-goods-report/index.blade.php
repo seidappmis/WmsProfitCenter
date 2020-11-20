@@ -3,6 +3,7 @@
 @section('content')
 <div class="row">
 
+
   @component('layouts.materialize.components.title-wrapper')
   <div class="row">
     <div class="col s12 m6">
@@ -12,175 +13,200 @@
         <li class="breadcrumb-item active">Damage Goods Report</li>
       </ol>
     </div>
-    <div class="col s12 m6">
-      <div class="display-flex">
-        <!---- Search ----->
-        <div class="app-wrapper mr-2">
-          <div class="datatable-search">
-            <i class="material-icons mr-2 search-icon">search</i>
-            <input type="text" placeholder="Search" class="app-filter" id="global_filter">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <a href="{{ url('berita-acara/create') }}" class="btn btn-large waves-effect waves-light btn-add">
-        New DGR
-      </a>
-    </div>
   </div>
   @endcomponent
 
   <div class="col s12">
     <div class="container">
       <div class="section">
-        <div class="card">
+        <div class="card mb-0">
           <div class="card-content p-0">
-            <div class="section-data-tables">
-              <table id="data-table-berita-acara" class="display" width="100%">
-                <thead>
-                  <tr>
-                    <th data-priority="1" width="30px">NO.</th>
-                    <th>NO DGR</th>
-                    <th>CATEGORY DAMAGE</th>
-                    <th>INVOICE NO</th>
-                    <th>B/L NO</th>
-                    <th>CONTAINER NO</th>
-                    <th>CLAIM NO</th>
-                    {{-- <th width="50px;"></th> --}}
-                    {{-- <th width="50px;"></th> --}}
-                    <!-- <th width="50px;"></th> -->
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-            <!-- datatable ends -->
+            <ul class="collapsible m-0">
+              <li class="active">
+                <div class="collapsible-header p-0">
+                  <div class="row">
+                    <div class="col s12 m8">
+                      <div class="collapsible-main-header">
+                        <i class="material-icons expand">expand_less</i>
+                        <span>Outstanding</span>
+                      </div>
+                    </div>
+                    <div class="col s12 m4">
+                      <div class="app-wrapper">
+                        <div class="datatable-search mb-0">
+                          <i class="material-icons mr-2 search-icon">search</i>
+                          <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapsible-body p-0">
+                  <div class="section-data-tables">
+                    <table id="table-outstanding" class="display" width="100%">
+                      <thead>
+                        <tr>
+                          <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
+                          <th class="center-align">Berita Acara No.</th>
+                          <th class="center-align">No. DO</th>
+                          <th class="center-align">Model / Item No.</th>
+                          <th class="center-align">No. Seri</th>
+                          <th class="center-align">Qty</th>
+                          <th class="center-align">Jenis Kerusakan</th>
+                          <th class="center-align">Keterangan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-carton-box">Claim Note Carton Box</button>
+            <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-unit">Claim Note Unit</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="content-overlay"></div>
   </div>
+
+  @include('web.claim.claim-notes._list_claim_notes')
+
+  @push('script_js')
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      dtOutstanding = $('#table-outstanding').DataTable({
+        paging: false,
+        serverSide: true,
+        scrollX: true,
+        responsive: true,
+        ajax: {
+          url: '{{url("/damage-goods-report/list-outstanding")}}',
+          type: 'GET',
+        },
+        order: [1, 'asc'],
+        columns: [{
+            data: 'id',
+            orderable: false,
+            searchable: false,
+            render: function(data, type, row) {
+              return '<label><input type="checkbox" name="outstanding[]" value="' + data + '" class="checkbox checkbox-outstanding"><span></span></label>';
+            },
+            className: "datatable-checkbox-cell"
+          },
+          {
+            data: 'berita_acara_no'
+          },
+          {
+            data: 'do_no'
+          },
+          {
+            data: 'model_name'
+          },
+          {
+            data: 'serial_number',
+            render: function(data, type, row) {
+              return data ? data.split(",").join("<br>") : '';
+            }
+          },
+          {
+            data: 'qty'
+          },
+          {
+            data: 'description'
+          },
+          {
+            data: 'keterangan'
+          },
+        ]
+      });
+
+      set_datatables_checkbox('#table-outstanding', dtOutstanding)
+
+    });
+
+    $("input#outstanding-search").on("keyup click", function() {
+      dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    });
+
+    $('#create-claim-unit').click(function() {
+      var checkedData = $();
+      $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
+        var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+        array = generateArray(row, 'unit');
+        checkedData.push(array);
+      });
+
+      push(checkedData, 'unit');
+    });
+
+    $('#create-claim-carton-box').click(function() {
+      var checkedData = $();
+      $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
+        var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+        array = generateArray(row, 'carton-box');
+        checkedData.push(array);
+      });
+
+      push(checkedData, 'carton-box');
+    });
+
+    function push(checkedData, type) {
+      /* Act on the event */
+      setLoading(true);
+      $.ajax({
+          type: "POST",
+          url: '{{ url("claim-notes/create") }}',
+          data: {
+            data: JSON.stringify(checkedData),
+            type: type
+          },
+          cache: false,
+        })
+        .done(function(result) {
+          if (result.status) {
+            swal("Success!", result.message)
+              .then((response) => {
+                // Kalau klik Ok redirect ke view
+                dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+              }) // alert success
+          } else {
+            setLoading(false);
+            showSwalAutoClose('Warning', result.message)
+          }
+        })
+        .fail(function() {
+          setLoading(false);
+        })
+        .always(function() {
+          setLoading(false);
+        });
+    };
+
+    function generateArray(row, type) {
+      var array = $();
+      array = {
+        berita_acara_detail_id: row.id,
+        berita_acara_no: row.berita_acara_no,
+        date_of_receipt: row.date_of_receipt,
+        expedition_code: row.expedition_code,
+        driver_name: row.driver_name,
+        vehicle_number: row.vehicle_number,
+        do_no: row.do_no,
+        model_name: row.model_name,
+        serial_number: row.serial_number,
+        qty: row.qty,
+        description: row.description,
+        claim: type
+      }
+      return array;
+    }
+  </script>
+  @endpush
+
+
 </div>
 @endsection
-
-@push('script_js')
-<script type="text/javascript">
-  var dtdatatable = $('#data-table-berita-acara').DataTable({
-    serverSide: true,
-    scrollX: true,
-    responsive: true,
-    ajax: {
-      url: "{{ url('berita-acara-during') }}",
-      type: 'GET',
-      data: function(d) {
-        d.search['value'] = $('#global_filter').val()
-      }
-    },
-    order: [1, 'asc'],
-    columns: [{
-        data: 'DT_RowIndex',
-        orderable: false,
-        searchable: false,
-        className: 'center-align'
-      },
-      {
-        data: 'berita_acara_during_no'
-      },
-      {
-        data: 'damage_type'
-      },
-      {
-        data: 'invoice_no'
-      },
-      {
-        data: 'bl_no'
-      },
-      {
-        data: 'container_no'
-      },
-      {
-        data: 'berita_acara_during_no'
-      }
-      // {
-      //   data: 'action',
-      //   className: 'center-align',
-      //   searchable: false,
-      //   orderable: false
-      // },
-    ]
-  });
-
-  dtdatatable.on('click', '.btn-print', function(event) {
-    var tr = $(this).parent().parent();
-    var data = dtdatatable.row(tr).data();
-    swal({
-      text: "Are you sure want to print Damage Goods Report No. " + data.berita_acara_no + " and the details?",
-      icon: 'warning',
-      buttons: {
-        cancel: true,
-        delete: 'Yes, Print It'
-      }
-    }).then(function(confirm) { // proses confirm
-      if (confirm) {
-        $.ajax({
-            url: "{{ url('berita-acara') }}" + '/' + data.id + '/print',
-            type: 'GET',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "Damage Goods Report No. " + data.berita_acara_no + " has been printed.", "success") // alert success
-            // table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-      }
-    })
-  });
-
-  dtdatatable.on('click', '.btn-delete', function(event) {
-    event.preventDefault();
-    /* Act on the event */
-    // Ditanyain dulu usernya mau beneran delete data nya nggak.
-    var tr = $(this).parent().parent();
-    var data = dtdatatable.row(tr).data();
-    swal({
-      text: "Are you sure want to delete " + data.berita_acara_no + " and the details?",
-      icon: 'warning',
-      buttons: {
-        cancel: true,
-        delete: 'Yes, Delete It'
-      }
-    }).then(function(confirm) { // proses confirm
-      if (confirm) {
-        $.ajax({
-            url: "{{ url('berita-acara') }}" + '/' + data.id,
-            type: 'DELETE',
-            dataType: 'json',
-          })
-          .done(function() {
-            swal("Good job!", "Damage Goods Report with Damage Goods Report No. " + data.berita_acara_no + " has been deleted.", "success") // alert success
-            dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-          })
-          .fail(function() {
-            console.log("error");
-          });
-      }
-    })
-  });
-
-  $("input#global_filter").on("keyup click", function() {
-    filterGlobal();
-  });
-
-  // Custom search
-  function filterGlobal() {
-    dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
-</script>
-@endpush

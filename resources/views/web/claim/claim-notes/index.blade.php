@@ -107,7 +107,10 @@
                         data: 'model_name'
                     },
                     {
-                        data: 'serial_number'
+                        data: 'serial_number',
+                        render: function(data, type, row) {
+                            return data ? data.split(",").join("<br>") : '';
+                        }
                     },
                     {
                         data: 'qty'

@@ -103,4 +103,21 @@ class BeritaAcaraDuringDetailController extends Controller
          }
       };
    }
+
+   public function prosesDelete(Request $req, $id)
+   {
+      // proses create
+      if ($req->ajax()) {
+
+         try {
+            DB::transaction(function () use (&$id) {
+               BeritaAcaraDuringDetail::whereId($id)->delete();
+            });
+
+            return sendSuccess('Data Successfully Deleted.', []);
+         } catch (\Exception $e) {
+            return sendError($e->getMessage());
+         }
+      };
+   }
 }

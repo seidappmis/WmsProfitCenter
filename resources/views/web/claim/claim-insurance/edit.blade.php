@@ -85,7 +85,10 @@
             }, {
                 data: 'serial_number',
                 name: 'serial_number',
-                className: 'center-align'
+                className: 'center-align',
+                render: function(data, type, row) {
+                    return data ? data.split(",").join("<br>") : '';
+                }
             }, {
                 data: 'model_name',
                 name: 'model_name',

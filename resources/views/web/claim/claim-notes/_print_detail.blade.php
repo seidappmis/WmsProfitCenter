@@ -3,13 +3,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 	{{-- @include('layouts.materialize.components.print-style') --}}
-	<style>
-		@media print {
-			@page {
-				size: landscape
-			}
-		}
-	</style>
 </head>
 
 <body style="font-family: courier New; font-size: 10pt;">
