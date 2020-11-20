@@ -568,7 +568,7 @@ class ClaimNoteController extends Controller
       foreach ($data['claimNoteDetail'] as $key => $value) {
         $data['qty'] += $value->qty;
         $data['price'] += $value->price;
-        $data['subTotal'] += $value->price * $value->price;
+        $data['subTotal'] += ($value->qty * $value->price);
       }
     }
 
