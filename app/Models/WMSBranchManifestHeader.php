@@ -24,7 +24,11 @@ class WMSBranchManifestHeader extends Model
 
   public function getUnconfirmedDetails()
   {
-    return $this->details->where('status_confirm', 0);
+    return $this
+      ->details
+      ->where('status_confirm', 0)
+      ->whereIn('kode_cabang', auth()->user()->getStringGrantCabang())
+    ;
   }
 
   public function picking()
