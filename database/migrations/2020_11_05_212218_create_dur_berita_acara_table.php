@@ -18,6 +18,7 @@ class CreateDurBeritaAcaraTable extends Migration
 
             $table->string('berita_acara_during_no', 30)->nullable();
             $table->date('tanggal_berita_acara')->nullable();
+            $table->date('tanggal_kejadian')->nullable();
             $table->string('ship_name')->nullable();
             $table->string('invoice_no')->nullable();
             $table->string('container_no')->nullable();
@@ -33,6 +34,8 @@ class CreateDurBeritaAcaraTable extends Migration
             $table->string('photo_container_loading')->nullable();
             $table->string('photo_seal_no')->nullable();
             $table->string('photo_loading')->nullable();
+            $table->integer('submit_by')->nullable();
+            $table->datetime('submit_date')->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

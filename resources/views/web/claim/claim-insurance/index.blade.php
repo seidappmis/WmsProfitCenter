@@ -73,28 +73,28 @@
   </div>
 
   @push('page-modal')
-    <div id="modal-form-claim-insurance" class="modal">
-      <form id="form-claim-insurance" class="form-table">
+  <div id="modal-form-claim-insurance" class="modal">
+    <form id="form-claim-insurance" class="form-table">
       <div class="modal-content">
-          <input type="hidden" name="id">
-          <table>
-            <tr>
-              <td width="200px">Claim Report</td>
-              <td>
-                <div class="input-field">
-                  <input type="text" name="claim_report">
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td width="200px">Keterangan Kejadian</td>
-              <td>
-                <div class="input-field">
-                  <input type="text" name="keterangan_kejadian">
-                </div>
-              </td>
-            </tr>
-            {{-- <tr>
+        <input type="hidden" name="id">
+        <table>
+          <tr>
+            <td width="200px">Claim Report</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="claim_report">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="200px">Keterangan Kejadian</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="keterangan_kejadian">
+              </div>
+            </td>
+          </tr>
+          {{-- <tr>
               <td width="200px">Date of Report</td>
               <td>
                 <div class="input-field">
@@ -102,22 +102,22 @@
                 </div>
               </td>
             </tr> --}}
-          </table>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn waves-effect waves-green btn-store btn blue darken-4">Create Claim Insurance</button>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
-      </form>
-    </div>
-    @endpush
+    </form>
+  </div>
+  @endpush
 
   @include('web.claim.claim-insurance._list_claim_insurance')
 
-@push('script_js')
-<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
-</script>
-@endpush
+  @push('script_js')
+  <script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+  </script>
+  @endpush
 
 
   @push('script_js')
@@ -160,7 +160,10 @@
           {
             data: 'serial_number',
             name: 'serial_number',
-            className: 'detail'
+            className: 'detail',
+            render: function(data, type, row) {
+              return data ? data.split(",").join("<br>") : '';
+            }
           },
           {
             data: 'qty',
@@ -193,43 +196,43 @@
     });
 
     $('#form-claim-insurance').validate({
-      submitHandler: function (form) {
-         var checkedData = $();
-          $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
-            var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
-            array = generateArray(row);
-            checkedData.push(array);
-          });
+      submitHandler: function(form) {
+        var checkedData = $();
+        $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
+          var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+          array = generateArray(row);
+          checkedData.push(array);
+        });
 
-          // push(checkedData, form.serialize());
-           setLoading(true);
-            $.ajax({
-                type: "POST",
-                url: '{{ url("claim-insurance/create") }}',
-                data: $(form).serialize() + '&data=' + JSON.stringify(checkedData),
-                // data: {
-                //   data: JSON.stringify(checkedData)
-                // },
-                cache: false,
-              })
-              .done(function(result) {
-                setLoading(false);
-                if (result.status) {
-                  showSwalAutoClose("Success", result.message)
-                    dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                    dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                    $('#modal-form-claim-insurance').modal('close');
-                    $(form)[0].reset();
-                } else {
-                  showSwalAutoClose('Warning', result.message)
-                }
-              })
-              .fail(function() {
-                setLoading(false);
-              })
-              .always(function() {
-                setLoading(false);
-              });
+        // push(checkedData, form.serialize());
+        setLoading(true);
+        $.ajax({
+            type: "POST",
+            url: '{{ url("claim-insurance/create") }}',
+            data: $(form).serialize() + '&data=' + JSON.stringify(checkedData),
+            // data: {
+            //   data: JSON.stringify(checkedData)
+            // },
+            cache: false,
+          })
+          .done(function(result) {
+            setLoading(false);
+            if (result.status) {
+              showSwalAutoClose("Success", result.message)
+              dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+              dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+              $('#modal-form-claim-insurance').modal('close');
+              $(form)[0].reset();
+            } else {
+              showSwalAutoClose('Warning', result.message)
+            }
+          })
+          .fail(function() {
+            setLoading(false);
+          })
+          .always(function() {
+            setLoading(false);
+          });
       }
     })
 

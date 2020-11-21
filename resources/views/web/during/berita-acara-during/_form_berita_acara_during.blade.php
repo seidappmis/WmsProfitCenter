@@ -14,6 +14,12 @@
             </td>
         </tr>
         <tr>
+            <td>TANGGAL BERITA ACARA</td>
+            <td colspan="3">
+                <input name="tanggal_kejadian" type="text" class="validate datepicker" value="" required>
+            </td>
+        </tr>
+        <tr>
             <td>KAPAL</td>
             <td>
                 <input type="text" name="ship_name">
@@ -95,7 +101,7 @@
             <td>CONTAINER DATANG</td>
             <td>
                 <div class="file-field input-field">
-                    <div class="btn">
+                    <div class="btn form-berita-acara-detail-wrapper hide">
                         <span>Browse</span>
                         <input type="file" name="photo_container_came">
                     </div>
@@ -107,13 +113,14 @@
                         <a download="" href="/path/to/image" title="img_file_photo_container_came" class="btn mt-1">
                             Download
                         </a>
+                        <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="photo_container_came" data-name="CONTAINER DATANG">Delete</a>
                     </div>
                 </div>
             </td>
             <td>LOADING</td>
             <td>
                 <div class="file-field input-field">
-                    <div class="btn">
+                    <div class="btn form-berita-acara-detail-wrapper hide">
                         <span>Browse</span>
                         <input type="file" name="photo_loading">
                     </div>
@@ -125,6 +132,7 @@
                         <a download="" href="/path/to/image" title="img_file_photo_loading" class="btn mt-1">
                             Download
                         </a>
+                        <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="photo_loading" data-name="LOADING">Delete</a>
                     </div>
                 </div>
             </td>
@@ -133,7 +141,7 @@
             <td>SEAL NO</td>
             <td>
                 <div class="file-field input-field">
-                    <div class="btn">
+                    <div class="btn form-berita-acara-detail-wrapper hide">
                         <span>Browse</span>
                         <input type="file" name="photo_seal_no">
                     </div>
@@ -145,13 +153,14 @@
                         <a download="" href="/path/to/image" title="img_file_photo_seal_no" class="btn mt-1">
                             Download
                         </a>
+                        <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="photo_seal_no" data-name="SEAL NO">Delete</a>
                     </div>
                 </div>
             </td>
             <td>CONTAINER SESUDAH LOADING</td>
             <td>
                 <div class="file-field input-field">
-                    <div class="btn">
+                    <div class="btn form-berita-acara-detail-wrapper hide">
                         <span>Browse</span>
                         <input type="file" name="photo_container_loading">
                     </div>
@@ -163,6 +172,7 @@
                         <a download="" href="/path/to/image" title="img_file_photo_container_loading" class="btn mt-1">
                             Download
                         </a>
+                        <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="photo_container_loading" data-name="CONTAINER SESUDAH LOADING">Delete</a>
                     </div>
                 </div>
             </td>
@@ -170,7 +180,7 @@
 
     </table>
     {!! get_button_save() !!}
-    <button type="button" class="waves-effect waves-light indigo btn-small btn-save mt-2" style="display: none;" id="btn-update">Update</button>
+    <button type="button" class="waves-effect waves-light indigo btn-small btn-save mt-2 form-berita-acara-detail-wrapper hide" style="display: none;" id="btn-update">Update</button>
 </form>
 
 @push('script_js')
@@ -221,7 +231,10 @@
                 .done(function(result) {
                     if (result.status) {
                         showSwalAutoClose('Success', result.message);
-                        set_form_data(result.data.during);
+                        setTimeout(function() {
+                            window.location.href = '{{ url("/berita-acara-during/:id") }}'.replace(':id', result.data.during.id);
+                        }, 1000);
+                        // set_form_data(result.data.during);
                     } else {
                         showSwalAutoClose('Warning', result.message)
                     }
@@ -276,6 +289,7 @@
         $('#form-berita-acara-during [name="berita_acara_id"]').val(data.id)
         $('#form-berita-acara-during [name="berita_acara_during_no"]').val(data.berita_acara_during_no);
         $('#form-berita-acara-during [name="tanggal_berita_acara"]').val(data.tanggal_berita_acara);
+        $('#form-berita-acara-during [name="tanggal_kejadian"]').val(data.tanggal_kejadian);
         $('#form-berita-acara-during [name="ship_name"]').val(data.ship_name);
         $('#form-berita-acara-during [name="expedition_code"]').val(data.expedition_code);
         $('#form-berita-acara-during [name="invoice_no"]').val(data.invoice_no);
@@ -291,25 +305,79 @@
         set_select2_value('#form-berita-acara-during [name="expedition_code"]', data.expedition_code, data.expedition_name);
         set_select2_value('#form-berita-acara-during [name="vehicle_number"]', data.vehicle_number, data.vehicle_number);
 
-        $('#form-berita-acara-during #img_file_photo_container_came').show();
-        $('#form-berita-acara-during #img_file_photo_container_came img').attr("src", "{{asset('storage')}}" + '/' + data.photo_container_came);
-        $('#form-berita-acara-during #img_file_photo_container_came a').attr("href", "{{asset('storage')}}" + '/' + data.photo_container_came);
+        if (data.photo_container_came) {
+            $('#form-berita-acara-during #img_file_photo_container_came').show();
+            $('#form-berita-acara-during #img_file_photo_container_came img').attr("src", "{{asset('storage')}}" + '/' + data.photo_container_came);
+            $('#form-berita-acara-during #img_file_photo_container_came a').attr("href", "{{asset('storage')}}" + '/' + data.photo_container_came);
+        };
 
-        $('#form-berita-acara-during #img_file_photo_loading').show();
-        $('#form-berita-acara-during #img_file_photo_loading img').attr("src", "{{asset('storage')}}" + '/' + data.photo_loading);
-        $('#form-berita-acara-during #img_file_photo_loading a').attr("href", "{{asset('storage')}}" + '/' + data.photo_loading);
+        if (data.photo_loading) {
+            $('#form-berita-acara-during #img_file_photo_loading').show();
+            $('#form-berita-acara-during #img_file_photo_loading img').attr("src", "{{asset('storage')}}" + '/' + data.photo_loading);
+            $('#form-berita-acara-during #img_file_photo_loading a').attr("href", "{{asset('storage')}}" + '/' + data.photo_loading);
+        };
 
-        $('#form-berita-acara-during #img_file_photo_seal_no').show();
-        $('#form-berita-acara-during #img_file_photo_seal_no img').attr("src", "{{asset('storage')}}" + '/' + data.photo_seal_no);
-        $('#form-berita-acara-during #img_file_photo_seal_no a').attr("href", "{{asset('storage')}}" + '/' + data.photo_seal_no);
+        if (data.photo_seal_no) {
+            $('#form-berita-acara-during #img_file_photo_seal_no').show();
+            $('#form-berita-acara-during #img_file_photo_seal_no img').attr("src", "{{asset('storage')}}" + '/' + data.photo_seal_no);
+            $('#form-berita-acara-during #img_file_photo_seal_no a').attr("href", "{{asset('storage')}}" + '/' + data.photo_seal_no);
+        };
 
-        $('#form-berita-acara-during #img_file_photo_container_loading').show();
-        $('#form-berita-acara-during #img_file_photo_container_loading img').attr("src", "{{asset('storage')}}" + '/' + data.photo_container_loading);
-        $('#form-berita-acara-during #img_file_photo_container_loading a').attr("href", "{{asset('storage')}}" + '/' + data.photo_container_loading);
+        if (data.photo_container_loading) {
+            $('#form-berita-acara-during #img_file_photo_container_loading').show();
+            $('#form-berita-acara-during #img_file_photo_container_loading img').attr("src", "{{asset('storage')}}" + '/' + data.photo_container_loading);
+            $('#form-berita-acara-during #img_file_photo_container_loading a').attr("href", "{{asset('storage')}}" + '/' + data.photo_container_loading);
+        };
 
         $('#form-berita-acara-during-detail [name="berita_acara_id"]').val(data.id)
         dtTableDetail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
     };
+
+    $('.btn-delete-image').click(function() {
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        var attribute = $(this),
+            div = attribute.parent(),
+            img = div.find('img'),
+            href = div.find('a');
+
+        setLoading(true);
+        swal({
+            text: "Are you sure want to delete " + attribute.attr('data-name') + " Image ?",
+            icon: 'warning',
+            buttons: {
+                cancel: true,
+                delete: 'Yes, Delete It'
+            }
+        }).then(function(confirm) { // proses confirm
+            if (confirm) {
+                $.ajax({
+                        url: ('{{ url("/berita-acara-during/:id/delete/:type") }}').replace(':id', $('#form-berita-acara-during-detail [name="berita_acara_id"]').val()).replace(':type', attribute.attr('data-type')),
+                        type: 'DELETE',
+                        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                        processData: false, // NEEDED, DON'T OMIT THIS
+                    })
+                    .done(function(result) {
+                        if (result.status) {
+                            showSwalAutoClose('Success', result.message);
+                            img.attr('src', '');
+                            href.attr('href', '');
+                            div.hide();
+                        } else {
+                            showSwalAutoClose('Warning', result.message)
+                        }
+                        setLoading(false);
+                    })
+                    .fail(function() {
+                        setLoading(false);
+                    })
+                    .always(function() {
+                        setLoading(false);
+                    });
+            }
+        })
+    });
 
     $('.timepicker').timepicker({
         timeFormat: 'HH:mm',

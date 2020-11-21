@@ -206,6 +206,7 @@ class BeritaAcaraDuringController extends Controller
         $data                         = new BeritaAcaraDuring;
         $data->berita_acara_during_no = $no;
         $data->tanggal_berita_acara   = date('Y-m-d H:i:s');
+        $data->tanggal_kejadian       = date('Y-m-d H:i:s', strtotime($req->tanggal_kejadian));
         $data->ship_name              = $req->ship_name;
         $data->invoice_no             = $req->invoice_no;
         $data->container_no           = $req->container_no;
@@ -354,6 +355,47 @@ class BeritaAcaraDuringController extends Controller
     };
   }
 
+  public function prosesDelete(Request $req, $id)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        DB::transaction(function () use (&$id) {
+          BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->delete();
+          BeritaAcaraDuring::whereId($id)->delete();
+        });
+
+        return sendSuccess('Data Successfully Deleted.', []);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
+  }
+
+  public function prosesDeleteImage(Request $req, $id, $type)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        $data = BeritaAcaraDuring::whereId($id)->first();
+        if (!empty($data->submit_date)) {
+          return sendError('Berita acara sudah di submit !');
+        }
+
+        DB::transaction(function () use (&$id, &$type, &$data) {
+          $data->$type = '';
+          $data->save();
+        });
+
+        return sendSuccess('Data Successfully Deleted.', []);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
+  }
+
   public function prosesCreateDetail(Request $req, $id)
   {
     // proses create
@@ -408,5 +450,16 @@ class BeritaAcaraDuringController extends Controller
       }
     }
     return $returnValue;
+  }
+
+  public function submit(Request $request, $id)
+  {
+    $beritaAcara              = BeritaAcaraDuring::findOrFail($id);
+    $beritaAcara->submit_by   = auth()->user()->id;
+    $beritaAcara->submit_date = date('Y-m-d H:i:s');
+
+    $beritaAcara->save();
+
+    return sendSuccess('Berita Acara submited.', $beritaAcara);
   }
 }

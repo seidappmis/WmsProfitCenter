@@ -1,4 +1,7 @@
-<form class="form-table" id="form-berita-acara-during-detail">
+<!-- Berita Acara Detail -->
+<form class="form-table form-berita-acara-detail-wrapper hide" id="form-berita-acara-during-detail">
+    <h4 class="card-title"><strong>NEW BERITA ACARA DETAIL</strong></h4>
+    <hr>
     <input type="hidden" name="berita_acara_id" value="{{!empty($berita_acara['id'])?$berita_acara['id']:0}}" readonly>
     <table>
         <tr>
@@ -190,6 +193,9 @@
 @endpush
 @push('script_js')
 <script type="text/javascript">
+    if ("{{empty($berita_acara['submit_date'])?'true':'false'}}" == 'true')
+        $('.form-berita-acara-detail-wrapper').removeClass('hide');
+
     jQuery(document).ready(function($) {});
     var dtTableDetail = $('#table-detail').DataTable({
         serverSide: true,
@@ -227,7 +233,10 @@
             {
                 data: 'serial_number',
                 name: 'serial_number',
-                className: 'detail'
+                className: 'detail',
+                render: function(data, type, row) {
+                    return data ? data.split(",").join("<br>") : '';
+                }
             },
             {
                 data: 'damage',
@@ -261,7 +270,12 @@
                 orderable: false,
                 searchable: false,
                 render: function(data, type, row, meta) {
-                    return ' ' + '<?= get_button_edit() ?>' + ' ' + '<?= get_button_delete() ?>';
+                    result = '';
+
+                    if ("{{empty($berita_acara['submit_date'])?'true':'false'}}" == 'true')
+                        result = ' ' + '<?= get_button_edit() ?>' + ' ' + '<?= get_button_delete() ?>';
+
+                    return result;
                 },
                 className: "detail center-align"
             }
@@ -338,9 +352,8 @@
         }).then(function(confirm) { // proses confirm
             if (confirm) {
                 $.ajax({
-                        url: ('{{ url("/berita-acara-during/:id/create") }}').replace(':id', data.id),
-                        type: 'POST',
-                        data: isiForm,
+                        url: ('{{ url("/berita-acara-during/:id/delete") }}').replace(':id', data.id),
+                        type: 'DELETE',
                         contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
                         processData: false, // NEEDED, DON'T OMIT THIS
                     })
@@ -385,10 +398,10 @@
                 .done(function(result) {
                     if (result.status) {
                         showSwalAutoClose('Success', result.message);
-                        dtTableDetail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                     } else {
                         showSwalAutoClose('Warning', result.message)
                     }
+                    location.reload();
                     setLoading(false);
                 })
                 .fail(function() {

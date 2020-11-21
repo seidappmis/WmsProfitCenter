@@ -17,6 +17,7 @@ class CreateDurBeritaAcaraDetailTable extends Migration
             $table->id();
 
             $table->integer('berita_acara_during_id')->length(20)->nullable();
+            $table->string('dur_dgr_id')->length(20)->nullable();
             $table->string('model_name', 50)->nullable();
             $table->integer('qty')->length(11)->nullable();
             $table->string('pom')->nullable();

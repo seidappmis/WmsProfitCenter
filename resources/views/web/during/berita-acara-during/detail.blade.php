@@ -32,9 +32,6 @@
                   @include('web.during.berita-acara-during._form_berita_acara_during')
                </div>
                <div id="section-berita-acara-during-detail" style="display: block;" class="card-content">
-                  <!-- Berita Acara Detail -->
-                  <h4 class="card-title"><strong>NEW BERITA ACARA DETAIL</strong></h4>
-                  <hr>
                   @include('web.during.berita-acara-during._form_berita_acara_detail')
                </div>
             </div>

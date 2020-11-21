@@ -80,9 +80,8 @@
 
 @push('script_js')
 <script type="text/javascript">
-  @if(empty($beritaAcara->submit_date))
-  $('.form-berita-acara-detail-wrapper').removeClass('hide')
-  @endif
+  if ("{{empty($beritaAcara->submit_date)?'true':'false'}}" == 'true')
+    $('.form-berita-acara-detail-wrapper').removeClass('hide');
 
   jQuery(document).ready(function($) {
     $('.collapsible').collapsible({
@@ -108,19 +107,33 @@
       }
     },
     order: [1, 'asc'],
-    columns: [
-      {
+    columns: [{
         data: 'DT_RowIndex',
         orderable: false,
         searchable: false,
         className: 'center-align'
       },
-      { data: 'do_no' },
-      { data: 'model_name' },
-      { data: 'serial_number' },
-      { data: 'qty' },
-      { data: 'description' },
-      { data: 'keterangan' },
+      {
+        data: 'do_no'
+      },
+      {
+        data: 'model_name'
+      },
+      {
+        data: 'serial_number',
+        render: function(data) {
+          return data ? data.split(",").join("<br>") : '';
+        }
+      },
+      {
+        data: 'qty'
+      },
+      {
+        data: 'description'
+      },
+      {
+        data: 'keterangan'
+      },
       {
         data: 'photo_url',
         orderable: false,
@@ -214,7 +227,7 @@
           })
           .done(function(result) { // selesai dan berhasil
             // $('#table-concept tbody').empty();
-            if(result.status){
+            if (result.status) {
               showSwalAutoClose('success', result.message)
               dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
               $('#form-berita-acara-detail')[0].reset(); // reset form

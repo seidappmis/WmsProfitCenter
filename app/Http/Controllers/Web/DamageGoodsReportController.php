@@ -12,6 +12,33 @@ class DamageGoodsReportController extends Controller
     return view('web.during.damage-goods-report.index');
   }
 
+  // DataTable Outstanding Index
+  public function listOutstanding(Request $request)
+  {
+    if ($request->ajax()) {
+      $query = BeritaAcaraDetail::select(
+        'clm_berita_acara_detail.*',
+        'clm_berita_acara.expedition_code',
+        'clm_berita_acara.vehicle_number',
+        'clm_berita_acara.date_of_receipt',
+        'clm_berita_acara.driver_name'
+      )
+        ->leftJoin('clm_berita_acara', 'clm_berita_acara.id', '=', 'clm_berita_acara_detail.berita_acara_id')
+        ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
+        ->whereNotNull('clm_berita_acara.submit_date')
+        ->whereNull('clm_claim_note_detail.id')
+        // ->whereNull('claim_note_detail_id')
+        ->orderBy('created_at', 'DESC')
+        ->get();
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn(); //DT_RowIndex (Penomoran)
+
+      return $datatables->make(true);
+    }
+  }
+
+
   public function export(Request $request, $id)
   {
     // $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
@@ -23,7 +50,6 @@ class DamageGoodsReportController extends Controller
 
       // request HTML View
       return $view_print;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -55,7 +81,6 @@ class DamageGoodsReportController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
@@ -64,7 +89,6 @@ class DamageGoodsReportController extends Controller
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);

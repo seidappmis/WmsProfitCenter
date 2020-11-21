@@ -40,7 +40,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_note_detail.id')
-      // ->whereNull('claim_note_detail_id')
+        // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -61,7 +61,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')
-      // ->groupBy('n.id')
+        // ->groupBy('n.id')
         ->groupBy('n.id')
         ->select(
           'n.*',
@@ -464,7 +464,8 @@ class ClaimNoteController extends Controller
 
       // return $view_print;
       // request HTML View
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 5,
         'margin_right'                    => 5,
         'margin_top'                      => 5,
@@ -476,7 +477,6 @@ class ClaimNoteController extends Controller
 
       $mpdf->Output();
       return;
-
     } else if ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -512,7 +512,8 @@ class ClaimNoteController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
-       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 5,
         'margin_right'                    => 5,
         'margin_top'                      => 5,
@@ -585,7 +586,23 @@ class ClaimNoteController extends Controller
     $title = 'claim_letter';
 
     if ($request->input('filetype') == 'html') {
-      return $view_print;
+
+      // return $view_print;
+      // request HTML View
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        'orientation'                     => 'L'
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
     } else if ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
