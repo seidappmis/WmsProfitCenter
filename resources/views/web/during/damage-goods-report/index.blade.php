@@ -47,13 +47,17 @@
                       <thead>
                         <tr>
                           <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
+                          <th class="center-align">Date</th>
                           <th class="center-align">Berita Acara No.</th>
-                          <th class="center-align">No. DO</th>
-                          <th class="center-align">Model / Item No.</th>
-                          <th class="center-align">No. Seri</th>
+                          <th class="center-align">Invoice No</th>
+                          <th class="center-align">B/L No</th>
+                          <th class="center-align">Container No</th>
+                          <th class="center-align">Vendor</th>
+                          <th class="center-align">Model</th>
+                          <th class="center-align">POM</th>
                           <th class="center-align">Qty</th>
-                          <th class="center-align">Jenis Kerusakan</th>
-                          <th class="center-align">Keterangan</th>
+                          <th class="center-align">NO Serie</th>
+                          <th class="center-align">Remark</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -64,15 +68,15 @@
               </li>
             </ul>
 
-            <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-carton-box">Claim Note Carton Box</button>
-            <button class="btn mt-2 mb-1 ml-1 mr-1" id="create-claim-unit">Claim Note Unit</button>
+            <button class="btn mt-2 mb-1 ml-1 mr-1 btn-claim" data-type="carton-box">Claim Carton Box</button>
+            <button class="btn mt-2 mb-1 ml-1 mr-1 btn-claim" data-type="unit">Claim Unit</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  @include('web.claim.claim-notes._list_claim_notes')
+  @include('web.during.damage-goods-report._list_dgr')
 
   @push('script_js')
   <script type="text/javascript">
@@ -81,7 +85,6 @@
         paging: false,
         serverSide: true,
         scrollX: true,
-        responsive: true,
         ajax: {
           url: '{{url("/damage-goods-report/list-outstanding")}}',
           type: 'GET',
@@ -97,13 +100,34 @@
             className: "datatable-checkbox-cell"
           },
           {
-            data: 'berita_acara_no'
+            data: 'created_at',
+            render: function(data, type, row) {
+              return moment(data).format('D MMM YYYY');
+            }
           },
           {
-            data: 'do_no'
+            data: 'berita_acara_during_no'
+          },
+          {
+            data: 'invoice_no'
+          },
+          {
+            data: 'bl_no'
+          },
+          {
+            data: 'container_no'
+          },
+          {
+            data: 'expedition_name'
           },
           {
             data: 'model_name'
+          },
+          {
+            data: 'pom'
+          },
+          {
+            data: 'qty'
           },
           {
             data: 'serial_number',
@@ -112,14 +136,8 @@
             }
           },
           {
-            data: 'qty'
-          },
-          {
-            data: 'description'
-          },
-          {
-            data: 'keterangan'
-          },
+            data: 'damage'
+          }
         ]
       });
 
@@ -131,26 +149,21 @@
       dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
     });
 
-    $('#create-claim-unit').click(function() {
-      var checkedData = $();
+    $('.btn-claim').click(function() {
+      var checkedData = $(),
+        type = $(this).attr('data-type');
       $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
         var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
-        array = generateArray(row, 'unit');
+        array = generateArray(row, type);
         checkedData.push(array);
       });
+      console.log(checkedData.length);
+      if (checkedData.length == 0) {
+        showSwalAutoClose('Warning', 'Selected data is empty');
+        return;
+      }
 
-      push(checkedData, 'unit');
-    });
-
-    $('#create-claim-carton-box').click(function() {
-      var checkedData = $();
-      $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
-        var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
-        array = generateArray(row, 'carton-box');
-        checkedData.push(array);
-      });
-
-      push(checkedData, 'carton-box');
+      push(checkedData, type);
     });
 
     function push(checkedData, type) {
@@ -158,7 +171,7 @@
       setLoading(true);
       $.ajax({
           type: "POST",
-          url: '{{ url("claim-notes/create") }}',
+          url: '{{ url("/damage-goods-report/create") }}',
           data: {
             data: JSON.stringify(checkedData),
             type: type
@@ -171,7 +184,7 @@
               .then((response) => {
                 // Kalau klik Ok redirect ke view
                 dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                dtTableDGR.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
               }) // alert success
           } else {
             setLoading(false);
@@ -189,17 +202,11 @@
     function generateArray(row, type) {
       var array = $();
       array = {
-        berita_acara_detail_id: row.id,
-        berita_acara_no: row.berita_acara_no,
-        date_of_receipt: row.date_of_receipt,
-        expedition_code: row.expedition_code,
-        driver_name: row.driver_name,
-        vehicle_number: row.vehicle_number,
-        do_no: row.do_no,
-        model_name: row.model_name,
-        serial_number: row.serial_number,
+        berita_acara_during_detail_id: row.id,
+        berita_acara_during_id: row.berita_acara_during_id,
+        berita_acara_during_no: row.berita_acara_during_no,
+        description: row.damage,
         qty: row.qty,
-        description: row.description,
         claim: type
       }
       return array;

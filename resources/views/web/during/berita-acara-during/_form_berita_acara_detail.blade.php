@@ -401,7 +401,7 @@
                     } else {
                         showSwalAutoClose('Warning', result.message)
                     }
-                    location.reload();
+                    dtTableDetail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                     setLoading(false);
                 })
                 .fail(function() {

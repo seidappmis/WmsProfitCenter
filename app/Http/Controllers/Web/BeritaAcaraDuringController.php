@@ -69,7 +69,19 @@ class BeritaAcaraDuringController extends Controller
     if ($req->input('filetype') == 'html') {
 
       // req HTML View
-      return $view_print;
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
     } elseif ($req->input('filetype') == 'xls') {
 
       // req FILE EXCEL
@@ -127,6 +139,15 @@ class BeritaAcaraDuringController extends Controller
     $data['berita_acara'] = $berita_acara->first();
     $data['detail']       = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
 
+    $data['export'] = [];
+    $export = 0;
+    foreach ($data['detail'] as $k => $v) {
+      if (!isset($data['export'][$export]) || count($data['export'][$export]) >= 2) {
+        $export++;
+      }
+      $data['export'][$export][] = $v;
+    }
+
     $view_print = view('web.during.berita-acara-during._print_attach', $data);
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
@@ -134,10 +155,23 @@ class BeritaAcaraDuringController extends Controller
     }
     $title = 'Berita Acara Barang During';
 
+    // dd($data);
     if ($request->input('filetype') == 'html') {
 
-      // request HTML View
-      return $view_print;
+      // req HTML View
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL

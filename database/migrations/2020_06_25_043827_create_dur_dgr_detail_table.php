@@ -17,10 +17,10 @@ class CreateDurDgrDetailTable extends Migration
          $table->id();
 
          $table->integer('dur_dgr_id')->length(20)->nullable();
-         $table->integer('berita_acara_detail_id')->length(20)->nullable();
+         $table->integer('berita_acara_during_detail_id')->length(20)->nullable();
          $table->string('description')->nullable();
          $table->integer('qty')->nullable();
-         $table->string('remarsk')->nullable();
+         $table->string('remark')->nullable();
 
          $table->timestamps();
          $table->integer('created_by')->nullable();

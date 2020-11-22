@@ -20,5 +20,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('/damage-goods-report', 'Web\DamageGoodsReportController@index');
   Route::get('/damage-goods-report/list-outstanding', 'Web\DamageGoodsReportController@listOutstanding'); //get datatable outstanding
+  Route::get('/damage-goods-report/list-damage-goods-report', 'Web\DamageGoodsReportController@listDGR'); //get datatable detail
+  Route::get('/damage-goods-report/{id}/print', 'Web\DamageGoodsReportController@export');
+  Route::get('/damage-goods-report/{id}/print-detail', 'Web\DamageGoodsReportController@exportDetail');
+  Route::post('/damage-goods-report/create', 'Web\DamageGoodsReportController@create');
   Route::get('/damage-goods-report/{id}/export', 'Web\DamageGoodsReportController@export');
 });
