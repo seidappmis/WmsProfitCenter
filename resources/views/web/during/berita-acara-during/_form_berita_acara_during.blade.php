@@ -290,6 +290,7 @@
         $('#form-berita-acara-during [name="berita_acara_during_no"]').val(data.berita_acara_during_no);
         $('#form-berita-acara-during [name="tanggal_berita_acara"]').val(data.tanggal_berita_acara);
         $('#form-berita-acara-during [name="tanggal_kejadian"]').val(data.tanggal_kejadian);
+        $('#form-berita-acara-during [name="tanggal_kejadian"]').val(data.tanggal_kejadian);
         $('#form-berita-acara-during [name="ship_name"]').val(data.ship_name);
         $('#form-berita-acara-during [name="expedition_code"]').val(data.expedition_code);
         $('#form-berita-acara-during [name="invoice_no"]').val(data.invoice_no);
