@@ -68,8 +68,7 @@
               </li>
             </ul>
 
-            <button class="btn mt-2 mb-1 ml-1 mr-1 btn-claim" data-type="carton-box">Claim Carton Box</button>
-            <button class="btn mt-2 mb-1 ml-1 mr-1 btn-claim" data-type="unit">Claim Unit</button>
+            <button class="btn mt-2 mb-1 ml-1 mr-1 btn-create-dgr" data-type="dgr">Create DGR</button>
           </div>
         </div>
       </div>
@@ -149,7 +148,7 @@
       dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
     });
 
-    $('.btn-claim').click(function() {
+    $('.btn-create-dgr').click(function() {
       var checkedData = $(),
         type = $(this).attr('data-type');
       $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
