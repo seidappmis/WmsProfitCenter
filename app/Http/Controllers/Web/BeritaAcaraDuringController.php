@@ -70,12 +70,12 @@ class BeritaAcaraDuringController extends Controller
 
       // req HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -140,7 +140,7 @@ class BeritaAcaraDuringController extends Controller
     $data['detail']       = BeritaAcaraDuringDetail::where('berita_acara_during_id', $id)->get()->toArray();
 
     $data['export'] = [];
-    $export = 0;
+    $export         = 0;
     foreach ($data['detail'] as $k => $v) {
       if (!isset($data['export'][$export]) || count($data['export'][$export]) >= 2) {
         $export++;
@@ -160,12 +160,12 @@ class BeritaAcaraDuringController extends Controller
 
       // req HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -319,17 +319,18 @@ class BeritaAcaraDuringController extends Controller
       try {
         $data = BeritaAcaraDuring::whereId($req->berita_acara_id)->first();
 
-        $data->ship_name       = $req->ship_name;
-        $data->invoice_no      = $req->invoice_no;
-        $data->container_no    = $req->container_no;
-        $data->bl_no           = $req->bl_no;
-        $data->seal_no         = $req->seal_no;
-        $data->damage_type     = $req->damage_type;
-        $data->expedition_code = $req->expedition_code;
-        $data->vehicle_number  = $req->vehicle_number;
-        $data->weather         = $req->weather;
-        $data->working_hour    = $req->working_hour;
-        $data->location        = $req->location;
+        $data->tanggal_kejadian = date_reformat($req->tanggal_kejadian);
+        $data->ship_name        = $req->ship_name;
+        $data->invoice_no       = $req->invoice_no;
+        $data->container_no     = $req->container_no;
+        $data->bl_no            = $req->bl_no;
+        $data->seal_no          = $req->seal_no;
+        $data->damage_type      = $req->damage_type;
+        $data->expedition_code  = $req->expedition_code;
+        $data->vehicle_number   = $req->vehicle_number;
+        $data->weather          = $req->weather;
+        $data->working_hour     = $req->working_hour;
+        $data->location         = $req->location;
 
         if ($req->hasFile('photo_container_came')) {
           $name                       = uniqid() . '.' . pathinfo($req->file('photo_container_came')->getClientOriginalName(), PATHINFO_EXTENSION);
