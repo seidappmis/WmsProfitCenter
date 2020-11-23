@@ -1,4 +1,5 @@
 <form class="form-table" id="form-berita-acara">
+  <input type="hidden" name="id">
   <table>
     <tr>
       <td>No. Berita Acara</td>
@@ -52,6 +53,7 @@
           <a download="" href="/path/to/image" title="img_file_do_manifest" class="btn mt-1">
             Download
           </a>
+          <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="do_manifest" data-name="DO MANIFEST">Delete</a>
         </div>
         @endif
       </td>
@@ -74,6 +76,7 @@
           <a download="" href="/path/to/image" title="img_file_internal_do" class="btn mt-1">
             Download
           </a>
+          <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="internal_do" data-name="INTERNAL DO / DO">Delete</a>
         </div>
         @endif
       </td>
@@ -96,6 +99,7 @@
           <a download="" href="/path/to/image" title="img_file_lmb" class="btn mt-1">
             Download
           </a>
+          <a class="waves-effect waves-light red darken-4 btn-small btn-delete-image btn mt-1 ml-1 form-berita-acara-detail-wrapper hide" data-type="lmb" data-name="LMB">Delete</a>
         </div>
         @endif
       </td>
@@ -111,6 +115,56 @@
   set_select_expedition()
   set_select_driver()
   set_select_vehicle_number()
+
+  jQuery(document).ready(function($) {
+    $('.btn-delete-image').click(function() {
+        event.preventDefault();
+        /* Act on the event */
+        // Ditanyain dulu usernya mau beneran delete data nya nggak.
+        var attribute = $(this),
+            div = attribute.parent(),
+            img = div.find('img'),
+            href = div.find('a');
+
+        setLoading(true);
+        swal({
+            text: "Are you sure want to delete " + attribute.attr('data-name') + " Image ?",
+            icon: 'warning',
+            buttons: {
+                cancel: true,
+                delete: 'Yes, Delete It'
+            }
+        }).then(function(confirm) { // proses confirm
+            if (confirm) {
+                $.ajax({
+                        url: ('{{ url("/berita-acara/:id/delete/:type") }}').replace(':id', $('#form-berita-acara [name="id"]').val()).replace(':type', attribute.attr('data-type')),
+                        type: 'DELETE',
+                        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+                        processData: false, // NEEDED, DON'T OMIT THIS
+                    })
+                    .done(function(result) {
+                        if (result.status) {
+                            showSwalAutoClose('Success', result.message);
+                            img.attr('src', '');
+                            href.attr('href', '');
+                            div.hide();
+                        } else {
+                            showSwalAutoClose('Warning', result.message)
+                        }
+                        setLoading(false);
+                    })
+                    .fail(function() {
+                        setLoading(false);
+                    })
+                    .always(function() {
+                        setLoading(false);
+                    });
+            } else {
+              setLoading(false)
+            }
+        })
+    });
+  });
 
   $('#form-berita-acara [name="expedition_code"]').change(function(event) {
     /* Act on the event */

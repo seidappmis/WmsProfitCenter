@@ -63,7 +63,7 @@ class ConformManifestController extends Controller
           $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')->where('wms_branch_manifest_detail.status_confirm', 0);
         })
         ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
-        ->whereIn('wms_branch_manifest_header.kode_cabang', auth()->user()->getStringGrantCabang())
+        ->whereIn('wms_branch_manifest_detail.kode_cabang', auth()->user()->getStringGrantCabang())
         ->where('wms_branch_manifest_header.status_complete', 1)
         ->groupBy('wms_branch_manifest_detail.do_manifest_no')
       ;

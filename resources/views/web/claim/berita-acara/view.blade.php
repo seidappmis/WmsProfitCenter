@@ -186,10 +186,11 @@
   });
 
   function set_form_data() {
-    $('#form-berita-acara .input-field').hide();
+    // $('#form-berita-acara .input-field').hide();
     $('#form-berita-acara select').attr('disabled', 'disabled');
     $('#form-berita-acara .btn-save').hide();
     $('#form-berita-acara-detail .btn-cancel').hide();
+    $('#form-berita-acara [name="id"]').val('{{$beritaAcara->id}}');
     $('#form-berita-acara [name="berita_acara_no"]').val("{{isset($beritaAcara)?$beritaAcara->berita_acara_no:''}}").attr("readonly", "readonly");
     $('#form-berita-acara [name="date_of_receipt"]').val("{{isset($beritaAcara)?$beritaAcara->date_of_receipt:''}}").attr("readonly", "readonly").removeClass("datepicker");
 

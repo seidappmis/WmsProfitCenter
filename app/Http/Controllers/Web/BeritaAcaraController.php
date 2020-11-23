@@ -208,6 +208,29 @@ class BeritaAcaraController extends Controller
     return sendSuccess('Berita Acara submited.', $beritaAcara);
   }
 
+  public function prosesDeleteImage(Request $req, $id, $type)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        $data = BeritaAcara::whereId($id)->first();
+        if (!empty($data->submit_date)) {
+          return sendError('Berita acara sudah di submit !');
+        }
+
+        DB::transaction(function () use (&$id, &$type, &$data) {
+          $data->$type = '';
+          $data->save();
+        });
+
+        return sendSuccess('Data Successfully Deleted.', []);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
+  }
+
   /**
    * Remove the specified resource from storage.
    *
