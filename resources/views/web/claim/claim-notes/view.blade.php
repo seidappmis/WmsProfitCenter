@@ -47,6 +47,7 @@
                           <th>Serial No</th>
                           <th>Damage Description</th>
                           <th>Destination</th>
+                          <th>Warehouse</th>
                           <th>Photo</th>
                           <th>Qty</th>
                           <th>Price</th>
@@ -132,7 +133,8 @@
         data: 'description',
         name: 'description',
         className: 'center-align'
-      }, {
+      }, 
+      {
         data: 'destination',
         name: 'destination',
         className: 'center-align',
@@ -143,7 +145,20 @@
           }
           return val;
         }
-      }, {
+      }, 
+      {
+        data: 'warehouse',
+        name: 'warehouse',
+        className: 'center-align',
+        render: function(data, type, row, meta) {
+          var val = data;
+          if (row.submit_date == null) {
+            val = '<textarea id="warehouse' + row.id + '" class="warehouse materialize-textarea" placeholder="warehouse" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+          }
+          return val;
+        }
+      }, 
+      {
         data: 'photo_url',
         orderable: false,
         render: function(data, type, row) {
@@ -213,6 +228,7 @@
       if (typeof array[id] === 'undefined') {
         array[id] = {
           destination: tr.find('.destination').val(),
+          location: tr.find('.warehouse').val(),
           qty: tr.find('.qty').val(),
           price: tr.find('.price').val(),
           total_price: tr.find('.qty').val() * tr.find('.price').val()

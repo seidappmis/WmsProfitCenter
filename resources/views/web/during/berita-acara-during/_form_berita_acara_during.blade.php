@@ -13,12 +13,12 @@
                 <input name="tanggal_berita_acara" type="text" class="validate" value="" placeholder="[AUTO]" readonly>
             </td>
         </tr>
-        {{-- <tr>
+        <tr>
             <td>TANGGAL KEJADIAN</td>
             <td colspan="3">
-                <input name="tanggal_kejadian" type="text" class="validate datepicker" value="{{date('Y-m-d')}}" required readonly="" disabled="">
+                <input name="tanggal_kejadian" type="text" class="validate datepicker" value="" required readonly="">
             </td>
-        </tr> --}}
+        </tr>
         <tr>
             <td>KAPAL</td>
             <td>

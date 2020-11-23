@@ -282,8 +282,8 @@ class ClaimInsuranceController extends Controller
   public function exportRPT(Request $request, $id)
   {
     $data['claimInsurance'] = ClaimInsurance::findOrFail($id);
-    $view_print = view('web.claim.claim-insurance._print_rpt', $data);
-    $title      = 'rpt';
+    $view_print             = view('web.claim.claim-insurance._print_rpt', $data);
+    $title                  = 'rpt';
 
     if ($request->input('filetype') == 'html') {
       // Request HTML View
@@ -363,6 +363,8 @@ class ClaimInsuranceController extends Controller
         )->get(),
     ];
 
+    $data['request'] = $request;
+
     $view_print = view('web.claim.claim-insurance._print_detail', $data);
     $title      = 'claim_insurance_detail';
 
@@ -399,7 +401,8 @@ class ClaimInsuranceController extends Controller
 
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
-      $view_print = view('web.claim.claim-insurance._print_detail_pdf', $data);
+      $view_print = view('web.claim.claim-insurance._print_detail', $data);
+      // $view_print = view('web.claim.claim-insurance._print_detail_pdf', $data);
       // Request File PDF
       $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp', 'orientation' => 'L']);
 

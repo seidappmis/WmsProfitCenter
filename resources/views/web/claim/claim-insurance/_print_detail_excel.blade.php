@@ -3,13 +3,13 @@
       <td>&nbsp;</td>
    </tr>
    <tr>
-      <td colspan="18" style="font-size: 12pt; text-align: center;"><strong>LOSS/DAMAGE PRODUCT LIST</strong></td>
+      <td colspan="11" style="font-size: 12pt; text-align: center;"><strong>LOSS/DAMAGE PRODUCT LIST</strong></td>
    </tr>
    <tr>
-      <td colspan="18" style="font-size: 12pt; text-align: center;"><strong>(Daftar Kerugian/Kerusakan Barang)</strong></td>
+      <td colspan="11" style="font-size: 12pt; text-align: center;"><strong>(Daftar Kerugian/Kerusakan Barang)</strong></td>
    </tr>
    <tr>
-      <td colspan="14"></td>
+      <td colspan="7"></td>
       <td style="width: 5mm;">&nbsp;</td>
       <td colspan="3" style="text-align: right; width:30%;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
    </tr>
@@ -35,13 +35,13 @@
       <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>LOCATION</strong></td>
       <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PHOTO</strong></td>
       <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td> --}}
    </tr>
 
    <?php
@@ -63,13 +63,13 @@
       <td style="border: 1pt solid #000000; text-align: left;">{{$v->location}}</td>
       <td style="border: 1pt solid #000000; text-align: center;"></td>
       <td style="border: 1pt solid #000000; text-align: left;">{{$v->keterangan}}</td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
-      <td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td>
-      <td style="border: 1pt solid #000000; text-align: left;"></td>
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td> --}}
+      {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
    </tr>
    <?php
    $totalUnit += $v->qty;
@@ -86,6 +86,6 @@
       <td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
       <td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
       <td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
-      <td colspan="11" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+      <td colspan="4" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
    </tr>
 </table>

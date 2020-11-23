@@ -306,6 +306,7 @@ class ClaimNoteController extends Controller
           'ba.date_of_receipt',
           'ba.berita_acara_no',
           'nd.destination',
+          DB::raw('nd.location AS warehouse'),
           'nd.driver_name',
           'nd.vehicle_number',
           'nd.do_no',

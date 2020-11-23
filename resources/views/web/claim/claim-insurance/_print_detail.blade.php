@@ -4,11 +4,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 	{{-- @include('layouts.materialize.components.print-style') --}}
 	<style>
+		@if($request->input('filetype') != 'pdf')
 		@media print {
 			@page {
 				size: landscape
 			}
 		}
+		@endif
 	</style>
 </head>
 
@@ -71,13 +73,13 @@
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>LOCATION</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PHOTO</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td> --}}
+									{{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td> --}}
 								</tr>
 
 								<?php
@@ -99,13 +101,13 @@
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->location}}</td>
 									<td style="border: 1pt solid #000000; text-align: center;">{!!!empty($v->photo_url)?'<img class="materialboxed center-align" width="200" height="200" src="'.asset('storage/').'/'.$v->photo_url.'">':'-'!!}</td>
 									<td style="border: 1pt solid #000000; text-align: left;">{{$v->keterangan}}</td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
-									<td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td>
-									<td style="border: 1pt solid #000000; text-align: left;"></td>
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td> --}}
+									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
 								</tr>
 								<?php
 								$totalUnit += $v->qty;
@@ -122,7 +124,7 @@
 									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 									<td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
-									<td colspan="11" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+									<td colspan="4" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 								</tr>
 							</table>
 						</td>
