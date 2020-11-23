@@ -240,7 +240,7 @@ class BeritaAcaraDuringController extends Controller
         $data                         = new BeritaAcaraDuring;
         $data->berita_acara_during_no = $no;
         $data->tanggal_berita_acara   = date('Y-m-d H:i:s');
-        $data->tanggal_kejadian       = date('Y-m-d H:i:s', strtotime($req->tanggal_kejadian));
+        $data->tanggal_kejadian       = date_reformat($req->tanggal_kejadian);
         $data->ship_name              = $req->ship_name;
         $data->invoice_no             = $req->invoice_no;
         $data->container_no           = $req->container_no;

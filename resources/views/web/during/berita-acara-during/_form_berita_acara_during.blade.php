@@ -13,12 +13,12 @@
                 <input name="tanggal_berita_acara" type="text" class="validate" value="" placeholder="[AUTO]" readonly>
             </td>
         </tr>
-        <tr>
-            <td>TANGGAL BERITA ACARA</td>
+        {{-- <tr>
+            <td>TANGGAL KEJADIAN</td>
             <td colspan="3">
-                <input name="tanggal_kejadian" type="text" class="validate datepicker" value="" required>
+                <input name="tanggal_kejadian" type="text" class="validate datepicker" value="{{date('Y-m-d')}}" required readonly="" disabled="">
             </td>
-        </tr>
+        </tr> --}}
         <tr>
             <td>KAPAL</td>
             <td>
