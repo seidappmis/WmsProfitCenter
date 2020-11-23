@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
     
-    $this->updateClaimInsuranceTable();
+    $this->updateTable23Nov2020();
+    // $this->updateClaimInsuranceTable();
     // $this->updateBeritaAcaraTable();
     // $this->updateReceiptInvoiceDetail();
     // $this->updatePickinglist();
@@ -18,6 +19,52 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable23Nov2020(){
+    echo "Update clm_claim_notes <br>";
+    DB::statement('ALTER TABLE `clm_claim_notes` 
+    ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `claim`,
+    ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`');
+
+
+    echo "Update dur_berita_acara <br>";
+    DB::statement('ALTER TABLE `dur_berita_acara` 
+    ADD COLUMN `tanggal_kejadian` DATE NULL DEFAULT NULL AFTER `tanggal_berita_acara`,
+    ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `photo_loading`,
+    ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`');
+
+    echo "Add Table dur_dgr <br>";
+    DB::statement('CREATE TABLE IF NOT EXISTS `dur_dgr` (
+      `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      `dgr_no` VARCHAR(30) NOT NULL,
+      `location` VARCHAR(50) NULL DEFAULT NULL,
+      `claim` VARCHAR(15) NULL DEFAULT NULL,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      `created_by` INT(11) NULL DEFAULT NULL,
+      `updated_by` INT(11) NULL DEFAULT NULL,
+      PRIMARY KEY (`id`))
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci');
+
+    echo "Add Table dur_dgr_detail <br>";
+    DB::statement('CREATE TABLE IF NOT EXISTS `dur_dgr_detail` (
+      `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+      `dur_dgr_id` INT(11) NULL DEFAULT NULL,
+      `berita_acara_during_detail_id` INT(11) NULL DEFAULT NULL,
+      `description` VARCHAR(255) NULL DEFAULT NULL,
+      `qty` INT(11) NULL DEFAULT NULL,
+      `remark` VARCHAR(255) NULL DEFAULT NULL,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      `created_by` INT(11) NULL DEFAULT NULL,
+      `updated_by` INT(11) NULL DEFAULT NULL,
+      PRIMARY KEY (`id`))
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci');
   }
 
   protected function updateClaimInsuranceTable(){

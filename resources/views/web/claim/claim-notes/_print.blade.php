@@ -9,7 +9,7 @@
         {{-- Logo --}}
         <tr>
             <td colspan="35" style="border-left: 2pt solid #000000; border-top: 2pt solid #000000; border-right: 2pt solid #000000;">
-                &nbsp; <img src="{{ $request->input('filetype') != 'xls' ?  url('images/sharp-logo-small.png') : 'images/sharp-logo-small.png' }}" alt="sharp-logo" style="width: 100px;">
+                &nbsp; <img src="{{ $request->input('filetype') != 'xls' ?  url('images/sharp-logo-small.png') : 'images/sharp-logo-small.png' }}" alt="sharp-logo" style="width:100px;">
             </td>
         </tr>
         {{-- Title --}}
@@ -20,25 +20,60 @@
             <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000; text-align: center; font-size: 10pt;">(Transporter/ Outsourcing Logistics)</td>
         </tr>
         <tr>
-            <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td>
+            {{-- <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td> --}}
+            <td style="border-left: 2pt solid #000000; width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="width: 5.8mm;">&nbsp;</td>
+            <td style="border-right: 2pt solid #000000; width: 5.8mm;">&nbsp;</td>
         </tr>
         {{-- No --}}
         <tr>
-            <td style="border-left: 2pt solid #000000; text-align: left; width: 5mm;"><strong>No :</strong></td>
-            <td style="border-bottom: 1px solid #000000;"></td>
+            <td colspan="2" style="border-left: 2pt solid #000000; text-align: left; font-size: 8pt;"><strong>No :</strong></td>
+            {{-- <td style="border-bottom: 1px solid #000000;"></td> --}}
             <td colspan="11" style="text-align: center; border-bottom: 1px solid #000000;">{{$claimNote->claim_note_no}}</td>
             <td colspan="22" style="border-right: 2pt solid #000000">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="3" style="border-left: 2pt solid #000000; text-align: left; width: 20mm;"><strong>Issued by :</strong></td>
-            <td colspan="10" style="text-align: center; border-bottom: 1px solid #000000; width: 50mm;"><strong>LOGISTICS</strong></td>
-            <td style="width: 7mm;">&nbsp;</td>
-            <td colspan="3" style="text-align: left; width: 20mm;"><strong>Division :</strong></td>
+            <td colspan="3" style="border-left: 2pt solid #000000; text-align: left; "><strong>Issued by :</strong></td>
+            <td colspan="10" style="text-align: center; border-bottom: 1px solid #000000; "><strong>LOGISTICS</strong></td>
+            <td style="">&nbsp;</td>
+            <td colspan="3" style="text-align: left; "><strong>Division :</strong></td>
             <td colspan="6" style="text-align: left; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
             <td colspan="5">&nbsp;</td>
             <td colspan="2" style="text-align: left;"><strong>Date:</strong></td>
-            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000; width: 18mm;"><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
-            <td style="border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
+            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000; "><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
+            <td style="border-right: 2pt solid #000000; ">&nbsp;</td>
         </tr>
         <tr>
             <td colspan="35" style="height: 10px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
@@ -61,12 +96,12 @@
         </tr>
        {{number_format($claimNote->sub_total, 2, ',', '.')}} <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td colspan="13" style="width: 7mm; border-right: 1px solid #000000;"><strong>Claim Carton Box : {{$claimNote->claim=='carton-box'?$claimNote->sum_qty.' Unit':''}}</strong></td>
-            <td colspan="21" style="width: 7mm; border-right: 2px solid #000000;"></td>
+            <td colspan="13" style=" border-right: 1px solid #000000;"><strong>Claim Carton Box : {{$claimNote->claim=='carton-box'?$claimNote->sum_qty.' Unit':''}}</strong></td>
+            <td colspan="21" style=" border-right: 2px solid #000000;"></td>
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Wet Carton Box</td>
 
             <!-- RIGHT SIDE -->
@@ -83,7 +118,7 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Damage Carton Box</td>
 
              <!-- RIGHT SIDE -->
@@ -101,7 +136,7 @@
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
             <td colspan="12" style=""><strong>Claim Unit : {{$claimNote->claim=='unit'?$claimNote->sum_qty.' Unit':''}}</strong></td>
-            <td colspan="" style="width: 7mm; border-right: 1px solid #000000;"></td>
+            <td colspan="" style=" border-right: 1px solid #000000;"></td>
 
              <!-- RIGHT SIDE -->
             <td>&#9314;</td>
@@ -113,7 +148,7 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Damaged</td>
 
             <!-- RIGHT SIDE -->
@@ -133,7 +168,7 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Scratched</td>
 
             <!-- RIGHT SIDE -->
@@ -153,7 +188,7 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Dented</td>
 
             <!-- RIGHT SIDE -->
@@ -166,7 +201,7 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style="width: 5mm;"><input type="checkbox" /></td>
+            <td style=""><input type="checkbox" /></td>
             <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Broken</td>
 
             <!-- RIGHT SIDE -->
@@ -271,11 +306,11 @@
         </tr>
         <tr>
             <td colspan="20" style="border-left: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; width: 18mm;">&nbsp;</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; width: 18mm;">Denny A</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; width: 18mm;">Firman</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; width: 18mm;">Tomi S</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000; text-align: center; width: 18mm;">Hardian</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; ">&nbsp;</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; ">Denny A</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; ">Firman</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center; ">Chairul A</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000; text-align: center; ">Hardian</td>
         </tr>
         <tr>
             <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000; border-bottom: 2pt solid #000000; height: 5px;"></td>
@@ -314,15 +349,15 @@
             <td colspan="4" style="border-left: 1pt solid #000000; border-right: 2px solid #000000; text-align: center;"><strong></strong></td>
         </tr>
         <tr>
-            <td colspan="5" style="border-left: 2pt solid #000000;">Payment Method ( √ ) :</td>
+            <td colspan="6" style="border-left: 2pt solid #000000;">Payment Method ( √ ) :</td>
             <td></td>
-            <td colspan="6">Transfer</td>
+            <td colspan="5">Transfer</td>
             <td></td>
             <td colspan="5">Deduct Payment</td>
-            <td colspan="6">Claim Amount (IDR, JPY, USD) : </td>
+            <td colspan="7">Claim Amount (IDR, JPY, USD) : </td>
             <td colspan="1" style="border-bottom: 1px solid #000000;"></td>
-            <td colspan="5" style="border-bottom: 1px solid #000000;">{{number_format($claimNote->sub_total, 2, ',', '.')}}</td>
-            <td style="width: 5mm;"></td>
+            <td colspan="4" style="border-bottom: 1px solid #000000;">{{number_format($claimNote->sub_total, 2, ',', '.')}}</td>
+            <td style=""></td>
             <td colspan="4" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2px solid #000000; text-align: center;"><strong></strong></td>
         </tr>
         <tr>
@@ -367,7 +402,7 @@
         </tr>
         <tr>
             <td colspan="26" style="border-left: 2pt solid #000000;">&nbsp;</td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center;">K. Tani</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center;"></td>
             <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center;">Syaalom</td>
             <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2pt solid #000000; text-align: center;"></td>
         </tr>
@@ -409,7 +444,7 @@
             <td colspan="26" style="border-left: 2pt solid #000000;">&nbsp;</td>
             <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center;">Mr Teraoka</td>
             <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; text-align: center;"></td>
-            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2pt solid #000000; text-align: center;">Yagura</td>
+            <td colspan="3" style="border-left: 1pt solid #000000; border-bottom: 1px solid #000000; border-right: 2pt solid #000000; text-align: center;"></td>
         </tr>
         <tr>
             <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000; border-bottom: 2pt solid #000000; height: 5px;"></td>

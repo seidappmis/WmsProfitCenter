@@ -34,13 +34,15 @@ class ClaimNoteController extends Controller
         'clm_berita_acara.expedition_code',
         'clm_berita_acara.vehicle_number',
         'clm_berita_acara.date_of_receipt',
-        'clm_berita_acara.driver_name'
+        'clm_berita_acara.driver_name',
+        'clm_berita_acara.submit_by',
+        'clm_berita_acara.submit_date'
       )
         ->leftJoin('clm_berita_acara', 'clm_berita_acara.id', '=', 'clm_berita_acara_detail.berita_acara_id')
         ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_note_detail.id')
-        // ->whereNull('claim_note_detail_id')
+      // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -61,7 +63,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')
-        // ->groupBy('n.id')
+      // ->groupBy('n.id')
         ->groupBy('n.id')
         ->select(
           'n.*',
@@ -334,6 +336,17 @@ class ClaimNoteController extends Controller
     //
   }
 
+  public function submit(Request $request, $id)
+  {
+    $claimNote              = ClaimNote::findOrFail($id);
+    $claimNote->submit_by   = auth()->user()->id;
+    $claimNote->submit_date = date('Y-m-d H:i:s');
+
+    $claimNote->save();
+
+    return sendSuccess('Berita Acara submited.', $claimNote);
+  }
+
   /**
    * Update the specified resource in storage.
    *
@@ -382,7 +395,22 @@ class ClaimNoteController extends Controller
    */
   public function destroy($id)
   {
-    //
+    try {
+      DB::beginTransaction();
+
+      $claimNote = ClaimNote::findOrFail($id);
+      $claimNote->details()->delete();
+      $claimNote->delete();
+
+      DB::commit();
+
+      return sendSuccess("Berita acara berhasil dihapus.", $claimNote);
+    } catch (Exception $e) {
+      DB::rollBack();
+
+      return false;
+    }
+    // return BeritaAcara::destroy($id);
   }
 
   /**
@@ -465,12 +493,12 @@ class ClaimNoteController extends Controller
       // return $view_print;
       // request HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 3,
+        'margin_right'  => 3,
+        'margin_top'    => 4,
+        'margin_bottom' => 4,
+        'format'        => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -513,12 +541,12 @@ class ClaimNoteController extends Controller
       $writer->save("php://output");
     } else if ($request->input('filetype') == 'pdf') {
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 3,
+        'margin_right'  => 3,
+        'margin_top'    => 4,
+        'margin_bottom' => 4,
+        'format'        => 'A4',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -590,13 +618,13 @@ class ClaimNoteController extends Controller
       // return $view_print;
       // request HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);

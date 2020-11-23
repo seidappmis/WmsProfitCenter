@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses cetak berita acara
 
   // Claim Notes
+  Route::delete('claim-notes/{id}', 'Web\ClaimNoteController@destroy'); //page detail berita acara
+  Route::put('claim-notes/{id}/submit', 'Web\ClaimNoteController@submit');
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
   Route::get('claim-notes/{id}/detail/{detail_id}/export', 'Web\ClaimNoteController@exportDetail');
   Route::get('claim-notes', 'Web\ClaimNoteController@index');

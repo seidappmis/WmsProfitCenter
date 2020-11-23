@@ -102,14 +102,85 @@
             orderable: false,
             searchable: false,
             render: function(data, type, row, meta) {
-               return ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
+               var btn = ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
                   ' ' + '<?= get_button_view(url("claim-notes/:id")) ?>'.replace(':id', data) +
                   ' ' + '<?= get_button_print() ?>' +
-                  ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>'
+                  ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>';
+               if (row.submit_date == null) {
+                  btn += ' <span class="waves-effect waves-light btn btn-small amber darken-4 btn-submit">Submit</span>';
+                  btn += ' <span class="waves-effect waves-light btn btn-small red darken-4 btn-delete">Delete</span>';
+               }
+               return btn;
             },
-            className: "center-align"
+            // className: "center-align"
          }]
       });
+
+      dtdatatable_claim_note.on('click', '.btn-submit', function(event) {
+          event.preventDefault();
+          /* Act on the event */
+          var tr = $(this).parent().parent();
+          var data = dtdatatable_claim_note.row(tr).data();
+          swal({
+            text: "Are you sure want to submit " + data.claim_note_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Submit It'
+            }
+          }).then(function(confirm) { // proses confirm
+            if (confirm) {
+              $.ajax({
+                  url: "{{ url('claim-notes') }}" + '/' + data.id + '/submit',
+                  type: 'PUT',
+                  dataType: 'json',
+                })
+                .done(function(result) {
+                  if (result.status) {
+                    showSwalAutoClose('Success', "Claim Note with Claim Note No. " + data.claim_note_no + " has been submited.")
+                    dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  }
+                })
+                .fail(function() {
+                  console.log("error");
+                });
+            }
+          })
+        });
+
+
+        dtdatatable_claim_note.on('click', '.btn-delete', function(event) {
+          event.preventDefault();
+          /* Act on the event */
+          // Ditanyain dulu usernya mau beneran delete data nya nggak.
+          var tr = $(this).parent().parent();
+          var data = dtdatatable_claim_note.row(tr).data();
+          swal({
+            text: "Are you sure want to delete " + data.claim_note_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+              cancel: true,
+              delete: 'Yes, Delete It'
+            }
+          }).then(function(confirm) { // proses confirm
+            if (confirm) {
+              $.ajax({
+                  url: "{{ url('claim-notes') }}" + '/' + data.id,
+                  type: 'DELETE',
+                  dataType: 'json',
+                })
+                .done(function(result) {
+                  if (result.status) {
+                    showSwalAutoClose("Success", "Claim Note with Claim Note No. " + data.claim_note_no + " has been deleted.")
+                    dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  }
+                })
+                .fail(function() {
+                  console.log("error");
+                });
+            }
+          })
+        });
 
       dtdatatable_claim_note.on('click', '.btn-print', function(event) {
          var tr = $(this).parent().parent();

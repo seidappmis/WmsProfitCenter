@@ -57,7 +57,9 @@
                       </tbody>
                     </table>
                     <a class="waves-effect waves-light btn btn-small indigo darken-4 mt-2" href="{{ url('claim-notes') }}">Back</a>
+                    @if($claimNote->submit_date == null)
                     {!! get_button_view(url('claim-notes/1'), 'Save', 'btn-save mt-2') !!}
+                    @endif
                   </div>
                 </div>
               </div>
@@ -135,7 +137,11 @@
         name: 'destination',
         className: 'center-align',
         render: function(data, type, row, meta) {
-          return '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+          var val = data;
+          if (row.submit_date == null) {
+            val = '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+          }
+          return val;
         }
       }, {
         data: 'photo_url',
@@ -152,13 +158,21 @@
         name: 'qty',
         className: 'center-align',
         render: function(data, type, row, meta) {
-          return '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
+          var val = data;
+          if (row.submit_date == null) {
+            val = '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
+          }
+          return val;
         }
       }, {
         data: 'price',
         name: 'price',
         render: function(data, type, row, meta) {
-          return '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
+          var val = format_currency(data);
+          if (row.submit_date == null) {
+            val = '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
+          }
+          return val;
         },
         className: 'center-align'
       }, {
