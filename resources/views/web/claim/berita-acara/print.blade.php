@@ -10,9 +10,9 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr><td style="height: 2px;"></td></tr>
-              <tr>
+              {{-- <tr>
                 <td style="text-align: center; font-size: 12pt;" colspan="7"><strong>BERITA ACARA</strong></td>
-              </tr>
+              </tr> --}}
               <tr>
                 <td>&nbsp;</td>
               </tr>

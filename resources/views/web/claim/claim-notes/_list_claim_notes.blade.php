@@ -173,6 +173,7 @@
                   if (result.status) {
                     showSwalAutoClose("Success", "Claim Note with Claim Note No. " + data.claim_note_no + " has been deleted.")
                     dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                    dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                   }
                 })
                 .fail(function() {

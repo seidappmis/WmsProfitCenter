@@ -50,7 +50,10 @@
                           <th>Warehouse</th>
                           <th>Photo</th>
                           <th>Qty</th>
+                          <th>Price {{ ($claimNote->claim == 'unit') ? '(condition)' : '' }}</th>
+                          @if($claimNote->claim == 'unit')
                           <th>Price</th>
+                          @endif
                           <th>Total</th>
                         </tr>
                       </thead>
@@ -179,7 +182,8 @@
           }
           return val;
         }
-      }, {
+      }, 
+      {
         data: 'price',
         name: 'price',
         render: function(data, type, row, meta) {
@@ -190,12 +194,28 @@
           return val;
         },
         className: 'center-align'
-      }, {
+      }, 
+      @if($claimNote->claim == 'unit')
+      {
         data: 'claim_note_detail',
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
+          return '<tag class="price-10"> ' + format_currency((row.price * 110 / 100));
+        },
+        className: "center-align"
+      },
+      @endif
+      {
+        data: 'claim_note_detail',
+        orderable: false,
+        searchable: false,
+        render: function(data, type, row, meta) {
+          @if($claimNote->claim == 'unit')
+          return '<tag class="sub-total"> ' + format_currency(row.qty * (row.price * 110 / 100));
+          @else 
           return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
+          @endif 
         },
         className: "center-align"
       }]
@@ -209,9 +229,17 @@
       tr = td.parent(),
       classQty = tr.find('.qty'),
       classPrice = tr.find('.price'),
-      classSubTotal = tr.find('.sub-total');
+      classSubTotal = tr.find('.sub-total'),
+      qty = classQty.val(),
+      price = classPrice.val()
+      ;
 
-    classSubTotal.html(format_currency(classQty.val() * classPrice.val()));
+      @if($claimNote->claim == 'unit')
+      tr.find('.price-10').html(format_currency(price*110/100))
+      classSubTotal.html(format_currency(qty * (price*110/100)));
+      @else
+      classSubTotal.html(format_currency(qty * price));
+      @endif
   };
 
   $('.btn-save').click(function(e) {

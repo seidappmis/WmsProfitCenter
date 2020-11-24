@@ -77,6 +77,7 @@
 
     @push('script_js')
     <script type="text/javascript">
+        var dtOutstanding;
         jQuery(document).ready(function($) {
             dtOutstanding = $('#table-outstanding').DataTable({
                 paging: false,
