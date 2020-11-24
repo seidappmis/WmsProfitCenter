@@ -39,6 +39,7 @@ class BeritaAcaraController extends Controller
         ->addColumn('action', function ($data) {
           $action = '';
           $action .= ' ' . get_button_view(url('berita-acara/' . $data->id));
+          $action .= ' ' . get_button_print('#', 'Print Letter', 'btn-print-letter');
           $action .= ' ' . get_button_print();
           if (empty($data->submit_date)  && $data->details()->count() > 0) {
             $action .= ' ' . get_button_edit('#!', 'Submit', 'btn-submit');
@@ -264,8 +265,17 @@ class BeritaAcaraController extends Controller
    */
   public function export(Request $request, $id)
   {
+    // dd($request->all(), $id, auth()->user());
     $data['beritaAcara']       = BeritaAcara::where('id', $id)->first();
     $data['beritaAcaraDetail'] = BeritaAcaraDetail::where('berita_acara_id', $id)->get();
+    $data['detail']            = [
+      "branch_manager" => $request->branch_manager,
+      "chief_admin" => $request->chief_admin,
+      "chief_warehouse" => $request->chief_warehouse,
+      "supir" => $request->supir,
+      "area" => auth()->user()->area
+    ];
+    // dd($data);
     $view_print                = view('web.claim.berita-acara._print', $data);
 
     if ($request->input('filetype') == 'xls') {
@@ -316,8 +326,8 @@ class BeritaAcaraController extends Controller
       $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
       $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(10);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(16);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -347,6 +357,92 @@ class BeritaAcaraController extends Controller
     }
   }
 
+  public function exportDetail(Request $request, $id)
+  {
+    // dd($request->all(), $id, auth()->user());
+    $data['beritaAcara']       = BeritaAcara::where('id', $id)->first();
+    $data['beritaAcaraDetail'] = BeritaAcaraDetail::where('berita_acara_id', $id)->get();
+    // dd($data);
+    $view_print                = view('web.claim.berita-acara._print_detail', $data);
+
+    if ($request->input('filetype') == 'xls') {
+      $data['excel'] = 1;
+      $view_print    = view('web.claim.berita-acara._print_detail_excel', $data);
+    }
+    $title = 'berita-acara';
+
+    if ($request->input('filetype') == 'html') {
+
+      // return $view_print;
+      // request HTML View
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        'orientation'                     => 'L'
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
+    } elseif ($request->input('filetype') == 'xls') {
+
+      // Request FILE EXCEL
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+
+      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+      // Set warna background putih
+      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+      // Set Font
+      $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+
+      // Atur lebar kolom
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(16);
+
+      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+
+      $writer->save("php://output");
+    } else if ($request->input('filetype') == 'pdf') {
+
+      // REQUEST PDF
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir'       => '/tmp',
+        'margin_left'   => 7,
+        'margin_right'  => 12,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output($title . '.pdf', "D");
+      // $mpdf->Output();
+
+    } else {
+      // Parameter filetype tidak valid / tidak ditemukan return 404
+      return redirect(404);
+    }
+  }
   // func get template excell
   public function bulkTemplate()
   {

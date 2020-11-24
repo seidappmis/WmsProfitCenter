@@ -15,7 +15,20 @@
          <td style="text-align: center; font-size: 12pt;" colspan="7"><strong>BERITA ACARA</strong></td>
       </tr>
       <tr>
+         <td colspan="3">
+            Kepada Yth <br>
+            Bp. Firman / Chairul A. (Logistic) <br>
+            PT. Sharp Electronic Indonesia <br>
+            Jakarta
+         </td>
+      </tr>
+      <tr>
          <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td style="text-align: left; width: 40mm;"><strong>Hal</strong></td>
+         <td style="width: 3mm;"><strong>:</strong></td>
+         <td><strong>BERITA ACARA KARTON BOX DAN UNIT RUSAK</strong></td>
       </tr>
       <tr>
          <td style="text-align: left; width: 40mm;"><strong>No. Berita Acara</strong></td>
@@ -102,6 +115,67 @@
          <td colspan="4" style="border: 1pt solid #000000;"><strong>Total</strong></td>
          <td style="border: 1pt solid #000000;">{{$qty}}</td>
       </tr>
+      <tr>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td>&nbsp;</td>
+      </tr>
+      <tr>
+         <td colspan="7">
+            Demikian pemberitahuan ini kami sampaikan agar dapat di proses secepatnya,
+         </td>
+      </tr>
+      <tr>
+         <td colspan="7">
+            Atas kerjasamanya kami ucapkan terima kasih
+         </td>
+      </tr>
+      <tr>
+         <td colspan="7">
+            {{$detail['area']}} , {{date('d M Y')}} <br><br>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="7">
+            Mengetahui,
+         </td>
+      </tr>
+      <tr>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            {{$detail['branch_manager']}}
+         </td>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            {{$detail['chief_admin']}}
+         </td>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            {{$detail['chief_warehouse']}}
+         </td>
+         <td style="text-align:center;">
+            {{$detail['supir']}}
+         </td>
+      </tr>
+      <tr>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
+               Branch Manager
+            </div>
+         </td>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
+               Chief Admin
+            </div>
+         </td>
+         <td style="text-align:center;height: 50mm;" colspan="2">
+            <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
+               Chief Warehouse
+            </div>
+         </td>
+         <td style="text-align:center;">
+            <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
+               Supir
+            </div>
+         </td>
       </tr>
    </table>
 

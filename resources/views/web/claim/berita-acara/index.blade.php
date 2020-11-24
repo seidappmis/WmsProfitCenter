@@ -69,6 +69,53 @@
 @include('layouts.materialize.components.modal-print', [
 'title' => 'Print Berita Acara',
 ])
+@push('page-modal')
+<div id="modal-form-print-letter" class="modal" style="">
+  <div class="modal-content">
+    <form id="form-print-letter" class="form-table">
+      <input type="hidden" name="id" readonly>
+      <table>
+        <tr>
+          <td width="150px">Branch Manager</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="branch_manager">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Chief Admin</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="chief_admin">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Chief Warehouse</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="chief_warehouse">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Supir</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="supir">
+            </div>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-letter btn green darken-4">Print Letter</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
@@ -127,11 +174,29 @@
     'title' => 'Print',
   ])
 
+  dtdatatable.on('click', '.btn-print-letter', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dtdatatable.row(tr).data();
+
+    $('#form-print-letter [name="id"]').val(data.id)
+    $('#modal-form-print-letter').modal('open');
+  });
+
+  $('.btn-show-print-preview-letter').click(function(event) {
+    /* Act on the event */
+    initPrintPreviewPrint(
+      '{{url("/berita-acara/{berita_acara_id}/print")}}'.replace('{berita_acara_id}', $('#form-print-letter [name="id"]').val()),
+      $('#form-print-letter').serialize()
+    );
+
+    $('#modal-form-print-letter').modal('close');
+  });
+
   dtdatatable.on('click', '.btn-print', function(event) {
     var tr = $(this).parent().parent();
     var data = dtdatatable.row(tr).data();
     initPrintPreviewPrint(
-      '{{url("berita-acara")}}' + '/' + data.id + '/print'
+      '{{url("berita-acara")}}' + '/' + data.id + '/print-detail'
     )
   });
 
