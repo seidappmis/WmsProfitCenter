@@ -369,7 +369,7 @@ class BeritaAcaraController extends Controller
       $data['excel'] = 1;
       $view_print    = view('web.claim.berita-acara._print_detail_excel', $data);
     }
-    $title = 'berita-acara';
+    $title = 'berita-acara-detail';
 
     if ($request->input('filetype') == 'html') {
 
@@ -382,7 +382,7 @@ class BeritaAcaraController extends Controller
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
         'format'                          => 'A4',
-        'orientation'                     => 'L'
+        // 'orientation'                     => 'L'
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -409,8 +409,8 @@ class BeritaAcaraController extends Controller
 
       // Atur lebar kolom
       $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(16);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(5);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(16);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(16);
       $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(16);
       $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(16);
       $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(16);

@@ -40,12 +40,11 @@
       @forelse($beritaAcaraDetail as $key => $value)
       <tr>
          <td style="border: 1pt solid #000000;">{{$no}}.</td>
-         <td style="border: 1pt solid #000000;">{{$value['do_no']}}</td>
-         <td style="border: 1pt solid #000000;">{{$value['model_name']}}</td>
-         <td style="border: 1pt solid #000000;">{{$value['serial_number']}}</td>
-         <td style="border: 1pt solid #000000;">{{$value['qty']}}</td>
+         <td style="border: 1pt solid #000000;" width="200px">{{$value['do_no']}}</td>
+         <td style="border: 1pt solid #000000;">{{str_replace(',', "\n", $value['serial_number'])}}</td>
+         <td style="border: 1pt solid #000000;">{{$beritaAcara['driver_name'].' / '.$beritaAcara['vehicle_number']}}</td>
          <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
-         <td style="border: 1pt solid #000000; width: 50mm;">{{$value['keterangan']}}</td>
+         <td style="border: 1pt solid #000000; width: 50mm;"><img src="{{asset('storage'). '/'. $value['photo_url']}}" width="200px" alt=""></td>
       </tr>
       @php
       $no ++;
@@ -59,10 +58,6 @@
       @endif
       <tr>
          <td>&nbsp;</td>
-      </tr>
-      <tr>
-         <td colspan="4" style="border: 1pt solid #000000;"><strong>Total</strong></td>
-         <td style="border: 1pt solid #000000;">{{$qty}}</td>
       </tr>
    </table>
 
