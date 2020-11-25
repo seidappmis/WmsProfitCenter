@@ -142,31 +142,31 @@
          </td>
       </tr>
       <tr>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center; height: 40mm; vertical-align: bottom;" colspan="2">
             {{$detail['branch_manager']}}
          </td>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center; height: 40mm; vertical-align: bottom;" colspan="1">
             {{$detail['chief_admin']}}
          </td>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center; height: 40mm; vertical-align: bottom;" colspan="3">
             {{$detail['chief_warehouse']}}
          </td>
-         <td style="text-align:center;">
+         <td style="text-align:center; height: 40mm; vertical-align: bottom;">
             {{$detail['supir']}}
          </td>
       </tr>
       <tr>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center;" colspan="2">
             <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
                Branch Manager
             </div>
          </td>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center;" colspan="1">
             <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
                Chief Admin
             </div>
          </td>
-         <td style="text-align:center;height: 50mm;" colspan="2">
+         <td style="text-align:center;" colspan="3">
             <div width="100%" style="margin: auto;border-top: 1pt solid #000000;">
                Chief Warehouse
             </div>

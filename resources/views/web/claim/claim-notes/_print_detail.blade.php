@@ -63,11 +63,8 @@
 									<td style="border: 1pt solid #000000;">{{!empty($v->location)?$v->location:'-'}}</td>
 									<td style="border: 1pt solid #000000;">{{!empty($v->description)?$v->description:'-'}}</td>
 									<td style="border: 1pt solid #000000;">{{!empty($claimNote->claim)?$claimNote->claim:'-'}}</td>
-									@php
-									$price = ($claimNote->claim == 'unit') ? ($v->price * 110 / 100) : $v->price;
-									@endphp
-									<td style="border: 1pt solid #000000; text-align:right;width:100px;">{{!empty($v->price)?money_reformat($price,'IDR'):0}}</td>
-									<td style="border: 1pt solid #000000; text-align:right;width:100px;">{{money_reformat($v->qty*$price,'IDR')}}</td>
+									<td style="border: 1pt solid #000000; text-align:right;width:100px;">{{!empty($v->price)?money_reformat($v->price,'IDR'):0}}</td>
+									<td style="border: 1pt solid #000000; text-align:right;width:100px;">{{money_reformat($v->qty*$v->price,'IDR')}}</td>
 								</tr>
 								@endforeach
 								@else
