@@ -426,9 +426,10 @@ class ClaimNoteController extends Controller
         'claim_note_id',
         DB::raw("sum(1) as unit"),
         DB::raw("sum(qty) as sum_qty"),
-        DB::raw("sum(price) as sum_price"),
-        DB::raw("sum(price*qty) as sub_total")
-      );
+        DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 110 / 100), sum(price)) as sum_price"),
+        DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 110 / 100 , price) * qty) as sub_total")
+      )
+      ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id');
     $claimNoteSubQuery2 = ClaimNoteDetail::where('claim_note_id', $id)
       ->select(
         'claim_note_id',
@@ -467,17 +468,17 @@ class ClaimNoteController extends Controller
       ->where('clm_claim_note_detail.claim_note_id', $id)
       ->get();
 
-    $data['qty']      = 0;
-    $data['price']    = 0;
-    $data['subTotal'] = 0;
     $data['request']  = $request;
-    if (!$data['claimNoteDetail']->isEmpty()) {
-      foreach ($data['claimNoteDetail'] as $key => $value) {
-        $data['qty'] += $value->qty;
-        $data['price'] += $value->price;
-        $data['subTotal'] += $value->price * $value->price;
-      }
-    }
+    // $data['qty']      = 0;
+    // $data['price']    = 0;
+    // $data['subTotal'] = 0;
+    // if (!$data['claimNoteDetail']->isEmpty()) {
+    //   foreach ($data['claimNoteDetail'] as $key => $value) {
+    //     $data['qty'] += $value->qty;
+    //     $data['price'] += $value->price;
+    //     $data['subTotal'] += $value->price * $value->price;
+    //   }
+    // }
 
     // dd($data);
     $view_print = view('web.claim.claim-notes._print', $data);
