@@ -40,7 +40,7 @@
       @forelse($beritaAcaraDetail as $key => $value)
       <tr>
          <td style="border: 1pt solid #000000;">{{$no}}.</td>
-         <td style="border: 1pt solid #000000;" width="200px">{{$value['do_no']}}</td>
+         <td style="border: 1pt solid #000000;" width="200px">{{$value['model_name']}}</td>
          <td style="border: 1pt solid #000000;">{{str_replace(',', "\n", $value['serial_number'])}}</td>
          <td style="border: 1pt solid #000000;">{{$beritaAcara['driver_name'].' / '.$beritaAcara['vehicle_number']}}</td>
          <td style="border: 1pt solid #000000;">{{$value['description']}}</td>

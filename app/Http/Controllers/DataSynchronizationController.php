@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->updateTable25Nov2020();
+    $this->updateHargaCartonBox();
+    // $this->updateTable25Nov2020();
     // $this->updateTable23Nov2020();
     // $this->updateClaimInsuranceTable();
     // $this->updateBeritaAcaraTable();
@@ -20,6 +21,25 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateHargaCartonBox()
+  {
+    $file = fopen('../database/seeds/source_files/harga_carton_box.csv', "r");
+
+    $tr_vehicle_type_details = [];
+
+    while (!feof($file)) {
+      $row = fgetcsv($file);
+
+      if (!empty($row[1])) {
+        echo "Update Carton box Price " . $row[1] . '<br>';
+        DB::table('wms_master_model')->where('model_name', $row[1])
+          ->update(['price_carton_box' => $row[2]]);
+      }
+    }
+
+    fclose($file);
   }
 
   protected function updateTable25Nov2020()
@@ -42,11 +62,11 @@ class DataSynchronizationController extends Controller
     echo "Insert Summary Claim Notes Menu";
     DB::table('tr_modules')->insert(
       [
-        'id'          => 108,
-        'modul_name'  => 'Summary Claim Notes',
+        'id'         => 108,
+        'modul_name' => 'Summary Claim Notes',
         'modul_link' => 'summary-claim-notes',
-        'group_name'  => 'Claim',
-        'order_menu'  => 4,
+        'group_name' => 'Claim',
+        'order_menu' => 4,
       ]
     );
 

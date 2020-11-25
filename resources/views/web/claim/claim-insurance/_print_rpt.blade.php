@@ -72,7 +72,7 @@
 								<td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 40mm;">&nbsp;</td>
 								<td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 10mm;">&nbsp;</td>
 								<td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;">&nbsp;</td>
-								<td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; border-right: 1pt solid #000000;"><strong>: Wh Medan Des 2019</strong></td>
+								<td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; border-right: 1pt solid #000000;"><strong>: {{$claimInsurance->branch}}</strong></td>
 							<tr>
 								<td>&nbsp;</td>
 								<td style="border-top: 1pt solid #000000; border-left: 1pt solid #000000; width: 40mm;"><strong>Date of Loss</strong></td>
@@ -87,7 +87,7 @@
 								<td style="border-bottom: 1pt solid #000000; width: 40mm;">&nbsp;</td>
 								<td style="border-bottom: 1pt solid #000000; width: 10mm;">&nbsp;</td>
 								<td style="border-bottom: 1pt solid #000000;">&nbsp;</td>
-								<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;"><strong>: {{date('F Y', strtotime($claimInsurance->created_at))}}</strong></td>
+								<td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;"><strong>: {{date('F Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
