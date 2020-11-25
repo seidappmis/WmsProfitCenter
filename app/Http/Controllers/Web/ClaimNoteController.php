@@ -42,7 +42,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_note_detail.id')
-      // ->whereNull('claim_note_detail_id')
+        // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -63,7 +63,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')
-      // ->groupBy('n.id')
+        // ->groupBy('n.id')
         ->groupBy('n.id')
         ->select(
           'n.*',
@@ -469,24 +469,9 @@ class ClaimNoteController extends Controller
       ->get();
 
     $data['request']  = $request;
-    // $data['qty']      = 0;
-    // $data['price']    = 0;
-    // $data['subTotal'] = 0;
-    // if (!$data['claimNoteDetail']->isEmpty()) {
-    //   foreach ($data['claimNoteDetail'] as $key => $value) {
-    //     $data['qty'] += $value->qty;
-    //     $data['price'] += $value->price;
-    //     $data['subTotal'] += $value->price * $value->price;
-    //   }
-    // }
 
     // dd($data);
     $view_print = view('web.claim.claim-notes._print', $data);
-
-    // if ($request->input('filetype') == 'xls') {
-    //   $data['excel'] = 1;
-    //   $view_print    = view('web.claim.claim-notes._print_excel', $data);
-    // }
 
     $title = 'claim_letter';
 

@@ -87,177 +87,188 @@
    </div>
 </div>
 
-   @push('script_js')
-   <script type="text/javascript">
-      dtOutstanding = $('#data-table').DataTable({
-         paging: true,
-         serverSide: true,
-         scrollX: true,
-         ajax: {
-            url: '{{url("summary-claim-notes")}}',
-            type: 'GET',
+@push('script_js')
+<script type="text/javascript">
+   dtOutstanding = $('#data-table').DataTable({
+      paging: true,
+      serverSide: true,
+      scrollX: true,
+      ajax: {
+         url: '{{url("summary-claim-notes")}}',
+         type: 'GET',
+      },
+      order: [1, 'asc'],
+      columns: [{
+            data: 'DT_RowIndex',
+            orderable: false,
+            searchable: false,
+            className: 'center-align'
          },
-         order: [1, 'asc'],
-         columns: [{
-               data: 'DT_RowIndex',
-               orderable: false,
-               searchable: false,
-               className: 'center-align'
+         {
+            data: 'berita_acara_group',
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
             },
-            {
-               data: 'berita_acara_group',
-               render: function(data, type, row) {
-                  return data ? data.split(",").join("<br>") : '';
-               }
+            name: ' bad.berita_acara_no'
 
+         },
+         {
+            data: 'claim_note_no',
+            name: ' n.claim_note_no'
+         },
+         {
+            data: 'sub_total',
+            searchable: false,
+            render: function(data, type, row) {
+               return format_currency(data);
             },
-            {
-               data: 'claim_note_no'
-            },
-            {
-               data: 'total',
-               render: function(data, type, row) {
-                  return format_currency(data);
-               },
-               className: 'right-align'
-            },
-            {
-               data: 'send_to_management',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="send_to_management" class="datepicker">';
-               }
-            },
-            {
-               data: 'approval_start_date',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_start_date" class="datepicker">';
-               }
-            },
-            {
-               data: 'approval_finish_date',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_finish_date" class="datepicker">';
-               }
-            },
-            {
-               data: 'so_issue_date',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="so_issue_date" class="datepicker">';
-               }
-            },
-            {
-               data: 'date_picking_expedition',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="date_picking_expedition" class="datepicker">';
-               }
-            },
-            {
-               data: 'dn_issue_date',
-               render: function(data, type, row) {
-                  return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="dn_issue_date" class="datepicker">';
-               }
-            },
-            {
-               data: 'remarks',
-               render: function(data, type, row) {
-                  return '<textarea name="remarks" style="resize: vertical;" cols="30" rows="10">' + (data ? data : '') + '</textarea>';
-               }
-            },
-            {
-               data: 'id',
-               className: 'center-align',
-               render: function(data, type, row, meta) {
-                  return ' ' + '<?= get_button_save() ?>' + ' ' + '<?= get_button_view(url("summary-claim-notes/:id")) ?>'.replace(':id', data);
-               }
-            },
-         ],
-         initComplete: function(settings, json) {
-            $('.datepicker').datepicker({
-               container: '#body',
-               autoClose: true,
-               format: 'yyyy-mm-dd'
-            });
-         }
-      });
-      jQuery(document).ready(function($) {
-
-         set_datatables_checkbox('#data-table', dtOutstanding)
-
-      });
-
-      var setDatePicker = function() {
+            className: 'right-align'
+         },
+         {
+            data: 'send_to_management',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="send_to_management" class="datepicker">';
+            }
+         },
+         {
+            data: 'approval_start_date',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_start_date" class="datepicker">';
+            }
+         },
+         {
+            data: 'approval_finish_date',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_finish_date" class="datepicker">';
+            }
+         },
+         {
+            data: 'so_issue_date',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="so_issue_date" class="datepicker">';
+            }
+         },
+         {
+            data: 'date_picking_expedition',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="date_picking_expedition" class="datepicker">';
+            }
+         },
+         {
+            data: 'dn_issue_date',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="dn_issue_date" class="datepicker">';
+            }
+         },
+         {
+            data: 'remarks',
+            searchable: false,
+            render: function(data, type, row) {
+               return '<textarea name="remarks" style="resize: vertical;" cols="30" rows="10">' + (data ? data : '') + '</textarea>';
+            }
+         },
+         {
+            data: 'id',
+            className: 'center-align',
+            searchable: false,
+            render: function(data, type, row, meta) {
+               return ' ' + '<?= get_button_save() ?>' + ' ' + '<?= get_button_view(url("summary-claim-notes/:id")) ?>'.replace(':id', data);
+            }
+         },
+      ],
+      initComplete: function(settings, json) {
          $('.datepicker').datepicker({
             container: '#body',
             autoClose: true,
             format: 'yyyy-mm-dd'
          });
-      };
-
-      $("input#outstanding-search").on("keyup click", function() {
-         dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-      });
-
-
-      dtOutstanding.on('click', '.btn-save', function(event) {
-         event.preventDefault();
-         /* Act on the event */
-         // Ditanyain dulu usernya mau beneran delete data nya nggak.
-         var tr = $(this).parent().parent();
-         var data = dtOutstanding.row(tr).data();
-         setLoading(true);
-         swal({
-            text: "Are you sure want to update " + data.berita_acara_no + " and the details?",
-            icon: 'warning',
-            buttons: {
-               cancel: true,
-               delete: 'Yes, Update It'
-            }
-         }).then(function(confirm) { // proses confirm
-            if (confirm) {
-               $.ajax({
-                     url: "{{ url('summary-claim-notes') }}" + '/' + data.id,
-                     type: 'PUT',
-                     data: {
-                        send_to_management: tr.find('[name="send_to_management"]').val(),
-                        approval_start_date: tr.find('[name="approval_start_date"]').val(),
-                        approval_finish_date: tr.find('[name="approval_finish_date"]').val(),
-                        so_issue_date: tr.find('[name="so_issue_date"]').val(),
-                        date_picking_expedition: tr.find('[name="date_picking_expedition"]').val(),
-                        dn_issue_date: tr.find('[name="dn_issue_date"]').val(),
-                        remarks: tr.find('[name="remarks"]').val(),
-                     },
-                     dataType: 'json',
-                  })
-                  .done(function(result) {
-                     if (result.status) {
-                        showSwalAutoClose("Success", "Berita Acara with Berita Acara No. " + data.claim_note_no + " has been deleted.")
-                        dtOutstanding.ajax.reload(setDatePicker, false); // (null, false) => user paging is not reset on reload
-                     }
-                     setLoading(false);
-                  })
-                  .fail(function() {
-                     showSwalAutoClose("Error")
-                     setLoading(false);
-                  });
-            }
-         });
-      });
-
-      // convert to format currency
-      function format_currency(nStr) {
-         if (nStr === null || isNaN(nStr)) return '0,00';
-         nStr += '';
-         x = nStr.split(',');
-         x1 = x[0];
-         x2 = x.length > 1 ? ',' + x[1] : '';
-         var rgx = /(\d+)(\d{3})/;
-         while (rgx.test(x1)) {
-            x1 = x1.replace(rgx, '$1' + ',' + '$2');
-         }
-         return +x1 + x2;
       }
-   </script>
-   @endpush
+   });
+   jQuery(document).ready(function($) {
+
+      set_datatables_checkbox('#data-table', dtOutstanding)
+
+   });
+
+   var setDatePicker = function() {
+      $('.datepicker').datepicker({
+         container: '#body',
+         autoClose: true,
+         format: 'yyyy-mm-dd'
+      });
+   };
+
+   $("input#outstanding-search").on("keyup click", function() {
+      dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+   });
+
+
+   dtOutstanding.on('click', '.btn-save', function(event) {
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var tr = $(this).parent().parent();
+      var data = dtOutstanding.row(tr).data();
+      setLoading(true);
+      swal({
+         text: "Are you sure want to update " + data.berita_acara_no + " and the details?",
+         icon: 'warning',
+         buttons: {
+            cancel: true,
+            delete: 'Yes, Update It'
+         }
+      }).then(function(confirm) { // proses confirm
+         if (confirm) {
+            $.ajax({
+                  url: "{{ url('summary-claim-notes') }}" + '/' + data.id,
+                  type: 'PUT',
+                  data: {
+                     send_to_management: tr.find('[name="send_to_management"]').val(),
+                     approval_start_date: tr.find('[name="approval_start_date"]').val(),
+                     approval_finish_date: tr.find('[name="approval_finish_date"]').val(),
+                     so_issue_date: tr.find('[name="so_issue_date"]').val(),
+                     date_picking_expedition: tr.find('[name="date_picking_expedition"]').val(),
+                     dn_issue_date: tr.find('[name="dn_issue_date"]').val(),
+                     remarks: tr.find('[name="remarks"]').val(),
+                  },
+                  dataType: 'json',
+               })
+               .done(function(result) {
+                  if (result.status) {
+                     showSwalAutoClose("Success", "Berita Acara with Berita Acara No. " + data.claim_note_no + " has been deleted.")
+                     dtOutstanding.ajax.reload(setDatePicker, false); // (null, false) => user paging is not reset on reload
+                  }
+                  setLoading(false);
+               })
+               .fail(function() {
+                  showSwalAutoClose("Error")
+                  setLoading(false);
+               });
+         }
+      });
+   });
+
+   // convert to format currency
+   function format_currency(nStr) {
+      if (nStr === null || isNaN(nStr)) return 'Rp. 0,00';
+      nStr += '';
+      x = nStr.split(',');
+      x1 = x[0];
+      x2 = x.length > 1 ? ',' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+      return 'Rp. ' + x1 + x2;
+   }
+</script>
+@endpush
 
 
 </div>
