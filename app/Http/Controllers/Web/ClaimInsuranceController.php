@@ -202,7 +202,7 @@ class ClaimInsuranceController extends Controller
           'id.model_name',
           'id.serial_number',
           'id.description',
-          'id.qty',
+          'bad.qty',
           'id.price',
           'id.id AS claim_insurance_detail'
         );
@@ -293,7 +293,21 @@ class ClaimInsuranceController extends Controller
 
     if ($request->input('filetype') == 'html') {
       // Request HTML View
-      return $view_print;
+      // return $view_print;
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        // 'orientation'                     => 'L'
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
+      return;
     } else if ($request->input('filetype') == 'xls') {
       // Request File EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
@@ -362,7 +376,7 @@ class ClaimInsuranceController extends Controller
           'id.model_name',
           'id.serial_number',
           'id.description',
-          'id.qty',
+          'bad.qty',
           'id.price',
           'id.id AS claim_insurance_detail',
           'id.created_at'
