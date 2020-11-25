@@ -20,6 +20,13 @@ class CreateClmClaimNotesTable extends Migration
             $table->string('claim', 15)->nullable();
             $table->integer('submit_by')->nullable();
             $table->datetime('submit_date')->nullable();
+            $table->datetime("send_to_management")->nullable();
+            $table->datetime("approval_start_date")->nullable();
+            $table->datetime("approval_finish_date")->nullable();
+            $table->datetime("so_issue_date")->nullable();
+            $table->datetime("date_picking_expedition")->nullable();
+            $table->datetime("dn_issue_date")->nullable();
+            $table->string("remarks")->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

@@ -50,4 +50,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-insurance/{id}',  'Web\ClaimInsuranceController@show'); //detail claim insurance
   Route::get('claim-insurance/{berita_acara_id}/print', 'Web\ClaimInsuranceController@exportDetail'); //proses cetak claim note
   Route::get('claim-insurance/{berita_acara_id}/print-rpt', 'Web\ClaimInsuranceController@exportRPT'); //proses cetak claim note
+
+  //summary claim note
+  Route::get('summary-claim-notes',  'Web\SummaryClaimNoteController@index');
+  Route::get('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@show');
+  Route::put('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@update');
 });

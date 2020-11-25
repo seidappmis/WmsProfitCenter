@@ -57,22 +57,23 @@
       <td style="text-align: center;vertical-align: text-top;" class="border">
          CONTAINER DATANG
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_container_came}}">
+
+         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_container_came}}">
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
          SEAL NO
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_seal_no}}">
+         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_seal_no}}">
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
          LOADING
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_loading}}">
+         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_loading}}">
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
          CONTAINER SESUDAH LOADING
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_container_loading}}">
+         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_container_loading}}">
       </td>
    </tr>
 

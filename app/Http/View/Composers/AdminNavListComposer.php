@@ -76,6 +76,7 @@ class AdminNavListComposer
     $this->menuItems[] = ['name' => 'claim', 'label' => 'Claim', 'url' => '#', 'icon' => 'branding_watermark', 'childs' => [
       ['name' => 'claim', 'label' => 'Berita Acara', 'url' => 'berita-acara', 'icon' => 'radio_button_unchecked'],
       ['name' => 'claim', 'label' => 'Claim Notes', 'url' => 'claim-notes', 'icon' => 'radio_button_unchecked'],
+      ['name' => 'claim', 'label' => 'Summary Claim Notes', 'url' => 'summary-claim-notes', 'icon' => 'radio_button_unchecked'],
       ['name' => 'claim', 'label' => 'Claim Insurance', 'url' => 'claim-insurance', 'icon' => 'radio_button_unchecked'],
     ]];
 

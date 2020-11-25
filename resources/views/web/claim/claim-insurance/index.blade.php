@@ -42,7 +42,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="collapsible-body p-0">
+                <div class="collapsible-body p-0" id="body">
                   <div class="section-data-tables">
                     <table id="table-outstanding" class="display" width="100%">
                       <thead>
@@ -87,6 +87,22 @@
             </td>
           </tr>
           <tr>
+            <td width="200px">Branch</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="branch">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="200px">Date of Loss</td>
+            <td>
+              <div class="input-field">
+                <input type="text" name="date_of_loss" class="datepicker">
+              </div>
+            </td>
+          </tr>
+          <tr>
             <td width="200px">Keterangan Kejadian</td>
             <td>
               <div class="input-field">
@@ -94,14 +110,6 @@
               </div>
             </td>
           </tr>
-          {{-- <tr>
-              <td width="200px">Date of Report</td>
-              <td>
-                <div class="input-field">
-                  <input type="text" name="date_of_report" class="datepicker">
-                </div>
-              </td>
-            </tr> --}}
         </table>
       </div>
       <div class="modal-footer">
@@ -183,7 +191,13 @@
         ]
       });
 
-      set_datatables_checkbox('#table-outstanding', dtOutstanding)
+      set_datatables_checkbox('#table-outstanding', dtOutstanding);
+
+      $('.datepicker').datepicker({
+        container: '#body',
+        autoClose: true,
+        format: 'yyyy-mm-dd'
+      });
     });
 
 
@@ -192,6 +206,13 @@
     });
 
     $('#create-claim-insurance').click(function() {
+
+
+      if ($('#table-outstanding tbody input[type=checkbox]:checked').length <= 0) {
+        showSwalAutoClose('Warning', 'Empty Checked Data');
+        return;
+      }
+
       $('#modal-form-claim-insurance').modal('open');
     });
 
@@ -203,7 +224,6 @@
           array = generateArray(row);
           checkedData.push(array);
         });
-
         // push(checkedData, form.serialize());
         setLoading(true);
         $.ajax({

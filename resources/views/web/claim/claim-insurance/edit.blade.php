@@ -24,6 +24,62 @@
                         <li class="active">
                             <div class="collapsible-header">Detail</div>
                             <div class="collapsible-body white p-0">
+                                <form id="form-claim-insurance" class="form-table">
+                                    <div class="modal-content">
+                                        <input type="hidden" name="id" value="{{$claimInsurance->id}}" readonly>
+                                        <table>
+                                            <tr>
+                                                <td width="200px">Claim Report</td>
+                                                <td>
+                                                    <div class="input-field">
+                                                        <input value="{{$claimInsurance->claim_report}}" type="text" name="claim_report">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">Branch</td>
+                                                <td>
+                                                    <div class="input-field">
+                                                        <input value="{{$claimInsurance->branch}}" type="text" name="branch">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">Date of Loss</td>
+                                                <td>
+                                                    <div class="input-field">
+                                                        <input value="{{!empty($claimInsurance->date_of_loss)?date('Y-m-d',strtotime($claimInsurance->date_of_loss)):''}}" type="text" name="date_of_loss" class="datepicker">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">Keterangan Kejadian</td>
+                                                <td>
+                                                    <div class="input-field">
+                                                        <input value="{{$claimInsurance->keterangan_kejadian}}" type="text" name="keterangan_kejadian">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content-overlay"></div>
+    </div>
+
+    <div class="col s12">
+        <div class="container">
+            <div class="section">
+                <div class="card-content">
+                    <ul class="collapsible">
+                        <li class="active">
+                            <div class="collapsible-header">Item</div>
+                            <div class="collapsible-body white p-0">
                                 <div class="section-data-tables">
                                     <div class="pl-2 pr-2 pb-2">
                                         <table id="data-table-section-contents" class="display" width="100%">
@@ -181,9 +237,7 @@
         $.ajax({
                 type: "POST",
                 url: "{{ url('claim-insurance', $claimInsurance->id) }}" + '/update',
-                data: {
-                    data: JSON.stringify(array),
-                },
+                data: $('#form-claim-insurance').serialize() + '&data=' + JSON.stringify(array),
                 cache: false,
             })
             .done(function(result) {

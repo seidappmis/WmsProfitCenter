@@ -18,6 +18,8 @@ class CreateClmClaimInsuranceTable extends Migration
             $table->string('claim_report')->nullable();
             $table->string('keterangan_kejadian')->nullable();
             $table->date('insurance_date')->nullable();
+            $table->string('branch')->nullable();
+            $table->date('date_of_loss')->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

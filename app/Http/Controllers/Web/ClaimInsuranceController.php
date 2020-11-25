@@ -31,7 +31,7 @@ class ClaimInsuranceController extends Controller
         ->leftJoin('clm_claim_insurance_detail', 'clm_claim_insurance_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_insurance_detail.id')
-      // ->whereNull('claim_note_detail_id')
+        // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
 
@@ -117,6 +117,8 @@ class ClaimInsuranceController extends Controller
             $claiminsuranceID = ClaimInsurance::insertGetId([
               'claim_report'        => $req->input('claim_report'),
               'keterangan_kejadian' => $req->input('keterangan_kejadian'),
+              'branch'              => $req->input('branch'),
+              'date_of_loss'        => $req->input('date_of_loss'),
               'insurance_date'      => date('Y-m-d H:i:s'),
               'created_by'          => auth()->user()->id,
               'created_at'          => date('Y-m-d H:i:s'),
@@ -239,9 +241,13 @@ class ClaimInsuranceController extends Controller
       try {
         if (!empty($data)) {
 
-          DB::transaction(function () use (&$data, &$id) {
+          DB::transaction(function () use (&$data, &$id, &$req) {
 
             ClaimInsurance::whereId($id)->update([
+              'claim_report'        => $req->input('claim_report'),
+              'keterangan_kejadian' => $req->input('keterangan_kejadian'),
+              'branch'              => $req->input('branch'),
+              'date_of_loss'        => $req->input('date_of_loss'),
               'updated_by' => auth()->user()->id,
               'updated_at' => date('Y-m-d H:i:s'),
             ]);
