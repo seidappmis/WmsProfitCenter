@@ -194,7 +194,7 @@
 							<tr>
 								<td>&nbsp;</td>
 								<td style="border-left: 1pt solid #000000; width: 40mm;">&nbsp;</td>
-								<td colspan="4" style="border-right: 1pt solid #000000; width: 40mm;"><strong>Unit Lost (Bajing Loncat) ( Input di "Keterangan kejadian" )</strong></td>
+								<td colspan="4" style="border-right: 1pt solid #000000; width: 40mm;"><strong>{{$claimInsurance->keterangan_kejadian}}</strong></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -317,7 +317,7 @@
 								<td>&nbsp;</td>
 				                <td colspan="2" style="text-align: left; width: 50mm;"><strong>Acknowledged,</strong></td>
 				                <td colspan="2" style="text-align: center; width: 40mm;">&nbsp;</td>
-				                <td colspan="5" style="text-align: center; width: 100mm;"><strong>Declaration for ( month/year) : ON Des 2019</strong></td>
+				                <td colspan="5" style="text-align: center; width: 100mm;"><strong>Declaration for ( month/year) : ON {{date('M Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
 				                <td colspan="3" style="text-align: center; width: 70mm;">&nbsp;</td>
 				                <td colspan="3" style="text-align: right; width: 70mm;">&nbsp;</td>
 							</tr>
