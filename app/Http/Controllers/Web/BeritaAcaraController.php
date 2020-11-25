@@ -295,7 +295,7 @@ class BeritaAcaraController extends Controller
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
         'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'orientation'                     => 'P'
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);

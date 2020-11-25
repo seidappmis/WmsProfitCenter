@@ -12,7 +12,13 @@
             <li class="breadcrumb-item active">Claim Notes</li>
          </ol>
       </div>
-      <div class="col s12 m3">
+      <div class="col s12 m6">
+         <div class="app-wrapper">
+            <div class="datatable-search mb-0">
+               <i class="material-icons mr-2 search-icon">search</i>
+               <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
+            </div>
+         </div>
       </div>
    </div>
    @endcomponent
@@ -21,8 +27,35 @@
       <div class="container">
          <div class="section">
             <div class="card mb-0">
-               <div class="card-content p-0">
-                  <ul class="collapsible m-0">
+               <div class="card-content p-0" id="body">
+                  <div class="section-data-tables">
+                     <table id="data-table" class="display" width="100%">
+                        <thead>
+                           <tr>
+                              <th rowspan="2" class="center-align" data-priority="1" width="30px">No</th>
+                              <th rowspan="2" class="center-align">Berita Acara No.</th>
+                              <th rowspan="2" class="center-align">Claim Note</th>
+                              <th rowspan="2" class="center-align">Total</th>
+                              <th rowspan="2" class="center-align">Send to Management</th>
+                              <th colspan="2" class="center-align">Approval Date</th>
+                              <th class="center-align">Admin Process</th>
+                              <th rowspan="2" class="center-align">Date Picking Expedition</th>
+                              <th class="center-align">Admin Process</th>
+                              <th rowspan="2" class="center-align">Remarks</th>
+                              <th rowspan="2" class="center-align">Action</th>
+                           </tr>
+                           <tr>
+                              <th class="center-align">Start</th>
+                              <th class="center-align">Finish</th>
+                              <th class="center-align">SO Issue Date</th>
+                              <th class="center-align">DN Issue Date</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                     </table>
+                  </div>
+                  {{-- <ul class="collapsible m-0">
                      <li class="active">
                         <div class="collapsible-header p-0">
                            <div class="row">
@@ -43,41 +76,16 @@
                            </div>
                         </div>
                         <div class="body p-0" id="body">
-                           <div class="section-data-tables">
-                              <table id="data-table" class="display" width="100%">
-                                 <thead>
-                                    <tr>
-                                       <th rowspan="2" class="center-align" data-priority="1" width="30px">No</th>
-                                       <th rowspan="2" class="center-align">Berita Acara No.</th>
-                                       <th rowspan="2" class="center-align">Claim Note</th>
-                                       <th rowspan="2" class="center-align">Total</th>
-                                       <th rowspan="2" class="center-align">Send to Management</th>
-                                       <th colspan="2" class="center-align">Approval Date</th>
-                                       <th class="center-align">Admin Process</th>
-                                       <th rowspan="2" class="center-align">Date Picking Expedition</th>
-                                       <th class="center-align">Admin Process</th>
-                                       <th rowspan="2" class="center-align">Remarks</th>
-                                       <th rowspan="2" class="center-align">Action</th>
-                                    </tr>
-                                    <tr>
-                                       <th class="center-align">Start</th>
-                                       <th class="center-align">Finish</th>
-                                       <th class="center-align">SO Issue Date</th>
-                                       <th class="center-align">DN Issue Date</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                 </tbody>
-                              </table><input type="text" class="datepicker">
-                           </div>
+                           
                         </div>
                      </li>
-                  </ul>
+                  </ul> --}}
                </div>
             </div>
          </div>
       </div>
    </div>
+</div>
 
    @push('script_js')
    <script type="text/javascript">

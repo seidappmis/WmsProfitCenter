@@ -9,8 +9,9 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    
-    $this->updateTable23Nov2020();
+
+    $this->updateTable25Nov2020();
+    // $this->updateTable23Nov2020();
     // $this->updateClaimInsuranceTable();
     // $this->updateBeritaAcaraTable();
     // $this->updateReceiptInvoiceDetail();
@@ -21,15 +22,45 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
-  protected function updateTable23Nov2020(){
+  protected function updateTable25Nov2020()
+  {
+    echo "Update Claim Insurance";
+    DB::statement('ALTER TABLE `clm_claim_insurance`
+    ADD COLUMN `branch` VARCHAR(255) NULL DEFAULT NULL AFTER `insurance_date`,
+    ADD COLUMN `date_of_loss` DATE NULL DEFAULT NULL AFTER `branch`');
+
+    echo "Update Clm Claim Notes";
+    DB::statement('ALTER TABLE `clm_claim_notes`
+    ADD COLUMN `send_to_management` DATETIME NULL DEFAULT NULL AFTER `submit_date`,
+    ADD COLUMN `approval_start_date` DATETIME NULL DEFAULT NULL AFTER `send_to_management`,
+    ADD COLUMN `approval_finish_date` DATETIME NULL DEFAULT NULL AFTER `approval_start_date`,
+    ADD COLUMN `so_issue_date` DATETIME NULL DEFAULT NULL AFTER `approval_finish_date`,
+    ADD COLUMN `date_picking_expedition` DATETIME NULL DEFAULT NULL AFTER `so_issue_date`,
+    ADD COLUMN `dn_issue_date` DATETIME NULL DEFAULT NULL AFTER `date_picking_expedition`,
+    ADD COLUMN `remarks` VARCHAR(255) NULL DEFAULT NULL AFTER `dn_issue_date`');
+
+    echo "Insert Summary Claim Notes Menu";
+    DB::table('tr_modules')->insert(
+      [
+        'id'          => 108,
+        'modul_name'  => 'Summary Claim Notes',
+        'modul_link' => 'summary-claim-notes',
+        'group_name'  => 'Claim',
+        'order_menu'  => 4,
+      ]
+    );
+
+  }
+
+  protected function updateTable23Nov2020()
+  {
     echo "Update clm_claim_notes <br>";
-    DB::statement('ALTER TABLE `clm_claim_notes` 
+    DB::statement('ALTER TABLE `clm_claim_notes`
     ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `claim`,
     ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`');
 
-
     echo "Update dur_berita_acara <br>";
-    DB::statement('ALTER TABLE `dur_berita_acara` 
+    DB::statement('ALTER TABLE `dur_berita_acara`
     ADD COLUMN `tanggal_kejadian` DATE NULL DEFAULT NULL AFTER `tanggal_berita_acara`,
     ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `photo_loading`,
     ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`');
@@ -67,16 +98,18 @@ class DataSynchronizationController extends Controller
     COLLATE = utf8mb4_unicode_ci');
   }
 
-  protected function updateClaimInsuranceTable(){
+  protected function updateClaimInsuranceTable()
+  {
     echo "Update Table Insurance";
-    DB::statement('ALTER TABLE `clm_claim_insurance` 
+    DB::statement('ALTER TABLE `clm_claim_insurance`
     ADD COLUMN `claim_report` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
     ADD COLUMN `keterangan_kejadian` VARCHAR(255) NULL DEFAULT NULL AFTER `claim_report`
     ');
   }
 
-  protected function updateBeritaAcaraTable(){
-    DB::statement('ALTER TABLE `clm_berita_acara` 
+  protected function updateBeritaAcaraTable()
+  {
+    DB::statement('ALTER TABLE `clm_berita_acara`
     ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `kode_cabang`,
     ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`
     ');
@@ -86,16 +119,16 @@ class DataSynchronizationController extends Controller
   {
     try {
       DB::beginTransaction();
-    DB::statement('ALTER TABLE `clm_berita_acara_detail`
+      DB::statement('ALTER TABLE `clm_berita_acara_detail`
     ADD COLUMN `claim_note_detail_id` INT(11) NULL DEFAULT NULL AFTER `berita_acara_id`,
     ADD COLUMN `claim_insurance_detail_id` INT(11) NULL DEFAULT NULL AFTER `claim_note_detail_id`');
 
-    DB::statement('ALTER TABLE `clm_claim_insurance`
+      DB::statement('ALTER TABLE `clm_claim_insurance`
     ADD COLUMN `insurance_date` DATE NULL DEFAULT NULL AFTER `id`,
     ADD COLUMN `created_by` INT(11) NULL DEFAULT NULL AFTER `updated_at`,
     ADD COLUMN `updated_by` INT(11) NULL DEFAULT NULL AFTER `created_by`');
 
-    DB::statement('CREATE TABLE IF NOT EXISTS `clm_claim_insurance_detail` (
+      DB::statement('CREATE TABLE IF NOT EXISTS `clm_claim_insurance_detail` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `claim_insurance_id` INT(11) NULL DEFAULT NULL,
     `berita_acara_detail_id` INT(11) NULL DEFAULT NULL,
@@ -121,7 +154,7 @@ class DataSynchronizationController extends Controller
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_unicode_ci');
 
-    DB::statement('CREATE TABLE IF NOT EXISTS `clm_claim_note_detail` (
+      DB::statement('CREATE TABLE IF NOT EXISTS `clm_claim_note_detail` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `claim_note_id` INT(11) NULL DEFAULT NULL,
     `berita_acara_detail_id` INT(11) NULL DEFAULT NULL,
@@ -147,7 +180,7 @@ class DataSynchronizationController extends Controller
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_unicode_ci');
 
-    DB::statement('ALTER TABLE `clm_claim_notes`
+      DB::statement('ALTER TABLE `clm_claim_notes`
     DROP COLUMN `total_price`,
     DROP COLUMN `price`,
     DROP COLUMN `description`,
@@ -162,7 +195,7 @@ class DataSynchronizationController extends Controller
     DROP COLUMN `date_of_receipt`,
     DROP COLUMN `berita_acara_no`');
 
-    DB::statement('CREATE TABLE IF NOT EXISTS `dur_berita_acara` (
+      DB::statement('CREATE TABLE IF NOT EXISTS `dur_berita_acara` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `berita_acara_during_no` VARCHAR(30) NULL DEFAULT NULL,
     `tanggal_berita_acara` DATE NULL DEFAULT NULL,
@@ -190,7 +223,7 @@ class DataSynchronizationController extends Controller
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_unicode_ci');
 
-    DB::statement('CREATE TABLE IF NOT EXISTS `dur_berita_acara_detail` (
+      DB::statement('CREATE TABLE IF NOT EXISTS `dur_berita_acara_detail` (
     `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `berita_acara_during_id` INT(11) NULL DEFAULT NULL,
     `model_name` VARCHAR(50) NULL DEFAULT NULL,
@@ -209,9 +242,9 @@ class DataSynchronizationController extends Controller
     DEFAULT CHARACTER SET = utf8mb4
     COLLATE = utf8mb4_unicode_ci');
 
-    DB::statement('ALTER TABLE `wms_pickinglist_header`
+      DB::statement('ALTER TABLE `wms_pickinglist_header`
     CHANGE COLUMN `deleted_at` `deleted_at` DATETIME NULL DEFAULT NULL');
-    DB::commit();
+      DB::commit();
     } catch (Exception $e) {
       DB::rollback();
     }
