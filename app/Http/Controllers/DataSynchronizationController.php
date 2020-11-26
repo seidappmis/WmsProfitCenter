@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->updateHargaCartonBox();
+    $this->updateTable26Nov2020();
+    // $this->updateHargaCartonBox();
     // $this->updateTable25Nov2020();
     // $this->updateTable23Nov2020();
     // $this->updateClaimInsuranceTable();
@@ -21,6 +22,13 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable26Nov2020(){
+    echo "Add reason to claimnote item <br>";
+    DB::statement('ALTER TABLE `clm_claim_note_detail`   
+      ADD COLUMN `reason` VARCHAR(255) NULL AFTER `description`;
+    ');
   }
 
   protected function updateHargaCartonBox()

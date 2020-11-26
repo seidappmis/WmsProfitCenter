@@ -40,35 +40,35 @@
 		<td colspan="6" style="text-align: left; color: red;">" Please fill in this 1st Report <u>within 2 days after the accident happened</u> and submit to HO and Insurance Company by e-mail"</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;"><strong>Branch</strong></td>
-		<td colspan="4" style="border: 1pt solid #000000;"><strong>: {{$claimInsurance->branch}}</strong></td>
+		<td colspan="2" style="border-left: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>Branch</strong></td>
+		<td colspan="4" style="border-right: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>: {{$claimInsurance->branch}}</strong></td>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;"><strong>Date of Loss</strong></td>
-		<td colspan="4" style="border: 1pt solid #000000;"></td>
+		<td colspan="2" style="border-left: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>Date of Loss</strong></td>
+		<td colspan="4" style="border-right: 1pt solid #000000; border-top: 1pt solid #000000;"></td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;">(when the accident happened/found)</td>
-		<td colspan="4" style="border: 1pt solid #000000;"><strong>: {{date('F Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
+		<td colspan="2" style="border-left: 1pt solid #000000;">(when the accident happened/found)</td>
+		<td colspan="4" style="border-right: 1pt solid #000000;"><strong>: {{date('F Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;"><strong>Damage Product</strong></td>
-		<td colspan="4" style="border: 1pt solid #000000;">: Please fill up the attachment</td>
+		<td colspan="2" style="border-left: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>Damage Product</strong></td>
+		<td colspan="4" style="border-right: 1pt solid #000000; border-top: 1pt solid #000000;">: Please fill up the attachment</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;">(product &amp; serial number)</td>
-		<td colspan="4" style="border: 1pt solid #000000;">&nbsp;</td>
+		<td colspan="2" style="border-left: 1pt solid #000000;">(product &amp; serial number)</td>
+		<td colspan="4" style="border-right: 1pt solid #000000;">&nbsp;</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;"><strong>Place of Loss Found</strong></td>
-		<td colspan="4" style="border: 1pt solid #000000;">: Please fill up the attachment</td>
+		<td colspan="2" style="border-left: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>Place of Loss Found</strong></td>
+		<td colspan="4" style="border-right: 1pt solid #000000; border-top: 1pt solid #000000;">: Please fill up the attachment</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;">(office/warehouse/dealer)/shop/transit)</td>
-		<td colspan="4" style="border: 1pt solid #000000;">&nbsp;</td>
+		<td colspan="2" style="border-left: 1pt solid #000000;">(office/warehouse/dealer)/shop/transit)</td>
+		<td colspan="4" style="border-right: 1pt solid #000000;">&nbsp;</td>
 	</tr>
 	<tr>
-		<td colspan="2" style="border: 1pt solid #000000;"><strong>Route</strong></td>
-		<td colspan="4" style="border: 1pt solid #000000;">&nbsp;</td>
+		<td colspan="2" style="border-left: 1pt solid #000000; border-top: 1pt solid #000000;"><strong>Route</strong></td>
+		<td colspan="4" style="border-right: 1pt solid #000000; border-top: 1pt solid #000000;">&nbsp;</td>
 	</tr>
 	<tr>
 		<td style="border-left: 1pt solid #000000; ">&nbsp;</td>
@@ -97,7 +97,7 @@
 		<td colspan="6" style="border-left: 1pt solid #000000; border-right: 1pt solid #000000;"><strong>Other Info (if any, such as : name of transportation coy &amp; driver)</strong></td>
 	</tr>
 	<tr>
-		<td colspan="6" style="border-left: 1pt solid #000000;border-right: 1pt solid #000000;"><strong>{{$claimInsurance->keterangan_kejadian}}</strong></td>
+		<td colspan="6" style="border-left: 1pt solid #000000;border-right: 1pt solid #000000; text-align: center; height: 50px;"><strong>{{$claimInsurance->keterangan_kejadian}}</strong></td>
 	</tr>
 	<tr>
 		<td colspan="3" style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; border-left: 1pt solid #000000;"><strong>Photograph</strong></td>

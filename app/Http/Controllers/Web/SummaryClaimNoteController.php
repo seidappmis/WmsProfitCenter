@@ -26,9 +26,10 @@ class SummaryClaimNoteController extends Controller
             'claim_note_id',
             DB::raw("sum(1) as unit"),
             DB::raw("sum(qty) as sum_qty"),
-            DB::raw("sum(price) as sum_price"),
-            DB::raw("sum(price*qty) as sub_total")
+            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) ) as sum_price"),
+            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) *qty) as sub_total")
          )
+         ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
             ->groupBy('claim_note_id');
          $query = ClaimNote::from('clm_claim_notes AS n')
             ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')

@@ -46,6 +46,7 @@
                           <th>Model</th>
                           <th>Serial No</th>
                           <th>Damage Description</th>
+                          <th>Reason</th>
                           <th>Destination</th>
                           <th>Warehouse</th>
                           <th>Photo</th>
@@ -136,6 +137,29 @@
         data: 'description',
         name: 'description',
         className: 'center-align'
+      }, 
+      {
+        data: 'reason',
+        name: 'reason',
+        width: '70px',
+        render: function(data, type, row, meta) {
+          var val = data;
+          if (row.submit_date == null) {
+            val = '<select id="select-reason-' + row.id + '" style="display: block; width: 150px;     background-color: #ffffff91;" class="reason">';
+            val += '<option value="" disabled selected>-- Reason --</option>';
+            @if($claimNote->claim == 'unit')
+            val += '<option ' + (data == 'Unit of F/G Damaged' ? 'selected' : '') + '>Unit of F/G Damaged</option>';
+            val += '<option ' + (data == 'Unit of F/G Scratched' ? 'selected' : '') + '>Unit of F/G Scratched</option>';
+            val += '<option ' + (data == 'Unit of F/G Dented' ? 'selected' : '') + '>Unit of F/G Dented</option>';
+            val += '<option ' + (data == 'Unit of F/G Broken' ? 'selected' : '') + '>Unit of F/G Broken</option>';
+            @else
+            val += '<option ' + (data == 'Wet Carton Box' ? 'selected' : '') + '>Wet Carton Box</option>';
+            val += '<option ' + (data == 'Damage Carton Box' ? 'selected' : '') + '>Damage Carton Box</option>';
+            @endif
+            val += '</select>';
+          }
+          return val;
+        }
       }, 
       {
         data: 'destination',
@@ -256,6 +280,7 @@
       if (typeof array[id] === 'undefined') {
         array[id] = {
           destination: tr.find('.destination').val(),
+          reason: tr.find('.reason').val(),
           location: tr.find('.warehouse').val(),
           qty: tr.find('.qty').val(),
           price: tr.find('.price').val(),

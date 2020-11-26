@@ -96,13 +96,13 @@
         </tr>
        {{number_format($claimNote->sub_total, 2, ',', '.')}} <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td colspan="13" style=" border-right: 1px solid #000000;"><strong>Claim Carton Box : {{$claimNote->claim=='carton-box'?$claimNote->sum_qty.' Unit':''}}</strong></td>
+            <td colspan="13" style=" border-right: 1px solid #000000;"><strong>{{$claimNote->claim=='carton-box'? 'Claim Carton Box : ' . $claimNote->sum_qty. ' Unit':'Claim Unit : ' . $claimNote->sum_qty. ' Unit'}}</strong></td>
             <td colspan="21" style=" border-right: 2px solid #000000;"></td>
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Wet Carton Box</td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[0]) ? $rs_reasons[0] : '' }}</td>
 
             <!-- RIGHT SIDE -->
             <td>&#9312;</td>
@@ -118,8 +118,8 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Damage Carton Box</td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[1]) ? $rs_reasons[1] : '' }}</td>
 
              <!-- RIGHT SIDE -->
             <td>&#9313;</td>
@@ -135,8 +135,8 @@
         </tr>
         <tr>
             <td style="border-left: 2px solid #000000;"></td>
-            <td colspan="12" style=""><strong>Claim Unit : {{$claimNote->claim=='unit'?$claimNote->sum_qty.' Unit':''}}</strong></td>
-            <td colspan="" style=" border-right: 1px solid #000000;"></td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[2]) ? $rs_reasons[2] : '' }}</td>
 
              <!-- RIGHT SIDE -->
             <td>&#9314;</td>
@@ -147,16 +147,16 @@
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Damaged</td>
+            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
 
             <!-- RIGHT SIDE -->
             <td style="border-right: 2px solid #000000;" colspan="21"></td>
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
+            <td style="border-left: 2px solid #000000;"></td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[3]) ? $rs_reasons[3] : '' }}</td>
 
             <!-- RIGHT SIDE -->
             <td>&#9315;</td>
@@ -167,16 +167,16 @@
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Scratched</td>
+            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
 
             <!-- RIGHT SIDE -->
             <td style="border-right: 2px solid #000000;" colspan="21"></td>
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
+            <td style="border-left: 2px solid #000000;"></td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[4]) ? $rs_reasons[4] : '' }}</td>
 
             <!-- RIGHT SIDE -->
             <td>&#9316;</td>
@@ -187,22 +187,21 @@
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Dented</td>
+            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
 
             <!-- RIGHT SIDE -->
             <td style="border-right: 2px solid #000000;" colspan="21"></td>
             <!-- END RIGHT SIDE -->
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
+            <td style="border-left: 2px solid #000000;"></td>
+            <td style=""></td>
+            <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[5]) ? $rs_reasons[5] : '' }}</td>
+
             <td style="border-right: 2px solid #000000;" colspan="21"></td>
         </tr>
         <tr>
-            <td style="border-left: 2px solid #000000;"></td>
-            <td style=""><input type="checkbox" /></td>
-            <td colspan="12" style="border-right: 1px solid #000000;">Unit of F/G Broken</td>
+            <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">&nbsp;</td>
 
             <!-- RIGHT SIDE -->
             <td style="border-right: 2px solid #000000;" colspan="21"></td>

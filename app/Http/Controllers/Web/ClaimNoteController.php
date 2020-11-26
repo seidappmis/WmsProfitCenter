@@ -313,6 +313,7 @@ class ClaimNoteController extends Controller
           'nd.model_name',
           'nd.serial_number',
           'nd.description',
+          'nd.reason',
           'nd.qty',
           'nd.price',
           'nd.id AS claim_note_detail',
@@ -425,6 +426,7 @@ class ClaimNoteController extends Controller
       ->select(
         'claim_note_id',
         DB::raw("sum(1) as unit"),
+        DB::raw("GROUP_CONCAT(DISTINCT reason SEPARATOR ',') AS reasons"),
         DB::raw("sum(qty) as sum_qty"),
         DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 110 / 100), sum(price)) as sum_price"),
         DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 110 / 100 , price) * qty) as sub_total")
@@ -469,8 +471,11 @@ class ClaimNoteController extends Controller
       ->get();
 
     $data['request']  = $request;
+    $data['rs_reasons']  = explode(',', $data['claimNote']->reasons);
 
     // dd($data);
+    // echo "<pre>";
+    // print_r($data['rs_reasons']); exit;
     $view_print = view('web.claim.claim-notes._print', $data);
 
     $title = 'claim_letter';

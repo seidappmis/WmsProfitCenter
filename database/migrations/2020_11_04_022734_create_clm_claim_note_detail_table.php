@@ -26,6 +26,7 @@ class CreateClmClaimNoteDetailTable extends Migration
             $table->string('model_name', 50)->nullable();
             $table->string('serial_number', 50)->nullable();
             $table->string('description')->nullable();
+            $table->string('reason')->nullable();
             $table->string('destination')->nullable();
             $table->string('location')->nullable();
             $table->integer('qty')->nullable();
