@@ -10,7 +10,7 @@
         <tr>
             <td>TANGGAL BERITA ACARA</td>
             <td colspan="3">
-                <input name="tanggal_berita_acara" type="text" class="validate" value="" placeholder="[AUTO]" readonly>
+                <input name="tanggal_berita_acara" type="text" class="validate datepicker" value="" placeholder="[AUTO]" readonly>
             </td>
         </tr>
         <tr>
@@ -20,13 +20,24 @@
             </td>
         </tr>
         <tr>
+            <td>Category Damage</td>
+            <td colspan="3">
+                <select name="category_damage" class="select2-data-ajax browser-default" required>
+                    <option value="During Importation">During Importation</option>
+                    <option value="Mishandling">Mishandling</option>
+                    <option value="Barang NG">Barang NG</option>
+                    <option value="Diff Model">Diff Model</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
             <td>KAPAL</td>
             <td>
                 <input type="text" name="ship_name">
             </td>
             <td>EKSPEDISI</td>
             <td>
-                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default" required>
+                <select id="expedition_code" name="expedition_code" class="select2-data-ajax browser-default damage-require" required>
                 </select>
             </td>
         </tr>
@@ -37,14 +48,14 @@
             </td>
             <td>TRUCK NO</td>
             <td>
-                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default" required>
+                <select id="vehicle_number" name="vehicle_number" class="select2-data-ajax browser-default damage-require" required>
                 </select>
             </td>
         </tr>
         <tr>
             <td>CONTAINER NO</td>
             <td>
-                <input type="text" name="container_no" required>
+                <input type="text" class="damage-require" name="container_no" required>
             </td>
             <td>CUACA</td>
             <td>
@@ -54,7 +65,7 @@
         <tr>
             <td>B/L NO</td>
             <td>
-                <input type="text" name="bl_no" required>
+                <input type="text" class="damage-require" name="bl_no" required>
             </td>
             <td>JAM KERJA</td>
             <td>
@@ -281,6 +292,21 @@
             });
     });
 
+    $('#form-berita-acara-during [name="damage_type"]').change(function() {
+        let val = $(this).val();
+
+        if (val == 'Rusak selama penyimpanan di gudang' ||
+            val == 'Pengecekan oleh QRCC' ||
+            val == 'Rusak karena gudang bocor' ||
+            val == 'Rusak karena rayap' ||
+            val == 'Rusak dari produksi' ||
+            val == 'Different Model') {
+            $('.damage-require').attr('required', 'required');
+        } else {
+            $('.damage-require').removeAttr('required');
+        }
+    })
+
     function set_form_data(data) {
         $('#section-berita-acara-during-detail').show();
         $('#form-berita-acara-during #btn-update').show();
@@ -290,7 +316,7 @@
         $('#form-berita-acara-during [name="berita_acara_during_no"]').val(data.berita_acara_during_no);
         $('#form-berita-acara-during [name="tanggal_berita_acara"]').val(data.tanggal_berita_acara);
         $('#form-berita-acara-during [name="tanggal_kejadian"]').val(data.tanggal_kejadian);
-        $('#form-berita-acara-during [name="tanggal_kejadian"]').val(data.tanggal_kejadian);
+        $('#form-berita-acara-during [name="category_damage"]').val(data.category_damage);
         $('#form-berita-acara-during [name="ship_name"]').val(data.ship_name);
         $('#form-berita-acara-during [name="expedition_code"]').val(data.expedition_code);
         $('#form-berita-acara-during [name="invoice_no"]').val(data.invoice_no);

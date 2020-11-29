@@ -103,9 +103,14 @@
             orderable: false,
             searchable: false,
             render: function(data, type, row, meta) {
-               return ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
+               let btn = ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
                   ' ' + '<?= get_button_print() ?>' +
-                  ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>'
+                  ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>';
+               if (row.submit_date == null) {
+                  btn += ' <span class="waves-effect waves-light btn btn-small amber darken-4 btn-submit">Submit</span>';
+                  btn += ' <span class="waves-effect waves-light btn btn-small red darken-4 btn-delete">Delete</span>';
+               }
+               return btn;
             },
             className: "center-align"
          }]
@@ -125,6 +130,74 @@
          initPrintPreviewPrint(
             '{{url("damage-goods-report")}}' + '/' + data.id + '/print-detail'
          )
+      });
+
+
+      dtTableDGR.on('click', '.btn-submit', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         var tr = $(this).parent().parent();
+         var data = dtTableDGR.row(tr).data();
+         swal({
+            text: "Are you sure want to submit " + data.dgr_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Submit It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: "{{ url('damage-goods-report') }}" + '/' + data.id + '/submit',
+                     type: 'PUT',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     if (result.status) {
+                        showSwalAutoClose('Success', "Claim Note with Claim Note No. " + data.dgr_no + " has been submited.")
+                        dtTableDGR.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     }
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
+      });
+
+
+      dtTableDGR.on('click', '.btn-delete', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         // Ditanyain dulu usernya mau beneran delete data nya nggak.
+         var tr = $(this).parent().parent();
+         var data = dtTableDGR.row(tr).data();
+         swal({
+            text: "Are you sure want to delete " + data.dgr_no + " and the details?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Delete It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: "{{ url('damage-goods-report') }}" + '/' + data.id,
+                     type: 'DELETE',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     if (result.status) {
+                        showSwalAutoClose("Success", "Claim Note with Claim Note No. " + data.dgr_no + " has been deleted.")
+                        dtTableDGR.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                        dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     }
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
       });
    });
 

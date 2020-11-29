@@ -19,6 +19,7 @@ class CreateDurBeritaAcaraTable extends Migration
             $table->string('berita_acara_during_no', 30)->nullable();
             $table->date('tanggal_berita_acara')->nullable();
             $table->date('tanggal_kejadian')->nullable();
+            $table->string('category_damage')->nullable();
             $table->string('ship_name')->nullable();
             $table->string('invoice_no')->nullable();
             $table->string('container_no')->nullable();

@@ -18,4 +18,9 @@ class DamageGoodsReport extends BaseModel
    {
       return $this->belongsTo('App\Models\MasterModel', 'model_name', 'model_name');
    }
+
+   public function details()
+   {
+      return $this->hasMany('App\Models\DamageGoodsReportDetail', 'dur_dgr_id');
+   }
 }

@@ -3,15 +3,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print1-a4.css') }}">
 	{{-- @include('layouts.materialize.components.print-style') --}}
-	<style>
-		@if($request->input('filetype') != 'pdf')
-		@media print {
-			@page {
-				size: landscape
-			}
-		}
-		@endif
-	</style>
 </head>
 
 <body style="font-family: courier New; font-size: 10pt;">
@@ -62,11 +53,11 @@
 							{{-- Table --}}
 							<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
 								<tr>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>NO</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 5mm; text-align: center;"><strong>NO</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SERIAL NUMBER</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>UNIT</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 10mm; text-align: center;"><strong>UNIT</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRODUCT</strong></td>
-									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CURR</strong></td>
+									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 8mm; text-align: center;"><strong>CURR</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRICE/UNIT</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>TOTAL</strong></td>
 									<td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>NATURE OF LOSS</strong></td>
@@ -106,32 +97,33 @@
 									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
 									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
 									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
-									{{-- <td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}</td> --}}
-									{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
-								</tr>
-								<?php
-								$totalUnit += $v->qty;
-								$totalPrice += ($v->qty * $v->price);
-								$no++;
-								?>
-								@endforeach
-								@endif
+									{{-- <td style="border: 1pt solid #000000; text-align: left;">{{date('d M Y', strtotime($v->created_at))}}
+						</td> --}}
+						{{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
+					</tr>
+					<?php
+					$totalUnit += $v->qty;
+					$totalPrice += ($v->qty * $v->price);
+					$no++;
+					?>
+					@endforeach
+					@endif
 
-								<tr>
-									<td colspan="2" style="border: 1pt solid #000000; text-align: center;"><strong>Total</strong></td>
-									<td style="border: 1pt solid #000000; text-align: center;"><strong>{{$totalUnit}}</strong></td>
-									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-									<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-									<td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
-									<td colspan="4" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-								</tr>
-							</table>
-						</td>
+					<tr>
+						<td colspan="2" style="border: 1pt solid #000000; text-align: center;"><strong>Total</strong></td>
+						<td style="border: 1pt solid #000000; text-align: center;"><strong>{{$totalUnit}}</strong></td>
+						<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+						<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+						<td colspan="1" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+						<td style="border: 1pt solid #000000; text-align: right;"><strong>{{money_currency($totalPrice)}}</strong></td>
+						<td colspan="4" style="border: 1pt solid #000000; text-align: center;">&nbsp;</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
+	</table>
+	</td>
+	</tr>
 	</table>
 
 	<footer>

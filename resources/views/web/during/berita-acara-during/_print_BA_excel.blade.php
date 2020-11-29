@@ -76,7 +76,7 @@
                         <tr>
                            <td>B/L No</td>
                            <td>:</td>
-                           <td colspan="3"><strong>{{!empty($berita_acara->container_no)?$berita_acara->container_no:'-'}}</strong></td>
+                           <td colspan="3"><strong>{{!empty($berita_acara->bl_no)?$berita_acara->bl_no:'-'}}</strong></td>
                            <td colspan="3"></td>
                         </tr>
                         <tr>
@@ -100,7 +100,7 @@
                         <tr>
                            <td>Cuaca</td>
                            <td>:</td>
-                           <td colspan="3"><strong>{{!empty($berita_acara->weather)?$berita_acara->container_no:'-'}}</strong></td>
+                           <td colspan="3"><strong>{{!empty($berita_acara->weather)?$berita_acara->weather:'-'}}</strong></td>
                            <td colspan="3"></td>
                         </tr>
                         <tr>
@@ -175,7 +175,7 @@
                            <td colspan="8">Demikian Berita Acara ini kami buat dengan sebenarnya.</td>
                         </tr>
                         <tr>
-                           <td colspan="8">Jakarta, 09 Desember 2019</td>
+                           <td colspan="8">Jakarta, {{date('d M Y', strtitime($berita_acara->tanggal_kejadian))}}</td>
                         </tr>
                         <tr>
                            <td>&nbsp;</td>

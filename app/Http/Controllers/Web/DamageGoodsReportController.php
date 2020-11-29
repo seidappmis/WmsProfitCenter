@@ -134,6 +134,7 @@ class DamageGoodsReportController extends Controller
         $data['detail'][$i + 1] = $tmp;
       }
     };
+
     $view_print = view('web.during.damage-goods-report._print', $data);
     $title      = 'Damage Goods Report';
 
@@ -409,5 +410,36 @@ class DamageGoodsReportController extends Controller
       }
     }
     return $returnValue;
+  }
+
+  public function submit(Request $request, $id)
+  {
+    $dgr              = DamageGoodsReport::findOrFail($id);
+    $dgr->submit_by   = auth()->user()->id;
+    $dgr->submit_date = date('Y-m-d H:i:s');
+
+    $dgr->save();
+
+    return sendSuccess('DGR Acara submited.', $dgr);
+  }
+
+  public function destroy($id)
+  {
+    try {
+      DB::beginTransaction();
+
+      $dgr = DamageGoodsReport::findOrFail($id);
+      $dgr->details()->delete();
+      $dgr->delete();
+
+      DB::commit();
+
+      return sendSuccess("DGR acara berhasil dihapus.", $dgr);
+    } catch (Exception $e) {
+      DB::rollBack();
+
+      return false;
+    }
+    // return BeritaAcara::destroy($id);
   }
 }

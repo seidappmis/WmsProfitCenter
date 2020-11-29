@@ -39,7 +39,6 @@ class BeritaAcaraDuringController extends Controller
     }
 
     $data['berita_acara'] = $berita_acara->first()->toArray();
-
     return view('web.during.berita-acara-during.detail', $data);
   }
 
@@ -67,7 +66,7 @@ class BeritaAcaraDuringController extends Controller
     $title = 'Berita Acara Barang During';
 
     if ($req->input('filetype') == 'html') {
-
+      // return $view_print;
       // req HTML View
       $mpdf = new \Mpdf\Mpdf([
         'tempDir'       => '/tmp',
@@ -226,21 +225,40 @@ class BeritaAcaraDuringController extends Controller
     if ($req->ajax()) {
 
       // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
-      $format = "%s/DR-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m')) . "/" . date('Y');
+      $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m')) . "/" . date('Y');
+
+      $category_damage = '';
+
+      switch ($req->category_damage) {
+        case 'During Importation':
+          $category_damage = 'DR';
+          break;
+
+        case 'Mishandling':
+          $category_damage = 'MH';
+          break;
+
+        default:
+          $category_damage = 'NG';
+          break;
+      };
 
       $max_no = DB::table('dur_berita_acara')
         ->select(DB::raw('berita_acara_during_no AS max_no'))
+        ->where('berita_acara_during_no', 'like', '%' . $category_damage . '%')
         ->orderBy('created_at', 'DESC')
         ->first();
+
       $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
       $max_no = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
-      $no     = sprintf($format, $max_no);
+      $no     = sprintf($format,  $max_no, $category_damage);
 
       try {
         $data                         = new BeritaAcaraDuring;
         $data->berita_acara_during_no = $no;
         $data->tanggal_berita_acara   = date('Y-m-d H:i:s');
         $data->tanggal_kejadian       = date_reformat($req->tanggal_kejadian);
+        $data->category_damage        = $req->category_damage;
         $data->ship_name              = $req->ship_name;
         $data->invoice_no             = $req->invoice_no;
         $data->container_no           = $req->container_no;

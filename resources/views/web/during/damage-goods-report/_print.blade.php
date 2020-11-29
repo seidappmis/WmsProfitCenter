@@ -61,7 +61,7 @@
       <td style="text-align: center; border: 1pt solid #000000; width: 57mm;"><strong>REMARKS</strong></td>
     </tr>
     @php $no=1; $total=0; @endphp
-    @forelse($detail as $k =>$v)
+    @forelse($detail as $k => $v)
 
     @php $total+=$v['ba_qty']; @endphp
     @if($k == 0 || $v['berita_acara_during_no'] != $detail[$k-1]['berita_acara_during_no'])
@@ -73,19 +73,19 @@
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['bl_no']}}</td>
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['container_no']}}</td>
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['model_name']}}</td>
-      <td rowspan="{{$v['rowspan']-1}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['pom']}}</td>
+      <td rowspan="{{$v['rowspan']-1!=0?$v['rowspan']-1:1}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['pom']}}</td>
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['ba_qty']}}</td>
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['serial_number']}}</td>
-      <td rowspan="{{$v['rowspan']-1}}" style="font-size: 7pt; text-align: center; vertical-align: top; border: 1pt solid #000000;"><strong>{{$v['damage']}}</strong></td>
+      <td rowspan="{{$v['rowspan']-1!=0?$v['rowspan']-1:1}}" style="font-size: 7pt; text-align: center; vertical-align: top; border: 1pt solid #000000;"><strong>{{$v['damage']}}</strong></td>
     </tr>
     @else
     <tr>
       <!-- <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;" colspan="6"></td> -->
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['model_name']}}</td>
-      <td rowspan="{{$v['rowspan']-1}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['pom']}}</td>
+      <td rowspan="{{$v['rowspan']-1!=0?$v['rowspan']-1:1}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['pom']}}</td>
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['ba_qty']}}</td>
       <td style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['serial_number']}}</td>
-      <td rowspan="{{$v['rowspan']-1}}" style="font-size: 7pt; text-align: center; vertical-align: top; border: 1pt solid #000000;"><strong>{{$v['damage']}}</strong></td>
+      <td rowspan="{{$v['rowspan']-1!=0?$v['rowspan']-1:1}}" style="font-size: 7pt; text-align: center; vertical-align: top; border: 1pt solid #000000;"><strong>{{$v['damage']}}</strong></td>
     </tr>
     @endif
     @empty

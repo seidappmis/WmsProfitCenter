@@ -18,6 +18,8 @@ class CreateDurDgrTable extends Migration
          $table->string('dgr_no', 30);
          $table->string('location', 50)->nullable();
          $table->string('claim', 15)->nullable();
+         $table->integer('submit_by')->nullable();
+         $table->datetime('submit_date')->nullable();
 
          $table->timestamps();
          $table->integer('created_by')->nullable();
