@@ -3,99 +3,111 @@
 @section('content')
 <div class="row">
 
-    @component('layouts.materialize.components.title-wrapper')
-        <div class="row">
-            <div class="col s12 m6">
-                <h5 class="breadcrumbs-title mt-0 mb-0"><span>Task Notice</span></h5>
-                <ol class="breadcrumbs mb-0">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Task Notice</li>
-                </ol>
-            </div>
-          <div class="col s12 m6">
+  @component('layouts.materialize.components.title-wrapper')
+  <div class="row">
+    <div class="col s12 m6">
+      <h5 class="breadcrumbs-title mt-0 mb-0"><span>Task Notice</span></h5>
+      <ol class="breadcrumbs mb-0">
+        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+        <li class="breadcrumb-item active">Task Notice</li>
+      </ol>
+    </div>
+    <div class="col s12 m6">
+    </div>
+  </div>
+  @endcomponent
+
+  <div class="col s12">
+    <div class="container">
+      <div class="section">
+        <div class="card">
+          <div class="card-content pb-2 pt-1">
+            <form id="form-task-notice">
+              <div class="row mb-0">
+                <div class="input-field col s12">
+                  <div class="col s12 m4 l2">
+                    <p>Area</p>
+                  </div>
+                  <div class="col s12 m6 l5">
+                    <select name="area" class="select2-data-ajax browser-default app-filter" required>
+                    </select>
+                  </div>
+                </div>
+                <div class="input-field col s12">
+                  <div class="col s12 m4 l2">
+                    <p>Data File</p>
+                  </div>
+                  <div class="col s12 m8 l6">
+                    <input type="file" required id="input-file-now" class="dropify" name="file_task_notice" data-default-file="" data-height="150" />
+                    <br>
+                  </div>
+                  <div class="col s12 m12 l4">
+                    <p>Format File : .csv</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-0">
+                <div class="input-field col s12 mt-1">
+                  <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-    @endcomponent
-    
-    <div class="col s12">
-        <div class="container">
-            <div class="section">
-              <div class="card">
-                <div class="card-content pb-2 pt-1">
-                  <form id="form-task-notice">
-                      <div class="row mb-0">
-                        <div class="input-field col s12">
-                          <div class="col s12 m4 l2">
-                            <p>Area</p>
-                          </div>
-                          <div class="col s12 m6 l5">
-                            <select name="area" class="select2-data-ajax browser-default app-filter" required>
-                                  </select>
-                          </div>
-                        </div>
-                        <div class="input-field col s12">
-                          <div class="col s12 m4 l2">
-                            <p>Data File</p>
-                          </div>
-                          <div class="col s12 m8 l6">
-                            <input type="file" required id="input-file-now" class="dropify" name="file_task_notice" data-default-file="" data-height="150"/>
-                            <br>
-                          </div>
-                          <div class="col s12 m12 l4">
-                            <p>Format File : .csv</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-0">
-                        <div class="input-field col s12 mt-1">
-                          <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
-                        </div>
-                      </div>
-                  </form>
+      </div>
+    </div>
+    <div class="content-overlay"></div>
+  </div>
+
+  <div class="col s12">
+    <div class="container">
+      <div class="section">
+        <div class="card">
+          <div class="card-content p-0">
+            <div class="row mt-2">
+              <div class="col s12 m8 pl-2">
+                <span class="btn waves-effect waves-light btn-small red darken-4 btn-multi-delete-selected-item ">
+                  Delete
+                </span>
+              </div>
+              <div class="col s12 m4">
+                <div class="app-wrapper">
+                  <div class="datatable-search mb-0">
+                    <i class="material-icons mr-2 search-icon">search</i>
+                    <input type="text" placeholder="Search" class="app-filter no-propagation" id="table-search">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <div class="content-overlay"></div>
-    </div>
-
-    <div class="col s12">
-        <div class="container">
-            <div class="section">
-                <div class="card">
-                    <div class="card-content p-0">
-                      <span class="btn waves-effect waves-light btn-small red darken-4 btn-multi-delete-selected-item mt-1 mb-1 ml-1">
-                        Delete
-                      </span>
-                        <div class="section-data-tables"> 
-                          <table id="data-table-simple" class="display" width="100%">
-                              <thead>
-                                  <tr>
-                                    <th data-priority="1" width="30px">NO.</th>
-                                    <th>TASK NOTICE NO</th>
-                                    <th>APPROVAL NUMBER</th>
-                                    <th>CUSTOMER PO</th>
-                                    <th>UPLOAD DATE</th>
-                                    <th width="50px;"></th>
-                                    <th data-priority="1" class="datatable-checkbox-cell" width="30px">
-                                      <label>
-                                          <input type="checkbox" class="select-all" />
-                                          <span></span>
-                                      </label>
-                                    </th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                          </table>
-                        </div>
-                        <!-- datatable ends -->
-                    </div>
-                </div>
+            <div class="section-data-tables">
+              <table id="data-table-simple" class="display" width="100%">
+                <thead>
+                  <tr>
+                    <th data-priority="1" width="30px">NO.</th>
+                    <th>TASK NOTICE NO</th>
+                    <th>APPROVAL NUMBER</th>
+                    <th>CUSTOMER PO</th>
+                    <th>UPLOAD DATE</th>
+                    <th width="50px;"></th>
+                    <th data-priority="1" class="datatable-checkbox-cell" width="30px">
+                      <label>
+                        <input type="checkbox" class="select-all" />
+                        <span></span>
+                      </label>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
             </div>
+            <!-- datatable ends -->
+          </div>
         </div>
-        <div class="content-overlay"></div>
+      </div>
     </div>
+    <div class="content-overlay"></div>
+  </div>
 </div>
 @endsection
 
@@ -103,49 +115,49 @@
 <div id="modal-form-print-st" class="modal" style="">
   <form id="form-print-st" class="form-table">
     <div class="modal-content">
-        <input type="hidden" name="id_header">
-        <table>
-          <tr>
-            <td width="150px">Expedition</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="expedition">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Vehicle No</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="vehicle_no">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Driver</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="driver">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Allocation</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="allocation">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Admin Warehouse</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="admin_warehouse">
-              </div>
-            </td>
-          </tr>
-        </table>
+      <input type="hidden" name="id_header">
+      <table>
+        <tr>
+          <td width="150px">Expedition</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="expedition">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Vehicle No</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="vehicle_no">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Driver</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="driver">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Allocation</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="allocation">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Admin Warehouse</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="admin_warehouse">
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="modal-footer">
       <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-st btn green darken-4">Print Report</a>
@@ -158,57 +170,57 @@
 <div id="modal-form-print-do-return" class="modal" style="">
   <form id="form-print-do-return" class="form-table">
     <div class="modal-content">
-        <input type="hidden" name="id_header">
-        <table>
-          <tr>
-            <td width="150px">Expedition</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="expedition">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Vehicle No</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="vehicle_no">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Driver</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="driver">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Security</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="security">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">Checker</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="checker">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td width="150px">W.H</td>
-            <td>
-              <div class="input-field">
-                <input type="text" name="wh">
-              </div>
-            </td>
-          </tr>
-        </table>
+      <input type="hidden" name="id_header">
+      <table>
+        <tr>
+          <td width="150px">Expedition</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="expedition">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Vehicle No</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="vehicle_no">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Driver</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="driver">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Security</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="security">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">Checker</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="checker">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td width="150px">W.H</td>
+          <td>
+            <div class="input-field">
+              <input type="text" name="wh">
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
     <div class="modal-footer">
       <a href="#!" class="btn waves-effect waves-green btn-show-print-preview-do-return btn green darken-4">Print Report</a>
@@ -221,11 +233,11 @@
 
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
-  'title' => 'Print ST',
+'title' => 'Print ST',
 ])
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
-  'title' => 'Print DO Return',
+'title' => 'Print DO Return',
 ])
 
 @push('vendor_js')
@@ -234,8 +246,8 @@
 @endpush
 
 @push('script_js')
+@php $area=auth()->user()->area;@endphp
 <script type="text/javascript">
-
   var table
   jQuery(document).ready(function($) {
     table = $('#data-table-simple').DataTable({
@@ -243,71 +255,96 @@
       scrollX: true,
       responsive: true,
       ajax: {
-          url: "{{url('task-notice')}}",
-          type: 'GET',
-          data: function(d) {
-              d.search['value'] = $('#task-notice-filter').val()
-          }
+        url: "{{url('task-notice')}}",
+        type: 'GET',
+        data: function(d) {
+          d.search['value'] = $('#table-search').val();
+        }
       },
       order: [1, 'desc'],
-      columns: [
-          { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          { data: 'no', name: 'no', className: 'detail' },
-          { data: 'no_document', name: 'no_document', className: 'detail' },
-          { data: 'costumer_po', name: 'costumer_po', className: 'detail' },
-          { data: 'upload_date', name: 'upload_date', className: 'detail' },
-          { data: 'action', className: 'center-align', orderable: false, searchable: false },
-          {
-            data: 'id_header',
-            orderable: false,
-            searchable: false,
-            render: function ( data, type, row ) {
-                if ( type === 'display' ) {
-                    return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
-                }
-                return data;
-            },
-            className: "datatable-checkbox-cell"
+      columns: [{
+          data: 'DT_RowIndex',
+          orderable: false,
+          searchable: false,
+          className: 'center-align'
+        },
+        {
+          data: 'no',
+          name: 'log_return_surat_tugas_plan.no',
+          className: 'detail'
+        },
+        {
+          data: 'no_document',
+          name: 'no_document',
+          className: 'detail'
+        },
+        {
+          data: 'costumer_po',
+          name: 'log_return_surat_tugas_plan.costumer_po',
+          className: 'detail'
+        },
+        {
+          data: 'upload_date',
+          name: 'upload_date',
+          className: 'detail'
+        },
+        {
+          data: 'action',
+          className: 'center-align',
+          orderable: false,
+          searchable: false
+        },
+        {
+          data: 'id_header',
+          orderable: false,
+          searchable: false,
+          render: function(data, type, row) {
+            if (type === 'display') {
+              return '<label><input type="checkbox" name="id[]" value="" class="checkbox"><span></span></label>';
+            }
+            return data;
           },
+          className: "datatable-checkbox-cell"
+        },
       ]
-  });
+    });
 
     set_datatables_checkbox('#data-table-simple', table)
 
     $('#form-task-notice [name="area"]').select2({
-       placeholder: '-- Select Area --',
-       allowClear: true,
-       ajax: get_select2_ajax_options('/master-area/select2-area-only')
+      placeholder: '-- Select Area --',
+      allowClear: true,
+      ajax: get_select2_ajax_options('/master-area/select2-area-only')
     });
 
     $('#form-task-notice').validate({
-      submitHandler: function(form){
+      submitHandler: function(form) {
         setLoading(true);
         var fdata = new FormData(form);
         $.ajax({
-          url: '{{'task-notice'}}',
-          type: 'POST',
-          data: fdata,
-          contentType: "application/json",
-          dataType: "json",
-          contentType: false,
-          processData: false
-        })
-        .done(function(result) {
-          setLoading(false)
-          if (result.status) {
-            showSwalAutoClose('Success', result.message)
-            table.ajax.reload(null, false)
-          }
-        })
-        .fail(function(xhr) {
-          setLoading(false)
-          showSwalError(xhr)
-        })
-        .always(function() {
-          console.log("complete");
-        });
-        
+            url: "{{'task-notice'}}",
+            type: 'POST',
+            data: fdata,
+            contentType: "application/json",
+            dataType: "json",
+            contentType: false,
+            processData: false
+          })
+          .done(function(result) {
+            setLoading(false)
+            if (result.status) {
+              showSwalAutoClose('Success', result.message)
+              table.ajax.reload(null, false)
+            }
+          })
+          .fail(function(xhr) {
+            setLoading(false)
+            showSwalError(xhr)
+          })
+          .always(function() {
+            console.log("complete");
+          });
+
       }
     })
 
@@ -321,90 +358,90 @@
           cancel: true,
           delete: 'Yes, Delete It'
         }
-      }).then(function (confirm) { // proses confirm
+      }).then(function(confirm) { // proses confirm
         var data_header = [];
         table.$('input[type="checkbox"]').each(function() {
-           /* iterate through array or object */
-           if(this.checked){
+          /* iterate through array or object */
+          if (this.checked) {
             var row = $(this).closest('tr');
             var row_data = table.row(row).data();
             data_header.push(row_data);
-           }
+          }
         });
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: '{{ url('task-notice') }}' ,
-            type: 'DELETE',
-            data: 'data_header=' + JSON.stringify(data_header),
-          })
-          .done(function(result) { // Kalau ajax nya success
-            if (result.status) {
-              showSwalAutoClose('Success', result.message)
-              if ($('thead input[type="checkbox"]', table.table().container()).attr("checked")) {
-                $('thead input[type="checkbox"]', table.table().container()).trigger('click')
+              url: "{{ url('task-notice') }}",
+              type: 'DELETE',
+              data: 'data_header=' + JSON.stringify(data_header),
+            })
+            .done(function(result) { // Kalau ajax nya success
+              if (result.status) {
+                showSwalAutoClose('Success', result.message)
+                if ($('thead input[type="checkbox"]', table.table().container()).attr("checked")) {
+                  $('thead input[type="checkbox"]', table.table().container()).trigger('click')
+                }
+                table.ajax.reload(null, false); // reload datatable
+              } else {
+                showSwalAutoClose('Warning', result.message)
               }
-              table.ajax.reload(null, false); // reload datatable
-            } else {
-              showSwalAutoClose('Warning', result.message)
-            }
-          })
-          .fail(function() { // Kalau ajax nya gagal
-            console.log("error");
-          });
-          
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
         }
       })
     });
 
     $('#form-print-st').validate({
-      submitHandler: function(form){
+      submitHandler: function(form) {
         setLoading(true); // Disable Button when ajax post data
         $.ajax({
-          url: '{{ url("task-notice") }}',
-          type: 'PUT',
-          data: $(form).serialize(),
-        })
-        .done(function(data) { // selesai dan berhasil
-          setLoading(false); // Disable Button when ajax post data
-          if (data.status) {
-            showSwalAutoClose("Success", data.message)
-            table.ajax.reload(null, false)
-          }
-        })
-        .fail(function(xhr) {
+            url: '{{ url("task-notice") }}',
+            type: 'PUT',
+            data: $(form).serialize(),
+          })
+          .done(function(data) { // selesai dan berhasil
+            setLoading(false); // Disable Button when ajax post data
+            if (data.status) {
+              showSwalAutoClose("Success", data.message)
+              table.ajax.reload(null, false)
+            }
+          })
+          .fail(function(xhr) {
             setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
+          });
       }
     })
 
     $('#form-print-do-return').validate({
-      submitHandler: function(form){
+      submitHandler: function(form) {
         setLoading(true); // Disable Button when ajax post data
         $.ajax({
-          url: '{{ url("task-notice") }}',
-          type: 'PUT',
-          data: $(form).serialize(),
-        })
-        .done(function(data) { // selesai dan berhasil
-          setLoading(false); // Disable Button when ajax post data
-          if (data.status) {
-            showSwalAutoClose("Success", data.message)
-            $(form)[0].reset();
-            table.ajax.reload(null, false)
-          }
-        })
-        .fail(function(xhr) {
+            url: '{{ url("task-notice") }}',
+            type: 'PUT',
+            data: $(form).serialize(),
+          })
+          .done(function(data) { // selesai dan berhasil
+            setLoading(false); // Disable Button when ajax post data
+            if (data.status) {
+              showSwalAutoClose("Success", data.message)
+              $(form)[0].reset();
+              table.ajax.reload(null, false)
+            }
+          })
+          .fail(function(xhr) {
             setLoading(false); // Enable Button when failed
             showSwalError(xhr) // Custom function to show error with sweetAlert
-        });
+          });
       }
     })
 
-    @if (auth()->user()->area != "All") 
-      set_select2_value('#form-task-notice [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
-      $('#form-task-notice [name="area"]').attr('disabled', 'disabled');
+    @if($area != "All")
+    set_select2_value('#form-task-notice [name="area"]', '{{auth()->user()->area}}', '{{auth()->user()->area}}')
+    $('#form-task-notice [name="area"]').attr('disabled', 'disabled');
     @endif
 
     table.on('click', '.btn-print-st', function(event) {
@@ -421,7 +458,7 @@
 
     $('.btn-show-print-preview-st').click(function(event) {
       /* Act on the event */
-       initPrintPreviewPrintST('{{url("task-notice")}}' + '/' + $('#form-print-st [name="id_header"]').val() + '/export-st', $('#form-print-st').serialize())
+      initPrintPreviewPrintST('{{url("task-notice")}}' + '/' + $('#form-print-st [name="id_header"]').val() + '/export-st', $('#form-print-st').serialize())
     });
 
     table.on('click', '.btn-print-do-return', function(event) {
@@ -442,15 +479,18 @@
       initPrintPreviewPrintDOReturn('{{url("task-notice")}}' + '/' + $('#form-print-do-return [name="id_header"]').val() + '/export-do-return', $('#form-print-do-return').serialize())
     });
 
-    $("input#global_filter").on("keyup click", function () {
+    $("input#global_filter").on("keyup click", function() {
       filterGlobal();
     });
   });
 
+  $("input#table-search").on("keyup click", function() {
+    table.search($("#table-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  });
 
   // Custom search
   function filterGlobal() {
-      table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    table.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
 </script>
 @endpush

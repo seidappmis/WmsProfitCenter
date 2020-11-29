@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-overload-concept-or-do/export', 'Web\ReportOverloadConceptOrDOController@export');
 
   Route::get('summary-task-notice', 'Web\SummaryTaskNoticeController@index');
+  Route::get('summary-task-notice/export', 'Web\SummaryTaskNoticeController@export');
 
   // Route::view('report-user-mobile', 'web.report.report-user-mobile.index');
 

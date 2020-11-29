@@ -21,8 +21,7 @@ class TaskNoticeController extends Controller
       )
         ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_header.id_header', '=', 'log_return_surat_tugas_plan.id_header')
         ->where('log_return_surat_tugas_plan.area', auth()->user()->area)
-        ->groupBy('log_return_surat_tugas_plan.id_header')
-      ;
+        ->groupBy('log_return_surat_tugas_plan.id_header');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -177,7 +176,6 @@ class TaskNoticeController extends Controller
     LogReturnSuratTugasPlan::where('id_header', $request->input('id_header'))->update($data);
 
     return sendSuccess('Data updated.', $data);
-
   }
 
   public function destroy(Request $request)
@@ -205,7 +203,6 @@ class TaskNoticeController extends Controller
       return sendSuccess('Task Notice Deleted.', []);
     } catch (Exception $e) {
       DB::rollback();
-
     }
   }
 
@@ -282,7 +279,6 @@ class TaskNoticeController extends Controller
 
       // request HTML View
       return $view_print;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -319,7 +315,6 @@ class TaskNoticeController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
@@ -328,7 +323,6 @@ class TaskNoticeController extends Controller
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
@@ -348,7 +342,6 @@ class TaskNoticeController extends Controller
 
       // request HTML View
       return $view_print;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -381,7 +374,6 @@ class TaskNoticeController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
@@ -390,11 +382,9 @@ class TaskNoticeController extends Controller
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
     }
   }
-
 }
