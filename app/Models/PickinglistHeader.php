@@ -119,10 +119,13 @@ class PickinglistHeader extends Model
   {
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
+      ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.picking_no')
     // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
+      ->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
       ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang) // yang se area
-      ->has('lmb_details')
+      ->groupBy('wms_pickinglist_header.driver_register_id')
+      // ->has('lmb_details')
     // ->where('area', auth()->user()->area) // yang se area
     ;
   }

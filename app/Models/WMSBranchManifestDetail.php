@@ -22,6 +22,11 @@ class WMSBranchManifestDetail extends Model
     return $data->manifest_type == "REGULAR" ? 'NORMAL' : '';
   }
 
+  public function header()
+  {
+    return $this->belongsTo('App\Models\WMSBranchManifestHeader', 'do_manifest_no', 'do_manifest_no');
+  }
+
   public static function listDO($do_manifest_no)
   {
     return WMSBranchManifestDetail::select(

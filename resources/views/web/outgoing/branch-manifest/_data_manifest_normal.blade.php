@@ -70,11 +70,11 @@ jQuery(document).ready(function($) {
       order: [1, 'desc'],
       columns: [
           { data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-          { data: 'do_manifest_no', name: 'do_manifest_no', className: 'detail' },
-          { data: 'expedition_name', name: 'expedition_name', className: 'detail' },
-          { data: 'city_name', name: 'city_name', className: 'detail' },
-          { data: 'vehicle_number', name: 'vehicle_number', className: 'detail' },
-          { data: 'picking_no', name: 'picking_no', className: 'detail' },
+          { data: 'do_manifest_no', name: 'wms_branch_manifest_header.do_manifest_no', className: 'detail' },
+          { data: 'expedition_name', name: 'wms_branch_manifest_header.expedition_name', className: 'detail' },
+          { data: 'city_name', name: 'wms_branch_manifest_header.city_name', className: 'detail' },
+          { data: 'vehicle_number', name: 'wms_branch_manifest_header.vehicle_number', className: 'detail' },
+          { data: 'picking_no', name: 'wms_pickinglist_header.picking_no', className: 'detail' },
           { data: 'status', name: 'status', className: 'detail' },
           { data: 'action', className: 'center-align', orderable: false, searchable: false },
       ]

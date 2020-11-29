@@ -16,15 +16,32 @@ class BranchManifestController extends Controller
   public function index(Request $request)
   {
     if ($request->ajax()) {
-      $query = WMSBranchManifestHeader::where('kode_cabang', auth()->user()->cabang->kode_cabang);
+      $query = WMSBranchManifestHeader::select(
+        'wms_branch_manifest_header.do_manifest_no',
+        'wms_branch_manifest_header.expedition_name',
+        'wms_branch_manifest_header.city_name',
+        'wms_branch_manifest_header.vehicle_number',
+        'wms_branch_manifest_header.status_complete',
+        'wms_pickinglist_header.picking_no',
+        // DB::raw('COUNT(wms_lmb_detail.serial_number) AS total_detail_tcs_do'),
+        DB::raw('COUNT(wms_branch_manifest_detail.id) AS countManifestDO'),
+        DB::raw('SUM(IF(wms_branch_manifest_detail.status_confirm = 0, 1, 0)) AS countUnconfirmDetail')
+      )
+        ->leftjoin('wms_branch_manifest_detail', 'wms_branch_manifest_header.do_manifest_no', '=', 'wms_branch_manifest_detail.do_manifest_no')
+        ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_branch_manifest_header.driver_register_id')
+      // ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.driver_register_id', '=', 'wms_branch_manifest_header.driver_register_id')
+        ->where('wms_branch_manifest_header.kode_cabang', auth()->user()->cabang->kode_cabang)
+        ->groupBy('wms_branch_manifest_header.do_manifest_no')
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-        })
+      // ->addColumn('picking_no', function ($data) {
+      //   return $data->picking->picking_no;
+      // })
         ->addColumn('status', function ($data) {
-          return $data->status();
+          // return "";
+          return WMSBranchManifestHeader::status($data);
         })
         ->addColumn('action', function ($data) {
           $action = '';
@@ -185,7 +202,16 @@ class BranchManifestController extends Controller
 
   public function destroyDetail($id, $detail_id)
   {
-    return sendSuccess('Line deleted.', WMSBranchManifestDetail::destroy($detail_id));
+    $detail = WMSBranchManifestDetail::findOrFail($detail_id);
+    $detail->delete();
+    if ($detail->header->lmb->do_details->count() == 0) {
+      $detail->header->status_complete = 1;
+      $detail->header->save();
+    } else {
+      $detail->header->status_complete = 0;
+      $detail->header->save();
+    }
+    return sendSuccess('Line deleted.', $detail);
   }
 
   public function destroySelectedDO(Request $request)
@@ -197,7 +223,15 @@ class BranchManifestController extends Controller
       DB::beginTransaction();
       foreach ($data_list_do as $key => $value) {
         $rs_id[] = $value['id'];
-        WMSBranchManifestDetail::where('id', $value['id'])->delete();
+        $detail  = WMSBranchManifestDetail::where('id', $value['id'])->first();
+        $detail->delete();
+        if ($detail->header->lmb->do_details->count() == 0) {
+          $detail->header->status_complete = 1;
+          $detail->header->save();
+        } else {
+          $detail->header->status_complete = 0;
+          $detail->header->save();
+        }
       }
 
       DB::commit();

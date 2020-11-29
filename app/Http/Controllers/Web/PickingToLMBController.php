@@ -746,12 +746,12 @@ class PickingToLMBController extends Controller
       ->editColumn('created_at', function ($data) {
         return date('Y-m-d H:i:s', strtotime($data->created_at));
       })
-      ->addColumn('do_status', function ($data) {
-        return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
-      })
-      ->addColumn('lmb', function ($data) {
-        return '-';
-      })
+      // ->addColumn('do_status', function ($data) {
+      //   return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
+      // })
+      // ->addColumn('lmb', function ($data) {
+      //   return '-';
+      // })
       ->addColumn('action', function ($data) {
         $action = '';
         $action .= ' ' . get_button_edit(url('picking-to-lmb/picking-list/' . $data->id), 'Create');
