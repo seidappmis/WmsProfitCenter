@@ -175,7 +175,7 @@
                            <td colspan="8">Demikian Berita Acara ini kami buat dengan sebenarnya.</td>
                         </tr>
                         <tr>
-                           <td colspan="8">Jakarta, {{date('d M Y', strtitime($berita_acara->tanggal_kejadian))}}</td>
+                           <td colspan="8">Jakarta, {{date('d M Y', strtotime($berita_acara->tanggal_kejadian))}}</td>
                         </tr>
                         <tr>
                            <td>&nbsp;</td>
