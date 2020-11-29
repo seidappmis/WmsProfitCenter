@@ -127,7 +127,6 @@ class DamageGoodsReportController extends Controller
 
     for ($i = 0; $i < count($data['detail']) - 1; $i++) {
       $tmp = [];
-      // dd($data['detail'][$i]['rowspan'], $data['detail'][$i + 1]['rowspan']);
       if ($data['detail'][$i]['rowspan'] < $data['detail'][$i + 1]['rowspan'] && $data['detail'][$i]['berita_acara_during_no'] == $data['detail'][$i + 1]['berita_acara_during_no']) {
         $tmp = $data['detail'][$i];
         $data['detail'][$i] = $data['detail'][$i + 1];
@@ -237,8 +236,8 @@ class DamageGoodsReportController extends Controller
         'photo_container_loading',
         'photo_seal_no',
         'photo_loading',
-        'submit_by',
-        'submit_date',
+        'd.submit_by',
+        'd.submit_date',
         'expedition_name'
       )
       ->orderBy('dur_dgr_detail.berita_acara_during_detail_id')
@@ -256,7 +255,6 @@ class DamageGoodsReportController extends Controller
 
     for ($i = 0; $i < count($data['detail']) - 1; $i++) {
       $tmp = [];
-      // dd($data['detail'][$i]['rowspan'], $data['detail'][$i + 1]['rowspan']);
       if ($data['detail'][$i]['rowspan'] < $data['detail'][$i + 1]['rowspan'] && $data['detail'][$i]['berita_acara_during_no'] == $data['detail'][$i + 1]['berita_acara_during_no']) {
         $tmp = $data['detail'][$i];
         $data['detail'][$i] = $data['detail'][$i + 1];

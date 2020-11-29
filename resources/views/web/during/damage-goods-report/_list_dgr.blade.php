@@ -112,7 +112,7 @@
                }
                return btn;
             },
-            className: "center-align"
+            className: "left-align"
          }]
       });
 

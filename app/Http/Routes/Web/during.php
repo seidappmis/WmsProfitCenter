@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('/berita-acara-during/{id}/export-attach', 'Web\BeritaAcaraDuringController@exportAttach');
   Route::get('/berita-acara-during/{id}/export-attach', 'Web\BeritaAcaraDuringController@exportAttach');
 
+  // damage goods report
   Route::get('/damage-goods-report', 'Web\DamageGoodsReportController@index');
   Route::get('/damage-goods-report/list-outstanding', 'Web\DamageGoodsReportController@listOutstanding'); //get datatable outstanding
   Route::get('/damage-goods-report/list-damage-goods-report', 'Web\DamageGoodsReportController@listDGR'); //get datatable detail
@@ -27,4 +28,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('/damage-goods-report/{id}/export', 'Web\DamageGoodsReportController@export');
   Route::delete('damage-goods-report/{id}', 'Web\DamageGoodsReportController@destroy');
   Route::put('damage-goods-report/{id}/submit', 'Web\DamageGoodsReportController@submit');
+
+  //summary DGR
+  Route::get('summary-damage-goods-report',  'Web\SummaryDamageGoodsReportController@index');
+  Route::get('summary-damage-goods-report/{id}',  'Web\SummaryDamageGoodsReportController@show');
+  Route::put('summary-damage-goods-report/{id}',  'Web\SummaryDamageGoodsReportController@update');
 });

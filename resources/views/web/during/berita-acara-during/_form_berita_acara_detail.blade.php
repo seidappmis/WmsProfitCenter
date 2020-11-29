@@ -5,7 +5,7 @@
     <input type="hidden" name="berita_acara_id" value="{{!empty($berita_acara['id'])?$berita_acara['id']:0}}" readonly>
     <table>
         <tr>
-            <td>MODEL {{!empty($berita_acara['id'])?$berita_acara['id']:0}}</td>
+            <td>MODEL</td>
             <td>
                 <select id="model_name" name="model_name" class="select2-data-ajax browser-default">
                 </select>
