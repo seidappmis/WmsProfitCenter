@@ -58,7 +58,17 @@ class ConformManifestController extends Controller
   public function listManifestBranch(Request $request)
   {
     if ($request->ajax()) {
-      $query = WMSBranchManifestHeader::select('wms_branch_manifest_header.*')
+      $query = WMSBranchManifestHeader::select(
+        'wms_branch_manifest_header.do_manifest_no',
+        'wms_branch_manifest_header.expedition_name',
+        'wms_branch_manifest_header.city_name',
+        'wms_branch_manifest_header.vehicle_number',
+        // 'wms_branch_manifest_header.status_complete',
+        // 'wms_pickinglist_header.picking_no',
+        // DB::raw('COUNT(wms_lmb_detail.serial_number) AS total_detail_tcs_do'),
+        DB::raw('COUNT(wms_branch_manifest_detail.id) AS countManifestDO'),
+        DB::raw('SUM(IF(wms_branch_manifest_detail.status_confirm = 0, 1, 0)) AS countUnconfirmDetail')
+      )
         ->leftjoin('wms_branch_manifest_detail', function ($join) {
           $join->on('wms_branch_manifest_detail.do_manifest_no', '=', 'wms_branch_manifest_header.do_manifest_no')->where('wms_branch_manifest_detail.status_confirm', 0);
         })
@@ -70,11 +80,11 @@ class ConformManifestController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-        })
+        // ->addColumn('picking_no', function ($data) {
+        //   return $data->picking->picking_no;
+        // })
         ->addColumn('status', function ($data) {
-          return $data->status();
+          return WMSBranchManifestHeader::status($data);
         })
         ->addColumn('action', function ($data) {
           $action = '';

@@ -29,7 +29,7 @@
                           <thead>
                               <tr>
                                 <th>DO MANIFEST</th>
-                                <th>DO MANIFEST DATE</th>
+                                {{-- <th>DO MANIFEST DATE</th> --}}
                                 <th>EXPEDITION NAME</th>
                                 <th>DESTINATION CITY</th>
                                 <th width="50px;"></th>
@@ -75,7 +75,7 @@
       order: [1, 'asc'],
       columns: [
           {data: 'do_manifest_no'},
-          {data: 'do_manifest_date', visible: false},
+          // {data: 'do_manifest_date', visible: false},
           {data: 'expedition_name'},
           {data: 'city_name'},
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
