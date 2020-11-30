@@ -25,7 +25,7 @@ class CreateClmClaimNotesTable extends Migration
             $table->datetime("approval_finish_date")->nullable();
             $table->datetime("so_issue_date")->nullable();
             $table->datetime("date_picking_expedition")->nullable();
-            $table->datetime("dn_issue_date")->nullable();
+            $table->string("dn_issue")->nullable();
             $table->string("remarks")->nullable();
 
             $table->timestamps();

@@ -29,7 +29,7 @@ class SummaryClaimNoteController extends Controller
             DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) ) as sum_price"),
             DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) *qty) as sub_total")
          )
-         ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
+            ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
             ->groupBy('claim_note_id');
          $query = ClaimNote::from('clm_claim_notes AS n')
             ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
@@ -124,7 +124,7 @@ class SummaryClaimNoteController extends Controller
                   "approval_finish_date" => !empty($req->approval_finish_date) ? $req->approval_finish_date : '',
                   "so_issue_date" => !empty($req->so_issue_date) ? $req->so_issue_date : '',
                   "date_picking_expedition" => !empty($req->date_picking_expedition) ? $req->date_picking_expedition : '',
-                  "dn_issue_date" => !empty($req->dn_issue_date) ? $req->dn_issue_date : '',
+                  "dn_issue" => !empty($req->dn_issue) ? $req->dn_issue : '',
                   "remarks" => !empty($req->remarks) ? $req->remarks : '',
 
                   'updated_by' => auth()->user()->id,

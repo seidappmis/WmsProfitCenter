@@ -33,8 +33,8 @@ class CreateLogReturnSuratTugasActualTable extends Migration
       $table->string('remark', 40)->nullable();
       $table->datetime('created_date')->nullable();
       $table->integer('created_by')->nullable();
-      $table->datetime('modifiy_date')->nullable();
-      $table->integer('modifiy_by')->nullable();
+      $table->datetime('modify_date')->nullable();
+      $table->integer('modify_by')->nullable();
 
       // $table->primary('id_detail_actual');
     });

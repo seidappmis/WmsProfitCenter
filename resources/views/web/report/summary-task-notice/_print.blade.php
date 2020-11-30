@@ -36,7 +36,7 @@
       <tr>
          <td style="border: 1pt solid #000000;">{{$no++}}</td>
          <td style="border: 1pt solid #000000;">{{format_tanggal_wms($v['upload_date'])}}</td>
-         <td style="border: 1pt solid #000000;">{{!empty($v['modifiy_date'])?format_tanggal_wms($v['modifiy_date']):''}}</td>
+         <td style="border: 1pt solid #000000;">{{!empty($v['modify_date'])?format_tanggal_wms($v['modify_date']):''}}</td>
          <td style="border: 1pt solid #000000;">{{$v['receive_date']}}</td>
          <td style="border: 1pt solid #000000;">{{$v['no_doc']}}</td>
          <td style="border: 1pt solid #000000;">{{$v['no_st_or_no_urf']}}</td>

@@ -55,6 +55,21 @@
                     </div>
                   </td>
                 </tr>
+                <tr>
+                  <td width="20%">Modified Date</td>
+                  <td>
+                    <div class="input-field col 12">
+                      <table>
+                        <tr>
+                          <td>START :</td>
+                          <td><input type="text" name="modified_start_date" class="validate datepicker"></td>
+                          <td>END :</td>
+                          <td><input type="text" name="modified_end_date" class="validate datepicker"></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
               </table>
 
               <div class="input-field col s12">
@@ -142,6 +157,8 @@
               '&no_document=' + $('#form-summary-task-notice [name="no_document"]').val() +
               '&start_date=' + $('#form-summary-task-notice [name="start_date"]').val() +
               '&end_date=' + $('#form-summary-task-notice [name="end_date"]').val() +
+              '&modified_start_date=' + $('#form-summary-task-notice [name="modified_start_date"]').val() +
+              '&modified_end_date=' + $('#form-summary-task-notice [name="modified_end_date"]').val() +
               '&area=' + $('#form-summary-task-notice [name="area"]').val();
           }
 
@@ -155,6 +172,8 @@
               '&no_document=' + $('#form-summary-task-notice [name="no_document"]').val() +
               '&start_date=' + $('#form-summary-task-notice [name="start_date"]').val() +
               '&end_date=' + $('#form-summary-task-notice [name="end_date"]').val() +
+              '&modified_start_date=' + $('#form-summary-task-notice [name="modified_start_date"]').val() +
+              '&modified_end_date=' + $('#form-summary-task-notice [name="modified_end_date"]').val() +
               '&area=' + $('#form-summary-task-notice [name="area"]').val();
           }
         }
@@ -166,6 +185,8 @@
           d.no_document = $('#form-summary-task-notice [name="no_document"]').val()
           d.start_date = $('#form-summary-task-notice [name="start_date"]').val()
           d.end_date = $('#form-summary-task-notice [name="end_date"]').val()
+          d.modified_start_date = $('#form-summary-task-notice [name="modified_start_date"]').val()
+          d.modified_end_date = $('#form-summary-task-notice [name="modified_end_date"]').val()
           d.area = $('#form-summary-task-notice [name="area"]').val()
         }
       },
@@ -175,7 +196,7 @@
             return moment(data).format('d-MMM-YYYY');
           },
         }, {
-          data: 'modifiy_date',
+          data: 'modify_date',
           render: function(data, type, row) {
             return data ? moment(data).format('d-MMM-YYYY') : '';
           },

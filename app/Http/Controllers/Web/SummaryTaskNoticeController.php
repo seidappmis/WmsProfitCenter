@@ -39,7 +39,7 @@ class SummaryTaskNoticeController extends Controller
         DB::raw('log_return_surat_tugas_actual.rr'),
         DB::raw('log_return_surat_tugas_actual.remark'),
         DB::raw('log_return_surat_tugas_header.no_document AS no_st_or_no_urf'),
-        'log_return_surat_tugas_actual.modifiy_date'
+        'log_return_surat_tugas_actual.modify_date'
       )
         ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_plan.id_header', '=', 'log_return_surat_tugas_header.id_header')
         ->leftjoin('log_return_surat_tugas_actual', 'log_return_surat_tugas_actual.id_detail_plan', '=', 'log_return_surat_tugas_plan.id_detail_plan');
@@ -48,6 +48,11 @@ class SummaryTaskNoticeController extends Controller
       $query->where('log_return_surat_tugas_header.area', $request->input('area'));
       $query->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
       $query->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+
+      if (!empty($request->input('modified_start_date')))
+        $query->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
+      if (!empty($request->input('modified_end_date')))
+        $query->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))));
 
       $datatables = DataTables::of($query)
         ->editColumn('date', function ($data) {
@@ -90,7 +95,7 @@ class SummaryTaskNoticeController extends Controller
       DB::raw('log_return_surat_tugas_actual.rr'),
       DB::raw('log_return_surat_tugas_actual.remark'),
       DB::raw('log_return_surat_tugas_header.no_document AS no_st_or_no_urf'),
-      'log_return_surat_tugas_actual.modifiy_date'
+      'log_return_surat_tugas_actual.modify_date'
     )
       ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_plan.id_header', '=', 'log_return_surat_tugas_header.id_header')
       ->leftjoin('log_return_surat_tugas_actual', 'log_return_surat_tugas_actual.id_detail_plan', '=', 'log_return_surat_tugas_plan.id_detail_plan');
@@ -99,6 +104,12 @@ class SummaryTaskNoticeController extends Controller
     $main->where('log_return_surat_tugas_header.area', $request->input('area'));
     $main->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
     $main->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+
+    if (!empty($request->input('modified_start_date')))
+      $main->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
+    if (!empty($request->input('modified_end_date')))
+      $main->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))));
+
     $data['data'] = $main->get()->toArray();
     $data['request'] = $request->all();
     // dd($data);

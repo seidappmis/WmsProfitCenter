@@ -48,7 +48,7 @@
                               <th class="center-align">Start</th>
                               <th class="center-align">Finish</th>
                               <th class="center-align">SO Issue Date</th>
-                              <th class="center-align">DN Issue Date</th>
+                              <th class="center-align">DN Issue</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -160,17 +160,17 @@
             }
          },
          {
-            data: 'dn_issue_date',
+            data: 'dn_issue',
             searchable: false,
             render: function(data, type, row) {
-               return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="dn_issue_date" class="datepicker">';
+               return '<textarea name="dn_issue" style="resize: vertical;width:200px;height:50px;">' + (data ? data : '') + '</textarea>';
             }
          },
          {
             data: 'remarks',
             searchable: false,
             render: function(data, type, row) {
-               return '<textarea name="remarks" style="resize: vertical;" cols="30" rows="10">' + (data ? data : '') + '</textarea>';
+               return '<textarea name="remarks" style="resize: vertical;width:200px;height:50px;">' + (data ? data : '') + '</textarea>';
             }
          },
          {
@@ -234,7 +234,7 @@
                      approval_finish_date: tr.find('[name="approval_finish_date"]').val(),
                      so_issue_date: tr.find('[name="so_issue_date"]').val(),
                      date_picking_expedition: tr.find('[name="date_picking_expedition"]').val(),
-                     dn_issue_date: tr.find('[name="dn_issue_date"]').val(),
+                     dn_issue: tr.find('[name="dn_issue"]').val(),
                      remarks: tr.find('[name="remarks"]').val(),
                   },
                   dataType: 'json',
