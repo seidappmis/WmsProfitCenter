@@ -53,7 +53,7 @@
 <script type="text/javascript">
   var dttable_list_do
   jQuery(document).ready(function($) {
-    @if($manifestHeader->status_complete)
+    @if($manifestHeader->status_complete && $lmbHeader->do_details->count() == 0)
     $('.btn-save').addClass('hide')
     $('.btn-upload').addClass('hide')
     $('.btn-delete').addClass('hide')

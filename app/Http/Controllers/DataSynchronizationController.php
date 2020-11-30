@@ -10,7 +10,9 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->updateTable26Nov2020();
+    $this->insertSummaryDGRMenu();
+    // $this->updateTable30Nov2020();
+    // $this->updateTable26Nov2020();
     // $this->updateHargaCartonBox();
     // $this->updateTable25Nov2020();
     // $this->updateTable23Nov2020();
@@ -24,9 +26,41 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
-  protected function updateTable26Nov2020(){
+  protected function insertSummaryDGRMenu()
+  {
+    echo "Insert Summary DGR Menu";
+    DB::table('tr_modules')->insert(
+      [
+        'id'         => 109,
+        'modul_name' => 'Summary DGR',
+        'modul_link' => 'summary-damage-goods-report',
+        'group_name' => 'During',
+        'order_menu' => 3,
+      ]
+    );
+  }
+
+  protected function updateTable30Nov2020()
+  {
+    echo "Edit Table 30 Oktober";
+    DB::statement('
+      ALTER TABLE `dur_berita_acara`
+      ADD COLUMN `category_damage` VARCHAR(255) NULL DEFAULT NULL AFTER `tanggal_kejadian`
+      ');
+    DB::statement('ALTER TABLE `dur_berita_acara_detail`
+      ADD COLUMN `claim` VARCHAR(255) NULL DEFAULT NULL AFTER `damage`
+      ');
+    DB::statement('
+      ALTER TABLE `dur_dgr`
+      ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `claim`,
+      ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`'
+    );
+  }
+
+  protected function updateTable26Nov2020()
+  {
     echo "Add reason to claimnote item <br>";
-    DB::statement('ALTER TABLE `clm_claim_note_detail`   
+    DB::statement('ALTER TABLE `clm_claim_note_detail`
       ADD COLUMN `reason` VARCHAR(255) NULL AFTER `description`;
     ');
   }
