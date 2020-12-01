@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->insertSummaryDGRMenu();
+    $this->updateTable1Des2020();
+    // $this->insertSummaryDGRMenu();
     // $this->updateTable30Nov2020();
     // $this->updateTable26Nov2020();
     // $this->updateHargaCartonBox();
@@ -24,6 +25,22 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable1Des2020()
+  {
+    echo "Update Table Claim Notes<br>";
+    DB::statement('ALTER TABLE `clm_claim_notes`
+    DROP COLUMN `dn_issue_date`,
+    ADD COLUMN `dn_issue` VARCHAR(255) NULL DEFAULT NULL AFTER `date_picking_expedition`');
+
+    echo "Update Table log_return_surat_tugas<br>";
+    DB::statement('ALTER TABLE `log_return_surat_tugas_actual`
+    DROP COLUMN `modifiy_by`,
+    DROP COLUMN `modifiy_date`,
+    ADD COLUMN `modify_date` DATETIME NULL DEFAULT NULL AFTER `created_by`,
+    ADD COLUMN `modify_by` INT(11) NULL DEFAULT NULL AFTER `modify_date`');
+
   }
 
   protected function insertSummaryDGRMenu()
