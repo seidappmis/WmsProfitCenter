@@ -186,6 +186,7 @@ class ClaimInsuranceController extends Controller
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_insurance_detail_id', '=', 'id.id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+        ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'id.model_name')
         ->orderBy('i.created_at', 'DESC')
         ->where('i.id', $id)
         ->select(
@@ -204,7 +205,8 @@ class ClaimInsuranceController extends Controller
           'id.description',
           'bad.qty',
           'id.price',
-          'id.id AS claim_insurance_detail'
+          'id.id AS claim_insurance_detail',
+          'm.price_carton_box'
         );
 
       $datatables = DataTables::of($query)

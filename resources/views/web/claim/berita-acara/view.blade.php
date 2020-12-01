@@ -232,7 +232,7 @@
               showSwalAutoClose('success', result.message)
               dtdatatable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
               $('#form-berita-acara-detail')[0].reset(); // reset form
-              $('#form-berita-acara-detail [name="model_name"]').val(null).trigger('change');
+              set_select2_value('#form-berita-acara-detail [name="description"]', '', '');
             } else {
               showSwalAutoClose('Warning', result.message)
             }

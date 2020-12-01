@@ -398,6 +398,8 @@
                 .done(function(result) {
                     if (result.status) {
                         showSwalAutoClose('Success', result.message);
+                        $('#form-berita-acara-during-detail')[0].reset(); // reset form
+                        set_select2_value('#form-berita-acara-during-detail [name="model_name"]', '', '');
                     } else {
                         showSwalAutoClose('Warning', result.message)
                     }

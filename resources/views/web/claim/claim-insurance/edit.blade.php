@@ -6,11 +6,11 @@
     @component('layouts.materialize.components.title-wrapper')
     <div class="row">
         <div class="col s12 m6">
-            <h5 class="breadcrumbs-title mt-0 mb-0"><span>Create Claim Insurance</span></h5>
+            <h5 class="breadcrumbs-title mt-0 mb-0"><span>Claim Insurance</span></h5>
             <ol class="breadcrumbs mb-0">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('claim-insurance') }}">Claim Insurances</a></li>
-                <li class="breadcrumb-item active">Create Claim Insurance</li>
+                <li class="breadcrumb-item active">Claim Insurance</li>
             </ol>
         </div>
     </div>
@@ -123,7 +123,6 @@
 @push('script_js')
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        $('.mask-currency').inputmask('currency');
         dataTable = $('#data-table-section-contents').DataTable({
             serverSide: true,
             scrollX: true,
@@ -160,7 +159,12 @@
                 data: 'price',
                 name: 'price',
                 render: function(data, type, row, meta) {
-                    return '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
+
+                    let price = data;
+                    if (row.description == 'Carton Box Damage' && !data) {
+                        price = row.price_carton_box;
+                    }
+                    return '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="text" onChange="calculate(this)" class="price mask-currency" value="' + price + '">';
                 },
                 className: 'center-align'
             }, {
@@ -168,7 +172,13 @@
                 orderable: false,
                 searchable: false,
                 render: function(data, type, row, meta) {
-                    return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
+
+                    let price = row.price;
+                    if (row.description == 'Carton Box Damage' && !row.price) {
+                        price = row.price_carton_box;
+                    }
+
+                    return '<tag class="sub-total"> ' + format_currency(row.qty * price) + '</tag>';
                 },
                 className: "center-align"
             }, {
@@ -196,10 +206,15 @@
                 data: 'keterangan',
                 name: 'keterangan',
                 className: 'detail'
-            }]
+            }],
+            initComplete: setInitComplete
         });
 
     });
+
+    var setInitComplete = function() {
+        $('.mask-currency').inputmask('currency');
+    };
 
     function calculate(ths) {
         var input = $(ths),
@@ -245,7 +260,7 @@
                     swal("Success!", result.message)
                         .then((response) => {
                             // Kalau klik Ok redirect ke view
-                            dataTable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                            dataTable.ajax.reload(setInitComplete, false); // (null, false) => user paging is not reset on reload
                         }) // alert success
                 } else {
                     setLoading(false);

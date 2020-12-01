@@ -298,6 +298,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nd.berita_acara_detail_id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+        ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'nd.model_name')
         ->orderBy('n.created_at', 'DESC')
         ->where('n.id', $id)
         ->select(
@@ -317,7 +318,8 @@ class ClaimNoteController extends Controller
           'nd.qty',
           'nd.price',
           'nd.id AS claim_note_detail',
-          'bad.photo_url'
+          'bad.photo_url',
+          'm.price_carton_box'
         );
 
       $datatables = DataTables::of($query)

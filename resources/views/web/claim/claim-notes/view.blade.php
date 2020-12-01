@@ -85,6 +85,7 @@
 @endpush
 
 @push('script_js')
+@php $claimReason=$claimNote->claim;@endphp
 <script type="text/javascript">
   jQuery(document).ready(function() {
     $('.mask-currency').inputmask('currency');
@@ -98,154 +99,171 @@
         type: 'GET',
       },
       columns: [{
-        data: 'DT_RowIndex',
-        orderable: false,
-        searchable: false,
-        className: 'center-align'
-      }, {
-        data: 'berita_acara_no',
-        name: 'berita_acara_no',
-        className: 'detail'
-      }, {
-        data: 'expedition_name',
-        name: 'expedition_name',
-        className: 'detail'
-      }, {
-        data: 'driver_name',
-        name: 'driver_name',
-        className: 'detail'
-      }, {
-        data: 'vehicle_number',
-        name: 'vehicle_number',
-        className: 'detail'
-      }, {
-        data: 'do_no',
-        name: 'do_no',
-        className: 'center-align'
-      }, {
-        data: 'model_name',
-        name: 'model_name',
-        className: 'center-align'
-      }, {
-        data: 'serial_number',
-        name: 'serial_number',
-        className: 'center-align',
-        render: function(data, type, row) {
-          return data ? data.split(",").join("<br>") : '';
-        }
-      }, {
-        data: 'description',
-        name: 'description',
-        className: 'center-align'
-      }, 
-      {
-        data: 'reason',
-        name: 'reason',
-        width: '70px',
-        render: function(data, type, row, meta) {
-          var val = data;
-          if (row.submit_date == null) {
-            val = '<select id="select-reason-' + row.id + '" style="display: block; width: 150px;     background-color: #ffffff91;" class="reason">';
-            val += '<option value="" disabled selected>-- Reason --</option>';
-            @if($claimNote->claim == 'unit')
-            val += '<option ' + (data == 'Unit of F/G Damaged' ? 'selected' : '') + '>Unit of F/G Damaged</option>';
-            val += '<option ' + (data == 'Unit of F/G Scratched' ? 'selected' : '') + '>Unit of F/G Scratched</option>';
-            val += '<option ' + (data == 'Unit of F/G Dented' ? 'selected' : '') + '>Unit of F/G Dented</option>';
-            val += '<option ' + (data == 'Unit of F/G Broken' ? 'selected' : '') + '>Unit of F/G Broken</option>';
+          data: 'DT_RowIndex',
+          orderable: false,
+          searchable: false,
+          className: 'center-align'
+        }, {
+          data: 'berita_acara_no',
+          name: 'berita_acara_no',
+          className: 'detail'
+        }, {
+          data: 'expedition_name',
+          name: 'expedition_name',
+          className: 'detail'
+        }, {
+          data: 'driver_name',
+          name: 'driver_name',
+          className: 'detail'
+        }, {
+          data: 'vehicle_number',
+          name: 'vehicle_number',
+          className: 'detail'
+        }, {
+          data: 'do_no',
+          name: 'do_no',
+          className: 'center-align'
+        }, {
+          data: 'model_name',
+          name: 'model_name',
+          className: 'center-align'
+        }, {
+          data: 'serial_number',
+          name: 'serial_number',
+          className: 'center-align',
+          render: function(data, type, row) {
+            return data ? data.split(",").join("<br>") : '';
+          }
+        }, {
+          data: 'description',
+          name: 'description',
+          className: 'center-align'
+        },
+        {
+          data: 'reason',
+          name: 'reason',
+          width: '70px',
+          render: function(data, type, row, meta) {
+            var val = data;
+            if (row.submit_date == null) {
+              val = '<select id="select-reason-' + row.id + '" style="display: block; width: 150px;     background-color: #ffffff91;" class="reason">';
+              val += '<option value="" disabled selected>-- Reason --</option>';
+              @if($claimReason == 'unit')
+              val += '<option ' + (data == 'Unit of F/G Damaged' ? 'selected' : '') + '>Unit of F/G Damaged</option>';
+              val += '<option ' + (data == 'Unit of F/G Scratched' ? 'selected' : '') + '>Unit of F/G Scratched</option>';
+              val += '<option ' + (data == 'Unit of F/G Dented' ? 'selected' : '') + '>Unit of F/G Dented</option>';
+              val += '<option ' + (data == 'Unit of F/G Broken' ? 'selected' : '') + '>Unit of F/G Broken</option>';
+              @else
+              val += '<option ' + (data == 'Wet Carton Box' ? 'selected' : '') + '>Wet Carton Box</option>';
+              val += '<option ' + (data == 'Damage Carton Box' ? 'selected' : '') + '>Damage Carton Box</option>';
+              @endif
+              val += '</select>';
+            }
+            return val;
+          }
+        },
+        {
+          data: 'destination',
+          name: 'destination',
+          className: 'center-align',
+          render: function(data, type, row, meta) {
+            var val = data;
+            if (row.submit_date == null) {
+              val = '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+            }
+            return val;
+          }
+        },
+        {
+          data: 'warehouse',
+          name: 'warehouse',
+          className: 'center-align',
+          render: function(data, type, row, meta) {
+            var val = data;
+            if (row.submit_date == null) {
+              val = '<textarea id="warehouse' + row.id + '" class="warehouse materialize-textarea" placeholder="warehouse" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+            }
+            return val;
+          }
+        },
+        {
+          data: 'photo_url',
+          orderable: false,
+          render: function(data, type, row) {
+            if (data) {
+              return '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + data + '">';
+            }
+            return '-';
+          },
+          className: "center-align"
+        }, {
+          data: 'qty',
+          name: 'qty',
+          className: 'center-align',
+          render: function(data, type, row, meta) {
+            var val = data;
+            if (row.submit_date == null) {
+              val = '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
+            }
+            return val;
+          }
+        },
+        {
+          data: 'price',
+          name: 'price',
+          render: function(data, type, row, meta) {
+            let price = data;
+            if (row.description == 'Carton Box Damage' && !data) {
+              price = row.price_carton_box;
+            }
+            if (row.submit_date == null) {
+              val = '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="text" onChange="calculate(this)" class="price mask-currency" value="' + price + '">';
+            }
+            return val;
+          },
+          className: 'center-align'
+        },
+        @if($claimReason == 'unit') {
+          data: 'claim_note_detail',
+          orderable: false,
+          searchable: false,
+          render: function(data, type, row, meta) {
+            let price = row.price;
+            if (row.description == 'Carton Box Damage' && !row.price) {
+              price = row.price_carton_box;
+            }
+            return '<tag class="price-10"> ' + format_currency((price * 110 / 100));
+          },
+          className: "center-align"
+        },
+        @endif {
+          data: 'claim_note_detail',
+          orderable: false,
+          searchable: false,
+          render: function(data, type, row, meta) {
+
+            let price = row.price;
+            if (row.description == 'Carton Box Damage' && !row.price) {
+              price = row.price_carton_box;
+            }
+
+            @if($claimReason == 'unit')
+            return '<tag class="sub-total"> ' + format_currency(row.qty * (price * 110 / 100));
             @else
-            val += '<option ' + (data == 'Wet Carton Box' ? 'selected' : '') + '>Wet Carton Box</option>';
-            val += '<option ' + (data == 'Damage Carton Box' ? 'selected' : '') + '>Damage Carton Box</option>';
+            return '<tag class="sub-total"> ' + format_currency(row.qty * price);
             @endif
-            val += '</select>';
-          }
-          return val;
+          },
+          className: "center-align"
         }
-      }, 
-      {
-        data: 'destination',
-        name: 'destination',
-        className: 'center-align',
-        render: function(data, type, row, meta) {
-          var val = data;
-          if (row.submit_date == null) {
-            val = '<textarea id="destination' + row.id + '" class="destination materialize-textarea" placeholder="destination" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
-          }
-          return val;
-        }
-      }, 
-      {
-        data: 'warehouse',
-        name: 'warehouse',
-        className: 'center-align',
-        render: function(data, type, row, meta) {
-          var val = data;
-          if (row.submit_date == null) {
-            val = '<textarea id="warehouse' + row.id + '" class="warehouse materialize-textarea" placeholder="warehouse" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
-          }
-          return val;
-        }
-      }, 
-      {
-        data: 'photo_url',
-        orderable: false,
-        render: function(data, type, row) {
-          if (data) {
-            return '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + data + '">';
-          }
-          return '-';
-        },
-        className: "center-align"
-      }, {
-        data: 'qty',
-        name: 'qty',
-        className: 'center-align',
-        render: function(data, type, row, meta) {
-          var val = data;
-          if (row.submit_date == null) {
-            val = '<input placeholder="Qty" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="qty" value="' + data + '">';
-          }
-          return val;
-        }
-      }, 
-      {
-        data: 'price',
-        name: 'price',
-        render: function(data, type, row, meta) {
-          var val = format_currency(data);
-          if (row.submit_date == null) {
-            val = '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="number" onChange="calculate(this)" class="price mask-currency" value="' + data + '">';
-          }
-          return val;
-        },
-        className: 'center-align'
-      }, 
-      @if($claimNote->claim == 'unit')
-      {
-        data: 'claim_note_detail',
-        orderable: false,
-        searchable: false,
-        render: function(data, type, row, meta) {
-          return '<tag class="price-10"> ' + format_currency((row.price * 110 / 100));
-        },
-        className: "center-align"
-      },
-      @endif
-      {
-        data: 'claim_note_detail',
-        orderable: false,
-        searchable: false,
-        render: function(data, type, row, meta) {
-          @if($claimNote->claim == 'unit')
-          return '<tag class="sub-total"> ' + format_currency(row.qty * (row.price * 110 / 100));
-          @else 
-          return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
-          @endif 
-        },
-        className: "center-align"
-      }]
+      ],
+      initComplete: setInitComplete
     });
 
   });
+
+  var setInitComplete = function() {
+    $('.mask-currency').inputmask('currency');
+  };
 
   function calculate(ths) {
     var input = $(ths),
@@ -255,15 +273,14 @@
       classPrice = tr.find('.price'),
       classSubTotal = tr.find('.sub-total'),
       qty = classQty.val(),
-      price = classPrice.val()
-      ;
+      price = classPrice.val();
 
-      @if($claimNote->claim == 'unit')
-      tr.find('.price-10').html(format_currency(price*110/100))
-      classSubTotal.html(format_currency(qty * (price*110/100)));
-      @else
-      classSubTotal.html(format_currency(qty * price));
-      @endif
+    @if($claimReason == 'unit')
+    tr.find('.price-10').html(format_currency(price * 110 / 100))
+    classSubTotal.html(format_currency(qty * (price * 110 / 100)));
+    @else
+    classSubTotal.html(format_currency(qty * price));
+    @endif
   };
 
   $('.btn-save').click(function(e) {
@@ -303,7 +320,7 @@
           swal("Success!", result.message)
             .then((response) => {
               // Kalau klik Ok redirect ke view
-              dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+              dtdatatable_claim_note.ajax.reload(setInitComplete, false); // (null, false) => user paging is not reset on reload
             }) // alert success
         } else {
           setLoading(false);

@@ -115,7 +115,7 @@ class DamageGoodsReportController extends Controller
       ->orderBy('dur_dgr_detail.berita_acara_during_detail_id')
       ->get()->toArray();
 
-    $rowspan = 1;
+    $rowspan = 0;
     foreach ($data['detail'] as $k => $v) {
       if ($k > 0 && $data['detail'][$k]['berita_acara_during_no'] == $data['detail'][$k - 1]['berita_acara_during_no']) {
         $rowspan++;
@@ -125,22 +125,18 @@ class DamageGoodsReportController extends Controller
       $data['detail'][$k]['rowspan'] = $rowspan;
     };
 
-    for ($i = 0; $i < count($data['detail']) - 1; $i++) {
-      $tmp = [];
-      if ($data['detail'][$i]['rowspan'] < $data['detail'][$i + 1]['rowspan'] && $data['detail'][$i]['berita_acara_during_no'] == $data['detail'][$i + 1]['berita_acara_during_no']) {
-        $tmp = $data['detail'][$i];
-        $data['detail'][$i] = $data['detail'][$i + 1];
-        $data['detail'][$i + 1] = $tmp;
-      }
-    };
+    // sorting by number and row 
+    foreach ($data['detail'] as $key => $row) {
+      $arrNo[$key]  = $row['berita_acara_during_no'];
+      $arrRowspan[$key] = $row['rowspan'];
+    }
+    array_multisort($arrNo, SORT_ASC, $arrRowspan, SORT_DESC, $data['detail']);
 
     $view_print = view('web.during.damage-goods-report._print', $data);
     $title      = 'Damage Goods Report';
 
     if ($request->input('filetype') == 'html') {
 
-      // request HTML View
-      // return $view_print;
       // request HTML View
       $mpdf = new \Mpdf\Mpdf([
         'tempDir' => '/tmp',
@@ -149,7 +145,7 @@ class DamageGoodsReportController extends Controller
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
         'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'orientation'                     => 'P'
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);

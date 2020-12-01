@@ -294,16 +294,15 @@
 
     $('#form-berita-acara-during [name="damage_type"]').change(function() {
         let val = $(this).val();
-
         if (val == 'Rusak selama penyimpanan di gudang' ||
             val == 'Pengecekan oleh QRCC' ||
             val == 'Rusak karena gudang bocor' ||
             val == 'Rusak karena rayap' ||
             val == 'Rusak dari produksi' ||
             val == 'Different Model') {
-            $('.damage-require').attr('required', 'required');
+            $('.damage-require').prop('required', false);
         } else {
-            $('.damage-require').removeAttr('required');
+            $('.damage-require').prop('required', true);
         }
     })
 

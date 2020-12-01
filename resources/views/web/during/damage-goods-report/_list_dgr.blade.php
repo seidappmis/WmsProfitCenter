@@ -104,8 +104,8 @@
             searchable: false,
             render: function(data, type, row, meta) {
                let btn = ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
-                  ' ' + '<?= get_button_print() ?>' +
-                  ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>';
+                  ' ' + '<?= get_button_print() ?>';
+               // ' <a class="waves-effect waves-light btn btn-small green darken-4 btn-print-detail" href="#">Print Detail</a>';
                if (row.submit_date == null) {
                   btn += ' <span class="waves-effect waves-light btn btn-small amber darken-4 btn-submit">Submit</span>';
                   btn += ' <span class="waves-effect waves-light btn btn-small red darken-4 btn-delete">Delete</span>';

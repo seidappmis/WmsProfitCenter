@@ -54,8 +54,7 @@ class ReceiptInvoiceController extends Controller
         ->whereBetween(DB::raw('DATE(log_manifest_header.do_manifest_date)'), array($from_date, $to_date))
         ->whereNull('log_invoice_receipt_detail.id')
         ->where('log_manifest_header.status_complete', 1)
-        ->groupBy('log_manifest_header.do_manifest_no')
-      ;
+        ->groupBy('log_manifest_header.do_manifest_no');
 
       if (auth()->user()->area != 'All') {
         $query->where('log_manifest_header.area', auth()->user()->area);
@@ -110,7 +109,6 @@ class ReceiptInvoiceController extends Controller
     }
 
     return $rsInvoiceManifestDetail;
-
   }
 
   public function update(Request $request, $id)
@@ -136,7 +134,6 @@ class ReceiptInvoiceController extends Controller
     }
 
     return $rsInvoiceManifestDetail;
-
   }
 
   protected function getPostManifestDetailData($request, $invoiceReceiptHeader)
@@ -250,8 +247,7 @@ class ReceiptInvoiceController extends Controller
         DB::raw('SUM(overstay_amount) AS overstay_amount'),
         DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do')
       )
-        ->groupBy('do_manifest_no')
-      ;
+        ->groupBy('do_manifest_no');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -436,13 +432,15 @@ class ReceiptInvoiceController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 2,
         'margin_right'                    => 2,
         'margin_top'                      => 5,
         'margin_bottom'                   => 5,
         'format'                          => 'A4',
-        'orientation'                     => 'L']);
+        'orientation'                     => 'L'
+      ]);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
@@ -471,7 +469,8 @@ class ReceiptInvoiceController extends Controller
       // request HTML View
       // return $view_print;
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 2,
         'margin_right'                    => 2,
         'margin_top'                      => 35,
@@ -532,7 +531,8 @@ class ReceiptInvoiceController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 2,
         'margin_right'                    => 2,
         'margin_top'                      => 35,
@@ -594,8 +594,7 @@ class ReceiptInvoiceController extends Controller
   {
     $query = LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
       ->where('delivery_no', $request->input('delivery_no'))
-      ->get()
-    ;
+      ->get();
 
     return sendSuccess('Success retrive data', $query);
   }
@@ -622,10 +621,14 @@ class ReceiptInvoiceController extends Controller
 
   public function updateDODataDetail(Request $request, $id_header, $manifest_detail_id)
   {
+    // dd($request->all(), $id_header, $manifest_detail_id);
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id_header);
 
     $invoiceReceiptDetail = InvoiceReceiptDetail::findOrFail($request->input('id'));
     $manifestDetail       = LogManifestDetail::findOrFail($manifest_detail_id);
+
+    // update cbm do
+    $invoiceReceiptDetail->cbm_do = $invoiceReceiptDetail->cbm_do - $manifestDetail->cbm + ($request->input('cbm') * $manifestDetail->quantity);
 
     $manifestDetail->cbm = $request->input('cbm') * $manifestDetail->quantity;
 
@@ -647,6 +650,5 @@ class ReceiptInvoiceController extends Controller
     } catch (Exception $e) {
       DB::rollback();
     }
-
   }
 }

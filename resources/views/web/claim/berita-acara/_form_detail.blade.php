@@ -30,7 +30,6 @@
         <tr>
             <td>Jenis Kerusakan</td>
             <td>
-                <!-- <input type="text" class="validate" name="description" value="{{old('description', !empty($beritaAcaraDetail) ? $beritaAcaraDetail->description : '')}}"> -->
                 <select name="description" class="select2-data-ajax browser-default">
                     <option value=""></option>
                     <option value="Carton Box Damage">Carton Box Damage</option>
