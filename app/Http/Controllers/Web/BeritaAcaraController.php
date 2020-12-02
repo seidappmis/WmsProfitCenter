@@ -126,14 +126,16 @@ class BeritaAcaraController extends Controller
       $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
 
       $prefix_length = strlen($formatNumber);
-      $max_no        = DB::table('clm_berita_acara')
+      $lastNo        = DB::table('clm_berita_acara')
         ->select(DB::raw('berita_acara_no AS max_no'))
         ->orderBy('created_at', 'DESC')
         ->first();
-      $max_no        = isset($max_no->max_no) ? $max_no->max_no : 0;
-      $max_no        = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
-      $beritaAcaraNo = $max_no . $formatNumber;
 
+      $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
+      if (isset($lastNo[2]) && $lastNo[2] != date('m'))
+        $lastNo[0] = 0;
+      $max_no        = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
+      $beritaAcaraNo = $max_no . $formatNumber;
       try {
         $beritaAcara                  = new BeritaAcara;
         $beritaAcara->berita_acara_no = $beritaAcaraNo;

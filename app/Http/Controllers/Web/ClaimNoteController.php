@@ -150,15 +150,18 @@ class ClaimNoteController extends Controller
             // Generate No. Claim Note :  01/Claim U-Log/Des/2019
             $format = "%s/Claim %s-log/" . date('M') . "/" . date('Y');
 
-            $max_no = DB::table('clm_claim_notes')
+            $lastNo = DB::table('clm_claim_notes')
               ->select(DB::raw('claim_note_no AS max_no'))
               ->orderBy('created_at', 'DESC')
               ->first();
-            $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
+
+            $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
+            if (isset($lastNo[2]) && $lastNo[2] != date('M'))
+              $lastNo[0] = 0;
 
             // adding claim note number
             $type          = ($req->type == 'carton-box') ? 'C' : 'U';
-            $max_no        = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
+            $max_no        = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
             $claim_note_no = sprintf($format, $max_no, $type);
 
             // insert to claim note and return id

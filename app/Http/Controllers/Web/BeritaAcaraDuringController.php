@@ -243,14 +243,17 @@ class BeritaAcaraDuringController extends Controller
           break;
       };
 
-      $max_no = DB::table('dur_berita_acara')
+      $lastNo = DB::table('dur_berita_acara')
         ->select(DB::raw('berita_acara_during_no AS max_no'))
         ->where('berita_acara_during_no', 'like', '%' . $category_damage . '%')
         ->orderBy('created_at', 'DESC')
         ->first();
 
-      $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
-      $max_no = str_pad(explode("/", $max_no)[0] + 1, 3, 0, STR_PAD_LEFT);
+      $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
+
+      if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16)
+        $lastNo[0] = 0;
+      $max_no = str_pad($lastNo[0] + 1, 3, 0, STR_PAD_LEFT);
       $no     = sprintf($format,  $max_no, $category_damage);
 
       try {

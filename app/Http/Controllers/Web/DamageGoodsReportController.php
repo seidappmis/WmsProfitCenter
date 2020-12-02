@@ -345,14 +345,18 @@ class DamageGoodsReportController extends Controller
             // Generate No. dgr :  001/DR -HQ-XII/2019
             $format = "%s/DR -HQ-" . $this->rome((int) date('m')) . "/" . date('Y');
 
-            $max_no = DB::table('dur_dgr')
+            $lastNo = DB::table('dur_dgr')
               ->select(DB::raw('dgr_no AS max_no'))
               ->orderBy('created_at', 'DESC')
               ->first();
-            $max_no = isset($max_no->max_no) ? $max_no->max_no : 0;
+
+            $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
 
             // adding during note number
-            $max_no        = str_pad(explode("/", $max_no)[0] + 1, 2, 0, STR_PAD_LEFT);
+            if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16)
+              $lastNo[0] = 0;
+
+            $max_no        = str_pad($lastNo[0]  + 1, 2, 0, STR_PAD_LEFT);
             $dgr_no = sprintf($format, $max_no);
 
             // insert to during note and return id
