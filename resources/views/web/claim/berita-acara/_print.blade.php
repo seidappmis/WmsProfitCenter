@@ -133,7 +133,7 @@
       </tr>
       <tr>
          <td colspan="7">
-            {{$detail['area']}} , {{date('d M Y')}} <br><br>
+            {{$detail['area']}} , {{date('d M Y', strtotime($beritaAcara->date_of_receipt))}} <br><br>
          </td>
       </tr>
       <tr>

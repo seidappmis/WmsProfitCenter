@@ -91,7 +91,7 @@ class LMBHeader extends Model
     }
 
     foreach ($rs_customer as $key => $value) {
-      $customer .= (!empty($customer) ? '<br>' : '');
+      $customer .= (!empty($customer) ? ',' : '');
       $customer .= $key;
     }
     return $customer;

@@ -63,10 +63,20 @@ class DamageGoodsReportController extends Controller
           DB::raw("group_concat(DISTINCT ba.berita_acara_during_no SEPARATOR ', ') as berita_acara_group"),
           DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR '|') as expedition_name"),
           DB::raw("group_concat(DISTINCT dd.remark SEPARATOR '|') as remark")
-        );
+        )
+        ;
 
       $datatables = DataTables::of($query)
-        ->addIndexColumn(); //DT_RowIndex (Penomoran)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->filterColumn('dgr_no', function ($query, $keyword) {
+          $sql = "d.dgr_no like ?";
+          $query->whereRaw($sql, ["%{$keyword}%"]);
+        })
+        ->filterColumn('berita_acara_group', function ($query, $keyword) {
+          $sql = "ba.berita_acara_during_no like ?";
+          $query->whereRaw($sql, ["%{$keyword}%"]);
+        })
+        ;
 
       return $datatables->make(true);
     }

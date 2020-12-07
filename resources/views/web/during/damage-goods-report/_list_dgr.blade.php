@@ -73,7 +73,7 @@
             className: 'center-align'
          }, {
             data: 'berita_acara_group',
-            name: 'bad.berita_acara_no',
+            // name: 'berita_acara_group',
             className: 'detail',
             // searchable: false,
             render: function(data, type, row, meta) {
@@ -81,7 +81,7 @@
             }
          }, {
             data: 'dgr_no',
-            name: 'n.dgr_no',
+            name: 'dgr_no',
             className: 'detail'
          }, {
             data: 'created_at',
