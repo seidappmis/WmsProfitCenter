@@ -72,7 +72,7 @@
             <td colspan="6" style="text-align: left; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
             <td colspan="5">&nbsp;</td>
             <td colspan="2" style="text-align: left;"><strong>Date:</strong></td>
-            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000; "><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
+            <td colspan="4" style="text-align: center; border-bottom: 1px solid #000000; "><strong>{{date('d-M-Y',strtotime($claimNote->date_of_receipt))}}</strong></td>
             <td style="border-right: 2pt solid #000000; ">&nbsp;</td>
         </tr>
         <tr>
@@ -94,7 +94,8 @@
             <td style="border-left: 2px solid #000000; border-right: 1px solid #000000;" colspan="14">Reason :</td>
             <td style="border-right: 2px solid #000000;" colspan="21">Claim Amount :</td>
         </tr>
-       {{number_format($claimNote->sub_total, 2, ',', '.')}} <tr>
+        {{number_format($claimNote->sub_total, 2, ',', '.')}}
+        <tr>
             <td style="border-left: 2px solid #000000;"></td>
             <td colspan="13" style=" border-right: 1px solid #000000;"><strong>{{$claimNote->claim=='carton-box'? 'Claim Carton Box : ' . $claimNote->sum_qty. ' Unit':'Claim Unit : ' . $claimNote->sum_qty. ' Unit'}}</strong></td>
             <td colspan="21" style=" border-right: 2px solid #000000;"></td>
@@ -121,7 +122,7 @@
             <td style=""></td>
             <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[1]) ? $rs_reasons[1] : '' }}</td>
 
-             <!-- RIGHT SIDE -->
+            <!-- RIGHT SIDE -->
             <td>&#9313;</td>
             <td colspan="12">F/G Sales Price Amount</td>
             <td>=</td>
@@ -138,7 +139,7 @@
             <td style=""></td>
             <td colspan="12" style="border-right: 1px solid #000000;">{{!empty($rs_reasons[2]) ? $rs_reasons[2] : '' }}</td>
 
-             <!-- RIGHT SIDE -->
+            <!-- RIGHT SIDE -->
             <td>&#9314;</td>
             <td colspan="12">Man Power Cost</td>
             <td>=</td>
@@ -239,25 +240,25 @@
         <!-- END BODY -->
         <tr>
             <td colspan="5" style="border-left: 2pt solid #000000; border-bottom: 2pt solid #000000;">
-            	<strong>Total Claim Amount</strong>
+                <strong>Total Claim Amount</strong>
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	<input type="checkbox" name="">
+                <input type="checkbox" name="">
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	IDR
+                IDR
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	<input type="checkbox" name="">
+                <input type="checkbox" name="">
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	USD
+                USD
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	<input type="checkbox" name="">
+                <input type="checkbox" name="">
             </td>
             <td style="border-bottom: 2pt solid #000000;">
-            	JPY
+                JPY
             </td>
             <td style="border-bottom: 2pt solid #000000;"></td>
             <td style="border-bottom: 2pt solid #000000; border-right: 2px solid #000000;" colspan="23"><strong>Others :</strong></td>
@@ -454,11 +455,11 @@
         </tr>
 
         <tr>
-        	<td colspan="29">Note : Harga diatas dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya</td>
-        	<td colspan="6" rowspan="2" style="border: 2px solid #000000; text-align: center;">QUALITY-FORM-003</td>
+            <td colspan="29">Note : Harga diatas dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya</td>
+            <td colspan="6" rowspan="2" style="border: 2px solid #000000; text-align: center;">QUALITY-FORM-003</td>
         </tr>
         <tr>
-        	<td colspan="29">&nbsp;</td>
+            <td colspan="29">&nbsp;</td>
         </tr>
 
     </table>

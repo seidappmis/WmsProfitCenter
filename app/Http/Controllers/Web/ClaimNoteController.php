@@ -363,6 +363,7 @@ class ClaimNoteController extends Controller
    */
   public function update(Request $req, $id)
   {
+    // dd(json_decode($req->data));
     if ($req->ajax()) {
       // parsing from string to array
       $data = json_decode($req->data, true);
@@ -379,9 +380,14 @@ class ClaimNoteController extends Controller
 
             foreach ($data as $key => $value) {
               // update berita acara detail _> claim note id from before
+
+              // $value['price'] = $value->price;
+              // $value['qty'] = $value->qty;
+              // $value['destination'] = $value->destination;
+              // $value['location'] = $value->location;
               $value['updated_by'] = auth()->user()->id;
               $value['updated_at'] = date('Y-m-d H:i:s');
-
+              // dd($value);
               ClaimNoteDetail::whereId($key)->update($value);
             }
           });
@@ -458,7 +464,8 @@ class ClaimNoteController extends Controller
         'n.*',
         'nd.*',
         'e.expedition_name',
-        'ba.expedition_code'
+        'ba.expedition_code',
+        'ba.date_of_receipt'
       )
       ->where('n.id', $id)
       ->first();

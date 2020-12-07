@@ -262,7 +262,10 @@
   });
 
   var setInitComplete = function() {
-    $('.mask-currency').inputmask('currency');
+    $('.mask-currency').inputmask({
+      alias: 'currency',
+      autoUnmask: true
+    });
   };
 
   function calculate(ths) {

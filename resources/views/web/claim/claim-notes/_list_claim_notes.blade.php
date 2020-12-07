@@ -87,7 +87,10 @@
          }, {
             data: 'date_of_receipt',
             name: 'ba.date_of_receipt',
-            className: 'detail'
+            className: 'detail',
+            render: function(data, type, row, meta) {
+               return data ? moment(data).format('Y-MMM-DD') : '';
+            }
          }, {
             data: 'expedition_name',
             name: 'e.expedition_name',
@@ -117,71 +120,71 @@
       });
 
       dtdatatable_claim_note.on('click', '.btn-submit', function(event) {
-          event.preventDefault();
-          /* Act on the event */
-          var tr = $(this).parent().parent();
-          var data = dtdatatable_claim_note.row(tr).data();
-          swal({
+         event.preventDefault();
+         /* Act on the event */
+         var tr = $(this).parent().parent();
+         var data = dtdatatable_claim_note.row(tr).data();
+         swal({
             text: "Are you sure want to submit " + data.claim_note_no + " and the details?",
             icon: 'warning',
             buttons: {
-              cancel: true,
-              delete: 'Yes, Submit It'
+               cancel: true,
+               delete: 'Yes, Submit It'
             }
-          }).then(function(confirm) { // proses confirm
+         }).then(function(confirm) { // proses confirm
             if (confirm) {
-              $.ajax({
-                  url: "{{ url('claim-notes') }}" + '/' + data.id + '/submit',
-                  type: 'PUT',
-                  dataType: 'json',
-                })
-                .done(function(result) {
-                  if (result.status) {
-                    showSwalAutoClose('Success', "Claim Note with Claim Note No. " + data.claim_note_no + " has been submited.")
-                    dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                  }
-                })
-                .fail(function() {
-                  console.log("error");
-                });
+               $.ajax({
+                     url: "{{ url('claim-notes') }}" + '/' + data.id + '/submit',
+                     type: 'PUT',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     if (result.status) {
+                        showSwalAutoClose('Success', "Claim Note with Claim Note No. " + data.claim_note_no + " has been submited.")
+                        dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     }
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
             }
-          })
-        });
+         })
+      });
 
 
-        dtdatatable_claim_note.on('click', '.btn-delete', function(event) {
-          event.preventDefault();
-          /* Act on the event */
-          // Ditanyain dulu usernya mau beneran delete data nya nggak.
-          var tr = $(this).parent().parent();
-          var data = dtdatatable_claim_note.row(tr).data();
-          swal({
+      dtdatatable_claim_note.on('click', '.btn-delete', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         // Ditanyain dulu usernya mau beneran delete data nya nggak.
+         var tr = $(this).parent().parent();
+         var data = dtdatatable_claim_note.row(tr).data();
+         swal({
             text: "Are you sure want to delete " + data.claim_note_no + " and the details?",
             icon: 'warning',
             buttons: {
-              cancel: true,
-              delete: 'Yes, Delete It'
+               cancel: true,
+               delete: 'Yes, Delete It'
             }
-          }).then(function(confirm) { // proses confirm
+         }).then(function(confirm) { // proses confirm
             if (confirm) {
-              $.ajax({
-                  url: "{{ url('claim-notes') }}" + '/' + data.id,
-                  type: 'DELETE',
-                  dataType: 'json',
-                })
-                .done(function(result) {
-                  if (result.status) {
-                    showSwalAutoClose("Success", "Claim Note with Claim Note No. " + data.claim_note_no + " has been deleted.")
-                    dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                    dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                  }
-                })
-                .fail(function() {
-                  console.log("error");
-                });
+               $.ajax({
+                     url: "{{ url('claim-notes') }}" + '/' + data.id,
+                     type: 'DELETE',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     if (result.status) {
+                        showSwalAutoClose("Success", "Claim Note with Claim Note No. " + data.claim_note_no + " has been deleted.")
+                        dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                        dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     }
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
             }
-          })
-        });
+         })
+      });
 
       dtdatatable_claim_note.on('click', '.btn-print', function(event) {
          var tr = $(this).parent().parent();

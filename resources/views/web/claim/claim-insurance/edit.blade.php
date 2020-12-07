@@ -90,7 +90,7 @@
                                                     <th>Product</th>
                                                     <th>Unit</th>
                                                     <th>Price/Unit</th>
-                                                    <th>Total</th>
+                                                    <th width="100px">Total</th>
                                                     <th>Nature of Loss</th>
                                                     <th>Location</th>
                                                     <th>Photo</th>
@@ -178,13 +178,32 @@
                         price = row.price_carton_box;
                     }
 
-                    return '<tag class="sub-total"> ' + format_currency(row.qty * price) + '</tag>';
+                    return '<tag class="sub-total text-right"> ' + format_currency(row.qty * price) + '</tag>';
                 },
                 className: "center-align"
             }, {
                 data: 'description',
                 name: 'description',
-                className: 'center-align'
+                className: 'center-align',
+                render: function(data, type, row, meta) {
+                    let select = `
+                    <div class="pr-5">
+                    <select name="description" class="browser-default description" >
+                    <option value=""></option>
+                    <option value="Broken">Broken</option>
+                    <option value="Bend">Bend</option>
+                    <option value="Dent">Dent</option>
+                    <option value="Scratch">Scratch</option>
+                    <option value="Stolen">Stolen</option>
+                    <option value="Wet">Wet</option>
+                    <option value="Carton Box etc">Carton Box etc</option>
+                    <option value="Accident">Accident</option>
+                    <option value="Other">Other</option>
+                    </select>
+                    </div>
+                    `;
+                    return select;
+                }
             }, {
                 data: 'location',
                 name: 'location',
@@ -243,6 +262,7 @@
                     location: tr.find('.location').val(),
                     qty: tr.find('.qty').val(),
                     price: tr.find('.price').val(),
+                    description: tr.find('.description').val(),
                     total_price: tr.find('.qty').val() * tr.find('.price').val()
                 }
             }

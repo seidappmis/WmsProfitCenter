@@ -203,7 +203,7 @@ class ClaimInsuranceController extends Controller
           'id.model_name',
           'id.serial_number',
           'id.description',
-          'bad.qty',
+          'id.qty',
           'id.price',
           'id.id AS claim_insurance_detail',
           'm.price_carton_box'
