@@ -8,7 +8,7 @@
     </tr>
 
     <tr>
-        <td colspan="12" style="text-align: left; font-size: 12pt; padding-bottom: 6px; padding-left: 3rem; ">
+        <td colspan="12" style="text-align: left; font-size: 12pt; padding-bottom: 6px; padding-left: 3rem;">
             <strong>PT. SHARP
                 ELECTRONICS INDONESIA</strong>
         </td>
@@ -86,7 +86,7 @@
             <strong>TANDA
                 TERIMA</strong>
         </td>
-        <td colspan="4" style="text-align: center; font-size: 14pt; width: 40mm;">
+        <td colspan="4" style="text-align: center; font-size: 14pt; width: 50mm;">
             &nbsp;
         </td>
         <td colspan="4" style="text-align: center; font-size: 14pt; width: 40mm; padding-left: 3rem; border-left: 1pt dotted black;">
@@ -163,12 +163,12 @@
             Nota / Kwitansi No. / Tgl
         </td>
         <td style="width: 5mm;">:</td>
-        <td colspan="8">{{$invoiceReceiptHeader->kwitansi_no}}</td>
+        <td colspan="8" style="text-align: left;">{{$invoiceReceiptHeader->kwitansi_no}}</td>
         <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
             Nota / Kwitansi No. / Tgl
         </td>
         <td style="width: 5mm;">:</td>
-        <td colspan="8">{{$invoiceReceiptHeader->kwitansi_no}}</td>
+        <td colspan="8" style="text-align: left;">{{$invoiceReceiptHeader->kwitansi_no}}</td>
     </tr>
     <tr>
         <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">
