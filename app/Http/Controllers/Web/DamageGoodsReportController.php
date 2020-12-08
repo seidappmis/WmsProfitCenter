@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraDuringDetail;
 use App\Models\DamageGoodsReport;
 use App\Models\DamageGoodsReportDetail;
-use Illuminate\Http\Request;
 use DataTables;
 use DB;
+use Illuminate\Http\Request;
 
 class DamageGoodsReportController extends Controller
 {
@@ -56,7 +56,7 @@ class DamageGoodsReportController extends Controller
         ->leftJoin('dur_berita_acara AS ba', 'bad.berita_acara_during_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('d.created_at', 'DESC')
-        // ->groupBy('d.id')
+      // ->groupBy('d.id')
         ->groupBy('d.id')
         ->select(
           'd.*',
@@ -64,7 +64,7 @@ class DamageGoodsReportController extends Controller
           DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR '|') as expedition_name"),
           DB::raw("group_concat(DISTINCT dd.remark SEPARATOR '|') as remark")
         )
-        ;
+      ;
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -76,7 +76,7 @@ class DamageGoodsReportController extends Controller
           $sql = "ba.berita_acara_during_no like ?";
           $query->whereRaw($sql, ["%{$keyword}%"]);
         })
-        ;
+      ;
 
       return $datatables->make(true);
     }
@@ -84,7 +84,7 @@ class DamageGoodsReportController extends Controller
 
   public function export(Request $request, $id)
   {
-    $data['dgr'] = DamageGoodsReport::whereId($id)->first()->toArray();
+    $data['dgr']    = DamageGoodsReport::whereId($id)->first()->toArray();
     $data['detail'] = DamageGoodsReportDetail::where('dur_dgr_detail.dur_dgr_id', $id)
       ->leftJoin('dur_berita_acara_detail as bad', 'bad.id', '=', 'dur_dgr_detail.berita_acara_during_detail_id')
       ->leftJoin('dur_berita_acara as ba', 'ba.id', '=', 'bad.berita_acara_during_id')
@@ -135,9 +135,9 @@ class DamageGoodsReportController extends Controller
       $data['detail'][$k]['rowspan'] = $rowspan;
     };
 
-    // sorting by number and row 
+    // sorting by number and row
     foreach ($data['detail'] as $key => $row) {
-      $arrNo[$key]  = $row['berita_acara_during_no'];
+      $arrNo[$key]      = $row['berita_acara_during_no'];
       $arrRowspan[$key] = $row['rowspan'];
     }
     array_multisort($arrNo, SORT_ASC, $arrRowspan, SORT_DESC, $data['detail']);
@@ -149,13 +149,13 @@ class DamageGoodsReportController extends Controller
 
       // request HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'P'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'P',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -185,13 +185,13 @@ class DamageGoodsReportController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
@@ -262,8 +262,8 @@ class DamageGoodsReportController extends Controller
     for ($i = 0; $i < count($data['detail']) - 1; $i++) {
       $tmp = [];
       if ($data['detail'][$i]['rowspan'] < $data['detail'][$i + 1]['rowspan'] && $data['detail'][$i]['berita_acara_during_no'] == $data['detail'][$i + 1]['berita_acara_during_no']) {
-        $tmp = $data['detail'][$i];
-        $data['detail'][$i] = $data['detail'][$i + 1];
+        $tmp                    = $data['detail'][$i];
+        $data['detail'][$i]     = $data['detail'][$i + 1];
         $data['detail'][$i + 1] = $tmp;
       }
     };
@@ -277,13 +277,13 @@ class DamageGoodsReportController extends Controller
       // return $view_print;
       // request HTML View
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
       $mpdf->shrink_tables_to_fit = 1;
       $mpdf->WriteHTML($view_print);
@@ -311,13 +311,13 @@ class DamageGoodsReportController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 5,
-        'margin_right'                    => 5,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 5,
+        'margin_right'  => 5,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
@@ -360,21 +360,23 @@ class DamageGoodsReportController extends Controller
               ->orderBy('created_at', 'DESC')
               ->first();
 
-            $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
+            $lastNo = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
 
             // adding during note number
-            if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16)
+            if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16) {
               $lastNo[0] = 0;
+            }
 
-            $max_no        = str_pad($lastNo[0]  + 1, 2, 0, STR_PAD_LEFT);
+            $max_no = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
             $dgr_no = sprintf($format, $max_no);
 
             // insert to during note and return id
             $dgrID = DamageGoodsReport::insertGetId([
-              'dgr_no'        => $dgr_no,
-              'claim'         => $req->type,
-              'created_by'    => auth()->user()->id,
-              'created_at'    => date('Y-m-d H:i:s'),
+              'dgr_no'     => $dgr_no,
+              'claim'      => $req->type,
+              'vendor'     => $req->vendor_name,
+              'created_by' => auth()->user()->id,
+              'created_at' => date('Y-m-d H:i:s'),
             ]);
 
             $rsDetailDuring = [];
@@ -383,10 +385,10 @@ class DamageGoodsReportController extends Controller
               $detailDuring = [
                 'berita_acara_during_detail_id' => $key,
                 'dur_dgr_id'                    => $dgrID,
-                'description'            => $value['description'],
-                'qty'                    => $value['qty'],
-                'created_by'             => auth()->user()->id,
-                'created_at'             => date('Y-m-d H:i:s'),
+                'description'                   => $value['description'],
+                'qty'                           => $value['qty'],
+                'created_by'                    => auth()->user()->id,
+                'created_at'                    => date('Y-m-d H:i:s'),
               ];
               $rsDetailDuring[] = $detailDuring;
             }

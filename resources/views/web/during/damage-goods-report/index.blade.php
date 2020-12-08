@@ -75,10 +75,44 @@
     </div>
   </div>
 
+    @push('page-modal')
+    <div id="modal-dgr" class="modal">
+      <form id="form-dgr" class="form-table">
+        <div class="modal-content">
+          <input type="hidden" name="id">
+          <table>
+            <tr>
+              <td width="200px">Vendor</td>
+              <td>
+                <div class="input-field">
+                  <select name="vendor_name" required="" class="select2-data-ajax browser-default">
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn waves-effect waves-green btn-store btn blue darken-4">Create Claim Insurance</button>
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </form>
+    </div>
+    @endpush
+
   @include('web.during.damage-goods-report._list_dgr')
+
+  @push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
 
   @push('script_js')
   <script type="text/javascript">
+    $('#form-dgr [name="vendor_name"]').select2({
+         placeholder: '-- Select Vendor Name --',
+         ajax: get_select2_ajax_options('/master-vendor/select2-vendor-name')
+      });
     jQuery(document).ready(function($) {
       dtOutstanding = $('#table-outstanding').DataTable({
         paging: false,
@@ -162,41 +196,55 @@
         return;
       }
 
-      push(checkedData, type);
+      $('#modal-dgr').modal('open')
+
+      // push(checkedData, type);
     });
 
-    function push(checkedData, type) {
-      /* Act on the event */
-      setLoading(true);
-      $.ajax({
-          type: "POST",
-          url: '{{ url("/damage-goods-report/create") }}',
-          data: {
-            data: JSON.stringify(checkedData),
-            type: type
-          },
-          cache: false,
-        })
-        .done(function(result) {
-          if (result.status) {
-            swal("Success!", result.message)
-              .then((response) => {
-                // Kalau klik Ok redirect ke view
-                dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                dtTableDGR.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-              }) // alert success
-          } else {
-            setLoading(false);
-            showSwalAutoClose('Warning', result.message)
-          }
-        })
-        .fail(function() {
-          setLoading(false);
-        })
-        .always(function() {
-          setLoading(false);
+    $('#form-dgr').validate({
+      submitHandler: function (form){
+        var checkedData = $(),
+        type = $(this).attr('data-type');
+        $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
+          var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+          array = generateArray(row, type);
+          checkedData.push(array);
         });
-    };
+
+        setLoading(true);
+        $.ajax({
+            type: "POST",
+            url: '{{ url("/damage-goods-report/create") }}',
+            data: {
+              data: JSON.stringify(checkedData),
+              type: type,
+              vendor_name: $('#form-dgr [name="vendor_name"]').val()
+            },
+            cache: false,
+          })
+          .done(function(result) {
+            if (result.status) {
+              swal("Success!", result.message)
+                .then((response) => {
+                  // Kalau klik Ok redirect ke view
+                  dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  dtTableDGR.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  $('#modal-dgr').modal('close');
+                }) // alert success
+            } else {
+              setLoading(false);
+              showSwalAutoClose('Warning', result.message)
+            }
+          })
+          .fail(function() {
+            setLoading(false);
+          })
+          .always(function() {
+            setLoading(false);
+          });
+      }
+    })
+
 
     function generateArray(row, type) {
       var array = $();

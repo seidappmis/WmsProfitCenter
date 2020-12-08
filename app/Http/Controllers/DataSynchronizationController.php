@@ -53,6 +53,11 @@ class DataSynchronizationController extends Controller
     DB::statement('ALTER TABLE `dur_berita_acara_detail`
       ADD COLUMN `category_damage` VARCHAR(255) NULL AFTER `serial_number`;
     ');
+
+    echo "Update DGR";
+    DB::statement('ALTER TABLE `dur_dgr`   
+      ADD COLUMN `vendor` VARCHAR(255) NULL AFTER `location`;
+    ');
   }
 
   protected function updateTable1Des2020()
