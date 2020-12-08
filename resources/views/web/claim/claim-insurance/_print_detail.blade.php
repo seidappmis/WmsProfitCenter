@@ -25,7 +25,12 @@
 								<tr>
 									<td colspan="9"></td>
 									<td style="width: 5mm;">&nbsp;</td>
-									<td colspan="3" style="text-align: right; width:30%;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
+									<td colspan="3" style="text-align: left; width:30%;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
+								</tr>
+								<tr>
+									<td colspan="9"></td>
+									<td style="width: 5mm;">&nbsp;</td>
+									<td colspan="3" style="text-align: left; width:30%;"><strong>{{$claimInsurance->branch}} {{date('M Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
 								</tr>
 								<tr>
 									<td style="width: 5mm;">&nbsp;</td>

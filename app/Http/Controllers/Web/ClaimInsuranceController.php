@@ -216,6 +216,41 @@ class ClaimInsuranceController extends Controller
     }
   }
 
+  public function getDetail(Request $request, $id)
+  {
+
+    $data['content'] = ClaimInsurance::where('id', $id)->first();
+    $data['data'] = ClaimInsurance::from('clm_claim_insurance AS i')
+      ->leftJoin('clm_claim_insurance_detail AS id', 'id.claim_insurance_id', '=', 'i.id')
+      ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_insurance_detail_id', '=', 'id.id')
+      ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+      ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+      ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'id.model_name')
+      ->orderBy('i.created_at', 'DESC')
+      ->where('i.id', $id)
+      ->select(
+        'i.*',
+        'e.expedition_name',
+        'ba.date_of_receipt',
+        'ba.berita_acara_no',
+        'bad.photo_url',
+        'bad.keterangan',
+        'id.location',
+        'id.driver_name',
+        'id.vehicle_number',
+        'id.do_no',
+        'id.model_name',
+        'id.serial_number',
+        'id.description',
+        'id.qty',
+        'id.price',
+        'id.id AS claim_insurance_detail',
+        'm.price_carton_box'
+      )->get()->toArray();
+
+    return sendSuccess('Data Successfully Updated.', $data);
+  }
+
   /**
    * Show the form for editing the specified resource.
    *
@@ -290,6 +325,16 @@ class ClaimInsuranceController extends Controller
   public function exportRPT(Request $request, $id)
   {
     $data['claimInsurance'] = ClaimInsurance::findOrFail($id);
+    $data['detail'] = ClaimInsuranceDetail::where('claim_insurance_id', $id)->get()->toArray();
+    $nature_of_loss = [];
+
+    foreach ($data['detail'] as $k => $v) {
+      if (!isset($nature_of_loss[$v['description']])) {
+        $nature_of_loss[$v['description']] = 1;
+      }
+    }
+    $data['nature_of_loss'] = implode(', ', array_keys($nature_of_loss));
+
     $view_print             = view('web.claim.claim-insurance._print_rpt', $data);
     $title                  = 'rpt';
 
@@ -392,7 +437,20 @@ class ClaimInsuranceController extends Controller
 
     if ($request->input('filetype') == 'html') {
       // Request HTML View
-      return $view_print;
+      // return $view_print;
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
+        'margin_left'                     => 5,
+        'margin_right'                    => 5,
+        'margin_top'                      => 5,
+        'margin_bottom'                   => 5,
+        'format'                          => 'A4',
+        // 'orientation'                     => 'L'
+      ]);
+      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->WriteHTML($view_print);
+
+      $mpdf->Output();
     } else if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
       $view_print    = view('web.claim.claim-insurance._print_detail_excel', $data);
@@ -435,5 +493,34 @@ class ClaimInsuranceController extends Controller
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
     }
+  }
+
+  public function submit(Request $request, $id)
+  {
+    $claim              = ClaimInsurance::findOrFail($id);
+    $claim->submit_by   = auth()->user()->id;
+    $claim->submit_date = date('Y-m-d H:i:s');
+
+    $claim->save();
+
+    return sendSuccess('Claim Insurance submited.', $claim);
+  }
+
+  public function prosesDelete(Request $req, $id)
+  {
+    // proses create
+    if ($req->ajax()) {
+
+      try {
+        DB::transaction(function () use (&$id) {
+          ClaimInsuranceDetail::where('claim_insurance_id', $id)->delete();
+          ClaimInsurance::whereId($id)->delete();
+        });
+
+        return sendSuccess('Data Successfully Deleted.', []);
+      } catch (\Exception $e) {
+        return sendError($e->getMessage());
+      }
+    };
   }
 }

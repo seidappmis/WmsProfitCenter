@@ -51,6 +51,68 @@
       </div>
    </div>
 </div>
+@push('page-modal')
+<div id="modal-detail" class="modal" style="width: 75% !important ;">
+   <div class="modal-content">
+      <table id="detail-content">
+         <tr>
+            <td width="200px">Claim Report</td>
+            <td>
+               <div class="input-field">
+                  <span name="claim_report"></span>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td width="200px">Branch</td>
+            <td>
+               <div class="input-field">
+                  <span name="branch"></span>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td width="200px">Date of Loss</td>
+            <td>
+               <div class="input-field">
+                  <span name="date_of_loss"></span>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td width="200px">Keterangan Kejadian</td>
+            <td>
+               <div class="input-field">
+                  <span name="keterangan_kejadian"></span>
+               </div>
+            </td>
+         </tr>
+      </table>
+
+      <table id="detail-data" class="display" width="100%">
+         <thead>
+            <tr>
+               <th data-priority="1" width="30px">No.</th>
+               <th>Serial Number</th>
+               <th>Product</th>
+               <th>Unit</th>
+               <th>Price/Unit</th>
+               <th width="100px">Total</th>
+               <th>Nature of Loss</th>
+               <th>Location</th>
+               <th>Photo</th>
+               <th>Remarks</th>
+            </tr>
+         </thead>
+         <tbody>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+   </div>
+</div>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
@@ -107,11 +169,11 @@
                var btn = ' <button class="waves-effect waves-light btn btn-small indigo darken-4 btn-detail">Detail</button>' +
                   ' ' + '<?= get_button_view(url("claim-insurance/:id")) ?>'.replace(':id', data) +
                   ' ' + '<?= get_button_print("#!", "Print RPT", "btn-print-rpt") ?>' +
-                  ' ' + '<?= get_button_print() ?>'
-                  ;
+                  ' ' + '<?= get_button_print() ?>' +
+                  (!row.submit_date ? ' ' + '<?= get_button_edit('#!', 'Submit', 'btn-submit') ?>' + ' ' + '<?= get_button_delete() ?>' : '');
                return btn;
             },
-            className: "center-align"
+            className: "left-align"
          }]
       });
 
@@ -130,26 +192,149 @@
             '{{url("claim-insurance")}}' + '/' + data.id + '/print-rpt'
          )
       });
+
+
+
+      dtdatatable_claim_note.on('click', '.btn-submit', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         var tr = $(this).parent().parent();
+         var data = dtdatatable_claim_note.row(tr).data();
+
+         swal({
+            text: "Are you sure want to submit and the details?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Submit It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: "{{ url('claim-insurance') }}" + '/' + data.id + '/submit',
+                     type: 'PUT',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     if (result.status) {
+                        showSwalAutoClose('Success', "Claim insurance has been submited.")
+                        dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     }
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
+      });
+
+      dtdatatable_claim_note.on('click', '.btn-delete', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         // Ditanyain dulu usernya mau beneran delete data nya nggak.
+         var tr = $(this).parent().parent();
+         var data = dtdatatable_claim_note.row(tr).data();
+         swal({
+            text: "Are you sure want to delete and the details?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Delete It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: ('{{ url("/claim-insurance/:id") }}').replace(':id', data.id),
+                     type: 'DELETE',
+                     dataType: 'json',
+                  })
+                  .done(function() {
+                     swal("Deleted!", "Claim insurance has been deleted.", "success") // alert success
+                     dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
+      });
    });
 
    $("input#claim-insurance-search").on("keyup click", function() {
       dtdatatable_claim_note.search($("#claim-insurance-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
    });
 
+   // // Add event listener for opening and closing details
+   // $('#table-claim-insurance tbody').on('click', '.btn-detail', function() {
+   //    var tr = $(this).closest('tr');
+   //    var row = dtdatatable_claim_note.row(tr);
+
+   //    if (row.child.isShown()) {
+   //       // This row is already open - close it
+   //       row.child.hide();
+   //       tr.removeClass('shown');
+   //    } else {
+   //       // Open this row
+   //       row.child(format(row.data())).show();
+   //       tr.addClass('shown');
+   //    }
+   // });
+
    // Add event listener for opening and closing details
    $('#table-claim-insurance tbody').on('click', '.btn-detail', function() {
-      var tr = $(this).closest('tr');
-      var row = dtdatatable_claim_note.row(tr);
 
-      if (row.child.isShown()) {
-         // This row is already open - close it
-         row.child.hide();
-         tr.removeClass('shown');
-      } else {
-         // Open this row
-         row.child(format(row.data())).show();
-         tr.addClass('shown');
-      }
+      var row = $(this).closest('tr');
+      var row = dtdatatable_claim_note.row(row).data();
+
+      $('#modal-detail').modal('open');
+      $.ajax({
+            type: "GET",
+            url: '{{url("claim-insurance/{id}/detail")}}'.replace('{id}', row.id),
+            cache: false,
+         })
+         .done(function(result) {
+            if (result.status) {
+               $('#detail-content [name="claim_report"]').html(result.data.content.claim_report);
+               $('#detail-content [name="branch"]').html(result.data.content.branch);
+               $('#detail-content [name="date_of_loss"]').html(moment(result.data.content.date_of_loss).format('DD MMM YYYY'));
+               $('#detail-content [name="keterangan_kejadian"]').html(result.data.content.keterangan_kejadian);
+
+               html = '';
+               no = 1;
+               $.each(result.data.data, function(i, v) {
+                  let price = v.price;
+                  if (v.description == 'Carton Box Damage' && !v.prive) {
+                     price = v.price_carton_box;
+                  };
+
+                  html += `<tr>
+                           <td data-priority="1" widtd="30px">` + (no++) + `</td>
+                           <td>` + (v.serial_number ? v.serial_number.split(",").join("<br>") : '') + `</td>
+                           <td>` + v.model_name + `</td>
+                           <td>` + (!isNaN(v.qty) ? v.qty : 0) + `</td>
+                           <td class="right-align">` + format_currency(price) + `</td>
+                           <td class="right-align">` + format_currency(price * v.qty) + `</td>
+                           <td>` + v.description + `</td>
+                           <td>` + v.location + `</td>
+                           <td>` + (v.photo_url ? '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + v.photo_url + '">' : '-') + `</td>
+                           <td>` + v.keterangan + `</td>
+                           </tr>`;
+               });
+
+               $('#detail-data tbody').append(html);
+               $('#detail-data').DataTable();
+            } else {
+               setLoading(false);
+               showSwalAutoClose('Warning', result.message)
+            }
+         })
+         .fail(function() {
+            setLoading(false);
+         })
+         .always(function() {
+            setLoading(false);
+         });
    });
 
    /* Formatting function for row details - modify as you need */
@@ -196,6 +381,20 @@
       } else {
          return source
       }
+   }
+
+   // convert to format currency
+   function format_currency(nStr) {
+      if (nStr === null) return '0,00';
+      nStr += '';
+      x = nStr.split(',');
+      x1 = x[0];
+      x2 = x.length > 1 ? ',' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+      return 'Rp. ' + x1 + x2;
    }
 </script>
 @endpush

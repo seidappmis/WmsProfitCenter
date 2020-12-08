@@ -189,16 +189,16 @@
                     let select = `
                     <div class="pr-5">
                     <select name="description" class="browser-default description" >
-                    <option value=""></option>
-                    <option value="Broken">Broken</option>
-                    <option value="Bend">Bend</option>
-                    <option value="Dent">Dent</option>
-                    <option value="Scratch">Scratch</option>
-                    <option value="Stolen">Stolen</option>
-                    <option value="Wet">Wet</option>
-                    <option value="Carton Box etc">Carton Box etc</option>
-                    <option value="Accident">Accident</option>
-                    <option value="Other">Other</option>
+                    <option value=""` + (data == '' ? 'selected' : '') + `></option>
+                    <option value="Broken"` + (data == 'Broken' ? 'selected' : '') + `>Broken</option>
+                    <option value="Bend"` + (data == 'Bend' ? 'selected' : '') + `>Bend</option>
+                    <option value="Dent"` + (data == 'Dent' ? 'selected' : '') + `>Dent</option>
+                    <option value="Scratch"` + (data == 'Scratch' ? 'selected' : '') + `>Scratch</option>
+                    <option value="Stolen"` + (data == 'Stolen' ? 'selected' : '') + `>Stolen</option>
+                    <option value="Wet"` + (data == 'Wet' ? 'selected' : '') + `>Wet</option>
+                    <option value="Carton Box etc"` + (data == 'etc' ? 'selected' : '') + `>Carton Box etc</option>
+                    <option value="Accident"` + (data == 'Accident' ? 'selected' : '') + `>Accident</option>
+                    <option value="Other"` + (data == 'Other' ? 'selected' : '') + `>Other</option>
                     </select>
                     </div>
                     `;

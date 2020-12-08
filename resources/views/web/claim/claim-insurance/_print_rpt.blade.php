@@ -88,7 +88,7 @@
 	</tr>
 	<tr>
 		<td colspan="3" style="border-top: 1pt solid #000000; border-left: 1pt solid #000000;"><strong>Nature of Loss</strong></td>
-		<td colspan="3" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;">: Broken/bend/dent/scratch/stolen/w et/carton box etc/ other / accident <strong>(Pilih)</strong></td>
+		<td colspan="3" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; color: blue;">: {{$nature_of_loss}}</td>
 	</tr>
 	<tr>
 		<td colspan="6" style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000;border-right: 1pt solid #000000;">(choose the nature of loss or mention if the circumstance is other)</td>
@@ -108,7 +108,7 @@
 	</tr>
 	<tr>
 		<td style="text-align:center;"><strong>Reported by</strong></td>
-		<td colspan="2" style="text-align:center;"><strong>Acknowledged,</strong></td>
+		<td colspan="2" style="text-align:right; padding-right:50px;"><strong>Acknowledged,</strong></td>
 		<td style="text-align:center;"><strong>Acknowledged,</strong></td>
 		<td style="text-align:center;"><strong>Acknowledged</strong></td>
 		<td style="text-align:center;"><strong>Acknowledged</strong></td>
@@ -121,7 +121,7 @@
 	</tr>
 	<tr>
 		<td style="text-align:center;"><strong>(Hardian)</strong></td>
-		<td style="text-align:center;"><strong>(Tomi S) <br> Manager</strong></td>
+		<td style="text-align:center;"><strong>(Chairul Anwar) <br>Asst. Manager</strong></td>
 		<td style="text-align:center;"><strong>(Firman) <br> Manager</strong></td>
 		<td style="text-align:center;"><strong>(Denny A.R ) <br> Logistic GM</strong></td>
 		<td style="text-align:center;"><strong>( K. Tani ) <br> Acc GM</strong></td>

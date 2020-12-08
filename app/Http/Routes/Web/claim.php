@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Claim Insurance
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');
+  Route::put('claim-insurance/{id}/submit', 'Web\ClaimInsuranceController@submit');
+  Route::delete('claim-insurance/{id}', 'Web\ClaimInsuranceController@prosesDelete');
   Route::get('claim-insurance/{id}/detail/{detail_id}/export', 'Web\ClaimInsuranceController@exportDetail');
   Route::get('claim-insurance', 'Web\ClaimInsuranceController@index');
   Route::get('claim-insurance/list-claim-insurance', 'Web\ClaimInsuranceController@listClaimInsurance'); //list datatable claim insurance index
@@ -48,6 +50,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('claim-insurance/{id}/update', 'Web\ClaimInsuranceController@update'); //update detail claim notes
   Route::post('claim-insurance/create', 'Web\ClaimInsuranceController@create');
   Route::get('claim-insurance/{id}',  'Web\ClaimInsuranceController@show'); //detail claim insurance
+  Route::get('claim-insurance/{id}/detail',  'Web\ClaimInsuranceController@getDetail'); //detail claim insurance
   Route::get('claim-insurance/{berita_acara_id}/print', 'Web\ClaimInsuranceController@exportDetail'); //proses cetak claim note
   Route::get('claim-insurance/{berita_acara_id}/print-rpt', 'Web\ClaimInsuranceController@exportRPT'); //proses cetak claim note
 
@@ -55,4 +58,11 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('summary-claim-notes',  'Web\SummaryClaimNoteController@index');
   Route::get('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@show');
   Route::put('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@update');
+
+
+  //summary claim note
+  Route::get('summary-claim-insurance',  'Web\SummaryClaimInsuranceController@index');
+  // Route::get('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@show');
+  Route::put('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@update');
+  Route::delete('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@delete');
 });
