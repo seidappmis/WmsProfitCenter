@@ -54,26 +54,30 @@
 </table>
 <table width="100%" style="border-collapse: collapse;">
    <tr>
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          CONTAINER DATANG
          <br>
 
-         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_container_came}}">
+
+         <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_container_came}}">
       </td>
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          SEAL NO
          <br>
-         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_seal_no}}">
+         <br>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_seal_no}}">
       </td>
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          LOADING
          <br>
-         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_loading}}">
+         <br>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_loading}}">
       </td>
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          CONTAINER SESUDAH LOADING
          <br>
-         <img class="materialboxed" width="25%" src="{{'storage/'. $berita_acara->photo_container_loading}}">
+         <br>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_container_loading}}">
       </td>
    </tr>
 
@@ -89,15 +93,17 @@
    @if($count%2 == 0)
    <tr>
       @endif
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          {{$v['model_name']}}
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $v['photo_damage']}}">
+         <br>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $v['photo_damage']}}">
       </td>
-      <td style="text-align: center;vertical-align: text-top;" class="border">
+      <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          {{$v['serial_number']}}
          <br>
-         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $v['photo_serial_number']}}">
+         <br>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $v['photo_serial_number']}}">
       </td>
       @empty
       @endforelse

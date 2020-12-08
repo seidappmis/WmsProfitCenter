@@ -48,16 +48,16 @@
                                     <tr>
                                        <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
                                        <th class="center-align">No Doc</th>
-                                       <th class="center-align">Berita Acara No.</th>
+                                       {{-- <th class="center-align">Berita Acara No.</th> --}}
                                        <th class="center-align">Invoice No</th>
                                        <th class="center-align">B/L No</th>
-                                       <th class="center-align">Container No</th>
+                                       {{-- <th class="center-align">Container No</th> --}}
                                        <th class="center-align">Vendor</th>
                                        <th class="center-align">Model</th>
                                        <th class="center-align">Qty</th>
                                        <th class="center-align">NO Serie</th>
                                        <th class="center-align">Keterangan</th>
-                                       <th class="center-align">Claim</th>
+                                       {{-- <th class="center-align">Claim</th> --}}
                                        <th class="center-align">Remarks</th>
                                        <th class="center-align"></th>
                                     </tr>
@@ -95,15 +95,17 @@
                data: 'dgr_no',
                name: 'n.dgr_no',
                className: 'detail'
-            }, {
-               data: 'berita_acara_group',
-               name: 'ba.berita_acara_during_no',
-               className: 'detail',
-               // searchable: false,
-               render: function(data, type, row, meta) {
-                  return data ? data.split("|").join("<br>") : '';
-               }
-            }, {
+            }, 
+            // {
+            //    data: 'berita_acara_group',
+            //    name: 'ba.berita_acara_during_no',
+            //    className: 'detail',
+            //    // searchable: false,
+            //    render: function(data, type, row, meta) {
+            //       return data ? data.split("|").join("<br>") : '';
+            //    }
+            // }, 
+            {
                data: 'invoice_group',
                name: 'ba.invoice_no',
                className: 'detail',
@@ -119,15 +121,17 @@
                render: function(data, type, row, meta) {
                   return data ? data.split("|").join("<br>") : '';
                }
-            }, {
-               data: 'container_group',
-               name: 'ba.container_no',
-               className: 'detail',
-               // searchable: false,
-               render: function(data, type, row, meta) {
-                  return data ? data.split("|").join("<br>") : '';
-               }
-            }, {
+            }, 
+            // {
+            //    data: 'container_group',
+            //    name: 'ba.container_no',
+            //    className: 'detail',
+            //    // searchable: false,
+            //    render: function(data, type, row, meta) {
+            //       return data ? data.split("|").join("<br>") : '';
+            //    }
+            // }, 
+            {
                data: 'expedition_name',
                name: 'e.expedition_name',
                searchable: false,
@@ -166,15 +170,17 @@
                render: function(data, type, row, meta) {
                   return data ? data.split("|").join("<br>") : '';
                }
-            }, {
-               data: 'claim_group',
-               name: 'bad.claim',
-               searchable: false,
-               className: 'detail',
-               render: function(data, type, row, meta) {
-                  return data ? data.split("|").join("<br>") : '';
-               }
-            }, {
+            }, 
+            // {
+            //    data: 'claim_group',
+            //    name: 'bad.claim',
+            //    searchable: false,
+            //    className: 'detail',
+            //    render: function(data, type, row, meta) {
+            //       return data ? data.split("|").join("<br>") : '';
+            //    }
+            // }, 
+            {
                data: 'remark_group',
                name: 'bad.damage',
                searchable: false,

@@ -15,7 +15,7 @@
         <div class="input-field col s4">
           <br>
           <span for="">Manifest Date</span>
-          <input type="text" id="filter_manifest_date" autocomplete="off" class="monthpicker" value="{{!empty($invoiceReceiptHeader) ? date('m/Y',strtotime($invoiceReceiptHeader->invoice_receipt_date)) : date('m/Y')}}" required>
+          <input type="text" id="filter_manifest_date" name="invoice_receipt_date" autocomplete="off" class="monthpicker" value="{{!empty($invoiceReceiptHeader) ? date('m/Y',strtotime($invoiceReceiptHeader->invoice_receipt_date)) : date('m/Y')}}" required>
         </div>
       </div>
       <div class="row">

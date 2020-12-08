@@ -69,7 +69,7 @@ class SummaryDamageGoodsReportController extends Controller
                DB::raw("bad.serial_number"),
                DB::raw("dd.remark"),
                DB::raw("bad.claim"),
-               DB::raw("ba.category_damage"),
+               DB::raw("bad.category_damage"),
                DB::raw("bad.damage"),
                DB::raw("bad.qty")
             );

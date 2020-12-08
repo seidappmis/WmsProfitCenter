@@ -21,6 +21,7 @@ class CreateDurBeritaAcaraDetailTable extends Migration
             $table->integer('qty')->length(11)->nullable();
             $table->string('pom')->nullable();
             $table->string('serial_number')->nullable();
+            $table->string('category_damage')->nullable();
             $table->string('damage')->nullable();
             $table->string('claim')->nullable();
             $table->string('photo_serial_number')->nullable();

@@ -32,7 +32,7 @@
                            <th class="center-align">Vendor</th>
                            <th class="center-align">Model</th>
                            <th class="center-align">Qty</th>
-                           <th class="center-align">NO Serie</th>
+                           <th class="center-align">No Seri</th>
                            <th class="center-align">Keterangan</th>
                            <th class="center-align">Claim</th>
                            <th class="center-align">Remarks</th>
@@ -84,7 +84,7 @@
             name: 'n.dgr_no',
             className: 'detail'
          }, {
-            data: 'berita_acaraberita_acara_during_no_group',
+            data: 'berita_acara_during_no',
             name: 'ba.berita_acara_during_no',
             className: 'detail',
             // searchable: false,
@@ -148,11 +148,16 @@
             }
          }, {
             data: 'category_damage',
-            name: 'ba.category_damage ',
+            name: 'bad.category_damage ',
             searchable: false,
-            className: 'detail',
             render: function(data, type, row, meta) {
-               return data ? data.split("|").join("<br>") : '';
+               val = `
+                  <select class="select2-data-ajax browser-default category_damage" data-id="` + row.id + `" style="margin-right:100px;">
+                     <option value=""></option>
+                     <option value="Carton Box Damage"` + (data == 'Carton Box Damage' ? 'selected' : '') + `>Carton Box Damage</option>
+                     <option value="Unit Damage"` + (data == 'Unit Damage' ? 'selected' : '') + `>Unit Damage</option>
+                  </select>`;
+               return val;
             }
          }, {
             data: 'claim',
@@ -160,12 +165,7 @@
             searchable: false,
             className: 'detail center-align',
             render: function(data, type, row, meta) {
-               val = `
-                  <select name="claim" class="select2-data-ajax browser-default claim" data-id="` + row.id + `" style="margin-right:100px;">
-                     <option value=""></option>
-                     <option value="claim"` + (data == 'claim' ? 'selected' : '') + `>claim</option>
-                     <option value="carton-box"` + (data == 'carton-box' ? 'selected' : '') + `>carton-box</option>
-                  </select>`;
+               val = '<textarea class="claim materialize-textarea" placeholder="Remarks" style="width:300px;height:100px;resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
                return val;
             }
          }, {
@@ -186,7 +186,7 @@
 
       var array = $();
 
-      $('#table-summary .claim').each(function() {
+      $('#table-summary .category_damage').each(function() {
          var input = $(this),
             td = input.parent(),
             tr = td.parent(),
@@ -194,6 +194,7 @@
 
          if (typeof array[id] === 'undefined') {
             array[id] = {
+               category_damage: tr.find('.category_damage').val(),
                claim: tr.find('.claim').val(),
                damage: tr.find('.damage').val()
             }

@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->updateTable1Des2020();
+    $this->updateTable9Des2020();
+    // $this->updateTable1Des2020();
     // $this->insertSummaryDGRMenu();
     // $this->updateTable30Nov2020();
     // $this->updateTable26Nov2020();
@@ -25,6 +26,33 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable9Des2020()
+  {
+    echo "update Table Claim Insurance <br>";
+    DB::statement('ALTER TABLE `clm_claim_insurance`
+    ADD COLUMN `submit_date` DATE NULL DEFAULT NULL AFTER `date_of_loss`,
+    ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `submit_date`,
+    ADD COLUMN `payment_date` DATE NULL DEFAULT NULL AFTER `submit_by`,
+    ADD COLUMN `remark` VARCHAR(255) NULL DEFAULT NULL AFTER `payment_date`;
+    ');
+
+    echo "Insert Summary Claim Insurance";
+    DB::table('tr_modules')->insert(
+      [
+        'id'         => 110,
+        'modul_name' => 'Summary Claim Insurance',
+        'modul_link' => 'summary-claim-insurance',
+        'group_name' => 'Claim',
+        'order_menu' => 3,
+      ]
+    );
+
+    echo "Update Berita Acara During Detail";
+    DB::statement('ALTER TABLE `dur_berita_acara_detail`
+      ADD COLUMN `category_damage` VARCHAR(255) NULL AFTER `serial_number`;
+    ');
   }
 
   protected function updateTable1Des2020()

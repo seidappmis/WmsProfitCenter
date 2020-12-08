@@ -52,7 +52,7 @@
                           <th class="center-align">Invoice No</th>
                           <th class="center-align">B/L No</th>
                           <th class="center-align">Container No</th>
-                          <th class="center-align">Vendor</th>
+                          {{-- <th class="center-align">Vendor</th> --}}
                           <th class="center-align">Model</th>
                           <th class="center-align">POM</th>
                           <th class="center-align">Qty</th>
@@ -116,9 +116,9 @@
           {
             data: 'container_no'
           },
-          {
-            data: 'expedition_name'
-          },
+          // {
+          //   data: 'expedition_name'
+          // },
           {
             data: 'model_name'
           },

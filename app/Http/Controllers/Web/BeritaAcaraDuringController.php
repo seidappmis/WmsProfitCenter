@@ -151,6 +151,7 @@ class BeritaAcaraDuringController extends Controller
     if ($request->input('filetype') == 'xls') {
       $data['excel'] = 1;
       $view_print    = view('web.during.berita-acara-during._print_attach_excel', $data);
+      // return $view_print;
     }
     $title = 'Berita Acara Barang During';
 

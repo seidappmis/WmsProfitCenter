@@ -56,7 +56,7 @@
                 <tr>
                   <td style="width: 25mm;">Tanggal</td>
                   <td style="width: 5mm;">:</td>
-                  <td colspan="3" style="width: 60mm;"><strong>{{!empty($berita_acara->tanggal_berita_acara)?date('d M Y',strtotime($berita_acara->tanggal_berita_acara)):'-'}}</strong></td>
+                  <td colspan="3" style="width: 60mm;"><strong>{{!empty($berita_acara->tanggal_kejadian)?date('d M Y',strtotime($berita_acara->tanggal_kejadian)):'-'}}</strong></td>
                   <td colspan="3">Jenis Kerusakan :</td>
                 </tr>
                 <tr>
@@ -179,7 +179,7 @@
                   <td colspan="8">Demikian Berita Acara ini kami buat dengan sebenarnya.</td>
                 </tr>
                 <tr>
-                  <td colspan="8">Jakarta, {{date('d M Y', strtotime($berita_acara->tanggal_kejadian))}}</td>
+                  <td colspan="8">Jakarta, {{date('d M Y', strtotime($berita_acara->tanggal_berita_acara))}}</td>
                 </tr>
                 <tr>
                   <td>&nbsp;</td>

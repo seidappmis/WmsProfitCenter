@@ -368,7 +368,7 @@
 
     $('.btn-update-receipt-invoice').click(function(event) {
       $.ajax({
-          url: '{{url("receipt-invoice/" .  (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . "update-receipt-invoice")}}',
+          url: '{{url("receipt-invoice/" .  (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") . "/update-receipt-invoice")}}',
           type: 'PUT',
           dataType: 'json',
           data: {

@@ -219,6 +219,8 @@ class TaskNoticeController extends Controller
     $actual->rr            = $request->input('rr');
     $actual->kondisi       = $request->input('kondisi');
     $actual->remark        = $request->input('remark');
+    $actual->modify_date   = date('Y-m-d H:i:s');
+    $actual->modify_by     = auth()->user()->id;
 
     $actual->save();
 
@@ -260,6 +262,8 @@ class TaskNoticeController extends Controller
     $actual->rr             = $request->input('rr');
     $actual->kondisi        = $request->input('kondisi');
     $actual->remark         = $request->input('remark');
+    $actual->modify_date    = date('Y-m-d H:i:s');
+    $actual->modify_by     = auth()->user()->id;
 
     $actual->save();
 

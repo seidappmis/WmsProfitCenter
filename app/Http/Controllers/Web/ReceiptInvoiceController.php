@@ -113,11 +113,15 @@ class ReceiptInvoiceController extends Controller
 
   public function update(Request $request, $id)
   {
+    $invoiceReceiptHeader   = InvoiceReceiptHeader::findOrFail($id);
+
+    $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/'. $request->input('invoice_receipt_date'))));
+    $invoiceReceiptHeader->save();
+
     if (empty(json_decode($request->input('data_manifest'), true))) {
       return sendError('No manifest selected.');
     }
 
-    $invoiceReceiptHeader   = InvoiceReceiptHeader::findOrFail($id);
     $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
 
     try {
