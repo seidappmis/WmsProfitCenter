@@ -23,8 +23,9 @@
    </div>
    @endcomponent
 
-   <div class="col s12" id="body">
+   <div class="col s12 pt-3" id="body">
       <div class="container">
+         <a href="{{url('summary-claim-insurance/0/export?file_type=excel')}}" class="waves-effect waves-light indigo btn"><i class="material-icons left">file_download</i>Excel</a>
          <div class="section">
             <div class="card mb-0">
                <div class="card-content p-0">

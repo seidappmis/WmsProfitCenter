@@ -116,4 +116,88 @@ class SummaryDamageGoodsReportController extends Controller
          }
       }
    }
+
+   public function export(Request $request)
+   {
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      $sheet       = $spreadsheet->getActiveSheet();
+
+
+      $col = 'A';
+      $sheet->setCellValue(($col++) . '1', 'No Do');
+      $sheet->setCellValue(($col++) . '1', 'Invoice No');
+      $sheet->setCellValue(($col++) . '1', 'B/L No');
+      $sheet->setCellValue(($col++) . '1', 'Vendor');
+      $sheet->setCellValue(($col++) . '1', 'Model');
+      $sheet->setCellValue(($col++) . '1', 'Qty');
+      $sheet->setCellValue(($col++) . '1', 'No Serie');
+      $sheet->setCellValue(($col++) . '1', 'Keterangan');
+      $sheet->setCellValue(($col++) . '1', 'Remarks');
+
+      // getPHPSpreadsheetTitleStyle() ada di wms Helper
+      $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+
+
+
+
+      $data = DamageGoodsReport::from('dur_dgr AS d')
+         ->leftJoin('dur_dgr_detail AS dd', 'dd.dur_dgr_id', '=', 'd.id')
+         ->leftJoin('dur_berita_acara_detail AS bad', 'bad.id', '=', 'dd.berita_acara_during_detail_id')
+         ->leftJoin('dur_berita_acara AS ba', 'bad.berita_acara_during_id', '=', 'ba.id')
+         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+         ->orderBy('d.created_at', 'DESC')
+         ->groupBy('d.id')
+         ->select(
+            'd.*',
+            DB::raw("group_concat(DISTINCT ba.berita_acara_during_no SEPARATOR '\n') as berita_acara_group"),
+            DB::raw("group_concat(DISTINCT ba.invoice_no SEPARATOR '\n') as invoice_group"),
+            DB::raw("group_concat(DISTINCT ba.bl_no SEPARATOR '\n') as bl_group"),
+            DB::raw("group_concat(DISTINCT ba.container_no SEPARATOR '\n') as container_group"),
+            DB::raw("group_concat(DISTINCT bad.model_name SEPARATOR '\n') as model_group"),
+            DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR '\n') as expedition_name"),
+            DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR '\n') as serial_number_group"),
+            DB::raw("group_concat(DISTINCT dd.remark SEPARATOR '\n') as remark"),
+            DB::raw("group_concat(DISTINCT bad.claim SEPARATOR '\n') as claim_group"),
+            DB::raw("group_concat(DISTINCT ba.category_damage SEPARATOR '\n') as keterangan_group"),
+            DB::raw("group_concat(DISTINCT bad.damage SEPARATOR '\n') as remark_group"),
+            DB::raw("sum(bad.qty) as sum_qty")
+         )
+         ->whereNotNull('d.submit_date')->get();
+
+      $row = 2;
+      foreach ($data as $key => $value) {
+         $col = 'A';
+         $sheet->setCellValue(($col++) . $row, ($key + 1));
+         $sheet->setCellValue(($col++) . $row, $value->dgr_no);
+         $sheet->setCellValue(($col++) . $row, $value->invoice_group);
+         $sheet->setCellValue(($col++) . $row, $value->bl_group);
+         $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+         $sheet->setCellValue(($col++) . $row, $value->model_group);
+         $sheet->setCellValue(($col++) . $row, $value->sum_qty);
+         $sheet->setCellValue(($col++) . $row, $value->serial_number);
+         $sheet->setCellValue(($col++) . $row, $value->keterangan_group);
+         $sheet->setCellValue(($col++) . $row, $value->remark_group);
+         $row++;
+      }
+
+      $colResize = 'C';
+      while ($colResize != $col) {
+         $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+      }
+
+      $title = 'Summary Damage Goods Report';
+
+      if ($request->input('file_type') == 'pdf') {
+         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+         header('Content-Type: application/pdf');
+         header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+         header('Cache-Control: max-age=0');
+      } else {
+         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+         header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+      }
+
+      $writer->save("php://output");
+   }
 }

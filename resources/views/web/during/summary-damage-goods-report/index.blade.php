@@ -16,77 +16,70 @@
    </div>
    @endcomponent
 
-   <div class="col s12">
+   <div class="col s12" id="body">
       <div class="container">
+
+         <div class="row">
+            <div class="col s12 m8 mt-3">
+               <div class="collapsible-main-header">
+                  <a href="{{url('summary-damage-goods-report/0/export?file_type=excel')}}" class="waves-effect waves-light indigo btn"><i class="material-icons left">file_download</i>Excel</a>
+               </div>
+            </div>
+            <div class="col s12 m4  mt-2">
+               <div class="app-wrapper">
+                  <div class="datatable-search mb-0">
+                     <i class="material-icons mr-2 search-icon">search</i>
+                     <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
+                  </div>
+               </div>
+            </div>
+         </div>
+
          <div class="section">
             <div class="card mb-0">
                <div class="card-content p-0">
-                  <ul class="collapsible m-0">
-                     <li class="active">
-                        <div class="collapsible-header p-0">
-                           <div class="row">
-                              <div class="col s12 m8">
-                                 <div class="collapsible-main-header">
-                                    <i class="material-icons expand">expand_less</i>
-                                    <span>Outstanding</span>
-                                 </div>
-                              </div>
-                              <div class="col s12 m4">
-                                 <div class="app-wrapper">
-                                    <div class="datatable-search mb-0">
-                                       <i class="material-icons mr-2 search-icon">search</i>
-                                       <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="collapsible-body p-0">
-                           <div class="section-data-tables">
-                              <table id="table-summary" class="display" width="100%">
-                                 <thead>
-                                    <tr>
-                                       <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
-                                       <th class="center-align">No Doc</th>
-                                       {{-- <th class="center-align">Berita Acara No.</th> --}}
-                                       <th class="center-align">Invoice No</th>
-                                       <th class="center-align">B/L No</th>
-                                       {{-- <th class="center-align">Container No</th> --}}
-                                       <th class="center-align">Vendor</th>
-                                       <th class="center-align">Model</th>
-                                       <th class="center-align">Qty</th>
-                                       <th class="center-align">NO Serie</th>
-                                       <th class="center-align">Keterangan</th>
-                                       {{-- <th class="center-align">Claim</th> --}}
-                                       <th class="center-align">Remarks</th>
-                                       <th class="center-align"></th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </li>
-                  </ul>
+                  <div class="section-data-tables">
+                     <table id="table-summary" class="display" width="100%">
+                        <thead>
+                           <tr>
+                              <th class="center-align" data-priority="1" width="30px"><label><span></span></label></th>
+                              <th class="center-align">No Doc</th>
+                              {{-- <th class="center-align">Berita Acara No.</th> --}}
+                              <th class="center-align">Invoice No</th>
+                              <th class="center-align">B/L No</th>
+                              {{-- <th class="center-align">Container No</th> --}}
+                              <th class="center-align">Vendor</th>
+                              <th class="center-align">Model</th>
+                              <th class="center-align">Qty</th>
+                              <th class="center-align">NO Serie</th>
+                              <th class="center-align">Keterangan</th>
+                              {{-- <th class="center-align">Claim</th> --}}
+                              <th class="center-align">Remarks</th>
+                              <th class="center-align"></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                     </table>
+                  </div>
                </div>
             </div>
          </div>
       </div>
    </div>
+</div>
+@push('script_js')
 
-   @push('script_js')
-
-   <script type="text/javascript">
-      jQuery(document).ready(function($) {
-         dtSummary = $('#table-summary').DataTable({
-            serverSide: true,
-            scrollX: true,
-            ajax: {
-               url: '{{url("summary-damage-goods-report")}}',
-               type: 'GET',
-            },
-            columns: [{
+<script type="text/javascript">
+   jQuery(document).ready(function($) {
+      dtSummary = $('#table-summary').DataTable({
+         serverSide: true,
+         scrollX: true,
+         ajax: {
+            url: '{{url("summary-damage-goods-report")}}',
+            type: 'GET',
+         },
+         columns: [{
                data: 'DT_RowIndex',
                orderable: false,
                searchable: false,
@@ -95,7 +88,7 @@
                data: 'dgr_no',
                name: 'n.dgr_no',
                className: 'detail'
-            }, 
+            },
             // {
             //    data: 'berita_acara_group',
             //    name: 'ba.berita_acara_during_no',
@@ -121,7 +114,7 @@
                render: function(data, type, row, meta) {
                   return data ? data.split("|").join("<br>") : '';
                }
-            }, 
+            },
             // {
             //    data: 'container_group',
             //    name: 'ba.container_no',
@@ -170,7 +163,7 @@
                render: function(data, type, row, meta) {
                   return data ? data.split("|").join("<br>") : '';
                }
-            }, 
+            },
             // {
             //    data: 'claim_group',
             //    name: 'bad.claim',
@@ -196,19 +189,20 @@
                   return '<?= get_button_view() ?>';
                },
                className: "center-align"
-            }]
-         });
-
-         dtSummary.on('click', '.btn-view', function(event) {
-            event.preventDefault();
-            /* Act on the event */
-            var tr = $(this).parent().parent();
-            var data = dtSummary.row(tr).data();
-            window.location.href = '{{url("summary-damage-goods-report/{id}")}}'.replace('{id}', data.id);
-         });
+            }
+         ]
       });
-   </script>
-   @endpush
+
+      dtSummary.on('click', '.btn-view', function(event) {
+         event.preventDefault();
+         /* Act on the event */
+         var tr = $(this).parent().parent();
+         var data = dtSummary.row(tr).data();
+         window.location.href = '{{url("summary-damage-goods-report/{id}")}}'.replace('{id}', data.id);
+      });
+   });
+</script>
+@endpush
 
 
 </div>

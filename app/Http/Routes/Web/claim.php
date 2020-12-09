@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('summary-claim-notes',  'Web\SummaryClaimNoteController@index');
   Route::get('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@show');
   Route::put('summary-claim-notes/{id}',  'Web\SummaryClaimNoteController@update');
+  Route::get('summary-claim-notes/{id}/export',  'Web\SummaryClaimNoteController@export');
 
 
   //summary claim note
@@ -65,4 +66,5 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   // Route::get('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@show');
   Route::put('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@update');
   Route::delete('summary-claim-insurance/{id}',  'Web\SummaryClaimInsuranceController@delete');
+  Route::get('summary-claim-insurance/{id}/export',  'Web\SummaryClaimInsuranceController@export');
 });

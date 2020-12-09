@@ -56,15 +56,14 @@ class DamageGoodsReportController extends Controller
         ->leftJoin('dur_berita_acara AS ba', 'bad.berita_acara_during_id', '=', 'ba.id')
         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('d.created_at', 'DESC')
-      // ->groupBy('d.id')
+        // ->groupBy('d.id')
         ->groupBy('d.id')
         ->select(
           'd.*',
           DB::raw("group_concat(DISTINCT ba.berita_acara_during_no SEPARATOR ', ') as berita_acara_group"),
           DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR '|') as expedition_name"),
           DB::raw("group_concat(DISTINCT dd.remark SEPARATOR '|') as remark")
-        )
-      ;
+        );
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -75,8 +74,7 @@ class DamageGoodsReportController extends Controller
         ->filterColumn('berita_acara_group', function ($query, $keyword) {
           $sql = "ba.berita_acara_during_no like ?";
           $query->whereRaw($sql, ["%{$keyword}%"]);
-        })
-      ;
+        });
 
       return $datatables->make(true);
     }
@@ -451,5 +449,76 @@ class DamageGoodsReportController extends Controller
       return false;
     }
     // return BeritaAcara::destroy($id);
+  }
+
+
+  public function getDetail(Request $request, $id)
+  {
+
+    $data['data'] = DamageGoodsReportDetail::where('dur_dgr_detail.dur_dgr_id', $id)
+      ->leftJoin('dur_dgr as d', 'd.id', '=', 'dur_dgr_detail.dur_dgr_id')
+      ->leftJoin('dur_berita_acara_detail as bad', 'bad.id', '=', 'dur_dgr_detail.berita_acara_during_detail_id')
+      ->leftJoin('dur_berita_acara as ba', 'ba.id', '=', 'bad.berita_acara_during_id')
+      ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+      ->select(
+        'd.dgr_no',
+        'd.claim',
+        //dgr_detail
+        'dur_dgr_detail.*',
+        // berita_acara detail
+        'berita_acara_during_id',
+        'model_name',
+        'bad.qty as ba_qty',
+        'pom',
+        'serial_number',
+        'damage',
+        'photo_serial_number',
+        'photo_damage',
+        // berita acara
+        'berita_acara_during_no',
+        'tanggal_berita_acara',
+        'tanggal_kejadian',
+        'ship_name',
+        'invoice_no',
+        'container_no',
+        'bl_no',
+        'seal_no',
+        'damage_type',
+        'expedition_code',
+        'vehicle_number',
+        'weather',
+        'working_hour',
+        'ba.location',
+        'photo_container_came',
+        'photo_container_loading',
+        'photo_seal_no',
+        'photo_loading',
+        'd.submit_by',
+        'd.submit_date',
+        'expedition_name'
+      )
+      ->orderBy('dur_dgr_detail.berita_acara_during_detail_id')
+      ->get()->toArray();
+
+
+    $rowspan = 0;
+    foreach ($data['data'] as $k => $v) {
+      if ($k > 0 && $data['data'][$k]['berita_acara_during_no'] == $data['data'][$k - 1]['berita_acara_during_no']) {
+        $rowspan++;
+      } else {
+        $rowspan = 1;
+      }
+      $data['data'][$k]['rowspan'] = $rowspan;
+    };
+
+    // sorting by number and row
+    foreach ($data['data'] as $key => $row) {
+      $arrNo[$key]      = $row['berita_acara_during_no'];
+      $arrRowspan[$key] = $row['rowspan'];
+    }
+    array_multisort($arrNo, SORT_ASC, $arrRowspan, SORT_DESC, $data['data']);
+
+    // dd($data);
+    return sendSuccess('Data Successfully Updated.', $data);
   }
 }

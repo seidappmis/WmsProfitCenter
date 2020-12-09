@@ -114,4 +114,73 @@ class SummaryClaimInsuranceController extends Controller
          }
       }
    }
+
+   public function export(Request $request)
+   {
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      $sheet       = $spreadsheet->getActiveSheet();
+
+      $sheet->setCellValue('A1', 'NO');
+      $sheet->setCellValue('B1', 'Berita Acara No');
+      $sheet->setCellValue('C1', 'Insurance Date');
+      $sheet->setCellValue('D1', 'Total');
+      $sheet->setCellValue('E1', 'Payment Date');
+      $sheet->setCellValue('F1', 'Remark');
+
+      // getPHPSpreadsheetTitleStyle() ada di wms Helper
+      $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+
+
+
+
+      $data = ClaimInsurance::from('clm_claim_insurance AS i')
+         ->leftJoin('clm_claim_insurance_detail AS id', 'id.claim_insurance_id', '=', 'i.id')
+         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_insurance_detail_id', '=', 'id.id')
+         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+         ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+         ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'id.model_name')
+         ->orderBy('i.created_at', 'DESC')
+         ->groupBy('i.id')
+         ->whereNotNull('i.submit_date')
+         ->select(
+            'i.id',
+            'i.insurance_date',
+            'i.payment_date',
+            'i.remark',
+            DB::raw("group_concat(bad.berita_acara_no SEPARATOR '\n') as berita_acara_group"),
+            DB::raw('SUM(IF(id.price > 0 , id.price*id.qty , m.price_carton_box*id.qty)) AS total')
+         )->get();
+
+      $row = 2;
+      foreach ($data as $key => $value) {
+         $col = 'A';
+         $sheet->setCellValue(($col++) . $row, ($key + 1));
+         $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->insurance_date));
+         $sheet->setCellValue(($col++) . $row, $value->total);
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->payment_date));
+         $sheet->setCellValue(($col++) . $row, $value->remark);
+         $row++;
+      }
+
+      $colResize = 'C';
+      while ($colResize != $col) {
+         $sheet->getColumnDimension($colResize++)->setAutoSize(true);
+      }
+
+      $title = 'Summary Claim Insurance';
+
+      if ($request->input('file_type') == 'pdf') {
+         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Mpdf');
+         header('Content-Type: application/pdf');
+         header('Content-Disposition: attachment;filename="' . $title . '.pdf"');
+         header('Cache-Control: max-age=0');
+      } else {
+         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+         header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+      }
+
+      $writer->save("php://output");
+   }
 }

@@ -51,6 +51,34 @@
    </div>
 </div>
 
+@push('page-modal')
+<div id="modal-detail" class="modal" style="width: 75% !important ;">
+   <div class="modal-content">
+      <table id="detail-data" class="display" width="100%">
+         <thead>
+            <tr>
+               <th><strong>NO</strong></th>
+               <th><strong>DATE</strong></th>
+               <th><strong>NO. BERITA ACARA</strong></th>
+               <th><strong>INVOICE NO</strong></th>
+               <th><strong>B/L NO</strong></th>
+               <th><strong>CONTAINER NO</strong></th>
+               <th><strong>MODEL</strong></th>
+               <th><strong>POM</strong></th>
+               <th><strong>QTY</strong></th>
+               <th><strong>NO. SERI</strong></th>
+               <th><strong>REMARKS</strong></th>
+            </tr>
+         </thead>
+         <tbody>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+   </div>
+</div>
+@endpush
 @push('script_js')
 <script type="text/javascript">
    jQuery(document).ready(function($) {
@@ -205,51 +233,66 @@
       dtTableDGR.search($("#claim-note-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
    });
 
-   // Add event listener for opening and closing details
+
    $('#table-dgr tbody').on('click', '.btn-detail', function() {
-      var tr = $(this).closest('tr');
-      var row = dtTableDGR.row(tr);
 
-      if (row.child.isShown()) {
-         // This row is already open - close it
-         row.child.hide();
-         tr.removeClass('shown');
-      } else {
-         // Open this row
-         row.child(format(row.data())).show();
-         tr.addClass('shown');
-      }
+      var row = $(this).closest('tr');
+      var row = dtTableDGR.row(row).data();
+
+      $('#modal-detail').modal('open');
+      $.ajax({
+            type: "GET",
+            url: '{{url("damage-goods-report/{id}/detail")}}'.replace('{id}', row.id),
+            cache: false,
+         })
+         .done(function(result) {
+            if (result.status) {
+               html = '';
+               no = 1;
+
+               $.each(result.data.data, function(i, v) {
+                  if (i == 0 || v.berita_acara_during_no != result.data.data[i - 1].berita_acara_during_no) {
+                     html += `
+                     <tr>
+                        <td rowspan="` + v.rowspan + `">` + (no++) + `</td>
+                        <td rowspan="` + v.rowspan + `">` + v.created_at + `</td>
+                        <td rowspan="` + v.rowspan + `">` + v.berita_acara_during_no + `</td>
+                        <td rowspan="` + v.rowspan + `">` + v.invoice_no + `</td>
+                        <td rowspan="` + v.rowspan + `">` + v.bl_no + `</td>
+                        <td rowspan="` + v.rowspan + `">` + v.container_no + `</td>
+                        <td>` + v.model_name + `</td>
+                        <td>` + v.pom + `</td>
+                        <td>` + v.ba_qty + `</td>
+                        <td>` + v.serial_number + `</td>
+                        <td>` + v.damage + `</td>
+                     </tr>
+                  `;
+                  } else {
+                     html += `
+                     <tr>
+                           <td>` + v.model_name + `</td>
+                           <td>` + v.pom + `</td>
+                           <td>` + v.ba_qty + `</td>
+                           <td>` + v.serial_number + `</td>
+                           <td>` + v.damage + `</td>
+                        </tr>
+                     `;
+                  }
+               });
+
+               $('#detail-data tbody').append(html);
+               $('#detail-data').DataTable();
+            } else {
+               setLoading(false);
+               showSwalAutoClose('Warning', result.message)
+            }
+         })
+         .fail(function() {
+            setLoading(false);
+         })
+         .always(function() {
+            setLoading(false);
+         });
    });
-
-   /* Formatting function for row details - modify as you need */
-   function format(d) {
-      // `d` is the original data object for the row
-      html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-         '<tr>' +
-         '<td>Bertia acara:</td>' +
-         '<td>' +
-         (d.berita_acara_group ? d.berita_acara_group.split(",").join("<br>") : '') +
-         '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>DGR:</td>' +
-         '<td>' + d.dgr_no + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Reporting Date:</td>' +
-         '<td>' + moment(d.created_at).format('D MMM YYYY') + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Expedition_name:</td>' +
-         '<td>' + (d.expedition_name ? d.expedition_name.split("|").join("<br>") : '') + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Remark:</td>' +
-         '<td>' + (d.remark ? d.remark.split("|").join("<br>") : '') + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '</table>';
-      return html;
-   };
 </script>
 @endpush
