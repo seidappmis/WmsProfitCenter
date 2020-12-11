@@ -124,7 +124,7 @@ class SummaryDamageGoodsReportController extends Controller
 
 
       $col = 'A';
-      $sheet->setCellValue(($col++) . '1', 'No Do');
+      $sheet->setCellValue(($col++) . '1', 'No Doc');
       $sheet->setCellValue(($col++) . '1', 'Invoice No');
       $sheet->setCellValue(($col++) . '1', 'B/L No');
       $sheet->setCellValue(($col++) . '1', 'Vendor');
@@ -132,7 +132,7 @@ class SummaryDamageGoodsReportController extends Controller
       $sheet->setCellValue(($col++) . '1', 'Qty');
       $sheet->setCellValue(($col++) . '1', 'No Serie');
       $sheet->setCellValue(($col++) . '1', 'Keterangan');
-      $sheet->setCellValue(($col++) . '1', 'Remarks');
+      $sheet->setCellValue(($col) . '1', 'Remarks');
 
       // getPHPSpreadsheetTitleStyle() ada di wms Helper
       $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
@@ -167,11 +167,11 @@ class SummaryDamageGoodsReportController extends Controller
       $row = 2;
       foreach ($data as $key => $value) {
          $col = 'A';
-         $sheet->setCellValue(($col++) . $row, ($key + 1));
+         // $sheet->setCellValue(($col++) . $row, ($key + 1));
          $sheet->setCellValue(($col++) . $row, $value->dgr_no);
          $sheet->setCellValue(($col++) . $row, $value->invoice_group);
          $sheet->setCellValue(($col++) . $row, $value->bl_group);
-         $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+         $sheet->setCellValue(($col++) . $row, $value->vendor);
          $sheet->setCellValue(($col++) . $row, $value->model_group);
          $sheet->setCellValue(($col++) . $row, $value->sum_qty);
          $sheet->setCellValue(($col++) . $row, $value->serial_number);

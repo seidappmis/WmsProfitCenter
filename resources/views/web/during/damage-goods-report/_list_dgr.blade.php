@@ -52,7 +52,7 @@
 </div>
 
 @push('page-modal')
-<div id="modal-detail" class="modal" style="width: 75% !important ;">
+<div id="modal-detail" class="modal modal-fixed-footer" style="width: 75% !important ;">
    <div class="modal-content">
       <table id="detail-data" class="display" width="100%">
          <thead>
@@ -255,7 +255,7 @@
                      html += `
                      <tr>
                         <td rowspan="` + v.rowspan + `">` + (no++) + `</td>
-                        <td rowspan="` + v.rowspan + `">` + v.created_at + `</td>
+                        <td rowspan="` + v.rowspan + `">` + moment(v.created_at).format('LLL') + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.berita_acara_during_no + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.invoice_no + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.bl_no + `</td>

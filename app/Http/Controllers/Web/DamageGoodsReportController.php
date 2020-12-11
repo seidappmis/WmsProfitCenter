@@ -351,7 +351,7 @@ class DamageGoodsReportController extends Controller
           DB::transaction(function () use (&$beritaAcaraDetail, &$req) {
 
             // Generate No. dgr :  001/DR -HQ-XII/2019
-            $format = "%s/DR -HQ-" . $this->rome((int) date('m')) . "/" . date('Y');
+            $format = "%s/NG-HQ-" . $this->rome((int) date('m')) . "/" . date('Y');
 
             $lastNo = DB::table('dur_dgr')
               ->select(DB::raw('dgr_no AS max_no'))

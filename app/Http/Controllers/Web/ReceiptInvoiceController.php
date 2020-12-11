@@ -81,15 +81,16 @@ class ReceiptInvoiceController extends Controller
 
     $invoiceReceiptHeader = new InvoiceReceiptHeader;
 
-    $invoiceReceiptHeader->id                = date("Y-m-d H:i:s");
-    $invoiceReceiptHeader->expedition_code   = $request->input('expedition_code');
-    $invoiceReceiptHeader->expedition_name   = $request->input('expedition_name');
-    $invoiceReceiptHeader->pph               = 2;
-    $invoiceReceiptHeader->ppn               = 10;
-    $invoiceReceiptHeader->amount_ppn        = 0;
-    $invoiceReceiptHeader->amount_pph        = 0;
-    $invoiceReceiptHeader->amount_before_tax = 0;
-    $invoiceReceiptHeader->amount_after_tax  = 0;
+    $invoiceReceiptHeader->id                   = date("Y-m-d H:i:s");
+    $invoiceReceiptHeader->expedition_code      = $request->input('expedition_code');
+    $invoiceReceiptHeader->expedition_name      = $request->input('expedition_name');
+    $invoiceReceiptHeader->pph                  = 2;
+    $invoiceReceiptHeader->ppn                  = 10;
+    $invoiceReceiptHeader->amount_ppn           = 0;
+    $invoiceReceiptHeader->amount_pph           = 0;
+    $invoiceReceiptHeader->amount_before_tax    = 0;
+    $invoiceReceiptHeader->amount_after_tax     = 0;
+    $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/' . $request->input('invoice_receipt_date'))));
 
     $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
 
@@ -113,9 +114,9 @@ class ReceiptInvoiceController extends Controller
 
   public function update(Request $request, $id)
   {
-    $invoiceReceiptHeader   = InvoiceReceiptHeader::findOrFail($id);
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/'. $request->input('invoice_receipt_date'))));
+    $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/' . $request->input('invoice_receipt_date'))));
     $invoiceReceiptHeader->save();
 
     if (empty(json_decode($request->input('data_manifest'), true))) {
@@ -320,7 +321,7 @@ class ReceiptInvoiceController extends Controller
   public function updateReceiptInvoice(Request $request, $id)
   {
     $request->validate([
-      'kwitansi_no' => 'required',
+      // 'kwitansi_no' => 'required',
     ]);
 
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
@@ -437,13 +438,13 @@ class ReceiptInvoiceController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 2,
-        'margin_right'                    => 2,
-        'margin_top'                      => 5,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L'
+        'tempDir'       => '/tmp',
+        'margin_left'   => 2,
+        'margin_right'  => 2,
+        'margin_top'    => 5,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
@@ -474,13 +475,13 @@ class ReceiptInvoiceController extends Controller
       // return $view_print;
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 2,
-        'margin_right'                    => 2,
-        'margin_top'                      => 35,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 2,
+        'margin_right'  => 2,
+        'margin_top'    => 35,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
@@ -536,13 +537,13 @@ class ReceiptInvoiceController extends Controller
 
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
-        'tempDir' => '/tmp',
-        'margin_left'                     => 2,
-        'margin_right'                    => 2,
-        'margin_top'                      => 35,
-        'margin_bottom'                   => 5,
-        'format'                          => 'A4',
-        'orientation'                     => 'L',
+        'tempDir'       => '/tmp',
+        'margin_left'   => 2,
+        'margin_right'  => 2,
+        'margin_top'    => 35,
+        'margin_bottom' => 5,
+        'format'        => 'A4',
+        'orientation'   => 'L',
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;

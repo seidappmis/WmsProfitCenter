@@ -193,12 +193,12 @@
       columns: [{
           data: 'upload_date',
           render: function(data, type, row) {
-            return moment(data).format('d-MMM-YYYY');
+            return moment(data).format('DD-MMM-YYYY');
           },
         }, {
           data: 'modify_date',
           render: function(data, type, row) {
-            return data ? moment(data).format('d-MMM-YYYY') : '';
+            return data ? moment(data).format('DD-MMM-YYYY') : '';
           },
         },
         {

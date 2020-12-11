@@ -125,8 +125,8 @@
             //    }
             // }, 
             {
-               data: 'expedition_name',
-               name: 'e.expedition_name',
+               data: 'vendor',
+               name: 'vendor',
                searchable: false,
                className: 'detail',
                render: function(data, type, row, meta) {
