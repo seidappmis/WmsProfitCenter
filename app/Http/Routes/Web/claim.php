@@ -7,7 +7,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@update');
   Route::get('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}/edit', 'Web\BeritaAcaraDetailController@edit');
   Route::delete('berita-acara/{berita_acara_id}/detail/{berita_acara_detail_id}', 'Web\BeritaAcaraDetailController@destroy');
-  // Route::resource('berita-acara', 'Web\BeritaAcaraController');
   Route::get('berita-acara', 'Web\BeritaAcaraController@index'); //index
   Route::get('berita-acara/create', 'Web\BeritaAcaraController@create'); //page insert berita acara
   Route::post('berita-acara/store', 'Web\BeritaAcaraController@store'); //proses insert berita acara
@@ -15,6 +14,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::delete('/berita-acara/{id}/delete/{type}', 'Web\BeritaAcaraController@prosesDeleteImage'); //delete image
   Route::delete('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@destroy'); //page detail berita acara
   Route::put('berita-acara/{berita_acara_id}/submit', 'Web\BeritaAcaraController@submit');
+  Route::put('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@edit');
   Route::get('berita-acara/{berita_acara_id}/bulk-template', 'Web\BeritaAcaraController@bulkTemplate'); //download template berita acara
   Route::post('berita-acara/{berita_acara_id}/upload-bulk', 'Web\BeritaAcaraController@uploadBulk'); //upload bulk berita acara
   Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses cetak berita acara

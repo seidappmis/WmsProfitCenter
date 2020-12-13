@@ -1,4 +1,4 @@
-<form class="form-table" id="form-berita-acara">
+<form class="form-table" id="form-berita-acara" onsubmit="return false;">
   <input type="hidden" name="id">
   <table>
     <tr>
@@ -40,7 +40,7 @@
       <td>
         <div class="file-field input-field">
           <div class="btn">
-            <span>Browse</span>
+            <span>Choose New Image</span>
             <input type="file" name="file-do-manifest">
           </div>
           <div class="file-path-wrapper">
@@ -63,7 +63,7 @@
       <td>
         <div class="file-field input-field">
           <div class="btn">
-            <span>Browse</span>
+            <span>Choose New Image</span>
             <input type="file" name="file-internal-do">
           </div>
           <div class="file-path-wrapper">
@@ -86,7 +86,7 @@
       <td>
         <div class="file-field input-field">
           <div class="btn">
-            <span>Browse</span>
+            <span>Choose New Image</span>
             <input type="file" name="file-lmb">
           </div>
           <div class="file-path-wrapper">
@@ -118,51 +118,51 @@
 
   jQuery(document).ready(function($) {
     $('.btn-delete-image').click(function() {
-        event.preventDefault();
-        /* Act on the event */
-        // Ditanyain dulu usernya mau beneran delete data nya nggak.
-        var attribute = $(this),
-            div = attribute.parent(),
-            img = div.find('img'),
-            href = div.find('a');
+      event.preventDefault();
+      /* Act on the event */
+      // Ditanyain dulu usernya mau beneran delete data nya nggak.
+      var attribute = $(this),
+        div = attribute.parent(),
+        img = div.find('img'),
+        href = div.find('a');
 
-        setLoading(true);
-        swal({
-            text: "Are you sure want to delete " + attribute.attr('data-name') + " Image ?",
-            icon: 'warning',
-            buttons: {
-                cancel: true,
-                delete: 'Yes, Delete It'
-            }
-        }).then(function(confirm) { // proses confirm
-            if (confirm) {
-                $.ajax({
-                        url: ('{{ url("/berita-acara/:id/delete/:type") }}').replace(':id', $('#form-berita-acara [name="id"]').val()).replace(':type', attribute.attr('data-type')),
-                        type: 'DELETE',
-                        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                        processData: false, // NEEDED, DON'T OMIT THIS
-                    })
-                    .done(function(result) {
-                        if (result.status) {
-                            showSwalAutoClose('Success', result.message);
-                            img.attr('src', '');
-                            href.attr('href', '');
-                            div.hide();
-                        } else {
-                            showSwalAutoClose('Warning', result.message)
-                        }
-                        setLoading(false);
-                    })
-                    .fail(function() {
-                        setLoading(false);
-                    })
-                    .always(function() {
-                        setLoading(false);
-                    });
-            } else {
-              setLoading(false)
-            }
-        })
+      setLoading(true);
+      swal({
+        text: "Are you sure want to delete " + attribute.attr('data-name') + " Image ?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Delete It'
+        }
+      }).then(function(confirm) { // proses confirm
+        if (confirm) {
+          $.ajax({
+              url: ('{{ url("/berita-acara/:id/delete/:type") }}').replace(':id', $('#form-berita-acara [name="id"]').val()).replace(':type', attribute.attr('data-type')),
+              type: 'DELETE',
+              contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+              processData: false, // NEEDED, DON'T OMIT THIS
+            })
+            .done(function(result) {
+              if (result.status) {
+                showSwalAutoClose('Success', result.message);
+                img.attr('src', '');
+                href.attr('href', '');
+                div.hide();
+              } else {
+                showSwalAutoClose('Warning', result.message)
+              }
+              setLoading(false);
+            })
+            .fail(function() {
+              setLoading(false);
+            })
+            .always(function() {
+              setLoading(false);
+            });
+        } else {
+          setLoading(false)
+        }
+      })
     });
   });
 

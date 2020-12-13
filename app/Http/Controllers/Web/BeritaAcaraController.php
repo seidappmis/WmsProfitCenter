@@ -183,9 +183,9 @@ class BeritaAcaraController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function edit(Request $req, $id)
   {
-    //
+    dd($id, $req->all(), $req->file('file-do-manifest'));
   }
 
   /**

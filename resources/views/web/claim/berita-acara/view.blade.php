@@ -188,7 +188,7 @@
   function set_form_data() {
     // $('#form-berita-acara .input-field').hide();
     $('#form-berita-acara select').attr('disabled', 'disabled');
-    $('#form-berita-acara .btn-save').hide();
+    // $('#form-berita-acara .btn-save').hide();
     $('#form-berita-acara-detail .btn-cancel').hide();
     $('#form-berita-acara [name="id"]').val('{{$beritaAcara->id}}');
     $('#form-berita-acara [name="berita_acara_no"]').val("{{isset($beritaAcara)?$beritaAcara->berita_acara_no:''}}").attr("readonly", "readonly");
@@ -242,6 +242,42 @@
           .fail(function(xhr) {
             setLoading(false);
             showSwalError(xhr) // Custom function to show error with sweetAlert
+          })
+          .always(function() {
+            setLoading(false);
+          });
+      }
+    });
+
+    $("#form-berita-acara").validate({
+      submitHandler: function(form) {
+        var formBiasa = $(form).serialize(); // form biasa
+        var isiForm = new FormData($(form)[0]); // form data untuk browse file
+        // console.log(isiForm);
+        // return;
+        /* Act on the event */
+        setLoading(true);
+        $.ajax({
+            url: '{{ url("berita-acara/". $beritaAcara->id) }}',
+            type: 'PUT',
+            data: isiForm,
+            contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+            processData: false, // NEEDED, DON'T OMIT THIS
+          })
+          .done(function(result) {
+            if (result.status) {
+              swal("Success!", 'No Berita Acara : ' + result.meta.berita_acara_no, "success")
+                .then((response) => {
+                  // Kalau klik Ok redirect ke view
+                  location.reload();
+                }) // alert success
+            } else {
+              setLoading(false);
+              showSwalAutoClose('Warning', result.msg)
+            }
+          })
+          .fail(function() {
+            setLoading(false);
           })
           .always(function() {
             setLoading(false);
