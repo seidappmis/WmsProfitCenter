@@ -300,6 +300,7 @@
                $('#detail-content [name="date_of_loss"]').html(moment(result.data.content.date_of_loss).format('DD MMM YYYY'));
                $('#detail-content [name="keterangan_kejadian"]').html(result.data.content.keterangan_kejadian);
 
+               $('#detail-data tbody').empty();
                html = '';
                no = 1;
                $.each(result.data.data, function(i, v) {

@@ -14,7 +14,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::delete('/berita-acara/{id}/delete/{type}', 'Web\BeritaAcaraController@prosesDeleteImage'); //delete image
   Route::delete('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@destroy'); //page detail berita acara
   Route::put('berita-acara/{berita_acara_id}/submit', 'Web\BeritaAcaraController@submit');
-  Route::put('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@edit');
+  Route::post('berita-acara/{berita_acara_id}', 'Web\BeritaAcaraController@edit');
   Route::get('berita-acara/{berita_acara_id}/bulk-template', 'Web\BeritaAcaraController@bulkTemplate'); //download template berita acara
   Route::post('berita-acara/{berita_acara_id}/upload-bulk', 'Web\BeritaAcaraController@uploadBulk'); //upload bulk berita acara
   Route::get('berita-acara/{berita_acara_id}/print', 'Web\BeritaAcaraController@export'); //proses cetak berita acara
@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes/{berita_acara_id}/print', 'Web\ClaimNoteController@export'); //proses cetak claim note
   Route::get('claim-notes/{berita_acara_id}/print-detail', 'Web\ClaimNoteController@exportDetail');
   Route::post('claim-notes/create', 'Web\ClaimNoteController@create');
+  Route::get('claim-notes/{id}/detail',  'Web\ClaimNoteController@getDetail'); //detail claim insurance
 
   // Claim Insurance
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');

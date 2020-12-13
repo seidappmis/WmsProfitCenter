@@ -89,9 +89,18 @@
                name: 'n.dgr_no',
                className: 'detail'
             },
+            {
+               data: 'berita_acara_group',
+               name: 'ba.berita_acara_during_no',
+               className: 'detail',
+               // searchable: false,
+               render: function(data, type, row, meta) {
+                  return data ? data.split("|").join("<br>") : '';
+               }
+            },
             // {
-            //    data: 'berita_acara_group',
-            //    name: 'ba.berita_acara_during_no',
+            //    data: 'invoice_group',
+            //    name: 'ba.invoice_no',
             //    className: 'detail',
             //    // searchable: false,
             //    render: function(data, type, row, meta) {
@@ -99,14 +108,6 @@
             //    }
             // }, 
             {
-               data: 'invoice_group',
-               name: 'ba.invoice_no',
-               className: 'detail',
-               // searchable: false,
-               render: function(data, type, row, meta) {
-                  return data ? data.split("|").join("<br>") : '';
-               }
-            }, {
                data: 'bl_group',
                name: 'ba.bl_no',
                className: 'detail',

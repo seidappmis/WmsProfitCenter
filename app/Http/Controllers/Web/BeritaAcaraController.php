@@ -183,9 +183,58 @@ class BeritaAcaraController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit(Request $req, $id)
+  public function edit(Request $request, $id)
   {
-    dd($id, $req->all(), $req->file('file-do-manifest'));
+    if ($request->ajax()) {
+
+      $validator = Validator::make($request->all(), [
+        'file-do-manifest' => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-internal-do' => 'nullable|mimes:jpeg,jpg,png,gif',
+        'file-lmb'         => 'nullable|mimes:jpeg,jpg,png,gif',
+      ]);
+
+      // Check validation failure
+      if ($validator->fails()) {
+        return ['status' => false, 'msg' => $validator->messages()->first()];
+      }
+
+      try {
+        $beritaAcara                  = BeritaAcara::whereId($id)->first();
+
+        // File DO Manifest
+        if ($request->hasFile('file-do-manifest')) {
+          $name                     = uniqid() . '.' . pathinfo($request->file('file-do-manifest')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                     = Storage::putFileAs('public/do-manifest/files', $request->file('file-do-manifest'), $name);
+          $beritaAcara->do_manifest = 'do-manifest/files/' . $name;
+        }
+
+        // File Internal DO
+        if ($request->hasFile('file-internal-do')) {
+          $name                     = uniqid() . '.' . pathinfo($request->file('file-internal-do')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path                     = Storage::putFileAs('public/internal-do/files', $request->file('file-internal-do'), $name);
+          $beritaAcara->internal_do = 'internal-do/files/' . $name;
+        }
+
+        // File LMB
+        if ($request->hasFile('file-lmb')) {
+          $name             = uniqid() . '.' . pathinfo($request->file('file-lmb')->getClientOriginalName(), PATHINFO_EXTENSION);
+          $path             = Storage::putFileAs('public/lmb/files/', $request->file('file-lmb'), $name);
+          $beritaAcara->lmb = 'lmb/files/' . $name;
+        }
+
+        $beritaAcara->kode_cabang = auth()->user()->cabang->short_description;
+        $beritaAcara->updated_by  = auth()->user()->id;
+        $beritaAcara->updated_at  = date('Y-m-d H:i:s');
+
+        DB::transaction(function () use (&$beritaAcara) {
+          $beritaAcara->save();
+        });
+
+        return ['status' => true, 'msg' => 'successfully create date', 'meta' => $beritaAcara];
+      } catch (\Exception $e) {
+        return ['status' => false, 'msg' => $e->getMessage()];
+      }
+    }
   }
 
   /**

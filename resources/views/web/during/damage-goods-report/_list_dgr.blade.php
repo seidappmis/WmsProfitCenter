@@ -249,7 +249,7 @@
             if (result.status) {
                html = '';
                no = 1;
-
+               $('#detail-data tbody').empty();
                $.each(result.data.data, function(i, v) {
                   if (i == 0 || v.berita_acara_during_no != result.data.data[i - 1].berita_acara_during_no) {
                      html += `
@@ -281,7 +281,7 @@
                });
 
                $('#detail-data tbody').append(html);
-               $('#detail-data').DataTable();
+               // $('#detail-data').DataTable();
             } else {
                setLoading(false);
                showSwalAutoClose('Warning', result.message)

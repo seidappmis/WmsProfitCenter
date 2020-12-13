@@ -194,18 +194,22 @@
     $('#form-berita-acara [name="berita_acara_no"]').val("{{isset($beritaAcara)?$beritaAcara->berita_acara_no:''}}").attr("readonly", "readonly");
     $('#form-berita-acara [name="date_of_receipt"]').val("{{isset($beritaAcara)?$beritaAcara->date_of_receipt:''}}").attr("readonly", "readonly").removeClass("datepicker");
 
-    $('#form-berita-acara #img_file_do_manifest').show();
-    $('#form-berita-acara #img_file_do_manifest img').attr("src", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->do_manifest):''}}");
-    $('#form-berita-acara #img_file_do_manifest a').attr("href", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->do_manifest):''}}");
-
+    if ('{{$beritaAcara->do_manifest}}') {
+      $('#form-berita-acara #img_file_do_manifest').show();
+      $('#form-berita-acara #img_file_do_manifest img').attr("src", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->do_manifest):''}}");
+      $('#form-berita-acara #img_file_do_manifest a').attr("href", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->do_manifest):''}}");
+    }
     $('#form-berita-acara #img_file_internal_do').show();
-    $('#form-berita-acara #img_file_internal_do img').attr("src", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->internal_do):''}}");
-    $('#form-berita-acara #img_file_internal_do a').attr("href", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->internal_do):''}}");
+    if ('{{$beritaAcara->internal_do}}') {
+      $('#form-berita-acara #img_file_internal_do img').attr("src", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->internal_do):''}}");
+      $('#form-berita-acara #img_file_internal_do a').attr("href", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->internal_do):''}}");
+    }
 
-    $('#form-berita-acara #img_file_lmb').show();
-    $('#form-berita-acara #img_file_lmb img').attr("src", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
-    $('#form-berita-acara #img_file_lmb a').attr("href", "{{isset($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
-
+    if ('{{$beritaAcara->lmb}}') {
+      $('#form-berita-acara #img_file_lmb').show();
+      $('#form-berita-acara #img_file_lmb img').attr("src", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
+      $('#form-berita-acara #img_file_lmb a').attr("href", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
+    }
     set_select2_value('#form-berita-acara [name="expedition_code"]', '{{$beritaAcara->expedition_code}}', '{{$beritaAcara->Expedition->expedition_name}}');
     set_select2_value('#form-berita-acara [name="driver_name"]', '{{$beritaAcara->driver_name}}', '{{$beritaAcara->driver_name}}');
     set_select2_value('#form-berita-acara [name="vehicle_number"]', '{{$beritaAcara->vehicle_number}}', '{{$beritaAcara->Vehicle->vehicle_number}}');
@@ -259,7 +263,7 @@
         setLoading(true);
         $.ajax({
             url: '{{ url("berita-acara/". $beritaAcara->id) }}',
-            type: 'PUT',
+            type: 'POST',
             data: isiForm,
             contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
             processData: false, // NEEDED, DON'T OMIT THIS

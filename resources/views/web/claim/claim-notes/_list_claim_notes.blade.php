@@ -52,6 +52,42 @@
    </div>
 </div>
 
+
+@push('page-modal')
+<div id="modal-detail" class="modal" style="width: 75% !important ;">
+   <div class="modal-content">
+      <table id="detail-data" class="display" width="100%">
+         <thead>
+            <tr>
+               <th data-priority="1" width="30px">No.</th>
+               <th>Berita Acara</th>
+               <th>Expediton Name</th>
+               <th>Driver</th>
+               <th>Car No</th>
+               <th>DO NO</th>
+               <th>Model</th>
+               <th>Serial No</th>
+               <th>Damage Description</th>
+               <th>Reason</th>
+               <th>Destination</th>
+               <th>Warehouse</th>
+               <th>Photo</th>
+               <th>Qty</th>
+               <th id="price-condition"></th>
+               <th style="display: none;" id="price-unit">Price</th>
+               <th>Total</th>
+            </tr>
+         </thead>
+         <tbody>
+         </tbody>
+      </table>
+   </div>
+   <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+   </div>
+</div>
+@endpush
+
 @push('script_js')
 <script type="text/javascript">
    jQuery(document).ready(function($) {
@@ -209,60 +245,105 @@
 
    // Add event listener for opening and closing details
    $('#table-claim-notes tbody').on('click', '.btn-detail', function() {
-      var tr = $(this).closest('tr');
-      var row = dtdatatable_claim_note.row(tr);
 
-      if (row.child.isShown()) {
-         // This row is already open - close it
-         row.child.hide();
-         tr.removeClass('shown');
-      } else {
-         // Open this row
-         row.child(format(row.data())).show();
-         tr.addClass('shown');
-      }
-   });
+      var row = $(this).closest('tr');
+      var row = dtdatatable_claim_note.row(row).data();
 
-   /* Formatting function for row details - modify as you need */
-   function format(d) {
-      // `d` is the original data object for the row
-      html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-         '<tr>' +
-         '<td>Bertia acara:</td>' +
-         '<td>';
+      $('#modal-detail').modal('open');
+      $.ajax({
+            type: "GET",
+            url: '{{url("claim-notes/{id}/detail")}}'.replace('{id}', row.id),
+            cache: false,
+         })
+         .done(function(result) {
+            if (result.status) {
 
-      if (d.berita_acara_group) {
-         var array = d.berita_acara_group.split(', ');
-         $.each(array, function(i, v) {
-            html += v + "<br>";
+               var main = result.data.main,
+                  detail = result.data.detail,
+                  claim = main.claim;
+
+               $('#price-condition').html('Price' + (claim == 'unit' ? ' (condition)' : ''))
+
+               if (claim == 'unit') {
+                  $('#price-unit').show();
+               } else {
+                  $('#price-unit').hide();
+               }
+
+               html = '';
+               no = 1;
+
+               $('#detail-data tbody').empty();
+               $.each(detail, function(i, v) {
+                  console.log(v);
+                  var price_condition = v.price;
+                  if (v.description == 'Carton Box Damage' && !v.price) {
+                     price_condition = v.price_carton_box;
+                  }
+
+                  var price_unit = format_currency((price_condition * 110 / 100));
+
+                  if (claim == 'unit') {
+                     total = format_currency(v.qty * (price_condition * 110 / 100));
+                  } else {
+                     total = format_currency(v.qty * price_condition);
+                  }
+                  html += `<tr>
+                     <td data-priority="1" widtd="30px">` + (no++) + `</td>
+                     <td>` + (v.berita_acara_no ? v.berita_acara_no : '') + `</td>
+                     <td>` + (v.expedition_name ? v.expedition_name : '') + `</td>
+                     <td>` + (v.driver_name ? v.driver_name : '') + `</td>
+                     <td>` + (v.vehicle_number ? v.vehicle_number : '') + `</td>
+                     <td>` + (v.do_no ? v.do_no : '') + `</td>
+                     <td>` + (v.model_name ? v.model_name : '') + `</td>
+                     <td>` + (v.serial_number ? v.serial_number.split(",").join("<br>") : '') + `</td>
+                     <td>` + (v.description ? v.description : '') + `</td>
+                     <td>` + (v.reason ? v.reason : '') + `</td>
+                     <td>` + (v.destination ? v.destination : '') + `</td>
+                     <td>` + (v.warehouse ? v.warehouse : '') + `</td>
+                     <td>` + (v.photo_url ? '<img class="materialboxed center-align" width="200" height="200" src="' + "{{asset('storage/')}}/" + v.photo_url + '">' : '') + `</td>
+                     <td>` + (v.qty ? v.qty : '') + `</td>
+                     <td>` + format_currency(price_condition) + `</td>`;
+
+                  if (claim == 'unit') {
+                     html += `<td>` + price_unit + `</td>`;
+                  }
+
+                  html += `<td>` + total + `</td>
+                     </tr>`;
+               });
+
+               $('#detail-data tbody').append(html);
+               // $('#detail-data').DataTable();
+            } else {
+               setLoading(false);
+               showSwalAutoClose('Warning', result.message)
+            }
+         })
+         .fail(function() {
+            setLoading(false);
+         })
+         .always(function() {
+            setLoading(false);
          });
-      }
-
-      html += '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Claim Note:</td>' +
-         '<td>' + d.claim_note_no + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Reporting Date:</td>' +
-         '<td>' + d.date_of_receipt + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Expedition_name:</td>' +
-         '<td>' + d.expedition_name + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '<td>Destination:</td>' +
-         '<td>' + d.destination + '</td>' +
-         '</tr>' +
-         '<tr>' +
-         '</table>';
-      return html;
-   };
+   });
 
    function truncate(source, size) {
       return source.length > size ? source.slice(0, size - 1) + "…" : source;
+   }
+
+   // convert to format currency
+   function format_currency(nStr) {
+      if (nStr === null) return '0,00';
+      nStr += '';
+      x = nStr.split(',');
+      x1 = x[0];
+      x2 = x.length > 1 ? ',' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+      }
+      return x1 + x2;
    }
 </script>
 @endpush
