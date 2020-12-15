@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
-    $this->updateTable9Des2020();
+    $this->updateTable16Des2020();
+    // $this->updateTable9Des2020();
     // $this->updateTable1Des2020();
     // $this->insertSummaryDGRMenu();
     // $this->updateTable30Nov2020();
@@ -26,6 +27,38 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable16Des2020()
+  {
+    echo "Update Module";
+    DB::statement("INSERT INTO tr_modules (modul_name, modul_link, group_name, order_menu, created_at, updated_at) VALUES ('Marine Cargo', 'marine-cargo', 'during', 6, '2020-12-16 01:33:56', '2020-12-16 01:34:00')");
+
+    echo "Create Marine Cargo table";
+    DB::statement('CREATE TABLE IF NOT EXISTS `dur_marine_cargo` (
+    `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `dur_dgr_id` INT(11) NULL DEFAULT NULL,
+    `insurance_policy_no` VARCHAR(30) NOT NULL,
+    `sailed_on` VARCHAR(255) NULL DEFAULT NULL,
+    `vessel_name` VARCHAR(255) NULL DEFAULT NULL,
+    `sailed_date` DATETIME NULL DEFAULT NULL,
+    `arrived_date` DATETIME NULL DEFAULT NULL,
+    `discharging_date` DATETIME NULL DEFAULT NULL,
+    `delivery_date` DATETIME NULL DEFAULT NULL,
+    `cargo_description` VARCHAR(255) NULL DEFAULT NULL,
+    `qty` INT(11) NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+    `created_by` INT(11) NULL DEFAULT NULL,
+    `updated_by` INT(11) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`))');
+
+    DB::statement('
+      UPDATE log_region 
+      SET region = "JAVA & BALI"
+      WHERE region = "JAWA"
+      ');
+
   }
 
   protected function updateTable9Des2020()
@@ -55,7 +88,7 @@ class DataSynchronizationController extends Controller
     ');
 
     echo "Update DGR";
-    DB::statement('ALTER TABLE `dur_dgr`   
+    DB::statement('ALTER TABLE `dur_dgr`
       ADD COLUMN `vendor` VARCHAR(255) NULL AFTER `location`;
     ');
   }

@@ -18,7 +18,7 @@ class LOGRegionTableSeeder extends Seeder
 	        'region'      => 'JABODETABEK',
 	      ],
 	      [
-	        'region'      => 'JAWA',
+	        'region'      => 'JAVA & BALI',
 	      ],
 	      [
 	        'region'      => 'KALIMANTAN',
