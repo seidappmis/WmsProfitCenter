@@ -116,7 +116,9 @@ class BeritaAcaraDetailController extends Controller
 
                 // cek photo upload
                 if ($request->hasFile('photo')) {
-                    unlink(storage_path('app/public/' . $request->old_file));
+                    if (!empty($request->old_file)) {
+                        unlink(storage_path('app/public/' . $request->old_file));
+                    }
                     $name = uniqid() . '.' . pathinfo($request->file('photo')->getClientOriginalName(), PATHINFO_EXTENSION);
                     $path = Storage::putFileAs('public/berita-acara-detail/photos', $request->file('photo'), $name);
                     $beritaAcaraDetail->photo_url  = 'berita-acara-detail/photos/' . $name;
