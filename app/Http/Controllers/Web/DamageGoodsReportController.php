@@ -328,6 +328,7 @@ class DamageGoodsReportController extends Controller
 
   public function create(Request $req)
   {
+
     if ($req->ajax()) {
       // parsing from string to array
       $data = json_decode($req->data, true);
@@ -348,7 +349,7 @@ class DamageGoodsReportController extends Controller
             unset($beritaAcaraDetail[$kc]['berita_acara_during_detail_id']);
           }
 
-          DB::transaction(function () use (&$beritaAcaraDetail, &$req) {
+          DB::transaction(function () use (&$data, &$beritaAcaraDetail, &$req) {
 
             // Generate No. dgr :  001/DR -HQ-XII/2019
             $format = "%s/NG-HQ-" . $this->rome((int) date('m')) . "/" . date('Y');
@@ -360,13 +361,25 @@ class DamageGoodsReportController extends Controller
 
             $lastNo = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
 
-            // adding during note number
+            // reset number every date 16
             if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16) {
               $lastNo[0] = 0;
             }
 
             $max_no = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
             $dgr_no = sprintf($format, $max_no);
+
+            if (isset($data[0]['berita_acara_during_no'])) {
+              $lastNoTmp = explode("/", isset($data[0]['berita_acara_during_no']) ? $data[0]['berita_acara_during_no'] : 0);
+              // reset number every date 16
+              if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16) {
+                $lastNoTmp[0] = 0;
+              } else {
+                $lastNoTmp[0] =  $max_no;
+              }
+
+              $dgr_no = implode("/", $lastNoTmp);
+            }
 
             // insert to during note and return id
             $dgrID = DamageGoodsReport::insertGetId([
@@ -520,5 +533,12 @@ class DamageGoodsReportController extends Controller
 
     // dd($data);
     return sendSuccess('Data Successfully Updated.', $data);
+  }
+
+  public function getSelect2(Request $req)
+  {
+    $query = DamageGoodsReport::select('id', 'dgr_no AS text');
+
+    return get_select2_data($req, $query);
   }
 }

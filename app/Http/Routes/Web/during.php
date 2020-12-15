@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('/berita-acara-during/{id}/export', 'Web\BeritaAcaraDuringController@export');
   Route::get('/berita-acara-during/{id}/export-attach', 'Web\BeritaAcaraDuringController@exportAttach');
   Route::get('/berita-acara-during/{id}/export-attach', 'Web\BeritaAcaraDuringController@exportAttach');
+  Route::get('/berita-acara-during-select2-kapal', 'Web\BeritaAcaraDuringController@getSelect2Kapal');
 
   // damage goods report
   Route::get('/damage-goods-report', 'Web\DamageGoodsReportController@index');
@@ -29,10 +30,17 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::delete('damage-goods-report/{id}', 'Web\DamageGoodsReportController@destroy');
   Route::put('damage-goods-report/{id}/submit', 'Web\DamageGoodsReportController@submit');
   Route::get('damage-goods-report/{id}/detail', 'Web\DamageGoodsReportController@getDetail');
+  Route::get('/damage-goods-report/select2', 'Web\DamageGoodsReportController@getSelect2');
+
 
   //summary DGR
   Route::get('summary-damage-goods-report',  'Web\SummaryDamageGoodsReportController@index');
   Route::get('summary-damage-goods-report/{id}',  'Web\SummaryDamageGoodsReportController@show');
   Route::put('summary-damage-goods-report/{id}',  'Web\SummaryDamageGoodsReportController@update');
   Route::get('summary-damage-goods-report/{id}/export',  'Web\SummaryDamageGoodsReportController@export');
+
+  //Marine Cargo
+  Route::get('/marine-cargo',  'Web\MarineCargoController@index');
+  Route::get('/marine-cargo/create', 'Web\MarineCargoController@create');
+  Route::post('/marine-cargo/create', 'Web\MarineCargoController@Postcreate');
 });

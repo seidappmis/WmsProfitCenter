@@ -150,13 +150,15 @@
             data: 'category_damage',
             name: 'bad.category_damage ',
             searchable: false,
+            className: 'center-align',
             render: function(data, type, row, meta) {
-               val = `
-                  <select class="select2-data-ajax browser-default category_damage" data-id="` + row.id + `" style="margin-right:100px;">
-                     <option value=""></option>
-                     <option value="Carton Box Damage"` + (data == 'Carton Box Damage' ? 'selected' : '') + `>Carton Box Damage</option>
-                     <option value="Unit Damage"` + (data == 'Unit Damage' ? 'selected' : '') + `>Unit Damage</option>
-                  </select>`;
+               val = `<div style="width:200px;padding-left:10px;padding-right:10px;" class="center-align">
+                     <select class="select2-data-ajax browser-default category_damage" data-id="` + row.id + `"">
+                        <option value=""></option>
+                        <option value="Carton Box Damage"` + (data == 'Carton Box Damage' ? 'selected' : '') + `>Carton Box Damage</option>
+                        <option value="Unit Damage"` + (data == 'Unit Damage' ? 'selected' : '') + `>Unit Damage</option>
+                     </select>
+               </div>`;
                return val;
             }
          }, {
@@ -165,7 +167,7 @@
             searchable: false,
             className: 'detail center-align',
             render: function(data, type, row, meta) {
-               val = '<textarea class="claim materialize-textarea" placeholder="Remarks" style="width:300px;height:100px;resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+               val = '<div style="width:200px;padding-left:10px;padding-right:10px;" class="center-align"><input type="text" class="claim" value="' + (data ? data : '') + '" readonly></div>';
                return val;
             }
          }, {
@@ -177,9 +179,26 @@
                val = '<textarea class="damage materialize-textarea" placeholder="Remarks" style="width:300px;height:100px;resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
                return val;
             }
-         }]
+         }],
+         initComplete: setInitComplete
       });
    });
+
+   var setInitComplete = function() {
+      $('.category_damage').change(function() {
+         var attribute = $(this),
+            td = attribute.parent().parent(),
+            tr = td.parent(),
+            claim = tr.find('.claim');
+
+         if (attribute.val() == 'Carton Box Damage') {
+            claim.val('carton-box');
+         } else if (attribute.val() == 'Unit Damage') {
+            claim.val('claim');
+         }
+      });
+   };
+
 
    $('.btn-save').click(function(e) {
       e.preventDefault();
@@ -188,7 +207,7 @@
 
       $('#table-summary .category_damage').each(function() {
          var input = $(this),
-            td = input.parent(),
+            td = input.parent().parent(),
             tr = td.parent(),
             id = input.attr('data-id');
 
@@ -215,7 +234,7 @@
                swal("Success!", result.message)
                   .then((response) => {
                      // Kalau klik Ok redirect ke view
-                     dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     dtSummary.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
                   }) // alert success
             } else {
                setLoading(false);

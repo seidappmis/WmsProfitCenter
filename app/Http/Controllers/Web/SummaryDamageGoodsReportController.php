@@ -33,7 +33,7 @@ class SummaryDamageGoodsReportController extends Controller
                DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR ',') as serial_number_group"),
                DB::raw("group_concat(DISTINCT dd.remark SEPARATOR '|') as remark"),
                DB::raw("group_concat(DISTINCT bad.claim SEPARATOR '|') as claim_group"),
-               DB::raw("group_concat(DISTINCT ba.category_damage SEPARATOR '|') as keterangan_group"),
+               DB::raw("group_concat(DISTINCT bad.category_damage SEPARATOR '|') as keterangan_group"),
                DB::raw("group_concat(DISTINCT bad.damage SEPARATOR '|') as remark_group"),
                DB::raw("sum(bad.qty) as sum_qty")
             )

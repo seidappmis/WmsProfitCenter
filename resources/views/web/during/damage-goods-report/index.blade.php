@@ -93,7 +93,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn waves-effect waves-green btn-store btn blue darken-4">Create Claim Insurance</button>
+        <button type="submit" class="btn waves-effect waves-green btn-store btn blue darken-4">Create Claim DGR</button>
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </form>

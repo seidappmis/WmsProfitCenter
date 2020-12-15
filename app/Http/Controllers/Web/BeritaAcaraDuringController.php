@@ -519,4 +519,14 @@ class BeritaAcaraDuringController extends Controller
 
     return sendSuccess('Berita Acara submited.', $beritaAcara);
   }
+  public function getSelect2Kapal(Request $req)
+  {
+    $query = BeritaAcaraDuring::select(
+      DB::raw('ship_name AS id'),
+      DB::raw('ship_name AS text')
+    )
+      ->toBase();
+
+    return get_select2_data($req, $query);
+  }
 }
