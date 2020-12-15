@@ -40,6 +40,7 @@ class LogManifestDetail extends Model
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
       ->where('log_manifest_detail.do_manifest_no', $do_manifest_no)
+      ->orderBy('log_manifest_detail.do_manifest_no')
     ;
   }
 }
