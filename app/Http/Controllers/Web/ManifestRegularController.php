@@ -685,7 +685,7 @@ class ManifestRegularController extends Controller
     $data['manifestHeader'] = LogManifestHeader::findOrFail($id);
 
     $rs_details = [];
-    foreach (LogManifestDetail::listDO($data['manifestHeader']->do_manifest_no)->get() as $key => $value) {
+    foreach (LogManifestDetail::listDO($data['manifestHeader']->do_manifest_no)->orderBy('log_manifest_detail.delivery_no')->get() as $key => $value) {
       $rs_details[$value->delivery_no]['ship_to_code'] = $value->ship_to_code;
       $rs_details[$value->delivery_no]['ship_to']      = $value->ship_to;
 
