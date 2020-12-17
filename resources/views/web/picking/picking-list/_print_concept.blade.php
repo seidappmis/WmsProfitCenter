@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print-lanscape.css') }}">
 
-<body style="font-family: courier New; font-size: 8pt; padding-top: 20mm;">
-  <table width="100%" style="border-collapse: collapse; font-size: 8pt; margin-left: 20mm; margin-right: 20mm; margin-top: 20mm; margin-bottom: 20mm;">
+<body style="font-family: courier New; font-size: 6pt; padding-top: 20mm;">
+  <table width="100%" style="border-collapse: collapse; font-size: 6pt; margin-left: 5mm; margin-right: 5mm; margin-top: 20mm; margin-bottom: 20mm;">
     <thead>
       <tr><td colspan="4">&nbsp;</td></tr>
       <tr><td colspan="4">&nbsp;</td></tr>
@@ -40,8 +40,8 @@
         <td style="border: 1px solid #000;">{{$pickinglistHeader->city_name}}</td>
         <td style="border: 1px solid #000;">{{$pickinglistHeader->expedition_name}}</td>
         <td style="border: 1px solid #000;">{{$detail->delivery_no}}</td>
-        <td style="border: 1px solid #000;">{{$detail->model}}</td>
-        <td style="border: 1px solid #000; text-align: right;">{{$detail->quantity}}</td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold;">{{$detail->model}}</td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;">{{$detail->quantity}}</td>
         <td style="border: 1px solid #000; text-align: right;">{{$detail->cbm}}</td>
         <td style="border: 1px solid #000;">{{$detail->ship_to}}</td>
         <td style="border: 1px solid #000;">{{$detail->ship_to_district}}</td>
@@ -51,8 +51,8 @@
       @endforeach
       <tr>
         <td colspan="5"></td>
-        <td style="border: 1px solid #000; text-align: right;">{{$total_quantity}}</td>
-        <td style="border: 1px solid #000; text-align: right;">{{$total_cbm}}</td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;">{{$total_quantity}}</td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;">{{$total_cbm}}</td>
         <td colspan="3"></td>
       </tr>
     </tbody>
