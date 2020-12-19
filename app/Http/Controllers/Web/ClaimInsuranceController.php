@@ -31,6 +31,7 @@ class ClaimInsuranceController extends Controller
         ->leftJoin('clm_claim_insurance_detail', 'clm_claim_insurance_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_insurance_detail.id')
+        ->where('clm_berita_acara_detail.deleted_from_outstanding_insurance', 0)
         // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
@@ -291,6 +292,7 @@ class ClaimInsuranceController extends Controller
 
             foreach ($data as $key => $value) {
               // update berita acara detail _> claim note id from before
+              $value['price'] = str_replace(',', '', $value['price']);
               $value['updated_by'] = auth()->user()->id;
               $value['updated_at'] = date('Y-m-d H:i:s');
 
@@ -315,6 +317,14 @@ class ClaimInsuranceController extends Controller
   public function destroy($id)
   {
     //
+  }
+
+  public function destroyOutstanding($id){
+    $detail = BeritaAcaraDetail::findOrFail($id);
+    $detail->deleted_from_outstanding_insurance = 1;
+    $detail->save();
+
+    return sendSuccess('Deleted from outstanding.', $detail);
   }
 
   /**

@@ -55,6 +55,7 @@
                           <th class="center-align">Qty</th>
                           <th class="center-align">Jenis Kerusakan</th>
                           <th class="center-align">Keterangan</th>
+                          <th class="center-align" width="50px"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -188,8 +189,43 @@
             name: 'keterangan',
             className: 'detail'
           },
+          {
+            data: 'id',
+            render: function(data, type, row){
+              return '<?= get_button_delete() ?>';
+            }
+          },
         ]
       });
+
+      dtOutstanding.on('click', '.btn-delete', function(){
+        var tr = $(this).parent().parent();
+         var data = dtOutstanding.row(tr).data();
+         swal({
+            text: "Are you sure want to delete this details?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Delete It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: ('{{ url("/claim-insurance/outstanding/:id") }}').replace(':id', data.id),
+                     type: 'DELETE',
+                     dataType: 'json',
+                  })
+                  .done(function() {
+                     swal("Deleted!", "Claim insurance has been deleted.", "success") // alert success
+                     dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                     dtdatatable_claim_note.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
+      })
 
       set_datatables_checkbox('#table-outstanding', dtOutstanding);
 

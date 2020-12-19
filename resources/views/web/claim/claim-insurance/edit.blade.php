@@ -242,8 +242,8 @@
             classQty = tr.find('.qty'),
             classPrice = tr.find('.price'),
             classSubTotal = tr.find('.sub-total');
-
-        classSubTotal.html(format_currency(classQty.val() * classPrice.val()));
+        
+        classSubTotal.html(format_currency(classQty.val() * classPrice.inputmask('unmaskedvalue')));
     };
 
     $('.btn-save').click(function(e) {

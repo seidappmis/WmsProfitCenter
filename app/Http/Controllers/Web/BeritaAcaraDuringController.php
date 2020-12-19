@@ -226,6 +226,14 @@ class BeritaAcaraDuringController extends Controller
     if ($req->ajax()) {
 
       // Generate No. Claim Note :  037/DR-SWD/XII/ 2019
+      /** 
+       * Penomoran Reset setiap tanggal 16.
+       * Pada tanggal 16 mulai dihitung sebagai transaksi bulan berikutnya
+       * EX: 
+       * - 15 Desember 2020 => 025/DR-JKT/XII/2020
+       * - 16 Desember 2020 => 001/DR-JKT/I/2021
+       */
+      
       $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m')) . "/" . date('Y');
 
       $category_damage = '';

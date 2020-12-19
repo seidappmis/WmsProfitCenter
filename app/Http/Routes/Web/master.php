@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
     // Branch Expedition Vehicle
     Route::get('branch-expedition-vehicle/select2-vehicle-number', 'Web\BranchExpeditionVehicleController@getSelect2VehicleNumber');
+    Route::get('branch-expedition-vehicle/select2-vehicle-number-without-vehicle-type', 'Web\BranchExpeditionVehicleController@getSelect2VehicleNumberWithoutVehicleType');
     Route::get('branch-expedition-vehicle/select2-vehicle', 'Web\BranchExpeditionVehicleController@getSelect2Vehicle');
     Route::resource('branch-expedition-vehicle', 'Web\BranchExpeditionVehicleController');
 

@@ -201,7 +201,11 @@
   }) {
     $('#form-berita-acara [name="vehicle_number"]').select2({
       placeholder: '-- Select Vehicle Number --',
+      @if(auth()->user()->cabang->hq)
       ajax: get_select2_ajax_options('/master-vehicle-expedition/select2-vehicle-number', filter)
+      @else
+      ajax: get_select2_ajax_options('{{url('/branch-expedition-vehicle/select2-vehicle-number-without-vehicle-type')}}', filter)
+      @endif
     })
   }
 </script>

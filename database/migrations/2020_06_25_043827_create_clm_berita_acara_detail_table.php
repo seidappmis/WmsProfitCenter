@@ -27,6 +27,8 @@ class CreateClmBeritaAcaraDetailTable extends Migration
             $table->string('photo_url')->nullable();
             $table->string('keterangan')->nullable();
 
+            $table->tinyInteger('deleted_from_outstanding_insurance')->default(0);
+
             $table->timestamps();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

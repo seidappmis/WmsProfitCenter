@@ -129,49 +129,77 @@
             data: 'send_to_management',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="send_to_management" class="datepicker">';
+               @else
+               return data ? moment(data).format('Y-M-DD') : '';
+               @endif
             }
          },
          {
             data: 'approval_start_date',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_start_date" class="datepicker">';
+               @else
+               return data ? moment(data).format('Y-M-DD') : '';
+               @endif
             }
          },
          {
             data: 'approval_finish_date',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="approval_finish_date" class="datepicker">';
+               @else
+               return data ? moment(data).format('Y-M-DD') : '';
+               @endif
             }
          },
          {
             data: 'so_issue_date',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="so_issue_date" class="datepicker">';
+               @else
+               return data ? moment(data).format('Y-M-DD') : '';
+               @endif
             }
          },
          {
             data: 'date_picking_expedition',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<input type="text" value="' + (data ? moment(data).format('Y-M-DD') : '') + '" name="date_picking_expedition" class="datepicker">';
+               @else
+               return data ? moment(data).format('Y-M-DD') : '';
+               @endif
             }
          },
          {
             data: 'dn_issue',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<textarea name="dn_issue" style="resize: vertical;width:200px;height:50px;">' + (data ? data : '') + '</textarea>';
+               @else
+               return data;
+               @endif
             }
          },
          {
             data: 'remarks',
             searchable: false,
             render: function(data, type, row) {
+               @if(auth()->user()->allowTo('edit'))
                return '<textarea name="remarks" style="resize: vertical;width:200px;height:50px;">' + (data ? data : '') + '</textarea>';
+               @else
+               return data;
+               @endif
             }
          },
          {
@@ -179,7 +207,14 @@
             className: 'center-align',
             searchable: false,
             render: function(data, type, row, meta) {
-               return ' ' + '<?= get_button_save() ?>' + ' ' + '<?= get_button_view(url("summary-claim-notes/:id")) ?>'.replace(':id', data);
+               var button = ' ' 
+               @if(auth()->user()->allowTo('edit'))
+               button += '<?= get_button_save() ?>' 
+               @endif
+               button += ' ' 
+               button += '<?= get_button_view(url("summary-claim-notes/:id")) ?>'.replace(':id', data);
+
+               return button;
             }
          },
       ],

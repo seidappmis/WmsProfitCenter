@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   // Claim Insurance
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');
   Route::put('claim-insurance/{id}/submit', 'Web\ClaimInsuranceController@submit');
+  Route::delete('claim-insurance/outstanding/{id}', 'Web\ClaimInsuranceController@destroyOutstanding');
   Route::delete('claim-insurance/{id}', 'Web\ClaimInsuranceController@prosesDelete');
   Route::get('claim-insurance/{id}/detail/{detail_id}/export', 'Web\ClaimInsuranceController@exportDetail');
   Route::get('claim-insurance', 'Web\ClaimInsuranceController@index');

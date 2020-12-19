@@ -32,7 +32,15 @@ class BeritaAcaraController extends Controller
           '=',
           'clm_berita_acara.expedition_code'
         )
+        ->leftjoin(
+          'log_cabang',
+          'log_cabang.short_description',
+          '=',
+          'clm_berita_acara.kode_cabang'
+        )
         ->orderBy('clm_berita_acara.created_at', 'DESC');
+
+      $query->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang());
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)

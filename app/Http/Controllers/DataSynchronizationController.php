@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
 
+    $this->updateTable19Des2020();
     $this->updateTable16Des2020();
     // $this->updateTable9Des2020();
     // $this->updateTable1Des2020();
@@ -29,10 +30,25 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
+  protected function updateTable19Des2020(){
+    echo "Update Clm_berita_acara_detail";
+    DB::statement('ALTER TABLE `clm_berita_acara_detail` 
+    ADD COLUMN `deleted_from_outstanding_insurance` TINYINT(4) NOT NULL DEFAULT "0" AFTER `keterangan`');
+  }
+
   protected function updateTable16Des2020()
   {
     echo "Update Module";
-    DB::statement("INSERT INTO tr_modules (modul_name, modul_link, group_name, order_menu, created_at, updated_at) VALUES ('Marine Cargo', 'marine-cargo', 'during', 6, '2020-12-16 01:33:56', '2020-12-16 01:34:00')");
+    DB::table('tr_modules')->insert(
+      [
+        'id'         => 111,
+        'modul_name' => 'Marine Cargo',
+        'modul_link' => 'marine-cargo',
+        'group_name' => 'During',
+        'order_menu' => 6,
+      ]
+    );
+    // DB::statement("INSERT INTO tr_modules (modul_name, modul_link, group_name, order_menu, created_at, updated_at) VALUES ('Marine Cargo', 'marine-cargo', 'during', 6, '2020-12-16 01:33:56', '2020-12-16 01:34:00')");
 
     echo "Create Marine Cargo table";
     DB::statement('CREATE TABLE IF NOT EXISTS `dur_marine_cargo` (

@@ -158,4 +158,22 @@ class BranchExpeditionVehicleController extends Controller
 
     return get_select2_data($request, $query);
   }
+
+  public function getSelect2VehicleNumberWithoutVehicleType(Request $request)
+  {
+    $query = BranchExpeditionVehicle::select(
+      DB::raw('vehicle_number AS id'),
+      DB::raw("vehicle_number AS text"),
+      'expedition_code'
+    )
+      ->toBase()
+      ->leftjoin('wms_branch_expedition', 'wms_branch_expedition.code', '=', 'wms_branch_vehicle_expedition.expedition_code')
+      ->where('kode_cabang', auth()->user()->cabang->kode_cabang)
+      ->where('wms_branch_vehicle_expedition.expedition_code', $request->input('expedition_code'))
+      // ->where('wms_branch_vehicle_expedition.vehicle_code_type', $request->input('vehicle_code_type'))
+      ->orderBy('text')
+    ;
+
+    return get_select2_data($request, $query);
+  }
 }
