@@ -68,7 +68,7 @@
     @php @endphp
     <tr>
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$no++}}</td>
-      <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{date('d M Y',strtotime($v['created_at']))}}</td>
+      <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{date('d M Y',strtotime($v['tanggal_kejadian']))}}</td>
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['berita_acara_during_no']}}</td>
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['invoice_no']}}</td>
       <td rowspan="{{$v['rowspan']}}" style="text-align: center; vertical-align: top; border: 1pt solid #000000;">{{$v['bl_no']}}</td>

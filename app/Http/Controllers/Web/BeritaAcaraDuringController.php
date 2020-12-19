@@ -233,8 +233,14 @@ class BeritaAcaraDuringController extends Controller
        * - 15 Desember 2020 => 025/DR-JKT/XII/2020
        * - 16 Desember 2020 => 001/DR-JKT/I/2021
        */
+
+       $date = date('Y-m-d');
       
-      $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m')) . "/" . date('Y');
+      if(date('d') > 15){
+        $date = date('Y-m-d', strtotime('+1 month'));
+      }
+      
+      $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m', strtotime($date))) . "/" . date('Y', strtotime($date));
 
       $category_damage = '';
 
@@ -257,10 +263,12 @@ class BeritaAcaraDuringController extends Controller
         ->where('berita_acara_during_no', 'like', '%' . $category_damage . '%')
         ->orderBy('created_at', 'DESC')
         ->first();
+      
 
       $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
 
-      if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16)
+      // if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16)
+      if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m', strtotime($date))))
         $lastNo[0] = 0;
       $max_no = str_pad($lastNo[0] + 1, 3, 0, STR_PAD_LEFT);
       $no     = sprintf($format,  $max_no, $category_damage);

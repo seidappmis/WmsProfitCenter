@@ -352,7 +352,19 @@ class DamageGoodsReportController extends Controller
           DB::transaction(function () use (&$data, &$beritaAcaraDetail, &$req) {
 
             // Generate No. dgr :  001/DR -HQ-XII/2019
-            $format = "%s/NG-HQ-" . $this->rome((int) date('m')) . "/" . date('Y');
+            $date = date('Y-m-d');
+      
+            if(date('d') > 15){
+              $date = date('Y-m-d', strtotime('+1 month'));
+            }
+
+            $code = '';
+            if (isset($data[0]['berita_acara_during_no'])) {
+              $arrDuringNo = explode('/', $data[0]['berita_acara_during_no']);
+              $code = explode('-', $arrDuringNo[1])[0];
+            }
+            
+            $format = "%s/" . $code . "-HQ-" . $this->rome((int) date('m', strtotime($date))) . "/" . date('Y', strtotime($date));
 
             $lastNo = DB::table('dur_dgr')
               ->select(DB::raw('dgr_no AS max_no'))
@@ -362,24 +374,26 @@ class DamageGoodsReportController extends Controller
             $lastNo = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
 
             // reset number every date 16
-            if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16) {
+            if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m', strtotime($date))) && (int) date('d') >= 16) {
               $lastNo[0] = 0;
             }
 
             $max_no = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
             $dgr_no = sprintf($format, $max_no);
 
-            if (isset($data[0]['berita_acara_during_no'])) {
-              $lastNoTmp = explode("/", isset($data[0]['berita_acara_during_no']) ? $data[0]['berita_acara_during_no'] : 0);
-              // reset number every date 16
-              if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m')) && (int) date('d') >= 16) {
-                $lastNoTmp[0] = 0;
-              } else {
-                $lastNoTmp[0] =  $max_no;
-              }
+            // if (isset($data[0]['berita_acara_during_no'])) {
+            //   $lastNoTmp = explode("/", isset($data[0]['berita_acara_during_no']) ? $data[0]['berita_acara_during_no'] : 0);
+            //   // reset number every date 16
+            //   if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m', strtotime($date))) && (int) date('d') >= 16) {
+            //     $lastNoTmp[0] = 0;
+            //   } else {
+            //     $lastNoTmp[0] =  $max_no;
+            //   }
 
-              $dgr_no = implode("/", $lastNoTmp);
-            }
+            //   $lastNoTmp[0] = str_pad($lastNoTmp[0] + 1, 2, 0, STR_PAD_LEFT);
+
+            //   $dgr_no = implode("/", $lastNoTmp);
+            // }
 
             // insert to during note and return id
             $dgrID = DamageGoodsReport::insertGetId([

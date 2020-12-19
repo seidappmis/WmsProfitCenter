@@ -255,7 +255,7 @@
                      html += `
                      <tr>
                         <td rowspan="` + v.rowspan + `">` + (no++) + `</td>
-                        <td rowspan="` + v.rowspan + `">` + moment(v.created_at).format('LLL') + `</td>
+                        <td rowspan="` + v.rowspan + `">` + moment(v.tanggal_kejadian).format('LLL') + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.berita_acara_during_no + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.invoice_no + `</td>
                         <td rowspan="` + v.rowspan + `">` + v.bl_no + `</td>
