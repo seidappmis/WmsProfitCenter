@@ -24,11 +24,11 @@ class BeritaAcaraController extends Controller
     if ($request->ajax()) {
       $query = BeritaAcara::select(
         'clm_berita_acara.*',
-        DB::raw('tr_expedition.expedition_name AS expedition_name')
+        DB::raw('wms_branch_expedition.expedition_name AS expedition_name')
       )
         ->leftjoin(
-          'tr_expedition',
-          'tr_expedition.code',
+          'wms_branch_expedition',
+          'wms_branch_expedition.code',
           '=',
           'clm_berita_acara.expedition_code'
         )
@@ -38,10 +38,23 @@ class BeritaAcaraController extends Controller
           '=',
           'clm_berita_acara.kode_cabang'
         )
+        ->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang())
         ->orderBy('clm_berita_acara.created_at', 'DESC');
 
-      $query->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang());
+      // if (!auth()->user()->cabang->hq) {
+      //   $query->where('clm_berita_acara.kode_cabang', auth()->user()->cabang->short_description);
+      // } else {
+      //   $query
+      //     ->leftjoin(
+      //       'log_cabang',
+      //       'log_cabang.short_description',
+      //       '=',
+      //       'clm_berita_acara.kode_cabang'
+      //     )
+      //     ->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang());
+      // }
 
+      // dd($query->toSql(), auth()->user()->cabang->short_description, auth()->user()->cabang->hq, auth()->user()->getStringGrantCabang());
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('action', function ($data) {
@@ -140,8 +153,9 @@ class BeritaAcaraController extends Controller
         ->first();
 
       $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);
-      if (isset($lastNo[2]) && $lastNo[2] != date('m'))
+      if ((isset($lastNo[2]) && $lastNo[2] != date('m')) || empty($lastNo[0]))
         $lastNo[0] = 0;
+
       $max_no        = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
       $beritaAcaraNo = $max_no . $formatNumber;
       try {
