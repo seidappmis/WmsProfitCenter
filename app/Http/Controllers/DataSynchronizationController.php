@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateTable22Des2020();
     $this->updateCBMLMB();
     $this->updateCBMManifest();
     $this->updateStockFromManifest();
@@ -31,6 +32,21 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable22Des2020(){
+    echo "update clm_berita_acara";
+    DB::statement('ALTER TABLE `clm_berita_acara` 
+    ADD COLUMN `expedition_name` VARCHAR(100) NULL DEFAULT NULL AFTER `kode_cabang`,
+    CHANGE COLUMN `kode_cabang` `kode_cabang` VARCHAR(3) NULL DEFAULT NULL');
+
+    echo "update During Marin Cargo";
+    DB::statement('ALTER TABLE `dur_marine_cargo` 
+    COLLATE = utf8mb4_unicode_ci ,
+    CHANGE COLUMN `insurance_policy_no` `insurance_policy_no` VARCHAR(30) NOT NULL ,
+    CHANGE COLUMN `sailed_on` `sailed_on` VARCHAR(255) NULL DEFAULT NULL ,
+    CHANGE COLUMN `vessel_name` `vessel_name` VARCHAR(255) NULL DEFAULT NULL ,
+    CHANGE COLUMN `cargo_description` `cargo_description` VARCHAR(255) NULL DEFAULT NULL');
   }
 
   protected function updateStockFromManifest(){
