@@ -25,8 +25,7 @@ class PickinglistHeader extends Model
           $join->on('tr_concept.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
           $join->on('tr_concept.line_no', '=', 'wms_pickinglist_detail.line_no');
         })
-        ->orderBy('tr_concept.delivery_no')
-      ;
+        ->orderBy('tr_concept.delivery_no');
     } else {
       $concept = $this->details()->select(
         'wms_manual_concept.*',
@@ -37,8 +36,7 @@ class PickinglistHeader extends Model
           $join->on('wms_manual_concept.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
           $join->on('wms_manual_concept.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
         })
-        ->orderBy('wms_manual_concept.delivery_no')
-      ;
+        ->orderBy('wms_manual_concept.delivery_no');
     }
 
     return $concept->get();
@@ -66,13 +64,17 @@ class PickinglistHeader extends Model
         'wms_pickinglist_detail.delivery_no',
         'wms_pickinglist_detail.delivery_items',
         'wms_pickinglist_detail.ean_code'
-      )
-    ;
+      );
   }
 
   public function driver_register()
   {
     return $this->belongsTo('App\Models\DriverRegistered', 'driver_register_id', 'id');
+  }
+
+  public function createdBy()
+  {
+    return $this->belongsTo('App\User', 'created_by', 'id');
   }
 
   public function lmb_header()
@@ -120,13 +122,13 @@ class PickinglistHeader extends Model
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
       ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.picking_no')
-    // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
+      // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
       ->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
       ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang) // yang se area
       ->groupBy('wms_pickinglist_header.driver_register_id')
       // ->has('lmb_details')
-    // ->where('area', auth()->user()->area) // yang se area
+      // ->where('area', auth()->user()->area) // yang se area
     ;
   }
 }
