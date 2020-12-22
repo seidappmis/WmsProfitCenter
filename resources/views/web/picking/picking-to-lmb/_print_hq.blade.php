@@ -4,7 +4,7 @@
 </head>
 <body style="font-family: Arial;">
     <htmlpageheader name="myHeader1">
-        <div style="position: absolute;top: 34mm;left: 175mm;font-size: 10pt;">
+        <div style="position: absolute;top: 34mm;left: 155mm;font-size: 10pt;">
             {{$lmbHeader->picking->picking_no}}
         </div>
         <div style="position: absolute;top: 43mm;left: 0mm">
@@ -12,7 +12,7 @@
                 
                 <tr>
                     <td style="width: 66mm;"></td>
-                    <td style="width: 110mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+                    <td style="width: 90mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
                     <td>{{$lmbHeader->expedition_name}}</td>
                     
                 </tr>
