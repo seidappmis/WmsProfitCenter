@@ -617,7 +617,7 @@ class ManifestRegularController extends Controller
         $do['ship_to']        = $row[8];
         $do['model']          = $row[9];
         $do['quantity']       = $row[10];
-        $do['cbm']            = $row[15];
+        $do['cbm']            = $row[16];
         $do['area']           = auth()->user()->area;
         // $do['kode_cabang']     = auth()->user()->cabang->kode_cabang;
         $do['kode_cabang']   = substr($do['sold_to_code'], 0, 2);
