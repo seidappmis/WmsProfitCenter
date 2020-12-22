@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LogManifestDetail;
 use DB;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,70 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
+  protected function updateStockFromManifest(){
+    $manifest_details = \App\Models\LogManifestDetail::where('do_manifest_no', 'KRW-201021-001')->get();
+    $checkDetail = [];
+
+    $rs_storage = [];
+    foreach(\App\Models\StorageMaster::all() AS $key => $value){
+      $rs_storage[$value->sto_loc_code_long] = $value;
+    }
+    
+    DB::beginTransaction();
+    foreach($manifest_details AS $key => $detail){
+      $id = $detail->delivery_no . $detail->model;
+
+      if(empty($checkDetail[$id])) {
+        $checkDetail[$id] = $detail;
+        continue;
+      }
+
+      // Data Double
+      LogManifestDetail::destroy($detail->id);
+      $movement_transaction_log = \App\Models\MovementTransactionLog::where('do_manifest_no', $detail->do_manifest_no)
+      ->where('model', $detail->model)
+      ->where('quantity', $detail->quantity)
+      ->first();
+
+      echo 'Manifest No: ' . $movement_transaction_log->do_manifest_no;
+      echo ' Model: ' . $movement_transaction_log->model;
+      echo ' Quantity: ' . $movement_transaction_log->quantity;
+      echo '<br>';
+
+      // echo $rs_storage[$movement_transaction_log->storage_location_to]->id;
+      // DB::rollback(); exit;
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $rs_storage[$movement_transaction_log->storage_location_from]->id,
+          'model_name' => $movement_transaction_log->model,
+        ],
+        // Data Update
+        [
+          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $movement_transaction_log->quantity),
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $detail->cbm),
+          'last_updated'   => date('Y-m-d H:i:s'),
+        ]
+      );
+      // \App\Models\InventoryStorage::updateOrCreate(
+      //   // Condition
+      //   [
+      //     'storage_id' => $rs_storage[$movement_transaction_log->storage_location_to]->id,
+      //     'model_name' => $movement_transaction_log->model,
+      //   ],
+      //   // Data Update
+      //   [
+      //     'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $movement_transaction_log->quantity),
+      //     'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $detail->cbm),
+      //     'last_updated'   => date('Y-m-d H:i:s'),
+      //   ]
+      // );
+
+      $movement_transaction_log->delete();
+    }
+    DB::commit();
+  }
+
   protected function updateCBMLMB(){
     $lmb_details = \App\Models\LMBDetail::selectRaw('
       wms_lmb_detail.*,
@@ -50,10 +115,10 @@ class DataSynchronizationController extends Controller
       ->get();
 
     foreach($lmb_details AS $key => $value){
-      echo ' Model : ' . $value->model;
-      echo ' CBM UNIT : ' . $value->cbm_unit;
-      echo ' CBM UNIT PICKING : ' . $value->cbm_unit_picking_list;
-      echo "<br>";
+      // echo ' Model : ' . $value->model;
+      // echo ' CBM UNIT : ' . $value->cbm_unit;
+      // echo ' CBM UNIT PICKING : ' . $value->cbm_unit_picking_list;
+      // echo "<br>";
       $value->cbm_unit = $value->cbm_unit_picking_list;
       $value->save();
 
