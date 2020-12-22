@@ -9,9 +9,11 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-
-    $this->updateTable19Des2020();
-    $this->updateTable16Des2020();
+    $this->updateCBMLMB();
+    $this->updateCBMManifest();
+    $this->updateStockFromManifest();
+    // $this->updateTable19Des2020();
+    // $this->updateTable16Des2020();
     // $this->updateTable9Des2020();
     // $this->updateTable1Des2020();
     // $this->insertSummaryDGRMenu();
@@ -28,6 +30,60 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateCBMLMB(){
+    $lmb_details = \App\Models\LMBDetail::selectRaw('
+      wms_lmb_detail.*,
+      ROUND(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity, 3) AS cbm_unit_picking_list
+      ')
+      ->leftjoin('wms_pickinglist_detail', function($join){
+        $join->on('wms_pickinglist_detail.header_id', '=', 'wms_lmb_detail.picking_id');
+        $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+        $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
+        $join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_lmb_detail.delivery_items');
+      })
+      ->whereRaw('wms_lmb_detail.cbm_unit != ROUND(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity, 3)')
+      ->groupBy('wms_lmb_detail.serial_number')
+      // ->where('wms_lmb_detail.picking_id', 1020201111001)
+      ->get();
+
+    foreach($lmb_details AS $key => $value){
+      echo ' Model : ' . $value->model;
+      echo ' CBM UNIT : ' . $value->cbm_unit;
+      echo ' CBM UNIT PICKING : ' . $value->cbm_unit_picking_list;
+      echo "<br>";
+      $value->cbm_unit = $value->cbm_unit_picking_list;
+      $value->save();
+
+    }
+  }
+
+  protected function updateCBMManifest()
+  {
+    $manifest_details = \App\Models\LogManifestDetail::selectRaw('
+      log_manifest_detail.*,
+      wms_pickinglist_detail.cbm AS cbm_picking
+    ')->leftjoin('wms_pickinglist_detail', function($join){
+        $join->on('log_manifest_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('log_manifest_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('log_manifest_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+    })
+    ->whereRaw('log_manifest_detail.cbm != wms_pickinglist_detail.cbm')
+    ->get();
+
+    foreach($manifest_details AS $key => $value){
+      echo " Manifest No : " . $value->do_manifest_no;
+      echo " model : " . $value->model;
+      echo " CBM : " . $value->cbm;
+      echo " CBM Picking : " . $value->cbm_picking;
+      echo "<br>";
+
+      $value->cbm = $value->cbm_picking;
+      $value->nilai_cbm = $value->base_price * $value->cbm;
+      $value->save();
+    }
   }
 
   protected function updateTable19Des2020(){

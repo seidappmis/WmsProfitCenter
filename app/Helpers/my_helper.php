@@ -130,6 +130,20 @@ function get_select2_data($request, $query)
   return $data;
 }
 
+function getMysqlUpdateBulk($rs_data, $tablename, $primary, $value){
+  $queryRaw = "UPDATE $tablename SET $value = CASE";
+  $ids = [];
+  foreach ($rs_data AS $key => $data){
+    $queryRaw .= ' WHEN ' . $primary . ' = "' . $data[$primary] . '" THEN ' . $data[$value] . '';
+    $ids[] = $data[$primary];
+  }
+  $queryRaw .= ' END';
+  $queryRaw .= ' WHERE 1=1';
+
+  return $queryRaw;
+
+}
+
 function is_file_exist_public($filepathInPublic)
 {
   // if (file_exists(public_path() .'/storage/tender_req_document/'.$file_name_orginal)) {

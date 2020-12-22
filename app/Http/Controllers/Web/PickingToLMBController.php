@@ -523,6 +523,7 @@ class PickingToLMBController extends Controller
             'wms_pickinglist_detail.cbm',
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
+            DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS cbm_unit'),
             DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_q'),
             DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
             // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
@@ -623,7 +624,8 @@ class PickingToLMBController extends Controller
         $serial_number['driver_register_id'] = $rs_picking_list_details[$serial_number['ean_code']]->driver_register_id;
         $serial_number['created_by']         = auth()->user()->id;
 
-        $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
+        // $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
+        $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm_unit;
 
         if (empty($scan_summaries[$serial_number['ean_code']])) {
           $scan_summaries[$serial_number['ean_code']] = [
