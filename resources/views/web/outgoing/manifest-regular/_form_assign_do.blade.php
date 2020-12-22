@@ -9,7 +9,7 @@
             <div class="red-text">Use (Shift or Ctrl) + left click mouse for range multi select.</div>
             <b>From TCS</b>
             <table id="from-tcs-table" class="table-pick-list-result display">
-                <thead><tr><th>Delivery No | CBM | Qty | Model</th></tr></thead>
+                <thead><tr><th>Delivery No | CBM | Qty | Model | Ship to</th></tr></thead>
                 <tbody>
                 </tbody>
             </table>
@@ -119,7 +119,8 @@
                         return row.delivery_no + ' | ' 
                         + row.cbm + ' | '
                         + row.quantity + ' | '
-                        + row.model;
+                        + row.model + ' | '
+                        + row.city_name;
                     }
                     return data;
                 },
