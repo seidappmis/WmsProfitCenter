@@ -24,14 +24,7 @@ class BeritaAcaraController extends Controller
     if ($request->ajax()) {
       $query = BeritaAcara::select(
         'clm_berita_acara.*',
-        DB::raw('wms_branch_expedition.expedition_name AS expedition_name')
       )
-        ->leftjoin(
-          'wms_branch_expedition',
-          'wms_branch_expedition.code',
-          '=',
-          'clm_berita_acara.expedition_code'
-        )
         ->leftjoin(
           'log_cabang',
           'log_cabang.short_description',
@@ -41,20 +34,6 @@ class BeritaAcaraController extends Controller
         ->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang())
         ->orderBy('clm_berita_acara.created_at', 'DESC');
 
-      // if (!auth()->user()->cabang->hq) {
-      //   $query->where('clm_berita_acara.kode_cabang', auth()->user()->cabang->short_description);
-      // } else {
-      //   $query
-      //     ->leftjoin(
-      //       'log_cabang',
-      //       'log_cabang.short_description',
-      //       '=',
-      //       'clm_berita_acara.kode_cabang'
-      //     )
-      //     ->whereIn('log_cabang.kode_cabang', auth()->user()->getStringGrantCabang());
-      // }
-
-      // dd($query->toSql(), auth()->user()->cabang->short_description, auth()->user()->cabang->hq, auth()->user()->getStringGrantCabang());
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('action', function ($data) {
@@ -163,6 +142,7 @@ class BeritaAcaraController extends Controller
         $beritaAcara->berita_acara_no = $beritaAcaraNo;
         $beritaAcara->date_of_receipt = date('Y-m-d', strtotime($request->input('date_of_receipt')));
         $beritaAcara->expedition_code = $request->input('expedition_code');
+        $beritaAcara->expedition_name = $request->input('expedition_name');
         $beritaAcara->driver_name     = $request->input('driver_name');
         $beritaAcara->vehicle_number  = $request->input('vehicle_number');
         // File DO Manifest

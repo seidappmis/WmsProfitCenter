@@ -45,13 +45,22 @@ class SummaryClaimNoteController extends Controller
             ->select(
                'n.*',
                DB::raw("group_concat(DISTINCT bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
-               DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
+               // DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
                // 'e.expedition_name',
                'ba.date_of_receipt',
                'nd.destination',
                'ns.unit',
                'ns.sum_price',
-               'ns.sub_total'
+               'ns.sub_total',
+               'ns.sum_qty',
+               DB::raw("group_concat(DISTINCT ba.expedition_name SEPARATOR ', ') as expedition_name"),
+               DB::raw("group_concat(DISTINCT ba.driver_name SEPARATOR ', ') as driver_name"),
+               DB::raw("group_concat(DISTINCT ba.vehicle_number SEPARATOR ', ') as vehicle_number"),
+               DB::raw("group_concat(DISTINCT bad.do_no SEPARATOR ', ') as do_no"),
+               DB::raw("group_concat(DISTINCT bad.model_name SEPARATOR ', ') as model_name"),
+               DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR ', ') as serial_number"),
+               DB::raw("group_concat(DISTINCT bad.qty SEPARATOR ', ') as qty"),
+               DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
             )
             ->whereNotNull('n.submit_date');
          // dd($query->get());
@@ -140,27 +149,41 @@ class SummaryClaimNoteController extends Controller
 
    public function export(Request $request)
    {
+
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
       $sheet       = $spreadsheet->getActiveSheet();
 
       $sheet->setCellValue('A1', 'NO')->mergeCells('A1:A2');
       $sheet->setCellValue('B1', 'Berita Acara No')->mergeCells('B1:B2');
       $sheet->setCellValue('C1', 'Claim Note')->mergeCells('C1:C2');
-      $sheet->setCellValue('D1', 'Total')->mergeCells('D1:D2');
-      $sheet->setCellValue('E1', 'Send to Management')->mergeCells('E1:E2');
-      $sheet->setCellValue('F1', 'Approval Date')->mergeCells('F1:G1');
-      $sheet->setCellValue('H1', 'Admin Process');
-      $sheet->setCellValue('I1', 'Date Picking Expedition')->mergeCells('I1:I2');
-      $sheet->setCellValue('J1', 'Admin Process');
-      $sheet->setCellValue('K1', 'Remarks')->mergeCells('K1:K2');
+      $sheet->setCellValue('D1', 'Date Of Incident')->mergeCells('D1:D2');
+      $sheet->setCellValue('E1', 'Reporting Date')->mergeCells('E1:E2');
+      $sheet->setCellValue('F1', 'Expedition Name')->mergeCells('F1:F2');
+      $sheet->setCellValue('G1', 'Driver')->mergeCells('G1:G2');
+      $sheet->setCellValue('H1', 'Vehicle No')->mergeCells('H1:H2');
+      $sheet->setCellValue('I1', 'Destination')->mergeCells('I1:I2');
+      $sheet->setCellValue('J1', 'Do No')->mergeCells('J1:J2');
+      $sheet->setCellValue('K1', 'Model')->mergeCells('K1:K2');
+      $sheet->setCellValue('L1', 'Serial No')->mergeCells('L1:L2');
+      $sheet->setCellValue('M1', 'Qty')->mergeCells('M1:M2');
+      $sheet->setCellValue('N1', 'Damage Descritption')->mergeCells('N1:N2');
+      $sheet->setCellValue('O1', 'Claim')->mergeCells('O1:O2');
+      $sheet->setCellValue('P1', 'Price')->mergeCells('P1:P2');
+      $sheet->setCellValue('Q1', 'Total')->mergeCells('Q1:Q2');
+      $sheet->setCellValue('R1', 'Send to Management')->mergeCells('R1:R2');
+      $sheet->setCellValue('S1', 'Approval Date')->mergeCells('S1:T1');
+      $sheet->setCellValue('U1', 'Admin Prces');
+      $sheet->setCellValue('V1', 'Date Picking Expedition')->mergeCells('V1:V2');
+      $sheet->setCellValue('W1', 'Admin Prces');
+      $sheet->setCellValue('X1', 'Remarks')->mergeCells('X1:X2');
 
-      $sheet->setCellValue('F2', 'Start');
-      $sheet->setCellValue('G2', 'Finish');
-      $sheet->setCellValue('H2', 'SO Issue Date');
-      $sheet->setCellValue('J2', 'DN Issue');
+      $sheet->setCellValue('S2', 'Start');
+      $sheet->setCellValue('T2', 'Finish');
+      $sheet->setCellValue('U2', 'SO Issue Date');
+      $sheet->setCellValue('W2', 'DN Issue');
 
       // getPHPSpreadsheetTitleStyle() ada di wms Helper
-      $sheet->getStyle('A1:K2')->applyFromArray(getPHPSpreadsheetTitleStyle());
+      $sheet->getStyle('A1:X2')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
 
       $claimNoteSubQuery = ClaimNoteDetail::select(
@@ -186,15 +209,26 @@ class SummaryClaimNoteController extends Controller
          ->select(
             'n.*',
             DB::raw("group_concat(DISTINCT bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
-            DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
+            // DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
             // 'e.expedition_name',
             'ba.date_of_receipt',
             'nd.destination',
             'ns.unit',
             'ns.sum_price',
-            'ns.sub_total'
+            'ns.sub_total',
+            'ns.sum_qty',
+            DB::raw("group_concat(DISTINCT ba.expedition_name SEPARATOR ', ') as expedition_name"),
+            DB::raw("group_concat(DISTINCT ba.driver_name SEPARATOR ', ') as driver_name"),
+            DB::raw("group_concat(DISTINCT ba.vehicle_number SEPARATOR ', ') as vehicle_number"),
+            DB::raw("group_concat(DISTINCT bad.do_no SEPARATOR ', ') as do_no"),
+            DB::raw("group_concat(DISTINCT bad.model_name SEPARATOR ', ') as model_name"),
+            DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR ', ') as serial_number"),
+            DB::raw("group_concat(DISTINCT bad.qty SEPARATOR ', ') as qty"),
+            DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
          )
-         ->whereNotNull('n.submit_date')->get();
+         ->whereNotNull('n.submit_date')
+         ->whereIn('n.id', $request->data)
+         ->get();
 
       $row = 3;
       foreach ($data as $key => $value) {
@@ -202,6 +236,19 @@ class SummaryClaimNoteController extends Controller
          $sheet->setCellValue(($col++) . $row, ($key + 1));
          $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
          $sheet->setCellValue(($col++) . $row, $value->claim_note_no);
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->tanggal_kejadian));
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->insurance_date));
+         $sheet->setCellValue(($col++) . $row, $value->expedition_name);
+         $sheet->setCellValue(($col++) . $row, $value->driver_name);
+         $sheet->setCellValue(($col++) . $row, $value->vehicle_number);
+         $sheet->setCellValue(($col++) . $row, $value->vehicle_number);
+         $sheet->setCellValue(($col++) . $row, $value->do_no);
+         $sheet->setCellValue(($col++) . $row, $value->model_name);
+         $sheet->setCellValue(($col++) . $row, $value->serial_number);
+         $sheet->setCellValue(($col++) . $row, $value->sum_qty);
+         $sheet->setCellValue(($col++) . $row, $value->description);
+         $sheet->setCellValue(($col++) . $row, $value->claim);
+         $sheet->setCellValue(($col++) . $row, $value->sum_price);
          $sheet->setCellValue(($col++) . $row, $value->sub_total);
          $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->send_to_management));
          $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->approval_start_date));
@@ -232,5 +279,6 @@ class SummaryClaimNoteController extends Controller
       }
 
       $writer->save("php://output");
+      
    }
 }

@@ -25,7 +25,7 @@
 
    <div class="col s12 pt-3">
       <div class="container">
-         <a href="{{url('summary-claim-notes/0/export?file_type=excel')}}" class="waves-effect waves-light indigo btn"><i class="material-icons left">file_download</i>Excel</a>
+         <button class="waves-effect waves-light indigo btn " id="btn-download-excel"><i class="material-icons left">file_download</i>Excel</button>
          <div class="section">
             <div class="card mb-0">
                <div class="card-content p-0" id="body">
@@ -33,9 +33,22 @@
                      <table id="data-table" class="display" width="100%">
                         <thead>
                            <tr>
-                              <th rowspan="2" class="center-align" data-priority="1" width="30px">No</th>
+                              <th rowspan="2" class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
                               <th rowspan="2" class="center-align">Berita Acara No.</th>
                               <th rowspan="2" class="center-align">Claim Note</th>
+                              <th rowspan="2" class="center-align">Date Of Incident</th>
+                              <th rowspan="2" class="center-align">Reporting Date</th>
+                              <th rowspan="2" class="center-align">Expedition Name</th>
+                              <th rowspan="2" class="center-align">Driver</th>
+                              <th rowspan="2" class="center-align">Vehicle No</th>
+                              <th rowspan="2" class="center-align">Destination</th>
+                              <th rowspan="2" class="center-align">Do No</th>
+                              <th rowspan="2" class="center-align">Model</th>
+                              <th rowspan="2" class="center-align">Serial No</th>
+                              <th rowspan="2" class="center-align">Qty</th>
+                              <th rowspan="2" class="center-align">Damage Descritption</th>
+                              <th rowspan="2" class="center-align">Claim</th>
+                              <th rowspan="2" class="center-align">Price</th>
                               <th rowspan="2" class="center-align">Total</th>
                               <th rowspan="2" class="center-align">Send to Management</th>
                               <th colspan="2" class="center-align">Approval Date</th>
@@ -100,10 +113,13 @@
       },
       order: [1, 'asc'],
       columns: [{
-            data: 'DT_RowIndex',
-            orderable: false,
-            searchable: false,
-            className: 'center-align'
+               data: 'id',
+               orderable: false,
+               searchable: false,
+               render: function(data, type, row) {
+                  return '<label><input type="checkbox" name="outstanding[]" value="' + data + '" class="checkbox checkbox-outstanding"><span></span></label>';
+               },
+               className: "datatable-checkbox-cell"
          },
          {
             data: 'berita_acara_group',
@@ -116,6 +132,85 @@
          {
             data: 'claim_note_no',
             name: ' n.claim_note_no'
+         },
+         {
+            data: 'tanggal_kejadian',
+            searchable: false,
+            render: function(data, type, row) {
+               return  (data ? moment(data).format('Y-M-DD') : '');
+            },
+            className: 'center-align'
+         },
+         {
+            data: 'insurance_date',
+            searchable: false,
+            render: function(data, type, row) {
+               return  (data ? moment(data).format('Y-M-DD') : '');
+            },
+            className: 'center-align'
+         },
+         {
+            data: 'expedition_name',
+            searchable: false,
+         },
+         {
+            data: 'driver_name',
+            searchable: false,
+         },
+         {
+            data: 'vehicle_number',
+            searchable: false,
+         },
+         {
+            data: 'vehicle_number',
+            searchable: false,
+         },
+         {
+            data: 'do_no',
+            searchable: false,
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
+            },
+         },
+         {
+            data: 'model_name',
+            searchable: false,
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
+            },
+         },
+         {
+            data: 'serial_number',
+            searchable: false,
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
+            },
+         },
+         {
+            data: 'sum_qty',
+            searchable: false,
+            className: 'right-align'
+         },
+         {
+            data: 'description',
+            searchable: false,
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
+            },
+         },
+         {
+            data: 'claim',
+            searchable: false,
+            render: function(data, type, row) {
+               return data ? data.split(",").join("<br>") : '';
+            },
+         },
+         {
+            data: 'sum_price',
+            searchable: false,
+            render: function(data, type, row) {
+               return format_currency(data);
+            },
          },
          {
             data: 'sub_total',
@@ -245,6 +340,24 @@
    });
 
 
+   $('#btn-download-excel').click(function(){
+      
+      // var checkedData = $();
+      var url = "{{url('summary-claim-notes/0/export')}}"+'?file_type=excel',
+      data='';
+      $('#data-table tbody input[type=checkbox]:checked').each(function() {
+            var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+            // array = generateArray(row, 'carton-box');
+            data+='&data[]='+row.id;
+      });
+      
+      if (!data) {
+         showSwalAutoClose("Error",'No selected data');
+         return;
+      }
+      window.location.href = url+data;
+   });
+            
    dtOutstanding.on('click', '.btn-save', function(event) {
       event.preventDefault();
       /* Act on the event */
