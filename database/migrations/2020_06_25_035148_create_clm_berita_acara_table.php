@@ -24,6 +24,7 @@ class CreateClmBeritaAcaraTable extends Migration
             $table->string('internal_do')->nullable();
             $table->string('lmb')->nullable();
             $table->string('kode_cabang', 3)->nullable();
+            $table->string('expedition_name', 100)->nullable();
             $table->integer('submit_by')->nullable();
             $table->datetime('submit_date')->nullable();
 

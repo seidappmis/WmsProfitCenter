@@ -14,6 +14,11 @@
       <td colspan="3" style="text-align: right; width:30%;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
    </tr>
    <tr>
+      <td colspan="7"></td>
+      <td style="width: 5mm;">&nbsp;</td>
+      <td colspan="3" style="text-align: right; width:30%;"><strong>{{$claimInsurance->branch}} {{date('M Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
+   </tr>
+   <tr>
       <td style="width: 5mm;">&nbsp;</td>
       <td colspan="4" style="border-left: 1pt solid red;"><strong>1st Report</strong></td>
       <td colspan="4" style="border-left: 1pt solid red;"><strong>2nd Report</strong></td>
@@ -22,6 +27,12 @@
       <td colspan="7">
          <!-- <strong> : Wh Medan Des 2019</strong> -->
       </td>
+   </tr>
+   <tr>
+      <td colspan="18" style="color: red;">Shall be reported to HO &amp; Insurance <u> within 2 days</u> after the accident Shall be reported to HO and Insurance within </td>
+   </tr>
+   <tr>
+      <td colspan="18" style="color: red;"><u>within a week</u> after the accident happened</td>
    </tr>
    <tr>
       <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 5mm; text-align: center;"><strong>NO</strong></td>
@@ -61,7 +72,7 @@
       <td style="border: 1pt solid #000000; text-align: right;">{{money_currency($v->qty*$v->price)}}</td>
       <td style="border: 1pt solid #000000; text-align: left;">{{$v->description}}</td>
       <td style="border: 1pt solid #000000; text-align: left;">{{$v->location}}</td>
-      <td style="border: 1pt solid #000000; text-align: center;"></td>
+      <td style="border: 1pt solid #000000; text-align: center;">{{!empty($value->photo_url)?'<img src="public/storage/'. $value->photo_url.'" width="200px" alt="">':'-'}}</td>
       <td style="border: 1pt solid #000000; text-align: left;">{{$v->keterangan}}</td>
       {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
       {{-- <td style="border: 1pt solid #000000; text-align: left;"></td> --}}
