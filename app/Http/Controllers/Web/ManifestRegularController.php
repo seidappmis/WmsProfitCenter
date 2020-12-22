@@ -499,6 +499,17 @@ class ManifestRegularController extends Controller
         ->where('delivery_items', $value['delivery_items'])
         ->where('model', $value['model'])->first();
 
+      // Cek Manifest Detail
+      if(!empty(LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
+        ->where('delivery_no', $value['delivery_no'])
+        ->where('invoice_no', $value['invoice_no'])
+        ->where('delivery_items', $value['delivery_items'])
+        ->where('line_no', $value['line_no'])
+        ->first()
+      )) {
+        continue;
+      }
+
       $manifestDetail['do_manifest_no'] = $request->input('do_manifest_no');
       // $manifestDetail['no_urut']             = '';
       $manifestDetail['delivery_no']     = $value['delivery_no'];

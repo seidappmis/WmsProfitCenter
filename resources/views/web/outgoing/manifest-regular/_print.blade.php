@@ -146,7 +146,7 @@
           <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
           <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{setDecimal($vm->cbm / $vm->quantity)}}</td>
           <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
-          <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->cbm}}</td>
+          <td style="{{ count($vd['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{setDecimal($vm->cbm)}}</td>
         </tr>
         @endforeach
 
@@ -157,7 +157,7 @@
           <td style="text-align: right;">{{$sub_total_qty}}</td>
           <td style="width: 5mm;"></td>
           <td style="width: 5mm;"></td>
-          <td colspan="2" style="text-align: right;">{{$sub_total_cbm}}</td>
+          <td colspan="2" style="text-align: right;">{{setDecimal($sub_total_cbm)}}</td>
         </tr>
         @php
         $start_do++;
