@@ -120,7 +120,7 @@
                         + row.cbm + ' | '
                         + row.quantity + ' | '
                         + row.model + ' | '
-                        + row.city_name;
+                        + row.ship_to;
                     }
                     return data;
                 },
