@@ -353,8 +353,8 @@ class DamageGoodsReportController extends Controller
 
             // Generate No. dgr :  001/DR -HQ-XII/2019
             $date = date('Y-m-d');
-      
-            if(date('d') > 15){
+
+            if (date('d') > 15) {
               $date = date('Y-m-d', strtotime('+1 month'));
             }
 
@@ -363,7 +363,7 @@ class DamageGoodsReportController extends Controller
               $arrDuringNo = explode('/', $data[0]['berita_acara_during_no']);
               $code = explode('-', $arrDuringNo[1])[0];
             }
-            
+
             $format = "%s/" . $code . "-HQ-" . $this->rome((int) date('m', strtotime($date))) . "/" . date('Y', strtotime($date));
 
             $lastNo = DB::table('dur_dgr')
@@ -554,5 +554,12 @@ class DamageGoodsReportController extends Controller
     $query = DamageGoodsReport::select('id', 'dgr_no AS text');
 
     return get_select2_data($req, $query);
+  }
+
+  public function show(Request $request, $id)
+  {
+    $data['dgr'] = DamageGoodsReport::where('id', $id)->first();
+
+    return view('web.during.damage-goods-report.view', $data);
   }
 }

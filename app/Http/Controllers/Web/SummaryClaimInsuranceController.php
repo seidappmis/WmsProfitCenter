@@ -120,46 +120,80 @@ class SummaryClaimInsuranceController extends Controller
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
       $sheet       = $spreadsheet->getActiveSheet();
 
-      $sheet->setCellValue('A1', 'NO');
-      $sheet->setCellValue('B1', 'Berita Acara No');
-      $sheet->setCellValue('C1', 'Insurance Date');
-      $sheet->setCellValue('D1', 'Total');
-      $sheet->setCellValue('E1', 'Payment Date');
-      $sheet->setCellValue('F1', 'Remark');
+      $sheet->setCellValue('A1', 'Month');
+      $sheet->setCellValue('B1', 'NO');
+      $sheet->setCellValue('C1', 'Serial Number');
+      $sheet->setCellValue('D1', 'Product');
+      $sheet->setCellValue('E1', 'Qty');
+      $sheet->setCellValue('F1', 'Curr');
+      $sheet->setCellValue('G1', 'Price/Unit');
+      $sheet->setCellValue('H1', 'Total');
+      $sheet->setCellValue('I1', 'Nature of Loss');
+      $sheet->setCellValue('J1', 'Location');
+      $sheet->setCellValue('K1', 'Brach');
+      $sheet->setCellValue('L1', 'Claim Report');
+      $sheet->setCellValue('M1', 'Payment Date');
+      $sheet->setCellValue('N1', 'Remark');
 
       // getPHPSpreadsheetTitleStyle() ada di wms Helper
-      $sheet->getStyle('A1:F1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+      $sheet->getStyle('A1:N1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
 
 
 
-      $data = ClaimInsurance::from('clm_claim_insurance AS i')
+      $data =  ClaimInsurance::from('clm_claim_insurance AS i')
          ->leftJoin('clm_claim_insurance_detail AS id', 'id.claim_insurance_id', '=', 'i.id')
          ->leftJoin('clm_berita_acara_detail AS bad', 'bad.claim_insurance_detail_id', '=', 'id.id')
          ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
          ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
          ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'id.model_name')
+         ->leftJoin('log_cabang AS lc', 'lc.short_description', '=', 'ba.kode_cabang')
          ->orderBy('i.created_at', 'DESC')
-         ->groupBy('i.id')
-         ->whereNotNull('i.submit_date')
          ->select(
-            'i.id',
-            'i.insurance_date',
-            'i.payment_date',
-            'i.remark',
-            DB::raw("group_concat(bad.berita_acara_no SEPARATOR '\n') as berita_acara_group"),
-            DB::raw('SUM(IF(id.price > 0 , id.price*id.qty , m.price_carton_box*id.qty)) AS total')
-         )->get();
+            'i.*',
+            'e.expedition_name',
+            'ba.date_of_receipt',
+            'ba.berita_acara_no',
+            'bad.photo_url',
+            'bad.keterangan',
+            'id.location',
+            'id.driver_name',
+            'id.vehicle_number',
+            'id.do_no',
+            'id.model_name',
+            'id.serial_number',
+            'id.description',
+            'id.qty',
+            'id.price',
+            'id.id AS claim_insurance_detail',
+            'm.price_carton_box',
+            'lc.long_description as nama_cabang'
+         )
+         ->whereIn('i.id', $request->data)
+         ->get()->toArray();
 
       $row = 2;
       foreach ($data as $key => $value) {
          $col = 'A';
+         $price = $value['price'];
+         if ($value['description'] == 'Carton Box Damage' && empty($value['price'])) {
+            $price = $value['price_carton_box'];
+         };
+
+         $sheet->setCellValue(($col++) . $row, date('M-Y'));
          $sheet->setCellValue(($col++) . $row, ($key + 1));
-         $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
-         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->insurance_date));
-         $sheet->setCellValue(($col++) . $row, $value->total);
-         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->payment_date));
-         $sheet->setCellValue(($col++) . $row, $value->remark);
+         $sheet->setCellValue(($col++) . $row, $value['serial_number']);
+         $sheet->setCellValue(($col++) . $row, $value['model_name']);
+         $sheet->setCellValue(($col++) . $row, $value['qty']);
+         $sheet->setCellValue(($col++) . $row, 'IDR');
+         $sheet->setCellValue(($col++) . $row, $price);
+         $sheet->setCellValue(($col++) . $row, $price * $value['qty']);
+         $sheet->setCellValue(($col++) . $row, $value['description']);
+         $sheet->setCellValue(($col++) . $row, $value['location']);
+         $sheet->setCellValue(($col++) . $row, $value['nama_cabang']);
+         $sheet->setCellValue(($col++) . $row, $value['claim_report']);
+         $sheet->setCellValue(($col++) . $row, !empty($value['payment_date']) ? format_tanggal_jam_wms($value['payment_date']) : '-');
+         $sheet->setCellValue(($col++) . $row, $value['remark']);
          $row++;
       }
 

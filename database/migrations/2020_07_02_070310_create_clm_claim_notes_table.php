@@ -27,6 +27,7 @@ class CreateClmClaimNotesTable extends Migration
             $table->datetime("date_picking_expedition")->nullable();
             $table->string("dn_issue")->nullable();
             $table->string("remarks")->nullable();
+            $table->string('kode_cabang', 3)->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // damage goods report
   Route::get('/damage-goods-report', 'Web\DamageGoodsReportController@index');
+  // Route::get('/damage-goods-report/{id}', 'Web\DamageGoodsReportController@show');
   Route::get('/damage-goods-report/list-outstanding', 'Web\DamageGoodsReportController@listOutstanding'); //get datatable outstanding
   Route::get('/damage-goods-report/list-damage-goods-report', 'Web\DamageGoodsReportController@listDGR'); //get datatable detail
   Route::get('/damage-goods-report/{id}/print', 'Web\DamageGoodsReportController@export');

@@ -25,7 +25,7 @@
 
    <div class="col s12 pt-3" id="body">
       <div class="container">
-         <a href="{{url('summary-claim-insurance/0/export?file_type=excel')}}" class="waves-effect waves-light indigo btn"><i class="material-icons left">file_download</i>Excel</a>
+         <button class="waves-effect waves-light indigo btn " id="btn-download-excel"><i class="material-icons left">file_download</i>Excel</button>
          <div class="section">
             <div class="card mb-0">
                <div class="card-content p-0">
@@ -33,7 +33,7 @@
                      <table id="data-table" class="display" width="100%">
                         <thead>
                            <tr>
-                              <th class="center-align" data-priority="1" width="30px">No</th>
+                              <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
                               <th class="center-align">Berita Acara No.</th>
                               <th class="center-align">Insurance Date</th>
                               <th class="center-align">Total</th>
@@ -65,9 +65,12 @@
       },
       // order: [1, 'asc'],
       columns: [{
-            data: 'DT_RowIndex',
+            data: 'id',
             orderable: false,
             searchable: false,
+            render: function(data, type, row) {
+               return '<label><input type="checkbox" name="outstanding[]" value="' + data + '" class="checkbox checkbox-outstanding"><span></span></label>';
+            },
             className: 'center-align'
          },
          {
@@ -102,7 +105,7 @@
             data: 'remark',
             searchable: false,
             render: function(data, type, row) {
-               return '<textarea name="remark" style="resize: vertical;width:200px;height:50px;">' + (data ? data : '') + '</textarea>';
+               return '<textarea name="remark" style="resize: vertical;width:98%;height:50px;">' + (data ? data : '') + '</textarea>';
             }
          },
          {
@@ -125,11 +128,31 @@
          $('.mask-currency').inputmask('currency');
       }
    });
+
    jQuery(document).ready(function($) {
 
       set_datatables_checkbox('#data-table', dtOutstanding)
 
    });
+
+   $('#btn-download-excel').click(function() {
+
+      // var checkedData = $();
+      var url = "{{url('summary-claim-insurance/0/export?file_type=excel')}}" + '?file_type=excel',
+         data = '';
+      $('#data-table tbody input[type=checkbox]:checked').each(function() {
+         var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
+         // array = generateArray(row, 'carton-box');
+         data += '&data[]=' + row.id;
+      });
+
+      if (!data) {
+         showSwalAutoClose("Error", 'No selected data');
+         return;
+      }
+      window.location.href = url + data;
+   });
+
 
    var initComplete = function() {
       $('.datepicker').datepicker({

@@ -168,6 +168,7 @@ class ClaimNoteController extends Controller
             $claimNoteID = ClaimNote::insertGetId([
               'claim_note_no' => $claim_note_no,
               'claim'         => $req->type,
+              'kode_cabang'   => auth()->user()->cabang->short_description,
               'created_by'    => auth()->user()->id,
               'created_at'    => date('Y-m-d H:i:s'),
             ]);
