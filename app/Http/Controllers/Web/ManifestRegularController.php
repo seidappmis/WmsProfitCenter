@@ -21,20 +21,24 @@ class ManifestRegularController extends Controller
   {
     if ($request->ajax()) {
       $query = LogManifestHeader::select(
-        'driver_register_id',
+        'log_manifest_header.driver_register_id',
         'log_manifest_header.status_complete',
-        DB::raw('do_manifest_no AS first_do_manifest_no'),
-        DB::raw('GROUP_CONCAT(do_manifest_no SEPARATOR ", <br>") AS do_manifest_no'),
-        DB::raw('GROUP_CONCAT(expedition_name SEPARATOR ", <br>") AS expedition_name'),
-        DB::raw('GROUP_CONCAT(city_name SEPARATOR ", <br>") AS city_name'),
-        DB::raw('GROUP_CONCAT(vehicle_number SEPARATOR ", <br>") AS vehicle_number'),
-
+        DB::raw('log_manifest_header.do_manifest_no AS first_do_manifest_no'),
+        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.do_manifest_no SEPARATOR ", <br>") AS do_manifest_no'),
+        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.expedition_name SEPARATOR ", <br>") AS expedition_name'),
+        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.city_name SEPARATOR ", <br>") AS city_name'),
+        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.vehicle_number SEPARATOR ", <br>") AS vehicle_number'),
+        // DB::raw('COUNT(wms_pickinglist_detail.id) AS total_detail_tcs_do'),
+        // DB::raw('COUNT(log_manifest_detail.id) AS countManifestDO'),
+        // DB::raw('SUM(IF(log_manifest_detail.status_confirm = 0, 1, 0)) AS countUnconfirmDetail')
       )
-      // ->where('city_name', '<>', 'Ambil Sendiri')
-        ->where('ambil_sendiri', 0)
-        ->where('area', $request->input('area'))
-        ->groupBy('driver_register_id')
-      ;
+        // ->where('city_name', '<>', 'Ambil Sendiri')
+        // ->leftjoin('log_manifest_detail', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        // ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
+        // ->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+        ->where('log_manifest_header.ambil_sendiri', 0)
+        ->where('log_manifest_header.area', $request->input('area'))
+        ->groupBy('log_manifest_header.driver_register_id');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -42,6 +46,7 @@ class ManifestRegularController extends Controller
           return $data->picking->picking_no;
         })
         ->addColumn('status', function ($data) {
+          // return LogManifestHeader::status($data);
           return $data->status();
         })
         ->addColumn('action', function ($data) {
@@ -60,8 +65,7 @@ class ManifestRegularController extends Controller
   public function listDO(Request $request, $do_manifest_no)
   {
     if ($request->ajax()) {
-      $query = LogManifestDetail::listDO($do_manifest_no)
-      ;
+      $query = LogManifestDetail::listDO($do_manifest_no);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -300,8 +304,7 @@ class ManifestRegularController extends Controller
       ->leftjoin('log_manifest_header', 'log_manifest_header.r_driver_register_id', '=', 'tr_driver_registered.id')
       ->whereNull('log_manifest_header.driver_register_id')
       ->whereNull('wms_pickinglist_header.driver_register_id')
-      ->whereNull('datetime_out')
-    ;
+      ->whereNull('datetime_out');
 
     return get_select2_data($request, $query);
   }
@@ -470,7 +473,6 @@ class ManifestRegularController extends Controller
       return sendSuccess("Selected DO deleted.", $rs_id);
     } catch (Exception $e) {
       DB::rollback();
-
     }
   }
 
@@ -500,13 +502,12 @@ class ManifestRegularController extends Controller
         ->where('model', $value['model'])->first();
 
       // Cek Manifest Detail
-      if(!empty(LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
+      if (!empty(LogManifestDetail::where('do_manifest_no', $request->input('do_manifest_no'))
         ->where('delivery_no', $value['delivery_no'])
         ->where('invoice_no', $value['invoice_no'])
         ->where('delivery_items', $value['delivery_items'])
         ->where('line_no', $value['line_no'])
-        ->first()
-      )) {
+        ->first())) {
         continue;
       }
 
@@ -573,7 +574,6 @@ class ManifestRegularController extends Controller
       DB::commit();
 
       return sendSuccess('Success submit to logsys', $manifestHeader);
-
     } catch (Exception $e) {
       DB::rollBack();
     }
@@ -719,7 +719,8 @@ class ManifestRegularController extends Controller
     $title      = 'Manifest Reguler';
 
     if ($request->input('filetype') == 'html') {
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
         'margin_top'                      => 60,
@@ -731,7 +732,6 @@ class ManifestRegularController extends Controller
 
       $mpdf->Output();
       return;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
@@ -769,11 +769,11 @@ class ManifestRegularController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
         'margin_top'                      => 60,
@@ -783,7 +783,6 @@ class ManifestRegularController extends Controller
 
       $mpdf->WriteHTML($view_print);
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);

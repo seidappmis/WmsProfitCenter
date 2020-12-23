@@ -51,6 +51,10 @@ class CompleteController extends Controller
         })
         ->rawColumns(['status', 'vehicle_number', 'do_manifest_no', 'do_status', 'action']);
 
+      $datatables->orderColumn('status', function ($query, $order) {
+        $query->orderBy('log_manifest_header.status_complete');
+      });
+
       return $datatables->make(true);
     }
 
@@ -60,8 +64,8 @@ class CompleteController extends Controller
   public function show($id)
   {
     $data['rsManifestHeader'] = LogManifestHeader::where('driver_register_id', $id)
-    ->where('manifest_type', '!=', 'LCL')
-    ->get();
+      ->where('manifest_type', '!=', 'LCL')
+      ->get();
 
     if (empty($data['rsManifestHeader'])) {
       abort(404);
@@ -111,6 +115,5 @@ class CompleteController extends Controller
     } catch (Exception $e) {
       DB::rollBack();
     }
-
   }
 }
