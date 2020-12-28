@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateTable22Des2020();
+    $this->updateCreateByPickinglist();
+    // $this->updateTable22Des2020();
     $this->updateCBMLMB();
     $this->updateCBMManifest();
     $this->updateStockFromManifest();
@@ -34,7 +35,27 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
-  protected function updateTable22Des2020(){
+  protected function updateCreateByPickinglist()
+  {
+    $rs_pickingListHeader = \App\Models\PickinglistHeader::select(
+      'wms_pickinglist_header.*',
+      DB::raw('tr_concept_flow_header.created_by AS concept_created_by')
+    )
+      ->leftjoin('tr_concept_flow_header', 'tr_concept_flow_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
+      ->whereNotNull('tr_concept_flow_header.driver_register_id')
+      ->whereNull('wms_pickinglist_header.created_by')->get();
+
+    foreach ($rs_pickingListHeader as $key => $value) {
+      echo $value->picking_no;
+      echo '<br>';
+
+      $value->created_by = $value->concept_created_by;
+      $value->save();
+    }
+  }
+
+  protected function updateTable22Des2020()
+  {
     echo "update clm_berita_acara";
     DB::statement('ALTER TABLE `clm_berita_acara` 
     ADD COLUMN `expedition_name` VARCHAR(100) NULL DEFAULT NULL AFTER `kode_cabang`,
@@ -49,20 +70,21 @@ class DataSynchronizationController extends Controller
     CHANGE COLUMN `cargo_description` `cargo_description` VARCHAR(255) NULL DEFAULT NULL');
   }
 
-  protected function updateStockFromManifest(){
+  protected function updateStockFromManifest()
+  {
     $manifest_details = \App\Models\LogManifestDetail::where('do_manifest_no', 'KRW-201021-001')->get();
     $checkDetail = [];
 
     $rs_storage = [];
-    foreach(\App\Models\StorageMaster::all() AS $key => $value){
+    foreach (\App\Models\StorageMaster::all() as $key => $value) {
       $rs_storage[$value->sto_loc_code_long] = $value;
     }
-    
+
     DB::beginTransaction();
-    foreach($manifest_details AS $key => $detail){
+    foreach ($manifest_details as $key => $detail) {
       $id = $detail->delivery_no . $detail->model;
 
-      if(empty($checkDetail[$id])) {
+      if (empty($checkDetail[$id])) {
         $checkDetail[$id] = $detail;
         continue;
       }
@@ -70,9 +92,9 @@ class DataSynchronizationController extends Controller
       // Data Double
       LogManifestDetail::destroy($detail->id);
       $movement_transaction_log = \App\Models\MovementTransactionLog::where('do_manifest_no', $detail->do_manifest_no)
-      ->where('model', $detail->model)
-      ->where('quantity', $detail->quantity)
-      ->first();
+        ->where('model', $detail->model)
+        ->where('quantity', $detail->quantity)
+        ->first();
 
       echo 'Manifest No: ' . $movement_transaction_log->do_manifest_no;
       echo ' Model: ' . $movement_transaction_log->model;
@@ -113,12 +135,13 @@ class DataSynchronizationController extends Controller
     DB::commit();
   }
 
-  protected function updateCBMLMB(){
+  protected function updateCBMLMB()
+  {
     $lmb_details = \App\Models\LMBDetail::selectRaw('
       wms_lmb_detail.*,
       ROUND(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity, 3) AS cbm_unit_picking_list
       ')
-      ->leftjoin('wms_pickinglist_detail', function($join){
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
         $join->on('wms_pickinglist_detail.header_id', '=', 'wms_lmb_detail.picking_id');
         $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
         $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
@@ -130,14 +153,13 @@ class DataSynchronizationController extends Controller
       // ->where('wms_lmb_detail.picking_id', 1020201111001)
       ->get();
 
-    foreach($lmb_details AS $key => $value){
+    foreach ($lmb_details as $key => $value) {
       // echo ' Model : ' . $value->model;
       // echo ' CBM UNIT : ' . $value->cbm_unit;
       // echo ' CBM UNIT PICKING : ' . $value->cbm_unit_picking_list;
       // echo "<br>";
       $value->cbm_unit = $value->cbm_unit_picking_list;
       $value->save();
-
     }
   }
 
@@ -146,15 +168,15 @@ class DataSynchronizationController extends Controller
     $manifest_details = \App\Models\LogManifestDetail::selectRaw('
       log_manifest_detail.*,
       wms_pickinglist_detail.cbm AS cbm_picking
-    ')->leftjoin('wms_pickinglist_detail', function($join){
-        $join->on('log_manifest_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
-        $join->on('log_manifest_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
-        $join->on('log_manifest_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+    ')->leftjoin('wms_pickinglist_detail', function ($join) {
+      $join->on('log_manifest_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+      $join->on('log_manifest_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+      $join->on('log_manifest_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
     })
-    ->whereRaw('log_manifest_detail.cbm != wms_pickinglist_detail.cbm')
-    ->get();
+      ->whereRaw('log_manifest_detail.cbm != wms_pickinglist_detail.cbm')
+      ->get();
 
-    foreach($manifest_details AS $key => $value){
+    foreach ($manifest_details as $key => $value) {
       echo " Manifest No : " . $value->do_manifest_no;
       echo " model : " . $value->model;
       echo " CBM : " . $value->cbm;
@@ -167,7 +189,8 @@ class DataSynchronizationController extends Controller
     }
   }
 
-  protected function updateTable19Des2020(){
+  protected function updateTable19Des2020()
+  {
     echo "Update Clm_berita_acara_detail";
     DB::statement('ALTER TABLE `clm_berita_acara_detail` 
     ADD COLUMN `deleted_from_outstanding_insurance` TINYINT(4) NOT NULL DEFAULT "0" AFTER `keterangan`');
@@ -211,7 +234,6 @@ class DataSynchronizationController extends Controller
       SET region = "JAVA & BALI"
       WHERE region = "JAWA"
       ');
-
   }
 
   protected function updateTable9Des2020()
@@ -259,7 +281,6 @@ class DataSynchronizationController extends Controller
     DROP COLUMN `modifiy_date`,
     ADD COLUMN `modify_date` DATETIME NULL DEFAULT NULL AFTER `created_by`,
     ADD COLUMN `modify_by` INT(11) NULL DEFAULT NULL AFTER `modify_date`');
-
   }
 
   protected function insertSummaryDGRMenu()
@@ -289,8 +310,7 @@ class DataSynchronizationController extends Controller
     DB::statement('
       ALTER TABLE `dur_dgr`
       ADD COLUMN `submit_by` INT(11) NULL DEFAULT NULL AFTER `claim`,
-      ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`'
-    );
+      ADD COLUMN `submit_date` DATETIME NULL DEFAULT NULL AFTER `submit_by`');
   }
 
   protected function updateTable26Nov2020()
@@ -347,7 +367,6 @@ class DataSynchronizationController extends Controller
         'order_menu' => 4,
       ]
     );
-
   }
 
   protected function updateTable23Nov2020()
@@ -562,7 +581,6 @@ class DataSynchronizationController extends Controller
       $value->acc_code = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
       echo "Update ACC CODE  " . $value->acc_code . '<br>';
       $value->save();
-
     }
   }
 
@@ -667,8 +685,7 @@ class DataSynchronizationController extends Controller
             ->where('wms_pickinglist_detail.invoice_no', $lmb_detail->invoice_no)
             ->where('wms_pickinglist_detail.delivery_no', $lmb_detail->delivery_no)
             ->where('wms_pickinglist_header.picking_no', $lmb_detail->picking_id)
-            ->orderBy('quantity', 'desc')
-          ;
+            ->orderBy('quantity', 'desc');
 
           // if (!empty($delivery_exceptions[$lmb_detail->ean_code])) {
           //   $picking_detail->whereNotIn('wms_pickinglist_detail.delivery_no', $delivery_exceptions[$lmb_detail->ean_code]);
@@ -700,7 +717,6 @@ class DataSynchronizationController extends Controller
           $picking_detail->rs_quantity       = explode(',', $picking_detail->rs_quantity);
 
           $rs_picking_list_details[$lmb_detail->ean_code] = $picking_detail;
-
         }
 
         $lmb_detail->delivery_items = $rs_picking_list_details[$lmb_detail->ean_code]->rs_delivery_items[0];
@@ -747,11 +763,9 @@ class DataSynchronizationController extends Controller
 
         $lmb_detail->save();
         echo 'Fixing data Invoice No ' . $lmb_detail->invoice_no . ' Delivery No ' . $lmb_detail->delivery_no . ' EAN ' . $lmb_detail->ean_code . ' set Delivery Items to ' . $lmb_detail->delivery_items . '.<br>';
-
       }
     }
 
     echo "Delivery items lmb synchronized. <i>(" . date('Y-m-d H:i:s') . ")</i><br>";
   }
-
 }

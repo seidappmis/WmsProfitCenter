@@ -94,7 +94,7 @@
                 d.area = $('#area_filter').val()
               }
         },
-        order: [1, 'asc'],
+        order: [[1, 'asc'], [5, 'desc']],
         columns: [
             {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
             {data: 'status', name: 'status', className: 'detail'},

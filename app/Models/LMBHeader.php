@@ -49,7 +49,16 @@ class LMBHeader extends Model
   public function do_details()
   {
     $details = $this->details()
-      ->selectRaw('wms_lmb_detail.*, COUNT(serial_number) AS quantity, SUM(cbm_unit) as cbm, wms_pickinglist_detail.delivery_items, wms_pickinglist_detail.line_no, wms_pickinglist_detail.kode_customer')
+      ->selectRaw('
+        wms_lmb_detail.*
+        , COUNT(serial_number) AS quantity
+        , SUM(cbm_unit) as cbm
+        , wms_pickinglist_detail.delivery_items
+        , wms_pickinglist_detail.line_no
+        , wms_pickinglist_detail.kode_customer
+        , wms_pickinglist_header.city_name
+        , tr_concept.ship_to
+        ')
       ->leftjoin('wms_pickinglist_detail', function ($join) {
         $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
         $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
@@ -57,7 +66,13 @@ class LMBHeader extends Model
         $join->on('wms_pickinglist_detail.model', '=', 'wms_lmb_detail.model');
         $join->on('wms_pickinglist_detail.header_id', '=', 'wms_lmb_detail.picking_id');
       })
-    ;
+      ->leftjoin('tr_concept', function ($join) {
+        $join->on('tr_concept.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+        $join->on('tr_concept.delivery_no', '=', 'wms_lmb_detail.delivery_no');
+        $join->on('tr_concept.delivery_items', '=', 'wms_lmb_detail.delivery_items');
+        $join->on('tr_concept.model', '=', 'wms_lmb_detail.model');
+      })
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id');
 
     if ($this->cabang->hq) {
       $details->leftjoin('log_manifest_detail', function ($join) {
@@ -116,8 +131,7 @@ class LMBHeader extends Model
   public static function noManifestLMBHeader($as = false, $branch = false)
   {
     $lmbHeader = LMBHeader::selectRaw('wms_lmb_header.*')
-      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_lmb_header.kode_cabang')
-    ;
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_lmb_header.kode_cabang');
 
     if ($branch) {
       $lmbHeader->where('log_cabang.hq', 0);
@@ -129,25 +143,23 @@ class LMBHeader extends Model
 
     if (auth()->user()->cabang->hq) {
       $lmbHeader->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-      // ->where('log_cabang.hq', 1)
+        // ->where('log_cabang.hq', 1)
         ->whereNull('log_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
 
       if (!$as) {
         $lmbHeader->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_lmb_header.driver_register_id')
-          ->whereNotNull('tr_driver_registered.id')
-        ;
+          ->whereNotNull('tr_driver_registered.id');
       }
     } else {
       $lmbHeader->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-      // ->where('log_cabang.hq', 0)
+        // ->where('log_cabang.hq', 0)
         ->whereNull('wms_branch_manifest_header.driver_register_id') // yang belum ada Manifest
       ;
     }
     // ->where('area', auth()->user()->area) // yang se area
 
     return $lmbHeader;
-
   }
 
   public function cabang()

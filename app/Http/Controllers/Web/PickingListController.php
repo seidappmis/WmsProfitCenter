@@ -36,8 +36,7 @@ class PickingListController extends Controller
         DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
       )
         ->whereNull('wms_pickinglist_header.deleted_at')
-        ->groupBy('wms_pickinglist_header.driver_register_id')
-      ;
+        ->groupBy('wms_pickinglist_header.driver_register_id');
 
       if (!auth()->user()->cabang->hq) {
         $query->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang);
@@ -120,7 +119,7 @@ class PickingListController extends Controller
   {
     if ($request->ajax()) {
       $query = PickinglistHeader::select('wms_pickinglist_header.*')
-      // ->has('details')
+        // ->has('details')
         ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
         ->where('wms_pickinglist_header.area', auth()->user()->area)
         ->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
@@ -142,8 +141,7 @@ class PickingListController extends Controller
       DB::raw("tr_driver_registered.driver_name AS text")
     )
       ->toBase()
-      ->where('id', $request->input('driver_register_id'))
-    ;
+      ->where('id', $request->input('driver_register_id'));
 
     return get_select2_data($request, $query);
   }
@@ -165,8 +163,7 @@ class PickingListController extends Controller
       ->where('tr_driver_registered.vehicle_code_type', $request->input('vehicle_code_type'))
       ->where('tr_driver_registered.expedition_code', $request->input('expedition_code'))
       ->whereNull('wms_pickinglist_header.driver_register_id')
-      ->whereNull('datetime_out')
-    ;
+      ->whereNull('datetime_out');
 
     return get_select2_data($request, $query);
   }
@@ -284,7 +281,6 @@ class PickingListController extends Controller
           $conceptFlowDetail->delivery_items = $value->delivery_items;
 
           $conceptFlowDetail->save();
-
         }
 
         $lmb = LMBHeader::find($value['id']);
@@ -298,11 +294,9 @@ class PickingListController extends Controller
           $lmb->expedition_name    = $driverRegistered->expedition_name;
 
           $lmb->save();
-
         }
 
         LMBDetail::where('driver_register_id', $previousDriverRegisterID)->update(['driver_register_id' => $id]);
-
       }
 
       DB::commit();
@@ -356,6 +350,8 @@ class PickingListController extends Controller
       $pickinglistHeader->assign_driver_date = $request->input('assign_driver_date');
       $pickinglistHeader->assign_driver_by   = $request->input('assign_driver_by');
       $pickinglistHeader->start_picking_date = $request->input('start_picking_date');
+
+      $pickinglistHeader->created_by = auth()->user()->id;
 
       if ($pickinglistHeader->city_code != "AS") {
         $expedition_name = !empty($request->input('expedition_name_manual')) ? $request->input('expedition_name_manual') : $request->input('expedition_name');
@@ -414,7 +410,6 @@ class PickingListController extends Controller
           $conceptTruckFlow->created_gate_by     = auth()->user()->username;
           $conceptTruckFlow->area                = $driverRegistered->area;
           $conceptTruckFlow->save();
-
         }
 
         $pickinglistHeader->expedition_code   = $request->input('expedition_code');
@@ -439,7 +434,6 @@ class PickingListController extends Controller
       return sendSuccess('Create New Pickinglist no ' . $pickinglistHeader->picking_no . ' success', $pickinglistHeader);
     } catch (Exception $e) {
       DB::rollBack();
-
     }
   }
 
@@ -501,7 +495,6 @@ class PickingListController extends Controller
       $split_concept['split_date']     = $dateTime;
 
       $rs_split_concept[] = $split_concept;
-
     }
 
     if ($total_quantity_split != $request->input('quantity')) {
@@ -531,7 +524,6 @@ class PickingListController extends Controller
     }
 
     return $rs_split_concept;
-
   }
 
   public function show(Request $request, $id)
@@ -544,9 +536,9 @@ class PickingListController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-      // ->addColumn('quantity_in_lmb', function ($data) {
-      //   return '-';
-      // })
+        // ->addColumn('quantity_in_lmb', function ($data) {
+        //   return '-';
+        // })
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->quantity_in_lmb == 0) {
@@ -611,9 +603,7 @@ class PickingListController extends Controller
       }
       return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
     } catch (Exception $e) {
-
     }
-
   }
 
   public function doOrShipmentData(Request $request)
@@ -642,12 +632,11 @@ class PickingListController extends Controller
           // $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
         })
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
-      // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
-      // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+        // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
+        // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
         ->orderBy('delivery_no', 'asc')
-        ->orderBy('delivery_items', 'asc')
-      ;
+        ->orderBy('delivery_items', 'asc');
 
       if (empty($request->input('do_or_shipment'))) {
         $query->whereRaw('1=2');
@@ -662,7 +651,6 @@ class PickingListController extends Controller
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
         $query->whereRaw('CONCAT(tr_concept.invoice_no, tr_concept.delivery_no, tr_concept.delivery_items) != ?', [$value]);
       }
-
     } else {
       // Cabang Ambil Dari Upload DO for Picking
       $query = ManualConcept::select(
@@ -684,7 +672,7 @@ class PickingListController extends Controller
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
         ->orderBy('delivery_no', 'asc')
         ->orderBy('delivery_items', 'asc')
-      // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
+        // ->whereRaw('(invoice_no like "%' . $request->input('do_or_shipment') . '%" OR delivery_no like "%' . $request->input('do_or_shipment') . '%")')
       ;
 
       if ($request->input('filter_type') == 'shipment') {
@@ -700,7 +688,6 @@ class PickingListController extends Controller
       foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
         $query->whereRaw('CONCAT(wms_manual_concept.invoice_no, wms_manual_concept.delivery_no, wms_manual_concept.delivery_items) != ?', [$value]);
       }
-
     }
 
     // return $query->get();
@@ -816,7 +803,6 @@ class PickingListController extends Controller
           $conceptFlowDetail->delivery_items = $value['delivery_items'];
 
           $conceptFlowDetail->save();
-
         }
       }
 
@@ -827,7 +813,6 @@ class PickingListController extends Controller
     } catch (Exception $e) {
       DB::rollBack();
     }
-
   }
 
   public function destroy($id)
@@ -853,7 +838,6 @@ class PickingListController extends Controller
 
       DB::commit();
       return sendSuccess('Picking List Deleted', $pickingHeader);
-
     } catch (Exception $e) {
       DB::rollBack();
     }
@@ -924,6 +908,9 @@ class PickingListController extends Controller
   public function export(Request $request, $id)
   {
     $data['pickinglistHeader'] = PickinglistHeader::findOrFail($id);
+
+    // echo $data['pickinglistHeader']->createdBy()->username;
+    // return;
     $data['details']           = $data['pickinglistHeader']
       ->details()
       ->select(
@@ -936,8 +923,7 @@ class PickingListController extends Controller
       )
       ->groupBy('ean_code')
       ->orderBy('model')
-      ->get()
-    ;
+      ->get();
     $data['excel'] = '';
     $view_print    = view('web.picking.picking-list._print', $data);
 
@@ -946,14 +932,14 @@ class PickingListController extends Controller
       // print_r($data['details']->toArray());
       // return;
       $view_print = view('web.picking.picking-list._excel', $data);
-
     }
     $title = 'picking_list';
 
     if ($request->input('filetype') == 'html') {
 
       // request HTML View
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
         'margin_top'                      => 55,
@@ -965,7 +951,6 @@ class PickingListController extends Controller
 
       $mpdf->Output();
       return;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // return $view_print;
@@ -999,11 +984,11 @@ class PickingListController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
         'margin_top'                      => 55,
@@ -1043,7 +1028,8 @@ class PickingListController extends Controller
 
       // request HTML View
       // return $view_print;
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 20,
         'margin_right'                    => 20,
         'margin_top'                      => 50,
@@ -1056,7 +1042,6 @@ class PickingListController extends Controller
 
       $mpdf->Output();
       return;
-
     } elseif ($request->input('filetype') == 'xls') {
 
       // return $view_print;
@@ -1090,11 +1075,11 @@ class PickingListController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 7,
         'margin_right'                    => 12,
         'margin_top'                      => 5,
@@ -1114,5 +1099,4 @@ class PickingListController extends Controller
       return redirect(404);
     }
   }
-
 }

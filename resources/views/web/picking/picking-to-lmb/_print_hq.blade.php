@@ -4,10 +4,10 @@
 </head>
 <body style="font-family: Arial;">
     <htmlpageheader name="myHeader1">
-        <div style="position: absolute;top: 34mm;left: 155mm;font-size: 10pt;">
+        <div style="position: absolute;top:40mm;left: 165mm;font-size: 10pt;">
             {{$lmbHeader->picking->picking_no}}
         </div>
-        <div style="position: absolute;top: 43mm;left: 0mm">
+        <div style="position: absolute;top:48mm;left: 8mm">
             <table  style="font-size: 10pt;line-height: 1.4">
                 
                 <tr>
@@ -48,8 +48,8 @@
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;" autosize="1">
         <tbody>
             <tr>
-                <td style="text-align: center; width: 19mm;"></td>
-                <td style="text-align: center; width: 40mm;"></td>
+                <td style="text-align: center; width: 24mm;"></td>
+                <td style="text-align: center; width: 35mm;"></td>
                 <td style="text-align: center; width: 18mm;"></td>
                 <td style="text-align: center; " colspan="12" ></td>
             </tr>
@@ -66,7 +66,7 @@
             @endphp
             <tr>
                 <td  style="
-                text-align: center;  
+                text-align: center;
                 vertical-align: top;
                 {{$row_no == count($rs_details) ? '' : ''}}">
                     {{$row_no}}
