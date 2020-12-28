@@ -102,7 +102,7 @@
             }
          },
          {
-            data: 'remark',
+            data: 'summary_remark',
             searchable: false,
             render: function(data, type, row) {
                return '<textarea name="remark" style="resize: vertical;width:98%;height:50px;">' + (data ? data : '') + '</textarea>';

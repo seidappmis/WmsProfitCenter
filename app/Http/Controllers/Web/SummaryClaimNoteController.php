@@ -30,6 +30,7 @@ class SummaryClaimNoteController extends Controller
             DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) *qty) as sub_total")
          )
             ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
+            // ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'nd.model_name')
             ->groupBy('claim_note_id');
          $query = ClaimNote::from('clm_claim_notes AS n')
             ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
@@ -61,10 +62,10 @@ class SummaryClaimNoteController extends Controller
                DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR ', ') as serial_number"),
                DB::raw("group_concat(DISTINCT bad.qty SEPARATOR ', ') as qty"),
                DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
+               DB::raw("group_concat(DISTINCT ba.created_at SEPARATOR ', ') as reporting_date"),
             )
             ->whereNotNull('n.submit_date');
-         // dd($query->get());
-
+         // dd($claimNoteSubQuery->get());
          $datatables = DataTables::of($query)
             ->addIndexColumn(); //DT_RowIndex (Penomoran)
 
@@ -225,6 +226,7 @@ class SummaryClaimNoteController extends Controller
             DB::raw("group_concat(DISTINCT bad.serial_number SEPARATOR ', ') as serial_number"),
             DB::raw("group_concat(DISTINCT bad.qty SEPARATOR ', ') as qty"),
             DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
+            DB::raw("group_concat(DISTINCT ba.created_at SEPARATOR ', ') as reporting_date"),
          )
          ->whereNotNull('n.submit_date')
          ->whereIn('n.id', $request->data)
@@ -236,8 +238,8 @@ class SummaryClaimNoteController extends Controller
          $sheet->setCellValue(($col++) . $row, ($key + 1));
          $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
          $sheet->setCellValue(($col++) . $row, $value->claim_note_no);
-         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->tanggal_kejadian));
-         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->insurance_date));
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reporting_date));
          $sheet->setCellValue(($col++) . $row, $value->expedition_name);
          $sheet->setCellValue(($col++) . $row, $value->driver_name);
          $sheet->setCellValue(($col++) . $row, $value->vehicle_number);
@@ -279,6 +281,5 @@ class SummaryClaimNoteController extends Controller
       }
 
       $writer->save("php://output");
-      
    }
 }

@@ -149,7 +149,7 @@
       },
       {
         data: 'expedition_name',
-        name: 'tr_expedition.expedition_name',
+        name: 'expedition_name',
         className: 'detail'
       },
       {

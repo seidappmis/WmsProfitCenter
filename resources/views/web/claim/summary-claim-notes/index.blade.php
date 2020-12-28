@@ -134,7 +134,7 @@
             name: ' n.claim_note_no'
          },
          {
-            data: 'tanggal_kejadian',
+            data: 'created_at',
             searchable: false,
             render: function(data, type, row) {
                return  (data ? moment(data).format('Y-M-DD') : '');
@@ -142,7 +142,7 @@
             className: 'center-align'
          },
          {
-            data: 'insurance_date',
+            data: 'reporting_date',
             searchable: false,
             render: function(data, type, row) {
                return  (data ? moment(data).format('Y-M-DD') : '');
@@ -209,14 +209,16 @@
             data: 'sum_price',
             searchable: false,
             render: function(data, type, row) {
-               return format_currency(data);
+               return custom_format_currency(data);
             },
+            className: 'right-align'
          },
          {
             data: 'sub_total',
             searchable: false,
             render: function(data, type, row) {
-               return format_currency(data);
+               return custom_format_currency(data);
+               // return 'Rp. ' +data;
             },
             className: 'right-align'
          },
@@ -404,17 +406,9 @@
    });
 
    // convert to format currency
-   function format_currency(nStr) {
-      if (nStr === null || isNaN(nStr)) return 'Rp. 0,00';
-      nStr += '';
-      x = nStr.split(',');
-      x1 = x[0];
-      x2 = x.length > 1 ? ',' + x[1] : '';
-      var rgx = /(\d+)(\d{3})/;
-      while (rgx.test(x1)) {
-         x1 = x1.replace(rgx, '$1' + ',' + '$2');
-      }
-      return 'Rp. ' + x1 + x2;
+   function custom_format_currency(nStr) {
+      if (nStr === null || isNaN(nStr)) return 'Rp. 0.00';
+      return 'Rp. ' + parseFloat(nStr).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
    }
 </script>
 @endpush

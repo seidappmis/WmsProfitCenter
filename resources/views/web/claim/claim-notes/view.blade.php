@@ -218,10 +218,12 @@
             }
             if (row.submit_date == null) {
               val = '<input placeholder="Price" data-id="' + row.claim_note_detail + '" type="text" onChange="calculate(this)" class="price mask-currency" value="' + price + '">';
+            } else {
+              val = price;
             }
-            return val;
+            return format_currency(val);
           },
-          className: 'center-align'
+          className: 'right-align'
         },
         @if($claimReason == 'unit') {
           data: 'claim_note_detail',
@@ -234,7 +236,7 @@
             }
             return '<tag class="price-10"> ' + format_currency((price * 110 / 100));
           },
-          className: "center-align"
+          className: "right-align"
         },
         @endif {
           data: 'claim_note_detail',

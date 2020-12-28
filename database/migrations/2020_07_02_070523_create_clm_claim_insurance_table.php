@@ -24,6 +24,7 @@ class CreateClmClaimInsuranceTable extends Migration
             $table->integer('submit_by')->nullable();
             $table->date('payment_date')->nullable();
             $table->string('remark')->nullable();
+            $table->string('summary_remark')->nullable();
 
             $table->timestamps();
             $table->integer('created_by')->nullable();

@@ -210,7 +210,7 @@
       $('#form-berita-acara #img_file_lmb img').attr("src", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
       $('#form-berita-acara #img_file_lmb a').attr("href", "{{!empty($beritaAcara)?asset('storage/'.$beritaAcara->lmb):''}}");
     }
-    set_select2_value('#form-berita-acara [name="expedition_code"]', '{{$beritaAcara->expedition_code}}', '{{$beritaAcara->expedition_code}}');
+    set_select2_value('#form-berita-acara [name="expedition_code"]', '{{$beritaAcara->expedition_code}}', '{{$beritaAcara->expedition_name}}');
     set_select2_value('#form-berita-acara [name="driver_name"]', '{{$beritaAcara->driver_name}}', '{{$beritaAcara->driver_name}}');
     set_select2_value('#form-berita-acara [name="vehicle_number"]', '{{$beritaAcara->vehicle_number}}', '{{$beritaAcara->vehicle_number}}');
   }

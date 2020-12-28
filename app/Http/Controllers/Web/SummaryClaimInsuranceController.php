@@ -37,6 +37,7 @@ class SummaryClaimInsuranceController extends Controller
                'i.insurance_date',
                'i.payment_date',
                'i.remark',
+               'i.summary_remark',
                DB::raw("group_concat(bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
                DB::raw('SUM(IF(id.price > 0 , id.price*id.qty , m.price_carton_box*id.qty)) AS total')
             );
@@ -76,7 +77,7 @@ class SummaryClaimInsuranceController extends Controller
 
                ClaimInsurance::whereId($id)->update([
                   "payment_date" => !empty($req->payment_date) ? $req->payment_date : '',
-                  "remark" => !empty($req->remark) ? $req->remark : '',
+                  "summary_remark" => !empty($req->remark) ? $req->remark : '',
 
                   'updated_by' => auth()->user()->id,
                   'updated_at' => date('Y-m-d H:i:s')
@@ -130,13 +131,14 @@ class SummaryClaimInsuranceController extends Controller
       $sheet->setCellValue('H1', 'Total');
       $sheet->setCellValue('I1', 'Nature of Loss');
       $sheet->setCellValue('J1', 'Location');
-      $sheet->setCellValue('K1', 'Brach');
-      $sheet->setCellValue('L1', 'Claim Report');
-      $sheet->setCellValue('M1', 'Payment Date');
-      $sheet->setCellValue('N1', 'Remark');
+      $sheet->setCellValue('K1', 'Remark');
+      $sheet->setCellValue('L1', 'Brach');
+      $sheet->setCellValue('M1', 'Claim Report');
+      $sheet->setCellValue('N1', 'Payment Date');
+      $sheet->setCellValue('O1', 'Remark');
 
       // getPHPSpreadsheetTitleStyle() ada di wms Helper
-      $sheet->getStyle('A1:N1')->applyFromArray(getPHPSpreadsheetTitleStyle());
+      $sheet->getStyle('A1:O1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
 
 
@@ -180,7 +182,7 @@ class SummaryClaimInsuranceController extends Controller
             $price = $value['price_carton_box'];
          };
 
-         $sheet->setCellValue(($col++) . $row, date('M-Y'));
+         $sheet->setCellValue(($col++) . $row, date('M-Y', strtotime($value['date_of_loss'])));
          $sheet->setCellValue(($col++) . $row, ($key + 1));
          $sheet->setCellValue(($col++) . $row, $value['serial_number']);
          $sheet->setCellValue(($col++) . $row, $value['model_name']);
@@ -190,10 +192,11 @@ class SummaryClaimInsuranceController extends Controller
          $sheet->setCellValue(($col++) . $row, $price * $value['qty']);
          $sheet->setCellValue(($col++) . $row, $value['description']);
          $sheet->setCellValue(($col++) . $row, $value['location']);
+         $sheet->setCellValue(($col++) . $row, $value['remark']);
          $sheet->setCellValue(($col++) . $row, $value['nama_cabang']);
          $sheet->setCellValue(($col++) . $row, $value['claim_report']);
          $sheet->setCellValue(($col++) . $row, !empty($value['payment_date']) ? format_tanggal_jam_wms($value['payment_date']) : '-');
-         $sheet->setCellValue(($col++) . $row, $value['remark']);
+         $sheet->setCellValue(($col++) . $row, $value['summary_remark']);
          $row++;
       }
 
