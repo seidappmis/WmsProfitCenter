@@ -160,12 +160,18 @@ class ManifestRegularController extends Controller
 
     $manifestHeader->id_freight_cost = $freightCost->id;
 
+    $jumlahLCL = LogManifestHeader::select(DB::raw('COUNT(do_manifest_no) AS jumlahLCL'))
+      ->where('driver_register_id', $oldManifestHeader->driver_register_id)
+      ->where('manifest_type', 'LCL')->first()->jumlahLCL;
+    $urutanLCL = $jumlahLCL + 1;
+
     $rs_details = [];
     foreach ($oldManifestHeader->details as $key => $value) {
       $rs_details[$key] = $value->toArray();
       unset($rs_details[$key]['id']);
 
       $rs_details[$key]['do_manifest_no'] = $manifestHeader->do_manifest_no;
+      $rs_details[$key]['delivery_no'] = $rs_details[$key]['delivery_no'] . "L" . $urutanLCL;
     }
 
     try {

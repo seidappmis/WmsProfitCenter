@@ -50,7 +50,15 @@ class LMBHeader extends Model
   {
     $details = $this->details()
       ->selectRaw('
-        wms_lmb_detail.*
+        wms_lmb_detail.delivery_no
+        , wms_lmb_detail.model
+        , wms_lmb_detail.invoice_no
+        , wms_lmb_detail.ean_code
+        , wms_lmb_detail.cbm_unit
+        , wms_lmb_detail.picking_id
+        , wms_lmb_detail.city_code
+        , wms_lmb_detail.kode_customer
+        , wms_lmb_detail.code_sales
         , COUNT(serial_number) AS quantity
         , SUM(cbm_unit) as cbm
         , wms_pickinglist_detail.delivery_items
