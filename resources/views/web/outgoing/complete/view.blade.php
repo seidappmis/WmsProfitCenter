@@ -71,7 +71,7 @@
                       </div>
                       <!-- datatable ends -->
                       <div class="mt-2">
-                        @if(!$manifestHeader->status_complete)
+                        @if(!$manifestHeader->status_complete && $manifestHeader->details->count() > 0)
                         {!!get_button_save('Complete', 'btn-complete')!!}
                         @endif
                         {!! get_button_cancel(url('complete'), 'Back', '') !!}
