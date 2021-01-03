@@ -15,8 +15,9 @@
    <tr>
       <td>Vessel Name</td>
       <td colspan="3">
-         <select name="vessel_name" class="select2-data-ajax browser-default" required>
-         </select>
+         <!-- <select name="vessel_name" class="select2-data-ajax browser-default" required>
+         </select> -->
+         <input name="vessel_name" type="text" readonly>
       </td>
    </tr>
    <tr>
@@ -64,12 +65,21 @@
    $(document).ready(function($) {
       $('[name="dur_dgr_id"]').select2({
          placeholder: '-- Select Damage Goods Report --',
-         ajax: get_select2_ajax_options('/damage-goods-report/select2')
+         ajax: get_select2_ajax_options('/marine-cargo/select2-dgr')
       });
-      $('[name="vessel_name"]').select2({
-         placeholder: '-- Select Vessel --',
-         ajax: get_select2_ajax_options('/berita-acara-during-select2-kapal')
-      });
-   })
+      // $('[name="vessel_name"]').select2({
+      //    placeholder: '-- Select Vessel --',
+      //    ajax: get_select2_ajax_options('/berita-acara-during-select2-kapal')
+      // });
+   });
+
+   $('[name="dur_dgr_id"]').change(function() {
+      var data = $(this).select2('data')[0];
+
+      $('[name="vessel_name"]').val('');
+      if (data.ship_name) {
+         $('[name="vessel_name"]').val(data.ship_name)
+      }
+   });
 </script>
 @endpush

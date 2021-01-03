@@ -7,6 +7,7 @@ use DataTables;
 use App\Models\MarineCargo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DamageGoodsReport;
 
 class MarineCargoController extends Controller
 {
@@ -51,5 +52,29 @@ class MarineCargoController extends Controller
             return sendError($e->getMessage());
          }
       };
+   }
+
+   function view($id)
+   {
+      $data['data'] = MarineCargo::where('id', $id)->first();
+
+      return view('web.during.marine-cargo.view', $data);
+   }
+
+   function getSelect2DGR(Request $req)
+   {
+      $query = DamageGoodsReport::select(
+         'dur_dgr.id',
+         'dur_dgr.dgr_no AS text',
+         DB::raw("group_concat(DISTINCT ba.ship_name SEPARATOR ', ') as ship_name"),
+      )
+         ->leftJoin('dur_dgr_detail AS dd', 'dd.dur_dgr_id', '=', 'dur_dgr.id')
+         ->leftJoin('dur_berita_acara_detail AS bad', 'bad.id', '=', 'dd.berita_acara_during_detail_id')
+         ->leftJoin('dur_berita_acara AS ba', 'bad.berita_acara_during_id', '=', 'ba.id')
+         ->where('dur_dgr.dgr_no', 'not like', '%/NG%')
+         ->Where('dur_dgr.dgr_no', 'not like', '%/MH%')
+         ->groupBy('dur_dgr.id');
+
+      return get_select2_data($req, $query);
    }
 }

@@ -124,8 +124,11 @@ class SummaryDamageGoodsReportController extends Controller
 
 
       $col = 'A';
+      $sheet->setCellValue(($col++) . '1', 'No');
+      $sheet->setCellValue(($col++) . '1', 'Date');
       $sheet->setCellValue(($col++) . '1', 'No Doc');
-      $sheet->setCellValue(($col++) . '1', 'Invoice No');
+      $sheet->setCellValue(($col++) . '1', 'No Berita Acara');
+      $sheet->setCellValue(($col++) . '1', 'No Invoice');
       $sheet->setCellValue(($col++) . '1', 'B/L No');
       $sheet->setCellValue(($col++) . '1', 'Vendor');
       $sheet->setCellValue(($col++) . '1', 'Model');
@@ -162,13 +165,17 @@ class SummaryDamageGoodsReportController extends Controller
             DB::raw("group_concat(DISTINCT bad.damage SEPARATOR '\n') as remark_group"),
             DB::raw("sum(bad.qty) as sum_qty")
          )
-         ->whereNotNull('d.submit_date')->get();
+         ->whereNotNull('d.submit_date')
+         ->whereIn('d.id', $request->data)
+         ->get();
 
       $row = 2;
       foreach ($data as $key => $value) {
          $col = 'A';
-         // $sheet->setCellValue(($col++) . $row, ($key + 1));
+         $sheet->setCellValue(($col++) . $row, ($key + 1));
+         $sheet->setCellValue(($col++) . $row, date('Y-m-d', strtotime($value->submit_date)));
          $sheet->setCellValue(($col++) . $row, $value->dgr_no);
+         $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
          $sheet->setCellValue(($col++) . $row, $value->invoice_group);
          $sheet->setCellValue(($col++) . $row, $value->bl_group);
          $sheet->setCellValue(($col++) . $row, $value->vendor);

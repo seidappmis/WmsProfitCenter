@@ -22,7 +22,7 @@
          <div class="row">
             <div class="col s12 m8 mt-3">
                <div class="collapsible-main-header">
-                  <a href="{{url('summary-damage-goods-report/0/export?file_type=excel')}}" class="waves-effect waves-light indigo btn"><i class="material-icons left">file_download</i>Excel</a>
+                  <button class="waves-effect waves-light indigo btn " id="btn-download-excel"><i class="material-icons left">file_download</i>Excel</button>
                </div>
             </div>
             <div class="col s12 m4  mt-2">
@@ -42,7 +42,7 @@
                      <table id="table-summary" class="display" width="100%">
                         <thead>
                            <tr>
-                              <th class="center-align" data-priority="1" width="30px"><label><span></span></label></th>
+                              <th class="center-align" data-priority="1" width="30px"><label><input type="checkbox" class="select-all" /><span></span></label></th>
                               <th class="center-align">No Doc</th>
                               {{-- <th class="center-align">Berita Acara No.</th> --}}
                               <th class="center-align">Invoice No</th>
@@ -80,10 +80,13 @@
             type: 'GET',
          },
          columns: [{
-               data: 'DT_RowIndex',
+               data: 'id',
                orderable: false,
                searchable: false,
-               className: 'center-align'
+               render: function(data, type, row) {
+                  return '<label><input type="checkbox" name="outstanding[]" value="' + data + '" class="checkbox checkbox-outstanding"><span></span></label>';
+               },
+               className: "datatable-checkbox-cell"
             }, {
                data: 'dgr_no',
                name: 'n.dgr_no',
@@ -194,6 +197,8 @@
          ]
       });
 
+      set_datatables_checkbox('#table-summary', dtSummary);
+
       dtSummary.on('click', '.btn-view', function(event) {
          event.preventDefault();
          /* Act on the event */
@@ -201,6 +206,24 @@
          var data = dtSummary.row(tr).data();
          window.location.href = '{{url("summary-damage-goods-report/{id}")}}'.replace('{id}', data.id);
       });
+   });
+
+   $('#btn-download-excel').click(function() {
+
+      // var checkedData = $();
+      var url = "{{url('summary-damage-goods-report/0/export')}}" + '?file_type=excel',
+         data = '';
+      $('#table-summary tbody input[type=checkbox]:checked').each(function() {
+         var row = dtSummary.row($(this).parents('tr')).data(); // here is the change
+         // array = generateArray(row, 'carton-box');
+         data += '&data[]=' + row.id;
+      });
+
+      if (!data) {
+         showSwalAutoClose("Error", 'No selected data');
+         return;
+      }
+      window.location.href = url + data;
    });
 </script>
 @endpush
