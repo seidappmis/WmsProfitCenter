@@ -132,7 +132,7 @@
             searchable: false,
             orderable: false,
             render: function(data, type, row, meta) {
-               return ' ' + '<?= get_button_view(url("berita-acara-during/:id")) ?>'.replace(':id', data) +
+               return ' ' + '<?= get_button_view(url("/marine-cargo/:id")) ?>'.replace(':id', data) +
                   ' ' + '<?= get_button_print('#', 'Print Letter', 'btn-print-letter') ?>' +
                   ' ' + '<?= get_button_print() ?>' +
                   (!row.submit_date ? ' ' + '<?= get_button_edit('#!', 'Submit', 'btn-submit') ?>' + ' ' + '<?= get_button_delete() ?>' : '');
