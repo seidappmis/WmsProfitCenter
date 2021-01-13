@@ -65,7 +65,7 @@ class PickingToLMBController extends Controller
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
             // DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS cbm_unit'),
-            DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity, ":", wms_pickinglist_detail.kode_customer, ":", wms_pickinglist_detail.code_sales, ":", (wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity)) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_qty_cc_cs'),
+            DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity, ":", wms_pickinglist_detail.kode_customer, ":", wms_pickinglist_detail.code_sales, ":", (wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity)) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_qty_cc_cs_cbmu'),
             DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
             // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
@@ -96,9 +96,10 @@ class PickingToLMBController extends Controller
           $rs_quantity       = [];
           $rs_kode_customer  = [];
           $rs_code_sales     = [];
+          $rs_cbm_unit       = [];
           $quantity          = 0;
 
-          if (empty($picking_detail->rs_in_dn_di_qty_cc_cs)) {
+          if (empty($picking_detail->rs_in_dn_di_qty_cc_cs_cbmu)) {
             $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
             $model_not_exist_in_pickinglist[$serial_number['ean_code']]['model']      = $rs_models[$serial_number['ean_code']]->model_name;
             if (empty($model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'])) {
@@ -108,7 +109,7 @@ class PickingToLMBController extends Controller
             continue;
           }
 
-          foreach (explode(',', $picking_detail->rs_in_dn_di_qty_cc_cs) as $key => $value) {
+          foreach (explode(',', $picking_detail->rs_in_dn_di_qty_cc_cs_cbmu) as $key => $value) {
             $tempDQ = explode(':', $value);
             if ($picking_detail->quantity_lmb <= $tempDQ[3]) {
               $tempDQ[3] -= $picking_detail->quantity_lmb;
@@ -121,6 +122,7 @@ class PickingToLMBController extends Controller
                 $rs_quantity[]       = $tempDQ[3];
                 $rs_kode_customer[]  = $tempDQ[4];
                 $rs_code_sales[]     = $tempDQ[5];
+                $rs_cbm_unit[]       = $tempDQ[6];
                 $quantity += $tempDQ[3];
               }
             } else {
@@ -172,7 +174,7 @@ class PickingToLMBController extends Controller
         $serial_number['created_by']         = auth()->user()->id;
 
         // $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm / $rs_picking_list_details[$serial_number['ean_code']]->quantity;
-        $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm_unit;
+        // $serial_number['cbm_unit'] = $rs_picking_list_details[$serial_number['ean_code']]->cbm_unit;
 
         if (empty($scan_summaries[$serial_number['ean_code']])) {
           $scan_summaries[$serial_number['ean_code']] = [
@@ -191,6 +193,7 @@ class PickingToLMBController extends Controller
           $serial_number['invoice_no']     = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no[0];
           $serial_number['kode_customer']  = $rs_picking_list_details[$serial_number['ean_code']]->rs_kode_customer[0];
           $serial_number['code_sales']     = $rs_picking_list_details[$serial_number['ean_code']]->rs_code_sales[0];
+          $serial_number['cbm_unit']       = $rs_picking_list_details[$serial_number['ean_code']]->rs_cbm_unit[0];
 
           $scan_summaries[$serial_number['ean_code']]['quantity_scan'] += 1;
           $scan_summaries[$serial_number['ean_code']]['quantity_existing'] -= 1;
