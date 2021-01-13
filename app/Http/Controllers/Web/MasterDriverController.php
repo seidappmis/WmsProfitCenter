@@ -235,4 +235,18 @@ class MasterDriverController extends Controller
 
     return get_select2_data($request, $query);
   }
+
+  public function getSelect2BranchDriverExpedition(Request $request)
+  {
+    $query = BranchDriver::select(
+      DB::raw("driver_name AS id"),
+      DB::raw("driver_name AS text")
+    )
+      ->where('active_status', 1)
+      ->where('expedition_code', $request->input('expedition_code'))
+      ->orderBy('text')
+      ->toBase();
+
+    return get_select2_data($request, $query);
+  }
 }

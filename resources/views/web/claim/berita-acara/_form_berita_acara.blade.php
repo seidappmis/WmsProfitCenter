@@ -192,7 +192,7 @@
   }) {
     $('#form-berita-acara [name="driver_name"]').select2({
       placeholder: '-- Select Driver --',
-      ajax: get_select2_ajax_options('/master-driver/select2-driver-expedition', filter)
+      ajax: get_select2_ajax_options('/master-driver/select2-branch-driver-expedition', filter)
     })
   }
 

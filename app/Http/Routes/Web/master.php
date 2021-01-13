@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Middleware\OnlyBranchAccess;
 
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Master Driver
   Route::get('master-driver/select2-driver-expedition', 'Web\MasterDriverController@getSelect2DriverExpedition');
+  Route::get('master-driver/select2-branch-driver-expedition', 'Web\MasterDriverController@getSelect2BranchDriverExpedition');
   Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
   Route::resource('master-driver', 'Web\MasterDriverController');
 
@@ -89,7 +91,5 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
     // Destination City of Branch
     Route::get('destination-city-of-branch/select2', 'Web\DestinationCityOfBranchController@getSelect2');
     Route::resource('destination-city-of-branch', 'Web\DestinationCityOfBranchController');
-
-
   });
 });
