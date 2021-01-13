@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateStockFromLMB();
+    // $this->updateStockFromLMB();
+    $this->update13Jan2020MissingCBM();
     // $this->updateCreateByPickinglist();
     // $this->updateTable22Des2020();
     // $this->updateCBMLMB();
@@ -47,6 +48,117 @@ class DataSynchronizationController extends Controller
     })
       ->where('wms_lmb_detail.code_sales', '!=', 'tr_concept.code_sales')
       ->get();
+    // print_r($missingLMB->toArray());
+  }
+
+  protected function update13Jan2020MissingCBM()
+  {
+    //cari lmb cbm 0;
+    echo 'Start Sync LMB <br>';
+    $missingLMB = \App\Models\LMBDetail::select(
+      'wms_lmb_detail.*',
+      DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS picking_list_cbm_unit'),
+      'wms_pickinglist_detail.cbm',
+      'wms_pickinglist_header.storage_id',
+      'wms_pickinglist_header.picking_no',
+      'wms_master_storage.sto_loc_code_long'
+    )
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+        $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+        $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+      })
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
+      ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
+      ->where('cbm_unit', 0)
+      ->get();
+
+    // Storage Intransit
+    // 3 Intransit BR
+    // $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
+    //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+    //   ->first();
+    $intransitBR = \App\Models\StorageMaster::where('sto_type_id', 3)
+      ->get();
+
+    foreach ($intransitBR as $key => $value) {
+      $storageIntransit['BR'][$value->kode_cabang] = $value;
+    }
+
+    // 4 Intransit DS
+    // $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
+    //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+    //   ->first();
+    $intranstDS = \App\Models\StorageMaster::where('sto_type_id', 4)
+      ->get();
+
+    foreach ($intranstDS as $key => $value) {
+      $storageIntransit['DS'][$value->kode_cabang] = $value;
+    }
+
+
+    $date_now = date('Y-m-d H:i:s');
+
+    foreach ($missingLMB as $key => $value) {
+      $value->cbm_unit = $value->picking_list_cbm_unit;
+      $value->save();
+
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $value->storage_id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value->cbm),
+          'last_updated'   => $date_now,
+        ]
+      );
+
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value->cbm),
+          'last_updated'   => $date_now,
+        ]
+      );
+    }
+
+    echo 'Finish Sync LMB <br>';
+
+    echo 'Start Sync Manifest <br>';
+
+    $manifestDetail = \App\Models\LogManifestDetail::select(
+      'log_manifest_detail.*',
+      DB::raw('wms_pickinglist_detail.cbm AS picking_list_cbm'),
+    )
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_pickinglist_detail.invoice_no', 'log_manifest_detail.invoice_no');
+        $join->on('wms_pickinglist_detail.delivery_no', 'log_manifest_detail.delivery_no');
+        $join->on('wms_pickinglist_detail.delivery_items', 'log_manifest_detail.delivery_items');
+        $join->on('wms_pickinglist_detail.model', 'log_manifest_detail.model');
+      })
+      ->where('log_manifest_detail.cbm', 0)
+      // ->limit(100)
+      ->get();
+
+    foreach ($manifestDetail as $key => $value) {
+      $value->cbm = $value->picking_list_cbm;
+      $value->nilai_cbm = $value->base_price * $value->cbm;
+      $value->save();
+    }
+
+    echo 'finish Sync Manifest <br>';
+
+    // echo "<pre>";
     // print_r($missingLMB->toArray());
   }
 
