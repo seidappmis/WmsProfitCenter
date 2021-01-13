@@ -7,9 +7,12 @@ use App\Models\Concept;
 use App\Models\LMBHeader;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
+use App\Models\MasterCabang;
+use App\Models\MasterModel;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class ManifestASController extends Controller
 {
@@ -17,13 +20,12 @@ class ManifestASController extends Controller
   {
     if ($request->ajax()) {
       $query = LogManifestHeader::where('city_name', '=', 'Ambil Sendiri')
-      ->where('area', $request->input('area'))
-      ;
+        ->where('area', $request->input('area'));
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
+          return !empty($data->picking) ? $data->picking->picking_no : '';
         })
         ->addColumn('status', function ($data) {
           return $data->status();
@@ -45,7 +47,7 @@ class ManifestASController extends Controller
           $action .= ' ' . get_button_print(url('manifest-as/' . $data->do_manifest_no . '/export'));
           return $action;
         })
-        ->rawColumns(['do_status', 'actionEdit', 'actionDelete', 'actionPrint']);
+        ->rawColumns(['status', 'actionEdit', 'actionDelete', 'actionPrint']);
 
       return $datatables->make(true);
     }
@@ -80,10 +82,15 @@ class ManifestASController extends Controller
     return view('web.outgoing.manifest-as.create', $data);
   }
 
+  public function create()
+  {
+    return view('web.outgoing.manifest-as.create');
+  }
+
   public function store(Request $request)
   {
     $request->validate([
-      'driver_register_id' => 'required',
+      // 'driver_register_id' => 'required',
     ]);
 
     $manifestHeader = new LogManifestHeader;
@@ -97,7 +104,7 @@ class ManifestASController extends Controller
 
     $do_manifest_no = $prefix . '-' . $max_no;
 
-    $manifestHeader->driver_register_id = $request->input('driver_register_id');
+    $manifestHeader->driver_register_id = !empty($request->input('driver_register_id')) ? $request->input('driver_register_id') : Uuid::uuid4();
     $manifestHeader->do_manifest_no     = $do_manifest_no;
     // $manifestHeader->expedition_code             = $request->input('expedition_code');
     $manifestHeader->expedition_name = 'Ambil Sendiri';
@@ -138,49 +145,51 @@ class ManifestASController extends Controller
     $manifestHeader->r_create_date               = $request->input('r_create_date');
     $manifestHeader->r_create_by                 = $request->input('r_create_by');
 
-    $lmbHeader = LMBHeader::findOrFail($request->input('driver_register_id'));
-
     $rs_manifest_detail = [];
-    foreach ($lmbHeader->do_details as $key => $value) {
-      // print_r($value);
+    if (!empty($request->input('driver_register_id'))) {
+      $lmbHeader = LMBHeader::findOrFail($request->input('driver_register_id'));
 
-      $concept = Concept::where('delivery_no', $value->delivery_no)
-        ->where('invoice_no', $value->invoice_no)
-        ->where('invoice_no', $value->invoice_no)
-        ->where('model', $value->model)->first();
+      foreach ($lmbHeader->do_details as $key => $value) {
+        // print_r($value);
 
-      $manifestDetail['do_manifest_no'] = $manifestHeader->do_manifest_no;
-      // $manifestDetail['no_urut']             = '';
-      $manifestDetail['delivery_no']     = $value->delivery_no;
-      $manifestDetail['delivery_items']  = $value->delivery_items;
-      $manifestDetail['invoice_no']      = $value->invoice_no;
-      $manifestDetail['line_no']         = $value->line_no;
-      $manifestDetail['ambil_sendiri']   = 0;
-      $manifestDetail['model']           = $value->model;
-      $manifestDetail['expedition_code'] = $manifestHeader->expedition_code;
-      $manifestDetail['expedition_name'] = $manifestHeader->expedition_name;
-      $manifestDetail['sold_to']         = $concept->sold_to;
-      $manifestDetail['sold_to_code']    = $concept->sold_to_code;
-      $manifestDetail['sold_to_street']  = $concept->sold_to_street;
-      $manifestDetail['ship_to']         = $concept->ship_to;
-      $manifestDetail['ship_to_code']    = $concept->ship_to_code;
-      $manifestDetail['city_code']       = $manifestHeader->city_code;
-      $manifestDetail['city_name']       = $manifestHeader->city_name;
-      $manifestDetail['do_date']         = $manifestHeader->do_manifest_date;
-      $manifestDetail['quantity']        = $value->quantity;
-      $manifestDetail['cbm']             = $value->cbm;
-      $manifestDetail['area']            = $manifestHeader->area;
-      $manifestDetail['do_internal']     = $request->input('do_internal');
-      $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
-      $manifestDetail['code_sales']      = $concept->code_sales;
-      $manifestDetail['tcs']             = 0;
-      $manifestDetail['base_price']      = '';
-      $manifestDetail['kode_cabang']     = substr($value->kode_customer, 0, 2);
-      $manifestDetail['region']          = '';
-      $manifestDetail['status_ds_done']  = 0;
-      $manifestDetail['do_reject']       = 0;
+        $concept = Concept::where('delivery_no', $value->delivery_no)
+          ->where('invoice_no', $value->invoice_no)
+          ->where('invoice_no', $value->invoice_no)
+          ->where('model', $value->model)->first();
 
-      $rs_manifest_detail[] = $manifestDetail;
+        $manifestDetail['do_manifest_no'] = $manifestHeader->do_manifest_no;
+        // $manifestDetail['no_urut']             = '';
+        $manifestDetail['delivery_no']     = $value->delivery_no;
+        $manifestDetail['delivery_items']  = $value->delivery_items;
+        $manifestDetail['invoice_no']      = $value->invoice_no;
+        $manifestDetail['line_no']         = $value->line_no;
+        $manifestDetail['ambil_sendiri']   = 0;
+        $manifestDetail['model']           = $value->model;
+        $manifestDetail['expedition_code'] = $manifestHeader->expedition_code;
+        $manifestDetail['expedition_name'] = $manifestHeader->expedition_name;
+        $manifestDetail['sold_to']         = $concept->sold_to;
+        $manifestDetail['sold_to_code']    = $concept->sold_to_code;
+        $manifestDetail['sold_to_street']  = $concept->sold_to_street;
+        $manifestDetail['ship_to']         = $concept->ship_to;
+        $manifestDetail['ship_to_code']    = $concept->ship_to_code;
+        $manifestDetail['city_code']       = $manifestHeader->city_code;
+        $manifestDetail['city_name']       = $manifestHeader->city_name;
+        $manifestDetail['do_date']         = $manifestHeader->do_manifest_date;
+        $manifestDetail['quantity']        = $value->quantity;
+        $manifestDetail['cbm']             = $value->cbm;
+        $manifestDetail['area']            = $manifestHeader->area;
+        $manifestDetail['do_internal']     = $request->input('do_internal');
+        $manifestDetail['reservasi_no']    = $request->input('reservasi_no');
+        $manifestDetail['code_sales']      = $concept->code_sales;
+        $manifestDetail['tcs']             = 0;
+        $manifestDetail['base_price']      = '';
+        $manifestDetail['kode_cabang']     = substr($value->kode_customer, 0, 2);
+        $manifestDetail['region']          = '';
+        $manifestDetail['status_ds_done']  = 0;
+        $manifestDetail['do_reject']       = 0;
+
+        $rs_manifest_detail[] = $manifestDetail;
+      }
     }
 
     try {
@@ -193,17 +202,14 @@ class ManifestASController extends Controller
       return $manifestHeader;
     } catch (Exception $e) {
       DB::rollBack();
-
     }
-
   }
 
   public function listDO(Request $request, $do_manifest_no)
   {
     if ($request->ajax()) {
       $query = LogManifestDetail::select('log_manifest_detail.*')
-        ->where('do_manifest_no', $do_manifest_no)
-      ;
+        ->where('do_manifest_no', $do_manifest_no);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -217,6 +223,118 @@ class ManifestASController extends Controller
 
       return $datatables->make(true);
     }
+  }
+
+  public function uploadDO(Request $request, $do_manifest_no)
+  {
+    $request->validate([
+      'file-do' => 'required',
+    ]);
+
+    $manifestHeader = LogManifestHeader::findOrFail($do_manifest_no);
+
+    $file = fopen($request->file('file-do'), "r");
+
+    $title         = true; // Untuk Penada Baris pertama adalah Judul
+    $rs_do         = [];
+    $rs_model      = [];
+    $rs_code_sales = [];
+
+    $rs_check_delivery_no = [];
+
+    while (!feof($file)) {
+      $row = fgetcsv($file);
+      if ($title) {
+        $title = false;
+        continue; // Skip baris judul
+      }
+
+      if (!empty($row[5])) {
+        $do = [];
+
+        $do['invoice_no']     = $row[5];
+        $do['delivery_no']    = $row[1];
+        $do['delivery_items'] = $row[4];
+        $do['line_no']        = $row[4];
+        $do['do_date']        = $row[2];
+        $do['sold_to_code']   = $row[7];
+        $do['sold_to']        = $row[8];
+        $do['ship_to_code']   = $row[7];
+        $do['ship_to']        = $row[8];
+        $do['model']          = $row[9];
+        $do['quantity']       = $row[10];
+        $do['cbm']            = $row[16];
+        $do['area']           = auth()->user()->area;
+        // $do['kode_cabang']     = auth()->user()->cabang->kode_cabang;
+        $do['kode_cabang']   = substr($do['sold_to_code'], 0, 2);
+        $do['remarks']       = '-';
+        $do['created_by']    = auth()->user()->id;
+        $do['created_at']    = date('Y-m-d H:i:s');
+        $do['ambil_sendiri'] = 0;
+        $do['tcs']           = 0;
+        if ($request->input('type') == 'return') {
+          $do['do_return'] = 1;
+        }
+        $do['expedition_code'] = $manifestHeader->expedition_code;
+        $do['expedition_name'] = $manifestHeader->expedition_name;
+        $do['city_code']       = $request->input('ship_to');
+        $do['city_name']       = $request->input('city_name');
+        $do['do_date']         = $manifestHeader->do_manifest_date;
+        $do['do_manifest_no']  = $manifestHeader->do_manifest_no;
+        $do['do_internal']     = $request->input('do_internal');
+        $do['reservasi_no']    = $request->input('reservasi_no');
+
+        if (empty($rs_model[$do['model']])) {
+          $model = MasterModel::where('model_name', $do['model'])->first();
+
+          if ($request->input('type') != 'return' && empty($model)) {
+            return sendError("Model Not Found in Master Model");
+          }
+
+          $rs_model[$do['model']] = $model;
+        }
+
+        if (empty($rs_code_sales[$do['sold_to_code']])) {
+          $cabang                             = MasterCabang::where('kode_customer', $do['sold_to_code'])->first();
+          $rs_code_sales[$do['sold_to_code']] = empty($cabang) ? 'DS' : 'BR';
+        }
+
+        $do['code_sales'] = $rs_code_sales[$do['sold_to_code']];
+
+        // $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
+
+        // $freightCost = FreightCost::where('area', $manifestHeader->area)
+        //   ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
+        //   ->where('expedition_code', $manifestHeader->expedition_code)
+        //   ->where('city_code', $do['city_code'])
+        //   ->first();
+
+        // if (empty($freightCost)) {
+        //   return sendError('Freight Cost Not Found');
+        // }
+
+        // $do['nilai_ritase']  = $freightCost->ritase;
+        // $do['nilai_ritase2'] = $freightCost->ritase2;
+        // $do['lead_time']     = $freightCost->leadtime;
+        // $do['base_price']    = $freightCost->cbm;
+        // $do['nilai_cbm']     = $do['base_price'] * $do['cbm'];
+
+        $rs_do[]                = $do;
+        $rs_check_delivery_no[] = $do['delivery_no'];
+      }
+    }
+
+    if ($request->input('type') != 'return') {
+      $rsCheckConcept = Concept::whereIn('delivery_no', $rs_check_delivery_no)->get();
+
+      if ($rsCheckConcept->count() > 0) {
+        return sendError('DO Already Exist', $rsCheckConcept);
+      }
+    }
+
+    LogManifestDetail::insert($rs_do);
+
+    return sendSuccess('DO Uploaded', $rs_do);
   }
 
   public function edit($id)
@@ -266,7 +384,8 @@ class ManifestASController extends Controller
 
     if ($request->input('filetype') == 'html') {
 
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
         'margin_top'                      => 50,
@@ -315,11 +434,11 @@ class ManifestASController extends Controller
       header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
       $writer->save("php://output");
-
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-     $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp',
+      $mpdf = new \Mpdf\Mpdf([
+        'tempDir' => '/tmp',
         'margin_left'                     => 3,
         'margin_right'                    => 3,
         'margin_top'                      => 50,
@@ -330,7 +449,6 @@ class ManifestASController extends Controller
       $mpdf->WriteHTML($view_print);
 
       $mpdf->Output($title . '.pdf', "D");
-
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);

@@ -2,6 +2,8 @@
 <h6>Total Manifest: 1</h6>
 <h5 class="card-title">List DO</h5>
 <hr>
+<a href="#modal-upload-do" class="waves-effect waves-light indigo btn-small btn-upload modal-trigger mb-1">Upload DO</a>
+@include('web.outgoing.manifest-as.modal_upload_do')
 <div class="section-data-tables"> 
   <table id="list-do-table" class="display" width="100%">
     <thead>

@@ -23,6 +23,7 @@
                 </div>
               </div>
               <div class="collapsible-body p-0">
+              <a href="{{ url('manifest-as/create') }}" class="btn btn-sm waves-effect waves-light btn-add ml-1 mt-1 mb-1">New Ambil Sendiri</a>
                 <div class="section-data-tables"> 
                   <table id="data_manifest_normal_table" class="display" width="100%">
                     <thead>

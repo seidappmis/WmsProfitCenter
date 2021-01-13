@@ -1,5 +1,5 @@
 <form class="form-table" id="form-manifest">
-    <input type="hidden" name="driver_register_id" value="{{$lmbHeader->driver_register_id}}">
+    <input type="hidden" name="driver_register_id" value="{{ !empty($lmbHeader) ? $lmbHeader->driver_register_id : ''}}">
     <table class="mb-1">
         <tr>
             <td width="20%">Manifest No.</td>
@@ -86,7 +86,7 @@
       $('#form-manifest [name="city_code"]').select2({
         placeholder: '-- Select Destination City --',
         allowClear: true,
-        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{$lmbHeader->expedition_code}}'})
+        ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{ !empty($lmbHeader) ? $lmbHeader->expedition_code : ""}}'})
       })
 
         $('#form-manifest [name="city_code"]').change(function(event) {
