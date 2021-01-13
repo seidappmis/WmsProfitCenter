@@ -22,8 +22,8 @@ class Gate extends BaseModel
   {
 
     $query = Gate::leftjoin(
-              DB::raw(
-                '(SELECT
+      DB::raw(
+        '(SELECT
                 wms_pickinglist_header.`gate_number` AS picking_gate_number,
                 wms_pickinglist_header.area,
                 wms_pickinglist_header.vehicle_number,
@@ -35,20 +35,22 @@ class Gate extends BaseModel
               FROM wms_pickinglist_header
               LEFT JOIN log_manifest_header ON log_manifest_header.`driver_register_id` = wms_pickinglist_header.`driver_register_id`
               WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL)
-              GROUP BY wms_pickinglist_header.`driver_register_id`
+              GROUP BY wms_pickinglist_header.`driver_register_id`, wms_pickinglist_header.`gate_number`, wms_pickinglist_header.area
             ) AS t'
-              ),
-              function($join){
-                $join->on('t.picking_gate_number', '=', 'tr_gate.gate_number');
-                $join->on('t.area', '=', 'tr_gate.area');
-              }
-            )->orderBy('gate_number');
-      if(strtoupper($area)=='ALL'){
-        // tampilkan all;
-      }else{
-        $query->where('tr_gate.area', $area);
-      }            
+      ),
+      function ($join) {
+        $join->on('t.picking_gate_number', '=', 'tr_gate.gate_number');
+        $join->on('t.area', '=', 'tr_gate.area');
+      }
+    )
+      ->orderBy('gate_number')
+      ->groupBy('gate_number');
+    if (strtoupper($area) == 'ALL') {
+      // tampilkan all;
+    } else {
+      $query->where('tr_gate.area', $area);
+    }
 
-    return $query;          
+    return $query;
   }
 }
