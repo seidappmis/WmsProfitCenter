@@ -10,11 +10,12 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateCreateByPickinglist();
+    $this->updateStockFromLMB();
+    // $this->updateCreateByPickinglist();
     // $this->updateTable22Des2020();
-    $this->updateCBMLMB();
-    $this->updateCBMManifest();
-    $this->updateStockFromManifest();
+    // $this->updateCBMLMB();
+    // $this->updateCBMManifest();
+    // $this->updateStockFromManifest();
     // $this->updateTable19Des2020();
     // $this->updateTable16Des2020();
     // $this->updateTable9Des2020();
@@ -33,6 +34,20 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateStockFromLMB()
+  {
+    $missingLMB = DB::table('wms_lmb_detail')->selectRaw('
+      COUNT(*)
+    ')->leftjoin('tr_concept', function ($join) {
+      $join->on('tr_concept.invoice_no', '=', 'wms_lmb_detail.invoice_no');
+      $join->on('tr_concept.delivery_items', '=', 'wms_lmb_detail.delivery_items');
+      $join->on('tr_concept.model', '=', 'wms_lmb_detail.model');
+    })
+      ->where('wms_lmb_detail.code_sales', '!=', 'tr_concept.code_sales')
+      ->get();
+    // print_r($missingLMB->toArray());
   }
 
   protected function updateCreateByPickinglist()

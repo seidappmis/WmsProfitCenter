@@ -26,11 +26,14 @@ class MasterFreightCostController extends Controller
         DB::raw('tr_expedition.expedition_name AS expedition_name'),
         DB::raw('tr_vehicle_type_detail.vehicle_description AS vehicle_description')
       )
-        ->leftjoin('log_destination_city', 'log_destination_city.city_code', '=',
-          'log_freight_cost.city_code')
+        ->leftjoin(
+          'log_destination_city',
+          'log_destination_city.city_code',
+          '=',
+          'log_freight_cost.city_code'
+        )
         ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'log_freight_cost.expedition_code')
-        ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'log_freight_cost.vehicle_code_type')
-      ;
+        ->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'log_freight_cost.vehicle_code_type');
 
       if (!empty($request->get('area'))) {
         $query->where('log_freight_cost.area', $request->get('area'));
@@ -85,6 +88,18 @@ class MasterFreightCostController extends Controller
     $masterFreight->city_code         = $request->input('city_code');
     $masterFreight->expedition_code   = $request->input('expedition_code');
     $masterFreight->vehicle_code_type = $request->input('vehicle_code_type');
+
+    // Check Freight Cost
+    if (
+      FreightCost::where('area', $masterFreight->area)
+      ->where('city_code', $masterFreight->city_code)
+      ->where('expedition_code', $masterFreight->expedition_code)
+      ->where('vehicle_code_type', $masterFreight->vehicle_code_type)
+      ->exists()
+    ) {
+      return sendError('Freight Cost already exist!');
+    }
+
     if ($request['ritase_cbm'] == 'ritase') {
       $masterFreight->ritase = $request->input('ritase_cbm_input');
       $masterFreight->cbm    = $request->input('ritasecbm_input');
@@ -97,7 +112,9 @@ class MasterFreightCostController extends Controller
     }
     $masterFreight->leadtime = $request->input('leadtime');
 
-    return $masterFreight->save();
+    $masterFreight->save();
+
+    return sendSuccess('Freight Cost created', $masterFreight);
   }
 
   /**
@@ -157,7 +174,6 @@ class MasterFreightCostController extends Controller
 
         $master_freight_cost[] = $freight_cost;
       }
-
     }
 
     // Cek apakah data pernah diupload tidak ada

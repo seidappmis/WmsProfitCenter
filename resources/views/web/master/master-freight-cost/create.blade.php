@@ -88,9 +88,14 @@
           type: 'POST',
           data: $(form).serialize(),
         })
-        .done(function() { // selesai dan berhasil
-          showSwalAutoClose('Success', 'Data Created.')
-          window.location.href = "{{ url('master-freight-cost') }}"
+        .done(function(result) { // selesai dan berhasil
+          if(result.status){
+            showSwalAutoClose('Success', result.message);
+            window.location.href = "{{ url('master-freight-cost') }}"
+          } else {
+            showSwalAutoClose('Warning', result.message);
+            setLoading(false); // Disable Button when ajax post data
+          }
         })
         .fail(function(xhr) {
           setLoading(false); // Enable Button when failed

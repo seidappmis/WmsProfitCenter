@@ -8,9 +8,45 @@ Route::get('/login', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
 Route::get('/test', function () {
-  $now = date('Y-m-d H:i:s', strtotime('-7 hours'));
-  echo $now;
-  // echo "<pre>";
+  $picking_detail = \App\Models\PickinglistDetail::select(
+    'wms_pickinglist_detail.id',
+    // 'wms_pickinglist_detail.delivery_no',
+    // 'wms_pickinglist_detail.invoice_no',
+    // 'wms_pickinglist_detail.kode_customer',
+    // 'wms_pickinglist_detail.code_sales',
+    'wms_pickinglist_header.city_code',
+    'wms_pickinglist_header.city_name',
+    'wms_pickinglist_header.driver_register_id',
+    'wms_pickinglist_detail.ean_code',
+    // 'wms_pickinglist_detail.quantity',
+    // 'wms_pickinglist_detail.cbm',
+    // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_delivery_items'),
+    // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
+    // DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS cbm_unit'),
+    DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity, ":", wms_pickinglist_detail.kode_customer, ":", wms_pickinglist_detail.code_sales, ":", (wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity)) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_q'),
+    DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
+    // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
+  )
+    ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+    ->leftjoin('wms_lmb_detail', function ($join) {
+      $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+      // $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+      // $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+      $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+    })
+    ->groupBy(
+      'wms_pickinglist_detail.header_id',
+      // 'wms_pickinglist_detail.invoice_no',
+      // 'wms_pickinglist_detail.delivery_no',
+      // 'wms_pickinglist_detail.delivery_items',
+      'wms_pickinglist_detail.ean_code'
+    )
+    ->where(DB::raw('CAST(wms_pickinglist_detail.ean_code AS UNSIGNED)'), 4974019909943)
+    ->where('wms_pickinglist_header.picking_no', 1020201224001)
+    ->orderBy('quantity', 'desc');
+
+  echo "<pre>";
+  print_r($picking_detail->first());
   // print_r(auth()->user()->allowTo('edit', 'send-to-lmb'));
   // DB::connection('sqlsrv')->statement('SET ANSI_NULLS, QUOTED_IDENTIFIER, CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON');
   // $sql = DB::connection('sqlsrv')->select("
