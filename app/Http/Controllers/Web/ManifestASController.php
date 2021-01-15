@@ -44,7 +44,7 @@ class ManifestASController extends Controller
         })
         ->addColumn('actionPrint', function ($data) {
           $action = '';
-          $action .= ' ' . get_button_print(url('manifest-as/' . $data->do_manifest_no . '/export'));
+          $action .= ' ' . get_button_print('#!');
           return $action;
         })
         ->rawColumns(['status', 'actionEdit', 'actionDelete', 'actionPrint']);

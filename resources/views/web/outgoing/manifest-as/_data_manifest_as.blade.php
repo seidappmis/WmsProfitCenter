@@ -52,6 +52,10 @@
     </div>
 </div>
 
+@include('layouts.materialize.components.modal-print', [
+  'title' => 'Print',
+])
+
 @push('script_js')
 <script type="text/javascript">
 var dtdatatable_data_manifest_normal;
@@ -82,6 +86,14 @@ jQuery(document).ready(function($) {
           { data: 'actionDelete', className: 'center-align', orderable: false, searchable: false },
           { data: 'actionPrint', className: 'center-align', orderable: false, searchable: false },
       ]
+  });
+
+  dtdatatable_data_manifest_normal.on('click', '.btn-print', function(event) {
+    var tr = $(this).parent().parent();
+    var data = dtdatatable_data_manifest_normal.row(tr).data();
+    initPrintPreviewPrint(
+      '{{url("manifest-as")}}' + '/' + data.do_manifest_no + '/export'
+    )
   });
 
   dtdatatable_data_manifest_normal.on('click', '.btn-delete', function(event) {
