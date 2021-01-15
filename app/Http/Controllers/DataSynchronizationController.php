@@ -54,85 +54,89 @@ class DataSynchronizationController extends Controller
   protected function update13Jan2020MissingCBM()
   {
     //cari lmb cbm 0;
-    // echo 'Start Sync LMB <br>';
-    // $missingLMB = \App\Models\LMBDetail::select(
-    //   'wms_lmb_detail.*',
-    //   DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS picking_list_cbm_unit'),
-    //   'wms_pickinglist_detail.cbm',
-    //   'wms_pickinglist_header.storage_id',
-    //   'wms_pickinglist_header.picking_no',
-    //   'wms_master_storage.sto_loc_code_long'
-    // )
-    //   ->leftjoin('wms_pickinglist_detail', function ($join) {
-    //     $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
-    //     $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
-    //     $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
-    //     $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
-    //     $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
-    //   })
-    //   ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
-    //   ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
-    //   ->where('cbm_unit', 0)
-    //   ->get();
+    echo 'Start Sync LMB <br>';
+    $missingLMB = \App\Models\LMBDetail::select(
+      'wms_lmb_detail.*',
+      DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS picking_list_cbm_unit'),
+      'wms_pickinglist_detail.cbm',
+      'wms_pickinglist_header.storage_id',
+      'wms_pickinglist_header.picking_no',
+      'wms_master_storage.sto_loc_code_long'
+    )
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
+        $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+        $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+        $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+      })
+      ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
+      ->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
+      ->whereNull('cbm_unit')
+      ->get();
 
-    // // Storage Intransit
-    // // 3 Intransit BR
-    // // $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
-    // //   ->where('kode_cabang', $lmbHeader->kode_cabang)
-    // //   ->first();
-    // $intransitBR = \App\Models\StorageMaster::where('sto_type_id', 3)
-    //   ->get();
+    // echo "<pre>";
+    // print_r($missingLMB);
+    // exit;
 
-    // foreach ($intransitBR as $key => $value) {
-    //   $storageIntransit['BR'][$value->kode_cabang] = $value;
-    // }
+    // Storage Intransit
+    // 3 Intransit BR
+    // $storageIntransit['BR'] = StorageMaster::where('sto_type_id', 3)
+    //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+    //   ->first();
+    $intransitBR = \App\Models\StorageMaster::where('sto_type_id', 3)
+      ->get();
 
-    // // 4 Intransit DS
-    // // $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
-    // //   ->where('kode_cabang', $lmbHeader->kode_cabang)
-    // //   ->first();
-    // $intranstDS = \App\Models\StorageMaster::where('sto_type_id', 4)
-    //   ->get();
+    foreach ($intransitBR as $key => $value) {
+      $storageIntransit['BR'][$value->kode_cabang] = $value;
+    }
 
-    // foreach ($intranstDS as $key => $value) {
-    //   $storageIntransit['DS'][$value->kode_cabang] = $value;
-    // }
+    // 4 Intransit DS
+    // $storageIntransit['DS'] = StorageMaster::where('sto_type_id', 4)
+    //   ->where('kode_cabang', $lmbHeader->kode_cabang)
+    //   ->first();
+    $intranstDS = \App\Models\StorageMaster::where('sto_type_id', 4)
+      ->get();
+
+    foreach ($intranstDS as $key => $value) {
+      $storageIntransit['DS'][$value->kode_cabang] = $value;
+    }
 
 
-    // $date_now = date('Y-m-d H:i:s');
+    $date_now = date('Y-m-d H:i:s');
 
-    // foreach ($missingLMB as $key => $value) {
-    //   $value->cbm_unit = $value->picking_list_cbm_unit;
-    //   $value->save();
+    foreach ($missingLMB as $key => $value) {
+      $value->cbm_unit = $value->picking_list_cbm_unit;
+      $value->save();
 
-    //   \App\Models\InventoryStorage::updateOrCreate(
-    //     // Condition
-    //     [
-    //       'storage_id' => $value->storage_id,
-    //       'model_name' => $value->model,
-    //     ],
-    //     // Data Update
-    //     [
-    //       'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value->cbm),
-    //       'last_updated'   => $date_now,
-    //     ]
-    //   );
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $value->storage_id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value->cbm),
+          'last_updated'   => $date_now,
+        ]
+      );
 
-    //   \App\Models\InventoryStorage::updateOrCreate(
-    //     // Condition
-    //     [
-    //       'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
-    //       'model_name' => $value->model,
-    //     ],
-    //     // Data Update
-    //     [
-    //       'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value->cbm),
-    //       'last_updated'   => $date_now,
-    //     ]
-    //   );
-    // }
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value->cbm),
+          'last_updated'   => $date_now,
+        ]
+      );
+    }
 
-    // echo 'Finish Sync LMB <br>';
+    echo 'Finish Sync LMB <br>';
 
     echo 'Start Sync Manifest <br>';
 
