@@ -159,6 +159,7 @@ class PickingToLMBController extends Controller
           $picking_detail->rs_quantity       = $rs_quantity;
           $picking_detail->rs_kode_customer  = $rs_kode_customer;
           $picking_detail->rs_code_sales     = $rs_code_sales;
+          $picking_detail->rs_cbm_unit       = $rs_cbm_unit;
 
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
         }
