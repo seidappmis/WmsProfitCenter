@@ -34,8 +34,10 @@ class Gate extends BaseModel
                 log_manifest_header.`status_complete`
               FROM wms_pickinglist_header
               LEFT JOIN log_manifest_header ON log_manifest_header.`driver_register_id` = wms_pickinglist_header.`driver_register_id`
-              WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL)
-              GROUP BY wms_pickinglist_header.`driver_register_id`, wms_pickinglist_header.`gate_number`, wms_pickinglist_header.area
+              WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL) 
+                AND wms_pickinglist_header.vehicle_number IS NOT NULL
+                AND wms_pickinglist_header.deleted_at IS NULL
+              GROUP BY wms_pickinglist_header.`gate_number`, wms_pickinglist_header.area
             ) AS t'
       ),
       function ($join) {
@@ -44,7 +46,8 @@ class Gate extends BaseModel
       }
     )
       ->orderBy('gate_number')
-      ->groupBy('gate_number');
+      // ->groupBy('gate_number')
+    ;
     if (strtoupper($area) == 'ALL') {
       // tampilkan all;
     } else {
