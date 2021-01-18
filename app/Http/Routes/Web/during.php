@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('/damage-goods-report/{id}/export', 'Web\DamageGoodsReportController@export');
   Route::get('damage-goods-report/{id}', 'Web\DamageGoodsReportController@show');
   Route::delete('damage-goods-report/{id}', 'Web\DamageGoodsReportController@destroy');
+  Route::delete('damage-goods-report/details/{id}', 'Web\DamageGoodsReportController@destroyDetail');
   Route::put('damage-goods-report/{id}/submit', 'Web\DamageGoodsReportController@submit');
   Route::get('damage-goods-report/{id}/detail', 'Web\DamageGoodsReportController@getDetail');
   Route::get('/damage-goods-report/select2', 'Web\DamageGoodsReportController@getSelect2');

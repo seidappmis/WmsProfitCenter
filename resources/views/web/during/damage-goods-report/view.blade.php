@@ -30,7 +30,7 @@
                </div>
                <div class="card-content p-0">
                   <div class="section-data-tables">
-                     <table id="detail-data" class="display" width="100%">
+                     <table id="table_detail" class="display" width="100%">
                         <thead>
                            <tr>
                               <th><strong>NO</strong></th>
@@ -44,6 +44,7 @@
                               <th><strong>QTY</strong></th>
                               <th><strong>NO. SERI</strong></th>
                               <th><strong>REMARKS</strong></th>
+                              <th><strong></strong></th>
                            </tr>
                         </thead>
                         <tbody>
@@ -63,6 +64,63 @@
 
 @push('script_js')
 <script type="text/javascript">
-   
+   var dttable_detail;
+   $(document).ready(function(){
+      dttable_detail = $('#table_detail').DataTable({
+         paging: false,
+         serverSide: true,
+         scrollX: true,
+         ajax: {
+           url: '{{url("/damage-goods-report/" . $dgr->id)}}',
+           type: 'GET',
+         },
+         order: [1, 'asc'],
+         columns: [
+            { data: 'DT_RowIndex', orderable: false, searchable:false, width: '20px', className: 'center-align' },
+            { data: 'berita_acara_date', width: '70px', render: function(data){
+               return moment(data).format('ll');
+            }},
+            { data: 'berita_acara_during_no' },
+            { data: 'invoice_no' },
+            { data: 'bl_no' },
+            { data: 'container_no' },
+            { data: 'model_name' },
+            { data: 'pom' },
+            { data: 'qty' },
+            { data: 'serial_number' },
+            { data: 'damage' },
+            { data: 'action', orderable: false, searchable: false }
+         ]
+      });
+
+      dttable_detail.on('click', '.btn-delete', function(){
+         var tr = $(this).parent().parent();
+         var data = dttable_detail.row(tr).data();
+
+         swal({
+            text: "Are you sure want to delete serial number " + data.serial_number + " in " + data.berita_acara_during_no + "?",
+            icon: 'warning',
+            buttons: {
+               cancel: true,
+               delete: 'Yes, Delete It'
+            }
+         }).then(function(confirm) { // proses confirm
+            if (confirm) {
+               $.ajax({
+                     url: ('{{ url("/damage-goods-report/details/:id") }}').replace(':id', data.dur_dgr_detail_id),
+                     type: 'DELETE',
+                     dataType: 'json',
+                  })
+                  .done(function(result) {
+                     showSwalAutoClose('success', result.message)// alert success
+                     dttable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  })
+                  .fail(function() {
+                     console.log("error");
+                  });
+            }
+         })
+      })
+   })
 </script>
 @endpush

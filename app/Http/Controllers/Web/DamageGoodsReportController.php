@@ -478,6 +478,13 @@ class DamageGoodsReportController extends Controller
     // return BeritaAcara::destroy($id);
   }
 
+  public function destroyDetail($id)
+  {
+    $detail = DamageGoodsReportDetail::findOrFail($id);
+    $detail->delete();
+    return sendSuccess('Item deleted', ['detail' => $detail]);
+  }
+
 
   public function getDetail(Request $request, $id)
   {
@@ -558,8 +565,33 @@ class DamageGoodsReportController extends Controller
 
   public function show(Request $request, $id)
   {
-    $data['dgr'] = DamageGoodsReport::where('id', $id)->first();
+    $dgr = DamageGoodsReport::findOrFail($id);
 
-    return view('web.during.damage-goods-report.view', $data);
+    if ($request->ajax()) {
+      $query = $dgr->details()->select(
+        'dur_berita_acara_detail.*',
+        'dur_berita_acara.berita_acara_during_no',
+        'dur_berita_acara.invoice_no',
+        'dur_berita_acara.bl_no',
+        'dur_berita_acara.container_no',
+        DB::raw('dur_berita_acara.created_at AS berita_acara_date'),
+        DB::raw('dur_dgr_detail.id AS dur_dgr_detail_id')
+      )
+        ->leftjoin('dur_berita_acara_detail', 'dur_berita_acara_detail.id', '=', 'dur_dgr_detail.berita_acara_during_detail_id')
+        ->leftjoin('dur_berita_acara', 'dur_berita_acara.id', '=', 'dur_berita_acara_detail.berita_acara_during_id')
+        ->get();
+
+      $datatables = DataTables::of($query)
+        ->addIndexColumn() //DT_RowIndex (Penomoran)
+        ->addColumn('action', function ($data) {
+          return get_button_delete();
+        });
+
+      return $datatables->make(true);
+    }
+
+    return view('web.during.damage-goods-report.view', [
+      'dgr' => $dgr
+    ]);
   }
 }
