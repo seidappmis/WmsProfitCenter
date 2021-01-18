@@ -132,7 +132,7 @@ class SummaryClaimInsuranceController extends Controller
       $sheet->setCellValue('I1', 'Nature of Loss');
       $sheet->setCellValue('J1', 'Location');
       $sheet->setCellValue('K1', 'Remark');
-      $sheet->setCellValue('L1', 'Brach');
+      $sheet->setCellValue('L1', 'Branch');
       $sheet->setCellValue('M1', 'Claim Report');
       $sheet->setCellValue('N1', 'Payment Date');
       $sheet->setCellValue('O1', 'Remark');

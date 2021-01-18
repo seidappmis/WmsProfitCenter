@@ -10,8 +10,9 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateDatabase18Jan2021();
     // $this->updateStockFromLMB();
-    $this->update13Jan2020MissingCBM();
+    // $this->update13Jan2020MissingCBM();
     // $this->updateCreateByPickinglist();
     // $this->updateTable22Des2020();
     // $this->updateCBMLMB();
@@ -35,6 +36,17 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateDatabase18Jan2021()
+  {
+    echo 'Update Claim Insurance';
+    DB::statement('ALTER TABLE `clm_claim_insurance` 
+    ADD COLUMN `summary_remark` VARCHAR(255) NULL DEFAULT NULL AFTER `remark`');
+
+    echo 'Update Claim Notes';
+    DB::statement('ALTER TABLE `clm_claim_notes` 
+    ADD COLUMN `kode_cabang` VARCHAR(3) NULL DEFAULT NULL AFTER `remarks`;');
   }
 
   protected function updateStockFromLMB()

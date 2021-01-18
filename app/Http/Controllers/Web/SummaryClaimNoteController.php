@@ -239,7 +239,7 @@ class SummaryClaimNoteController extends Controller
          $sheet->setCellValue(($col++) . $row, $value->berita_acara_group);
          $sheet->setCellValue(($col++) . $row, $value->claim_note_no);
          $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
-         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->reporting_date));
+         $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->date_of_receipt));
          $sheet->setCellValue(($col++) . $row, $value->expedition_name);
          $sheet->setCellValue(($col++) . $row, $value->driver_name);
          $sheet->setCellValue(($col++) . $row, $value->vehicle_number);

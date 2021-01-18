@@ -137,15 +137,15 @@
             data: 'created_at',
             searchable: false,
             render: function(data, type, row) {
-               return  (data ? moment(data).format('Y-M-DD') : '');
+               return  (data ? moment(data).format('Y-MMM-DD') : '');
             },
             className: 'center-align'
          },
          {
-            data: 'reporting_date',
+            data: 'date_of_receipt',
             searchable: false,
             render: function(data, type, row) {
-               return  (data ? moment(data).format('Y-M-DD') : '');
+               return  (data ? moment(data).format('Y-MMM-DD') : '');
             },
             className: 'center-align'
          },
