@@ -47,4 +47,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('/marine-cargo/create', 'Web\MarineCargoController@Postcreate');
   Route::get('/marine-cargo/select2-dgr', 'Web\MarineCargoController@getSelect2DGR');
   Route::get('/marine-cargo/{id}',  'Web\MarineCargoController@view');
+  Route::delete('/marine-cargo/{id}',  'Web\MarineCargoController@destroy');
+  Route::get('/marine-cargo/{id}/export-claim-note',  'Web\MarineCargoController@exportClaimNote');
+  Route::get('/marine-cargo/{id}/export-notice-of-claim',  'Web\MarineCargoController@exportNoticeOfClaim');
 });

@@ -44,7 +44,7 @@
                            <tr>
                               <th data-priority="1" width="30px">NO.</th>
                               <th>INSURANCE POLICY NO</th>
-                              <th width="50px;"></th>
+                              <th width="200px"></th>
                            </tr>
                         </thead>
                         <tbody>
@@ -133,73 +133,29 @@
             orderable: false,
             render: function(data, type, row, meta) {
                return ' ' + '<?= get_button_view(url("/marine-cargo/:id")) ?>'.replace(':id', data) +
-                  ' ' + '<?= get_button_print('#', 'Print Letter', 'btn-print-letter') ?>' +
-                  ' ' + '<?= get_button_print() ?>' +
-                  (!row.submit_date ? ' ' + '<?= get_button_edit('#!', 'Submit', 'btn-submit') ?>' + ' ' + '<?= get_button_delete() ?>' : '');
+                  ' ' + '<?= get_button_print("#!", "Print Claim Note", "btn-print-claim-note") ?>' +
+                  ' ' + '<?= get_button_print("#!", "Print Notice Of Claim", "btn-print-notice-of-claim") ?>' +
+                  ' ' + '<?= get_button_delete() ?>';
             }
          },
       ]
    });
 
-   dtdatatable.on('click', '.btn-submit', function(event) {
-      event.preventDefault();
-      /* Act on the event */
-      var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
-
-      swal({
-         text: "Are you sure want to submit " + data.berita_acara_no + " and the details?",
-         icon: 'warning',
-         buttons: {
-            cancel: true,
-            delete: 'Yes, Submit It'
-         }
-      }).then(function(confirm) { // proses confirm
-         if (confirm) {
-            $.ajax({
-                  url: "{{ url('berita-acara-during') }}" + '/' + data.id + '/submit',
-                  type: 'PUT',
-                  dataType: 'json',
-               })
-               .done(function(result) {
-                  if (result.status) {
-                     showSwalAutoClose('Success', "Berita Acara with Berita Acara No. " + data.berita_acara_no + " has been submited.")
-                     dtdatatable.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
-                  }
-               })
-               .fail(function() {
-                  console.log("error");
-               });
-         }
-      })
-   });
 
    @include('layouts.materialize.components.modal-print', [
-      'title' => 'Print',
+      'title' => 'Print Claim Note',
    ]);
 
-   dtdatatable.on('click', '.btn-print-letter', function(event) {
-      var tr = $(this).parent().parent();
-      var data = dtdatatable.row(tr).data();
+   @include('layouts.materialize.components.modal-print', [
+      'title' => 'Print Notice of Claim',
+   ]);
 
-      $('#form-print-letter [name="id"]').val(data.id)
-      $('#modal-form-print-letter').modal('open');
-   });
-
-   $('.btn-show-print-preview-letter').click(function(event) {
-      /* Act on the event */
-      initPrintPreviewPrint(
-         '{{url("/berita-acara-during/{id}/export")}}'.replace('{id}', $('#form-print-letter [name="id"]').val()),
-         $('#form-print-letter').serialize()
-      )
-   });
-
-   dtdatatable.on('click', '.btn-print', function(event) {
+   dtdatatable.on('click', '.btn-print-claim-note', function(event) {
       var tr = $(this).parent().parent();
       var data = dtdatatable.row(tr).data();
 
       swal({
-         text: "Are you sure want to print Berita Acara During No. " + data.berita_acara_during_no + " and the details?",
+         text: "Are you sure want to print Marine Cargo Claim Note with Insurance Policy No. " + data.insurance_policy_no + " and the details?",
          icon: 'warning',
          buttons: {
             cancel: true,
@@ -207,8 +163,28 @@
          }
       }).then(function(confirm) { // proses confirm
          if (confirm) {
-            initPrintPreviewPrint(
-               '{{url("/berita-acara-during/{id}/export-attach")}}'.replace('{id}', data.id)
+            initPrintPreviewPrintClaimNote(
+               '{{url("/marine-cargo/{id}/export-claim-note")}}'.replace('{id}', data.id)
+            )
+         }
+      })
+   });
+
+   dtdatatable.on('click', '.btn-print-notice-of-claim', function(event) {
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
+
+      swal({
+         text: "Are you sure want to print Marine Cargo Notice of Claim with Insurance Policy No. " + data.insurance_policy_no + " and the details?",
+         icon: 'warning',
+         buttons: {
+            cancel: true,
+            delete: 'Yes, Print It'
+         }
+      }).then(function(confirm) { // proses confirm
+         if (confirm) {
+            initPrintPreviewPrintNoticeofClaim(
+               '{{url("/marine-cargo/{id}/export-notice-of-claim")}}'.replace('{id}', data.id)
             )
          }
       })
@@ -221,7 +197,7 @@
       var tr = $(this).parent().parent();
       var data = dtdatatable.row(tr).data();
       swal({
-         text: "Are you sure want to delete " + data.berita_acara_during_no + " and the details?",
+         text: "Are you sure want to delete " + data.insurance_policy_no + " and the details?",
          icon: 'warning',
          buttons: {
             cancel: true,
@@ -230,7 +206,7 @@
       }).then(function(confirm) { // proses confirm
          if (confirm) {
             $.ajax({
-                  url: ('{{ url("/berita-acara-during/:id") }}').replace(':id', data.id),
+                  url: ('{{ url("/marine-cargo/:id") }}').replace(':id', data.id),
                   type: 'DELETE',
                   dataType: 'json',
                })

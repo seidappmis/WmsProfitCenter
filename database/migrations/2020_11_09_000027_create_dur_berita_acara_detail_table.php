@@ -19,6 +19,7 @@ class CreateDurBeritaAcaraDetailTable extends Migration
             $table->integer('berita_acara_during_id')->length(20)->nullable();
             $table->string('model_name', 50)->nullable();
             $table->integer('qty')->length(11)->nullable();
+            $table->decimal('price', 18, 3)->defalut(0);
             $table->string('pom')->nullable();
             $table->string('serial_number')->nullable();
             $table->string('category_damage')->nullable();

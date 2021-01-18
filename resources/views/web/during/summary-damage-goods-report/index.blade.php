@@ -29,7 +29,7 @@
                <div class="app-wrapper">
                   <div class="datatable-search mb-0">
                      <i class="material-icons mr-2 search-icon">search</i>
-                     <input type="text" placeholder="Search" class="app-filter no-propagation" id="outstanding-search">
+                     <input type="text" placeholder="Search" class="app-filter no-propagation" id="global_filter">
                   </div>
                </div>
             </div>
@@ -51,7 +51,7 @@
                               <th class="center-align">Vendor</th>
                               <th class="center-align">Model</th>
                               <th class="center-align">Qty</th>
-                              <th class="center-align">NO Serie</th>
+                              <th class="center-align">Serial No</th>
                               <th class="center-align">Keterangan</th>
                               {{-- <th class="center-align">Claim</th> --}}
                               <th class="center-align">Remarks</th>
@@ -68,6 +68,8 @@
       </div>
    </div>
 </div>
+@endsection
+
 @push('script_js')
 
 <script type="text/javascript">
@@ -89,7 +91,7 @@
                className: "datatable-checkbox-cell"
             }, {
                data: 'dgr_no',
-               name: 'n.dgr_no',
+               name: 'd.dgr_no',
                className: 'detail'
             },
             {
@@ -146,8 +148,8 @@
                }
             }, {
                data: 'sum_qty',
-               name: 'sum_qty',
                className: 'detail',
+               searchable: false,
                // render: function(data, type, row) {
                //    return moment(data).format('D MMM YYYY');
                // }
@@ -206,6 +208,11 @@
          var data = dtSummary.row(tr).data();
          window.location.href = '{{url("summary-damage-goods-report/{id}")}}'.replace('{id}', data.id);
       });
+
+      $("input#global_filter").on("keyup click", function() {
+         filterGlobal();
+      });
+
    });
 
    $('#btn-download-excel').click(function() {
@@ -225,9 +232,10 @@
       }
       window.location.href = url + data;
    });
+
+     // Custom search
+  function filterGlobal() {
+    dtSummary.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush
-
-
-</div>
-@endsection

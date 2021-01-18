@@ -30,8 +30,8 @@
                   <hr>
                   <form class="form-table" id="form-create">
                      @include('web.during.marine-cargo._form')
-                     {!! get_button_cancel(url('marine-cargo'), 'Back') !!}
                      {!! get_button_save() !!}
+                     {!! get_button_cancel(url('marine-cargo'), 'Back') !!}
                      <button type="button" class="waves-effect waves-light indigo btn-small btn-save mt-2 form-berita-acara-detail-wrapper hide" style="display: none;" id="btn-update">Update</button>
                   </form>
                </div>

@@ -17,6 +17,7 @@ class CreateDurMarineCargoTable extends Migration
          $table->id();
          $table->integer('dur_dgr_id')->length(20)->nullable();
          $table->string('insurance_policy_no', 30);
+         $table->string('notice_of_claim_no', 30);
          $table->string('sailed_on')->nullable();
          $table->string('vessel_name')->nullable();
          $table->datetime('sailed_date')->nullable();

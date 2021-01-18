@@ -41,8 +41,8 @@
                      <tbody>
                      </tbody>
                   </table>
-                  <a class="waves-effect waves-light btn btn-small indigo darken-4 mt-2" href="{{ url('summary-damage-goods-report') }}">Back</a>
                   {!! get_button_view('#', 'Save', 'btn-save mt-2') !!}
+                  <a class="waves-effect waves-light btn btn-small indigo darken-4 mt-2" href="{{ url('summary-damage-goods-report') }}">Back</a>
                </div>
             </div>
          </div>

@@ -40,13 +40,22 @@ class DataSynchronizationController extends Controller
 
   protected function updateDatabase18Jan2021()
   {
-    echo 'Update Claim Insurance';
+    echo 'Update Claim Insurance<br>';
     DB::statement('ALTER TABLE `clm_claim_insurance` 
     ADD COLUMN `summary_remark` VARCHAR(255) NULL DEFAULT NULL AFTER `remark`');
 
-    echo 'Update Claim Notes';
+    echo 'Update Claim Notes<br>';
     DB::statement('ALTER TABLE `clm_claim_notes` 
     ADD COLUMN `kode_cabang` VARCHAR(3) NULL DEFAULT NULL AFTER `remarks`;');
+
+    echo "update Marine Cargo Table<br>";
+    DB::statement('ALTER TABLE `dur_marine_cargo` 
+    ADD COLUMN `notice_of_claim_no` VARCHAR(30) NOT NULL AFTER `insurance_policy_no`');
+
+    echo "Update During Berita Acara Detail<br>";
+    DB::statement('ALTER TABLE `dur_berita_acara_detail` 
+    ADD COLUMN `price` DECIMAL(18,3) NOT NULL AFTER `qty`
+    ');
   }
 
   protected function updateStockFromLMB()

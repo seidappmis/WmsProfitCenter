@@ -22,7 +22,11 @@
          <div class="section">
             <div class="card">
                <div class="card-content pl-1 pr-1 pt-1 pb-1">
-               asfd
+                  <table class="form-table">
+                     <tr>
+                        <td width="20%">DGR NO.</td><td>{{ $dgr->dgr_no }}</td>
+                     </tr>
+                  </table>
                </div>
                <div class="card-content p-0">
                   <div class="section-data-tables">

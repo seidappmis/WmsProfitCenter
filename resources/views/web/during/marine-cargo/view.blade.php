@@ -28,10 +28,9 @@
                      <strong>MARINE CARGO</strong>
                   </h4>
                   <hr>
-                  <form class="form-table" id="form-create">
+                  <form class="form-table" id="form-marine-cargo">
                      @include('web.during.marine-cargo._form')
                      {!! get_button_cancel(url('marine-cargo'), 'Back') !!}
-                     {!! get_button_save() !!}
                      <button type="button" class="waves-effect waves-light indigo btn-small btn-save mt-2 form-berita-acara-detail-wrapper hide" style="display: none;" id="btn-update">Update</button>
                   </form>
                </div>
@@ -51,39 +50,18 @@
 
 @push('script_js')
 <script type="text/javascript">
-   // create
-   $("#form-create").validate({
-      submitHandler: function(form) {
-         var formBiasa = $(form).serialize(); // form biasa
-         var isiForm = new FormData($(form)[0]); // form data untuk browse file
-         /* Act on the event */
-         setLoading(true);
-         $.ajax({
-               url: '{{ url("/marine-cargo/create") }}',
-               type: 'POST',
-               data: isiForm,
-               contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-               processData: false, // NEEDED, DON'T OMIT THIS
-            })
-            .done(function(result) {
-               if (result.status) {
-                  showSwalAutoClose('Success', result.message);
-                  setTimeout(function() {
-                     window.location.href = '{{ url("/marine-cargo") }}';
-                  }, 1000);
-                  // set_form_data(result.data.during);
-               } else {
-                  showSwalAutoClose('Warning', result.message)
-               }
-               setLoading(false);
-            })
-            .fail(function() {
-               setLoading(false);
-            })
-            .always(function() {
-               setLoading(false);
-            });
-      }
-   });
+   $(document).ready(function(){
+      $('#form-marine-cargo [name="insurance_policy_no"]').val('{{ $marineCargo->insurance_policy_no }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="vessel_name"]').val('{{ $marineCargo->vessel_name }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="sailed_on"]').val('{{ $marineCargo->sailed_on }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="sailed_date"]').val('{{ $marineCargo->sailed_date }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="arrived_date"]').val('{{ $marineCargo->arrived_date }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="discharging_date"]').val('{{ $marineCargo->discharging_date }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="delivery_date"]').val('{{ $marineCargo->delivery_date }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="cargo_description"]').val('{{ $marineCargo->cargo_description }}').attr('readonly','readonly');
+      $('#form-marine-cargo [name="qty"]').val('{{ $marineCargo->qty }}').attr('readonly','readonly');
+      set_select2_value('#form-marine-cargo [name="dur_dgr_id"]', '{{ $marineCargo->dur_dgr_id }}', '{{ $marineCargo->dgr->dgr_no }}')
+      $('#form-marine-cargo [name="dur_dgr_id"]').attr('disabled', 'disabled');
+   })
 </script>
 @endpush

@@ -133,8 +133,9 @@ class SummaryDamageGoodsReportController extends Controller
       $sheet->setCellValue(($col++) . '1', 'Vendor');
       $sheet->setCellValue(($col++) . '1', 'Model');
       $sheet->setCellValue(($col++) . '1', 'Qty');
-      $sheet->setCellValue(($col++) . '1', 'No Serie');
+      $sheet->setCellValue(($col++) . '1', 'Serial No');
       $sheet->setCellValue(($col++) . '1', 'Keterangan');
+      $sheet->setCellValue(($col++) . '1', 'Claim');
       $sheet->setCellValue(($col) . '1', 'Remarks');
 
       // getPHPSpreadsheetTitleStyle() ada di wms Helper
@@ -183,6 +184,7 @@ class SummaryDamageGoodsReportController extends Controller
          $sheet->setCellValue(($col++) . $row, $value->sum_qty);
          $sheet->setCellValue(($col++) . $row, $value->serial_number);
          $sheet->setCellValue(($col++) . $row, $value->keterangan_group);
+         $sheet->setCellValue(($col++) . $row, $value->claim_group);
          $sheet->setCellValue(($col++) . $row, $value->remark_group);
          $row++;
       }
