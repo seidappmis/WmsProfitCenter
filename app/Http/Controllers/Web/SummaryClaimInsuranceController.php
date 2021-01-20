@@ -193,7 +193,7 @@ class SummaryClaimInsuranceController extends Controller
          $sheet->setCellValue(($col++) . $row, $value['description']);
          $sheet->setCellValue(($col++) . $row, $value['location']);
          $sheet->setCellValue(($col++) . $row, $value['remark']);
-         $sheet->setCellValue(($col++) . $row, $value['nama_cabang']);
+         $sheet->setCellValue(($col++) . $row, $value['location']);
          $sheet->setCellValue(($col++) . $row, $value['claim_report']);
          $sheet->setCellValue(($col++) . $row, !empty($value['payment_date']) ? format_tanggal_jam_wms($value['payment_date']) : '-');
          $sheet->setCellValue(($col++) . $row, $value['summary_remark']);
