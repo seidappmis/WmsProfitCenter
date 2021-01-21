@@ -56,7 +56,7 @@
                           <th class="center-align">Model</th>
                           <th class="center-align">POM</th>
                           <th class="center-align">Qty</th>
-                          <th class="center-align">NO Serie</th>
+                          <th class="center-align">No Seri</th>
                           <th class="center-align">Remark</th>
                         </tr>
                       </thead>

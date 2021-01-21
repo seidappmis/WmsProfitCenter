@@ -563,6 +563,21 @@ class DamageGoodsReportController extends Controller
     return get_select2_data($req, $query);
   }
 
+  public function updateDetail(Request $request)
+  {
+    $beritaAcaraDuringDetail = BeritaAcaraDuringDetail::findOrFail($request->input('berita_acara_during_detail_id'));
+
+    $beritaAcaraDuringDetail->model_name = $request->input('model_name');
+    $beritaAcaraDuringDetail->pom = $request->input('pom');
+    $beritaAcaraDuringDetail->qty = $request->input('qty');
+    $beritaAcaraDuringDetail->serial_number = $request->input('serial_number');
+    $beritaAcaraDuringDetail->damage = $request->input('damage');
+
+    $beritaAcaraDuringDetail->save();
+
+    return sendSuccess('Success update data', $beritaAcaraDuringDetail);
+  }
+
   public function show(Request $request, $id)
   {
     $dgr = DamageGoodsReport::findOrFail($id);
@@ -574,6 +589,7 @@ class DamageGoodsReportController extends Controller
         'dur_berita_acara.invoice_no',
         'dur_berita_acara.bl_no',
         'dur_berita_acara.container_no',
+        'dur_dgr_detail.berita_acara_during_detail_id',
         DB::raw('dur_berita_acara.created_at AS berita_acara_date'),
         DB::raw('dur_dgr_detail.id AS dur_dgr_detail_id')
       )
@@ -583,8 +599,14 @@ class DamageGoodsReportController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('action', function ($data) {
-          return get_button_delete();
+        ->addColumn('action', function ($data) use ($dgr) {
+          $btn = '';
+
+          if (empty($dgr->submit_date)) {
+            $btn .= get_button_edit('#!');
+            $btn .= ' ' . get_button_delete();
+          }
+          return $btn;
         });
 
       return $datatables->make(true);

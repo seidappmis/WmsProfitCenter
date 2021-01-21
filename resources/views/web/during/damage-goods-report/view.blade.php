@@ -60,12 +60,66 @@
 </div>
 @endsection
 
+@push('page-modal')
+<div id="modal-update-detail" class="modal modal-fixed-footer" style="">
+    <form id="form-update-detail" class="form-table">
+        <div class="modal-content">
+            <input type="hidden" name="berita_acara_during_detail_id" readonly>
+            <table>
+                <tr>
+                    <td>MODEL</td>
+                    <td>
+                        <select name="model_name" class="select2-data-ajax browser-default">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POM</td>
+                    <td>
+                        <input type="text" name="pom">
+                    </td>
+                </tr>
+                <tr>
+                    <td>QTY</td>
+                    <td>
+                        <input type="number" name="qty">
+                    </td>
+                </tr>
+                <tr>
+                    <td>SERIAL NO</td>
+                    <td>
+                        <input type="text" name="serial_number">
+                    </td>
+                </tr>
+                <tr>
+                    <td>KERUSAKAN</td>
+                    <td>
+                        <textarea class="materialize-textarea" name="damage" placeholder="damage" style="resize: vertical;"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="waves-effect waves-light indigo btn-small btn-save">Save</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </form>
+</div>
+@endpush
 
+@push('vendor_js')
+<script src="{{ asset('materialize/vendors/jquery-validation/jquery.validate.min.js') }}">
+</script>
+@endpush
 
 @push('script_js')
 <script type="text/javascript">
    var dttable_detail;
    $(document).ready(function(){
+      $('#form-update-detail [name="model_name"]').select2({
+        placeholder: '-- Select Model/Item No. --',
+        ajax: get_select2_ajax_options('/master-model/select2-model2')
+      });
       dttable_detail = $('#table_detail').DataTable({
          paging: false,
          serverSide: true,
@@ -92,6 +146,42 @@
             { data: 'action', orderable: false, searchable: false }
          ]
       });
+
+      dttable_detail.on('click', '.btn-edit', function(){
+         var tr = $(this).parent().parent();
+         var data = dttable_detail.row(tr).data();
+         
+         set_select2_value('#form-update-detail [name="model_name"]', data.model_name, data.model_name);
+         $('#form-update-detail [name="berita_acara_during_detail_id"]').val(data.berita_acara_during_detail_id);
+         $('#form-update-detail [name="pom"]').val(data.pom);
+         $('#form-update-detail [name="qty"]').val(data.qty);
+         $('#form-update-detail [name="serial_number"]').val(data.serial_number);
+         $('#form-update-detail [name="damage"]').val(data.damage);
+         
+         $('#modal-update-detail').modal('open');
+      });
+
+      $('#form-update-detail').validate({
+         submitHandler: function(form){
+            $.ajax({
+               url: '{{ url("/damage-goods-report/details") }}',
+               type: 'PUT',
+               dataType: 'json',
+               data: $(form).serialize()
+            })
+            .done(function(result) {
+               if(result.status){
+                  showSwalAutoClose('success', result.message)// alert success
+                  dttable_detail.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+                  $('#modal-update-detail').modal('close');
+               }
+               
+            })
+            .fail(function() {
+               console.log("error");
+            });
+         }
+      })
 
       dttable_detail.on('click', '.btn-delete', function(){
          var tr = $(this).parent().parent();
