@@ -38,6 +38,16 @@
 
 @push('script_js')
 <script type="text/javascript">
+  @if(!empty($invoiceReceiptHeader->receiptInvoiceConfirm))
+    $('.btn-save').hide();
+    $('.btn-update-receipt-invoice').hide();
+    $('.btn-update-ppn').hide();
+    $('.btn-submit-to-accounting').hide();
+    $('.btn-print-receipt-no').hide();
+    $('#section-data-tables-manifest').hide();
+    $('#form-add-manifest [name="invoice_receipt_date"]').attr('disabled', 'disabled');
+    $('#form-add-manifest [name="invoice_receipt_date"]').attr('disabled', 'disabled');
+  @endif
   jQuery(document).ready(function($) {
       set_select2_value('#form-add-manifest [name="expedition_code"]', '{{$invoiceReceiptHeader->expedition_code}}', '{{$invoiceReceiptHeader->expedition_name}}')
       $('#form-add-manifest [name="expedition_code"]').attr('disabled', 'disabled');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\InvoiceReceiptDetail;
 use App\Models\InvoiceReceiptHeader;
+use App\Models\InvoiceReceiptConfirm;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
 use DataTables;
@@ -24,7 +25,7 @@ class ReceiptInvoiceController extends Controller
           return get_button_view(url('receipt-invoice/' . $data->id));
         })
         ->addColumn('action_delete', function ($data) {
-          return get_button_delete();
+          return empty($data->receiptInvoiceConfirm) ? get_button_delete() : '';
         })
         ->rawColumns(['action_view', 'action_delete']);
 
@@ -232,7 +233,8 @@ class ReceiptInvoiceController extends Controller
 
   public function show(Request $request, $id)
   {
-    $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+    $data['invoiceReceiptHeader'] = $invoiceReceiptHeader;
 
     if ($request->ajax()) {
       // $amountInvoice = $data['invoiceReceiptHeader']->getAmountInvoice();
@@ -280,8 +282,8 @@ class ReceiptInvoiceController extends Controller
         ->addColumn('action_view', function ($data) {
           return get_button_view(url('receipt-invoice/' . $data->id));
         })
-        ->addColumn('action_delete', function ($data) {
-          return get_button_delete();
+        ->addColumn('action_delete', function ($data) use ($invoiceReceiptHeader) {
+          return empty($invoiceReceiptHeader->receiptInvoiceConfirm) ? get_button_delete() : '';
         })
         ->rawColumns(['action_view', 'action_delete']);
 
@@ -304,6 +306,23 @@ class ReceiptInvoiceController extends Controller
     } catch (Exception $e) {
       DB::rollback();
     }
+  }
+
+  public function submitToAccounting($id)
+  {
+    $header = InvoiceReceiptHeader::findOrFail($id);
+
+    $confirm = new InvoiceReceiptConfirm;
+
+    $confirm->invoice_receipt_id = $header->invoice_receipt_id;
+    $confirm->expedition_name = $header->expedition_name;
+    $confirm->invoice_date = $header->invoice_receipt_date;
+    $confirm->confirm_by = auth()->user()->username;
+    $confirm->confirm_date = date('Y-m-d H:i:s');
+
+    $confirm->save();
+
+    return sendSuccess('Success submit to accounting.', $confirm);
   }
 
   public function destroyManifest($id, $do_manifest_no)

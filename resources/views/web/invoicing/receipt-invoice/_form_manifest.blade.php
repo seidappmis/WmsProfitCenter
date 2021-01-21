@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col s12">
+    {!! get_button_cancel(url('receipt-invoice'), 'Back') !!}
     <form id="form-add-manifest">
       <div class="row form-table">
         <h4 class="card-title">Filter</h4>
@@ -18,7 +19,7 @@
           <input type="text" id="filter_manifest_date" name="invoice_receipt_date" autocomplete="off" class="monthpicker" value="{{!empty($invoiceReceiptHeader) ? date('m/Y',strtotime($invoiceReceiptHeader->invoice_receipt_date)) : date('m/Y')}}" required>
         </div>
       </div>
-      <div class="row">
+      <div class="row" id="section-data-tables-manifest">
         <h4 class="card-title">Manifest</h4>
         <div class="section-data-tables">
           <table id="table-list-manifest" class="display" width="100%">
@@ -44,7 +45,6 @@
           </table>
         </div>
         {!! get_button_save() !!}
-        {!! get_button_cancel(url('receipt-invoice'), 'Back') !!}
       </div>
     </form>
   </div>

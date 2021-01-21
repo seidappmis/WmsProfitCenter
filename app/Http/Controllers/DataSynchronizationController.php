@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->createLogInvoiceReceiptPrTable();
     $this->updateDatabase18Jan2021();
     // $this->updateStockFromLMB();
     // $this->update13Jan2020MissingCBM();
@@ -36,6 +37,22 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function createLogInvoiceReceiptPrTable()
+  {
+    echo "Create Log_invoice_receipt_pr Table<br>";
+    DB::statement('CREATE TABLE IF NOT EXISTS `log_invoice_receipt_pr` (
+      `group_id_report` VARCHAR(20) NOT NULL,
+      `expedition_name` VARCHAR(100) NOT NULL,
+      `payment_requisition` VARCHAR(20) NULL DEFAULT NULL,
+      PRIMARY KEY (`group_id_report`, `expedition_name`))');
+
+    DB::statement('ALTER TABLE `log_invoice_receipt_pr` 
+    COLLATE = utf8mb4_unicode_ci ,
+    CHANGE COLUMN `group_id_report` `group_id_report` VARCHAR(20) NOT NULL ,
+    CHANGE COLUMN `expedition_name` `expedition_name` VARCHAR(100) NOT NULL ,
+    CHANGE COLUMN `payment_requisition` `payment_requisition` VARCHAR(20) NULL DEFAULT NULL ');
   }
 
   protected function updateDatabase18Jan2021()

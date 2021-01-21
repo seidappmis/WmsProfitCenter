@@ -21,10 +21,18 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::delete('receipt-invoice/{id}/manifest/{do_manifest_no}', 'Web\ReceiptInvoiceController@destroyManifest');
   Route::get('receipt-invoice/{id}/export-receipt-no', 'Web\ReceiptInvoiceController@exportReceiptNo');
   Route::get('receipt-invoice/{id}/export-receive-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
+  Route::post('receipt-invoice/{id}/submit-to-accounting', 'Web\ReceiptInvoiceController@submitToAccounting');
 
   Route::get('receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@index');
+  Route::post('receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@store');
+  Route::get('receipt-invoice-accounting/receipt-list', 'Web\ReceiptInvoiceAccountingController@getReceiptList');
+  Route::get('receipt-invoice-accounting/{id}/payment-requisition', 'Web\ReceiptInvoiceAccountingController@getListPaymentRequisition');
+  Route::post('receipt-invoice-accounting/{id}/payment-requisition', 'Web\ReceiptInvoiceAccountingController@storeListPaymentRequisition');
+  Route::delete('receipt-invoice-accounting/{id}/invoice/{invoice_receipt_id}', 'Web\ReceiptInvoiceAccountingController@destroyInvoice');
   Route::get('receipt-invoice-accounting/create', 'Web\ReceiptInvoiceAccountingController@create');
   Route::get('receipt-invoice-accounting/{id}', 'Web\ReceiptInvoiceAccountingController@show');
+  Route::put('receipt-invoice-accounting/{id}', 'Web\ReceiptInvoiceAccountingController@update');
+  Route::delete('receipt-invoice-accounting/{id}', 'Web\ReceiptInvoiceAccountingController@destroy');
   Route::get('receipt-invoice-accounting/{id}/export-receipt-invoice-accounting', 'Web\ReceiptInvoiceAccountingController@exportReceiptInvoiceAccounting');
 
   Route::put('branch-invoicing', 'Web\BranchInvoicingController@update');
@@ -39,5 +47,4 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   Route::get('summary-freight-cost-analysis', 'Web\SummaryFreightCostAnalysisController@index');
   Route::get('summary-freight-cost-analysis/export', 'Web\SummaryFreightCostAnalysisController@export');
-
 });

@@ -91,7 +91,7 @@
             {!! get_button_print('#', 'Print Receipt NO', 'btn-print-receipt-no mt-0') !!}
             {!! get_button_print('#', 'Print Receive Invoice', 'btn-print-receive-invoice mt-0') !!}
             <br>
-            {!! get_button_save('Submit to Accounting') !!}
+            {!! get_button_save('Submit to Accounting', 'btn-submit-to-accounting mt-1') !!}
             @endif
 
             <div class="list-do-wrapper hide mt-2">
@@ -365,6 +365,36 @@
         }
       })
     });
+
+    $('.btn-submit-to-accounting').click(function(){
+      swal({
+        text: "Data cannot be edit/delete, Are you sure to transfer to accounting?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          ok: 'Ok'
+        }
+      }).then(function(confirm) { // proses confirm
+        if (confirm) { // Bila oke post ajax ke url delete nya
+          // Ajax Post Delete
+          $.ajax({
+              url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") )}}' + '/submit-to-accounting',
+              type: 'POST',
+            })
+            .done(function(result) { // Kalau ajax nya success
+              if (result.status) {
+                showSwalAutoClose('Success', result.message)
+                dttable_list_manifest_receipt.ajax.reload(null, false); // reload datatable
+                dttable_manifest.ajax.reload(null, false); // reload datatable
+              }
+            })
+            .fail(function() { // Kalau ajax nya gagal
+              console.log("error");
+            });
+
+        }
+      })
+    })
 
     $('.btn-update-receipt-invoice').click(function(event) {
       $.ajax({

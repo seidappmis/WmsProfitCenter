@@ -41,7 +41,7 @@
                 <div class="card">
                     <div class="card-content p-0">
                         <div class="section-data-tables"> 
-                          <table id="data-table-section-contents" class="display" width="100%">
+                          <table id="table_report_accounting" class="display" width="100%">
                               <thead>
                                   <tr>
                                     <th data-priority="1" width="30px">No.</th>
@@ -52,16 +52,6 @@
                                   </tr>
                               </thead>
                               <tbody>
-                               {{--  <tr>
-                                  <td>1</td>
-                                  <td>2017-11-28</td>
-                                  <td>2017-11-28 09:14:19</td>
-                                  <td>KRW-FAKTUR-171114-NO1</td>
-                                  <td>
-                                     {!! get_button_view(url('receipt-invoice-accounting/1')) !!}
-                                    {!! get_button_delete() !!}
-                                  </td>
-                                </tr> --}}
                               </tbody>
                           </table>
                         </div>
@@ -77,56 +67,55 @@
 
 @push('script_js')
 <script type="text/javascript">
-    var dtdatatable = $('#data-table-section-contents').DataTable({
-        serverSide: false,
+    var dtdatatable = $('#table_report_accounting').DataTable({
+        serverSide: true,
         scrollX: true,
         responsive: true,
-        // ajax: {
-        //     url: '/',
-        //     type: 'GET',
-        //     data: function(d) {
-        //         d.search['value'] = $('#global_filter').val()
-        //       }
-        // },
+        ajax: {
+            url: '/receipt-invoice-accounting',
+            type: 'GET',
+            data: function(d) {
+                d.search['value'] = $('#global_filter').val();
+              }
+        },
         order: [1, 'asc'],
-        // columns: [
-        //     {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
-        //     {data: 'content_title', name: 'content_title', className: 'detail'},
-        //     {data: 'video', name: 'video', className: 'detail', orderable: false, searchable: false},
-        //     {data: 'summary_title', name: 'summary_title', className: 'detail'},
-        //     {data: 'question_package_id', name: 'question_package_id', className: 'detail'},
-        //     {data: 'action', className: 'center-align'},
-        // ]
+        columns: [
+            {data: 'DT_RowIndex', orderable:false, searchable: false, className: 'center-align'},
+            {data: 'group_id_report'},
+            {data: 'group_id_report'},
+            {data: 'invoice_receipt_id'},
+            {data: 'action', className: 'center-align'},
+        ]
     });
 
-    dtdatatable.on('click', '.btn-edit', function(event) {
-      var id = $(this).data('id');
-      window.location.href = '' ;
-    });
 
     dtdatatable.on('click', '.btn-delete', function(event) {
-      var id = $(this).data('id');
+      var tr = $(this).parent().parent();
+      var data = dtdatatable.row(tr).data();
       event.preventDefault();
       /* Act on the event */
       // Ditanyain dulu usernya mau beneran delete data nya nggak.
       swal({
         title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
         icon: 'warning',
         buttons: {
           cancel: true,
-          delete: 'Yes, Delete It'
+          delete: 'Yes, Roll It back'
         }
       }).then(function (confirm) { // proses confirm
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: id,
+            url: '/receipt-invoice-accounting/' + data.group_id_report,
             type: 'DELETE',
           })
-          .done(function() { // Kalau ajax nya success
-            swal("Good job!", "You clicked the button!", "success") // alert success
-            dtdatatable.ajax.reload(null, false); // reload datatable
+          .done(function(result) { // Kalau ajax nya success
+            if(result.status){
+              showSwalAutoClose('Success', result.message);
+              dtdatatable.ajax.reload(null, false); // reload datatable
+            } else {
+              showSwalAutoClose("Failed", result.message);
+            }
           })
           .fail(function() { // Kalau ajax nya gagal
             console.log("error");
