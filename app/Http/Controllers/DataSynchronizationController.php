@@ -11,7 +11,7 @@ class DataSynchronizationController extends Controller
   public function index(Request $request)
   {
     $this->createLogInvoiceReceiptPrTable();
-    $this->updateDatabase18Jan2021();
+    // $this->updateDatabase18Jan2021();
     // $this->updateStockFromLMB();
     // $this->update13Jan2020MissingCBM();
     // $this->updateCreateByPickinglist();

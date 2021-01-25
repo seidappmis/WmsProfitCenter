@@ -29,14 +29,20 @@ class MarineCargo extends BaseModel
    {
       $suffix = '/SEID/ACC/' . date('m') . '/' . date('Y');
 
-      $notice_of_claim_no = MarineCargo::select('notice_of_claim_no')
+      $marineCargo = MarineCargo::select('notice_of_claim_no')
          ->orderBy('created_at', 'desc')
          ->first()
-         ->notice_of_claim_no;
-
-      $notice_of_claim_no = explode('/', $notice_of_claim_no);
-
+         ;
+      
       $lastNo = 0;
+
+      if (empty($marineCargo)) {
+         $notice_of_claim_no = [];
+      } else {
+         $notice_of_claim_no = explode('/', $marineCargo->notice_of_claim_no);
+      }
+
+
 
       if (
          !empty($notice_of_claim_no[3])
