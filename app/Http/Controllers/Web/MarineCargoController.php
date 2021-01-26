@@ -16,7 +16,10 @@ class MarineCargoController extends Controller
       if ($request->ajax()) {
          $query = MarineCargo::leftJoin('dur_dgr AS d', 'd.id', '=', 'dur_marine_cargo.dur_dgr_id')
             ->orderBy('dur_marine_cargo.created_at', 'DESC')
-            ->select('dur_marine_cargo.*')
+            ->select(
+               'dur_marine_cargo.*',
+               'd.dgr_no'
+               )
             ->get();
 
          $datatables = DataTables::of($query)

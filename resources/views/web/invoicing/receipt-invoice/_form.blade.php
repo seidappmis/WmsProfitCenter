@@ -386,6 +386,9 @@
                 showSwalAutoClose('Success', result.message)
                 dttable_list_manifest_receipt.ajax.reload(null, false); // reload datatable
                 dttable_manifest.ajax.reload(null, false); // reload datatable
+                setTimeout(function(){
+                     window.location.href = '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") )}}'
+                  }, 1000)
               }
             })
             .fail(function() { // Kalau ajax nya gagal

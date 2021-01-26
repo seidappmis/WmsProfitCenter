@@ -43,7 +43,7 @@
                         <thead>
                            <tr>
                               <th data-priority="1" width="30px">NO.</th>
-                              <th>INSURANCE POLICY NO</th>
+                              <th>Damage Good Report</th>
                               <th width="200px"></th>
                            </tr>
                         </thead>
@@ -122,8 +122,8 @@
             className: 'center-align'
          },
          {
-            data: 'insurance_policy_no',
-            name: 'insurance_policy_no',
+            data: 'dgr_no',
+            name: 'dgr_no',
             className: 'detail'
          }, {
             data: 'id',
