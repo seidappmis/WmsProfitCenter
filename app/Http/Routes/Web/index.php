@@ -45,7 +45,7 @@ Route::get('/test', function () {
   //   ->where('wms_pickinglist_header.picking_no', 1020201224001)
   //   ->orderBy('quantity', 'desc');
 
-  // echo "<pre>";
+  echo "<pre>";
   // print_r($picking_detail->first());
   // print_r(auth()->user()->allowTo('edit', 'send-to-lmb'));
   DB::connection('sqlsrv')->statement('SET ANSI_NULLS, QUOTED_IDENTIFIER, CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON');
