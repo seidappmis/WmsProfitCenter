@@ -219,7 +219,7 @@
         $row_serial_pointer ++;
         @endphp
         @endwhile
-        @if($row_no < ((count($rs_details)*85)))
+        @if($row_no < ((count($rs_details)*85)) && $row_no !== count($rs_details))
         <tr>
             <td style="border-left: 1pt solid #000000; 
             border-right: 1pt solid #000000;">&nbsp;</td>
@@ -238,8 +238,8 @@
         @php
         $total_row = ($row_c);
         $total_row += 2 * ceil($total_row/33);
-        $total_page_floor = floor($total_row/36);
-        $space = (($total_row - ($total_page_floor*36)));
+        $total_page_floor = floor($total_row/38);
+        $space = (($total_row - ($total_page_floor*38)));
         $fill_row=0;
         if($space>0){
             $fill_row = 33 - $space;
