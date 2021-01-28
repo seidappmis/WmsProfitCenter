@@ -58,7 +58,7 @@ class DestinationCityOfBranchController extends Controller
     ]);
 
     $destinationCity              = new DestinationCityOfBranch;
-    $destinationCity->kode_cabang = 12;
+    $destinationCity->kode_cabang = auth()->user()->cabang->kode_cabang;
     $destinationCity->city_name   = $request->input('city_name');
 
     return $destinationCity->save();

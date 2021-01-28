@@ -78,9 +78,19 @@ class MarineCargoController extends Controller
       $units = [];
       foreach ($marineCargo->details() as $key => $value) {
          if ($value->claim == 'carton-box') {
-            $cartonBoxs[] = $value;
+            $cartonBoxs[$value->model_name]['model_name'] = $value->model_name;
+            $cartonBoxs[$value->model_name]['price_carton_box'] = $value->price_carton_box;
+            if (empty($cartonBoxs[$value->model_name]['qty'])) {
+               $cartonBoxs[$value->model_name]['qty'] = 0;
+            }
+            $cartonBoxs[$value->model_name]['qty'] += $value->qty;
          } else {
-            $units[] = $value;
+            $units[$value->model_name]['model_name'] = $value->model_name;
+            $units[$value->model_name]['price'] = $value->price;
+            if (empty($units[$value->model_name]['qty'])) {
+               $units[$value->model_name]['qty'] = 0;
+            }
+            $units[$value->model_name]['qty'] += $value->qty;
          }
       }
 

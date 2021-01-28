@@ -238,8 +238,8 @@
         @php
         $total_row = ($row_c);
         $total_row += 2 * ceil($total_row/33);
-        $total_page_floor = floor($total_row/35);
-        $space = (($total_row - ($total_page_floor*35)));
+        $total_page_floor = floor($total_row/36);
+        $space = (($total_row - ($total_page_floor*36)));
         $fill_row=0;
         if($space>0){
             $fill_row = 33 - $space;

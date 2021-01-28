@@ -124,17 +124,17 @@
    @foreach($cartonBoxs AS $value)
    @php
       $totalQty = empty($totalQty) ? 1 : $totalQty++;
-      $totalPriceIDR = empty($totalPriceIDR) ? $value->qty * $value->price_carton_box : $totalPriceIDR + ($value->qty * $value->price_carton_box);
+      $totalPriceIDR = empty($totalPriceIDR) ? $value['qty'] * $value['price_carton_box'] : $totalPriceIDR + ($value['qty'] * $value['price_carton_box']);
    @endphp
    <tr>
       <td colspan="3" style="border-left: 1px solid black;"></td>
-      <td>{{ $value->model_name }}</td>
+      <td>{{ $value['model_name'] }}</td>
       <td width="5px">=</td>
-      <td style="text-align: right;">IDR {{ thousand_reformat($value->price_carton_box) }}</td>
+      <td style="text-align: right;" width="120px">IDR {{ thousand_reformat($value['price_carton_box']) }}</td>
       <td>X</td>
-      <td style="text-align: center;">{{ $value->qty }}</td>
+      <td style="text-align: center;">{{ $value['qty'] }}</td>
       <td>=</td>
-      <td colspan="3" style="text-align: right;">IDR {{ thousand_reformat($value->price_carton_box * $value->qty) }}</td>
+      <td colspan="3" style="text-align: right;">IDR {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
       <td style="border-right: 1px solid black;"></td>
    </tr>
    @endforeach
@@ -152,19 +152,19 @@
    @foreach($units AS $value)
    @php
       $totalQty = empty($totalQty) ? 1 : $totalQty++;
-      $totalPriceUSD = empty($totalPriceUSD) ? $value->qty * $value->price : $totalPriceUSD + ($value->qty * $value->price * 110 / 100);
+      $totalPriceUSD = empty($totalPriceUSD) ? $value['qty'] * $value['price'] : $totalPriceUSD + ($value['qty'] * $value['price'] * 110 / 100);
    @endphp
    <tr>
       <td colspan="3" style="border-left: 1px solid black;"></td>
-      <td>AH-A5UCY</td>
+      <td>{{ $value['model_name'] }}</td>
       <td width="5px">=</td>
-      <td style="text-align: right;">IDR {{ thousand_reformat($value->price) }}</td>
+      <td style="text-align: right;">IDR {{ thousand_reformat($value['price']) }}</td>
       <td>X</td>
       <td>110%</td>
       <td>X</td>
       <td style="text-align: center;">1</td>
       <td>=</td>
-      <td style="text-align: right;">IDR {{ thousand_reformat($value->qty * $value->price * 110 / 100) }}</td>
+      <td style="text-align: right;">IDR {{ thousand_reformat($value['qty'] * $value['price'] * 110 / 100) }}</td>
       <td style="border-right: 1px solid black;"></td>
    </tr>
    @endforeach
