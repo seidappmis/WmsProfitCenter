@@ -81,7 +81,8 @@
                     <div class="section">
                       <div class="row">
                         <div class="col m6">
-                           <a class="btn waves-effect waves-light btn-add btn-new-tag" href="#">New Tag</a>
+                          {!! get_button_create('#!', 'New Tag', ' btn-add btn-new-tag') !!}
+                           {{-- <a class="btn waves-effect waves-light btn-add btn-new-tag" href="#">New Tag</a> --}}
                         </div>
                         <div class="col m6 right-align">
                           <input type="text" placeholder="Search" class="app-filter" id="tag_filter">

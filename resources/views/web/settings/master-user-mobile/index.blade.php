@@ -48,9 +48,11 @@
     <div class="row">
         <div class="col s12 m4">
             <!---- Button Add ----->
+            @if(auth()->user()->allowTo('edit'))
             <span class="btn btn-large waves-effect waves-light btn-add" onclick="createUserMobile()">
                 New User Mobile
             </span>
+            @endif
         </div>
     </div>
     @endcomponent

@@ -25,7 +25,8 @@
             </div>
             <div class="col s12 m3">
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle-expedition/create') }}">New Vehicle Expedition</a>
+                {!! get_button_create(url('master-vehicle-expedition/create'), 'New Vehicle Expedition') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-vehicle-expedition/create') }}">New Vehicle Expedition</a> --}}
             </div>
         </div>
         <div class="row">

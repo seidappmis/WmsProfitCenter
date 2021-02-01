@@ -29,7 +29,8 @@
         <div class="row">
           <div class="col s12 m4">
             <!---- Button Modal Add ----->
-            <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-expedition-vehicle/create') }}">New Vehicle Expedition</a>
+            {!! get_button_create(url('branch-expedition-vehicle/create'), 'New Vehicle Expedition') !!}
+            {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('branch-expedition-vehicle/create') }}">New Vehicle Expedition</a> --}}
           </div>
         </div>
     @endcomponent

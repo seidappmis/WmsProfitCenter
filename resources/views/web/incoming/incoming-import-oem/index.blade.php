@@ -33,10 +33,10 @@
               </div>
             </div>
             <div class="col s12 m6">
-                <a href="#" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-                {{-- <a href="#" class="btn btn-large waves-effect waves-light btn-add {{auth()->user()->cabang->hq ? 'hide' : ''}}" type="submit" name="action"> --}}
+              {!! get_button_create('#!', 'New Incoming Import/OEM') !!}
+                {{-- <a href="#" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
                   New Incoming Import/OEM
-                </a>
+                </a> --}}
             </div>
         </div>
     @endcomponent

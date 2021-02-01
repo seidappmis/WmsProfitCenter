@@ -37,7 +37,7 @@
                               <div class="col s12 m6 mt-0">
                                 <div class="display-flex ml-1">
                                   <!---- Search ----->
-                                  <a href="{{ url('picking-list/create') }}" class="btn btn-large waves-effect waves-light btn-add">New Picking List</a>
+                                  {!! get_button_create(url('picking-list/create'), 'New Picking List') !!}
                                 </div>
                               </div>
                               <div class="col m6">

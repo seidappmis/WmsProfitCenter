@@ -48,7 +48,9 @@
               </div>
               <div class="row mb-0">
                 <div class="input-field col s12 mt-1">
+                @if(auth()->user()->allowTo('edit'))
                   <button type="submit" class="waves-effect waves-light indigo btn">Submit</button>
+                @endif
                 </div>
               </div>
             </form>

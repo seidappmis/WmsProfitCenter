@@ -1,5 +1,12 @@
 <?php
 
+function get_button_create($url = '#', $label = "Create", $class = "btn-add")
+{
+  if (auth()->user()->allowTo('edit')) {
+    return '<a class="btn btn-large waves-effect waves-light btn-add ' . $class . '" href="' . $url . '">' . $label . '</a>';
+  }
+}
+
 // view, detail, view detail
 function get_button_view($url = '#', $label = "View", $class = "btn-view")
 {
@@ -22,7 +29,7 @@ function get_button_return($url = '#', $label = "Send Back")
 function get_button_edit($url = '#!', $label = "Edit", $class = 'btn-edit')
 {
   if (auth()->user()->allowTo('edit')) {
-    return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' " href="' . $url . '">' . $label . '</a>';
+  return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' " href="' . $url . '">' . $label . '</a>';
   }
 }
 
@@ -37,7 +44,9 @@ function get_button_delete($label = "Delete", $class = 'btn-delete')
 // save, update, submit, load
 function get_button_save($label = "Save", $class = 'btn-save mt-2')
 {
-  return '<button type="submit" class="waves-effect waves-light indigo btn-small ' . $class . '">' . $label . '</button>';
+  if (auth()->user()->allowTo('edit')) {
+    return '<button type="submit" class="waves-effect waves-light indigo btn-small ' . $class . '">' . $label . '</button>';
+  }
 }
 
 // cancel, back

@@ -29,7 +29,8 @@
       <div class="row">
         <div class="col s12 m4">
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('storage-master/create') }}">New Storage</a>
+                {!! get_button_create(url('storage-master/create'), 'New Storage') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('storage-master/create') }}">New Storage</a> --}}
         </div>
       </div>
     @endcomponent

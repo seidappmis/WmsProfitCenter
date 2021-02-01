@@ -25,7 +25,8 @@
             </div>
             <div class="col s12 m3">
               <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-gate/create') }}">New Gate</a>
+              {!! get_button_create(url('master-gate/create'), 'New Gate') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-gate/create') }}">New Gate</a> --}}
             </div>
         </div>
     @endcomponent

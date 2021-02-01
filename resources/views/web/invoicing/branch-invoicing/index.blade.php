@@ -28,9 +28,11 @@
         </div>
         <div class="row">
           <div class="col s12 m4">
+            @if(auth()->user()->allowTo('edit'))
             <span class="btn btn-large waves-effect waves-light btn-add" id="btn-create-receipt">
               Create Reciept
             </span>
+            @endif
           </div>
         </div>
     @endcomponent

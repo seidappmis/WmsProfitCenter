@@ -70,7 +70,9 @@
     </tr>
   </table>
   <div class="input-field col s12">
+    @if(auth()->user()->allowTo('edit'))
     <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1">Submit</button>
+    @endif
   </div>
 </form>
 

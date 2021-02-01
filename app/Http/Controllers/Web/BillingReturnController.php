@@ -67,7 +67,7 @@ class BillingReturnController extends Controller
           return $data->picking->picking_no;
         })
         ->addColumn('status', function ($data) {
-          return $data->status();
+          return $data->status($data);
         })
         ->addColumn('action', function ($data) {
           $action = '';

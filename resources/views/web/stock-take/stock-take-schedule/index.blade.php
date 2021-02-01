@@ -48,7 +48,8 @@
 
       <div class="row">
         <div class="col s12 m4">
-            <span class="btn btn-large waves-effect waves-light btn-add">New Stock Take Schedule</span>
+          {!! get_button_create('#!', 'New Stock Take Schedule') !!}
+            {{-- <span class="btn btn-large waves-effect waves-light btn-add">New Stock Take Schedule</span> --}}
         </div>
       </div>
   @endcomponent

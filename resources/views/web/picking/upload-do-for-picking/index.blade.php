@@ -35,7 +35,9 @@
                               <div class="display-flex">
                                 <!---- Search ----->
                                 <!-- Modal Trigger -->
+                                @if (auth()->user()->allowTo('edit'))
                                 <a class="waves-effect waves-light btn modal-trigger indigo btn mt-1 mr-1 " href="#modal1">Upload DO</a>
+                                @endif
                                 {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item mt-1') !!}
                               </div>
                             </div>

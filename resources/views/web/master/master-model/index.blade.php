@@ -31,11 +31,14 @@
         <div class="row">
           <div class="col s12 m3">
               <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-model/create') }}">New Model</a>
+              {!! get_button_create(url('master-model/create'), 'New Model') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-model/create') }}">New Model</a> --}}
           </div>
           <div class="col s12 m4">
             <!---- Upload Button ----->
-            <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-upload">Upload Model</a>
+            {!! get_button_create('#modal-upload', 'Upload Model', 'btn-add modal-trigger') !!}
+
+            {{-- <a class="btn btn-large waves-effect waves-light btn-add modal-trigger" href="#modal-upload">Upload Model</a> --}}
           </div>
         </div>
     @endcomponent

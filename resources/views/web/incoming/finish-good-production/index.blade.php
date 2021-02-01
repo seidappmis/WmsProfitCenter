@@ -38,9 +38,7 @@
         <div class="row">
           <div class="col s12 m4">
             <!---- Button Add ----->
-            <a href="{{ url('finish-good-production/create') }}" class="btn btn-large waves-effect waves-light btn-add" type="submit" name="action">
-              New Incoming Finish Good
-            </a>
+            {!! get_button_create(url('finish-good-production/create'), 'New Incoming Finish Good') !!}
           </div>
         </div>
     @endcomponent

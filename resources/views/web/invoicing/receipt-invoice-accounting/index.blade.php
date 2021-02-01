@@ -28,9 +28,10 @@
         </div>
         <div class="row">
           <div class="col s12 m4">
-            <a class="btn btn-large waves-effect waves-light btn-add" href="{{url('receipt-invoice-accounting/create')}}">
+            {!! get_button_create(url('receipt-invoice-accounting/create'), 'New Report') !!}
+            {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{url('receipt-invoice-accounting/create')}}">
               New Report
-            </a>
+            </a> --}}
           </div>
         </div>
     @endcomponent

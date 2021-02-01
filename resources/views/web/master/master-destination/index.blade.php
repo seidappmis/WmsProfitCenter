@@ -25,7 +25,8 @@
             </div>
             <div class="col s12 m3">
               <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a>
+              {!! get_button_create(url('master-destination/create'), 'New Destination') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-destination/create') }}">New Destination</a> --}}
             </div>
         </div>
     @endcomponent

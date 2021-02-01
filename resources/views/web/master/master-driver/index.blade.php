@@ -25,7 +25,8 @@
           </div>
             <div class="col s12 m3">
                 <!---- Button Add ----->
-                <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a>
+                {!! get_button_create(url('master-driver/create'), 'New Driver') !!}
+                {{-- <a class="btn btn-large waves-effect waves-light btn-add" href="{{ url('master-driver/create') }}">New Driver</a> --}}
             </div>
           </div>
     @endcomponent

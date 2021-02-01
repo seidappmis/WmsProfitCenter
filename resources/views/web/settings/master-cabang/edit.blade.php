@@ -45,7 +45,9 @@
 
     function set_initial_form_data(){
         $('#tycode').val('{{$masterCabang->type}}').trigger('change')
+        @if(!empty($masterCabang->Region))
         set_select2_value('#region', '{{$masterCabang->region}}', '{{$masterCabang->Region->region}}')
+        @endif
     };
 
  	$("#form-master-cabang").validate({

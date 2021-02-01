@@ -100,7 +100,9 @@
                            
                           <div class="row">
                             <div class="input-field col s12 m6">
+                            @if(auth()->user()->allowTo('edit'))
                               <button type="submit" class="waves-effect waves-light indigo btn">Save</button>
+                              @endif
                               <a class="waves-effect waves-light indigo btn" href="{{ url('transfer-sloc') }}">Clear</a>
                             </div>
                           </div>
