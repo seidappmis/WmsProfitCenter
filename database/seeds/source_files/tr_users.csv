@@ -1,225 +1,229 @@
-13wmsadm1,Admin,PNP Bandung 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:49:34.327,logsd1,13000000
-13wmstrk1,Trucking 1,PNP Bandung 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:52:48.803,logsd1,13000000
-13wmstrk2,Trucking 2,PNP Bandung 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:54:37.280,logsd1,13000000
-14wmsadm1,Admin,PNP Cirebon 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:39:34.170,logsd1,14000000
-14wmstrk1,Trucking 1,PNP Cirebon 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:45:02.083,logsd1,14000000
-14wmstrk2,Trucking 2,PNP Cirebon 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:49:24.430,logsd1,14000000
-15wmsadm1,Admin,Translog Semarang 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:10:59.497,miskr3,15000000
-15wmstrk1,Trucking,Translog Semarang 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:35:17.780,miskr3,15000000
-16wmsadm1,Admin,PNP Jogja 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:02:47.283,miskr3,16000000
-16wmstrk1,Trucking,PNP Jogja 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:37:19.633,miskr3,16000000
-16wmstrk2,Trucking,PNP Jogja 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:53:47.603,miskr3,16000000
-17wmsadm1,Admin,PNP Purwokerto 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:03:56.577,miskr3,17000000
-17wmstrk1,Trucking,PNP Purwokerto 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:39:31.240,miskr3,17000000
-17wmstrk2,Trucking,PNP Purwokerto 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:54:53.527,miskr3,17000000
-18wmsadm1,Admin,SOM Kediri 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:41:56.353,miskr3,18000000
-18wmstrk1,Trucking,SOM Kediri 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:59:21.123,miskr3,18000000
-18wmstrk2,Trucking,SOM Kediri 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 14:00:57.220,miskr3,18000000
-20wmsadm1,Admin,PNP Denpasar 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:09:31.337,miskr3,20000000
-20wmstrk1,Trucking,PNP Denpasar 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:46:03.127,miskr3,20000000
-20wmstrk2,Trucking,PNP Denpasar 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:56:15.233,miskr3,20000000
-21wmsadm1,Admin,Windu J Samarinda 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:54:23.357,miskr3,21000000
-21wmstrk1,Trucking,Windu J Samarinda 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:57:25.307,miskr3,21000000
-22wmsadm1,Admin,Windu J Banjarmasin 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:55:33.547,miskr3,22000000
-22wmstrk1,Trucking,Windu J Banjarmasin 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:58:30.620,miskr3,22000000
-23wmsadm1,Admin,Tunas K Palembang 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:45:36.410,miskr3,23000000
-23wmstrk1,Trucking,Tunas K Palembang 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:50:01.613,miskr3,23000000
-24wmsadm1,Admin,MPL Padang 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:28:01.270,miskr3,24000000
-24wmstrk1,Trucking,MPL Padang 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:51:30.343,miskr3,24000000
-24wmstrk2,Trucking,MPL Padang 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:57:52.517,miskr3,24000000
-25wmsadm1,Admin,SAMS Pekanbaru 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:46:57.687,miskr3,25000000
-25wmstrk1,Trucking,SAMS Pekanbaru 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:53:24.500,miskr3,25000000
-27wmsadm1,Admin,STB Medan 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:52:12.647,miskr3,27000000
-27wmstrk1,Trucking,STB Medan 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:55:17.257,miskr3,27000000
-28wmsadm1,Admin,Tunas Kreasi Makassar 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:53:13.137,miskr3,28000000
-28wmstrk1,Trucking,Tunas Kreasi Makassar 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:56:25.920,miskr3,28000000
-29wmsadm1,Admin,SAMS Lampung 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:51:18.177,miskr3,29000000
-29wmstrk1,Trucking,SAMS Lampung 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:54:26.697,miskr3,29000000
-30wmsadm1,Admin,Yudha Pontianak 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:56:30.293,miskr3,30000000
-30wmstrk1,Trucking,Yudha Pontianak 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:59:22.300,miskr3,30000000
-31wmsadm1,Admin,Windu Jaya 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:29:34.293,miskr3,31000000
-31wmstrk1,Trucking,Sarijasa Manado 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:53:27.883,miskr3,31000000
-31wmstrk2,Trucking,Sarijasa Manado 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:59:04.583,miskr3,31000000
-33wmsadm1,Admin,Jambi SAMS 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:48:20.490,miskr3,33000000
-33wmstrk1,Trucking,SAMS Jambi 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:51:32.913,miskr3,33000000
-34wmsadm1,Admin,Sarijasa Kendari 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:30:49.957,miskr3,34000000
-34wmstrk1,Trucking,Sarijasa Kendari 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:55:05.457,miskr3,34000000
-34wmstrk2,Trucking,Sarijasa Kendari 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 14:00:03.803,miskr3,34000000
-36wmsadm1,Admin,Sarijasa Palu 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:31:53.210,miskr3,36000000
-36wmstrk1,Trucking,Sarijasa Palu 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 10:00:24.083,miskr3,36000000
-36wmstrk2,Trucking,Sarijasa Palu 3,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 14:01:04.757,miskr3,36000000
-38wmsadm1,Admin,Branch Serang 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:57:42.890,miskr3,38000000
-38wmstrk1,Trucking,Branch Serang 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 16:00:15.797,miskr3,38000000
-39wmsadm1,Admin,SOM Jember 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:43:46.937,miskr3,39000000
-39wmstrk1,Trucking,SOM Jember 2,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 14:02:41.700,miskr3,39000000
-91admin1,Admin,Sub Branch Batam,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:07:24.903,logsd1,91000000
-91wmsadm1,Admin,Windu J Batam,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:30:00.247,mis5,91000000
+13wmsadm1,Admin,PNP Bandung 1,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:49:34.327,logsd1,13000000
+13wmstrk1,Trucking 1,PNP Bandung 2,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:52:48.803,logsd1,13000000
+13wmstrk2,Trucking 2,PNP Bandung 3,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-08 15:54:37.280,logsd1,13000000
+14wmsadm1,Admin,PNP Cirebon 1,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:39:34.170,logsd1,14000000
+14wmstrk1,Trucking 1,PNP Cirebon 2,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:45:02.083,logsd1,14000000
+14wmstrk2,Trucking 2,PNP Cirebon 3,L6m0UfbELFXGxe0e0KoOUw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-06 19:49:24.430,logsd1,14000000
+15wmsadm1,Admin,Translog Semarang 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:10:59.497,miskr3,15000000
+15wmstrk1,Trucking,Translog Semarang 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:35:17.780,miskr3,15000000
+16wmsadm1,Admin,PNP Jogja 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:02:47.283,miskr3,16000000
+16wmstrk1,Trucking,PNP Jogja 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:37:19.633,miskr3,16000000
+16wmstrk2,Trucking,PNP Jogja 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:53:47.603,miskr3,16000000
+17wmsadm1,Admin,PNP Purwokerto 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:03:56.577,miskr3,17000000
+17wmstrk1,Trucking,PNP Purwokerto 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:39:31.240,miskr3,17000000
+17wmstrk2,Trucking,PNP Purwokerto 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:54:53.527,miskr3,17000000
+18wmsadm1,Admin,SOM Kediri 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:41:56.353,miskr3,18000000
+18wmstrk1,Trucking,SOM Kediri 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:59:21.123,miskr3,18000000
+18wmstrk2,Trucking,SOM Kediri 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 14:00:57.220,miskr3,18000000
+19sub01,Admin,,Hd2Rl1cEBqmULf2CP9rEzA==,4dfe1cb2-2cb4-4c61-b22c-5fa2d5fbbdc3,1,All,2021-01-21 16:50:19.167,mis5,19000000
+19wmsadm1,Admin,Surabaya,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2021-01-21 16:46:27.720,mis5,19000000
+20wmsadm1,Admin,PNP Denpasar 1,TcwkeNVtXi1c6Uxefhb+NA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:09:31.337,miskr3,20000000
+20wmstrk1,Trucking,PNP Denpasar 2,QjE5HQ3m5Jd8d5DizFFJCQ==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:46:03.127,miskr3,20000000
+20wmstrk2,Trucking,PNP Denpasar 3,3wAbHHcFe5XZP6c/b+76Fw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:56:15.233,miskr3,20000000
+21wmsadm1,Admin,Windu J Samarinda 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:54:23.357,miskr3,21000000
+21wmstrk1,Trucking,Windu J Samarinda 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:57:25.307,miskr3,21000000
+22wmsadm1,Admin,Windu J Banjarmasin 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:55:33.547,miskr3,22000000
+22wmstrk1,Trucking,Windu J Banjarmasin 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:58:30.620,miskr3,22000000
+23wmsadm1,Admin,Tunas K Palembang 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:45:36.410,miskr3,23000000
+23wmstrk1,Trucking,Tunas K Palembang 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:50:01.613,miskr3,23000000
+24wmsadm1,Admin,MPL Padang 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:28:01.270,miskr3,24000000
+24wmstrk1,Trucking,MPL Padang 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:51:30.343,miskr3,24000000
+24wmstrk2,Trucking,MPL Padang 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:57:52.517,miskr3,24000000
+25wmsadm1,Admin,SAMS Pekanbaru 1,zs+Aw2+DcaruNYELaiUCMw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:46:57.687,miskr3,25000000
+25wmstrk1,Trucking,SAMS Pekanbaru 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:53:24.500,miskr3,25000000
+27wmsadm1,Admin,STB Medan 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:52:12.647,miskr3,27000000
+27wmstrk1,Trucking,STB Medan 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:55:17.257,miskr3,27000000
+28wmsadm1,Admin,Tunas Kreasi Makassar 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:53:13.137,miskr3,28000000
+28wmstrk1,Trucking,Tunas Kreasi Makassar 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:56:25.920,miskr3,28000000
+29wmsadm1,Admin,SAMS Lampung 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:51:18.177,miskr3,29000000
+29wmstrk1,Trucking,SAMS Lampung 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:54:26.697,miskr3,29000000
+30wmsadm1,Admin,Yudha Pontianak 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:56:30.293,miskr3,30000000
+30wmstrk1,Trucking,Yudha Pontianak 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:59:22.300,miskr3,30000000
+31wmsadm1,Admin,Windu Jaya 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:29:34.293,miskr3,31000000
+31wmstrk1,Trucking,Sarijasa Manado 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:53:27.883,miskr3,31000000
+31wmstrk2,Trucking,Sarijasa Manado 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 13:59:04.583,miskr3,31000000
+33wmsadm1,Admin,Jambi SAMS 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:48:20.490,miskr3,33000000
+33wmstrk1,Trucking,SAMS Jambi 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 15:51:32.913,miskr3,33000000
+34wmsadm1,Admin,Sarijasa Kendari 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:30:49.957,miskr3,34000000
+34wmstrk1,Trucking,Sarijasa Kendari 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:55:05.457,miskr3,34000000
+34wmstrk2,Trucking,Sarijasa Kendari 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 14:00:03.803,miskr3,34000000
+36wmsadm1,Admin,Sarijasa Palu 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 09:31:53.210,miskr3,36000000
+36wmstrk1,Trucking,Sarijasa Palu 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 10:00:24.083,miskr3,36000000
+36wmstrk2,Trucking,Sarijasa Palu 3,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-22 14:01:04.757,miskr3,36000000
+38wmsadm1,Admin,Branch Serang 1,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:57:42.890,miskr3,38000000
+38wmstrk1,Trucking,Branch Serang 2,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 16:00:15.797,miskr3,38000000
+39wmsadm1,Admin,SOM Jember 1,1hrlMemIjvFqscGBWqHQXw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 13:43:46.937,miskr3,39000000
+39wmstrk1,Trucking,SOM Jember 2,1hrlMemIjvFqscGBWqHQXw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-12-12 14:02:41.700,miskr3,39000000
+91admin1,Admin,Sub Branch Batam,Lb9hjZ4DTctD5lEAZCmu5Q==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:07:24.903,logsd1,91000000
+91wmsadm1,Admin,Windu J Batam,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:30:00.247,mis5,91000000
 91wmsadm2,Admin,Windu J Batam,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:30:40.870,mis5,91000000
-92admin1,Admin,Sub Branch Lombok,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:10:37.640,logsd1,92000000
+92admin1,Admin,Sub Branch Lombok,Lb9hjZ4DTctD5lEAZCmu5Q==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:10:37.640,logsd1,92000000
 92wmsadm1,Admin,PNP Lombok,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:31:39.467,mis5,92000000
 92wmsadm2,Admin,PNP Lombok,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:33:16.660,mis5,92000000
-93admin1,Admin,Sub Branch Tasik,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:11:52.187,logsd1,93000000
-93wmsadm1,Admin,PNP Tasik,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:34:02.330,mis5,93000000
+93admin1,Admin,Sub Branch Tasik,Lb9hjZ4DTctD5lEAZCmu5Q==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:11:52.187,logsd1,93000000
+93wmsadm1,Admin,PNP Tasik,vja5sQehZAfF+CLpYqyn2A==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:34:02.330,mis5,93000000
 93wmsadm2,Admin,PNP Tasik,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2020-01-23 08:34:49.940,mis5,93000000
-99mis,mis,mis,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2018-10-02 08:15:54.533,miskr3,93000000
-99tes13,tbp,tes bdg,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-19 07:50:52.560,miskr3,91000000
-99tes14,tbp,tes crb,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-19 07:51:43.103,miskr3,14000000
-administrator,admin,SEID,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2016-12-23 00:00:00.000,System,81000000
+94wmsadm1,"Admin ",SOM Jember 1,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2021-01-14 10:30:29.967,mis5,94000000
+99mis,mis,mis,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2018-10-02 08:15:54.533,miskr3,19000000
+99tes13,tbp,tes bdg,PGO6d8SZyUuoRqT51MYiZw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-19 07:50:52.560,miskr3,13000000
+99tes14,tbp,tes crb,PGO6d8SZyUuoRqT51MYiZw==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-19 07:51:43.103,miskr3,14000000
+administrator,admin,SEID,jm9lYVDUtXLvfcjHEuoNpA==,3c114c03-6052-4781-8133,1,All,2016-12-23 00:00:00.000,System,81000000
 afedigi,Afedigi,Afedigi,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2020-04-27 12:20:57.530,mis5,16000000
-alc1,PARTINI,,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:54:37.763,administrator,81000000
-alc2,BENNY,JANUAR,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:55:41.567,administrator,81000000
-alc3,ENDAH,WIKASTRI,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:56:15.637,administrator,81000000
-alc4,KOKOM,MARLINA,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:56:37.947,administrator,81000000
-alc5,NURHADI,,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:57:02.570,administrator,81000000
-alc6,RAMADHANI,SYAIPULLAH,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:57:33.583,administrator,81000000
-alc7,LUCKY,AGUSTINO,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:58:15.063,administrator,81000000
-alc8,DONY DIMAS,PRABOWO,Hd2Rl1cEBqmULf2CP9rEzA==,dec81fd6-d146-4d9b-928f-68489e2706e8,1,All,2017-03-03 08:58:49.213,administrator,81000000
-alc9,support,,Hd2Rl1cEBqmULf2CP9rEzA==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-16 08:42:54.350,administrator,81000000
-archie,archie,ananda,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2018-03-12 09:55:25.823,administrator,13000000
-bad1,Retno N,BAEC,Hd2Rl1cEBqmULf2CP9rEzA==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2017-11-02 14:59:18.077,administrator,81000000
-bad2,All member BAC,BAEC,Hd2Rl1cEBqmULf2CP9rEzA==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2017-11-02 14:59:56.687,administrator,81000000
-bca11,Branch Chief Admin,Jakarta 1,Hd2Rl1cEBqmULf2CP9rEzA==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-03 08:06:21.407,missd3,11000000
-bca12,Branch Chief Admin,Jakarta 2,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:06:54.427,missd3,12000000
-bca13,Branch Chief Admin,Bandung,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:14:05.120,missd3,13000000
-bca14,Branch Chief Admin,Cirebon,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:15:32.057,missd3,14000000
-bca15," Branch Chief Admin ",Semarang,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:28:14.480,miskr3,15000000
-bca16," Branch Chief Admin ",Yogyakarta,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:29:13.687,miskr3,16000000
-bca17," Branch Chief Admin ",Purwokerto,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:29:52.560,miskr3,17000000
-bca18," Branch Chief Admin ",Kediri,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:30:51.707,miskr3,18000000
-bca19," Branch Chief Admin ",Surabaya,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:31:37.303,miskr3,19000000
-bca20," Branch Chief Admin ",Denpasar,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:32:28.523,miskr3,20000000
-bca21," Branch Chief Admin ",Samarinda,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:33:04.167,miskr3,21000000
-bca22," Branch Chief Admin ",Banjarmasin,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:33:54.230,miskr3,22000000
-bca23," Branch Chief Admin ",Palembang,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:34:52.873,miskr3,23000000
-bca24," Branch Chief Admin ",Padang,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:35:31.390,miskr3,24000000
-bca25," Branch Chief Admin ",Pekanbaru,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:36:19.990,miskr3,25000000
-bca26," Branch Chief Admin ",Malang,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:37:09.153,miskr3,26000000
-bca27," Branch Chief Admin ",Medan,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:37:42.380,miskr3,27000000
-bca28," Branch Chief Admin ",Makassar,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:39:12.210,miskr3,28000000
-bca29," Branch Chief Admin ",Lampung,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:40:17.533,miskr3,29000000
-bca30," Branch Chief Admin ",Pontianak,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:41:15.610,miskr3,30000000
-bca31," Branch Chief Admin ",Manado,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:42:00.370,miskr3,31000000
-bca32," Branch Chief Admin ",Bogor,Hd2Rl1cEBqmULf2CP9rEzA==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-02 16:43:00.183,miskr3,32000000
-bca33," Branch Chief Admin ",Jambi,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:43:52.033,miskr3,33000000
-bca34," Branch Chief Admin ",Kendari,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:45:01.437,miskr3,34000000
-bca35," Branch Chief Admin ",Tarakan,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:45:57.157,miskr3,35000000
-bca36," Branch Chief Admin ",Palu,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:46:48.360,miskr3,36000000
-bca37," Branch Chief Admin ",Batam,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,0,All,2017-10-02 16:47:27.283,miskr3,37000000
-bca38,Branch Chief Admin,Serang,Hd2Rl1cEBqmULf2CP9rEzA==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-03 08:09:51.653,missd3,38000000
-bca39,Branch Chief Admin,Jember,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:10:37.610,missd3,39000000
-bca40,Branch Chief Admin,Aceh,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:11:09.877,missd3,40000000
-bca41,Branch Chief Admin,Karawang,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:12:01.207,missd3,41000000
-bca80,Hub Chief Admin,Surabaya,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:12:43.337,missd3,80000000
-bca91,Batam,Sub Branch,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:03:33.447,logsd1,91000000
-bca99,bca tes,,Hd2Rl1cEBqmULf2CP9rEzA==,196f050d-6ad4-41bd-97a8-bffb8b7d5877,1,All,2017-11-10 14:45:18.107,miskr3,30000000
-bia01,Internal Audit,SEID,Hd2Rl1cEBqmULf2CP9rEzA==,5f838583-bcc1-4610-9450-e18eb21ff30a,1,All,2019-03-26 11:10:19.023,mis5,81000000
-bia11,Interna Audit,Jakarta,Hd2Rl1cEBqmULf2CP9rEzA==,5f838583-bcc1-4610-9450-e18eb21ff30a,1,All,2019-03-26 11:56:14.877,mis5,11000000
-budisd,budi,,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,SWADAYA,2017-03-01 14:28:28.353,administrator,11000000
-display,display,,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-10 07:48:34.807,administrator,81000000
-had1,Rosmaita,,Hd2Rl1cEBqmULf2CP9rEzA==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2018-01-29 10:57:22.463,administrator,81000000
-had2,Sari,Novianti,Hd2Rl1cEBqmULf2CP9rEzA==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2018-01-29 10:58:04.657,administrator,81000000
-hcptes,hcp,tes,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-08-03 19:15:47.880,administrator,14000000
-hendra,hendra,,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2018-03-12 10:06:21.827,administrator,40000000
-logadmsby1,IRAWAN,,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,SURABAYA HUB,2018-04-03 09:41:55.027,administrator,80000000
-logadmsby2,Sugeng,,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2018-10-04 16:18:27.480,logsd1,80000000
-logadmsby3,FARKHAM,,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,SURABAYA HUB,2018-04-03 09:43:01.257,administrator,80000000
-logdpkr1,Display Monitor,in Main Office KRW,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-28 16:02:45.857,administrator,81000000
-logdpkr2,Display Monitor,in Logistic Ofc KRW,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-01 10:32:31.230,administrator,81000000
-logdpsd1,Display Monitor Swadaya 1,,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:41:01.107,administrator,81000000
-logdpsd2,Display Monitor Swadaya 2,,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:41:34.460,administrator,81000000
-loghub1,"Irawan ",Basori,Hd2Rl1cEBqmULf2CP9rEzA==,758a8725-be1f-4bf5-bc9c-d7ffb94723f0,1,All,2018-02-06 09:22:49.007,administrator,81000000
-logkr1,Chairul,Anwar,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-02-28 08:56:18.927,missdy,81000000
-logkr10,Tomi,,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2018-03-06 08:35:50.860,administrator,81000000
+alc1,PARTINI,,wgz4MH6cyAmFwS/RDlU7aQ==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:54:37.763,administrator,81000000
+alc2,BENNY,JANUAR,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:55:41.567,administrator,81000000
+alc3,ENDAH,WIKASTRI,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:56:15.637,administrator,81000000
+alc4,KOKOM,MARLINA,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:56:37.947,administrator,81000000
+alc5,NURHADI,,QegMAK8MBy68PIGKmSFOtw==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:57:02.570,administrator,81000000
+alc6,RAMADHANI,SYAIPULLAH,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:57:33.583,administrator,81000000
+alc7,LUCKY,AGUSTINO,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-03 08:58:15.063,administrator,81000000
+alc8,DONY DIMAS,PRABOWO,7mojLAmVyC8d7CXAMtp6wQ==,dec81fd6-d146-4d9b-928f-68489e2706e8,1,All,2017-03-03 08:58:49.213,administrator,81000000
+alc9,support,,Lb9hjZ4DTctD5lEAZCmu5Q==,93c294c5-f5d2-489c-816a-731997c99021,1,All,2017-03-16 08:42:54.350,administrator,81000000
+archie,archie,ananda,ouWSqPKfW07tRPqbRkhQtA==,3c114c03-6052-4781-8133,1,All,2018-03-12 09:55:25.823,administrator,13000000
+bad1,Retno N,BAEC,Lb9hjZ4DTctD5lEAZCmu5Q==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2017-11-02 14:59:18.077,administrator,81000000
+bad2,All member BAC,BAEC,Lb9hjZ4DTctD5lEAZCmu5Q==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2017-11-02 14:59:56.687,administrator,81000000
+bca11,Branch Chief Admin,Jakarta 1,ouWSqPKfW07tRPqbRkhQtA==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-03 08:06:21.407,missd3,11000000
+bca12,Branch Chief Admin,Jakarta 2,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:06:54.427,missd3,12000000
+bca13,Branch Chief Admin,Bandung,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:14:05.120,missd3,13000000
+bca14,Branch Chief Admin,Cirebon,jmQ0BXyjsK8O8rgNrKe35g==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:15:32.057,missd3,14000000
+bca15," Branch Chief Admin ",Semarang,zoa8qTxJ9DFlHZUVYatAgw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:28:14.480,miskr3,15000000
+bca16," Branch Chief Admin ",Yogyakarta,zoa8qTxJ9DFlHZUVYatAgw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:29:13.687,miskr3,16000000
+bca17," Branch Chief Admin ",Purwokerto,oOHIHfARRHiTdTxW0DHqSg==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:29:52.560,miskr3,17000000
+bca18," Branch Chief Admin ",Kediri,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:30:51.707,miskr3,18000000
+bca19," Branch Chief Admin ",Surabaya,CHxkXsuiIc8/dijF6K/F0A==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:31:37.303,miskr3,19000000
+bca20," Branch Chief Admin ",Denpasar,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:32:28.523,miskr3,20000000
+bca21," Branch Chief Admin ",Samarinda,IbEwEL+Op9rYZL/yotwN/A==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:33:04.167,miskr3,21000000
+bca22," Branch Chief Admin ",Banjarmasin,ZJk1p8H48sYr7Ylq4mZmrQ==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:33:54.230,miskr3,22000000
+bca23," Branch Chief Admin ",Palembang,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:34:52.873,miskr3,23000000
+bca24," Branch Chief Admin ",Padang,yak0kiuEjII6wt65eytMPw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:35:31.390,miskr3,24000000
+bca25," Branch Chief Admin ",Pekanbaru,OaG1x1DdlHETUojijdffew==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:36:19.990,miskr3,25000000
+bca26," Branch Chief Admin ",Malang,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:37:09.153,miskr3,26000000
+bca27," Branch Chief Admin ",Medan,Y6x63sXkB48JNw5zy4D5UQ==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:37:42.380,miskr3,27000000
+bca28," Branch Chief Admin ",Makassar,M79Cmlw0Klq4IC859XTM7g==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:39:12.210,miskr3,28000000
+bca29," Branch Chief Admin ",Lampung,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:40:17.533,miskr3,29000000
+bca30," Branch Chief Admin ",Pontianak,Lb9hjZ4DTctD5lEAZCmu5Q==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:41:15.610,miskr3,30000000
+bca31," Branch Chief Admin ",Manado,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:42:00.370,miskr3,31000000
+bca32," Branch Chief Admin ",Bogor,WvOq1NbfFFU/rhcB3QSwbA==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-02 16:43:00.183,miskr3,32000000
+bca33," Branch Chief Admin ",Jambi,RgrX7zDmpWmPrPXdGn4gJQ==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:43:52.033,miskr3,33000000
+bca34," Branch Chief Admin ",Kendari,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:45:01.437,miskr3,34000000
+bca35," Branch Chief Admin ",Tarakan,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:45:57.157,miskr3,35000000
+bca36," Branch Chief Admin ",Palu,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-02 16:46:48.360,miskr3,36000000
+bca37," Branch Chief Admin ",Batam,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,0,All,2017-10-02 16:47:27.283,miskr3,37000000
+bca38,Branch Chief Admin,Serang,Lb9hjZ4DTctD5lEAZCmu5Q==,911c8b15-aaf2-4b82-bf9e-a91ec1aa2409,1,All,2017-10-03 08:09:51.653,missd3,38000000
+bca39,Branch Chief Admin,Jember,43Ye3tgb+LVVTYLgRlg/gA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:10:37.610,missd3,39000000
+bca40,Branch Chief Admin,Aceh,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:11:09.877,missd3,40000000
+bca41,Branch Chief Admin,Karawang,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:12:01.207,missd3,41000000
+bca80,Hub Chief Admin,Surabaya,L6m0UfbELFXGxe0e0KoOUw==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2017-10-03 08:12:43.337,missd3,80000000
+bca91,Batam,Sub Branch,Lb9hjZ4DTctD5lEAZCmu5Q==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2020-02-05 11:03:33.447,logsd1,91000000
+bca94,Branch Chief Admin,Sub. Jember,Hd2Rl1cEBqmULf2CP9rEzA==,0f2fa172-c291-470f-8a4b-9053ea264413,1,All,2021-01-14 10:29:10.703,mis5,94000000
+bca99,bca tes,,PGO6d8SZyUuoRqT51MYiZw==,196f050d-6ad4-41bd-97a8-bffb8b7d5877,1,All,2017-11-10 14:45:18.107,miskr3,30000000
+bia01,Internal Audit,SEID,Lb9hjZ4DTctD5lEAZCmu5Q==,5f838583-bcc1-4610-9450-e18eb21ff30a,1,All,2019-03-26 11:10:19.023,mis5,81000000
+bia11,Interna Audit,Jakarta,Lb9hjZ4DTctD5lEAZCmu5Q==,5f838583-bcc1-4610-9450-e18eb21ff30a,1,All,2019-03-26 11:56:14.877,mis5,11000000
+budisd,budi,,Lb9hjZ4DTctD5lEAZCmu5Q==,3c114c03-6052-4781-8133,1,SWADAYA,2017-03-01 14:28:28.353,administrator,11000000
+display,display,,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-10 07:48:34.807,administrator,81000000
+had1,Rosmaita,,Lb9hjZ4DTctD5lEAZCmu5Q==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2018-01-29 10:57:22.463,administrator,81000000
+had2,Sari,Novianti,Lb9hjZ4DTctD5lEAZCmu5Q==,a2c2cb0e-280d-40b3-bd39-39c55d751968,1,All,2018-01-29 10:58:04.657,administrator,81000000
+hcptes,hcp,tes,wgz4MH6cyAmFwS/RDlU7aQ==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-08-03 19:15:47.880,administrator,14000000
+hendra,hendra,,G60lvG91UEM/gokCjFqsaw==,3c114c03-6052-4781-8133,1,All,2018-03-12 10:06:21.827,administrator,40000000
+logadmsby1,IRAWAN,,QogBWTMbjFP1gChJUcZhSA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,SURABAYA HUB,2018-04-03 09:41:55.027,administrator,80000000
+logadmsby2,Sugeng,,L6m0UfbELFXGxe0e0KoOUw==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2018-10-04 16:18:27.480,logsd1,80000000
+logadmsby3,FARKHAM,,pvxuT8gVIWtzUJgLu5j7Ag==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,SURABAYA HUB,2018-04-03 09:43:01.257,administrator,80000000
+logdpkr1,Display Monitor,in Main Office KRW,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-28 16:02:45.857,administrator,81000000
+logdpkr2,Display Monitor,in Logistic Ofc KRW,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-01 10:32:31.230,administrator,81000000
+logdpsd1,Display Monitor Swadaya 1,,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:41:01.107,administrator,81000000
+logdpsd2,Display Monitor Swadaya 2,,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:41:34.460,administrator,81000000
+loghub1,"Irawan ",Basori,Z1or0QHyXPWwEJDyC1XNlw==,758a8725-be1f-4bf5-bc9c-d7ffb94723f0,1,All,2018-02-06 09:22:49.007,administrator,81000000
+logkr1,Chairul,Anwar,HtmgjMZ7qWM8SKm/JQ1HLw==,3c114c03-6052-4781-8133,1,All,2017-02-28 08:56:18.927,missdy,81000000
+logkr10,Tomi,,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2018-03-06 08:35:50.860,administrator,81000000
 logkr2,Yan Andika,Ferdana,Hd2Rl1cEBqmULf2CP9rEzA==,dec81fd6-d146-4d9b-928f-68489e2706e8,1,All,2017-02-28 08:57:03.397,missdy,81000000
-logkr3,Didin,Solehudin,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-02-28 08:57:25.337,missdy,81000000
-logkr4,Miswanda,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,KARAWANG,2017-03-06 08:22:51.833,administrator,81000000
-logkr5,Dian,Rosdiana,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:08:30.540,administrator,81000000
-logkr6,Ahmad Azhari,Firdausi,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:09:26.733,administrator,81000000
+logkr3,Didin,Solehudin,ouWSqPKfW07tRPqbRkhQtA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-02-28 08:57:25.337,missdy,81000000
+logkr4,Miswanda,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,KARAWANG,2017-03-06 08:22:51.833,administrator,81000000
+logkr5,Dian,Rosdiana,THwGmP13Qt/QJgxHy30vBA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:08:30.540,administrator,81000000
+logkr6,Ahmad Azhari,Firdausi,ab9KmQoIt6rAITz5bgWhjw==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:09:26.733,administrator,81000000
 logkr7,Dhesy,Aryanti,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:10:21.457,administrator,81000000
-logkr8,"Rahmat ",Hidayat,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:11:00.803,administrator,81000000
-logkr9,Magdalena,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-12-15 11:33:42.647,administrator,81000000
-logmgt1,Firman,,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-06 11:16:40.037,administrator,81000000
-logmgt2,Tomi,Sutomo,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-06 11:17:10.997,administrator,81000000
-logsd1,Malik,Santoso,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 14:39:55.933,administrator,10000000
-logsd10,Dodo,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:44:21.750,administrator,81000000
-logsd11,Azis,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-11-03 07:44:55.563,administrator,81000000
-logsd12,Sumiyatun,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:45:28.223,administrator,81000000
-logsd13,Rifendi,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:46:02.803,administrator,81000000
-logsd14,Sigit B.,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:46:30.510,administrator,11000000
-logsd2,NURHAYATI,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:40:24.020,administrator,81000000
-logsd3,TEDDY A.S,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:40:57.673,administrator,10000000
-logsd4,HAMIDI,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:41:26.400,administrator,81000000
-logsd5,TEDDY,SIMATUPANG,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-03-03 14:41:53.270,administrator,11000000
-logsd6,M_Daniel,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:50:09.830,administrator,81000000
-logsd7,Nadra Mahlila,,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-10-26 08:43:02.943,administrator,11000000
-logsd8,Gandung,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:43:22.247,administrator,10000000
-logsd9,Hardiansyah,Log_JKT,Hd2Rl1cEBqmULf2CP9rEzA==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:43:50.327,administrator,11000000
-mgt1,Kokusho,Ryoichi,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-27 14:35:50.393,missdy,81000000
-mgt2,Bejo,Nugroho,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-27 15:22:02.717,administrator,81000000
-mgt3,Denny,A. Rachman,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-02 14:49:49.163,administrator,81000000
-mgt9,Bejo,Nugroho,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,KARAWANG,2018-08-24 08:28:35.147,miskr3,14000000
-mis,mis,admin,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-20 10:08:33.620,administrator,81000000
-mis1,Sandhi,Wibowo,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:13:03.930,administrator,NULL
-mis10,Sri,Kuncorowati,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:19:27.677,administrator,81000000
+logkr8,"Rahmat ",Hidayat,Lb9hjZ4DTctD5lEAZCmu5Q==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,All,2017-10-03 16:11:00.803,administrator,81000000
+logkr9,Magdalena,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-12-15 11:33:42.647,administrator,81000000
+logmgt1,Firman,,ax2S+5tWwZXQnI/sOpdIpQ==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-06 11:16:40.037,administrator,81000000
+logmgt2,Tomi,Sutomo,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-06 11:17:10.997,administrator,81000000
+logsd1,Malik,Santoso,l81yjI21XqdnGXOdszl7yg==,3c114c03-6052-4781-8133,1,All,2017-03-03 14:39:55.933,administrator,10000000
+logsd10,Dodo,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:44:21.750,administrator,81000000
+logsd11,Azis,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-11-03 07:44:55.563,administrator,81000000
+logsd12,Sumiyatun,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:45:28.223,administrator,81000000
+logsd13,Rifendi,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:46:02.803,administrator,81000000
+logsd14,Sigit B.,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:46:30.510,administrator,11000000
+logsd2,NURHAYATI,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:40:24.020,administrator,81000000
+logsd3,TEDDY A.S,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:40:57.673,administrator,10000000
+logsd4,HAMIDI,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:41:26.400,administrator,81000000
+logsd5,TEDDY,SIMATUPANG,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-03-03 14:41:53.270,administrator,11000000
+logsd6,M_Daniel,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,All,2017-03-03 14:50:09.830,administrator,81000000
+logsd7,Nadra Mahlila,,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-10-26 08:43:02.943,administrator,11000000
+logsd8,Gandung,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:43:22.247,administrator,10000000
+logsd9,Hardiansyah,Log_JKT,Lb9hjZ4DTctD5lEAZCmu5Q==,e1bcb7db-ff34-4aea-ab4f-bdf20bf5eba8,1,SWADAYA,2017-11-03 07:43:50.327,administrator,11000000
+mgt1,Kokusho,Ryoichi,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-27 14:35:50.393,missdy,81000000
+mgt2,Bejo,Nugroho,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-02-27 15:22:02.717,administrator,81000000
+mgt3,Denny,A. Rachman,CToixqv0LdJJS4Ytgfo0OQ==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-02 14:49:49.163,administrator,81000000
+mgt9,Bejo,Nugroho,Lb9hjZ4DTctD5lEAZCmu5Q==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,KARAWANG,2018-08-24 08:28:35.147,miskr3,14000000
+mis,mis,admin,fqTt5h2WjBLNA3KN8XLcqg==,3c114c03-6052-4781-8133,1,All,2017-03-20 10:08:33.620,administrator,81000000
+mis1,Sandhi,Wibowo,Ir1FT7qfLiN82DFyATg9hg==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:13:03.930,administrator,NULL
+mis10,Sri,Kuncorowati,fqTt5h2WjBLNA3KN8XLcqg==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:19:27.677,administrator,81000000
 mis2,Budi,Lesmana,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:14:12.557,administrator,10000000
-mis3,Tri,BP,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 07:46:04.890,miskr3,81000000
-mis4,Faisal,Kurniawan,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:15:35.977,administrator,10000000
-mis5,Afif,Dzulfikar,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,SWADAYA,2017-03-03 17:16:05.160,administrator,10000000
+mis3,Tri,BP,PGO6d8SZyUuoRqT51MYiZw==,3c114c03-6052-4781-8133,1,All,2017-03-03 07:46:04.890,miskr3,81000000
+mis4,Faisal,Kurniawan,aU7HPkfE/aKYrLZ4d/7adw==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:15:35.977,administrator,10000000
+mis5,Afif,Dzulfikar,briEk1EyQeDj5iUB+DWjqw==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:16:05.160,administrator,81000000
 mis6,Dodi,Hendarsah,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2017-03-03 17:16:48.767,administrator,27000000
-mis7,S. Harry,Smith,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:17:46.003,administrator,81000000
-mis8,Fajar,Nugroho,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:18:27.777,administrator,81000000
-mis9,Raffa,Ismunandar,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:18:59.627,administrator,81000000
-miskr3,Tri BP,KRW,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,KARAWANG,2017-03-01 07:55:24.063,tcsmis,81000000
-miskrw,mis,krw,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,KARAWANG,2017-02-21 13:31:06.117,operator,81000000
+mis7,S. Harry,Smith,fqTt5h2WjBLNA3KN8XLcqg==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:17:46.003,administrator,81000000
+mis8,Fajar,Nugroho,fqTt5h2WjBLNA3KN8XLcqg==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:18:27.777,administrator,81000000
+mis9,Raffa,Ismunandar,fqTt5h2WjBLNA3KN8XLcqg==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-03 17:18:59.627,administrator,81000000
+miskr3,Tri BP,KRW,PGO6d8SZyUuoRqT51MYiZw==,3c114c03-6052-4781-8133,1,KARAWANG,2017-03-01 07:55:24.063,tcsmis,81000000
+miskrw,mis,krw,s42oP4DhxbO64/fMqnB5gw==,3c114c03-6052-4781-8133,1,KARAWANG,2017-02-21 13:31:06.117,operator,81000000
 miskrw01,mis,,Hd2Rl1cEBqmULf2CP9rEzA==,dec81fd6-d146-4d9b-928f-68489e2706e8,1,KARAWANG,2018-05-10 02:41:37.627,administrator,81000000
-miskrw1,Budi,Lesmana,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,KARAWANG,2017-03-03 09:30:36.587,administrator,81000000
-missb3,Tri BP,HUB SBY,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,SURABAYA HUB,2018-11-15 10:30:05.857,missd3,80000000
-missd3,Tri BP,SDY,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-07 15:16:10.487,mis3,10000000
-nladmckr1,Carsudin_krw,,Hd2Rl1cEBqmULf2CP9rEzA==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,KARAWANG,2017-10-26 08:20:53.640,administrator,81000000
-nladmcsd1,iwan_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:14:58.993,administrator,11000000
-nladmkr1,Beri,Taufiqi,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:01:31.993,administrator,81000000
-nladmkr2,andi_krw,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:02:01.777,administrator,81000000
-nladmkr4,Yoga_krw,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:04:50.473,administrator,81000000
-nladmkr5,Gunawan_krw,Hari P,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2020-04-23 15:21:40.843,logkr1,81000000
-nladmkr6,marsinggih_krw,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:09:25.347,administrator,81000000
-nladmkr7,Tasirin_Krw,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2018-04-25 14:25:27.200,administrator,81000000
-nladmkr8,Tri Wahyu_krw,Hidayat,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2020-04-23 15:27:42.850,logkr1,81000000
-nladmsby1,BUSTANUL,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SURABAYA HUB,2018-04-03 09:48:34.907,administrator,80000000
-nladmsby2,AHMAD,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SURABAYA HUB,2018-04-03 09:49:09.540,administrator,80000000
+miskrw1,Budi,Lesmana,VK2zm+NkO+izVknQkj9hzA==,3c114c03-6052-4781-8133,1,KARAWANG,2017-03-03 09:30:36.587,administrator,81000000
+missb3,Tri BP,HUB SBY,PGO6d8SZyUuoRqT51MYiZw==,3c114c03-6052-4781-8133,1,SURABAYA HUB,2018-11-15 10:30:05.857,missd3,80000000
+missd3,Tri BP,SDY,PGO6d8SZyUuoRqT51MYiZw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-07 15:16:10.487,mis3,10000000
+nladmckr1,Carsudin_krw,,Lb9hjZ4DTctD5lEAZCmu5Q==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,KARAWANG,2017-10-26 08:20:53.640,administrator,81000000
+nladmcsd1,iwan_jkt,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:14:58.993,administrator,11000000
+nladmkr1,Beri,Taufiqi,DWaSLKy/kpeH3XMmu/skvA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:01:31.993,administrator,81000000
+nladmkr2,andi_krw,,7l5G1yuti61vHhYNPKTqsQ==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:02:01.777,administrator,81000000
+nladmkr4,Yoga_krw,,1xV8iDx1sXiX/BuVDnY/cw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:04:50.473,administrator,81000000
+nladmkr5,Gunawan_krw,Hari P,XgDo6oXQg8N9c1EyJq4byQ==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2020-04-23 15:21:40.843,logkr1,81000000
+nladmkr6,marsinggih_krw,,aT1Q3VBl2mzvlFqE6GbEig==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-10-26 08:09:25.347,administrator,81000000
+nladmkr7,Tasirin_Krw,,gqLuEcN8XwUg5CGKx3+oUw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2018-04-25 14:25:27.200,administrator,81000000
+nladmkr8,Tri Wahyu_krw,Hidayat,UGmT5p6lMGK51w4aQNr6Mg==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2020-04-23 15:27:42.850,logkr1,81000000
+nladmsby1,BUSTANUL,,L6m0UfbELFXGxe0e0KoOUw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SURABAYA HUB,2018-04-03 09:48:34.907,administrator,80000000
+nladmsby2,AHMAD,,L6m0UfbELFXGxe0e0KoOUw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SURABAYA HUB,2018-04-03 09:49:09.540,administrator,80000000
 nladmsby3,MARIANTO,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SURABAYA HUB,2018-04-03 09:49:37.477,administrator,80000000
-nladmsd1,fuad_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:06:28.930,administrator,10000000
-nladmsd2,ichwan_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,SWADAYA,2017-10-26 08:06:57.040,administrator,10000000
-nladmsd3,Fatoni_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:07:26.450,administrator,10000000
-nladmsd4,ahmad_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:08:04.497,administrator,10000000
-nladmsd5,robby_jkt,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:08:33.263,administrator,10000000
-nlckkr1,Nittsu Checker,KRW 1,Hd2Rl1cEBqmULf2CP9rEzA==,7445afc7-0d76-4cd0-a1e0-a74d86635634,1,KARAWANG,2017-02-27 08:06:58.290,missdy,81000000
-nlckkr2,Nittsu Checker,KRW 2,Hd2Rl1cEBqmULf2CP9rEzA==,7445afc7-0d76-4cd0-a1e0-a74d86635634,1,KARAWANG,2017-02-27 08:07:22.153,missdy,81000000
-nlldrkr1,Andi P,Nittsu Leader,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-03-06 08:25:34.137,administrator,81000000
-nlockr1,Arifin & Bustamil,Nittsu Officer KRW 1,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,KARAWANG,2017-02-27 08:05:38.867,missdy,81000000
-nlockr2,Nittsu Officer,KRW 2,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,KARAWANG,2017-02-27 08:03:07.330,missdy,81000000
-nlocsby1,IMRON,,Hd2Rl1cEBqmULf2CP9rEzA==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,SURABAYA HUB,2018-04-03 09:43:38.080,administrator,80000000
-nlocsby2,FENDI,,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SURABAYA HUB,2018-04-03 09:47:08.503,administrator,80000000
-nlocsby3,FUAD,,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SURABAYA HUB,2018-04-03 09:47:43.953,administrator,80000000
-nlocsd1,FUAD,,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:35:32.690,administrator,10000000
-nlocsd2,IRFAN,,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:36:04.630,administrator,10000000
-nlocsd3,RAIDIN,,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:36:43.653,administrator,10000000
-nlocsd4,Dede,Roy,Hd2Rl1cEBqmULf2CP9rEzA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:37:23.510,administrator,10000000
-nlreturkr1,Andi,,Hd2Rl1cEBqmULf2CP9rEzA==,7fbfdb81-e994-4461-88f0-7ce099b84a2f,1,SWADAYA,2017-11-29 11:36:01.447,administrator,11000000
-nlspvkr2,Andi,P,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-03-13 10:29:15.187,administrator,81000000
-nlspvsd1,ROBBY,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:38:06.883,administrator,11000000
-nlspvsd2,WASIL,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:38:49.037,administrator,11000000
-nlspvsd3,M. ALFI,,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:39:20.390,administrator,11000000
-ppcadm1,Tony,Kuswoyo,Hd2Rl1cEBqmULf2CP9rEzA==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:30:31.257,administrator,81000000
-ryan,Ryan,Ganteng,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,SWADAYA,2018-03-28 09:35:38.557,administrator,10000000
-Swadaya,JKT,Logistics,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,All,2019-03-18 11:03:29.873,logsd1,28000000
-trp14,transporter CRB,,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-18 08:39:25.897,administrator,14000000
-usr110,user 1,,Hd2Rl1cEBqmULf2CP9rEzA==,3c114c03-6052-4781-8133,1,SWADAYA,2018-07-26 11:21:27.960,usr181,10000000
-usr111,user,111,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,SWADAYA,2018-09-12 19:13:40.223,administrator,11000000
-usr113,Bandung,Cabang,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-08-03 17:58:37.307,archie,13000000
-usr114,User 1,Cirebon,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-07-20 14:25:15.020,administrator,14000000
-usr161,Cab,Yogyakarta,Hd2Rl1cEBqmULf2CP9rEzA==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,KARAWANG,2018-08-15 15:25:18.230,administrator,16000000
-usr181,User 1,Karawang,Hd2Rl1cEBqmULf2CP9rEzA==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,KARAWANG,2018-07-25 11:05:33.793,administrator,81000000
-usrkrw181,Uji,Coba,Hd2Rl1cEBqmULf2CP9rEzA==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2018-08-10 11:01:05.333,administrator,81000000
-utes1,testing user,,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-13 11:15:56.540,administrator,41000000
-utes2,testing user,,Hd2Rl1cEBqmULf2CP9rEzA==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-13 11:23:56.720,administrator,41000000
-zz1,qwer,,Hd2Rl1cEBqmULf2CP9rEzA==,196f050d-6ad4-41bd-97a8-bffb8b7d5877,1,All,2017-11-10 14:04:54.830,administrator,14000000
+nladmsd1,fuad_jkt,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:06:28.930,administrator,10000000
+nladmsd2,ichwan_jkt,,Lb9hjZ4DTctD5lEAZCmu5Q==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,SWADAYA,2017-10-26 08:06:57.040,administrator,10000000
+nladmsd3,Fatoni_jkt,,yuxKYOdmNsyeWMKp0DliCw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:07:26.450,administrator,10000000
+nladmsd4,ahmad_jkt,,L6m0UfbELFXGxe0e0KoOUw==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:08:04.497,administrator,10000000
+nladmsd5,robby_jkt,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-10-26 08:08:33.263,administrator,10000000
+nlckkr1,Nittsu Checker,KRW 1,Lb9hjZ4DTctD5lEAZCmu5Q==,7445afc7-0d76-4cd0-a1e0-a74d86635634,1,KARAWANG,2017-02-27 08:06:58.290,missdy,81000000
+nlckkr2,Nittsu Checker,KRW 2,sAncYzVboHdxilc2GgyWDA==,7445afc7-0d76-4cd0-a1e0-a74d86635634,1,KARAWANG,2017-02-27 08:07:22.153,missdy,81000000
+nlldrkr1,Andi P,Nittsu Leader,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-03-06 08:25:34.137,administrator,81000000
+nlockr1,Arifin & Bustamil,Nittsu Officer KRW 1,sAncYzVboHdxilc2GgyWDA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,KARAWANG,2017-02-27 08:05:38.867,missdy,81000000
+nlockr2,Nittsu Officer,KRW 2,sAncYzVboHdxilc2GgyWDA==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,KARAWANG,2017-02-27 08:03:07.330,missdy,81000000
+nlocsby1,IMRON,,MFmXcwG++9j/MaQ1tqy40g==,1501892a-8ced-4d46-b3de-09a6e8f5b1f3,1,SURABAYA HUB,2018-04-03 09:43:38.080,administrator,80000000
+nlocsby2,FENDI,,pvxuT8gVIWtzUJgLu5j7Ag==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SURABAYA HUB,2018-04-03 09:47:08.503,administrator,80000000
+nlocsby3,FUAD,,pvxuT8gVIWtzUJgLu5j7Ag==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SURABAYA HUB,2018-04-03 09:47:43.953,administrator,80000000
+nlocsd1,FUAD,,Lb9hjZ4DTctD5lEAZCmu5Q==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:35:32.690,administrator,10000000
+nlocsd2,IRFAN,,c9QVo0a6ZVtE6SZYA2FG4A==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:36:04.630,administrator,10000000
+nlocsd3,RAIDIN,,Lb9hjZ4DTctD5lEAZCmu5Q==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:36:43.653,administrator,10000000
+nlocsd4,Dede,Roy,Lb9hjZ4DTctD5lEAZCmu5Q==,ebfba4e7-0d88-4577-a752-f385ae9d763a,1,SWADAYA,2017-03-03 14:37:23.510,administrator,10000000
+nlreturkr1,Andi,,Lb9hjZ4DTctD5lEAZCmu5Q==,7fbfdb81-e994-4461-88f0-7ce099b84a2f,1,SWADAYA,2017-11-29 11:36:01.447,administrator,11000000
+nlspvkr2,Andi,P,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2017-03-13 10:29:15.187,administrator,81000000
+nlspvsd1,ROBBY,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:38:06.883,administrator,11000000
+nlspvsd2,WASIL,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:38:49.037,administrator,11000000
+nlspvsd3,M. ALFI,,Lb9hjZ4DTctD5lEAZCmu5Q==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,SWADAYA,2017-03-03 14:39:20.390,administrator,11000000
+ppcadm1,Tony,Kuswoyo,Lb9hjZ4DTctD5lEAZCmu5Q==,22b7074b-a991-492b-bfbf-51bd63f5d5a9,1,All,2017-03-13 08:30:31.257,administrator,81000000
+ryan,Ryan,Ganteng,jm9lYVDUtXLvfcjHEuoNpA==,3c114c03-6052-4781-8133,1,SWADAYA,2018-03-28 09:35:38.557,administrator,10000000
+Swadaya,JKT,Logistics,Lb9hjZ4DTctD5lEAZCmu5Q==,3c114c03-6052-4781-8133,1,All,2019-03-18 11:03:29.873,logsd1,94000000
+trp14,transporter CRB,,wgz4MH6cyAmFwS/RDlU7aQ==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-09-18 08:39:25.897,administrator,14000000
+usr110,user 1,,wgz4MH6cyAmFwS/RDlU7aQ==,3c114c03-6052-4781-8133,1,SWADAYA,2018-07-26 11:21:27.960,usr181,10000000
+usr111,user,111,wgz4MH6cyAmFwS/RDlU7aQ==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,SWADAYA,2018-09-12 19:13:40.223,administrator,11000000
+usr113,Bandung,Cabang,wgz4MH6cyAmFwS/RDlU7aQ==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-08-03 17:58:37.307,archie,13000000
+usr114,User 1,Cirebon,wgz4MH6cyAmFwS/RDlU7aQ==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,All,2018-07-20 14:25:15.020,administrator,14000000
+usr161,Cab,Yogyakarta,wgz4MH6cyAmFwS/RDlU7aQ==,631bc8bb-b36b-486a-9471-6bc0e37c1dbc,1,KARAWANG,2018-08-15 15:25:18.230,administrator,16000000
+usr181,User 1,Karawang,wgz4MH6cyAmFwS/RDlU7aQ==,1db40d13-ecbe-44cd-b5d0-fbd6aa28a2ce,1,KARAWANG,2018-07-25 11:05:33.793,administrator,81000000
+usrkrw181,Uji,Coba,wgz4MH6cyAmFwS/RDlU7aQ==,8dc392e5-dd48-4f2a-927a-4aba639bbb2c,1,KARAWANG,2018-08-10 11:01:05.333,administrator,81000000
+utes1,testing user,,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-13 11:15:56.540,administrator,41000000
+utes2,testing user,,Lb9hjZ4DTctD5lEAZCmu5Q==,c0bfb276-a85f-42e4-a534-267a45cd80e7,1,All,2018-11-13 11:23:56.720,administrator,41000000
+zz1,qwer,,wgz4MH6cyAmFwS/RDlU7aQ==,196f050d-6ad4-41bd-97a8-bffb8b7d5877,1,All,2017-11-10 14:04:54.830,administrator,14000000

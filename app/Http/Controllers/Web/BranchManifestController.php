@@ -131,7 +131,7 @@ class BranchManifestController extends Controller
     $manifestHeader->ritase                      = 0;
     $manifestHeader->cbm                         = 0;
     $manifestHeader->manifest_return             = 0;
-    $manifestHeader->manifest_type               = 'REGULAR';
+    $manifestHeader->manifest_type               = 'NORMAL';
     $manifestHeader->status_inv_recieve          = 0;
     $manifestHeader->have_lcl                    = 0;
     $manifestHeader->lcl_from_driver_register_id = $request->input('lcl_from_driver_register_id');

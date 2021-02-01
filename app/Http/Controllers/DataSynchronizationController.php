@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->createLogInvoiceReceiptPrTable();
+    $this->updateDatabaseBranchManifest();
+    // $this->createLogInvoiceReceiptPrTable();
     // $this->updateDatabase18Jan2021();
     // $this->updateStockFromLMB();
     // $this->update13Jan2020MissingCBM();
@@ -37,6 +38,11 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateDatabaseBranchManifest(){
+    echo "update Branch Manifest";
+    DB::statement("UPDATE `wms_branch_manifest_header` SET `manifest_type` = 'NORMAL' WHERE 1 =1 ");
   }
 
   protected function createLogInvoiceReceiptPrTable()

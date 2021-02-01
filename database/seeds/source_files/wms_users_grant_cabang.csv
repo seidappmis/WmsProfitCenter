@@ -52,7 +52,16 @@
 38wmstrk1,38
 39wmsadm1,39
 39wmstrk1,39
-99mis,16
+91admin1,37
+91wmsadm1,91
+91wmsadm2,91
+92admin1,92
+92wmsadm1,92
+92wmsadm2,92
+93admin1,93
+93wmsadm1,93
+93wmsadm2,93
+99mis,19
 99tes13,13
 99tes14,14
 administrator,10
@@ -63,6 +72,9 @@ alc8,20
 alc8,23
 alc8,27
 alc8,28
+alc8,91
+alc8,92
+alc8,93
 bca11,11
 bca12,12
 bca13,13
@@ -95,6 +107,8 @@ bca39,39
 bca40,40
 bca41,41
 bca80,80
+bca91,91
+bca94,94
 bia01,10
 bia01,11
 bia01,12
@@ -163,9 +177,11 @@ logkr2,38
 logkr2,39
 logkr2,40
 logkr2,41
-logkr2,42
 logkr2,80
 logkr2,81
+logkr2,91
+logkr2,92
+logkr2,93
 logkr9,13
 logkr9,14
 logkr9,81
@@ -194,6 +210,9 @@ logsd1,36
 logsd1,38
 logsd1,39
 logsd1,81
+logsd1,91
+logsd1,92
+logsd1,93
 logsd11,13
 logsd11,14
 logsd11,81
@@ -243,6 +262,7 @@ mis5,25
 mis5,26
 mis5,27
 mis5,28
+mis5,29
 mis5,30
 mis5,31
 mis5,32
@@ -257,4 +277,5 @@ mis5,40
 mis5,41
 mis5,80
 mis5,81
+mis6,27
 usr113,13
