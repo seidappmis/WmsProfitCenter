@@ -184,12 +184,12 @@
                                 <td>OUTGOING TYPE</td>
                                 <td>
                                   <div class="input-field col s5">
-                                    <select name="outgoing_type">
+                                    <select name="manifest_type">
                                       <option value="" selected>-Select Type-</option>
-                                      <option value="1">MANUAL</option>
-                                      <option value="2">NORMAL</option>
-                                      <option value="3">RESEND</option>
-                                      <Option value="4">LCL</Option>
+                                      <option>MANUAL</option>
+                                      <option>NORMAL</option>
+                                      <option>RESEND</option>
+                                      <Option>LCL</Option>
                                     </select>
                                   </div>
                                 </td>
@@ -351,7 +351,7 @@
               d.start_doc_do_return_date = $('#form-summary-outgoing-report [name="start_doc_do_return_date"]').val()
               d.end_doc_do_return_date = $('#form-summary-outgoing-report [name="end_doc_do_return_date"]').val()
               d.shipment_no = $('#form-summary-outgoing-report [name="shipment_no"]').val()
-              d.outgoing_type = $('#form-summary-outgoing-report [name="outgoing_type"]').val()
+              d.manifest_type = $('#form-summary-outgoing-report [name="manifest_type"]').val()
               d.status = $('#form-summary-outgoing-report [name="status"]').val()
             }
       },

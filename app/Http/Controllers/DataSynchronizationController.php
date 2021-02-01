@@ -27,7 +27,7 @@ class DataSynchronizationController extends Controller
     // $this->insertSummaryDGRMenu();
     // $this->updateTable30Nov2020();
     // $this->updateTable26Nov2020();
-    // $this->updateHargaCartonBox();
+    $this->updateHargaCartonBox();
     // $this->updateTable25Nov2020();
     // $this->updateTable23Nov2020();
     // $this->updateClaimInsuranceTable();

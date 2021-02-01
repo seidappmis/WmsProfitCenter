@@ -161,8 +161,8 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_detail.delivery_no', $request->input('delivery_no'));
     }
 
-    if (!empty($request->input('outgoing_type'))) {
-      $query->having('desc', $request->input('outgoing_type'));
+    if (!empty($request->input('manifest_type'))) {
+      $query->where('manifest_type', $request->input('manifest_type'));
     }
 
     if (!empty($request->input('status'))) {
@@ -318,8 +318,8 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_detail.delivery_no', $request->input('delivery_no'));
       }
 
-      if (!empty($request->input('outgoing_type'))) {
-        $queryHQ->having('desc', $request->input('outgoing_type'));
+      if (!empty($request->input('manifest_type'))) {
+        $queryHQ->where('manifest_type', $request->input('manifest_type'));
       }
 
       if (!empty($request->input('status'))) {
