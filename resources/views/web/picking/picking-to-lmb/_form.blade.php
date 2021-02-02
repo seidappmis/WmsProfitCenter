@@ -56,6 +56,15 @@
         {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item') !!}
       </div>
     </div>
+    <div class="col s12 m6">
+    <!---- Search ----->
+    <div class="app-wrapper">
+      <div class="datatable-search">
+        <i class="material-icons mr-2 search-icon">search</i>
+        <input type="text" placeholder="Search" class="app-filter" id="serial_number_filter">
+      </div>
+   </div>
+  </div>
 </div>
 
 <div class="section-data-tables"> 
@@ -96,10 +105,10 @@
         scrollX: true,
         responsive: true,
         ajax: {
-            url: '{{ url('picking-to-lmb/picking-list/' . $picking->id) }}',
+            url: '{{ url("picking-to-lmb/picking-list/" . $picking->id) }}',
             type: 'GET',
             data: function(d) {
-                d.search['value'] = $('#global_filter').val()
+                d.search['value'] = $('#serial_number_filter').val()
               }
         },
         order: [2, 'asc'],
@@ -168,6 +177,10 @@
           })
         });
 
+        $("input#serial_number_filter").on("keyup click", function () {
+          filterSerialNumber();
+        });
+
         dtdatatable_serial_number.on('click', '.btn-delete', function(event) {
           event.preventDefault();
           /* Act on the event */
@@ -225,5 +238,9 @@
           }
         });
     });
+
+    function filterSerialNumber() {
+      dtdatatable_serial_number.search($("#serial_number_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    }
 </script>
 @endpush
