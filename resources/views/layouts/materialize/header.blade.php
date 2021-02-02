@@ -41,7 +41,8 @@
         <!-- profile-dropdown-->
         <ul class="dropdown-content" id="profile-dropdown">
           {{-- <li><a class="grey-text text-darken-1" href="{{ url('profile') }}"><i class="material-icons">person_outline</i> Profil</a></li> --}}
-          <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">vpn_key</i> Change Password</a></li>
+          <li><a class="grey-text text-darken-1" id="btn-change-password" href="#!"><i class="material-icons">vpn_key</i> Change Password</a></li>
+          @include('layouts.materialize.components.change-password')
           <li class="divider"></li>
           <!-- <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li> -->
           <li><a class="grey-text text-darken-1" href="{{ url('logout') }}" onclick="event.preventDefault();
