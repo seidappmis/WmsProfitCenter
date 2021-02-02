@@ -121,20 +121,30 @@
         $sub_total_cbm += $vm->cbm;
         @endphp
         <tr>
-          @if($km == 0)
-          @if($start_do == 1)
-          <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to_code}}</td>
-          <td rowspan="{{ $detail['rowspan'] }}" style="width: 5mm;"></td>
-          <td rowspan="{{ $detail['rowspan'] }}" style="vertical-align: top;">{{$vd['data']->ship_to}}</td>
+          @if($start_do == 1 && $km == 0)
+          <td style="vertical-align: top;">{{$vd['data']->ship_to_code}}</td>
+          <td style="width: 5mm;"></td>
+          <td style="vertical-align: top;">{{$vd['data']->ship_to}}</td>
+          @else
+          <td></td>
+          <td></td>
+          <td></td>
           @endif
+          @if($km == 0)
           @php
           $total_do++;
           @endphp
-          <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
-          <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
-          <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
-          <td rowspan="{{ count($vd['models']) }}" style="vertical-align: top;">{{$vd['data']->do_print()}}</td>
-          <td rowspan="{{ count($vd['models']) }}" style="width: 5mm;"></td>
+          <td style="width: 5mm;"></td>
+          <td style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
+          <td style="width: 5mm;"></td>
+          <td style="vertical-align: top;">{{$vd['data']->do_print()}}</td>
+          <td style="width: 5mm;"></td>
+          @else
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           @endif
 
           {{-- MODEL START --}}
@@ -151,7 +161,7 @@
         @endforeach
 
         <tr>
-          <td colspan="7"></td>
+          <td colspan="10"></td>
           <td style="text-align: right;"><strong>Sub Total</strong></td>
           <td style="width: 5mm;"></td>
           <td style="text-align: right;">{{$sub_total_qty}}</td>
