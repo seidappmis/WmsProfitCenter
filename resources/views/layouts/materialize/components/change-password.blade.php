@@ -27,7 +27,7 @@
       </div>
   </div>
   <div class="input-field col s12 m12 ml-3 mb-2">
-    {!! get_button_save('Submit') !!}
+    <button type="submit" class="waves-effect waves-light indigo btn-small">Submit</button>
   </div>
   </form>
 </div>
