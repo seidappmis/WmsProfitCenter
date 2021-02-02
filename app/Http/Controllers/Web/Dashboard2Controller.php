@@ -80,6 +80,7 @@ class Dashboard2Controller extends Controller
       'rs_concept_waiting_truck_temp'   => $rs_concept,
       // 'rs_unit_truck'                 => $rs_unit_truck,
       // 'rs_temp_vehicle_detail'        => $rs_temp_vehicle_detail,
+      'rs_daily_status_by_destination'        => $rs_daily_status_by_destination,
       'rs_by_destination_series_data'   => $rs_by_destination_series_data,
       'rs_daily_by_category_categories' => ($rs_daily_by_category_categories),
       // 'rs_vehicle_category'             => array_values($rs_vehicle_category),
