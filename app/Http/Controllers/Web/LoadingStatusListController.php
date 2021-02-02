@@ -235,7 +235,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_upload_concept_date'))) {
-      $query->where('tr_concept.created_at', '<=', $request->input('end_upload_concept_date'));
+      $query->where('tr_concept.created_at', '<=', $request->input('end_upload_concept_date') . '  23:59:59');
     }
 
     if (!empty($request->input('start_register_driver_date'))) {
@@ -243,7 +243,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_register_driver_date'))) {
-      $query->where('tr_driver_register.created_at', '<=', $request->input('end_register_driver_date'));
+      $query->where('tr_driver_register.created_at', '<=', $request->input('end_register_driver_date') . '  23:59:59');
     }
 
     if (!empty($request->input('start_mapping_concept_date'))) {
@@ -251,7 +251,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_mapping_concept_date'))) {
-      $query->where('tr_concept_flow_header.created_at', '<=', $request->input('end_mapping_concept_date'));
+      $query->where('tr_concept_flow_header.created_at', '<=', $request->input('end_mapping_concept_date') . '  23:59:59');
     }
 
     if (!empty($request->input('start_loading_start_date'))) {
@@ -259,7 +259,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_loading_start_date'))) {
-      $query->where('tr_concept_truck_flow.start_date', '<=', $request->input('end_loading_start_date'));
+      $query->where('tr_concept_truck_flow.start_date', '<=', $request->input('end_loading_start_date') . '  23:59:59');
     }
 
     if (!empty($request->input('start_loading_finish_date'))) {
@@ -267,7 +267,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_loading_finish_date'))) {
-      $query->where('tr_concept_truck_flow.end_date', '<=', $request->input('end_loading_finish_date'));
+      $query->where('tr_concept_truck_flow.end_date', '<=', $request->input('end_loading_finish_date') . '  23:59:59');
     }
 
     if (!empty($request->input('start_complete_date'))) {
@@ -275,7 +275,7 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('end_complete_date'))) {
-      $query->where('tr_concept_truck_flow.complete_date', '<=', $request->input('end_complete_date'));
+      $query->where('tr_concept_truck_flow.complete_date', '<=', $request->input('end_complete_date') . '  23:59:59');
     }
 
     if (!empty($request->input('status'))) {

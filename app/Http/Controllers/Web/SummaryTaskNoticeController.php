@@ -47,12 +47,12 @@ class SummaryTaskNoticeController extends Controller
         $query->where('log_return_surat_tugas_plan.no', $request->input('no_document'));
       $query->where('log_return_surat_tugas_header.area', $request->input('area'));
       $query->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-      $query->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+      $query->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))) . '  23:59:59');
 
       if (!empty($request->input('modified_start_date')))
         $query->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
       if (!empty($request->input('modified_end_date')))
-        $query->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))));
+        $query->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))) . '  23:59:59');
 
       $datatables = DataTables::of($query)
         ->editColumn('date', function ($data) {

@@ -118,35 +118,35 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
     }
     if (!empty($request->input('end_do_manifest_date'))) {
-      $query->where('wms_branch_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date'));
+      $query->where('wms_branch_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . '  23:59:59');
     }
 
     if (!empty($request->input('start_do_date'))) {
       $query->where('wms_branch_manifest_detail.do_date', '>=', $request->input('start_do_date'));
     }
     if (!empty($request->input('end_do_date'))) {
-      $query->where('wms_branch_manifest_detail.do_date', '<=', $request->input('end_do_date'));
+      $query->where('wms_branch_manifest_detail.do_date', '<=', $request->input('end_do_date')  . '  23:59:59');
     }
 
     if (!empty($request->input('start_actual_time_arrival'))) {
       $query->where('wms_branch_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
     }
     if (!empty($request->input('end_actual_time_arrival'))) {
-      $query->where('wms_branch_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival'));
+      $query->where('wms_branch_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . '  23:59:59');
     }
 
     if (!empty($request->input('start_unloading_date'))) {
       $query->where('wms_branch_manifest_detail.actual_unloading_date', '>=', $request->input('start_unloading_date'));
     }
     if (!empty($request->input('end_unloading_date'))) {
-      $query->where('wms_branch_manifest_detail.actual_unloading_date', '<=', $request->input('end_unloading_date'));
+      $query->where('wms_branch_manifest_detail.actual_unloading_date', '<=', $request->input('end_unloading_date')  . '  23:59:59');
     }
 
     if (!empty($request->input('start_doc_do_return_date'))) {
       $query->where('wms_branch_manifest_detail.doc_do_return_date', '>=', $request->input('start_doc_do_return_date'));
     }
     if (!empty($request->input('end_doc_do_return_date'))) {
-      $query->where('wms_branch_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date'));
+      $query->where('wms_branch_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . '  23:59:59');
     }
 
     if (!empty($request->input('do_manifest_no'))) {
@@ -275,35 +275,35 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
       }
       if (!empty($request->input('end_do_manifest_date'))) {
-        $queryHQ->where('log_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date'));
+        $queryHQ->where('log_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . '  23:59:59');
       }
 
       if (!empty($request->input('start_do_date'))) {
         $queryHQ->where('log_manifest_detail.do_date', '>=', $request->input('start_do_date'));
       }
       if (!empty($request->input('end_do_date'))) {
-        $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date'));
+        $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date')  . '  23:59:59');
       }
 
       if (!empty($request->input('start_actual_time_arrival'))) {
         $queryHQ->where('log_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
       }
       if (!empty($request->input('end_actual_time_arrival'))) {
-        $queryHQ->where('log_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival'));
+        $queryHQ->where('log_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . '  23:59:59');
       }
 
       if (!empty($request->input('start_unloading_date'))) {
         $queryHQ->where('log_manifest_detail.actual_loading_date', '>=', $request->input('start_unloading_date'));
       }
       if (!empty($request->input('end_unloading_date'))) {
-        $queryHQ->where('log_manifest_detail.actual_loading_date', '<=', $request->input('end_unloading_date'));
+        $queryHQ->where('log_manifest_detail.actual_loading_date', '<=', $request->input('end_unloading_date')  . '  23:59:59');
       }
 
       if (!empty($request->input('start_doc_do_return_date'))) {
         $queryHQ->where('log_manifest_detail.doc_do_return_date', '>=', $request->input('start_doc_do_return_date'));
       }
       if (!empty($request->input('end_doc_do_return_date'))) {
-        $queryHQ->where('log_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date'));
+        $queryHQ->where('log_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . '  23:59:59');
       }
 
       if (!empty($request->input('do_manifest_no'))) {

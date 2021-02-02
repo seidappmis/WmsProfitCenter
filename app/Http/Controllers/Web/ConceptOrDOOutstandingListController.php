@@ -63,7 +63,7 @@ class ConceptOrDOOutstandingListController extends Controller
       }
 
       if (!empty($request->input('end_upload_concept_date'))) {
-        $query->where('tr_concept.created_at', '<=', $request->input('end_upload_concept_date'));
+        $query->where('tr_concept.created_at', '<=', $request->input('end_upload_concept_date') . '  23:59:59');
       }
 
       if (!empty($request->input('vehicle_code_type'))) {
@@ -96,7 +96,7 @@ class ConceptOrDOOutstandingListController extends Controller
       }
 
       if (!empty($request->input('end_upload_concept_date'))) {
-        $query->where('wms_manual_concept.created_at', '<=', $request->input('end_upload_concept_date'));
+        $query->where('wms_manual_concept.created_at', '<=', $request->input('end_upload_concept_date') . '  23:59:59');
       }
     }
 

@@ -175,7 +175,7 @@ class ReportOverloadConceptOrDOController extends Controller
       ->where('wms_manual_concept.kode_cabang', $request->input('kode_cabang'));
     }
     $query->where('log_concept_overload.created_at', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-    $query->where('log_concept_overload.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+    $query->where('log_concept_overload.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date')))  . '  23:59:59');
 
     return $query;
   }

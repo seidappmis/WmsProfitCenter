@@ -126,7 +126,7 @@ class ReportInventoryMovementController extends Controller
 
     $query->where('wms_movement_transaction_log.kode_cabang', $request->input('kode_cabang'));
     $query->where('wms_movement_transaction_log.created_at', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-    $query->where('wms_movement_transaction_log.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+    $query->where('wms_movement_transaction_log.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))) . '  23:59:59');
 
     if (!empty($request->input('model'))) {
       $query->where('wms_movement_transaction_log.model', $request->input('model'));

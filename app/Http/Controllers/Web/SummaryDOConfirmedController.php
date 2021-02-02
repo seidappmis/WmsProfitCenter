@@ -29,7 +29,7 @@ class SummaryDOConfirmedController extends Controller
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
       ->where('log_cabang.kode_cabang', $request->input('cabang'))
       ->where('log_manifest_detail.do_date', '>=', date('Y-m-d', strtotime($request->input('do_date_from'))))
-      ->where('log_manifest_detail.do_date', '<=', date('Y-m-d', strtotime($request->input('do_date_to'))))
+      ->where('log_manifest_detail.do_date', '<=', date('Y-m-d', strtotime($request->input('do_date_to'))) . '  23:59:59')
     ;
 
     if (!empty($request->input('delivery_no_from'))) {
@@ -50,7 +50,7 @@ class SummaryDOConfirmedController extends Controller
       $details->where(DB::raw('DATE(log_manifest_detail.confirm_date)'), '>=', $request->input('confirm_date_from'));
     }
     if (!empty($request->input('confirm_date_to'))) {
-      $details->where(DB::raw('DATE(log_manifest_detail.confirm_date)'), '<=', $request->input('confirm_date_to'));
+      $details->where(DB::raw('DATE(log_manifest_detail.confirm_date)'), '<=', $request->input('confirm_date_to') . '  23:59:59');
     }
 
     if ($request->input('status_confirm') != '') {
@@ -69,7 +69,7 @@ class SummaryDOConfirmedController extends Controller
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_branch_manifest_detail.kode_cabang')
       ->where('log_cabang.kode_cabang', $request->input('cabang'))
       ->where('wms_branch_manifest_detail.do_date', '>=', date('Y-m-d', strtotime($request->input('do_date_from'))))
-      ->where('wms_branch_manifest_detail.do_date', '<=', date('Y-m-d', strtotime($request->input('do_date_to'))))
+      ->where('wms_branch_manifest_detail.do_date', '<=', date('Y-m-d', strtotime($request->input('do_date_to'))) . '  23:59:59')
     ;
 
     if (!empty($request->input('delivery_no_from'))) {
@@ -90,7 +90,7 @@ class SummaryDOConfirmedController extends Controller
       $branch_details->where(DB::raw('DATE(wms_branch_manifest_detail.confirm_date)'), '>=', $request->input('confirm_date_from'));
     }
     if (!empty($request->input('confirm_date_to'))) {
-      $branch_details->where(DB::raw('DATE(wms_branch_manifest_detail.confirm_date)'), '<=', $request->input('confirm_date_to'));
+      $branch_details->where(DB::raw('DATE(wms_branch_manifest_detail.confirm_date)'), '<=', $request->input('confirm_date_to') . '  23:59:59');
     }
 
     if ($request->input('status_confirm') != '') {

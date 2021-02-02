@@ -135,7 +135,7 @@ class SummaryIncomingReportController extends Controller
     ;
 
     $query->where('log_incoming_manual_header.created_at', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-    $query->where('log_incoming_manual_header.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+    $query->where('log_incoming_manual_header.created_at', '<=', date('Y-m-d', strtotime($request->input('end_date')))  . '  23:59:59');
 
     if (!empty($request->input('area'))) {
       $query->where('log_incoming_manual_header.area', $request->input('area'));
