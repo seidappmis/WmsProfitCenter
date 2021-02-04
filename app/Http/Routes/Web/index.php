@@ -7,6 +7,11 @@ Route::get('/', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::get('/login', 'Web\Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Web\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'Web\Auth\LoginController@logout')->name('logout');
+// Route::get('/reset-password', function(){
+//   $user = App\User::where('username', 'mis5')->first();
+//   $user->password = Illuminate\Support\Facades\Hash::make('123456');
+//   $user->save();
+// });
 Route::get('/test', function () {
   // $picking_detail = \App\Models\PickinglistDetail::select(
     //   'wms_pickinglist_detail.id',

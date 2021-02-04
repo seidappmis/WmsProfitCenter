@@ -38,9 +38,9 @@ class ConformManifestController extends Controller
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-        })
+        // ->addColumn('picking_no', function ($data) {
+        //   return $data->picking->picking_no;
+        // })
         ->addColumn('status', function ($data) {
           return $data->status();
         })

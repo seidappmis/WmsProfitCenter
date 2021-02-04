@@ -208,7 +208,7 @@ class IncomingImportOEMController extends Controller
     $arrival_no = $request->input('inc_type') . '-WH' . $wh_name . '-' . date('ymd') . '-';
 
     $prefix_length = strlen($arrival_no);
-    $max_no        = DB::select('SELECT MAX(SUBSTR(arrival_no, ?)) AS max_no FROM log_incoming_manual_header WHERE SUBSTR(arrival_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $arrival_no])[0]->max_no;
+    $max_no        = DB::select('SELECT MAX(SUBSTR(arrival_no, ?)) AS max_no FROM log_incoming_manual_header WHERE SUBSTR(arrival_no,1,?) = ? ', [$prefix_length + 1, $prefix_length, $arrival_no])[0]->max_no;
     $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
     $incomingManualHeader->arrival_no          = $arrival_no . $max_no;

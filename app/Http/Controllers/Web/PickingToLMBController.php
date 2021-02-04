@@ -795,7 +795,7 @@ class PickingToLMBController extends Controller
     $data['picking_no'] = (new LMBHeader)->getPickingNo($data['lmbHeader']);
     $rs_details         = [];
 
-    foreach ($data['lmbHeader']->details as $key => $value) {
+    foreach ($data['lmbHeader']->details()->orderBy('model')->get() as $key => $value) {
       if (empty($rs_details[$value->model])) {
         $rs_details[$value->model]['qty'] = 1;
       } else {
