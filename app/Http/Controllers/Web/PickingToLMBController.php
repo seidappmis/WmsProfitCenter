@@ -155,6 +155,20 @@ class PickingToLMBController extends Controller
     }
   }
 
+  public function updateSerialNumber(Request $request){
+    $lmbDetail = LMBdetail::findOrFail($request->input('serial_number'));
+    $check_serial_number = LMBdetail::find($request->input('new_serial_number'));
+
+    if (!empty($check_serial_number) && $request->input('serial_number') !== $request->input('new_serial_number')) {
+      return sendError('Serial Number Already Exist', $lmbDetail);
+    }
+
+    $lmbDetail->serial_number = $request->input('new_serial_number');
+    $lmbDetail->save();
+
+    return sendSuccess('Success update serial number.', $lmbDetail);
+  }
+
   public function store(Request $request)
   {
     $request->validate([

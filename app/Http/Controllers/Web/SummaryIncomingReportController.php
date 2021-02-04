@@ -37,6 +37,7 @@ class SummaryIncomingReportController extends Controller
     $sheet->setCellValue(($col++) . '1', 'DELIVERY TICKET');
     $sheet->setCellValue(($col++) . '1', 'TYPE');
     $sheet->setCellValue(($col++) . '1', 'EAN CODE');
+    $sheet->setCellValue(($col++) . '1', 'CONTAINER NO');
     $sheet->setCellValue(($col++) . '1', 'INVOICE NO');
     $sheet->setCellValue(($col++) . '1', 'NO GR SAP');
     $sheet->setCellValue(($col++) . '1', 'DOCUMENT DATE');
@@ -67,6 +68,7 @@ class SummaryIncomingReportController extends Controller
       $sheet->setCellValue(($col++) . $row, $value->type);
       $sheet->getStyle($col . $row)->getNumberFormat()->setFormatCode('#');
       $sheet->setCellValue(($col++) . $row, $value->ean_code);
+      $sheet->setCellValue(($col++) . $row, $value->container_no);
       $sheet->setCellValue(($col++) . $row, $value->invoice_no);
       $sheet->setCellValue(($col++) . $row, $value->no_gr_sap);
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
@@ -122,6 +124,7 @@ class SummaryIncomingReportController extends Controller
       'log_incoming_manual_header.vendor_name',
       'log_incoming_manual_header.expedition_name',
       'log_incoming_manual_header.area',
+      'log_incoming_manual_header.container_no',
       DB::raw('log_incoming_manual_header.arrival_no AS receipt_no'),
       DB::raw('log_incoming_manual_header.inc_type AS type'),
       DB::raw('log_incoming_manual_header.po AS delivery_ticket'),

@@ -113,6 +113,7 @@
                                         <th>DELIVERY TICKET</th>
                                         <th>TYPE</th>
                                         <th>EAN CODE</th>
+                                        <th>CONTAINER NO</th>
                                         <th>INVOICE NO</th>
                                         <th>NO GR SAP</th>
                                         <th>DOCUMENT DATE</th>
@@ -191,6 +192,7 @@
           {data: 'delivery_ticket'},
           {data: 'type'},
           {data: 'ean_code'},
+          {data: 'container_no'},
           {data: 'invoice_no'},
           {data: 'no_gr_sap'},
           {data: 'document_date'},

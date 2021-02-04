@@ -82,6 +82,9 @@
                                     <th>DELIVERY NO</th>
                                     <th>MODEL</th>
                                     <th>EAN CODE</th>
+                                    @if(!$lmbHeader->send_manifest)
+                                    <th width="5px"></th>
+                                    @endif
                                   </tr>
                               </thead>
                               <tbody>
@@ -113,6 +116,28 @@
 
 </div>
 @endsection
+
+@push('page-modal')
+<div id="modal-update-serial-number" class="modal" style="">
+    <form id="form-update-serial-number" class="form-table">
+        <div class="modal-content">
+            <table>
+                <tr>
+                    <td>Serial Number</td>
+                    <td>
+                        <input type="hidden" name="serial_number" required>
+                        <input type="text" name="new_serial_number" required>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="waves-effect waves-light indigo btn-small btn-save">Update</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </form>
+</div>
+@endpush
 
 @push('page-modal')
 <!-- Modal Structure -->
@@ -213,8 +238,48 @@
             {data: 'delivery_no', name: 'delivery_no', className: 'detail'},
             {data: 'model', name: 'model', className: 'detail'},
             {data: 'ean_code', name: 'ean_code', className: 'detail'},
+            @if(!$lmbHeader->send_manifest)
+            {data: 'serial_number', render: function(data, type, row){
+              return '{!! get_button_edit("#!") !!}'
+            }}
+            @endif
         ],
       });
+
+    dttable_lmb_detail.on('click', '.btn-edit', function(){
+      var tr = $(this).parent().parent();
+       var data = dttable_lmb_detail.row(tr).data();
+       $('#modal-update-serial-number').modal('open');
+
+       $('#form-update-serial-number [name="serial_number"]').val(data.serial_number);
+       $('#form-update-serial-number [name="new_serial_number"]').val(data.serial_number);
+    })
+
+    $('#form-update-serial-number').validate({
+      submitHandler: function (form) {
+        setLoading(true);
+        $.ajax({
+         url: '{{url("picking-to-lmb/edit-serial-number")}}',
+         type: 'PUT',
+         dataType: 'json',
+         data: $(form).serialize(),
+       })
+       .done(function(result) {
+         setLoading(false);
+        if (!result.status) {
+          showSwalAutoClose('Warning', result.message)
+          return;
+        }
+        showSwalAutoClose("Success", result.message);
+        $('#modal-update-serial-number').modal('close');
+        dttable_lmb_detail.ajax.reload(null, false);
+       })
+       .fail(function(result) {
+        showSwalAutoClose('Warning', result.message)
+        setLoading(false);
+       })
+      }
+    })
      $('.btn-edit-vehicle-no').click(function(event) {
        /* Act on the event */
        $('#edit-vehicle_number-wrapper').removeClass('hide')

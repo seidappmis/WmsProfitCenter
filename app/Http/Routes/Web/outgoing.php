@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Route::view('complete', 'web.outgoing.complete.index');
   Route::post('complete/{id}/complete', 'Web\CompleteController@complete');
+  Route::post('complete/{id}/cancel-complete', 'Web\CompleteController@cancelComplete');
   Route::resource('complete', 'Web\CompleteController');
 
   // Route::view('manifest-regular', 'web.outgoing.manifest-regular.index');

@@ -116,4 +116,47 @@ class CompleteController extends Controller
       DB::rollBack();
     }
   }
+
+  public function cancelComplete($id)
+  {
+    $rsManifestHeader = LogManifestHeader::where('driver_register_id', $id)->get();
+
+    if (empty($rsManifestHeader)) {
+      abort(404);
+    }
+
+    try {
+      DB::beginTransaction();
+      foreach ($rsManifestHeader as $key => $manifestHeader) {
+        // Update Tr DRIVER REGISTERED
+        // if ($manifestHeader->driver_name != "Ambil Sendiri") {
+        //   $driverRegistered                 = DriverRegistered::findOrFail($manifestHeader->driver_register_id);
+        //   $driverRegistered->wk_step_number = 6;
+        //   $driverRegistered->save();
+
+        //   // UPDATE tr_workflow_header
+        //   $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
+        //   $conceptFlowHeader->workflow_id = 6;
+        //   $conceptFlowHeader->save();
+
+        //   // Update Truck flow
+        //   $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+
+        //   $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
+        //   $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
+        //   $conceptTruckFlow->created_complete_by   = auth()->user()->id;
+        //   $conceptTruckFlow->save();
+        // }
+
+        $manifestHeader->status_complete = 0;
+        $manifestHeader->save();
+      }
+
+      DB::commit();
+
+      return sendSuccess('Success complete manifest', $rsManifestHeader);
+    } catch (Exception $e) {
+      DB::rollBack();
+    }
+  }
 }

@@ -73,6 +73,8 @@
                       <div class="mt-2">
                         @if(!$manifestHeader->status_complete && $manifestHeader->details->count() > 0)
                         {!!get_button_save('Complete', 'btn-complete')!!}
+                        @elseif($rsManifestHeader[0]->status() == 'Complete & Waiting Confirm')
+                        {!! get_button_delete('Cancel Complete', 'btn-cancel-complete') !!}
                         @endif
                         {!! get_button_cancel(url('complete'), 'Back', '') !!}
                       </div>
@@ -88,6 +90,33 @@
 @push('script_js')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
+    $('.btn-cancel-complete').click(function(){
+      swal({
+        text: "Are you sure to cancel complete status?",
+        icon: 'warning',
+        buttons: {
+          cancel: true,
+          delete: 'Yes, Cancel It'
+        }
+      }).then(function (confirm) { // proses confirm
+        if (confirm) {
+          setLoading(true); // Disable Button when ajax post data
+            $.ajax({
+            url: '{{ url('complete/' . $rsManifestHeader[0]->driver_register_id . '/cancel-complete') }}' ,
+            type: 'POST',
+            dataType: 'json',
+          })
+          .done(function() {
+            showSwalAutoClose("Success", "Data complete canceled.")
+            window.location.href = "{{ url('complete/' . $rsManifestHeader[0]->driver_register_id) }}"
+          })
+          .fail(function() {
+            setLoading(false); // Enable Button when failed
+            console.log("error");
+          });
+        }
+      })
+    })
     $('.btn-complete').click(function(event) {
       /* Act on the event */
       swal({
