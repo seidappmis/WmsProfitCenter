@@ -100,7 +100,7 @@ class FinishGoodController extends Controller
     LEFT JOIN Bar_Model_Master ON Bar_Model_Master.SAP_MODEL = Bar_Schedule_Header.SAPMODEL
     WHERE Bar_Model_Master.MODEL != ''
       AND Bar_Model_Master.PLANT = ?
-      AND Bar_Ticket_Header.HEADER_NAME LIKE '%?%'
+      AND Bar_Ticket_Header.HEADER_NAME = ?
       AND Bar_Schedule_Header.TIPE = ?
     "), [
       $request->input('plant'),
