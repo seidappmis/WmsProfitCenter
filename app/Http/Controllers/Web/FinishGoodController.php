@@ -138,7 +138,7 @@ class FinishGoodController extends Controller
     $receipt_no = 'ARV' . '-WH' . auth()->user()->area_data->code . '-' . date('ymd') . '-';
 
     $prefix_length = strlen($receipt_no);
-    $max_no        = DB::select('SELECT MAX(SUBSTR(receipt_no, ?)) AS max_no FROM log_finish_good_header WHERE SUBSTR(receipt_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $receipt_no])[0]->max_no;
+    $max_no        = DB::select('SELECT MAX(SUBSTR(receipt_no, ?)) AS max_no FROM log_finish_good_header WHERE SUBSTR(receipt_no,1,?) = ? ', [$prefix_length + 1, $prefix_length, $receipt_no])[0]->max_no;
     $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
     $warehouse = 'SHARP ' . $area . ' W/H';
