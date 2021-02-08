@@ -86,10 +86,10 @@ class SummaryOutgoingReportController extends Controller
       'wms_branch_manifest_detail.confirm_by',
       DB::raw('wms_branch_manifest_detail.do_reject AS status_reject'),
       DB::raw('DATE_ADD(do_manifest_date, INTERVAL wms_branch_manifest_detail.lead_time DAY) AS eta'),
-      DB::raw('wms_branch_manifest_detail.cbm AS detail_cbm'),
+      DB::raw('wms_branch_manifest_detail.cbm AS detail_total_cbm'),
       DB::raw('IF(wms_branch_manifest_detail.status_confirm, "Delivered", "") AS delivery_status'),
       DB::raw('IF(wms_branch_manifest_detail.status_confirm, "Confirmed", "") AS confirm'),
-      DB::raw('(wms_branch_manifest_detail.cbm * wms_branch_manifest_detail.quantity) AS detail_total_cbm'),
+      DB::raw('ROUND(wms_branch_manifest_detail.cbm / wms_branch_manifest_detail.quantity, 3) AS detail_cbm'),
       DB::raw('wms_master_model.description AS model_description'),
       DB::raw('IF(wms_branch_manifest_detail.status_confirm IS NULL, "", IF(wms_branch_manifest_detail.status_confirm = 1, "Confirmed", IF(wms_branch_manifest_detail.status_confirm = 0 && wms_branch_manifest_header.status_complete = 1, "Delivery", IF(wms_branch_manifest_detail.status_confirm = 0 && wms_branch_manifest_header.status_complete = 0, "Waiting Complete", "")))) AS status'),
       DB::raw('IF(wms_branch_manifest_detail.tcs IS NULL, "", IF(wms_branch_manifest_detail.tcs = 1, "TCS",IF(wms_branch_manifest_detail.tcs = 0 && wms_branch_manifest_detail.do_return = 0, "MANUAL", ""))) AS `desc`'),
@@ -189,7 +189,7 @@ class SummaryOutgoingReportController extends Controller
     }
 
     if ($request->input('include_hq') == 'true' || $request->input('include_hq') == 'on'
-      || (!auth()->user()->cabang->hq && $request->input('do_received') == 'true')) {
+      || (!auth()->user()->cabang->hq && ($request->input('do_received') == 'true') || $request->input('do_received') == 'on')) {
       $queryHQ = LogManifestHeader::select(
         DB::raw('wms_pickinglist_detail.header_id AS picking_no'),
         'log_manifest_header.driver_register_id',
@@ -204,7 +204,7 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_header.do_manifest_time',
         'log_manifest_header.manifest_type',
         'log_manifest_header.checker',
-        'log_manifest_header.destination_name_driver',
+        DB::raw('log_manifest_header.city_name AS destination_driver_name'),
         'log_manifest_header.city_name',
         'log_manifest_header.city_code',
         'log_manifest_header.expedition_name',
@@ -225,7 +225,8 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.sold_to',
         'log_manifest_detail.ship_to',
         'log_manifest_detail.ship_to_code',
-        'log_manifest_detail.region',
+        // 'log_manifest_detail.region',
+        'tr_destination.region',
         'log_manifest_detail.model',
         'log_manifest_detail.code_sales',
         'log_manifest_detail.status_confirm',
@@ -236,10 +237,10 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.confirm_by',
         DB::raw('log_manifest_detail.do_reject AS status_reject'),
         DB::raw('DATE_ADD(do_manifest_date, INTERVAL log_manifest_detail.lead_time DAY) AS eta'),
-        DB::raw('log_manifest_detail.cbm AS detail_cbm'),
+        DB::raw('log_manifest_detail.cbm AS detail_total_cbm'),
         DB::raw('IF(log_manifest_detail.status_confirm, "Delivered", "") AS delivery_status'),
         DB::raw('IF(log_manifest_detail.status_confirm, "Confirmed", "") AS confirm'),
-        DB::raw('(log_manifest_detail.cbm * log_manifest_detail.quantity) AS detail_total_cbm'),
+        DB::raw('ROUND(log_manifest_detail.cbm / log_manifest_detail.quantity, 3) AS detail_cbm'),
         DB::raw('wms_master_model.description AS model_description'),
         DB::raw('IF(log_manifest_detail.status_confirm IS NULL, "", IF(log_manifest_detail.status_confirm = 1, "Confirmed", IF(log_manifest_detail.status_confirm = 0 && log_manifest_header.status_complete = 1, "Delivery", IF(log_manifest_detail.status_confirm = 0 && log_manifest_header.status_complete = 0, "Waiting Complete", "")))) AS status'),
         DB::raw('IF(log_manifest_detail.tcs IS NULL, "", IF(log_manifest_detail.tcs = 1, "TCS",IF(log_manifest_detail.tcs = 0 && log_manifest_detail.do_return = 0, "MANUAL", ""))) AS `desc`'),
@@ -256,6 +257,11 @@ class SummaryOutgoingReportController extends Controller
           $join->on('wms_pickinglist_detail.model', '=', 'log_manifest_detail.model');
           $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
         })
+        ->leftjoin('tr_concept', function ($join) {
+          $join->on('tr_concept.invoice_no', '=', 'log_manifest_detail.invoice_no');
+          $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
+        })
+        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'log_manifest_header.created_by')
         ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
       // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
@@ -266,7 +272,7 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_header.area', $request->input('area'));
       }
 
-      if ($request->input('do_received') == 'true') {
+      if ($request->input('do_received') == 'true' || $request->input('do_received') == 'on') {
         // $queryHQ->where('log_manifest_header.area', 'All');
         $queryHQ->where('log_manifest_detail.kode_cabang', $request->input('kode_cabang'));
       }

@@ -20,7 +20,6 @@
                     <td ></td>
                     <td >- </td>
                     <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
-
                 </tr>
                 <tr>
                     <td ></td>
