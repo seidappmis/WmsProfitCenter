@@ -75,7 +75,8 @@ class SummaryOutgoingReportController extends Controller
       'wms_branch_manifest_detail.sold_to',
       'wms_branch_manifest_detail.ship_to',
       'wms_branch_manifest_detail.ship_to_code',
-      'wms_branch_manifest_detail.region',
+      // 'wms_branch_manifest_detail.region',
+      'log_cabang.region',
       'wms_branch_manifest_detail.model',
       'wms_branch_manifest_detail.code_sales',
       'wms_branch_manifest_detail.status_confirm',
@@ -106,6 +107,7 @@ class SummaryOutgoingReportController extends Controller
         $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
       })
       ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_branch_manifest_detail.model')
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_branch_manifest_detail.kode_cabang')
       ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'wms_branch_manifest_header.created_by')
       ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'wms_branch_manifest_header.updated_by')
       ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'wms_branch_manifest_header.updated_by')
@@ -118,35 +120,35 @@ class SummaryOutgoingReportController extends Controller
       $query->where('wms_branch_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
     }
     if (!empty($request->input('end_do_manifest_date'))) {
-      $query->where('wms_branch_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . '  23:59:59');
+      $query->where('wms_branch_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . ' 23:59:59');
     }
 
     if (!empty($request->input('start_do_date'))) {
       $query->where('wms_branch_manifest_detail.do_date', '>=', $request->input('start_do_date'));
     }
     if (!empty($request->input('end_do_date'))) {
-      $query->where('wms_branch_manifest_detail.do_date', '<=', $request->input('end_do_date')  . '  23:59:59');
+      $query->where('wms_branch_manifest_detail.do_date', '<=', $request->input('end_do_date')  . ' 23:59:59');
     }
 
     if (!empty($request->input('start_actual_time_arrival'))) {
       $query->where('wms_branch_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
     }
     if (!empty($request->input('end_actual_time_arrival'))) {
-      $query->where('wms_branch_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . '  23:59:59');
+      $query->where('wms_branch_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . ' 23:59:59');
     }
 
     if (!empty($request->input('start_unloading_date'))) {
       $query->where('wms_branch_manifest_detail.actual_unloading_date', '>=', $request->input('start_unloading_date'));
     }
     if (!empty($request->input('end_unloading_date'))) {
-      $query->where('wms_branch_manifest_detail.actual_unloading_date', '<=', $request->input('end_unloading_date')  . '  23:59:59');
+      $query->where('wms_branch_manifest_detail.actual_unloading_date', '<=', $request->input('end_unloading_date')  . ' 23:59:59');
     }
 
     if (!empty($request->input('start_doc_do_return_date'))) {
       $query->where('wms_branch_manifest_detail.doc_do_return_date', '>=', $request->input('start_doc_do_return_date'));
     }
     if (!empty($request->input('end_doc_do_return_date'))) {
-      $query->where('wms_branch_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . '  23:59:59');
+      $query->where('wms_branch_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . ' 23:59:59');
     }
 
     if (!empty($request->input('do_manifest_no'))) {
@@ -226,7 +228,7 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.ship_to',
         'log_manifest_detail.ship_to_code',
         // 'log_manifest_detail.region',
-        'tr_destination.region',
+        'log_cabang.region',
         'log_manifest_detail.model',
         'log_manifest_detail.code_sales',
         'log_manifest_detail.status_confirm',
@@ -257,11 +259,11 @@ class SummaryOutgoingReportController extends Controller
           $join->on('wms_pickinglist_detail.model', '=', 'log_manifest_detail.model');
           $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
         })
-        ->leftjoin('tr_concept', function ($join) {
-          $join->on('tr_concept.invoice_no', '=', 'log_manifest_detail.invoice_no');
-          $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
-        })
-        ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
+        // ->leftjoin('tr_concept', function ($join) {
+        //   $join->on('tr_concept.invoice_no', '=', 'log_manifest_detail.invoice_no');
+        //   $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
+        // })
+        ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
         ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'log_manifest_header.created_by')
         ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
       // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
@@ -281,35 +283,35 @@ class SummaryOutgoingReportController extends Controller
         $queryHQ->where('log_manifest_header.do_manifest_date', '>=', $request->input('start_do_manifest_date'));
       }
       if (!empty($request->input('end_do_manifest_date'))) {
-        $queryHQ->where('log_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . '  23:59:59');
+        $queryHQ->where('log_manifest_header.do_manifest_date', '<=', $request->input('end_do_manifest_date')  . ' 23:59:59');
       }
 
       if (!empty($request->input('start_do_date'))) {
         $queryHQ->where('log_manifest_detail.do_date', '>=', $request->input('start_do_date'));
       }
       if (!empty($request->input('end_do_date'))) {
-        $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date')  . '  23:59:59');
+        $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date')  . ' 23:59:59');
       }
 
       if (!empty($request->input('start_actual_time_arrival'))) {
         $queryHQ->where('log_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
       }
       if (!empty($request->input('end_actual_time_arrival'))) {
-        $queryHQ->where('log_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . '  23:59:59');
+        $queryHQ->where('log_manifest_detail.actual_time_arrival', '<=', $request->input('end_actual_time_arrival')  . ' 23:59:59');
       }
 
       if (!empty($request->input('start_unloading_date'))) {
         $queryHQ->where('log_manifest_detail.actual_loading_date', '>=', $request->input('start_unloading_date'));
       }
       if (!empty($request->input('end_unloading_date'))) {
-        $queryHQ->where('log_manifest_detail.actual_loading_date', '<=', $request->input('end_unloading_date')  . '  23:59:59');
+        $queryHQ->where('log_manifest_detail.actual_loading_date', '<=', $request->input('end_unloading_date')  . ' 23:59:59');
       }
 
       if (!empty($request->input('start_doc_do_return_date'))) {
         $queryHQ->where('log_manifest_detail.doc_do_return_date', '>=', $request->input('start_doc_do_return_date'));
       }
       if (!empty($request->input('end_doc_do_return_date'))) {
-        $queryHQ->where('log_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . '  23:59:59');
+        $queryHQ->where('log_manifest_detail.doc_do_return_date', '<=', $request->input('end_doc_do_return_date')  . ' 23:59:59');
       }
 
       if (!empty($request->input('do_manifest_no'))) {
