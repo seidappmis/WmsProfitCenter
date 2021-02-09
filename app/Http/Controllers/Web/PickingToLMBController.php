@@ -534,6 +534,7 @@ class PickingToLMBController extends Controller
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
             // DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS cbm_unit'),
             DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity, ":", wms_pickinglist_detail.kode_customer, ":", wms_pickinglist_detail.code_sales, ":", (wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity)) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_qty_cc_cs_cbmu'),
+            // DB::raw('0 AS quantity_lmb')
             DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
             // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
@@ -598,7 +599,7 @@ class PickingToLMBController extends Controller
             }
           }
 
-          // return $rs_invoice_no;
+          // return $rs_code_sales;
 
           $picking_detail->quantity = $quantity - $picking_detail->quantity_lmb;
 
@@ -685,6 +686,18 @@ class PickingToLMBController extends Controller
             $rs_invoice_no = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no;
             unset($rs_invoice_no[0]);
             $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no = array_values($rs_invoice_no);
+            
+            $rs_kode_customer = $rs_picking_list_details[$serial_number['ean_code']]->rs_kode_customer;
+            unset($rs_kode_customer[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_kode_customer = array_values($rs_kode_customer);
+
+            $rs_code_sales = $rs_picking_list_details[$serial_number['ean_code']]->rs_code_sales;
+            unset($rs_code_sales[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_code_sales = array_values($rs_code_sales);
+
+            $rs_cbm_unit = $rs_picking_list_details[$serial_number['ean_code']]->rs_cbm_unit;
+            unset($rs_cbm_unit[0]);
+            $rs_picking_list_details[$serial_number['ean_code']]->rs_cbm_unit = array_values($rs_cbm_unit);
           }
         } else {
           $model_not_exist_in_pickinglist[$serial_number['ean_code']]['picking_no'] = $serial_number['picking_id'];
