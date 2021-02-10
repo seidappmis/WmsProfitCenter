@@ -269,6 +269,10 @@ class PickingListController extends Controller
 
         // ADD CONCEPT FLOW DETAIL
         foreach ($picking->details as $key => $value) {
+          ConceptFlowDetail::where('invoice_no', $value->invoice_no)
+            ->where('line_no', $value->line_no)
+            ->delete();
+            
           $conceptFlowDetail = new ConceptFlowDetail;
 
           $conceptFlowDetail->id_header      = $idConceptFlowHeader;
