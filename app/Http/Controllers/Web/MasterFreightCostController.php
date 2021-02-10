@@ -101,14 +101,14 @@ class MasterFreightCostController extends Controller
     }
 
     if ($request['ritase_cbm'] == 'ritase') {
-      $masterFreight->ritase = $request->input('ritase_cbm_input');
-      $masterFreight->cbm    = $request->input('ritasecbm_input');
+      $masterFreight->ritase = !empty($request->input('ritase_cbm_input')) ? $request->input('ritase_cbm_input') : 0;
+      $masterFreight->cbm    = !empty($request->input('ritasecbm_input')) ? $request->input('ritasecbm_input') : 0;
     } elseif ($request['ritase_cbm'] == 'cbm') {
-      $masterFreight->cbm    = $request->input('ritase_cbm_input');
-      $masterFreight->ritase = $request->input('ritasecbm_input');
+      $masterFreight->cbm    = !empty($request->input('ritase_cbm_input')) ? $request->input('ritase_cbm_input') : 0;
+      $masterFreight->ritase = !empty($request->input('ritasecbm_input')) ? $request->input('ritasecbm_input') : 0;
     } else {
-      $masterFreight->cbm    = $request->input('ritasecbm_input');
-      $masterFreight->ritase = $request->input('ritasecbm_input');
+      $masterFreight->cbm    = !empty($request->input('ritasecbm_input')) ? $request->input('ritasecbm_input') : 0;
+      $masterFreight->ritase = !empty($request->input('ritasecbm_input')) ? $request->input('ritasecbm_input') : 0;
     }
     $masterFreight->leadtime = $request->input('leadtime');
 
@@ -141,10 +141,11 @@ class MasterFreightCostController extends Controller
 
     while (!feof($file)) {
       $row = fgetcsv($file);
-      if ($title) {
+      if ($title || empty($row[0])) {
         $title = false;
         continue; // Skip baris judul
       }
+
       $freight_cost = [
         'area_code'         => $row[0],
         // 'area' => $row[0], // Cari dari database
