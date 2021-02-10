@@ -39,6 +39,10 @@ class PickingToLMBController extends Controller
           'created_by'    => auth()->user()->id,
         ];
 
+        if (empty($postSerialNumber['serialNumber'])) {
+          return sendError('Serial Number empty.');
+        }
+
         if (empty($rs_models[$serial_number['ean_code']])) {
           $model = MasterModel::where('ean_code', $serial_number['ean_code'])->first();
           if (empty($model)) {
