@@ -322,7 +322,7 @@ class PickingListController extends Controller
       $prefix = auth()->user()->cabang->kode_cabang . date('Ymd');
 
       $prefix_length   = strlen($prefix);
-      $max_no          = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+      $max_no          = DB::select('SELECT MAX(SUBSTR(picking_no, ?)) AS max_no FROM wms_pickinglist_header WHERE SUBSTR(picking_no,1,?) = ? ', [$prefix_length + 1, $prefix_length, $prefix])[0]->max_no;
       $picking_urut_no = $max_no + 1;
       $max_no          = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
