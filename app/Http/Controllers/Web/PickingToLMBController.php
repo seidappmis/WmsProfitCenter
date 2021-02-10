@@ -50,6 +50,7 @@ class PickingToLMBController extends Controller
         $query->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
       }
 
+      $query->whereNotNull('wms_pickinglist_header.picking_no');
       $query->groupBy('wms_lmb_header.driver_register_id');
 
       $datatables = DataTables::of($query)
