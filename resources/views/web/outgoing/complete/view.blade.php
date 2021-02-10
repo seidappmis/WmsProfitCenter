@@ -73,7 +73,7 @@
                       <div class="mt-2">
                         @if(!$manifestHeader->status_complete && $manifestHeader->details->count() > 0)
                         {!!get_button_save('Complete', 'btn-complete')!!}
-                        @elseif($rsManifestHeader[0]->status() == 'Complete & Waiting Confirm')
+                        @elseif($rsManifestHeader[0]->status() == 'Complete & Waiting Confirm' || $rsManifestHeader[0]->status() == '<span class="red-text">Not sign all DO Items</span>')
                         {!! get_button_delete('Cancel Complete', 'btn-cancel-complete') !!}
                         @endif
                         {!! get_button_cancel(url('complete'), 'Back', '') !!}

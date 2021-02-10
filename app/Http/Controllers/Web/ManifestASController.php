@@ -209,8 +209,9 @@ class ManifestASController extends Controller
   public function listDO(Request $request, $do_manifest_no)
   {
     if ($request->ajax()) {
-      $query = LogManifestDetail::select('log_manifest_detail.*')
-        ->where('do_manifest_no', $do_manifest_no);
+      $query = LogManifestDetail::select('log_manifest_detail.*', 'log_manifest_header.status_complete')
+      ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        ->where('log_manifest_detail.do_manifest_no', $do_manifest_no);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -220,12 +221,47 @@ class ManifestASController extends Controller
         ->addColumn('status', function ($data) {
           return '';
         })
+        ->addColumn('action', function ($data) {
+          $action = '';
+          if (!$data->status_complete) {
+            $action .= ' ' . get_button_delete();
+          }
+          return $action;
+        })
         ->rawColumns(['do_status', 'action']);
 
       return $datatables->make(true);
     }
   }
 
+  public function destroyDO(Request $request)
+  {
+    $detail = LogManifestDetail::findOrFail($request->input('id'));
+
+    $detail->delete();
+
+    return sendSuccess('DO deleted.', $detail);
+  }
+  
+  public function destroySelectedDO(Request $request)
+  {
+    $data_list_do = json_decode($request->input('data_list_do'), true);
+
+    $rs_id = [];
+    try {
+      DB::beginTransaction();
+      foreach ($data_list_do as $key => $value) {
+        $rs_id[] = $value['id'];
+        LogManifestDetail::where('id', $value['id'])->delete();
+      }
+
+      DB::commit();
+      return sendSuccess("Selected DO deleted.", $rs_id);
+    } catch (Exception $e) {
+      DB::rollback();
+    }
+  }
+  
   public function uploadDO(Request $request, $do_manifest_no)
   {
     $request->validate([

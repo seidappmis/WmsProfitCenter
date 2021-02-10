@@ -61,14 +61,14 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nd.berita_acara_detail_id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
-        ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+        // ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->orderBy('n.created_at', 'DESC')
         // ->groupBy('n.id')
         ->groupBy('n.id')
         ->select(
           'n.*',
           DB::raw("group_concat(DISTINCT bad.berita_acara_no SEPARATOR ', ') as berita_acara_group"),
-          DB::raw("group_concat(DISTINCT e.expedition_name SEPARATOR ', ') as expedition_name"),
+          DB::raw("group_concat(DISTINCT ba.expedition_name SEPARATOR ', ') as expedition_name"),
           // 'e.expedition_name',
           'ba.date_of_receipt',
           'nd.destination'
@@ -301,13 +301,13 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nd.berita_acara_detail_id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
-        ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+        // ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'nd.model_name')
         ->orderBy('n.created_at', 'DESC')
         ->where('n.id', $id)
         ->select(
           'n.*',
-          'e.expedition_name',
+          'ba.expedition_name',
           'ba.date_of_receipt',
           'ba.berita_acara_no',
           'nd.destination',
@@ -342,13 +342,13 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail AS nd', 'nd.claim_note_id', '=', 'n.id')
         ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nd.berita_acara_detail_id')
         ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
-        ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+        // ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
         ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'nd.model_name')
         ->orderBy('n.created_at', 'DESC')
         ->where('n.id', $id)
         ->select(
           'n.*',
-          'e.expedition_name',
+          'ba.expedition_name',
           'ba.date_of_receipt',
           'ba.berita_acara_no',
           'nd.destination',
@@ -499,11 +499,11 @@ class ClaimNoteController extends Controller
       ->leftJoin('clm_claim_note_detail AS nd', 'nds.claim_note_id', '=', 'n.id')
       ->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'nds.berita_acara_detail_id')
       ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
-      ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
+      // ->leftJoin('tr_expedition AS e', 'e.code', '=', 'ba.expedition_code')
       ->select(
         'n.*',
         'nd.*',
-        'e.expedition_name',
+        'ba.expedition_name',
         'ba.expedition_code',
         'ba.date_of_receipt'
       )
@@ -629,13 +629,15 @@ class ClaimNoteController extends Controller
 
     $data['claimNoteDetail'] = ClaimNoteDetail::select(
       'clm_claim_note_detail.*',
-      DB::raw('tr_expedition.expedition_name AS expedition_name')
-    )->leftJoin(
-      'tr_expedition',
-      'tr_expedition.code',
-      '=',
-      'clm_claim_note_detail.expedition_code'
-    )
+      DB::raw('ba.expedition_name AS expedition_name')
+    )->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'clm_claim_note_detail.berita_acara_detail_id')
+    ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+    // ->leftJoin(
+    //   'tr_expedition',
+    //   'tr_expedition.code',
+    //   '=',
+    //   'clm_claim_note_detail.expedition_code'
+    // )
       ->where('clm_claim_note_detail.claim_note_id', $id)
       ->get();
 

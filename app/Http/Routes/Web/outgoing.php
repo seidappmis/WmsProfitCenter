@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   // Manifest AS
   Route::get('manifest-as/lmb-waiting-manifest', 'Web\ManifestASController@lmbWaitingManifest');
   Route::get('manifest-as/{lmb_id}/create-manifest', 'Web\ManifestASController@createManifest');
+  Route::delete('manifest-as/delete-do', 'Web\ManifestASController@destroyDO');
+  Route::delete('manifest-as/delete-selected-do', 'Web\ManifestASController@destroySelectedDO');
   Route::get('manifest-as/{do_manifest_no}/list-do', 'Web\ManifestASController@listDO');
   Route::post('manifest-as/{do_manifest_no}/upload-do', 'Web\ManifestASController@uploadDO');
   Route::post('manifest-as/{do_manifest_no}/submit', 'Web\ManifestASController@submit');

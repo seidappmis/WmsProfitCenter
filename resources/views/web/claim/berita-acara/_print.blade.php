@@ -52,7 +52,7 @@
       </tr>
       <tr>
          <td colspan="2">Nama Ekspedisi</td>
-         <td>: {{$beritaAcara->expedition_code}}</td>
+         <td>: {{$beritaAcara->expedition_name}}</td>
       </tr>
       <tr>
          <td colspan="2">Nama Pengemudi</td>
