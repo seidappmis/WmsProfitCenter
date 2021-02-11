@@ -57,18 +57,18 @@
       <td>
         <p>
           <label>
-            <input id="ritase" class="with-gap" value="ritase" name="ritase_cbm" type="radio" {{ $masterFreight->ritase == 0 ? '' : 'checked' }}/>
+            <input id="ritase" class="with-gap" value="ritase" name="ritase_cbm" type="radio" {{ !empty($masterFreight) && $masterFreight->ritase == 0 ? '' : 'checked' }}/>
             <span>Ritase</span>
           </label>
           <label>
-            <input id="cbm" class="with-gap" value="cbm" name="ritase_cbm" type="radio" {{ $masterFreight->cbm == 0 ? '' : 'checked' }}/>
+            <input id="cbm" class="with-gap" value="cbm" name="ritase_cbm" type="radio" {{ !empty($masterFreight) && $masterFreight->cbm == 0 ? '' : 'checked' }}/>
             <span>CBM</span>
           </label>
         </p>
       </td>
       <td>
         <div class="input-field col s12">
-          <input id="ritase_cbm_input" type="number" min="0" name="ritase_cbm_input" class="validate" value="{{old('cbm', !empty($masterFreight) && $masterFreight->cbm !== '0.000' ? $masterFreight->cbm : $masterFreight->ritase )}}" required>
+          <input id="ritase_cbm_input" type="number" min="0" name="ritase_cbm_input" class="validate" value="{{old('cbm', !empty($masterFreight) ? ($masterFreight->cbm !== '0.000' ? $masterFreight->cbm : $masterFreight->ritase) : '' )}}" required>
           <input id="ritasecbm_input" type="number" min="0" name="ritasecbm_input" class="validate" value="0.000">
         </div>
       </td>
