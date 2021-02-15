@@ -161,6 +161,7 @@ class FinishGoodController extends Controller
         $finishGoodHeader['created_by']  = auth()->user()->id;
 
         $rs_finishGoodHeader[$detail['bar_ticket_header']] = $finishGoodHeader;
+        $max_no++;
       }
       $detail['receipt_no_header'] = $rs_finishGoodHeader[$detail['bar_ticket_header']]['receipt_no'];
       $detail['model']             = $value['MODEL'];
