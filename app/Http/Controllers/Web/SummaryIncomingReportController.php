@@ -162,7 +162,7 @@ class SummaryIncomingReportController extends Controller
       DB::raw('"" AS container_no'),
       DB::raw('log_finish_good_header.receipt_no AS receipt_no'),
       DB::raw('"PRODUCTION" AS type'),
-      DB::raw('"" AS delivery_ticket'),
+      DB::raw('log_finish_good_detail.bar_ticket_header AS delivery_ticket'),
       DB::raw('wms_master_storage.sto_type_desc AS storage_location'),
       DB::raw('users.username AS created_by_name')
     )
