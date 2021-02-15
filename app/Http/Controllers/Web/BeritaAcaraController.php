@@ -123,12 +123,13 @@ class BeritaAcaraController extends Controller
 
       // Generate No. Berita Acara : No.urut/BA-Kode cabang/Bulan/Tahun
       $kode_cabang  = auth()->user()->cabang->short_description;
-      $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('yy');
+      $formatNumber = '/BA-' . $kode_cabang . '/' . date('m') . '/' . date('Y');
 
       $prefix_length = strlen($formatNumber);
       $lastNo        = DB::table('clm_berita_acara')
         ->select(DB::raw('berita_acara_no AS max_no'))
         ->orderBy('created_at', 'DESC')
+        ->where('kode_cabang', $kode_cabang)
         ->first();
 
       $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);

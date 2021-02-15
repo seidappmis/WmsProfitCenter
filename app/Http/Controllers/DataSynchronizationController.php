@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateDatabaseBranchManifest();
+    $this->updateBeritaAcaraNo();
+    // $this->updateDatabaseBranchManifest();
     // $this->createLogInvoiceReceiptPrTable();
     // $this->updateDatabase18Jan2021();
     // $this->updateStockFromLMB();
@@ -38,6 +39,16 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateBeritaAcaraNo(){
+    echo "update Berita Acara";
+    DB::statement("UPDATE clm_berita_acara 
+        set berita_acara_no = REPLACE(berita_acara_no, '2121', '2021') 
+        where berita_acara_no like '%2121'");
+    DB::statement("UPDATE clm_berita_acara_detail
+        set berita_acara_no = REPLACE(berita_acara_no, '2121', '2021') 
+        where berita_acara_no like '%2121'");
   }
 
   protected function updateDatabaseBranchManifest(){
