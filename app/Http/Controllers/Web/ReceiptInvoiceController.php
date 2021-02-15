@@ -234,6 +234,7 @@ class ReceiptInvoiceController extends Controller
   public function show(Request $request, $id)
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+
     $data['invoiceReceiptHeader'] = $invoiceReceiptHeader;
 
     if ($request->ajax()) {
@@ -370,7 +371,7 @@ class ReceiptInvoiceController extends Controller
 
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $invoiceReceiptHeader->kwitansi_no      = $request->input('kwitansi_no');
+    // $invoiceReceiptHeader->kwitansi_no      = $request->input('kwitansi_no');
     $invoiceReceiptHeader->amount_pph       = str_replace(',', '', $request->input('amount_pph'));
     $invoiceReceiptHeader->amount_ppn       = str_replace(',', '', $request->input('amount_ppn'));
     $invoiceReceiptHeader->amount_after_tax = $invoiceReceiptHeader->amount_before_tax + $invoiceReceiptHeader->amount_pph + $invoiceReceiptHeader->amount_ppn;
@@ -384,7 +385,7 @@ class ReceiptInvoiceController extends Controller
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where invoice_receipt_date = ?', [date('Y-m-d')])[0]->max_no;
+    $max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where YEAR(invoice_receipt_date) = ? AND MONTH(invoice_receipt_date) = ?', [date('Y'), date('m')])[0]->max_no;
 
     $max_no = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 

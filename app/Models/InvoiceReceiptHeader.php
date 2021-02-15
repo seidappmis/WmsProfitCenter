@@ -35,7 +35,8 @@ class InvoiceReceiptHeader extends Model
     $this->amount_before_tax = $this->getAmountInvoice();
     $this->amount_ppn        = $this->amount_before_tax * ($this->ppn / 100);
     $this->amount_pph        = $this->amount_before_tax * ($this->pph / 100);
-    $this->amount_after_tax  = $this->amount_before_tax + $this->amount_ppn + $this->amount_pph;
+    // $this->amount_after_tax  = $this->amount_before_tax + $this->amount_ppn + $this->amount_pph;
+    $this->amount_after_tax  = $this->amount_before_tax + $this->amount_ppn;
 
     $this->save();
   }

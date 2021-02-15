@@ -481,7 +481,8 @@
   });
 
   function calculateInvoice() {
-    var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val()) - parseFloat($('#amount_pph').val());
+    {{-- var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val()) - parseFloat($('#amount_pph').val()); --}}
+    var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val());
     $('#amount_after_tax').val(amount_after_tax.toFixed(3))
   }
 </script>

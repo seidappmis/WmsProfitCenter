@@ -90,7 +90,7 @@
 103,Claim Insurance,Claim-insurance,Claim,3
 104,Berita Acara During,Berita-acara-during,During,1
 105,Damage Goods Report,Damage-goods-report,During,2
-106,Update Serial Number,Update-serial-number,Picking,4
+106,Update Serial Number,Update-serial-no,Picking,4
 107,Send To LMB,Send-to-lmb,Picking,5
 108,Summary Claim Notes,Summary-claim-notes,Claim,4
 109,Summary DGR,Summary-damage-goods-report,During,3
