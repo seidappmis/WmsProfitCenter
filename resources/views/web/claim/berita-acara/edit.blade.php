@@ -196,7 +196,9 @@
     $('#form-berita-acara select').attr('disabled', 'disabled');
     $('#form-berita-acara .btn-save').hide();
     $('#form-berita-acara-detail .btn-save').html('Update Detail');
+    @if(!empty($beritaAcara->Expedition))
     set_select2_value('#form-berita-acara [name="expedition_code"]', '{{$beritaAcara->expedition_code}}', '{{$beritaAcara->Expedition->expedition_name}}');
+    @endif
     set_select2_value('#form-berita-acara [name="driver_name"]', '{{$beritaAcara->driver_name}}', '{{$beritaAcara->driver_name}}');
     set_select2_value('#form-berita-acara [name="vehicle_number"]', '{{$beritaAcara->vehicle_number}}', '{{$beritaAcara->Vehicle->vehicle_number}}');
     set_select2_value('#form-berita-acara-detail [name="model_name"]', '{{$beritaAcaraDetail->model_name}}', '{{$beritaAcaraDetail->Model->model_name}}');

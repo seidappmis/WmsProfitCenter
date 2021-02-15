@@ -262,11 +262,16 @@ class ManifestRegularController extends Controller
       ->where('city_code', $manifestHeader->city_code)
       ->first();
 
+    if (empty($freightCost)) {
+      return sendError("Freight Cost not found!");
+    }
+
     $manifestHeader->id_freight_cost = $freightCost->id;
 
     $rs_details = [];
     foreach ($oldManifestHeader->details as $key => $value) {
       $rs_details[$key] = $value->toArray();
+      $rs_details[$key]['delivery_no'] = $rs_details[$key]['delivery_no'] . 'R1';
       unset($rs_details[$key]['id']);
 
       $rs_details[$key]['do_manifest_no'] = $manifestHeader->do_manifest_no;
@@ -408,6 +413,7 @@ class ManifestRegularController extends Controller
     $manifestHeader->r_driver_register_id        = $request->input('r_driver_register_id');
     $manifestHeader->r_create_date               = $request->input('r_create_date');
     $manifestHeader->r_create_by                 = $request->input('r_create_by');
+    $manifestHeader->created_by                 = auth()->user()->id;
 
     $freightCost = FreightCost::where('area', $manifestHeader->area)
       ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
