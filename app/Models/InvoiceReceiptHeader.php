@@ -122,7 +122,8 @@ class InvoiceReceiptHeader extends Model
     $data['total_overstay']  = $total_overstay;
 
     $data['total_freight'] = $total_ritase + $total_cbm + $total_ritase2 + $total_multidrop + $total_unloading + $total_overstay;
-    $data['tax']           = $data['total_freight'] * 10 / 100;
+    // $data['tax']           = $data['total_freight'] * 10 / 100;
+    $data['tax']           = $this->amount_ppn;
     $data['grand_total']   = $data['total_freight'] + $data['tax'];
 
     return $data;
