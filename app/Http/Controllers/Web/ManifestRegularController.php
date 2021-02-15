@@ -271,7 +271,13 @@ class ManifestRegularController extends Controller
     $rs_details = [];
     foreach ($oldManifestHeader->details as $key => $value) {
       $rs_details[$key] = $value->toArray();
-      $rs_details[$key]['delivery_no'] = $rs_details[$key]['delivery_no'] . 'R1';
+
+      $lastChar = str_split(substr($rs_details[$key]['delivery_no'], -2));
+      if ($lastChar[0] == 'R') {
+        $rs_details[$key]['delivery_no'] = str_replace($lastChar[0] . $lastChar[1], $lastChar[0] . ($lastChar[1] + 1), $rs_details[$key]['delivery_no']);
+      } else {
+        $rs_details[$key]['delivery_no'] = $rs_details[$key]['delivery_no'] . 'R1';
+      }
       unset($rs_details[$key]['id']);
 
       $rs_details[$key]['do_manifest_no'] = $manifestHeader->do_manifest_no;
