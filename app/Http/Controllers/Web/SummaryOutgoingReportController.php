@@ -72,8 +72,8 @@ class SummaryOutgoingReportController extends Controller
       'wms_branch_manifest_detail.reservasi_no',
       'wms_branch_manifest_detail.quantity',
       'wms_branch_manifest_detail.sold_to_code',
-      'wms_branch_manifest_detail.sold_to',
-      'wms_branch_manifest_detail.ship_to',
+      DB::raw('IF(ISNULL(sold_to_cabang.long_description), sold_to, sold_to_cabang.long_description) AS sold_to'),
+      DB::raw('IF(ISNULL(ship_to_cabang.long_description), ship_to, ship_to_cabang.long_description) AS ship_to'),
       'wms_branch_manifest_detail.ship_to_code',
       // 'wms_branch_manifest_detail.region',
       'log_cabang.region',
@@ -108,6 +108,8 @@ class SummaryOutgoingReportController extends Controller
       })
       ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_branch_manifest_detail.model')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_branch_manifest_detail.kode_cabang')
+      ->leftjoin(DB::raw('log_cabang AS sold_to_cabang'), 'sold_to_cabang.kode_customer', '=', 'wms_branch_manifest_detail.sold_to_code')
+      ->leftjoin(DB::raw('log_cabang AS ship_to_cabang'), 'ship_to_cabang.kode_customer', '=', 'wms_branch_manifest_detail.ship_to_code')
       ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'wms_branch_manifest_header.created_by')
       ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'wms_branch_manifest_header.updated_by')
       ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'wms_branch_manifest_header.updated_by')
@@ -224,8 +226,10 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.reservasi_no',
         'log_manifest_detail.quantity',
         'log_manifest_detail.sold_to_code',
-        'log_manifest_detail.sold_to',
-        'log_manifest_detail.ship_to',
+        DB::raw('IF(ISNULL(sold_to_cabang.long_description), sold_to, sold_to_cabang.long_description) AS sold_to'),
+        DB::raw('IF(ISNULL(ship_to_cabang.long_description), ship_to, ship_to_cabang.long_description) AS ship_to'),
+        // 'log_manifest_detail.sold_to',
+        // 'log_manifest_detail.ship_to',
         'log_manifest_detail.ship_to_code',
         // 'log_manifest_detail.region',
         'log_cabang.region',
@@ -264,6 +268,8 @@ class SummaryOutgoingReportController extends Controller
         //   $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
         // })
         ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
+        ->leftjoin(DB::raw('log_cabang AS sold_to_cabang'), 'sold_to_cabang.kode_customer', '=', 'log_manifest_detail.sold_to_code')
+        ->leftjoin(DB::raw('log_cabang AS ship_to_cabang'), 'ship_to_cabang.kode_customer', '=', 'log_manifest_detail.ship_to_code')
         ->leftjoin(DB::raw('users AS uc'), 'uc.id', '=', 'log_manifest_header.created_by')
         ->leftjoin(DB::raw('users AS um'), 'um.id', '=', 'log_manifest_header.updated_by')
       // ->leftjoin(DB::raw('users AS uconfirm'), 'uconfirm.id', '=', 'log_manifest_header.updated_by')
@@ -425,20 +431,20 @@ class SummaryOutgoingReportController extends Controller
     $row = 2;
     foreach ($data as $key => $value) {
       $col = 'A';
-      $sheet->setCellValue(($col++) . $row, $value->manifest_type);
-      $sheet->setCellValue(($col++) . $row, $value->do_manifest_date);
-      $sheet->setCellValue(($col++) . $row, $value->do_manifest_no);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->manifest_type));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->do_manifest_date));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->do_manifest_no));
       $sheet->getStyle($col . $row)->getNumberFormat()->setFormatCode('#');
-      $sheet->setCellValue(($col++) . $row, $value->picking_no);
-      $sheet->setCellValue(($col++) . $row, $value->invoice_no);
-      $sheet->setCellValue(($col++) . $row, $value->delivery_no);
-      $sheet->setCellValue(($col++) . $row, $value->do_internal);
-      $sheet->setCellValue(($col++) . $row, $value->reservasi_no);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->picking_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->invoice_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->delivery_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->do_internal));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->reservasi_no));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_date));
-      $sheet->setCellValue(($col++) . $row, $value->delivery_items);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->delivery_items));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
@@ -447,45 +453,45 @@ class SummaryOutgoingReportController extends Controller
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->eta));
-      $sheet->setCellValue(($col++) . $row, $value->lead_time);
-      $sheet->setCellValue(($col++) . $row, $value->checker);
-      $sheet->setCellValue(($col++) . $row, $value->sold_to_code);
-      $sheet->setCellValue(($col++) . $row, $value->sold_to);
-      $sheet->setCellValue(($col++) . $row, $value->ship_to_code);
-      $sheet->setCellValue(($col++) . $row, $value->ship_to);
-      $sheet->setCellValue(($col++) . $row, $value->region);
-      $sheet->setCellValue(($col++) . $row, $value->destination_name_driver);
-      $sheet->setCellValue(($col++) . $row, $value->city_name);
-      $sheet->setCellValue(($col++) . $row, $value->model);
-      $sheet->setCellValue(($col++) . $row, $value->model_description);
-      $sheet->setCellValue(($col++) . $row, $value->quantity);
-      $sheet->setCellValue(($col++) . $row, $value->detail_cbm);
-      $sheet->setCellValue(($col++) . $row, $value->detail_total_cbm);
-      $sheet->setCellValue(($col++) . $row, $value->expedition_code);
-      $sheet->setCellValue(($col++) . $row, $value->expedition_name);
-      $sheet->setCellValue(($col++) . $row, $value->vehicle_number);
-      $sheet->setCellValue(($col++) . $row, $value->vehicle_code_type);
-      $sheet->setCellValue(($col++) . $row, $value->vehicle_description);
-      $sheet->setCellValue(($col++) . $row, $value->container_no);
-      $sheet->setCellValue(($col++) . $row, $value->seal_no);
-      $sheet->setCellValue(($col++) . $row, $value->pdo_no);
-      $sheet->setCellValue(($col++) . $row, $value->code_sales);
-      $sheet->setCellValue(($col++) . $row, $value->status);
-      $sheet->setCellValue(($col++) . $row, $value->created_by_name);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->lead_time));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->checker));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->sold_to_code));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->sold_to));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->ship_to_code));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->ship_to));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->region));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->destination_name_driver));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->city_name));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->model));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->model_description));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->quantity));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->detail_cbm));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->detail_total_cbm));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->expedition_code));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->expedition_name));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->vehicle_number));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->vehicle_code_type));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->vehicle_description));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->container_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->seal_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->pdo_no));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->code_sales));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->status));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->created_by_name));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->created_at));
-      $sheet->setCellValue(($col++) . $row, $value->updated_by_name);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->updated_by_name));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->updated_at));
-      $sheet->setCellValue(($col++) . $row, $value->desc);
-      $sheet->setCellValue(($col++) . $row, $value->delivery_status);
-      $sheet->setCellValue(($col++) . $row, $value->confirm);
-      $sheet->setCellValue(($col++) . $row, $value->status_confirm);
-      $sheet->setCellValue(($col++) . $row, $value->confirm_by);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->desc));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->delivery_status));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->confirm));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->status_confirm));
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->confirm_by));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
@@ -502,7 +508,7 @@ class SummaryOutgoingReportController extends Controller
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
       $sheet->setCellValue(($col++) . $row, format_tanggal_jam_wms($value->doc_do_return_date));
-      $sheet->setCellValue(($col++) . $row, $value->status_reject);
+      $sheet->setCellValue(($col++) . $row, text_formatter($value->status_reject));
       $row++;
     }
 

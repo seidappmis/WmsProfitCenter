@@ -47,15 +47,15 @@
                                 <td>TYPE</td>
                                 <td ><div class="col s12 ">
                                         <label>
-                                            <input class="validate inline" required="" name="type" type="radio" checked="">
+                                            <input class="validate inline" required="" name="type" value="all" type="radio" checked="">
                                             <span>ALL</span>
                                         </label>
                                         <label>
-                                            <input class="validate inline" required="" name="type" type="radio">
+                                            <input class="validate inline" required="" name="type" value="production" type="radio">
                                             <span>PRODUCTION</span>
                                         </label>
                                         <label>
-                                            <input class="validate inline" required="" name="type" type="radio">
+                                            <input class="validate inline" required="" name="type" value="manual" type="radio">
                                             <span>MANUAL</span>
                                         </label>
                                     
@@ -181,6 +181,7 @@
           type: 'GET',
           data: function(d) {
             d.area = $('#form-summary-incoming-report [name="area"]').val();
+            d.type = $('#form-summary-incoming-report [name="type"]:checked').val();
             d.cabang = $('#form-summary-incoming-report [name="cabang"]').val();
             d.start_date = $('#form-summary-incoming-report [name="start_date"]').val();
             d.end_date = $('#form-summary-incoming-report [name="end_date"]').val();

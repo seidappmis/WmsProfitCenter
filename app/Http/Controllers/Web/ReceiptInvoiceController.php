@@ -389,7 +389,7 @@ class ReceiptInvoiceController extends Controller
 
     $max_no = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
-    $invoice_receipt_no = $max_no . '/' . getRomawi(date('m')) . '/DIST.LOG/KU.SEID/' . date('y');
+    $invoice_receipt_no = $max_no . '/' . getRomawi(date('m')) . '/DIST.SLOG/KU.SEID/' . date('y');
 
     $invoiceReceiptHeader->invoice_receipt_no   = $invoice_receipt_no;
     $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d');

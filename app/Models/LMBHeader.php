@@ -125,6 +125,12 @@ class LMBHeader extends Model
     return $this->belongsTo('App\Models\PickinglistHeader', 'driver_register_id', 'driver_register_id');
   }
 
+  public function getInvoiceNo(){
+    return $this->details()
+    ->select(DB::raw('GROUP_CONCAT(DISTINCT(invoice_no) SEPARATOR ",  ") AS rs_invoice_no'))
+    ->first()->rs_invoice_no;
+  }
+
   public function getPickingNo($data)
   {
     $rs_pickinglistHeader = \App\Models\PickinglistHeader::where('driver_register_id', $data->driver_register_id)->get();

@@ -3,6 +3,13 @@ function serial_no_explode($serial)
 {
   return substr($serial, 0, 15);
 }
+
+function text_formatter($str){
+  if ($str == null) {
+    return '';
+  }
+  return $str;
+}
 function date_reformat($date)
 {
   if (empty($date)) {
