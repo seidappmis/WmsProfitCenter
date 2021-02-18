@@ -402,6 +402,7 @@ class ReceiptInvoiceController extends Controller
   public function exportReceiptNo(Request $request, $id)
   {
     $data['invoiceReceiptHeader'] = InvoiceReceiptHeader::findOrFail($id);
+    $data['remarks'] = $request->input('remarks');
 
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_no', $data);
     $title      = 'receipt_no';

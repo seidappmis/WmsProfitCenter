@@ -153,6 +153,7 @@ class ClaimNoteController extends Controller
             $lastNo = DB::table('clm_claim_notes')
               ->select(DB::raw('claim_note_no AS max_no'))
               ->orderBy('created_at', 'DESC')
+              ->where('claim', $req->type)
               ->first();
 
             $lastNo        = explode("/", isset($lastNo->max_no) ? $lastNo->max_no : 0);

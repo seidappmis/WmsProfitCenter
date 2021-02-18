@@ -191,12 +191,12 @@
             Keterangan
         </td>
         <td style="width: 5mm;">:</td>
-        <td colspan="8" style="width: 40mm;">&nbsp;</td>
+        <td colspan="8" style="width: 40mm;">{{ $remarks }}</td>
         <td colspan="3" style="padding-left: 3rem; border-left: 1pt dotted black;">
             Keterangan
         </td>
         <td style="width: 5mm;">:</td>
-        <td colspan="8" style="width: 40mm;">&nbsp;</td>
+        <td colspan="8" style="width: 40mm;">{{ $remarks }}</td>
     </tr>
     <tr>
         <td colspan="12" style="text-align: left; font-size: 10pt; padding-left: 3rem; ">

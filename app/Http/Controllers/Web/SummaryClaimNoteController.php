@@ -64,6 +64,7 @@ class SummaryClaimNoteController extends Controller
                DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
                DB::raw("group_concat(DISTINCT ba.created_at SEPARATOR ', ') as reporting_date"),
             )
+            ->where('ba.kode_cabang', auth()->user()->cabang->short_description)
             ->whereNotNull('n.submit_date');
          // dd($claimNoteSubQuery->get());
          $datatables = DataTables::of($query)
@@ -73,6 +74,7 @@ class SummaryClaimNoteController extends Controller
       }
 
       // return  view('web.claim.claim-notes._print');
+      // return auth()->user()->cabang->short_description;
       return view('web.claim.summary-claim-notes.index');
    }
 

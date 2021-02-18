@@ -83,8 +83,8 @@
             </div>
             <div class="row">
               <div class="input-field col s12 m4">
-                <textarea id="textarea2" class="materialize-textarea" placeholder=""></textarea>
-                <label for="textarea2">REMARKS</label>
+                <textarea id="remarks" class="materialize-textarea" placeholder=""></textarea>
+                <label for="remarks">REMARKS</label>
               </div>
             </div>
             @if(!empty($invoiceReceiptHeader))
@@ -134,8 +134,7 @@
 
 @include('layouts.materialize.components.modal-print', [
 'title' => 'Print Receipt No',
-'url' => 'receipt-invoice/' . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '') . '/export-receipt-no',
-'trigger' => '.btn-print-receipt-no'
+'url' => '#!',
 ])
 
 @include('layouts.materialize.components.modal-print', [
@@ -154,6 +153,12 @@
   var dttable_list_manifest_receipt
   var dttable_list_manifest_receipt_do
   jQuery(document).ready(function($) {
+    $('.btn-print-receipt-no').click(function(event) {
+        /* Act on the event */
+        $('#modal-print-PrintReceiptNo').modal('open');
+        initPrintPreviewPrintReceiptNo('/receipt-invoice/{{ (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '') }}/export-receipt-no', 'remarks=' + $('#remarks').val());
+      });
+    
     $('.mask_money').inputmask({
       alias: 'currency',
       autoUnmask: true,

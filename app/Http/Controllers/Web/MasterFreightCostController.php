@@ -173,6 +173,17 @@ class MasterFreightCostController extends Controller
         }
         $freight_cost['area'] = $rs_area[$freight_cost['area_code']];
 
+        // check  freight cost
+        $check = FreightCost::where('area', $freight_cost['area'])
+        ->where('city_code', $freight_cost['city_code'])
+        ->where('expedition_code', $freight_cost['expedition_code'])
+        ->where('vehicle_code_type', $freight_cost['vehicle_code_type'])
+        ->first();
+
+        if (!empty($check)) {
+          return sendError('Freight Cost for expedition code ' . $freight_cost['expedition_code'] . ' to city code ' . $freight_cost['city_code'] . ' with vehicle code type ' . $freight_cost['vehicle_code_type'] . ' already exists!');
+        }
+
         $master_freight_cost[] = $freight_cost;
       }
     }
