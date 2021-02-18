@@ -381,6 +381,16 @@ class ReceiptInvoiceController extends Controller
     return sendSuccess("Update PPN success.", $invoiceReceiptHeader);
   }
 
+  public function updateRemarks(Request $request, $id){
+    $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+
+    $invoiceReceiptHeader->remarks       = $request->input('remarks');
+
+    $invoiceReceiptHeader->save();
+
+    return sendSuccess("Remarks Updated.", $invoiceReceiptHeader);
+  }
+
   public function createReceiptNo($id)
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);

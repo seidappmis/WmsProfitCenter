@@ -83,7 +83,7 @@
             </div>
             <div class="row">
               <div class="input-field col s12 m4">
-                <textarea id="remarks" class="materialize-textarea" placeholder=""></textarea>
+                <textarea id="remarks" class="materialize-textarea" placeholder="">{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->remarks : ''}}</textarea>
                 <label for="remarks">REMARKS</label>
               </div>
             </div>
@@ -163,6 +163,19 @@
       alias: 'currency',
       autoUnmask: true,
     });
+
+    $('#remarks').keyup(function(){
+      $.ajax({
+        url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") )}}' + '/update-remarks',
+        type: 'PUT',
+        data: 'remarks=' + $(this).val()
+      })
+      .done(function(result) { // Kalau ajax nya success
+      })
+      .fail(function() { // Kalau ajax nya gagal
+        console.log("error");
+      });
+    })
     @if(!empty($invoiceReceiptHeader))
     dttable_list_manifest_receipt = $('#table_list_manifest_receipt').DataTable({
       serverSide: true,

@@ -7,6 +7,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('receipt-invoice', 'Web\ReceiptInvoiceController@index');
   Route::get('receipt-invoice/manifest', 'Web\ReceiptInvoiceController@getManifest');
   Route::get('receipt-invoice/{id_header}/manifest', 'Web\ReceiptInvoiceController@getListDo');
+  Route::put('receipt-invoice/{id_header}/update-remarks', 'Web\ReceiptInvoiceController@updateRemarks');
   Route::get('receipt-invoice/{id_header}/do-data', 'Web\ReceiptInvoiceController@getDOData');
   Route::put('receipt-invoice/{id_header}/do-data', 'Web\ReceiptInvoiceController@updateDOData');
   Route::put('receipt-invoice/{id_header}/do-data/{manifest_detail_id}', 'Web\ReceiptInvoiceController@updateDODataDetail');
