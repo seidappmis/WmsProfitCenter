@@ -133,13 +133,27 @@ class FinishGoodController extends Controller
       return sendError('No item selected.');
     }
 
+    // $selected_list = [
+    //   ['HEADER_NAME' => 'HE1', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE2', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE3', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE4', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE5', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE6', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE7', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE8', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE9', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
+    //   ['HEADER_NAME' => 'HE10', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278']
+    // ];
+
     // Receipt_No => ARV-WAREHOUSE-TANGGAL-Urutan
     $area       = auth()->user()->area;
     $receipt_no = 'ARV' . '-WH' . auth()->user()->area_data->code . '-' . date('ymd') . '-';
 
     $prefix_length = strlen($receipt_no);
     $max_no        = DB::select('SELECT MAX(SUBSTR(receipt_no, ?)) AS max_no FROM log_finish_good_header WHERE SUBSTR(receipt_no,1,?) = ? ', [$prefix_length + 1, $prefix_length, $receipt_no])[0]->max_no;
-    $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
+    $max_no = $max_no + 1;
+    // $max_no        = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
     $warehouse = 'SHARP ' . $area . ' W/H';
     $supplier  = $request->input('plant');
@@ -150,8 +164,14 @@ class FinishGoodController extends Controller
     $details = [];
     foreach ($selected_list as $key => $value) {
       $detail['bar_ticket_header'] = $value['HEADER_NAME'];
+
+      $checkDetailTicket = FinishGoodDetail::where('bar_ticket_header', $detail['bar_ticket_header'])->first();
+      if (!empty($checkDetailTicket)) {
+        return sendError('Ticket No. '. $detail['bar_ticket_header'] . ' already exists!');
+      } 
+      
       if (empty($rs_finishGoodHeader[$detail['bar_ticket_header']])) {
-        $finishGoodHeader['receipt_no']  = $receipt_no . $max_no;
+        $finishGoodHeader['receipt_no']  = $receipt_no . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
         $finishGoodHeader['warehouse']   = $warehouse;
         $finishGoodHeader['supplier']    = $supplier;
         $finishGoodHeader['area']        = $area;
@@ -161,7 +181,7 @@ class FinishGoodController extends Controller
         $finishGoodHeader['created_by']  = auth()->user()->id;
 
         $rs_finishGoodHeader[$detail['bar_ticket_header']] = $finishGoodHeader;
-        $max_no++;
+        // $max_no++;
       }
       $detail['receipt_no_header'] = $rs_finishGoodHeader[$detail['bar_ticket_header']]['receipt_no'];
       $detail['model']             = $value['MODEL'];
