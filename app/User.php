@@ -91,6 +91,22 @@ class User extends Authenticatable
     return $result;
   }
 
+  public static function getStringGrantCabangShortDesc()
+  {
+    $grantCabangs = UsersGrantCabang::select('log_cabang.short_description')
+      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_users_grant_cabang.kode_cabang_grant')
+      ->where('userid', auth()->user()->username)
+      ->get();
+
+    $result = [];
+
+    foreach ($grantCabangs as $key => $value) {
+      $result[] = $value['short_description'];
+    }
+
+    return $result;
+  }
+
   public function allowTo($access = 'view', $modul_link = '')
   {
     if (!in_array($access, ['view', 'edit', 'delete'])) {

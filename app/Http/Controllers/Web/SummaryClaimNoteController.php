@@ -64,7 +64,7 @@ class SummaryClaimNoteController extends Controller
                DB::raw("group_concat(DISTINCT bad.description SEPARATOR ', ') as description"),
                DB::raw("group_concat(DISTINCT ba.created_at SEPARATOR ', ') as reporting_date"),
             )
-            ->where('ba.kode_cabang', auth()->user()->cabang->short_description)
+            ->whereIn('ba.kode_cabang', auth()->user()->getStringGrantCabangShortDesc())
             ->whereNotNull('n.submit_date');
          // dd($claimNoteSubQuery->get());
          $datatables = DataTables::of($query)
