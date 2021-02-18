@@ -99,7 +99,9 @@ class ManifestRegularController extends Controller
     $manifestHeader = new LogManifestHeader;
 
     // DO MANIFEST NO => KODEAREA-ymd-URUT
-    $prefix = auth()->user()->area_data->code . '-' . date('ymd');
+    $now = date('Y-m-d H:i:s', strtotime('-7 hours'));
+    $prefix = auth()->user()->area_data->code . '-' . date('ymd', strtotime($now));
+    // $prefix = auth()->user()->area_data->code . '-' . date('ymd');
 
     $prefix_length = strlen($prefix);
     $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM log_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
@@ -203,7 +205,9 @@ class ManifestRegularController extends Controller
     $manifestHeader = new LogManifestHeader;
 
     // DO MANIFEST NO => KODEAREA-ymd-URUT
-    $prefix = auth()->user()->area_data->code . '-' . date('ymd');
+    $now = date('Y-m-d H:i:s', strtotime('-7 hours'));
+    $prefix = auth()->user()->area_data->code . '-' . date('ymd', strtotime($now));
+    // $prefix = auth()->user()->area_data->code . '-' . date('ymd');
 
     $prefix_length = strlen($prefix);
     $max_no        = DB::select('SELECT MAX(SUBSTR(do_manifest_no, ?)) AS max_no FROM log_manifest_header WHERE SUBSTR(do_manifest_no,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
