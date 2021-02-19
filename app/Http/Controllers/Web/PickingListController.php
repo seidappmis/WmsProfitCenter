@@ -825,6 +825,7 @@ class PickingListController extends Controller
       DB::beginTransaction();
       $pickingHeader = PickinglistHeader::findOrFail($id);
       PickinglistDetail::where('header_id', $id)->delete();
+      // LMBDetail::where('picking_id', $pickingHeader->id)->delete();
       $conceptFlowHeader = ConceptFlowHeader::where('driver_register_id', $pickingHeader->driver_register_id)->first();
 
       if (!empty($conceptFlowHeader)) {

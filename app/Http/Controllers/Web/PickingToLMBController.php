@@ -555,6 +555,7 @@ class PickingToLMBController extends Controller
             )
             ->where(DB::raw('CAST(wms_pickinglist_detail.ean_code AS UNSIGNED)'), $serial_number['ean_code'])
             ->where('wms_pickinglist_header.picking_no', $serial_number['picking_id'])
+            ->whereNull('wms_pickinglist_header.deleted_at')
             ->orderBy('quantity', 'desc');
 
           $picking_detail = $picking_detail->first();
