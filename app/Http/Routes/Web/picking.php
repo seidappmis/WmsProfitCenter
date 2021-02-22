@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('picking-to-lmb/upload', 'Web\PickingToLMBController@upload');
   Route::post('picking-to-lmb/store-scan', 'Web\PickingToLMBController@storeScan');
   Route::get('picking-to-lmb/picking-list', 'Web\PickingToLMBController@pickingListIndex');
+  Route::get('picking-to-lmb/select-delivery-no', 'Web\PickingToLMBController@selectDeliveryNo');
   Route::delete('picking-to-lmb/picking-list', 'Web\PickingToLMBController@destroyLmbDetail');
   Route::put('picking-to-lmb/edit-serial-number', 'Web\PickingToLMBController@updateSerialNumber');
   Route::delete('picking-to-lmb/picking-list/multi-delete-selected-item', 'Web\PickingToLMBController@destroySelectedLmbDetail');

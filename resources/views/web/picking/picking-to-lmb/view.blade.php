@@ -129,6 +129,20 @@
                         <input type="text" name="new_serial_number" required>
                     </td>
                 </tr>
+                <tr>
+                    <td>Delivery No</td>
+                    <td>
+                        <input type="hidden" name="delivery_no" required>
+                        <select id="select-new_delivery_no"
+                              name="new_delivery_no"
+                              class="select2-data-ajax browser-default">
+                        </select>
+                        <input type="hidden" name="delivery_items">
+                        <input type="hidden" name="invoice_no">
+                        <input type="hidden" name="kode_customer">
+                        <input type="hidden" name="code_sales">
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="modal-footer">
@@ -253,6 +267,32 @@
 
        $('#form-update-serial-number [name="serial_number"]').val(data.serial_number);
        $('#form-update-serial-number [name="new_serial_number"]').val(data.serial_number);
+       $('#form-update-serial-number [name="delivery_no"]').val(data.delivery_no);
+
+        $('#form-update-serial-number [name="new_delivery_no"]').empty();
+       $('#form-update-serial-number [name="new_delivery_no"]').select2({
+        placeholder: '-- Select Delivery No --',
+        ajax: get_select2_ajax_options('{{url("picking-to-lmb/select-delivery-no")}}', {
+          picking_id: data.picking_id,
+          delivery_no: data.delivery_no,
+          ean_code: data.ean_code
+        })
+      })
+       set_select2_value('#form-update-serial-number [name="new_delivery_no"]', data.delivery_no, data.delivery_no)
+
+       $('#form-update-serial-number [name="delivery_items"]').val(data.delivery_items);
+       $('#form-update-serial-number [name="invoice_no"]').val(data.invoice_no);
+       $('#form-update-serial-number [name="kode_customer"]').val(data.kode_customer);
+       $('#form-update-serial-number [name="code_sales"]').val(data.code_sales);
+    })
+
+    $('#form-update-serial-number [name="new_delivery_no"]').change(function(){
+      var data = $('#form-update-serial-number [name="new_delivery_no"]').select2('data')[0];
+      console.log(data)
+      $('#form-update-serial-number [name="delivery_items"]').val(data.delivery_items);
+      $('#form-update-serial-number [name="invoice_no"]').val(data.invoice_no);
+      $('#form-update-serial-number [name="kode_customer"]').val(data.kode_customer);
+      $('#form-update-serial-number [name="code_sales"]').val(data.code_sales);
     })
 
     $('#form-update-serial-number').validate({
@@ -262,7 +302,11 @@
          url: '{{url("picking-to-lmb/edit-serial-number")}}',
          type: 'PUT',
          dataType: 'json',
-         data: $(form).serialize(),
+         data: $(form).serialize() 
+          + '&delivery_items=' + $('#form-update-serial-number [name="delivery_items"]').val()
+          + '&invoice_no=' + $('#form-update-serial-number [name="invoice_no"]').val()
+          + '&kode_customer=' + $('#form-update-serial-number [name="kode_customer"]').val()
+          + '&code_sales=' + $('#form-update-serial-number [name="code_sales"]').val()
        })
        .done(function(result) {
          setLoading(false);

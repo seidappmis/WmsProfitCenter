@@ -165,6 +165,18 @@ class PickingToLMBController extends Controller
     }
 
     $lmbDetail->serial_number = $request->input('new_serial_number');
+
+    if ($request->input('delivery_no') !== $request->input('new_delivery_no')) {
+      $lmbDetail->delivery_no = $request->input('new_delivery_no');
+      $lmbDetail->delivery_items = $request->input('delivery_items');
+      $lmbDetail->invoice_no = $request->input('invoice_no');
+      $lmbDetail->kode_customer = $request->input('kode_customer');
+      $lmbDetail->code_sales = $request->input('code_sales');
+    }
+
+    $lmbDetail->updated_at = date('Y-m-d H:i:s');
+    $lmbDetail->updated_by = auth()->user()->id;
+    
     $lmbDetail->save();
 
     return sendSuccess('Success update serial number.', $lmbDetail);
@@ -720,6 +732,40 @@ class PickingToLMBController extends Controller
     $result['model_not_exist_in_pickinglist'] = $model_not_exist_in_pickinglist;
 
     return $result;
+  }
+
+  public function selectDeliveryNo(Request $request){
+    $query = PickinglistDetail::select(
+      DB::raw('wms_pickinglist_detail.delivery_no AS id'),
+      DB::raw('wms_pickinglist_detail.delivery_no AS text'),
+        'wms_pickinglist_detail.delivery_items',
+        'wms_pickinglist_detail.invoice_no', 
+        'wms_pickinglist_detail.kode_customer',
+        'wms_pickinglist_detail.code_sales',
+        DB::raw('(wms_pickinglist_detail.quantity - COUNT(wms_lmb_detail.serial_number)) AS free_qty')
+      )
+      ->leftjoin('wms_lmb_detail', function ($join) {
+        $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+        $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+        $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+      })
+      ->groupBy(
+        'wms_pickinglist_detail.header_id',
+        'wms_pickinglist_detail.invoice_no',
+        'wms_pickinglist_detail.delivery_no',
+        'wms_pickinglist_detail.delivery_items',
+        'wms_pickinglist_detail.ean_code'
+      )
+      ->where('wms_pickinglist_detail.header_id', $request->input('picking_id'))
+      ->where('wms_pickinglist_detail.ean_code', $request->input('ean_code'))
+      ->havingRaw('(free_qty > 0 OR wms_pickinglist_detail.delivery_no = ?)', [$request->input('delivery_no')])
+      // ->whereRaw('(wms_pickinglist_detail.quantity - COUNT(wms_lmb_detail.serial_number)) > 0')
+      ->toBase()
+      ;
+
+    return get_select2_data($request, $query);
   }
 
   public function storeScan(Request $request)
