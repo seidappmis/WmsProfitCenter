@@ -68,7 +68,7 @@
                           </tr>
                         </table>
                         {!! get_button_save('Send Manifest', 'btn-send-manifest ' . ($lmbHeader->send_manifest ? 'hide' : '')) !!}
-                        {!! get_button_save('Print', 'btn-print-manifest ' . ($lmbHeader->send_manifest ? '' : 'hide')) !!}
+                        {!! get_button_save('Print', 'btn-print-manifest ') !!}
                         {!! get_button_cancel(url('picking-to-lmb'), 'Back', '') !!}
 
                         <hr>
