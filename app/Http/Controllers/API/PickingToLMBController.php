@@ -13,9 +13,9 @@ class PickingToLMBController extends Controller
 {
   public function storeScan(Request $request)
   {
-    // return sendSuccess('Data return.', $request->input('data'));
+    // return sendSuccess('Data return.', json_decode($request->input('data'), true));
     if (empty($request->input('data'))) {
-      return sendError('No Serial Number Data.');
+      return sendError('No Serial Number Data.', $request->all());
     }
 
     $serial_numbers                 = [];
@@ -70,7 +70,8 @@ class PickingToLMBController extends Controller
             // DB::raw('GROUP_CONCAT(wms_pickinglist_detail.quantity SEPARATOR ",") as rs_quantity'),
             // DB::raw('(wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity) AS cbm_unit'),
             DB::raw('GROUP_CONCAT(DISTINCT CONCAT(wms_pickinglist_detail.invoice_no, ":", wms_pickinglist_detail.delivery_no, ":" , wms_pickinglist_detail.delivery_items, ":", wms_pickinglist_detail.quantity, ":", wms_pickinglist_detail.kode_customer, ":", wms_pickinglist_detail.code_sales, ":", (wms_pickinglist_detail.cbm / wms_pickinglist_detail.quantity)) ORDER BY wms_pickinglist_detail.invoice_no, wms_pickinglist_detail.delivery_no, wms_pickinglist_detail.delivery_items SEPARATOR ",") as rs_in_dn_di_qty_cc_cs_cbmu'),
-            DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
+            // DB::raw('COUNT(DISTINCT wms_lmb_detail.serial_number) AS quantity_lmb')
+            DB::raw('0 AS quantity_lmb')
             // DB::raw('(SUM(wms_pickinglist_detail.quantity) - COUNT(wms_lmb_detail.serial_number)) AS quantity ')
           )
             ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
@@ -254,7 +255,7 @@ class PickingToLMBController extends Controller
     // $result['scan_summaries']                 = $scan_summaries;
     // $result['model_not_exist_in_pickinglist'] = $model_not_exist_in_pickinglist;
     if (!empty($model_not_exist_in_pickinglist)) {
-      return sendError('Model Not Exist in pickinglist.');
+      return sendError('Model Not Exist in pickinglist.', $model_not_exist_in_pickinglist);
     }
 
     if (empty($serial_numbers)) {
@@ -266,9 +267,10 @@ class PickingToLMBController extends Controller
       LMBDetail::insert($serial_numbers);
       DB::commit();
       return sendSuccess('Serial Number uploaded.', $serial_numbers);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       DB::rollBack();
-      return sendError('Duplicate Serial Number Entry', '0');
+      return sendError('Serial Number Already uploaded!', $e);
+      // return sendError('Serial Number Already uploaded!', json_decode($request->input('data'), true));
     }
   }
 }

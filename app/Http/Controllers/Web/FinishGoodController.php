@@ -107,6 +107,7 @@ class FinishGoodController extends Controller
       // $request->input('header_name'),
       strtolower($request->input('tipe')),
     ]);
+    
     return $sql;
   }
 

@@ -17,11 +17,11 @@ class PickinglistController extends Controller
     // return sendError('kode_customer' . $request->input('kode_customer'));
 
     if (empty($pickingList)) {
-      return sendError('Picking List Not Found !');
+      return sendError('Picking List Not Found !', $request->all());
     }
 
     if (substr($request->input('kode_customer'), 0, 2) != $pickingList->kode_cabang) {
-      return sendError('Picking List Not Found !');
+      return sendError('Picking List Not Found !', $request->all());
     }
 
     // if (!auth()->user()->cabang->hq && $pickingList->kode_cabang != auth()->user()->cabang->kode_cabang) {

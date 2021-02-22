@@ -33,10 +33,12 @@ class Gate extends BaseModel
                 wms_pickinglist_header.`city_code`,
                 log_manifest_header.`status_complete`
               FROM wms_pickinglist_header
+              LEFT JOIN wms_lmb_header ON wms_lmb_header.driver_register_id = wms_pickinglist_header.driver_register_id
               LEFT JOIN log_manifest_header ON log_manifest_header.`driver_register_id` = wms_pickinglist_header.`driver_register_id`
               WHERE (log_manifest_header.`status_complete` != 1 OR log_manifest_header.`status_complete` IS NULL) 
                 AND wms_pickinglist_header.vehicle_number IS NOT NULL
                 AND wms_pickinglist_header.deleted_at IS NULL
+                AND (wms_lmb_header.send_manifest = 0 OR wms_lmb_header.send_manifest IS NULL)
               GROUP BY wms_pickinglist_header.`gate_number`, wms_pickinglist_header.area
             ) AS t'
       ),
