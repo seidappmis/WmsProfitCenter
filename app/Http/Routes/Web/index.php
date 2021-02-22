@@ -51,6 +51,8 @@ Route::get('/test', function () {
     //   ->orderBy('quantity', 'desc');
     
     echo "<pre>";
+    // $sql = DB::select('SELECT * FROM log_finish_good_detail LIMIT 10');
+    // print_r($sql); return;
     // print_r($picking_detail->first());
     // print_r(auth()->user()->allowTo('edit', 'send-to-lmb'));
     DB::connection('sqlsrv')->statement('SET ANSI_NULLS, QUOTED_IDENTIFIER, CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON');

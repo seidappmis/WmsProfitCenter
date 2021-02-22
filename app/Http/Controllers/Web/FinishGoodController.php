@@ -107,8 +107,15 @@ class FinishGoodController extends Controller
       // $request->input('header_name'),
       strtolower($request->input('tipe')),
     ]);
-    
-    return $sql;
+
+    $rsData = [];
+    foreach ($sql as $key => $value) {
+      if (FinishGoodDetail::where('bar_ticket_header', $value->HEADER_NAME)->doesntExist()) {
+        $rsData[] = $value;
+      }
+    }
+
+    return $rsData;
   }
 
   public function submitToInventory($id)
@@ -135,16 +142,8 @@ class FinishGoodController extends Controller
     }
 
     // $selected_list = [
-    //   ['HEADER_NAME' => 'HE1', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE2', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE3', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE4', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE5', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE6', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE7', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE8', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE9', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278'],
-    //   ['HEADER_NAME' => 'HE10', 'MODEL' => '14A20D3', 'quantity' => 2, 'TIPE' => 'IMPORT', 'EAN_CODE' => '8997401917278']
+    //   ['HEADER_NAME' => 'L-TV-2102150018', 'MODEL' => 'LC-32SA4101I', 'quantity' => 57, 'TIPE' => 'LOCAL', 'EAN_CODE' => '8997401964432'],
+    //   ['HEADER_NAME' => 'L-TV-2102150015', 'MODEL' => '4T-C50BK1I', 'quantity' => 8, 'TIPE' => 'LOCAL', 'EAN_CODE' => '4997401967037'],
     // ];
 
     // Receipt_No => ARV-WAREHOUSE-TANGGAL-Urutan
@@ -238,8 +237,8 @@ class FinishGoodController extends Controller
         $rs_storage[$v_detail->storage_id] = StorageMaster::find($v_detail->storage_id);
       }
 
-      if (empty($rs_models[$v_detail->ean_code])) {
-        $rs_models[$v_detail->ean_code] = MasterModel::where('ean_code', $v_detail->ean_code)->first();
+      if (empty($rs_models[$v_detail->model])) {
+        $rs_models[$v_detail->model] = MasterModel::where('model_name', $v_detail->model)->first();
       }
 
       // Update Or Create Inventory Stroage data
@@ -251,9 +250,9 @@ class FinishGoodController extends Controller
         ],
         // Data Update
         [
-          'ean_code'       => $v_detail->ean_code,
+          'ean_code'       => $rs_models[$v_detail->model]->ean_code,
           'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $v_detail->quantity),
-          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $rs_models[$v_detail->ean_code]->cbm * $v_detail->quantity),
+          'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $rs_models[$v_detail->model]->cbm * $v_detail->quantity),
           'last_updated'   => $date_now,
         ]
       );
@@ -268,7 +267,7 @@ class FinishGoodController extends Controller
       $movement_transaction_log['storage_location_from'] = '';
       $movement_transaction_log['storage_location_to']   = $rs_storage[$v_detail->storage_id]->sto_loc_code_long;
       $movement_transaction_log['storage_location_code'] = '& ' . $movement_transaction_log['storage_location_to'];
-      $movement_transaction_log['eancode']               = $v_detail->ean_code;
+      $movement_transaction_log['eancode']               = $rs_models[$v_detail->model]->ean_code;
       $movement_transaction_log['model']                 = $v_detail->model;
       $movement_transaction_log['quantity']              = $v_detail->quantity;
       $movement_transaction_log['created_at']            = $date_now;
