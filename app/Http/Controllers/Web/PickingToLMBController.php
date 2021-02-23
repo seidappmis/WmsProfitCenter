@@ -787,7 +787,7 @@ class PickingToLMBController extends Controller
       return sendSuccess('Data submited.', '1');
     } catch (\Exception $exception) {
       DB::rollBack();
-      return sendError('Duplicate Serial Number Entry', '0');
+      return sendError('Duplicate Serial Number Entry', $exception);
     }
   }
 

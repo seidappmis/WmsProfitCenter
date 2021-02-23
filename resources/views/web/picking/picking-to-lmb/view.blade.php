@@ -72,6 +72,20 @@
                         {!! get_button_cancel(url('picking-to-lmb'), 'Back', '') !!}
 
                         <hr>
+
+                        <div class="row mt-2">
+                          <div class="col s12 m6">
+                          </div>
+                          <div class="col s12 m6">
+                          <!---- Search ----->
+                          <div class="app-wrapper">
+                            <div class="datatable-search">
+                              <i class="material-icons mr-2 search-icon">search</i>
+                              <input type="text" placeholder="Search" class="app-filter" id="serial_number_filter">
+                            </div>
+                        </div>
+                        </div>
+                      </div>
                         
                         <div class="section-data-tables"> 
                           <table id="serial-number-table" class="display" width="100%">
@@ -241,8 +255,8 @@
             url: '{{ url('picking-to-lmb/' . $lmbHeader->driver_register_id  . '/details-lmb') }}',
             type: 'GET',
             data: function(d) {
-                d.search['value'] = $('#global_filter').val()
-              }
+              d.search['value'] = $('#serial_number_filter').val()
+            }
         },
         order: [3, 'asc'],
         "pageLength": 10,
@@ -259,6 +273,10 @@
             @endif
         ],
       });
+
+    $("input#serial_number_filter").on("keyup click", function () {
+      filterSerialNumber();
+    });
 
     dttable_lmb_detail.on('click', '.btn-edit', function(){
       var tr = $(this).parent().parent();
@@ -365,5 +383,9 @@
        
      });
    });
+
+   function filterSerialNumber() {
+      dttable_lmb_detail.search($("#serial_number_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    }
 </script>
 @endpush
