@@ -244,6 +244,10 @@ class PickingToLMBController extends Controller
   {
     $lmbHeader = LMBHeader::findOrFail($id);
 
+    if ($lmbHeader->send_manifest == 1) {
+      return sendError('Manifest already sent!');
+    }
+
     try {
       DB::beginTransaction();
 
