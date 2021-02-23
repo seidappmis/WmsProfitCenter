@@ -189,6 +189,11 @@ class ManifestASController extends Controller
         $manifestDetail['status_ds_done']  = 0;
         $manifestDetail['do_reject']       = 0;
 
+        $manifestDetail['created_at']       = date('Y-m-d H:i:s');
+        $manifestDetail['created_by']       = auth()->user()->id;
+        $manifestDetail['updated_at']       = date('Y-m-d H:i:s');
+        $manifestDetail['updated_by']       = auth()->user()->id;
+
         $rs_manifest_detail[] = $manifestDetail;
       }
     }
@@ -320,6 +325,11 @@ class ManifestASController extends Controller
         $do['do_manifest_no']  = $manifestHeader->do_manifest_no;
         $do['do_internal']     = $request->input('do_internal');
         $do['reservasi_no']    = $request->input('reservasi_no');
+
+        $do['created_at']       = date('Y-m-d H:i:s');
+        $do['created_by']       = auth()->user()->id;
+        $do['updated_at']       = date('Y-m-d H:i:s');
+        $do['updated_by']       = auth()->user()->id;
 
         if (empty($rs_model[$do['model']])) {
           $model = MasterModel::where('model_name', $do['model'])->first();

@@ -68,7 +68,8 @@ class SummaryOutgoingReportController extends Controller
       'wms_branch_manifest_detail.lead_time',
       'wms_branch_manifest_detail.do_internal',
       'wms_branch_manifest_detail.delivery_items',
-      'wms_branch_manifest_detail.do_date',
+      // 'wms_branch_manifest_detail.do_date',
+      DB::raw('wms_manual_concept.do_date'),
       'wms_branch_manifest_detail.reservasi_no',
       'wms_branch_manifest_detail.quantity',
       'wms_branch_manifest_detail.sold_to_code',
@@ -105,6 +106,12 @@ class SummaryOutgoingReportController extends Controller
         $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_branch_manifest_detail.delivery_no');
         $join->on('wms_pickinglist_detail.model', '=', 'wms_branch_manifest_detail.model');
         $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
+      })
+      ->leftjoin('wms_manual_concept', function ($join) {
+        $join->on('wms_manual_concept.invoice_no', '=', 'wms_branch_manifest_detail.invoice_no');
+        $join->on('wms_manual_concept.delivery_no', '=', 'wms_branch_manifest_detail.delivery_no');
+        $join->on('wms_manual_concept.delivery_items', '=', 'wms_branch_manifest_detail.delivery_items');
+        $join->on('wms_manual_concept.model', '=', 'wms_branch_manifest_detail.model');
       })
       ->leftjoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_branch_manifest_detail.model')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'wms_branch_manifest_detail.kode_cabang')
@@ -222,12 +229,13 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_detail.lead_time',
         'log_manifest_detail.do_internal',
         'log_manifest_detail.delivery_items',
-        'log_manifest_detail.do_date',
+        // 'log_manifest_detail.do_date',
+        DB::raw('DATE_FORMAT(tr_concept.created_at, "%d.%m.%Y") AS do_date'),
         'log_manifest_detail.reservasi_no',
         'log_manifest_detail.quantity',
         'log_manifest_detail.sold_to_code',
-        DB::raw('IF(ISNULL(sold_to_cabang.long_description), sold_to, sold_to_cabang.long_description) AS sold_to'),
-        DB::raw('IF(ISNULL(ship_to_cabang.long_description), ship_to, ship_to_cabang.long_description) AS ship_to'),
+        DB::raw('IF(ISNULL(sold_to_cabang.long_description), log_manifest_detail.sold_to, sold_to_cabang.long_description) AS sold_to'),
+        DB::raw('IF(ISNULL(ship_to_cabang.long_description), log_manifest_detail.ship_to, ship_to_cabang.long_description) AS ship_to'),
         // 'log_manifest_detail.sold_to',
         // 'log_manifest_detail.ship_to',
         'log_manifest_detail.ship_to_code',
@@ -263,10 +271,11 @@ class SummaryOutgoingReportController extends Controller
           $join->on('wms_pickinglist_detail.model', '=', 'log_manifest_detail.model');
           $join->on('wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
         })
-        // ->leftjoin('tr_concept', function ($join) {
-        //   $join->on('tr_concept.invoice_no', '=', 'log_manifest_detail.invoice_no');
-        //   $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
-        // })
+        ->leftjoin('tr_concept', function ($join) {
+          $join->on('tr_concept.invoice_no', '=', 'log_manifest_detail.invoice_no');
+          $join->on('tr_concept.line_no', '=', 'log_manifest_detail.line_no');
+          $join->on('tr_concept.model', '=', 'log_manifest_detail.model');
+        })
         ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
         ->leftjoin(DB::raw('log_cabang AS sold_to_cabang'), 'sold_to_cabang.kode_customer', '=', 'log_manifest_detail.sold_to_code')
         ->leftjoin(DB::raw('log_cabang AS ship_to_cabang'), 'ship_to_cabang.kode_customer', '=', 'log_manifest_detail.ship_to_code')

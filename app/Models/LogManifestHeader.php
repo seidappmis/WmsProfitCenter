@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Models\LogManifestDetail;
 use App\Models\PickinglistDetail;
+use App\BaseModel;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class LogManifestHeader extends Model
+class LogManifestHeader extends BaseModel
 {
   protected $table      = 'log_manifest_header';
   protected $primaryKey = 'do_manifest_no';

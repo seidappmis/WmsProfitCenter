@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 use DB;
 
-class LogManifestDetail extends Model
+class LogManifestDetail extends BaseModel
 {
   protected $table = 'log_manifest_detail';
 
