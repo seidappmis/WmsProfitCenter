@@ -160,6 +160,10 @@ class ManifestRegularController extends Controller
       ->where('city_code', $manifestHeader->city_code)
       ->first();
 
+    if (empty($freightCost)) {
+      return sendError('Freight Cost not found!');
+    }
+
     $manifestHeader->id_freight_cost = $freightCost->id;
 
     $jumlahLCL = LogManifestHeader::select(DB::raw('COUNT(do_manifest_no) AS jumlahLCL'))
