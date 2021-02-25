@@ -10,7 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateRitaseInvoice();
+    // $this->updateRitaseInvoice();
     $this->updateBeritaAcaraNo();
     // $this->updateDatabaseBranchManifest();
     // $this->createLogInvoiceReceiptPrTable();
