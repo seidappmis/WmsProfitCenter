@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::put('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@update');
   Route::delete('receipt-invoice/{id}', 'Web\ReceiptInvoiceController@destroy');
   Route::delete('receipt-invoice/{id}/manifest/{do_manifest_no}', 'Web\ReceiptInvoiceController@destroyManifest');
+  Route::put('receipt-invoice/{id}/manifest/{do_manifest_no}/update-ritase', 'Web\ReceiptInvoiceController@updateManifestRitase');
   Route::get('receipt-invoice/{id}/export-receipt-no', 'Web\ReceiptInvoiceController@exportReceiptNo');
   Route::get('receipt-invoice/{id}/export-receive-invoice', 'Web\ReceiptInvoiceController@exportReceiptInvoice');
   Route::post('receipt-invoice/{id}/submit-to-accounting', 'Web\ReceiptInvoiceController@submitToAccounting');

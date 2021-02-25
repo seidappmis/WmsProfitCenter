@@ -98,6 +98,15 @@
               <h6 class="card-title">LIST DO</h6>
               <hr>
               Manifest No : <span id="text-detail-manifest-no"></span>
+              <div class="row update-ritase-wrapper">
+                <div class="input-field col m2">
+                  <input id="update-ritase-amount" class="mask_money" type="text" placeholder="">
+                  <label for="ritase">Update Ritase</label>
+                </div>
+                <div class="col m3">
+                  <span class="waves-effect waves-light btn btn-small btn-update-ritase indigo darken-4 mt-5">Update Ritase</span>
+                </div>
+              </div>
               <div class="section-data-tables">
                 <table id="table_list_manifest_receipt_do" class="display" width="100%">
                   <thead>
@@ -345,10 +354,36 @@
       /* Act on the event */
       var tr = $(this).parent().parent();
       var data = dttable_list_manifest_receipt.row(tr).data();
+      if(data.ritase_amount != 0) {
+        $('.update-ritase-wrapper').removeClass('hide');
+        $('#update-ritase-amount').val(data.ritase_amount)
+      } else {
+        $('.update-ritase-wrapper').addClass('hide');
+      }
       $('#text-detail-manifest-no').text(data.do_manifest_no)
       $('.list-do-wrapper').removeClass('hide')
       dttable_list_manifest_receipt_do.ajax.reload(null, false)
     });
+
+    $('.btn-update-ritase').click(function(){
+      $.ajax({
+        url: '{{url("receipt-invoice/" . (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : "null") )}}' + '/manifest/' + $('#text-detail-manifest-no').text() + '/update-ritase',
+        type: 'PUT',
+        data: {
+          ritase_amount: $('#update-ritase-amount').val()
+        }
+      })
+      .done(function(result) { // Kalau ajax nya success
+        if (result.status) {
+          showSwalAutoClose('Success', result.message)
+          dttable_list_manifest_receipt.ajax.reload(null, false); // reload datatable
+          dttable_list_manifest_receipt_do.ajax.reload(null, false); // reload datatable
+        }
+      })
+      .fail(function() { // Kalau ajax nya gagal
+        console.log("error");
+      });
+    })
 
     dttable_list_manifest_receipt.on('click', '.btn-delete', function(event) {
       event.preventDefault();

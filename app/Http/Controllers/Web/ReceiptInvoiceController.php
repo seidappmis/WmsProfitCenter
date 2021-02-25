@@ -142,6 +142,20 @@ class ReceiptInvoiceController extends Controller
     return $rsInvoiceManifestDetail;
   }
 
+  public function updateManifestRitase(Request $request, $id, $do_manifest_no){
+    $details = InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->get();
+
+    if (empty($details)) {
+      return sendError('Manifest Not found');
+    }
+
+    InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->update([
+      'ritase_amount' => $request->input('ritase_amount') / count($details)
+    ]);
+
+    return sendSuccess('Ritase Updated!', $details);
+  }
+
   protected function getPostManifestDetailData($request, $invoiceReceiptHeader)
   {
     $rs_do_manifest_no = [];
