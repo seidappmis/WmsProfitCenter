@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
 use App\Models\WMSBranchManifestDetail;
+use App\Models\FreightCost;
 use App\Models\WMSBranchManifestHeader;
 use DataTables;
 use Illuminate\Http\Request;
@@ -72,6 +73,28 @@ class UpdateManifestController extends Controller
     $manifestHeader->pdo_no              = $request->input('pdo_no');
     $manifestHeader->checker             = $request->input('checker');
     $manifestHeader->container_no        = $request->input('container_no');
+
+    if ($request->input('type') == 'HQ') {
+      foreach($manifestHeader->details AS $key => $value){
+        $freightCost = FreightCost::where('area', $manifestHeader->area)
+          ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
+          ->where('expedition_code', $manifestHeader->expedition_code)
+          ->where('city_code', $value->city_code)
+          ->first();
+
+        if (empty($freightCost)) {
+          return sendError('Freight Cost Not Found');
+        }
+  
+        $value->nilai_ritase  = $freightCost->ritase;
+        $value->nilai_ritase2 = $freightCost->ritase2;
+        $value->lead_time     = $freightCost->leadtime;
+        $value->base_price    = $freightCost->cbm;
+        $value->nilai_cbm     = $value->base_price * $value->cbm;
+
+        $value->save();
+      }
+    }
 
     $manifestHeader->save();
 
