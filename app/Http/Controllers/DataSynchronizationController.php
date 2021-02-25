@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateRitaseInvoice();
     $this->updateBeritaAcaraNo();
     // $this->updateDatabaseBranchManifest();
     // $this->createLogInvoiceReceiptPrTable();
@@ -39,6 +40,26 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateRitaseInvoice(){
+    $details = DB::table('log_invoice_receipt_detail')->where('ritase_amount', '>', 0)->get();
+
+    $rsManifest = [];
+    foreach($details AS $key => $value) {
+      $rsManifest[$value->do_manifest_no][] = $value;
+    }
+
+    foreach($rsManifest AS $key => $dos){
+      foreach($dos AS $kdo => $vdo){
+        echo "update Manifest " . $vdo->do_manifest_no . " delivery no " . $vdo->delivery_no . '<br>';
+        DB::table('log_invoice_receipt_detail')->where('id', $vdo->id)->update([
+          'ritase_amount' => $vdo->ritase_amount / count($dos),
+          'ritase2_amount' => $vdo->ritase2_amount / count($dos),
+        ]);
+      }
+    }
+
   }
 
   protected function updateBeritaAcaraNo(){

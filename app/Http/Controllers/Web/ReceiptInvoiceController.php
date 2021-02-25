@@ -213,8 +213,8 @@ class ReceiptInvoiceController extends Controller
       $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
       $invoiceManifestDetail['freight_cost_cbm']    = 1;
       $invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
-      $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase;
-      $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2;
+      $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase / count($rs_manifest_detail);
+      $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 / count($rs_manifest_detail);
       $invoiceManifestDetail['code_sales']          = $value->code_sales;
       $invoiceManifestDetail['lead_time']           = 0;
       $invoiceManifestDetail['multidro_amount']     = 0;
