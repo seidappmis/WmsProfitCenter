@@ -573,7 +573,7 @@ class PickingListController extends Controller
 
       if (empty($rs_max_no[$value->ean_code])) {
         $prefix_length = strlen($prefix);
-        $max_no        = DB::select('SELECT MAX(SUBSTR(serial_number, ?)) AS max_no FROM wms_lmb_detail WHERE SUBSTR(serial_number,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+        $max_no        = DB::select('SELECT MAX(SUBSTR(serial_number, ?)) AS max_no FROM wms_lmb_detail WHERE SUBSTR(serial_number,1,?) = ? ', [$prefix_length + 1, $prefix_length, $prefix])[0]->max_no;
         if (empty($max_no)) {
           $max_no = 0;
         }

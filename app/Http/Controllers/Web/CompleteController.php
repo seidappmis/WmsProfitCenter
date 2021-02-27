@@ -93,10 +93,8 @@ class CompleteController extends Controller
 
           // UPDATE tr_workflow_header
           $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
-          if (!empty($conceptFlowHeader)) {
-            $conceptFlowHeader->workflow_id = 6;
-            $conceptFlowHeader->save();
-          }
+          $conceptFlowHeader->workflow_id = 6;
+          $conceptFlowHeader->save();
 
           // Update Truck flow
           $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
