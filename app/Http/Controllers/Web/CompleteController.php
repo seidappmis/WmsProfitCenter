@@ -93,16 +93,18 @@ class CompleteController extends Controller
 
           // UPDATE tr_workflow_header
           $conceptFlowHeader              = ConceptFlowHeader::where('driver_register_id', $manifestHeader->driver_register_id)->first();
-          $conceptFlowHeader->workflow_id = 6;
-          $conceptFlowHeader->save();
-
-          // Update Truck flow
-          $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
-
-          $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
-          $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
-          $conceptTruckFlow->created_complete_by   = auth()->user()->id;
-          $conceptTruckFlow->save();
+          if (!empty($conceptFlowHeader)) {
+            $conceptFlowHeader->workflow_id = 6;
+            $conceptFlowHeader->save();
+  
+            // Update Truck flow
+            $conceptTruckFlow = ConceptTruckFlow::where('concept_flow_header', $conceptFlowHeader->id)->first();
+  
+            $conceptTruckFlow->complete_date         = date('Y-m-d H:i:s');
+            $conceptTruckFlow->created_complete_date = $conceptTruckFlow->complete_date;
+            $conceptTruckFlow->created_complete_by   = auth()->user()->id;
+            $conceptTruckFlow->save();
+          }
         }
 
         $manifestHeader->status_complete = 1;
