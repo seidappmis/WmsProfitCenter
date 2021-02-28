@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="{{ url('materialize/css/custom/print.css') }}">
 
 @foreach($tag AS $key => $value)
-<table style="font-family: Arial;">
+<table style="font-family: Arial; {{ $key % 2 == 1 ? 'page-break-after: always;' : '' }}">
   <tr>
     <td>
       <table style="width: 210.0003mm;">

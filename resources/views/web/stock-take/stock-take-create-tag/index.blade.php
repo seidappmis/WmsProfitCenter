@@ -323,7 +323,7 @@
         /* Act on the event */
         $.ajax({
             type: 'GET',
-            url: url + '?filetype=html' + (extraParams != null ? '&' + extraParams : ''),
+            url: url + '?filetype=print' + (extraParams != null ? '&' + extraParams : ''),
             dataType: 'html',
             timeout: 10000,
             success: function (html) {

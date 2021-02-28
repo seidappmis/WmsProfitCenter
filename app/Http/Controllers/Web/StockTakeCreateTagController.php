@@ -262,10 +262,14 @@ class StockTakeCreateTagController extends Controller
 
     $page = empty($request->input('page')) ? 0 : ($request->input('page') - 1);
 
-    $start = $request->input('no_tag_start') + (2 * $page);
+    if ($request->input('filetype') == 'html') {
+      $start = $request->input('no_tag_start') + (2 * $page);
+    } else {
+      $start = $request->input('no_tag_start');
+    }
     $end   = $request->input('no_tag_end');
 
-    $data['tag'] = StockTakeInput1::select(
+    $stocktake_input1 = StockTakeInput1::select(
       'log_stocktake_input1.*',
       'log_stocktake_schedule.area',
       'log_cabang.short_description',
@@ -278,8 +282,13 @@ class StockTakeCreateTagController extends Controller
       ->where('log_stocktake_input1.no_tag', '>=', $start)
       ->where('log_stocktake_input1.no_tag', '<=', $end)
       ->orderBy('log_stocktake_input1.no_tag')
-      ->limit(2)
-      ->get();
+      ;
+
+    if ($request->input('filetype') == 'html') {
+      $stocktake_input1->limit(2);
+    }
+
+    $data['tag'] = $stocktake_input1->get();
 
     $view_print = view('web.stock-take.stock-take-create-tag._print', $data);
     $title      = 'Stock Take Create Tag';
@@ -326,6 +335,8 @@ class StockTakeCreateTagController extends Controller
 
       $mpdf->Output($title . '.pdf', "D");
 
+    } else if ($request->input('filetype') == 'print') {
+      return $view_print;
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
       return redirect(404);
