@@ -61,9 +61,9 @@ class UpdateSerialNoController extends Controller
             )
               ->where('header_id', $serial_number['picking_id'])
               ->where('ean_code', $serial_number['ean_code'])
-              ->groupBy(
-                'header_id', 'invoice_no', 'delivery_no'
-              )
+              // ->groupBy(
+              //   'header_id', 'invoice_no', 'delivery_no'
+              // )
               ->first();
 
             if (empty($picking_detail)) {
@@ -71,6 +71,9 @@ class UpdateSerialNoController extends Controller
             }
 
             $rs_picking_list_details[$serial_number['picking_id'] . $serial_number['ean_code']] = $picking_detail;
+            // if ($serial_number['ean_code'] == '4974019102764') {
+            //   return $rs_picking_list_details[$serial_number['picking_id'] . $serial_number['ean_code']];
+            // }
           }
 
           if (empty($rs_lmb_details[$serial_number['picking_id'] . $serial_number['ean_code']])) {
@@ -112,7 +115,7 @@ class UpdateSerialNoController extends Controller
       return sendSuccess('Data Upload success! Serial No Updated.', $serial_numbers);
     } catch (\Illuminate\Database\QueryException $ex) {
       DB::rollBack();
-      return sendError('Serial Number exists!');
+      return sendError('Serial Number exists!', $ex);
     }
 
   }
