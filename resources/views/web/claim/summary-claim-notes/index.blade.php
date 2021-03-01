@@ -162,7 +162,7 @@
             searchable: false,
          },
          {
-            data: 'vehicle_number',
+            data: 'destination',
             searchable: false,
          },
          {
