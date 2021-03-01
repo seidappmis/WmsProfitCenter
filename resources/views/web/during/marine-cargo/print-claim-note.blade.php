@@ -134,7 +134,7 @@
       <td>X</td>
       <td style="text-align: center;">{{ $value['qty'] }}</td>
       <td>=</td>
-      <td colspan="3" style="text-align: right;">IDR {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
+      <td colspan="3" width="120px" style="text-align: right;">IDR {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
       <td style="border-right: 1px solid black;"></td>
    </tr>
    @endforeach
