@@ -44,7 +44,7 @@
               </tr>
               @foreach($details AS $key => $value)
               <tr>
-                <td style="border: 1pt solid #000000; text-align: left;">{{$key+1}}</td>
+                <td style="border: 1pt solid #000000; text-align: left;">{{$value->no_tag}}</td>
                 <td colspan="2" style="border: 1pt solid #000000; text-align: left;">{{$value->model}}</td>
                 <td style="border: 1pt solid #000000; text-align: left;">{{$value->location}}</td>
                 <td style="border: 1pt solid #000000; text-align: left;">{{$value->quantity}}</td>
