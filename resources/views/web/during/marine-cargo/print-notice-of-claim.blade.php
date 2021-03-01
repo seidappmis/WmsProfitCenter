@@ -15,6 +15,9 @@
    <tr><td colspan="5">&nbsp;</td></tr>
    <tr><td colspan="5">&nbsp;</td></tr>
    <tr><td colspan="5">&nbsp;</td></tr>
+   <tr><td colspan="5">&nbsp;</td></tr>
+   <tr><td colspan="5">&nbsp;</td></tr>
+   <tr><td colspan="5">&nbsp;</td></tr>
    <tr>
       <td colspan="3">Ref. {{ $marineCargo->notice_of_claim_no }}</td>
       <td colspan="2" style="text-align: right;">Karawang, {{ date('F d, Y', strtotime($marineCargo->dgr->created_at)) }}</td>
