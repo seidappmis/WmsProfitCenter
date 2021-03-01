@@ -244,11 +244,12 @@
       });
 
     dttable_different_quantity.on('draw', function (data) {
-        if (dttable_different_quantity.page.info().recordsDisplay > 0) {
+        $('.btn-print').removeClass('hide')
+        {{-- if (dttable_different_quantity.page.info().recordsDisplay > 0) {
           $('.btn-print').removeClass('hide')
         } else {
           $('.btn-print').addClass('hide')
-        }
+        } --}}
       });
   });
 </script>
