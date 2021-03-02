@@ -83,7 +83,7 @@
         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_loading}}">
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
-        CONTAINER SESUDAH LOADING
+        CONTAINER SESUDAH UNLOADING
         <br>
         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_container_loading}}">
       </td>
