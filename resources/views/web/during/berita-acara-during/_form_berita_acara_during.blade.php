@@ -168,7 +168,7 @@
                     </div>
                 </div>
             </td>
-            <td>CONTAINER SESUDAH LOADING</td>
+            <td>CONTAINER SESUDAH UNLOADING</td>
             <td>
                 <div class="file-field input-field">
                     <div class="btn form-berita-acara-detail-wrapper hide">
