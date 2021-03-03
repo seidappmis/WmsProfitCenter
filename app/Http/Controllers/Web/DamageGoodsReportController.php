@@ -369,21 +369,24 @@ class DamageGoodsReportController extends Controller
             $lastNo = DB::table('dur_dgr')
               ->select(DB::raw('dgr_no AS max_no'))
               ->orderBy('created_at', 'DESC')
+              ->where('dgr_no', 'like', '%' . $format)
               ->first();
-
-            $lastNo = explode( "/" . $format, isset($lastNo->max_no) ? $lastNo->max_no : 0);
-            // echo $format;
-            // print_r($lastNo);
-            // return $lastNo;
-
+              
+              // print_r($format);
+              $lastNo = explode( "/" . $format, isset($lastNo->max_no) ? $lastNo->max_no : 0);
+              // print_r($lastNo);
+            
             if (empty($lastNo[0])) {
               $lastNo[0] = 0;
             }
             // reset number every date 16
             // if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m', strtotime($date))) && (int) date('d') >= 16) {
-            //   $lastNo[0] = 0;
-            // }
-
+              //   $lastNo[0] = 0;
+              // }
+              
+            // echo $format;
+            // print_r($lastNo[0]);
+            // return;
             $max_no = str_pad($lastNo[0] + 1, 2, 0, STR_PAD_LEFT);
             $dgr_no = sprintf( "%s/" . $format, $max_no);
 
