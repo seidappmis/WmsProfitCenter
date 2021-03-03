@@ -41,7 +41,11 @@ class ReceiptInvoiceController extends Controller
       $to_date   = date("Y-m-t", strtotime(str_replace('/', '-', '01/' . $request->input('manifest_date'))));
 
       $query = LogManifestHeader::select(
-        'log_manifest_header.*',
+        'log_manifest_header.do_manifest_no',
+        'log_manifest_header.do_manifest_date',
+        'log_manifest_header.vehicle_number',
+        'log_manifest_header.city_name',
+        'log_manifest_header.vehicle_description',
         DB::raw('COUNT(DISTINCT(log_manifest_detail.delivery_no)) AS count_of_do'),
         DB::raw('SUM(log_manifest_detail.cbm) AS sum_of_cbm')
       )
