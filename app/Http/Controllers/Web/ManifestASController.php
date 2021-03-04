@@ -114,7 +114,8 @@ class ManifestASController extends Controller
     // $manifestHeader->vehicle_number              = $request->input('vehicle_number');
     // $manifestHeader->vehicle_code_type           = $request->input('vehicle_code_type');
     $manifestHeader->vehicle_description = 'Ambil Sendiri';
-    $manifestHeader->do_manifest_date    = $request->input('do_manifest_date');
+    // $manifestHeader->do_manifest_date    = $request->input('do_manifest_date');
+    $manifestHeader->do_manifest_date    = date('Y-m-d', strtotime($now));
     $manifestHeader->do_manifest_time    = date('Y-m-d H:i:s');
     // $manifestHeader->destination_number_driver   = $request->input('destination_number_driver');
     $manifestHeader->destination_name_driver = 'Ambil Sendiri';

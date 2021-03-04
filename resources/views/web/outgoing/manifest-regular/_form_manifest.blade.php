@@ -26,7 +26,7 @@
                         type="text" 
                         class="validate" 
                         name="do_manifest_date" 
-                        value="{{!empty($manifestHeader) ? $manifestHeader->do_manifest_date : date('Y-m-d')}}"
+                        value="{{!empty($manifestHeader) ? $manifestHeader->do_manifest_date : date('Y-m-d', strtotime('-7 hours'))}}"
                         readonly 
                         />
               </div>
