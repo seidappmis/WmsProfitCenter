@@ -142,7 +142,15 @@ $plans = $header->plans()->orderBy('model')->get();
                 <td  colspan="2" style="text-align: center; width: 30mm;">St.bin</td>
                 <td style="text-align: center; width: 30mm;">Remark</td>
               </tr>
+              @php
+                $total_cbm = 0;
+                $total_qty = 0;
+              @endphp
               @foreach($plans AS $kPlan => $vPlan)
+              @php
+                $total_cbm += ($vPlan->cbm * $vPlan->qty);
+                $total_qty += $vPlan->qty;
+              @endphp
               <tr>
                 <td style="text-align: center;">{{$kPlan + 1}}</td>
                 <td colspan="2">{{$vPlan->model}}</td>
@@ -157,8 +165,8 @@ $plans = $header->plans()->orderBy('model')->get();
               <tr>
                 <td></td>
                 <td colspan="4">Total</td>
-                <td style="text-align: right;">0.030</td>
-                <td colspan="2" style="text-align: center;">1</td>
+                <td style="text-align: right;">{{ setDecimal($total_cbm) }}</td>
+                <td colspan="2" style="text-align: center;">{{ $total_qty }}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
