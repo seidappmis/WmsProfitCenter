@@ -54,5 +54,30 @@
 
     $('.btn-save').hide();
   });
+
+$("#form-stock-take-schedule").validate({
+	submitHandler: function(form){
+		var fdata = new FormData(form);
+		$.ajax({
+			url: '{{url("stock-take-schedule/update")}}',
+			type: 'POST',
+			data: fdata,
+			contentType: "application/json",
+			dataType: "json",
+			contentType: false,
+			processData: false,
+		}).done(function(data) {
+			//Berhasil
+			if(data.status == false){
+				swal("Failed!", data.message, "warning");
+				return;
+			}
+			showSwalAutoClose('Success', 'Stock Take Schedule Success');
+			window.location.href = "{{url('stock-take-schedule')}}";
+		}).fail(function(xhr){
+			showSwalError(xhr);
+		});
+	}
+});
 </script>
 @endpush

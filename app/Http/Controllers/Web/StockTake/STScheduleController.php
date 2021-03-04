@@ -8,7 +8,8 @@ use App\Models\MasterCabang;
 use App\Models\StockTakeSchedule;
 use App\Models\StockTakeScheduleDetail;
 use DataTables;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Exception;
 use Illuminate\Http\Request;
 
 class STScheduleController extends Controller
@@ -218,31 +219,94 @@ class STScheduleController extends Controller
     return view('web.stock-take.stock-take-schedule.detail', $data);
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($sto_id)
-  {
-    $data['stockTakeSchedule'] = StockTakeSchedule::findOrFail($sto_id);
-    $data['area']              = Area::where('area', $data['stockTakeSchedule']->area)->first();
-    $data['branch']            = MasterCabang::where('kode_cabang', $data['stockTakeSchedule']->kode_cabang)->first();
+/**
+* Show the form for editing the specified resource.
+*
+* @param  int  $id
+* @return \Illuminate\Http\Response
+*/
+public function edit($sto_id)
+{
+	$data['stockTakeSchedule'] = StockTakeSchedule::findOrFail($sto_id);
+	$data['area']              = Area::where('area', $data['stockTakeSchedule']->area)->first();
+	$data['branch']            = MasterCabang::where('kode_cabang', $data['stockTakeSchedule']->kode_cabang)->first();
 
-    return view('web.stock-take.stock-take-schedule.edit', $data);
-  }
+	return view('web.stock-take.stock-take-schedule.edit', $data);
+}
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $sto_id)
-  {
-    //
+/**
+* Update the specified resource in storage.
+*
+* @param  \Illuminate\Http\Request  $request
+* @param  int  $id
+* @return \Illuminate\Http\Response
+*/
+public function update(Request $request)
+{	
+	$sto_id = $request->input('sto_id');
+	$request->validate([
+		'area'						=> 'max:20',
+		'branch'						=> 'max:20',
+		'description'				=> 'max:100',
+		'schedule_start_date'	=> 'nullable',
+		'schedule_end_date'		=> 'nullable',
+	]);
+
+	$stockTakeSchedule = StockTakeSchedule::findOrFail($sto_id);
+
+	$stockTakeSchedule->area						= empty($request->input('area')) ? '' : $request->input('area');
+	$stockTakeSchedule->kode_cabang				= !empty($request->input('kode_cabang')) ? $request->input('kode_cabang') : auth()->user()->cabang->kode_cabang;
+	$stockTakeSchedule->description				= $request->input('description');
+	$stockTakeSchedule->schedule_start_date	= date('Y-m-d', strtotime($request->input('schedule_start_date')));
+	$stockTakeSchedule->schedule_end_date		= date('Y-m-d', strtotime($request->input('schedule_end_date')));
+	$stockTakeSchedule->urut						= $request->input('urut');
+	//$stockTakeSchedule->status						= 'aOpen';
+
+	try {
+		DB::beginTransaction();
+		$stockTakeSchedule->save();
+
+		// jika ada file csv lanjut proses upload ulang csv
+		if(! empty($request->file('file-stocktake-schedule'))){
+			// cek file tidak kosong
+			if($file_stocktake_schedule = $request->file('file-stocktake-schedule')){
+				// baca csv
+				$file = fopen($file_stocktake_schedule, "r");
+
+				$title = true;
+
+				$date = date('Y-m-d H:i:s');
+
+				while(! feof($file)){
+					$row = fgetcsv($file);
+
+					//skip row judul
+					if($title){
+						$title = false;
+						continue;
+					}
+
+					if(!empty($row[0])){
+						StockTakeScheduleDetail::updateOrCreate([
+							'sto_id' => $sto_id,
+							'material_no' => $row[0],
+						], 
+						[
+							'qty' => $row[1],
+							'updated_at' => $date,
+							'updated_by' => auth()->user()->id,
+						]);
+					}
+				}
+				fclose($file);
+			}
+		}
+		DB::commit();
+		return $stockTakeSchedule;
+	} catch (Exception $th) {
+		DB::rollBack();
+		return ['status' => false, 'errors' => $th, 'message' => $th->getMessage()];
+	}
   }
 
   /**

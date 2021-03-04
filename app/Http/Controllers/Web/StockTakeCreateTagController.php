@@ -6,81 +6,103 @@ use App\Http\Controllers\Controller;
 use App\Models\StockTakeInput1;
 use App\Models\StockTakeInput2;
 use App\Models\StockTakeSchedule;
+use App\Models\StockTakeScheduleDetail;
 use DataTables;
 use DB;
 use Illuminate\Http\Request;
 
 class StockTakeCreateTagController extends Controller
 {
-  public function index(Request $request)
-  {
-    if ($request->ajax()) {
-      $query = StockTakeInput1::
-        where('sto_id', $request->input('sto_id'))
-      ;
+	public function index(Request $request)
+	{
+		if ($request->ajax()) {
+		$query = StockTakeInput1::
+			where('sto_id', $request->input('sto_id'))
+		;
 
-      $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->addColumn('action', function ($data) {
-          $action = '';
-          $action .= ' ' . get_button_edit('#!');
-          // $action .= ' ' . get_button_delete();
-          return $action;
-        });
+		$datatables = DataTables::of($query)
+			->addIndexColumn() //DT_RowIndex (Penomoran)
+			->addColumn('action', function ($data) {
+				$action = '';
+				$action .= ' ' . get_button_edit('#!');
+				// $action .= ' ' . get_button_delete();
+				return $action;
+			});
 
-      return $datatables->make(true);
-    }
+		return $datatables->make(true);
+		}
 
-    $data['sto_id'] = $request->input('sto_id');
+		$data['sto_id'] = $request->input('sto_id');
 
-    return view('web.stock-take.stock-take-create-tag.index', $data);
-  }
+		return view('web.stock-take.stock-take-create-tag.index', $data);
+	}
 
   public function store(Request $request)
   {
-    $request->validate([
-      'sto_id'              => 'required',
-      'file-stock-take-tag' => 'required',
-    ]);
+	$request->validate([
+		'sto_id'              => 'required',
+		'file-stock-take-tag' => 'required',
+	]);
 
-    $file_stocktake_create_tag = $request->file('file-stock-take-tag');
+	$file_stocktake_create_tag = $request->file('file-stock-take-tag');
 
-    $file  = fopen($file_stocktake_create_tag, "r");
-    $title = true;
+	$file  = fopen($file_stocktake_create_tag, "r");
+	$title = true;
 
-    $date             = date('Y-m-d H:i:s');
-    $stocktake_inputs = [];
-    $no_tag           = 1;
+    $date					= date('Y-m-d H:i:s');
+    $stocktake_inputs		= [];
+    $no_tag					= 1;
+	$stocktakeNoExist		= []; //arr tidak ada dalam detail schedule
+
+	//untuk keperluan validasi cek detail schedule
+	$schedule_detail = [];
+	$details = StockTakeScheduleDetail::where('sto_id', $request->input('sto_id'))->get();
+	foreach ($details as $value) {
+		$schedule_detail[$value->material_no] = $value->material_no;
+	}
 
     // Loop data sampai baris terakhir
-    while (!feof($file)) {
-      $row = fgetcsv($file);
-      if ($title) {
-        $title = false;
-        continue; // Skip baris judul
-      }
+	while (!feof($file)) {
+		$row = fgetcsv($file);
+		if ($title) {
+			$title = false;
+			continue; // Skip baris judul
+		}
 
-      if (!empty($row[0])) {
-        $stockTakeInput['sto_id']      = $request->input('sto_id');
-        $stockTakeInput['no_tag']      = $no_tag++;
-        $stockTakeInput['model']       = $row[0];
-        $stockTakeInput['location']    = $row[1];
-        $stockTakeInput['upload_date'] = $date;
-        $stockTakeInput['upload_by']   = auth()->user()->id;
+		if (!empty($row[0])) {
+			if(!empty($row[1]) && array_key_exists($row[1],$schedule_detail)){
+				$stockTakeInput['sto_id']		= $request->input('sto_id');
+				//$stockTakeInput['no_tag']		= $no_tag++;
+				$stockTakeInput['no_tag']		= $row[0];
+				$stockTakeInput['model']		= $row[1];
+				$stockTakeInput['location']		= $row[2];
+				$stockTakeInput['upload_date']	= $date;
+				$stockTakeInput['upload_by']	= auth()->user()->id;
+	
+				$stocktake_inputs[] = $stockTakeInput;
+				$stocktake_cek[] = $row[1];	
+			}else if(!empty($row[1])){
+				$stocktakeNoExist[] = $row[1] . ' tidak ada dalam detail schedule';
+			}
+		}
+	}
 
-        $stocktake_inputs[] = $stockTakeInput;
-      }
-    }
+	fclose($file);
 
-    fclose($file);
-
-    return DB::transaction(function () use ($stocktake_inputs, $request) {
-      StockTakeInput1::where('sto_id', $request->input('sto_id'))->delete();
-      StockTakeInput2::where('sto_id', $request->input('sto_id'))->delete();
-      StockTakeInput1::insert($stocktake_inputs);
-      StockTakeInput2::insert($stocktake_inputs);
-      return 1;
-    });
+	if(count($stocktakeNoExist) > 0){
+		return [
+			'status' => false,
+			'message' => implode("; ", $stocktakeNoExist),
+		];
+	}else{
+		return DB::transaction(function () use ($stocktake_inputs, $request) {
+			StockTakeInput1::where('sto_id', $request->input('sto_id'))->delete();
+			StockTakeInput2::where('sto_id', $request->input('sto_id'))->delete();
+			StockTakeInput1::insert($stocktake_inputs);
+			StockTakeInput2::insert($stocktake_inputs);
+			return 1;
+		});
+	}
 
   }
 
