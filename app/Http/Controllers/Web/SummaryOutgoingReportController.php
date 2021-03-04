@@ -436,6 +436,7 @@ class SummaryOutgoingReportController extends Controller
 
     $data = $this->getSummaryOutgoingReport($request)
       ->get();
+    \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
     $row = 2;
     foreach ($data as $key => $value) {
@@ -452,16 +453,16 @@ class SummaryOutgoingReportController extends Controller
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_date));
+      $sheet->setCellValue(($col++) . $row, ($value->do_date));
       $sheet->setCellValue(($col++) . $row, text_formatter($value->delivery_items));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->do_manifest_date));
+      $sheet->setCellValue(($col++) . $row, ($value->do_manifest_date));
       $spreadsheet->getActiveSheet()->getStyle(($col) . $row)
         ->getNumberFormat()
         ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-      $sheet->setCellValue(($col++) . $row, format_tanggal_wms($value->eta));
+      $sheet->setCellValue(($col++) . $row, ($value->eta));
       $sheet->setCellValue(($col++) . $row, text_formatter($value->lead_time));
       $sheet->setCellValue(($col++) . $row, text_formatter($value->checker));
       $sheet->setCellValue(($col++) . $row, text_formatter($value->sold_to_code));
