@@ -22,7 +22,7 @@
                         type="text" 
                         class="validate" 
                         name="do_manifest_date" 
-                        value="{{date('Y-m-d')}}"
+                        value="{{date('Y-m-d', strtotime('-7 hours'))}}"
                         readonly 
                         />
               </div>
