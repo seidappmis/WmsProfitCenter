@@ -10,8 +10,9 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateDOManifestDate();
     // $this->updateRitaseInvoice();
-    $this->updateBeritaAcaraNo();
+    // $this->updateBeritaAcaraNo();
     // $this->updateDatabaseBranchManifest();
     // $this->createLogInvoiceReceiptPrTable();
     // $this->updateDatabase18Jan2021();
@@ -29,7 +30,7 @@ class DataSynchronizationController extends Controller
     // $this->insertSummaryDGRMenu();
     // $this->updateTable30Nov2020();
     // $this->updateTable26Nov2020();
-    $this->updateHargaCartonBox();
+    // $this->updateHargaCartonBox();
     // $this->updateTable25Nov2020();
     // $this->updateTable23Nov2020();
     // $this->updateClaimInsuranceTable();
@@ -40,6 +41,26 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateDOManifestDate(){
+    $rsManifest = DB::table('log_manifest_header')
+    ->selectRaw('
+    do_manifest_no, 
+    do_manifest_date, 
+    substr(do_manifest_no, 5, 6),
+    DATE(substr(do_manifest_no, 5, 6)) AS new_do_manifest_date
+    ')
+    ->whereRaw('do_manifest_date != DATE(substr(do_manifest_no, 5, 6))')
+    ->get()
+    ;
+
+    foreach ($rsManifest as $key => $value) {
+      echo 'update do_manifest date to ' . $value->new_do_manifest_date . ' in manifest ' . $value->do_manifest_no . '<br>';
+      DB::table('log_manifest_header')->where('do_manifest_no', $value->do_manifest_no)->update([
+        'do_manifest_date' => $value->new_do_manifest_date
+      ]);
+    }
   }
 
   protected function updateRitaseInvoice(){
