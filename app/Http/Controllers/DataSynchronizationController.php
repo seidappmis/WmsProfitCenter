@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateRitaseInviceByCBM();
     $this->updateStockInventory();
     $this->updateDOManifestDate();
     // $this->updateRitaseInvoice();
@@ -43,6 +44,49 @@ class DataSynchronizationController extends Controller
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
+
+  protected function updateRitaseInviceByCBM(){
+    $details = DB::table('log_invoice_receipt_detail')
+    ->selectRaw(
+      'log_invoice_receipt_detail.*, log_manifest_detail.nilai_ritase AS nilai_ritase'
+      )
+    ->where('log_invoice_receipt_detail.ritase_amount', '>', 0)
+    ->leftjoin('log_manifest_detail', function($join){
+      $join->on('log_invoice_receipt_detail.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no');
+      $join->on('log_invoice_receipt_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
+    })
+    ->groupBy('log_invoice_receipt_detail.do_manifest_no', 'log_invoice_receipt_detail.delivery_no')
+    ->get();
+
+    // print_r($details); die;
+
+    $rsManifest = [];
+    $rs_cbm_manifest = [];
+    foreach($details AS $key => $value) {
+      $rsManifest[$value->do_manifest_no][] = $value;
+      if (empty($rs_cbm_manifest[$value->do_manifest_no])) {
+        $rs_cbm_manifest[$value->do_manifest_no] = 0;
+      }
+      $rs_cbm_manifest[$value->do_manifest_no] += $value->cbm_do;
+    }
+
+    foreach($rsManifest AS $key => $dos){
+      foreach($dos AS $kdo => $vdo){
+        // if ($vdo->do_manifest_no == 'JKT-210217-005') {
+        //   echo '<pre>';
+        //   print_r($vdo);
+        // }
+        echo "update Manifest " . $vdo->do_manifest_no . " delivery no " . $vdo->delivery_no . '<br>';
+        DB::table('log_invoice_receipt_detail')->where('id', $vdo->id)->update([
+          'ritase_amount' => $vdo->nilai_ritase * $vdo->cbm_do / $rs_cbm_manifest[$vdo->do_manifest_no],
+          // 'ritase2_amount' => $vdo->ritase_amount2 * $vdo->cbm_do / $rs_cbm_manifest[$vdo->do_manifest_no],
+        ]);
+      }
+    }
+
+  }
+
+
 
   protected function updateStockInventory(){
     $data = DB::table('wms_lmb_detail')

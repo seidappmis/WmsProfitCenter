@@ -59,6 +59,17 @@
 </htmlpageheader>
 <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
 
+<htmlpagefooter name="myFooter1">
+    <table width="100%" style="font-size: 9pt;">
+      <tr>
+            <td colspan="3">Thursday, {{date('d-F-Y h:i:s A')}}</td>
+            <td colspan="8" align="center"> Page {PAGENO} of {nbpg}</td>
+            <td colspan="6" style="text-align: right; ">Print out from SEID WMS</td>
+        </tr>
+    </table>
+  </htmlpagefooter>
+  <sethtmlpagefooter name="myFooter1" value="on" />
+
 <table style="border-collapse: collapse; font-size: 5pt;">
     {{-- Table Head --}}
     <thead>
