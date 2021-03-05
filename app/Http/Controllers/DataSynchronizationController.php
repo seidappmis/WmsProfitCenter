@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateRitaseInviceByCBM();
     $this->updateStockInventory();
     $this->updateDOManifestDate();
     // $this->updateRitaseInvoice();
@@ -43,6 +44,33 @@ class DataSynchronizationController extends Controller
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
+
+  protected function updateRitaseInviceByCBM(){
+    $details = DB::table('log_invoice_receipt_detail')->where('ritase_amount', '>', 0)->get();
+
+    $rsManifest = [];
+    $rs_cbm_manifest = [];
+    foreach($details AS $key => $value) {
+      $rsManifest[$value->do_manifest_no][] = $value;
+      if (empty($rs_cbm_manifest[$value->do_manifest_no])) {
+        $rs_cbm_manifest[$value->do_manifest_no] = 0;
+      }
+      $rs_cbm_manifest[$value->do_manifest_no] += $value->cbm_do;
+    }
+
+    foreach($rsManifest AS $key => $dos){
+      foreach($dos AS $kdo => $vdo){
+        echo "update Manifest " . $vdo->do_manifest_no . " delivery no " . $vdo->delivery_no . '<br>';
+        DB::table('log_invoice_receipt_detail')->where('id', $vdo->id)->update([
+          'ritase_amount' => $vdo->ritase_amount * $vdo->cbm_do / $rs_cbm_manifest[$vdo->do_manifest_no],
+          // 'ritase2_amount' => $vdo->ritase_amount2 * $vdo->cbm_do / $rs_cbm_manifest[$vdo->do_manifest_no],
+        ]);
+      }
+    }
+
+  }
+
+
 
   protected function updateStockInventory(){
     $data = DB::table('wms_lmb_detail')

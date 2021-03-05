@@ -138,6 +138,14 @@
         }
       })
     });
+
+    $("input#global_filter").on("keyup click", function () {
+        filterGlobal();
+      });
   });
+
+  function filterGlobal() {
+      dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+  }
 </script>
 @endpush
