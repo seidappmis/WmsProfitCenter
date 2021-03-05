@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes/carton-box', 'Web\ClaimNoteController@listCartonBox');
   Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
   Route::get('claim-notes/list-outstanding', 'Web\ClaimNoteController@listOutstanding'); //get datatable outstanding
+  Route::delete('claim-notes/delete-outstanding/{id}', 'Web\ClaimNoteController@destroyOutstanding'); //delete outstanding item
   Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
   Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
   Route::get('claim-notes/{id}', 'Web\ClaimNoteController@show'); //detail claim notes

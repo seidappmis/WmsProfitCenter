@@ -9,7 +9,8 @@ use App\Models\ClaimNote;
 use App\Models\ClaimNoteDetail;
 use App\Models\MasterModel;
 use DataTables;
-use DB;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ClaimNoteController extends Controller
@@ -465,6 +466,22 @@ class ClaimNoteController extends Controller
       return false;
     }
     // return BeritaAcara::destroy($id);
+  }
+
+  /**
+   * Hapus item outstanding
+   * 
+   * @param mixed $id
+   */
+  public function destroyOutstanding($id){
+	  //return BeritaAcaraDetail::destroy($id);
+	  try {
+		  $baDetail = BeritaAcaraDetail::findOrFail($id);
+		  $baDetail->delete();
+		  return sendSuccess("Outstanding detail berhasil dihapus.", $baDetail);
+	  } catch (Exception $e) {
+		  return sendError($e->getMessage(), [$id, $e]);
+	  }
   }
 
   /**

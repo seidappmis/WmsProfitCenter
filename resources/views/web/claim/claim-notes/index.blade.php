@@ -55,6 +55,7 @@
                                                     <th class="center-align">Qty</th>
                                                     <th class="center-align">Jenis Kerusakan</th>
                                                     <th class="center-align">Keterangan</th>
+													<th width="30px;"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -122,8 +123,49 @@
                     {
                         data: 'keterangan'
                     },
+					{
+						data: 'id',
+						orderable: false,
+						searchable: false,
+						render: function(data, type, row, meta){
+							return '<span class="waves-effect waves-light btn btn-small red darken-4 btn-delete">Delete</span>';
+						}
+					}
                 ]
             });
+
+			dtOutstanding.on('click', '.btn-delete', function(event) {
+				event.preventDefault();
+				//Konfirmasi user
+
+				var tr = $(this).parent().parent();
+				var data = dtOutstanding.row(tr).data();
+				swal({
+					text: "Are you sure want to delete " + data.model_name + " ?",
+					icon: 'warning',
+					buttons: {
+						cancel: true,
+						delete: 'Yes, Delete It'
+					}
+				}).then(function(confirm){
+					if(confirm){
+						$.ajax({
+							url: "{{url('claim-notes/delete-outstanding')}}" + '/' + data.id,
+							type: 'DELETE',
+							dataType: 'json',
+						}).done(function(result) {
+							if(result.status){
+								showSwalAutoClose("Success", "Outstanding item with Model Name " + data.model_name + " has been deleted.");
+								dtOutstanding.ajax.reload(null, false); // reload tanpa reset user paging
+							}else{
+								swal("Error", result.message);
+							}
+						}).fail(function(err){
+							console.log("error");
+						});
+					}
+				})
+			});
 
             set_datatables_checkbox('#table-outstanding', dtOutstanding)
 
