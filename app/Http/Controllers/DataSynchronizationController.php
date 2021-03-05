@@ -10,6 +10,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+    $this->updateStockInventory();
     $this->updateDOManifestDate();
     // $this->updateRitaseInvoice();
     // $this->updateBeritaAcaraNo();
@@ -41,6 +42,95 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateStockInventory(){
+    $data = DB::table('wms_lmb_detail')
+    ->selectRaw('COUNT(wms_lmb_detail.serial_number) AS qty,
+      wms_lmb_detail.picking_id, 
+      wms_lmb_detail.invoice_no, 
+      wms_lmb_detail.delivery_no, 
+      wms_lmb_detail.delivery_items, 
+      wms_lmb_detail.model, 
+      wms_lmb_detail.kode_customer, 
+      wms_lmb_detail.code_sales, 
+      wms_lmb_detail.ean_code, 
+      wms_pickinglist_detail.kode_customer AS kode_customer1, 
+      wms_pickinglist_detail.code_sales AS code_sales1')
+      ->leftjoin('wms_pickinglist_detail', function($join){
+        $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+        $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+        $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+        $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+        $join->on('wms_lmb_detail.model', '=', 'wms_pickinglist_detail.model');
+      })
+      ->whereRaw('wms_pickinglist_detail.code_sales != wms_lmb_detail.code_sales')
+      ->groupBy('wms_lmb_detail.picking_id', 'wms_lmb_detail.invoice_no', 'wms_lmb_detail.delivery_no', 'wms_lmb_detail.delivery_items', 'wms_lmb_detail.model')
+      ->get();
+
+    $intransitBR = \App\Models\StorageMaster::where('sto_type_id', 3)
+      ->get();
+
+    foreach ($intransitBR as $key => $value) {
+      $storageIntransit['BR'][$value->kode_cabang] = $value;
+    }
+
+    $intranstDS = \App\Models\StorageMaster::where('sto_type_id', 4)
+      ->get();
+
+    foreach ($intranstDS as $key => $value) {
+      $storageIntransit['DS'][$value->kode_cabang] = $value;
+    }
+
+    $date_now = date('Y-m-d H:i:s');
+
+    foreach ($data as $key => $value) {
+      echo 'Update kode customer ' . $value->kode_customer . ' to ' . $value->kode_customer1 . '<br>';
+      DB::table('wms_lmb_detail')
+        ->where('picking_id', $value->picking_id)
+        ->where('invoice_no', $value->invoice_no)
+        ->where('delivery_no', $value->delivery_no)
+        ->where('delivery_items', $value->delivery_items)
+        ->where('model', $value->model)
+        ->update([
+          'code_sales' => $value->code_sales1,
+          'kode_customer' => $value->kode_customer1
+        ]);
+
+        \App\Models\InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $storageIntransit[$value->code_sales1][substr($value->kode_customer1, 0, 2)]->id,
+            'model_name' => $value->model,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $value->ean_code,
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value->qty),
+            // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+        \App\Models\InventoryStorage::updateOrCreate(
+          // Condition
+          [
+            'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
+            'model_name' => $value->model,
+          ],
+          // Data Update
+          [
+            'ean_code'       => $value->ean_code,
+            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value->qty),
+            // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+            'last_updated'   => $date_now,
+          ]
+        );
+
+      
+    }
+    
+
   }
 
   protected function updateDOManifestDate(){
