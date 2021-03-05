@@ -96,6 +96,11 @@ class UploadConceptController extends Controller
         // kalau data ada isinya
         $rs_key[$concept['line_no']] = $concept['invoice_no'];
 
+        // check DO
+        if (Concept::where('invoice_no', $concept['invoice_no'])->where('delivery_no', $concept['delivery_no'])->where('delivery_items', $concept['delivery_items'])->exists()) {
+          return sendError('Invoice ' . $concept['invoice_no'] . ' delivery no ' . $concept['delivery_no'] . ' delivery_items ' . $concept['delivery_items'] . ' already uploaded!', $concept);
+        }
+
         if (empty($rs_code_sales[$concept['ship_to_code']])) {
           $cabang = MasterCabang::where('kode_customer', $concept['ship_to_code'])->first();
 

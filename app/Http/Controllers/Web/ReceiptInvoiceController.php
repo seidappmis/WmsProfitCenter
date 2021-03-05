@@ -204,46 +204,58 @@ class ReceiptInvoiceController extends Controller
       ->groupBy(['do_manifest_no', 'delivery_no'])
       ->get();
 
-    $rsInvoiceReceiptDetail = [];
+    $rs_manifest = [];
+    $rs_cbm_manifest = [];
     foreach ($rs_manifest_detail as $key => $value) {
-      $invoiceManifestDetail['id_header']           = $invoiceReceiptHeader->id;
-      $invoiceManifestDetail['delivery_no']         = $value->delivery_no;
-      $invoiceManifestDetail['do_manifest_no']      = $value->do_manifest_no;
-      $invoiceManifestDetail['do_manifest_date']    = $value->do_manifest_date;
-      $invoiceManifestDetail['do_date']             = $value->do_date;
-      $invoiceManifestDetail['model']               = $value->model;
-      $invoiceManifestDetail['vehicle_code_type']   = $value->vehicle_code_type;
-      $invoiceManifestDetail['vehicle_number']      = $value->vehicle_number;
-      $invoiceManifestDetail['vehicle_description'] = $value->vehicle_description;
-      $invoiceManifestDetail['driver_name']         = $value->driver_name;
-      $invoiceManifestDetail['sold_to']             = $value->sold_to;
-      $invoiceManifestDetail['sold_to_code']        = $value->sold_to_code;
-      $invoiceManifestDetail['sold_to_street']      = $value->sold_to_street;
-      $invoiceManifestDetail['ship_to']             = $value->ship_to;
-      $invoiceManifestDetail['quantity']            = $value->quantity;
-      $invoiceManifestDetail['ship_to_code']        = $value->ship_to_code;
-      $invoiceManifestDetail['city_code']           = $value->city_code;
-      $invoiceManifestDetail['city_name']           = $value->city_name;
-      $invoiceManifestDetail['city_code_header']    = $value->city_code_header;
-      $invoiceManifestDetail['city_name_header']    = $value->city_name_header;
-      $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;
-      $invoiceManifestDetail['cbm_do']              = $value->cbm_do;
-      $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
-      $invoiceManifestDetail['freight_cost_cbm']    = 1;
-      $invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
-      $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase / count($rs_manifest_detail);
-      $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 / count($rs_manifest_detail);
-      $invoiceManifestDetail['code_sales']          = $value->code_sales;
-      $invoiceManifestDetail['lead_time']           = 0;
-      $invoiceManifestDetail['multidro_amount']     = 0;
-      $invoiceManifestDetail['unloading_amount']    = 0;
-      $invoiceManifestDetail['overstay_amount']     = 0;
-      $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
-      $invoiceManifestDetail['region']              = $value->region;
-      $invoiceManifestDetail['area']                = $value->area;
-      $invoiceManifestDetail['acc_code']            = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+      $rs_manifest[$value->do_manifest_no][] = $value;
+      if (empty($rs_cbm_manifest[$value->do_manifest_no])) {
+        $rs_cbm_manifest[$value->do_manifest_no] = 0;
+      }
+      $rs_cbm_manifest[$value->do_manifest_no] += $value->cbm_do;
+    }
 
-      $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
+    $rsInvoiceReceiptDetail = [];
+    foreach ($rs_manifest as $key => $vManifest) {
+      foreach ($vManifest as $key => $value) {
+        $invoiceManifestDetail['id_header']           = $invoiceReceiptHeader->id;
+        $invoiceManifestDetail['delivery_no']         = $value->delivery_no;
+        $invoiceManifestDetail['do_manifest_no']      = $value->do_manifest_no;
+        $invoiceManifestDetail['do_manifest_date']    = $value->do_manifest_date;
+        $invoiceManifestDetail['do_date']             = $value->do_date;
+        $invoiceManifestDetail['model']               = $value->model;
+        $invoiceManifestDetail['vehicle_code_type']   = $value->vehicle_code_type;
+        $invoiceManifestDetail['vehicle_number']      = $value->vehicle_number;
+        $invoiceManifestDetail['vehicle_description'] = $value->vehicle_description;
+        $invoiceManifestDetail['driver_name']         = $value->driver_name;
+        $invoiceManifestDetail['sold_to']             = $value->sold_to;
+        $invoiceManifestDetail['sold_to_code']        = $value->sold_to_code;
+        $invoiceManifestDetail['sold_to_street']      = $value->sold_to_street;
+        $invoiceManifestDetail['ship_to']             = $value->ship_to;
+        $invoiceManifestDetail['quantity']            = $value->quantity;
+        $invoiceManifestDetail['ship_to_code']        = $value->ship_to_code;
+        $invoiceManifestDetail['city_code']           = $value->city_code;
+        $invoiceManifestDetail['city_name']           = $value->city_name;
+        $invoiceManifestDetail['city_code_header']    = $value->city_code_header;
+        $invoiceManifestDetail['city_name_header']    = $value->city_name_header;
+        $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;
+        $invoiceManifestDetail['cbm_do']              = $value->cbm_do;
+        $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
+        $invoiceManifestDetail['freight_cost_cbm']    = 1;
+        $invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
+        $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
+        $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
+        $invoiceManifestDetail['code_sales']          = $value->code_sales;
+        $invoiceManifestDetail['lead_time']           = 0;
+        $invoiceManifestDetail['multidro_amount']     = 0;
+        $invoiceManifestDetail['unloading_amount']    = 0;
+        $invoiceManifestDetail['overstay_amount']     = 0;
+        $invoiceManifestDetail['kode_cabang']         = $value->kode_cabang;
+        $invoiceManifestDetail['region']              = $value->region;
+        $invoiceManifestDetail['area']                = $value->area;
+        $invoiceManifestDetail['acc_code']            = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
+  
+        $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
+      }
     }
 
     return $rsInvoiceReceiptDetail;
