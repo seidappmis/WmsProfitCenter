@@ -208,8 +208,7 @@
           .done(function(data) { // selesai dan berhasil
             setLoading(false);
             if (data.status == false) {
-              showSwalAutoClose('Failed !', data.message)
-              // swal("Failed!", data.message, "warning");
+              swal("Failed!", data.message, "warning");
               return;
             }
             showSwalAutoClose("Success", data.message)

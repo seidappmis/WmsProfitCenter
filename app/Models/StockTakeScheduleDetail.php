@@ -6,8 +6,16 @@ use App\BaseModel;
 
 class StockTakeScheduleDetail extends BaseModel
 {
-    //Set Table
-    protected $table = "log_stocktake_schedule_detail";
+	//Set Table
+	protected $table = "log_stocktake_schedule_detail";
+
+	protected $fillable = [
+		'sto_id',
+		'material_no',
+		'qty',
+		'updated_at',
+		'updated_by',
+	];
 
     public function schedules()
   	{

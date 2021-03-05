@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Stock Take Schedule
   Route::put('stock-take-schedule/{sto_id}/view-detail/{id}', 'Web\StockTake\STScheduleDetailController@update');
@@ -7,6 +9,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::put('stock-take-schedule/{sto_id}/finish', 'Web\StockTake\STScheduleController@finish');
   Route::get('stock-take-schedule/select2-schedule', 'Web\StockTake\STScheduleController@getSelect2Schedule');
   Route::resource('stock-take-schedule', 'Web\StockTake\STScheduleController');
+  Route::post('stock-take-schedule/update', 'Web\StockTake\STScheduleController@update');
 
   Route::get('stock-take-create-tag', 'Web\StockTakeCreateTagController@index');
   Route::get('stock-take-create-tag/export', 'Web\StockTakeCreateTagController@export');
