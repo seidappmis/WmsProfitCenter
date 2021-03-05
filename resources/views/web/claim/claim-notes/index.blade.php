@@ -78,11 +78,12 @@
 
     @push('script_js')
     <script type="text/javascript">
+		var selectedRows = [];
         var dtOutstanding;
         jQuery(document).ready(function($) {
             dtOutstanding = $('#table-outstanding').DataTable({
                 {{-- paging: false, --}}
-                serverSide: true,
+                //serverSide: true,
                 scrollX: true,
                 responsive: true,
                 ajax: {
@@ -171,29 +172,52 @@
 
         });
 
+		$('#table-outstanding tbody').on('click', 'input[type="checkbox"]', function(e){
+			var $tr = $(this).closest('tr');
+			var data = dtOutstanding.row($tr).data();
+			var index = $.inArray(data, selectedRows);
+
+			if(this.checked && index === -1){
+				//checked dan tidak ada di selectedRows, maka masukkan selectedRows
+				selectedRows.push(data);
+			}else if(! this.checked && index !== -1){
+				selectedRows.splice(index, 1);
+			}
+		});
+
         $("input#outstanding-search").on("keyup click", function() {
             dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
         });
 
         $('#create-claim-unit').click(function() {
             var checkedData = $();
+			/*
             $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
                 var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
                 array = generateArray(row, 'unit');
                 checkedData.push(array);
             });
-
+			*/
+			selectedRows.forEach(function(item){
+				array = generateArray(item, 'unit');
+				checkedData.push(array);
+			});
             push(checkedData, 'unit');
         });
 
         $('#create-claim-carton-box').click(function() {
             var checkedData = $();
+			/*
             $('#table-outstanding tbody input[type=checkbox]:checked').each(function() {
                 var row = dtOutstanding.row($(this).parents('tr')).data(); // here is the change
                 array = generateArray(row, 'carton-box');
                 checkedData.push(array);
             });
-
+			*/
+			selectedRows.forEach(function(item){
+				array = generateArray(item, 'carton-box');
+				checkedData.push(array);
+			});
             push(checkedData, 'carton-box');
         });
 
