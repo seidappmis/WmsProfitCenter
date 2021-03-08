@@ -418,6 +418,7 @@
         </tr>
     </tbody>
 </table>
+@if(count($printData['summary']['data']) > 0)
 <table style="border-collapse: collapse; font-size: 5pt; margin-left= 500px; margin-right: auto;">
     <tbody>
         <tr>
@@ -430,15 +431,12 @@
                 &nbsp;
             </td>
             @if($printData['summary']['BR'])
-            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">BR
-            </td>
+            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">BR</td>
             @endif
             @if($printData['summary']['DS'])
-            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">DS
-            </td>
+            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">DS</td>
             @endif
-            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">Total
-            </td>
+            <td colspan="4" style="text-align: center;border: 1pt solid black; font-size: 5pt;">Total</td>
             <td colspan="4" style="text-align: center; ">
                 &nbsp;
             </td>
@@ -480,8 +478,6 @@
                 &nbsp;
             </td>
         </tr>
-
-
         @foreach($printData['summary']['data'] AS $key => $value)
         <tr>
             <td colspan="3" style="font-size: 5pt;text-align: center; ">
@@ -535,7 +531,7 @@
             </td>
         </tr>
         @endforeach
-        {{-- End Main Table --}}
-    
+        {{-- End Main Table --}}    
     </tbody>
 </table>
+@endif
