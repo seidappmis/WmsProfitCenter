@@ -60,6 +60,34 @@
    </tr>
 </table>
 
+<div class="card mb-0">
+	<div class="card-content p-0">
+		<ul class="collapsible m-0">
+			<li class="active">
+				<div class="collapsible-header p-0">
+					<div class="collapsible-main-header">
+						<i class="material-icons expand">expand_less</i>
+						<span>Unit Damage Detail Price</span>
+					</div>
+				</div>
+				<div class="collapsible-body p-0">
+					<div class="section-data-tables">
+						<table id="table-unit-damage-price" class="display" width="100%">
+							<thead>
+								<tr>
+									<th data-priority="1" width="30px">No.</th>
+									<th>MODEL NAME</th>
+									<th>PRICE (USD)</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+
 @push('script_js')
 <script type="text/javascript">
    $(document).ready(function($) {
@@ -73,13 +101,49 @@
       // });
    });
 
-   $('[name="dur_dgr_id"]').change(function() {
-      var data = $(this).select2('data')[0];
+	$('[name="dur_dgr_id"]').change(function() {
+		var data = $(this).select2('data')[0];
 
-      $('[name="vessel_name"]').val('');
-      if (data.ship_name) {
-         $('[name="vessel_name"]').val(data.ship_name)
-      }
-   });
+		$('[name="vessel_name"]').val('');
+		if (data.ship_name) {
+			$('[name="vessel_name"]').val(data.ship_name)
+		}
+
+		reloadTabel(data.id);
+	});
+
+	var tbDamagePriceUnit;
+	function reloadTabel(id){
+		if(tbDamagePriceUnit == null){
+			tbDamagePriceUnit = $("#table-unit-damage-price").DataTable({
+				paging: false,
+				serverSide: true,
+				ajax: {
+					url: '{{url("/marine-cargo/get-detail-damage-unit")}}/' + id,
+					type: 'GET'
+				},
+				columns: [
+					{
+						data: 'DT_RowIndex',
+						orderable: false,
+						searchable: false,
+						className: 'center-align'
+					},
+					{
+						data: 'model_name',
+						name: 'dgr_no',
+					},
+					{
+						data: 'price',
+						render: function(data, type, row, meta){
+							return '<input name="price['+ row['id'] +']" id="price_'+ row['id'] +'" value="'+ (data ? data : 0) +'" />';
+						}
+					}
+				],
+			});
+		}else{
+			tbDamagePriceUnit.ajax.url('{{url("/marine-cargo/get-detail-damage-unit")}}/' + id).load();
+		}
+	}
 </script>
 @endpush

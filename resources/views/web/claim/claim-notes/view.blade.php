@@ -181,7 +181,12 @@
           render: function(data, type, row, meta) {
             var val = data;
             if (row.submit_date == null) {
-              val = '<textarea id="warehouse' + row.id + '" class="warehouse materialize-textarea" placeholder="warehouse" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+              //val = '<textarea id="warehouse' + row.id + '" class="warehouse materialize-textarea" placeholder="warehouse" style="resize: vertical;" data-id="' + row.claim_note_detail + '">' + (data ? data : '') + '</textarea>';
+			  val = '<select id="warehouse' + row.id + '" style="display: block; width:150px: background-color: #ffffff91;" data-id="' + row.claim_note_detail + '" class="warehouse">';
+			  val += '<option value="" disabled selected>-- Warehouse --</option>';
+			  val += '<option '+ (data == 'WH Branch' ? 'selected' : '') +'>WH Branch</option>'
+			  val += '<option '+ (data == 'WH Return' ? 'selected' : '') +'>WH Return</option>'
+			  val += '</select>';
             }
             return val;
           }

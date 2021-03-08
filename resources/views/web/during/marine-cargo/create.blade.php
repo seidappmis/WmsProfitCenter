@@ -77,7 +77,7 @@
                }
                setLoading(false);
             })
-            .fail(function() {
+            .fail(function(dt) {
                setLoading(false);
             })
             .always(function() {
