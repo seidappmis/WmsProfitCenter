@@ -547,6 +547,7 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
+	  $mpdf->setAutoBottomMargin = 'stretch';
 
 		if(count($split_view) > 1){
 			$max_key = max(array_keys($split_view));
@@ -617,6 +618,7 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
+	  $mpdf->setAutoBottomMargin = 'stretch';
 		if(count($split_view) > 1){
 			$max_key = max(array_keys($split_view));
 			foreach ($split_view as $key => $value) {

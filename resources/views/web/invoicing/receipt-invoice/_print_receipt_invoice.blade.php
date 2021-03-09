@@ -418,8 +418,7 @@
         </tr>
     </tbody>
 </table>
-@if(count($printData['summary']['data']) > 0)
-<table style="page-break-inside: avoid; border-collapse: collapse; font-size: 5pt; margin-left: 500px; margin-right: auto;">
+<table style="page-break-inside: avoid; border-collapse: collapse; font-size: 5pt; margin-top: 10px;">
     <tbody>
         <tr>
             <td colspan="23" style="text-align: center; ">
@@ -533,4 +532,3 @@
         {{-- End Main Table --}}    
     </tbody>
 </table>
-@endif
