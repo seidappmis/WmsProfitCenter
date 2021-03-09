@@ -528,6 +528,7 @@ class ReceiptInvoiceController extends Controller
     // return;
 
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
+	$split_view = str_split($view_print, 100000);
     $title      = 'receipt_invoice';
 
     if ($request->input('filetype') == 'html') {
@@ -546,7 +547,15 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+
+		if(count($split_view) > 1){
+			$max_key = max(array_keys($split_view));
+			foreach ($split_view as $key => $value) {
+				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, $key === 0, $key >= $max_key);
+			}
+		}else{
+			$mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+		}
 
       $mpdf->Output();
       return;
@@ -608,8 +617,14 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
-      $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
-
+		if(count($split_view) > 1){
+			$max_key = max(array_keys($split_view));
+			foreach ($split_view as $key => $value) {
+				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, $key === 0, $key >= $max_key);
+			}
+		}else{
+			$mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+		}
       $mpdf->Output($title . '.pdf', "D");
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
