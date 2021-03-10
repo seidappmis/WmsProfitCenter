@@ -78,8 +78,7 @@
             </td>
         </tr> --}}
         <tr>
-            <td
-                style="text-align: center; vertical-align: top; font-size: 5pt; width: 0.5cm; border: 1pt solid black;">
+            <td style="text-align: center; vertical-align: top; font-size: 5pt; width: 0.5cm; border: 1pt solid black;">
                 <strong>No.</strong>
             </td>
             <td colspan="2" 
@@ -356,67 +355,62 @@
 
         @endforeach
 
+	</tbody>
+</table>
+<table style="page-break-inside: avoid; border-collapse: collapse; font-size: 5pt;">
+	<tr>
+		<td style="text-align: center; width: 5.1cm;">
+			&nbsp;
+		</td>
+		<td style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Total Freight
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_freight']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_ritase']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_cbm']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_ritase2']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_multidrop']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_unloading']) }}
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['total_overstay']) }}
+		</td>
+		<td colspan="8" style="text-align: center; ">
+			&nbsp;
+		</td>
 
-        <tr>
-
-            <td >
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" style="text-align: center; ">
-                &nbsp;
-            </td>
-            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Total Freight
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_freight']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_ritase']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_cbm']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_ritase2']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_multidrop']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_unloading']) }}
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['total_overstay']) }}
-            </td>
-            <td colspan="8" style="text-align: center; ">
-                &nbsp;
-            </td>
-
-        </tr>
-        <tr>
-            <td colspan="6" style="text-align: center; ">
-                &nbsp;
-            </td>
-            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Tax
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['tax']) }}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6" style="text-align: center; ">
-                &nbsp;
-            </td>
-            <td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Grand
-                Total
-            </td>
-            <td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
-                {{ thousand_reformat($printData['grand_total']) }}
-            </td>
-        </tr>
-    </tbody>
+	</tr>
+	<tr>
+		<td colspan="6" style="text-align: center; ">
+			&nbsp;
+		</td>
+		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Tax
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['tax']) }}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="6" style="text-align: center; ">
+			&nbsp;
+		</td>
+		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Grand
+			Total
+		</td>
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+			{{ thousand_reformat($printData['grand_total']) }}
+		</td>
+	</tr>
 </table>
 <table style="page-break-inside: avoid; border-collapse: collapse; font-size: 5pt; margin-top: 10px;">
     <tbody>
