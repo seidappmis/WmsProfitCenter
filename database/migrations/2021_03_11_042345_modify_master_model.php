@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyDurBeritaAcaraDetail extends Migration
+class ModifyMasterModel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyDurBeritaAcaraDetail extends Migration
      */
     public function up()
     {
-        Schema::table('dur_berita_acara_detail', function(Blueprint $table){
-			$table->decimal('price', 18, 2)->change();
+		Schema::table('wms_master_model', function(Blueprint $table){
+			$table->decimal('cbm', 9, 3)->change();
 		});
     }
 

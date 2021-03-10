@@ -28,7 +28,7 @@
       <td>CBM</td>
       <td>
         <div class="input-field col s12">
-          <input type="text" id="cbm" name="cbm" value="{{old('cbm', !empty($masterModel) ? $masterModel->cbm : '')}}" required autocomplete="off">
+          <input type="number" step=".001" id="cbm" name="cbm" value="{{old('cbm', !empty($masterModel) ? $masterModel->cbm : '')}}" required autocomplete="off">
         </div>
       </td>
     </tr>
@@ -158,7 +158,7 @@
          ajax: get_select2_ajax_options('/master-model/select2-model-type')
       });
 
-      $('#cbm').inputmask('cbm_mask');
+      //$('#cbm').inputmask('cbm_mask');
 
    });
 </script>

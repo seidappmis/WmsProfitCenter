@@ -196,10 +196,17 @@ class ReceiptInvoiceController extends Controller
       DB::raw('log_cabang.short_description AS short_description_cabang'),
       DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
       DB::raw('log_manifest_header.city_code AS city_code_header'),
-      DB::raw('log_manifest_header.city_name AS city_name_header')
+      DB::raw('log_manifest_header.city_name AS city_name_header'),
+	  'log_freight_cost.cbm as cbm_master'
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
+	  ->leftjoin('log_freight_cost', function($join) use ($invoiceReceiptHeader) {
+		  $join->on('log_freight_cost.area', '=', 'log_manifest_detail.area');
+		  $join->on('log_freight_cost.city_code', '=', 'log_manifest_detail.city_code');
+		  $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
+		  $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
+	  })
       ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
       ->groupBy(['do_manifest_no', 'delivery_no'])
       ->get();
@@ -239,9 +246,11 @@ class ReceiptInvoiceController extends Controller
         $invoiceManifestDetail['city_name_header']    = $value->city_name_header;
         $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;
         $invoiceManifestDetail['cbm_do']              = $value->cbm_do;
-        $invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
+        //$invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
         $invoiceManifestDetail['freight_cost_cbm']    = 1;
-        $invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
+        //$invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
+		$incoiveManifestDetail['freight_cost']        = $value->cbm_master;
+		$invoiceManifestDetail['cbm_ammount']         = $incoiveManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
         $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['code_sales']          = $value->code_sales;
