@@ -4,20 +4,16 @@
     <htmlpageheader name="myHeader1">
         <table width="100%" style="font-size: 10pt;line-height: 1.4">
             <tr>
-                <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP
-                        ELECTRONICS INDONESIA</strong></td>
+                <td colspan="15" style="text-align: right; font-size: 8pt;"><strong>PT. SHARP ELECTRONICS INDONESIA</strong></td>
             </tr>
             <tr>
-                <td colspan="15" style="text-align: center; font-size: 13pt;"><strong>LAPORAN MUATAN
-                        BARANG</strong></td>
+                <td colspan="15" style="text-align: center; font-size: 13pt;"><strong>LAPORAN MUATAN BARANG</strong></td>
             </tr>
             <tr>
-                <td colspan="15" style="text-align: center; font-size: 8pt;"><strong>(Loading Goods
-                        Report)</strong></td>
+                <td colspan="15" style="text-align: center; font-size: 8pt;"><strong>(Loading Goods Report)</strong></td>
             </tr>
             <tr>
-                <td colspan="15" style="text-align: center; font-size: 12pt;"><strong>SHARP -
-                        PRODUCT</strong></td>
+                <td colspan="15" style="text-align: center; font-size: 12pt;"><strong>SHARP - PRODUCT</strong></td>
             </tr>
             <tr>
                 <td colspan="1" style="width: 33mm;">Tanggal</td>
@@ -61,80 +57,11 @@
     </htmlpageheader>
     <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
     <htmlpagefooter name="myFooter1">
-        <table width="100%" style="font-size: 9pt;">
-            <tr>
-                <td rowspan="3" colspan="4"
-                    style="font-style: italic; width: 50mm; word-wrap: break-word;">
-                    Pengangkut diharap memeriksa &amp; menghitung barang yang diangkut. *Claim
-                    kekurangan barang diluar areal pergudangan kami bukan menjadi tanggung jawab kami.
-                </td>
-                <td style="width: 5mm;"></td>
-                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
-                    LOADING</td>
-                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">ST.
-                    KEEPER</td>
-                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
-                    CHECKER</td>
-                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
-                    DRIVER</td>
-                <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
-                    DEALER</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
-                <td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
-                <td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
-                <td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
-                <td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-style: italic; width: 25mm;">Asli - Putih</td>
-                <td>:</td>
-                <td style="font-style: italic; width: 25mm;">Transporter</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-style: italic; width: 25mm;">Copy 1 - Merah</td>
-                <td>:</td>
-                <td style="font-style: italic; width: 25mm;">Customer</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-style: italic; width: 25mm;">Copy 2 - Kuning</td>
-                <td>:</td>
-                <td style="font-style: italic; width: 25mm;">Cabang (Lampiran DO)</td>
-                <td></td>
-            </tr>
-
-            {{-- <tr><td>&nbsp;</td></tr>
-          <tr>
-            <td colspan="2" style="font-style: italic;">Asli - Putih</td>
-            <td>:</td>
-            <td style="font-style: italic;">Transporter</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="font-style: italic;">Copy 1 - Merah</td>
-            <td>:</td>
-            <td style="font-style: italic;">Customer</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="font-style: italic;">Copy 2 - Kuning</td>
-            <td>:</td>
-            <td style="font-style: italic;">Cabang (Lampiran DO)</td>
-          </tr> --}}
-        </table>
     </htmlpagefooter>
     <sethtmlpagefooter name="myFooter1" value="on" />
-    
     {{-- Main Table --}}
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
         {{-- Table Head --}}
-
-        
         <thead style="display: table-header-group">
             <tr>
                 <td style="text-align: center; border: 1pt solid #000000; width: 9mm;">NO</td>
@@ -258,10 +185,77 @@
             border-right: 1pt solid #000000;" colspan="12">&nbsp;</td>
         </tr>
         @endfor
-    </tbody>
+		</tbody>
     </table>
+	
+	<table width="100%" style="font-size: 9pt;">
+		<tr>
+			<td rowspan="3" colspan="4"
+				style="font-style: italic; width: 50mm; word-wrap: break-word;">
+				Pengangkut diharap memeriksa &amp; menghitung barang yang diangkut. *Claim
+				kekurangan barang diluar areal pergudangan kami bukan menjadi tanggung jawab kami.
+			</td>
+			<td style="width: 5mm;"></td>
+			<td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+				LOADING</td>
+			<td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">ST.
+				KEEPER</td>
+			<td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+				CHECKER</td>
+			<td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+				DRIVER</td>
+			<td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+				DEALER</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
+			<td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
+			<td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
+			<td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
+			<td colspan="2" rowspan="4" style="border: 1pt solid #000000;"></td>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="font-style: italic; width: 25mm;">Asli - Putih</td>
+			<td>:</td>
+			<td style="font-style: italic; width: 25mm;">Transporter</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="font-style: italic; width: 25mm;">Copy 1 - Merah</td>
+			<td>:</td>
+			<td style="font-style: italic; width: 25mm;">Customer</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="font-style: italic; width: 25mm;">Copy 2 - Kuning</td>
+			<td>:</td>
+			<td style="font-style: italic; width: 25mm;">Cabang (Lampiran DO)</td>
+			<td></td>
+		</tr>
+
+		{{-- <tr><td>&nbsp;</td></tr>
+		<tr>
+		<td colspan="2" style="font-style: italic;">Asli - Putih</td>
+		<td>:</td>
+		<td style="font-style: italic;">Transporter</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="font-style: italic;">Copy 1 - Merah</td>
+		<td>:</td>
+		<td style="font-style: italic;">Customer</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="font-style: italic;">Copy 2 - Kuning</td>
+		<td>:</td>
+		<td style="font-style: italic;">Cabang (Lampiran DO)</td>
+		</tr> --}}
+	</table>
+
     {{-- End Main Table --}}
-    <footer >
-        
+    <footer >        
     </footer>
 </body>

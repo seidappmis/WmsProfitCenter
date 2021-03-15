@@ -250,7 +250,7 @@ class ReceiptInvoiceController extends Controller
         $invoiceManifestDetail['freight_cost_cbm']    = 1;
         //$invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
 		$incoiveManifestDetail['freight_cost']        = $value->cbm_master;
-		$invoiceManifestDetail['cbm_amount']         = $incoiveManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
+		$invoiceManifestDetail['cbm_amount']          = $incoiveManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
         $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['code_sales']          = $value->code_sales;
@@ -392,7 +392,7 @@ class ReceiptInvoiceController extends Controller
       $prefix = $kode . '-FAKTUR-' . date('ymd') . '-N';
 
       $prefix_length = strlen($prefix);
-      $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 2, $prefix_length, $prefix])[0]->max_no;
+      $max_no        = DB::select('SELECT MAX(SUBSTR(invoice_receipt_id, ?)) AS max_no FROM log_invoice_receipt_header WHERE SUBSTR(invoice_receipt_id,1,?) = ? ', [$prefix_length + 1, $prefix_length, $prefix])[0]->max_no;
       $max_no        = str_pad($max_no + 1, 2, 0, STR_PAD_LEFT);
 
       $invoice_receipt_id = $prefix . $max_no;
@@ -434,7 +434,8 @@ class ReceiptInvoiceController extends Controller
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-    $max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where YEAR(invoice_receipt_date) = ? AND MONTH(invoice_receipt_date) = ?', [date('Y'), date('m')])[0]->max_no;
+	//$max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where YEAR(invoice_receipt_date) = ? AND MONTH(invoice_receipt_date) = ?', [date('Y'), date('m')])[0]->max_no;
+	$max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) as max_no FROM log_invoice_receipt_header WHERE RIGHT(invoice_receipt_no, 2) = ? AND SUBSTRING_INDEX(SUBSTRING_INDEX(invoice_receipt_no, "/", 2), "/", -1) = ?', [date('y'), getRomawi(date('m'))])[0]->max_no;
 
     $max_no = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
