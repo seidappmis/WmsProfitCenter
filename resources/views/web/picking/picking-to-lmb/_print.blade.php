@@ -56,9 +56,13 @@
         </table>
     </htmlpageheader>
     <sethtmlpageheader name="myHeader1" value="on" show-this-page="1"/>
+	
+	{{-- 
     <htmlpagefooter name="myFooter1">
     </htmlpagefooter>
     <sethtmlpagefooter name="myFooter1" value="on" />
+	--}}
+
     {{-- Main Table --}}
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;">
         {{-- Table Head --}}
