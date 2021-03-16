@@ -62,7 +62,7 @@
 <htmlpagefooter name="myFooter1">
     <table width="100%" style="font-size: 9pt;">
       <tr>
-            <td colspan="3">Thursday, {{date('d-F-Y h:i:s A')}}</td>
+            <td colspan="3">{{date('l, d-F-Y h:i:s A')}}</td>
             <td colspan="8" align="center"> Page {PAGENO} of {nbpg}</td>
             <td colspan="6" style="text-align: right; ">Print out from SEID WMS</td>
         </tr>
@@ -359,55 +359,55 @@
 </table>
 <table style="page-break-inside: avoid; border-collapse: collapse; font-size: 5pt;">
 	<tr>
-		<td style="text-align: center; width: 5.1cm;">
+		<td colspan="6" style="text-align: center; width: 5.09cm;">
 			&nbsp;
 		</td>
-		<td style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Total Freight
+		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.45cm; padding: 2pt;">
+		Total Freight
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.39cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_freight']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_ritase']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_cbm']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_ritase2']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_multidrop']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_unloading']) }}
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.29cm; padding: 2pt;">
 			{{ thousand_reformat($printData['total_overstay']) }}
 		</td>
 		<td colspan="8" style="text-align: center; ">
 			&nbsp;
 		</td>
-
 	</tr>
 	<tr>
-		<td colspan="6" style="text-align: center; ">
+		<td colspan="6">
 			&nbsp;
 		</td>
-		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Tax
+		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; padding: 2pt;">Tax
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; padding: 2pt;">
 			{{ thousand_reformat($printData['tax']) }}
 		</td>
 	</tr>
 	<tr>
-		<td colspan="6" style="text-align: center; ">
+		<td colspan="6">
 			&nbsp;
 		</td>
-		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">Grand
+		<td colspan="2" style="text-align: left;border: 1pt solid black; font-size: 5pt; padding: 2pt;">Grand
 			Total
 		</td>
-		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; width: 1.5cm; padding: 2pt;">
+		<td style="text-align: right;border: 1pt solid black; font-size: 5pt; padding: 2pt;">
 			{{ thousand_reformat($printData['grand_total']) }}
 		</td>
 	</tr>
