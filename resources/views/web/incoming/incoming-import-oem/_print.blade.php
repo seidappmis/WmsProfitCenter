@@ -17,41 +17,41 @@
               <tr><td></td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="2" style="width: 30mm;">Arrival No.</td>
-                <td style="width: 5mm;">:</td>
-                <td colspan="4" style="width: 60mm;">{{$incomingManualHeader->arrival_no}}</td>
-                <td colspan="2" style="width: 40mm;">Vendor Name</td>
-                <td style="width: 5mm;">:</td>
-                <td>{{$incomingManualHeader->vendor_name}}</td>
+                <td colspan="2" style="width: 30mm; font-color:solid black;"><strong>Arrival No.</td>
+                <td style="width: 5mm;"><strong>:</td>
+                <td colspan="4" style="width: 60mm;"><strong>{{$incomingManualHeader->arrival_no}}</td>
+                <td colspan="2" style="width: 40mm;"><strong>Vendor Name</td>
+                <td style="width: 5mm;"><strong>N:</td>
+                <td><strong>{{$incomingManualHeader->vendor_name}}</td>
               </tr>
               <tr>
-                <td colspan="2">PO</td>
-                <td>:</td>
-                <td colspan="4">{{$incomingManualHeader->po}}</td>
-                <td colspan="2">Actual Arrive Date</td>
-                <td>:</td>
-                <td>{{format_tanggal_wms($incomingManualHeader->actual_arrival_date)}}</td>
+                <td colspan="2"><strong>PO</td>
+                <td><strong>:</td>
+                <td colspan="4"><strong>{{$incomingManualHeader->po}}</td>
+                <td colspan="2"><strong>Actual Arrive Date</td>
+                <td><strong>:</td>
+                <td><strong>{{format_tanggal_wms($incomingManualHeader->actual_arrival_date)}}</td>
               </tr>
               <tr>
-                <td colspan="2">Invoice No.</td>
-                <td>:</td>
-                <td colspan="4">{{$incomingManualHeader->invoice_no}}</td>
-                <td colspan="2">Expedition Name</td>
-                <td>:</td>
-                <td>{{$incomingManualHeader->expedition_name}}</td>
+                <td colspan="2"><strong>Invoice No.</td>
+                <td><strong>:</td>
+                <td colspan="4"><strong>{{$incomingManualHeader->invoice_no}}</td>
+                <td colspan="2"><strong>Expedition Name</td>
+                <td><strong>:</td>
+                <td><strong>{{$incomingManualHeader->expedition_name}}</td>
               </tr>
               <tr>
-                <td colspan="2">No. GR SAP</td>
-                <td>:</td>
-                <td colspan="4" style="text-align: left;">{{$incomingManualHeader->no_gr_sap}}</td>
-                <td colspan="2">Container No.</td>
-                <td>:</td>
-                <td>{{$incomingManualHeader->container_no}}</td>
+                <td colspan="2"><strong>No. GR SAP</td>
+                <td><strong>:</td>
+                <td colspan="4" style="text-align: left;"><strong>{{$incomingManualHeader->no_gr_sap}}</td>
+                <td colspan="2"><strong>Container No.</td>
+                <td><strong>:</td>
+                <td><strong>{{$incomingManualHeader->container_no}}</td>
               </tr>
               <tr>
-                <td colspan="2">Document Date</td>
-                <td>:</td>
-                <td colspan="4">{{format_tanggal_wms($incomingManualHeader->document_date)}}</td>
+                <td colspan="2"><strong>Document Date</td>
+                <td><strong>:</td>
+                <td colspan="4"><strong>{{format_tanggal_wms($incomingManualHeader->document_date)}}</strong></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -79,25 +79,25 @@
 
               @foreach($incomingManualHeader->details AS $key => $detail)
               @php
-              $total_cbm += $detail->cbm;
+              $total_cbm += $detail->total_cbm;
               $total_quantity += $detail->qty;
               @endphp
 
               <tr>
-                <td style="text-align: right; border: 1pt solid #000000;">{{$key + 1}}</td>
-                <td style="text-align: left; border: 1pt solid #000000;" colspan="3">{{$detail->model}}</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$detail->cbm}}</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$detail->qty}}</td>
-                <td style="text-align: right; border: 1pt solid #000000;">{{$detail->storage->sto_loc_code_long}}</td>
-                <td style="text-align: left; border: 1pt solid #000000;" colspan="2">{{$detail->description}}</td>
+                <td style="text-align: right; border: 1pt solid black"><strong>{{$key + 1}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;" colspan="3"><strong>{{$detail->model}}</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2"><strong>{{$detail->total_cbm}}</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2"><strong>{{$detail->qty}}</td>
+                <td style="text-align: right; border: 1pt solid #000000;"><strong>{{$detail->storage->sto_loc_code_long}}</td>
+                <td style="text-align: left; border: 1pt solid #000000;" colspan="2"><strong>{{$detail->description}}</td>
                 <td style="border-left: 1pt solid #000000;"></td>
               </tr>
               @endforeach
 
               <tr>
-                <td style="text-align: center; border: 1pt solid #000000;" colspan="4">TOTAL</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$total_cbm}}</td>
-                <td style="text-align: right; border: 1pt solid #000000;" colspan="2">{{$total_quantity}}</td>
+                <td style="text-align: center; border: 1pt solid #000000;" colspan="4"><strong>TOTAL</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2"><strong>{{$total_cbm}}</td>
+                <td style="text-align: right; border: 1pt solid #000000;" colspan="2"><strong>{{$total_quantity}}</td>
                 <td style="text-align: right; border: 1pt solid #000000;"></td>
                 <td style="text-align: left; border: 1pt solid #000000;" colspan="2"></td>
               </tr>
@@ -115,16 +115,16 @@
           <td>
             <table style="font-family: courier New; font-size: 8pt;">
               <tr>
-                <td colspan="3" style="width: 30mm;">TRANSFER BY</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['transfer_by']) ? $request['transfer_by'] : '' }}</td>
+                <td colspan="3" style="width: 30mm;"><strong>TRANSFER BY</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['transfer_by']) ? $request['transfer_by'] : '' }}</td>
               </tr>
               <tr>
-                <td colspan="3" style="width: 30mm;">CHECKED BY</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['checked_by']) ? $request['checked_by'] : '' }}</td>
+                <td colspan="3" style="width: 30mm;"><strong>CHECKED BY</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['checked_by']) ? $request['checked_by'] : '' }}</td>
               </tr>
               <tr>
-                <td colspan="3" style="width: 30mm;">LOCATE</td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;">{{ !empty($request['locate']) ? $request['locate'] : '' }}</td>
+                <td colspan="3" style="width: 30mm;"><strong>LOCATE</td>
+                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['locate']) ? $request['locate'] : '' }}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -134,7 +134,7 @@
           <td>
             <table style="font-family: courier New; font-size: 8pt;">
               <tr>
-                <td colspan="11" style=" width: 200mm;text-align: right;">{{date(' l, d-F-Y h:i:s A')}}</td>
+                <td colspan="11" style=" width: 200mm;text-align: right;"><strong>{{date(' l, d-F-Y h:i:s A')}}</td>
               </tr>
             </table>
           </td>

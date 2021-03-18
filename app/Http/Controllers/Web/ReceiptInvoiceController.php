@@ -98,7 +98,7 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/' . $request->input('invoice_receipt_date'))));
 
     $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
-
+	
     try {
       DB::beginTransaction();
 
@@ -203,7 +203,11 @@ class ReceiptInvoiceController extends Controller
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
 	  ->leftjoin('log_freight_cost', function($join) use ($invoiceReceiptHeader) {
 		  $join->on('log_freight_cost.area', '=', 'log_manifest_detail.area');
-		  $join->on('log_freight_cost.city_code', '=', 'log_manifest_detail.city_code');
+		  $join->on(
+			  DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'), 
+			  DB::raw('='), 
+			  DB::raw('log_manifest_header.city_code)')
+			);
 		  $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
 		  $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
 	  })
@@ -249,8 +253,8 @@ class ReceiptInvoiceController extends Controller
         //$invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
         $invoiceManifestDetail['freight_cost_cbm']    = 1;
         //$invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
-		$incoiveManifestDetail['freight_cost']        = $value->cbm_master;
-		$invoiceManifestDetail['cbm_amount']          = $incoiveManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
+		$invoiceManifestDetail['freight_cost']        = $value->cbm_master;
+		$invoiceManifestDetail['cbm_amount']          = $invoiceManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
         $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['code_sales']          = $value->code_sales;
@@ -292,8 +296,14 @@ class ReceiptInvoiceController extends Controller
         DB::raw('SUM(multidro_amount) AS multidro_amount'),
         DB::raw('SUM(unloading_amount) AS unloading_amount'),
         DB::raw('SUM(overstay_amount) AS overstay_amount'),
-        DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do')
+        DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do'),
+		//'log_freight_cost.cbm as cbm_master'
       )
+	  /*
+	  ->leftjoin('log_freight_cost', function($join) use ($invoiceReceiptHeader){
+		  $join->on('log_freight_cost.')
+	  })
+	  */
         ->groupBy('do_manifest_no');
 
       $datatables = DataTables::of($query)

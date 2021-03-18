@@ -154,20 +154,22 @@
 			<td>{{ $value['model_name'] }}</td>
 			<td width="5px">=</td>
 			<td style="text-align: right;" width="120px">IDR {{ thousand_reformat($value['price_carton_box']) }}</td>
-			<td>X</td>
-			<td style="text-align: center;">{{ $value['qty'] }}</td>
+			<td style="text-align: center;" width="50px">X</td>
+			<td style="text-align: center;" width="50px">{{ $value['qty'] }}</td>
 			<?php $totalQty += $value['qty'] ?? 1; ?>
-			<td>=</td>
-			<td colspan="3" width="120px" style="text-align: right;">IDR {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
+			<td>&nbsp</td>
+			<td style="text-align: left;">=</td>
+			<td colspan="2" width="120px" style="text-align: right;">IDR {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
 			<td style="border-right: 1px solid black;"></td>
 		</tr>
 		@endforeach
 		@if(!empty($cartonBoxs))
 		<tr>
 			<td colspan="7" style="border-left: 1px solid black;"></td>
-			<td style="text-align: center; border-top: 1px solid black:"><strong>{{ $totalQty }}</strong></td>
+			<td style="text-align: center; border-top: 1px solid black;"><strong>{{ $totalQty }}</strong></td>
 			<td></td>
-			<td colspan="3" style="text-align: right; border-top: 1px solid black:"><strong>IDR {{ thousand_reformat($totalPriceIDR) }}</strong></td>
+			<td></td>
+			<td colspan="2" style="text-align: right; border-top: 1px solid black;"><strong>IDR {{ thousand_reformat($totalPriceIDR) }}</strong></td>
 			<td style="border-right: 1px solid black;"></td>
 		</tr>
 		@endif
@@ -185,9 +187,9 @@
 			<td>{{ $value['model_name'] }}</td>
 			<td width="5px">=</td>
 			<td style="text-align: right;">USD {{ thousand_reformat($value['price']) }}</td>
-			<td>X</td>
+			<td style="text-align: center;" width="50px">X</td>
 			<td>110%</td>
-			<td>X</td>
+			<td style="text-align: center;" width="50px">X</td>
 			<td style="text-align: center;">{{ $value['qty'] }}</td>
 			<?php $totalQty += $value['qty'] ?? 1; ?>
 			<td>=</td>
@@ -198,9 +200,9 @@
 		@if(!empty($units))
 		<tr>
 			<td colspan="9" style="border-left: 1px solid black;"></td>
-			<td style="text-align: center; border-top: 1px solid black:"><strong>{{ $totalQty }}</strong></td>
+			<td style="text-align: center; border-top: 1px solid black;"><strong>{{ $totalQty }}</strong></td>
 			<td></td>
-			<td style="text-align: right; border-top: 1px solid black:"><strong>USD {{ thousand_reformat($totalPriceUSD) }}</strong></td>
+			<td style="text-align: right; border-top: 1px solid black;"><strong>USD {{ thousand_reformat($totalPriceUSD) }}</strong></td>
 			<td style="border-right: 1px solid black;"></td>
 		</tr>
 		@endif
