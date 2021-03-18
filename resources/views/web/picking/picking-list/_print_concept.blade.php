@@ -6,23 +6,23 @@
       <tr><td colspan="4">&nbsp;</td></tr>
       <tr><td colspan="4">&nbsp;</td></tr>
       <tr>
-        <td><strong>{{ date('d-M-y') }}</td>
-        <td><strong>{{ $pickinglistHeader->picking_no }}</td>
-        <td style="text-align: center;"><strong>{{ date('H:i') }}</td>
+        <td><strong>{{ date('d-M-y') }}</strong></td>
+        <td><strong>{{ $pickinglistHeader->picking_no }}</strong></td>
+        <td style="text-align: center;"><strong>{{ date('H:i') }}</strong></td>
         <td colspan="7"></td>
       </tr>
       <tr>
-        <td style="border: 1px solid #000;"><strong>INVOICENUMBER</td>
-        <td style="border: 1px solid #000;"><strong>Destination</td>
-        <td style="border: 1px solid #000;"><strong>Expedition</td>
-        <td style="border: 1px solid #000;"><strong>Delivery No.</td>
-        <td style="border: 1px solid #000;"><strong>MODEL</td>
-        <td style="border: 1px solid #000;"><strong>Qty</td>
-        <td style="border: 1px solid #000;"><strong>CBM</td>
-        <td style="border: 1px solid #000;"><strong>CONSIGNEE(SHIP TO)</td>
-        <td style="border: 1px solid #000;"><strong>DISTRICT(SHIP TO)</td>
-        <td style="border: 1px solid #000;"><strong>STREET(SHIP TO)</td>
-        <td style="border: 1px solid #000;"><strong>REMARKS</td>
+        <td style="border: 1px solid #000;"><strong>INVOICENUMBER</strong></td>
+        <td style="border: 1px solid #000;"><strong>Destination</strong></td>
+        <td style="border: 1px solid #000;"><strong>Expedition</strong></td>
+        <td style="border: 1px solid #000;"><strong>Delivery No.</strong></td>
+        <td style="border: 1px solid #000;"><strong>MODEL</strong></td>
+        <td style="border: 1px solid #000;"><strong>Qty</strong></td>
+        <td style="border: 1px solid #000;"><strong>CBM</strong></td>
+        <td style="border: 1px solid #000;"><strong>CONSIGNEE(SHIP TO)</strong></td>
+        <td style="border: 1px solid #000;"><strong>DISTRICT(SHIP TO)</strong></td>
+        <td style="border: 1px solid #000;"><strong>STREET(SHIP TO)</strong></td>
+        <td style="border: 1px solid #000;"><strong>REMARKS</strong></td>
       </tr>
     </thead>
     <tbody>
@@ -36,23 +36,23 @@
       $total_cbm += $detail->cbm;
       @endphp
       <tr>
-        <td style="border: 1px solid #000;"><strong>{{$detail->invoice_no}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$pickinglistHeader->city_name}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$pickinglistHeader->expedition_name}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$detail->delivery_no}}</td>
-        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold;"><strong>{{$detail->model}}</td>
-        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$detail->quantity}}</td>
-        <td style="border: 1px solid #000; text-align: right;"><strong>{{$detail->cbm}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to_district}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to_street}}</td>
-        <td style="border: 1px solid #000;"><strong>{{$detail->remarks}}</td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->invoice_no}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$pickinglistHeader->city_name}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$pickinglistHeader->expedition_name}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->delivery_no}}</strong></td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold;"><strong>{{$detail->model}}</strong></td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$detail->quantity}}</strong></td>
+        <td style="border: 1px solid #000; text-align: right;"><strong>{{$detail->cbm}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to_district}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->ship_to_street}}</strong></td>
+        <td style="border: 1px solid #000;"><strong>{{$detail->remarks}}</strong></td>
       </tr>
       @endforeach
       <tr>
         <td colspan="5"></td>
-        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$total_quantity}}</td>
-        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$total_cbm}}</td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$total_quantity}}</strong></td>
+        <td style="border: 1px solid #000; font-size: 8pt; font-weight: bold; text-align: right;"><strong>{{$total_cbm}}</strong></td>
         <td colspan="3"></td>
       </tr>
     </tbody>

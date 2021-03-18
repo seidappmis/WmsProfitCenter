@@ -11,8 +11,6 @@ $plans = $header->plans()->orderBy('model')->get();
         <tr>
           <td>
             <table width="100%" style="font-family: Arial; font-size: 8pt;">
-              <tr><td>&nbsp;</td></tr>
-              <tr><td>&nbsp;</td></tr>
               <tr>
                 <td colspan="7"><img src="{{asset('images/sharp-logo.png')}}" alt="Sharp Logo" width="30%"></td>
               </tr>
@@ -30,6 +28,7 @@ $plans = $header->plans()->orderBy('model')->get();
                 <td>PHONE</td>
                 <td style="width: 5mm;">:</td>
                 <td>46824070</td>
+                <td colspan="3"></td>
                 <td>No. DO</td>
                 <td style="width: 5mm;">:</td>
                 <td>{{$plans[0]->no_do}}</td>
@@ -38,6 +37,7 @@ $plans = $header->plans()->orderBy('model')->get();
                 <td>FAX</td>
                 <td style="width: 5mm;">:</td>
                 <td>46824066</td>
+                <td colspan="3"></td>
                 <td>No. Doc</td>
                 <td style="width: 5mm;">:</td>
                 <td>{{$plans[0]->no}}</td>
@@ -45,12 +45,14 @@ $plans = $header->plans()->orderBy('model')->get();
               <tr>
                 <td colspan="2">Jakarta</td>
                 <td>13920</td>
+                <td colspan="3"></td>
                 <td>Date</td>
                 <td style="width: 5mm;">:</td>
                 <td>{{$header->date}}</td>
               </tr>
               <tr>
                 <td colspan="3">INDONESIA</td>
+                <td colspan="3"></td>
                 <td>No. App</td>
                 <td style="width: 5mm;">:</td>
                 <td>{{$header->no_document}}</td>
@@ -98,13 +100,13 @@ $plans = $header->plans()->orderBy('model')->get();
           <td>
             <table width="100%" style="font-family: Arial; font-size: 8pt; border-collapse: collapse;">
               <tr>
-                <td style="text-align: center; border: 1pt solid #000000;">NO</td>
-                <td style="text-align: center; border: 1pt solid #000000;">MODEL</td>
-                <td style="text-align: center; border: 1pt solid #000000;">DESCRIPTION</td>
-                <td style="text-align: center; border: 1pt solid #000000;">NO. SERI</td>
-                <td style="text-align: center; border: 1pt solid #000000;">QTY</td>
-                <td style="text-align: center; border: 1pt solid #000000;">CBM</td>
-                <td style="text-align: center; border: 1pt solid #000000;">KETERANGAN</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">NO</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">MODEL</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">DESCRIPTION</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">NO. SERI</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">QTY</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">CBM</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">KETERANGAN</td>
               </tr>
               @php
               $total_qty = 0;
@@ -116,20 +118,20 @@ $plans = $header->plans()->orderBy('model')->get();
               $total_cbm += $vPlan->cbm;
               @endphp
               <tr>
-                <td style="border: 1pt solid #000000; text-align: center;">{{$kPlan + 1}}</td>
-                <td style="border: 1pt solid #000000;">{{$vPlan->model}}</td>
-                <td style="border: 1pt solid #000000;">{{$vPlan->description}}</td>
-                <td style="border: 1pt solid #000000;">(TERLAMPIR)</td>
-                <td style="border: 1pt solid #000000; text-align: center;">{{$vPlan->qty}}</td>
-                <td style="border: 1pt solid #000000; text-align: center;">{{$vPlan->cbm}}</td>
-                <td style="border: 1pt solid #000000;">{{$vPlan->remark}}</td>
+                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$kPlan + 1}}</td>
+                <td style="border: 1pt solid #000000; padding: 2pt;">{{$vPlan->model}}</td>
+                <td style="border: 1pt solid #000000; padding: 2pt;">{{$vPlan->description}}</td>
+                <td style="border: 1pt solid #000000; padding: 2pt;">(TERLAMPIR)</td>
+                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$vPlan->qty}}</td>
+                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$vPlan->cbm}}</td>
+                <td style="border: 1pt solid #000000; padding: 2pt;">{{$vPlan->remark}}</td>
               </tr>
               @endforeach
               <tr>
                 <td colspan="3" style="border: 1pt solid #000000;"></td>
-                <td style="border: 1pt solid #000000; text-align: center;">TOTAL</td>
-                <td style="text-align: center; border: 1pt solid #000000;">{{$total_qty}}</td>
-                <td style="text-align: center; border: 1pt solid #000000;">{{$total_cbm}}</td>
+                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">TOTAL</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">{{$total_qty}}</td>
+                <td style="text-align: center; border: 1pt solid #000000; padding: 2pt;">{{$total_cbm}}</td>
                 <td style="border: 1pt solid #000000;"></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
@@ -143,36 +145,36 @@ $plans = $header->plans()->orderBy('model')->get();
           <td>
             <table width="100%" style="font-family: Arial; font-size: 8pt;">
               <tr>
-                <td colspan="7">DARI :</td>
+                <td colspan="7" style="padding: 2pt;">DARI :</td>
               </tr>
               <tr>
-                <td>SHIP TO</td>
-                <td>:</td>
-                <td>{{$vPlan->costumer_name}}</td>
-                <td>{{$vPlan->costumer_code}}</td>
+                <td style="padding: 2pt;">SHIP TO</td>
+                <td style="padding: 2pt;">:</td>
+                <td style="padding: 2pt;">{{$vPlan->costumer_name}}</td>
+                <td style="padding: 2pt;">{{$vPlan->costumer_code}}</td>
               </tr>
               <tr>
-                <td>TEMPAT</td>
-                <td>:</td>
-                <td>{{$vPlan->location}}</td>
+                <td style="padding: 2pt;">TEMPAT</td>
+                <td style="padding: 2pt;">:</td>
+                <td style="padding: 2pt;">{{$vPlan->location}}</td>
               </tr>
               <tr>
-                <td>DOKUMEN</td>
-                <td>:</td>
-                <td>{{$vPlan->document}}</td>
+                <td style="padding: 2pt;">DOKUMEN</td>
+                <td style="padding: 2pt;">:</td>
+                <td style="padding: 2pt;">{{$vPlan->document}}</td>
               </tr>
               <tr>
-                <td>WAKTU</td>
-                <td>:</td>
-                <td>{{$vPlan->return_date != '0000-00-00' ? $vPlan->return_date : ''}}</td>
+                <td style="padding: 2pt;">WAKTU</td>
+                <td style="padding: 2pt;">:</td>
+                <td style="padding: 2pt;">{{$vPlan->return_date != '0000-00-00' ? $vPlan->return_date : ''}}</td>
               </tr>
               <tr>
-                <td colspan="7">ATAS PERHATIAN DAN KERJASAMANYA KAMI UCAPKAN TERIMA KASIH.</td>
+                <td colspan="7" style="padding: 2pt;">ATAS PERHATIAN DAN KERJASAMANYA KAMI UCAPKAN TERIMA KASIH.</td>
               </tr>
               <tr>
-                <td>Remarks</td>
-                <td>:</td>
-                <td>{{$vPlan->remark}}</td>
+                <td style="padding: 2pt;">Remarks</td>
+                <td style="padding: 2pt;">:</td>
+                <td style="padding: 2pt;">{{$vPlan->remark}}</td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>

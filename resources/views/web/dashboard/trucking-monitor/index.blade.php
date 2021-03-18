@@ -348,7 +348,7 @@
                     row += '<td>' + setDecimal(val.total_cbm) + '</td>';
                     row += '<td>' + val.destination_name + '</td>';
                     row += '<td>' + val.expedition_name + '</td>';
-                    row += '<td>' + moment(val.created_at).format('HH:mm:ss') + '</td>';
+                    row += '<td>' + moment(val.created_at).format('YYYY-MM-DD') + '</td>';
                     row += '</tr>';
                 });
 
