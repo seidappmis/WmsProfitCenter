@@ -240,11 +240,11 @@
                 type: 'POST',
                 dataType: 'json',
               })
-              .done(function() {
+              .done(function(dt) {
                 showSwalAutoClose("Success", "Incoming with Arrival No. " + data.arrival_no + " has been submited to inventory.")
                 table.ajax.reload(null, false);  // (null, false) => user paging is not reset on reload
               })
-              .fail(function() {
+              .fail(function(dt) {
                 console.log("error");
               });
             }

@@ -103,7 +103,7 @@ class IncomingImportOEMController extends Controller
       // Type 101 Action INCREASE
       $mvt_master_id               = 3;
       $movement_transaction_type   = MovementTransactionType::find($mvt_master_id);
-      $rs_movement_transaction_log = [];
+      //$rs_movement_transaction_log = [];
 
       $date_now = date('Y-m-d H:i:s');
 
@@ -147,10 +147,14 @@ class IncomingImportOEMController extends Controller
         $movement_transaction_log['flow_id']               = '';
         $movement_transaction_log['kode_cabang']           = auth()->user()->cabang->kode_cabang;
 
-        $rs_movement_transaction_log[] = $movement_transaction_log;
+        //$rs_movement_transaction_log[] = $movement_transaction_log;
+		if(! MovementTransactionLog::where('arrival_no', $incomingManualHeader->arrival_no)->where('model', $v_detail->model)->exists()){
+			MovementTransactionLog::insert($movement_transaction_log);
+		}
       }
 
-      MovementTransactionLog::insert($rs_movement_transaction_log);
+      //MovementTransactionLog::insert($rs_movement_transaction_log);
+	  //MovementTransactionLog::upsert($rs_movement_transaction_log, ['arrival_no'], array_keys($rs_movement_transaction_log[0]));
 
       $incomingManualHeader->save();
 
