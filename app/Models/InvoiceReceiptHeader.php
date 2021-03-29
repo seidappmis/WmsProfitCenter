@@ -17,7 +17,7 @@ class InvoiceReceiptHeader extends Model
 
   public function details()
   {
-    return $this->hasMany('App\Models\InvoiceReceiptDetail', 'id_header');
+    return $this->hasMany('App\Models\InvoiceReceiptDetail', 'id_header')->orderBy('delivery_no');
   }
 
   public function getAmountInvoice()
