@@ -251,19 +251,19 @@
 						@if($kdo != 0)
 							<tr>
 								<td style="text-align: center; vertical-align: top; font-size: 5pt;border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm; padding: 2pt;">&nbsp;</td>
-								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
-								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm">&nbsp;</td>
+								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td colspan="2" style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
+								<td style="border-left: 1pt solid black; border-right: 1pt solid black; width: 1.5cm;">&nbsp;</td>
 
-								<td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 5pt;border: 1pt solid black; padding: 2pt;">
+								<td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 5pt; border: 1pt solid black; padding: 2pt;">
 									{{ $do[$kdo]['no_do_sap'] }}
 								</td>
 								<td rowspan="{{ count($do[$kdo]['models']) }}" style="text-align: left; font-size: 5pt;border: 1pt solid black; padding: 2pt;">

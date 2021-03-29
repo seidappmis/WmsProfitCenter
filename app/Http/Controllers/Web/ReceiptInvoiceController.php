@@ -548,11 +548,10 @@ class ReceiptInvoiceController extends Controller
     // return;
 
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
-	$split_view = str_split($view_print, 100000);
+	$split_view = str_split($view_print, 800000);
     $title      = 'receipt_invoice';
 
     if ($request->input('filetype') == 'html') {
-
       // request HTML View
       // return $view_print;
       // REQUEST PDF
@@ -566,13 +565,12 @@ class ReceiptInvoiceController extends Controller
         'orientation'   => 'L',
       ]);
 
-      $mpdf->shrink_tables_to_fit = 1;
+      $mpdf->shrink_tables_to_fit = 0; //1;
 	  $mpdf->setAutoBottomMargin = 'stretch';
-
 		if(count($split_view) > 1){
 			$max_key = max(array_keys($split_view));
 			foreach ($split_view as $key => $value) {
-				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, $key === 0, $key >= $max_key);
+				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::DEFAULT_MODE, $key == 0, $key >= $max_key);
 			}
 		}else{
 			$mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
