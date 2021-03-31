@@ -33,7 +33,8 @@ class PickingListController extends Controller
         'wms_pickinglist_header.city_name',
         'wms_pickinglist_header.expedition_name',
         'wms_pickinglist_header.storage_type',
-        DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
+        'wms_pickinglist_header.picking_no',
+        // DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
       )
         ->whereNull('wms_pickinglist_header.deleted_at')
         ->groupBy('wms_pickinglist_header.driver_register_id');
@@ -272,7 +273,7 @@ class PickingListController extends Controller
           ConceptFlowDetail::where('invoice_no', $value->invoice_no)
             ->where('line_no', $value->line_no)
             ->delete();
-            
+
           $conceptFlowDetail = new ConceptFlowDetail;
 
           $conceptFlowDetail->id_header      = $idConceptFlowHeader;
