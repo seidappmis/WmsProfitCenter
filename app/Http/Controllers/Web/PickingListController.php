@@ -55,6 +55,7 @@ class PickingListController extends Controller
       if (empty($request->input('search')['value'])) {
         $query->whereRaw('(wms_lmb_header.driver_register_id IS NULL OR wms_lmb_header.send_manifest = 0)');
       }
+      $query->with(['details', 'lmb_details']);
 
       // if (auth()->user()->cabang->hq) {
       //   // Tampilkan data yang belum ada manifest bila tidak di search
