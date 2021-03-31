@@ -46,6 +46,7 @@
           <th>PICKING NO</th>
           <th>MODEL</th>
           <th>TOTAL SN</th>
+		  <th>KETERANGAN</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -111,6 +112,7 @@
                row += '<td>' + val.picking_no + '</td>';
                row += '<td>' + val.model + '</td>';
                row += '<td>' + val.total_sn + '</td>';
+			   row += '<td>' + val.keterangan + '</td>';
                row += '</tr>';
 
                $('#table-model-not-exist-in-pickinglist tbody').append(row);
