@@ -33,8 +33,11 @@ class PickingListController extends Controller
         'wms_pickinglist_header.city_name',
         'wms_pickinglist_header.expedition_name',
         'wms_pickinglist_header.storage_type',
-        'wms_pickinglist_header.picking_no',
-        // DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
+        // 'wms_pickinglist_header.picking_no',
+        'wms_lmb_header.send_manifest',
+        DB::raw('COUNT(wms_pickinglist_detail.id) AS count_pickinglist_detail'),
+        DB::raw('COUNT(wms_lmb_detail.serial_number) AS count_lmb_detail'),
+        DB::raw('GROUP_CONCAT(DISTINCT(picking_no) SEPARATOR ",<br>") as picking_no')
       )
         ->whereNull('wms_pickinglist_header.deleted_at')
         ->groupBy('wms_pickinglist_header.driver_register_id');
@@ -51,11 +54,13 @@ class PickingListController extends Controller
       // }
 
       // Tampilkan data yang belum ada manifest bila tidak di search
+      $query->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_detail.header_id', '=', 'wms_pickinglist_header.id');
       $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+      $query->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.picking_no');
       if (empty($request->input('search')['value'])) {
         $query->whereRaw('(wms_lmb_header.driver_register_id IS NULL OR wms_lmb_header.send_manifest = 0)');
       }
-      $query->with(['details', 'lmb_details']);
+      // $query->with(['details', 'lmb_details']);
 
       // if (auth()->user()->cabang->hq) {
       //   // Tampilkan data yang belum ada manifest bila tidak di search
@@ -90,18 +95,19 @@ class PickingListController extends Controller
           return $driver_name;
         })
         ->addColumn('do_status', function ($data) {
-          return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
+          return $data->count_pickinglist_detail > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
         })
         ->addColumn('lmb', function ($data) {
-          $lmb = $data->lmb_details->count() > 0 ? "Loading Process" : '-';
-          if (!empty($data->lmb_header) && $data->lmb_header->send_manifest) {
+          $lmb = $data->count_lmb_detail > 0 ? "Loading Process" : '-';
+          // if (!empty($data->lmb_header) && $data->lmb_header->send_manifest) {
+          if ($data->send_manifest) {
             $lmb = 'LMB Send Manifest';
           }
           return $lmb;
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          if ($data->lmb_details->count() == 0) {
+          if ($data->count_lmb_detail == 0) {
             $action .= ' ' . get_button_edit(url('picking-list/' . $data->id . '/edit'));
             $action .= ' ' . get_button_delete('Cancel');
           } else {
