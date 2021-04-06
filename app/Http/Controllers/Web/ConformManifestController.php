@@ -33,8 +33,7 @@ class ConformManifestController extends Controller
         ->whereIn('log_manifest_detail.kode_cabang', auth()->user()->getStringGrantCabang())
         ->groupBy('log_manifest_header.do_manifest_no')
         ->where('log_manifest_header.status_complete', 1)
-        ->where('log_manifest_detail.status_confirm', 0)
-      ;
+        ->where('log_manifest_detail.status_confirm', 0);
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -75,8 +74,7 @@ class ConformManifestController extends Controller
         ->whereNotNull('wms_branch_manifest_detail.do_manifest_no')
         ->whereIn('wms_branch_manifest_detail.kode_cabang', auth()->user()->getStringGrantCabang())
         ->where('wms_branch_manifest_header.status_complete', 1)
-        ->groupBy('wms_branch_manifest_detail.do_manifest_no')
-      ;
+        ->groupBy('wms_branch_manifest_detail.do_manifest_no');
 
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -179,6 +177,11 @@ class ConformManifestController extends Controller
             continue;
           }
 
+          // Skip bila upload manual atau return
+          if ($manifesDetail->tcs == 0 and $request->input('type_conform') == 'HQ') {
+            continue;
+          }
+
           $manifesDetail->status_confirm      = 1;
           $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
           $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
@@ -237,7 +240,6 @@ class ConformManifestController extends Controller
               $movement_transaction_log['created_by']            = auth()->user()->id;
 
               $rs_movement_transaction_log[] = $movement_transaction_log;
-
             } // END OF CODE SALES BRANCH
 
             InventoryStorage::updateOrCreate(
@@ -274,7 +276,6 @@ class ConformManifestController extends Controller
 
             $rs_movement_transaction_log[] = $movement_transaction_log;
           }
-
         }
 
         if (!empty($rs_movement_transaction_log)) {
@@ -284,10 +285,8 @@ class ConformManifestController extends Controller
 
       DB::commit();
       return sendSuccess('Success', $manifestHeader);
-
     } catch (Exception $e) {
       DB::rollBack();
     }
   }
-
 }
