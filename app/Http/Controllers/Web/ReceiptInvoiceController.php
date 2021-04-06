@@ -98,7 +98,7 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->invoice_receipt_date = date('Y-m-d', strtotime(str_replace('/', '-', '01/' . $request->input('invoice_receipt_date'))));
 
     $rsInvoiceReceiptDetail = $this->getPostManifestDetailData($request, $invoiceReceiptHeader);
-	
+
     try {
       DB::beginTransaction();
 
@@ -146,7 +146,8 @@ class ReceiptInvoiceController extends Controller
     return $rsInvoiceManifestDetail;
   }
 
-  public function updateManifestRitase(Request $request, $id, $do_manifest_no){
+  public function updateManifestRitase(Request $request, $id, $do_manifest_no)
+  {
     $details = InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->get();
 
     if (empty($details)) {
@@ -197,22 +198,25 @@ class ReceiptInvoiceController extends Controller
       DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
       DB::raw('log_manifest_header.city_code AS city_code_header'),
       DB::raw('log_manifest_header.city_name AS city_name_header'),
-	  'log_freight_cost.cbm as cbm_master'
+      'log_freight_cost.cbm as cbm_master'
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
-	  ->leftjoin('log_freight_cost', function($join) use ($invoiceReceiptHeader) {
-		  $join->on('log_freight_cost.area', '=', 'log_manifest_detail.area');
-		  $join->on(
-			  DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'), 
-			  DB::raw('='), 
-			  DB::raw('log_manifest_header.city_code)')
-			);
-		  $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
-		  $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
-	  })
+      ->leftjoin('log_freight_cost', function ($join) use ($invoiceReceiptHeader) {
+        $join->on('log_freight_cost.area', '=', 'log_manifest_detail.area');
+        $join->on(
+          // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'),
+          // DB::raw('='),
+          // DB::raw('log_manifest_header.city_code)')
+          DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
+          DB::raw('='),
+          DB::raw('log_manifest_header.city_code))')
+        );
+        $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
+        $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
+      })
       ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
-      ->groupBy(['do_manifest_no', 'delivery_no'])
+      ->groupBy(['do_manifest_no', 'delivery_no', 'model'])
       ->get();
 
     $rs_manifest = [];
@@ -253,8 +257,8 @@ class ReceiptInvoiceController extends Controller
         //$invoiceManifestDetail['cbm_amount']          = $value->nilai_cbm;
         $invoiceManifestDetail['freight_cost_cbm']    = 1;
         //$invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
-		$invoiceManifestDetail['freight_cost']        = $value->cbm_master;
-		$invoiceManifestDetail['cbm_amount']          = $invoiceManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
+        $invoiceManifestDetail['freight_cost']        = $value->cbm_master;
+        $invoiceManifestDetail['cbm_amount']          = $invoiceManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
         $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['code_sales']          = $value->code_sales;
@@ -266,7 +270,7 @@ class ReceiptInvoiceController extends Controller
         $invoiceManifestDetail['region']              = $value->region;
         $invoiceManifestDetail['area']                = $value->area;
         $invoiceManifestDetail['acc_code']            = date('My', strtotime($value->do_manifest_date)) . '-' . $value->short_description_cabang . '-' . $value->code_sales;
-  
+
         $rsInvoiceReceiptDetail[] = $invoiceManifestDetail;
       }
     }
@@ -297,9 +301,9 @@ class ReceiptInvoiceController extends Controller
         DB::raw('SUM(unloading_amount) AS unloading_amount'),
         DB::raw('SUM(overstay_amount) AS overstay_amount'),
         DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do'),
-		//'log_freight_cost.cbm as cbm_master'
+        //'log_freight_cost.cbm as cbm_master'
       )
-	  /*
+        /*
 	  ->leftjoin('log_freight_cost', function($join) use ($invoiceReceiptHeader){
 		  $join->on('log_freight_cost.')
 	  })
@@ -430,7 +434,8 @@ class ReceiptInvoiceController extends Controller
     return sendSuccess("Update PPN success.", $invoiceReceiptHeader);
   }
 
-  public function updateRemarks(Request $request, $id){
+  public function updateRemarks(Request $request, $id)
+  {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
     $invoiceReceiptHeader->remarks       = $request->input('remarks');
@@ -444,8 +449,8 @@ class ReceiptInvoiceController extends Controller
   {
     $invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
 
-	//$max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where YEAR(invoice_receipt_date) = ? AND MONTH(invoice_receipt_date) = ?', [date('Y'), date('m')])[0]->max_no;
-	$max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) as max_no FROM log_invoice_receipt_header WHERE RIGHT(invoice_receipt_no, 2) = ? AND SUBSTRING_INDEX(SUBSTRING_INDEX(invoice_receipt_no, "/", 2), "/", -1) = ?', [date('y'), getRomawi(date('m'))])[0]->max_no;
+    //$max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) AS max_no FROM log_invoice_receipt_header where YEAR(invoice_receipt_date) = ? AND MONTH(invoice_receipt_date) = ?', [date('Y'), date('m')])[0]->max_no;
+    $max_no = DB::select('SELECT MAX(SUBSTR(invoice_receipt_no, 1, 3)) as max_no FROM log_invoice_receipt_header WHERE RIGHT(invoice_receipt_no, 2) = ? AND SUBSTRING_INDEX(SUBSTRING_INDEX(invoice_receipt_no, "/", 2), "/", -1) = ?', [date('y'), getRomawi(date('m'))])[0]->max_no;
 
     $max_no = str_pad($max_no + 1, 3, 0, STR_PAD_LEFT);
 
@@ -548,7 +553,7 @@ class ReceiptInvoiceController extends Controller
     // return;
 
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
-	$split_view = str_split($view_print, 800000);
+    $split_view = str_split($view_print, 800000);
     $title      = 'receipt_invoice';
 
     if ($request->input('filetype') == 'html') {
@@ -566,15 +571,15 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 0; //1;
-	  $mpdf->setAutoBottomMargin = 'stretch';
-		if(count($split_view) > 1){
-			$max_key = max(array_keys($split_view));
-			foreach ($split_view as $key => $value) {
-				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::DEFAULT_MODE, $key == 0, $key >= $max_key);
-			}
-		}else{
-			$mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
-		}
+      $mpdf->setAutoBottomMargin = 'stretch';
+      if (count($split_view) > 1) {
+        $max_key = max(array_keys($split_view));
+        foreach ($split_view as $key => $value) {
+          $mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::DEFAULT_MODE, $key == 0, $key >= $max_key);
+        }
+      } else {
+        $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+      }
 
       $mpdf->Output();
       return;
@@ -636,15 +641,15 @@ class ReceiptInvoiceController extends Controller
       ]);
 
       $mpdf->shrink_tables_to_fit = 1;
-	  $mpdf->setAutoBottomMargin = 'stretch';
-		if(count($split_view) > 1){
-			$max_key = max(array_keys($split_view));
-			foreach ($split_view as $key => $value) {
-				$mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, $key === 0, $key >= $max_key);
-			}
-		}else{
-			$mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
-		}
+      $mpdf->setAutoBottomMargin = 'stretch';
+      if (count($split_view) > 1) {
+        $max_key = max(array_keys($split_view));
+        foreach ($split_view as $key => $value) {
+          $mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, $key === 0, $key >= $max_key);
+        }
+      } else {
+        $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+      }
       $mpdf->Output($title . '.pdf', "D");
     } else {
       // Parameter filetype tidak valid / tidak ditemukan return 404
