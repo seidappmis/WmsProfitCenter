@@ -525,6 +525,10 @@ class PickingToLMBController extends Controller
 					'created_by'    => auth()->user()->id,
 				];
 
+				if (!empty(strpos($serial_number['serial_number'], '%'))) {
+					return sendError("Serial number can't use symbol. Ean " .  $serial_number['ean_code'] . " Serial Number " . $serial_number['serial_number']);
+				}
+
 				if (empty($rs_models[$serial_number['ean_code']])) {
 					$model = MasterModel::where('ean_code', $serial_number['ean_code'])->first();
 					if (empty($model)) {
@@ -675,8 +679,10 @@ class PickingToLMBController extends Controller
 
 				// return $scan_summaries;
 
-				if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] 
-				&& !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])) {
+				if (
+					$scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan']
+					&& !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])
+				) {
 					$serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
 					$serial_number['delivery_no']    = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no[0];
 					$serial_number['invoice_no']     = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no[0];
