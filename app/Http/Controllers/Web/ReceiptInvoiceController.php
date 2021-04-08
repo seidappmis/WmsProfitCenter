@@ -198,7 +198,8 @@ class ReceiptInvoiceController extends Controller
       DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
       DB::raw('log_manifest_header.city_code AS city_code_header'),
       DB::raw('log_manifest_header.city_name AS city_name_header'),
-      'log_freight_cost.cbm as cbm_master'
+      'log_freight_cost.cbm as cbm_master',
+      'log_freight_cost.ritase as ritase_master'
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
@@ -259,7 +260,7 @@ class ReceiptInvoiceController extends Controller
         //$invoiceManifestDetail['freight_cost']        = $invoiceManifestDetail['cbm_amount'] / $value->cbm_do;
         $invoiceManifestDetail['freight_cost']        = $value->cbm_master;
         $invoiceManifestDetail['cbm_amount']          = $invoiceManifestDetail['freight_cost'] * $invoiceManifestDetail['cbm_do'];
-        $invoiceManifestDetail['ritase_amount']       = $value->nilai_ritase * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
+        $invoiceManifestDetail['ritase_amount']       = $value->ritase_master * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['ritase2_amount']      = $value->nilai_ritase2 * $value->cbm_do / $rs_cbm_manifest[$value->do_manifest_no];
         $invoiceManifestDetail['code_sales']          = $value->code_sales;
         $invoiceManifestDetail['lead_time']           = 0;
