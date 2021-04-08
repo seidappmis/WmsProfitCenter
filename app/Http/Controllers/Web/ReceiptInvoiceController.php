@@ -217,7 +217,7 @@ class ReceiptInvoiceController extends Controller
         $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
       })
       ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
-      ->groupBy(['do_manifest_no', 'delivery_no', 'model'])
+      ->groupBy(['do_manifest_no', 'delivery_no'])
       ->get();
 
     $rs_manifest = [];
