@@ -177,11 +177,6 @@ class ConformManifestController extends Controller
             continue;
           }
 
-          // Skip bila upload manual atau return
-          if ($manifesDetail->tcs == 0 and $request->input('type_conform') == 'HQ') {
-            continue;
-          }
-
           $manifesDetail->status_confirm      = 1;
           $manifesDetail->confirm_date        = date('Y-m-d H:i:s');
           $manifesDetail->actual_time_arrival = date('Y-m-d H:i:s', strtotime($request->input('arrival_date')));
@@ -198,6 +193,11 @@ class ConformManifestController extends Controller
           if (empty($rs_model[$manifesDetail->model])) {
             $model                           = MasterModel::where('model_name', $manifesDetail->model)->first();
             $rs_model[$manifesDetail->model] = $model;
+          }
+
+          // Skip bila upload manual atau return
+          if ($manifesDetail->tcs == 0 and $request->input('type_conform') == 'HQ') {
+            continue;
           }
 
           // yang bukan return
