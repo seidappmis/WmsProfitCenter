@@ -70,22 +70,30 @@
       <td style="text-align: center;vertical-align: text-top;" class="border">
         CONTAINER DATANG
         <br>
-        <img class="materialboxed" width="25%" src="{{$berita_acara->photo_container_came != '' ? asset('storage'). '/'. $berita_acara->photo_container_came : ''}}">
+		@if (($berita_acara->photo_container_came != '') && (! is_null($berita_acara->photo_container_came)))
+        <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_container_came}}">
+		@endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
         SEAL NO
         <br>
-        <img class="materialboxed" width="25%" src="{{$berita_acara->photo_seal_no != '' ? asset('storage'). '/'. $berita_acara->photo_seal_no : ''}}">
+		@if((! is_null($berita_acara->photo_seal_no)) && ($berita_acara->photo_seal_no != ''))
+        <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_seal_no}}">
+		@endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
         LOADING
         <br>
-        <img class="materialboxed" width="25%" src="{{$berita_acara->photo_loading != '' ? asset('storage'). '/'. $berita_acara->photo_loading : ''}}">
+		@if ((! is_null($berita_acara->photo_loading)) && ($berita_acara->photo_loading != ''))
+        <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_loading}}">
+		@endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
         CONTAINER SESUDAH UNLOADING
         <br>
-        <img class="materialboxed" width="25%" src="{{$berita_acara->photo_container_loading != '' ? asset('storage'). '/'. $berita_acara->photo_container_loading : ''}}">
+		@if ((! is_null($berita_acara->photo_container_loading)) && ($berita_acara->photo_container_loading != ''))
+        <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $berita_acara->photo_container_loading}}">
+		@endif
       </td>
     </tr>
 
@@ -104,12 +112,16 @@
       <td style="text-align: center;vertical-align: text-top;" class="border">
         {{$v['model_name']}}
         <br>
+		@if(Storage::disk('public')->exists($v['photo_damage']))
         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $v['photo_damage']}}">
+		@endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border">
         {{$v['serial_number']}}
         <br>
+		@if(Storage::disk('public')->exists($v['photo_serial_number']))
         <img class="materialboxed" width="25%" src="{{asset('storage'). '/'. $v['photo_serial_number']}}">
+		@endif
       </td>
       @empty
       @endforelse
