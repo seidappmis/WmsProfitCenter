@@ -105,7 +105,7 @@
          <br>
          <br>
 		 @if(Storage::disk('public')->exists($v['photo_damage']))
-         <?php //<img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_damage']}}">?>
+         <img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_damage']}}">?>
 		 @endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
@@ -113,7 +113,7 @@
          <br>
          <br>
 		 @if(Storage::disk('public')->exists($v['photo_serial_number']))
-         <?php //<img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_serial_number']}}"> ?>
+         <img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_serial_number']}}">
 		 @endif
       </td>
       @empty
