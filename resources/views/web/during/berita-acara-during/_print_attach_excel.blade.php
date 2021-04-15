@@ -57,7 +57,7 @@
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          CONTAINER DATANG
          <br>
-		 @if((! is_null($berita_acara->photo_container_came)) && ($berita_acara->photo_container_came != ''))
+		 @if((! is_null($berita_acara->photo_container_came)) && ($berita_acara->photo_container_came != '') && Storage::disk('public')->exists($berita_acara->photo_container_came))
          <img class="materialboxed" width="200px" src="{{'storage/' . $berita_acara->photo_container_came}}">
 		 @endif
       </td>
@@ -65,7 +65,7 @@
          SEAL NO
          <br>
          <br>
-		 @if((! is_null($berita_acara->photo_seal_no)) && ($berita_acara->photo_seal_no != ''))
+		 @if((! is_null($berita_acara->photo_seal_no)) && ($berita_acara->photo_seal_no != '') && Storage::disk('public')->exists($berita_acara->photo_seal_no))
          <img class="materialboxed" width="200px" src="{{asset('storage') . '/' . $berita_acara->photo_seal_no}}">
 		 @endif
       </td>
@@ -73,7 +73,7 @@
          LOADING
          <br>
          <br>
-		 @if((! is_null($berita_acara->photo_loading)) && ($berita_acara->photo_loading != ''))
+		 @if((! is_null($berita_acara->photo_loading)) && ($berita_acara->photo_loading != '') && Storage::disk('public')->exists($berita_acara->photo_loading))
          <img class="materialboxed" width="200px" src="{{'storage/' . $berita_acara->photo_loading}}">
 		 @endif
       </td>
@@ -81,7 +81,7 @@
          CONTAINER SESUDAH LOADING
          <br>
          <br>
-		 @if((! is_null($berita_acara->photo_container_loading)) && ($berita_acara->photo_container_loading != ''))
+		 @if((! is_null($berita_acara->photo_container_loading)) && ($berita_acara->photo_container_loading != '') && Storage::disk('public')->exists($berita_acara->photo_container_loading))
          <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_container_loading}}">
 		 @endif
       </td>
