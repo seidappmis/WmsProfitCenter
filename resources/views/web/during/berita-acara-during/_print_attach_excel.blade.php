@@ -15,10 +15,10 @@
       <td>&nbsp;</td>
    </tr>
 	<tr>
-		<td colspan="4" style="width: 120mm;"></td>
-		<td style="width: 35mm;">No. Container</td>
-		<td style="width: 5mm;">:</td>
-		<td colspan="2" style="width: 50mm;">{{!empty($berita_acara->container_no)?$berita_acara->container_no:"-"}}</td>
+		<td colspan="4" style="width: 480px;"></td>
+		<td style="width: 140px;">No. Container</td>
+		<td style="width: 20px;">:</td>
+		<td colspan="2" style="width: 200px;">{{!empty($berita_acara->container_no)?$berita_acara->container_no:"-"}}</td>
 	</tr>
    <tr>
       <td colspan="4"></td>
@@ -52,14 +52,13 @@
       <td>&nbsp;</td>
    </tr>
 </table>
-
 <table width="100%" style="border-collapse: collapse;">
    <tr>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
          CONTAINER DATANG
          <br>
 		 @if((! is_null($berita_acara->photo_container_came)) && ($berita_acara->photo_container_came != ''))
-         <img class="materialboxed" width="200px" src="{{asset('storage'). '/' . $berita_acara->photo_container_came}}">
+         <img class="materialboxed" width="200px" src="{{'storage/' . $berita_acara->photo_container_came}}">
 		 @endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
@@ -75,7 +74,7 @@
          <br>
          <br>
 		 @if((! is_null($berita_acara->photo_loading)) && ($berita_acara->photo_loading != ''))
-         <img class="materialboxed" width="200px" src="{{asset('storage'). '/' . $berita_acara->photo_loading}}">
+         <img class="materialboxed" width="200px" src="{{'storage/' . $berita_acara->photo_loading}}">
 		 @endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
@@ -83,11 +82,10 @@
          <br>
          <br>
 		 @if((! is_null($berita_acara->photo_container_loading)) && ($berita_acara->photo_container_loading != ''))
-         <img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $berita_acara->photo_container_loading}}">
+         <img class="materialboxed" width="200px" src="{{'storage/'. $berita_acara->photo_container_loading}}">
 		 @endif
       </td>
    </tr>
-
    <tr>
       <td colspan="4" style="text-align: center;" class="border">
          &nbsp;
@@ -105,7 +103,7 @@
          <br>
          <br>
 		 @if(Storage::disk('public')->exists($v['photo_damage']))
-         <img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_damage']}}">?>
+         <img class="materialboxed" width="200px" src="{{'storage/'. $v['photo_damage']}}">?>
 		 @endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
@@ -113,7 +111,7 @@
          <br>
          <br>
 		 @if(Storage::disk('public')->exists($v['photo_serial_number']))
-         <img class="materialboxed" width="200px" src="{{asset('storage'). '/'. $v['photo_serial_number']}}">
+         <img class="materialboxed" width="200px" src="{{'storage/'. $v['photo_serial_number']}}">
 		 @endif
       </td>
       @empty
