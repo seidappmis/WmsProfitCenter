@@ -21,7 +21,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('berita-acara/{berita_acara_id}/print-detail', 'Web\BeritaAcaraController@exportDetail'); //proses cetak berita acara detail
 
   // Claim Notes
-  Route::delete('claim-notes/{id}', 'Web\ClaimNoteController@destroy'); //page detail berita acara
   Route::put('claim-notes/{id}/submit', 'Web\ClaimNoteController@submit');
   Route::get('claim-notes/{id}/export', 'Web\ClaimNoteController@export');
   Route::get('claim-notes/{id}/detail/{detail_id}/export', 'Web\ClaimNoteController@exportDetail');
@@ -31,6 +30,8 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-notes/unit', 'Web\ClaimNoteController@listUnit');
   Route::get('claim-notes/list-outstanding', 'Web\ClaimNoteController@listOutstanding'); //get datatable outstanding
   Route::delete('claim-notes/delete-outstanding/{id}', 'Web\ClaimNoteController@destroyOutstanding'); //delete outstanding item
+  Route::delete('claim-notes/delete-multiple-outstandings', 'Web\ClaimNoteController@destroyMultipleOutstanding'); //delete outstanding item
+  Route::delete('claim-notes/{id}', 'Web\ClaimNoteController@destroy'); //page detail berita acara
   Route::get('claim-notes/create-carton-box', 'Web\ClaimNoteController@createCartonBox');
   Route::get('claim-notes/create-unit', 'Web\ClaimNoteController@createUnit');
   Route::get('claim-notes/{id}', 'Web\ClaimNoteController@show'); //detail claim notes
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('claim-insurance/{id}/export', 'Web\ClaimInsuranceController@exportRPT');
   Route::put('claim-insurance/{id}/submit', 'Web\ClaimInsuranceController@submit');
   Route::delete('claim-insurance/outstanding/{id}', 'Web\ClaimInsuranceController@destroyOutstanding');
+  Route::delete('claim-insurance/delete-multiple-outstandings', 'Web\ClaimInsuranceController@destroyMultipleOutstanding');
   Route::delete('claim-insurance/{id}', 'Web\ClaimInsuranceController@prosesDelete');
   Route::get('claim-insurance/{id}/detail/{detail_id}/export', 'Web\ClaimInsuranceController@exportDetail');
   Route::get('claim-insurance', 'Web\ClaimInsuranceController@index');

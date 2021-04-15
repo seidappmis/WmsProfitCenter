@@ -154,9 +154,19 @@ class ReceiptInvoiceController extends Controller
       return sendError('Manifest Not found');
     }
 
-    InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->update([
-      'ritase_amount' => $request->input('ritase_amount') / count($details)
-    ]);
+    $total_cbm_manifest = 0;
+    foreach ($details as $key => $value) {
+      $total_cbm_manifest += $value->cbm_do;
+    }
+
+    foreach ($details as $key => $value) {
+      $value->ritase_amount = $value->cbm_do * $request->input('ritase_amount') / $total_cbm_manifest;
+      $value->save();
+    }
+
+    // InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->update([
+    //   'ritase_amount' => $request->input('ritase_amount') / count($details)
+    // ]);
 
     return sendSuccess('Ritase Updated!', $details);
   }
@@ -188,6 +198,7 @@ class ReceiptInvoiceController extends Controller
       'log_manifest_header.vehicle_code_type',
       'log_manifest_header.vehicle_number',
       'log_manifest_header.vehicle_description',
+      'log_manifest_header.manifest_type',
       'log_manifest_header.driver_name',
       DB::raw('SUM(log_manifest_detail.quantity) AS quantity'),
       DB::raw('SUM(log_manifest_detail.cbm) AS cbm_do'),
@@ -204,14 +215,17 @@ class ReceiptInvoiceController extends Controller
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
       ->leftjoin('log_freight_cost', function ($join) use ($invoiceReceiptHeader) {
-        $join->on('log_freight_cost.area', '=', 'log_manifest_detail.area');
+        $join->on('log_freight_cost.area', '=', 'log_manifest_header.area');
         $join->on(
           // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'),
           // DB::raw('='),
           // DB::raw('log_manifest_header.city_code)')
-          DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
+          DB::raw('IF(log_manifest_header.manifest_type = "LCL",  log_freight_cost.city_code = log_manifest_header.city_code, log_freight_cost.city_code'),
           DB::raw('='),
-          DB::raw('log_manifest_header.city_code))')
+          DB::raw('log_manifest_detail.city_code)')
+          // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
+          // DB::raw('='),
+          // DB::raw('log_manifest_header.city_code))')
         );
         $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
         $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
@@ -219,6 +233,8 @@ class ReceiptInvoiceController extends Controller
       ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
       ->groupBy(['do_manifest_no', 'delivery_no'])
       ->get();
+
+    // print_r($rs_manifest_detail);
 
     $rs_manifest = [];
     $rs_cbm_manifest = [];
@@ -233,6 +249,9 @@ class ReceiptInvoiceController extends Controller
     $rsInvoiceReceiptDetail = [];
     foreach ($rs_manifest as $key => $vManifest) {
       foreach ($vManifest as $key => $value) {
+        // if ($value->delivery_no == '2101759660L1' or $value->delivery_no ==  'TLG-210226-SBY001L1') {
+        //   print_r($value);
+        // }
         $invoiceManifestDetail['id_header']           = $invoiceReceiptHeader->id;
         $invoiceManifestDetail['delivery_no']         = $value->delivery_no;
         $invoiceManifestDetail['do_manifest_no']      = $value->do_manifest_no;
@@ -249,8 +268,13 @@ class ReceiptInvoiceController extends Controller
         $invoiceManifestDetail['ship_to']             = $value->ship_to;
         $invoiceManifestDetail['quantity']            = $value->quantity;
         $invoiceManifestDetail['ship_to_code']        = $value->ship_to_code;
-        $invoiceManifestDetail['city_code']           = $value->city_code;
-        $invoiceManifestDetail['city_name']           = $value->city_name;
+        if ($value->manifest_type == 'LCL') {
+          $invoiceManifestDetail['city_code']           = $value->city_code_header;
+          $invoiceManifestDetail['city_name']           = $value->city_name_header;
+        } else {
+          $invoiceManifestDetail['city_code']           = $value->city_code;
+          $invoiceManifestDetail['city_name']           = $value->city_name;
+        }
         $invoiceManifestDetail['city_code_header']    = $value->city_code_header;
         $invoiceManifestDetail['city_name_header']    = $value->city_name_header;
         $invoiceManifestDetail['cbm_vehicle']         = $value->cbm_vehicle;

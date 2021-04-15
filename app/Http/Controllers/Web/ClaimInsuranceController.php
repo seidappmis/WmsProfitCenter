@@ -319,12 +319,31 @@ class ClaimInsuranceController extends Controller
     //
   }
 
-  public function destroyOutstanding($id){
+  public function destroyOutstanding($id)
+  {
     $detail = BeritaAcaraDetail::findOrFail($id);
     $detail->deleted_from_outstanding_insurance = 1;
     $detail->save();
 
     return sendSuccess('Deleted from outstanding.', $detail);
+  }
+
+  public function destroyMultipleOutstanding(Request $request)
+  {
+    $selectedOutstandings = json_decode($request->input('data_outstandings'), true);
+    try {
+      DB::beginTransaction();
+      foreach ($selectedOutstandings as $key => $outstanding) {
+        $baDetail = BeritaAcaraDetail::findOrFail($outstanding['id']);
+        $baDetail->deleted_from_outstanding_insurance = 1;
+        $baDetail->save();
+      }
+      DB::commit();
+      return sendSuccess("Success delete selected outstanding.", $selectedOutstandings);
+    } catch (\Throwable $e) {
+      DB::rollBack();
+      return sendError($e->getMessage(), [$request->all(), $e]);
+    }
   }
 
   /**

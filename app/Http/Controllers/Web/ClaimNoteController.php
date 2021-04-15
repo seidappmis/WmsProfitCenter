@@ -43,6 +43,7 @@ class ClaimNoteController extends Controller
         ->leftJoin('clm_claim_note_detail', 'clm_claim_note_detail.berita_acara_detail_id', '=', 'clm_berita_acara_detail.id')
         ->whereNotNull('clm_berita_acara.submit_date')
         ->whereNull('clm_claim_note_detail.id')
+        ->where('clm_berita_acara_detail.deleted_from_outstanding_claim_notes', 0)
         // ->whereNull('claim_note_detail_id')
         ->orderBy('created_at', 'DESC')
         ->get();
@@ -473,15 +474,35 @@ class ClaimNoteController extends Controller
    * 
    * @param mixed $id
    */
-  public function destroyOutstanding($id){
-	  //return BeritaAcaraDetail::destroy($id);
-	  try {
-		  $baDetail = BeritaAcaraDetail::findOrFail($id);
-		  $baDetail->delete();
-		  return sendSuccess("Outstanding detail berhasil dihapus.", $baDetail);
-	  } catch (Exception $e) {
-		  return sendError($e->getMessage(), [$id, $e]);
-	  }
+  public function destroyOutstanding($id)
+  {
+    //return BeritaAcaraDetail::destroy($id);
+    try {
+      $baDetail = BeritaAcaraDetail::findOrFail($id);
+      $baDetail->deleted_from_outstanding_claim_notes = 1;
+      $baDetail->save();
+      return sendSuccess("Outstanding detail berhasil dihapus.", $baDetail);
+    } catch (Exception $e) {
+      return sendError($e->getMessage(), [$id, $e]);
+    }
+  }
+
+  public function destroyMultipleOutstanding(Request $request)
+  {
+    $selectedOutstandings = json_decode($request->input('data_outstandings'), true);
+    try {
+      DB::beginTransaction();
+      foreach ($selectedOutstandings as $key => $outstanding) {
+        $baDetail = BeritaAcaraDetail::findOrFail($outstanding['id']);
+        $baDetail->deleted_from_outstanding_claim_notes = 1;
+        $baDetail->save();
+      }
+      DB::commit();
+      return sendSuccess("Success delete selected outstanding.", $selectedOutstandings);
+    } catch (\Throwable $e) {
+      DB::rollBack();
+      return sendError($e->getMessage(), [$request->all(), $e]);
+    }
   }
 
   /**
@@ -649,13 +670,13 @@ class ClaimNoteController extends Controller
       'clm_claim_note_detail.*',
       DB::raw('ba.expedition_name AS expedition_name')
     )->leftJoin('clm_berita_acara_detail AS bad', 'bad.id', '=', 'clm_claim_note_detail.berita_acara_detail_id')
-    ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
-    // ->leftJoin(
-    //   'tr_expedition',
-    //   'tr_expedition.code',
-    //   '=',
-    //   'clm_claim_note_detail.expedition_code'
-    // )
+      ->leftJoin('clm_berita_acara AS ba', 'bad.berita_acara_id', '=', 'ba.id')
+      // ->leftJoin(
+      //   'tr_expedition',
+      //   'tr_expedition.code',
+      //   '=',
+      //   'clm_claim_note_detail.expedition_code'
+      // )
       ->where('clm_claim_note_detail.claim_note_id', $id)
       ->get();
 

@@ -10,9 +10,10 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateRitaseInviceByCBM();
-    $this->updateStockInventory();
-    $this->updateDOManifestDate();
+    $this->updateTable15April2021();
+    // $this->updateRitaseInviceByCBM();
+    // $this->updateStockInventory();
+    // $this->updateDOManifestDate();
     // $this->updateRitaseInvoice();
     // $this->updateBeritaAcaraNo();
     // $this->updateDatabaseBranchManifest();
@@ -45,24 +46,32 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
-  protected function updateRitaseInviceByCBM(){
+  protected function updatetable15April2021()
+  {
+    echo "Update delete from outstanding claim_note<br />";
+    DB::statement("ALTER TABLE `clm_berita_acara_detail` 
+    ADD COLUMN `deleted_from_outstanding_claim_notes` TINYINT(4) NOT NULL DEFAULT '0' AFTER `deleted_from_outstanding_insurance`");
+  }
+
+  protected function updateRitaseInviceByCBM()
+  {
     $details = DB::table('log_invoice_receipt_detail')
-    ->selectRaw(
-      'log_invoice_receipt_detail.*, log_manifest_detail.nilai_ritase AS nilai_ritase'
+      ->selectRaw(
+        'log_invoice_receipt_detail.*, log_manifest_detail.nilai_ritase AS nilai_ritase'
       )
-    ->where('log_invoice_receipt_detail.ritase_amount', '>', 0)
-    ->leftjoin('log_manifest_detail', function($join){
-      $join->on('log_invoice_receipt_detail.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no');
-      $join->on('log_invoice_receipt_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
-    })
-    ->groupBy('log_invoice_receipt_detail.do_manifest_no', 'log_invoice_receipt_detail.delivery_no')
-    ->get();
+      ->where('log_invoice_receipt_detail.ritase_amount', '>', 0)
+      ->leftjoin('log_manifest_detail', function ($join) {
+        $join->on('log_invoice_receipt_detail.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no');
+        $join->on('log_invoice_receipt_detail.delivery_no', '=', 'log_manifest_detail.delivery_no');
+      })
+      ->groupBy('log_invoice_receipt_detail.do_manifest_no', 'log_invoice_receipt_detail.delivery_no')
+      ->get();
 
     // print_r($details); die;
 
     $rsManifest = [];
     $rs_cbm_manifest = [];
-    foreach($details AS $key => $value) {
+    foreach ($details as $key => $value) {
       $rsManifest[$value->do_manifest_no][] = $value;
       if (empty($rs_cbm_manifest[$value->do_manifest_no])) {
         $rs_cbm_manifest[$value->do_manifest_no] = 0;
@@ -70,8 +79,8 @@ class DataSynchronizationController extends Controller
       $rs_cbm_manifest[$value->do_manifest_no] += $value->cbm_do;
     }
 
-    foreach($rsManifest AS $key => $dos){
-      foreach($dos AS $kdo => $vdo){
+    foreach ($rsManifest as $key => $dos) {
+      foreach ($dos as $kdo => $vdo) {
         // if ($vdo->do_manifest_no == 'JKT-210217-005') {
         //   echo '<pre>';
         //   print_r($vdo);
@@ -83,14 +92,14 @@ class DataSynchronizationController extends Controller
         ]);
       }
     }
-
   }
 
 
 
-  protected function updateStockInventory(){
+  protected function updateStockInventory()
+  {
     $data = DB::table('wms_lmb_detail')
-    ->selectRaw('COUNT(wms_lmb_detail.serial_number) AS qty,
+      ->selectRaw('COUNT(wms_lmb_detail.serial_number) AS qty,
       wms_lmb_detail.picking_id, 
       wms_lmb_detail.invoice_no, 
       wms_lmb_detail.delivery_no, 
@@ -101,7 +110,7 @@ class DataSynchronizationController extends Controller
       wms_lmb_detail.ean_code, 
       wms_pickinglist_detail.kode_customer AS kode_customer1, 
       wms_pickinglist_detail.code_sales AS code_sales1')
-      ->leftjoin('wms_pickinglist_detail', function($join){
+      ->leftjoin('wms_pickinglist_detail', function ($join) {
         $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
         $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
         $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
@@ -141,53 +150,49 @@ class DataSynchronizationController extends Controller
           'kode_customer' => $value->kode_customer1
         ]);
 
-        \App\Models\InventoryStorage::updateOrCreate(
-          // Condition
-          [
-            'storage_id' => $storageIntransit[$value->code_sales1][substr($value->kode_customer1, 0, 2)]->id,
-            'model_name' => $value->model,
-          ],
-          // Data Update
-          [
-            'ean_code'       => $value->ean_code,
-            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value->qty),
-            // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
-            'last_updated'   => $date_now,
-          ]
-        );
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $storageIntransit[$value->code_sales1][substr($value->kode_customer1, 0, 2)]->id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'ean_code'       => $value->ean_code,
+          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value->qty),
+          // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+          'last_updated'   => $date_now,
+        ]
+      );
 
-        \App\Models\InventoryStorage::updateOrCreate(
-          // Condition
-          [
-            'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
-            'model_name' => $value->model,
-          ],
-          // Data Update
-          [
-            'ean_code'       => $value->ean_code,
-            'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value->qty),
-            // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
-            'last_updated'   => $date_now,
-          ]
-        );
-
-      
+      \App\Models\InventoryStorage::updateOrCreate(
+        // Condition
+        [
+          'storage_id' => $storageIntransit[$value->code_sales][substr($value->kode_customer, 0, 2)]->id,
+          'model_name' => $value->model,
+        ],
+        // Data Update
+        [
+          'ean_code'       => $value->ean_code,
+          'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value->qty),
+          // 'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+          'last_updated'   => $date_now,
+        ]
+      );
     }
-    
-
   }
 
-  protected function updateDOManifestDate(){
+  protected function updateDOManifestDate()
+  {
     $rsManifest = DB::table('log_manifest_header')
-    ->selectRaw('
+      ->selectRaw('
     do_manifest_no, 
     do_manifest_date, 
     substr(do_manifest_no, 5, 6),
     DATE(substr(do_manifest_no, 5, 6)) AS new_do_manifest_date
     ')
-    ->whereRaw('do_manifest_date != DATE(substr(do_manifest_no, 5, 6))')
-    ->get()
-    ;
+      ->whereRaw('do_manifest_date != DATE(substr(do_manifest_no, 5, 6))')
+      ->get();
 
     foreach ($rsManifest as $key => $value) {
       echo 'update do_manifest date to ' . $value->new_do_manifest_date . ' in manifest ' . $value->do_manifest_no . '<br>';
@@ -197,16 +202,17 @@ class DataSynchronizationController extends Controller
     }
   }
 
-  protected function updateRitaseInvoice(){
+  protected function updateRitaseInvoice()
+  {
     $details = DB::table('log_invoice_receipt_detail')->where('ritase_amount', '>', 0)->get();
 
     $rsManifest = [];
-    foreach($details AS $key => $value) {
+    foreach ($details as $key => $value) {
       $rsManifest[$value->do_manifest_no][] = $value;
     }
 
-    foreach($rsManifest AS $key => $dos){
-      foreach($dos AS $kdo => $vdo){
+    foreach ($rsManifest as $key => $dos) {
+      foreach ($dos as $kdo => $vdo) {
         echo "update Manifest " . $vdo->do_manifest_no . " delivery no " . $vdo->delivery_no . '<br>';
         DB::table('log_invoice_receipt_detail')->where('id', $vdo->id)->update([
           'ritase_amount' => $vdo->ritase_amount / count($dos),
@@ -214,10 +220,10 @@ class DataSynchronizationController extends Controller
         ]);
       }
     }
-
   }
 
-  protected function updateBeritaAcaraNo(){
+  protected function updateBeritaAcaraNo()
+  {
     echo "update Berita Acara";
     DB::statement("UPDATE clm_berita_acara 
         set berita_acara_no = REPLACE(berita_acara_no, '2121', '2021') 
@@ -227,7 +233,8 @@ class DataSynchronizationController extends Controller
         where berita_acara_no like '%2121'");
   }
 
-  protected function updateDatabaseBranchManifest(){
+  protected function updateDatabaseBranchManifest()
+  {
     echo "update Branch Manifest";
     DB::statement("UPDATE `wms_branch_manifest_header` SET `manifest_type` = 'NORMAL' WHERE 1 =1 ");
   }

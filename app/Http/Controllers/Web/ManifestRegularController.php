@@ -177,6 +177,9 @@ class ManifestRegularController extends Controller
       $rs_details[$key] = $value->toArray();
       unset($rs_details[$key]['id']);
 
+      $rs_details[$key]['city_name']         = $manifestHeader->city_name;
+      $rs_details[$key]['city_code']    = $manifestHeader->city_code;
+
       $rs_details[$key]['do_manifest_no'] = $manifestHeader->do_manifest_no;
       $rs_details[$key]['delivery_no'] = $rs_details[$key]['delivery_no'] . "L" . $urutanLCL;
       $rs_details[$key]['created_at']       = date('Y-m-d H:i:s');

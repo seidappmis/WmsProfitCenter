@@ -511,11 +511,14 @@ class PickingToLMBController extends Controller
 		$rs_picking_list_details = [];
 		$delivery_exceptions     = [];
 
+		DB::statement('SET SESSION group_concat_max_len = 1000000');
+
 		while (!feof($file)) {
 			$row = fgetcsv($file);
 
+
 			// Validasi Data Per Baris
-			if (!empty($row[0])) {
+			if (!empty($row[0]) && !empty($row[2])) {
 				// kalau data ada isinya
 				$serial_number = [
 					'picking_id'    => $row[0],
@@ -623,7 +626,6 @@ class PickingToLMBController extends Controller
 						}
 					}
 
-					// return $rs_code_sales;
 
 					$picking_detail->quantity = $quantity - $picking_detail->quantity_lmb;
 

@@ -55,7 +55,7 @@ class InvoiceReceiptHeader extends Model
     $data['summary']['BR'] = false;
     $data['summary']['DS'] = false;
 
-    foreach ($this->details as $key => $value) {
+    foreach ($this->details()->orderBy('do_manifest_no')->get() as $key => $value) {
       $data['list'][$value->do_manifest_no]['total_model'] = empty($data['list'][$value->do_manifest_no]['total_model']) ? 1 : ($data['list'][$value->do_manifest_no]['total_model'] + 1);
 
       $data['list'][$value->do_manifest_no]['do_manifest_no']      = $value->do_manifest_no;
@@ -123,8 +123,8 @@ class InvoiceReceiptHeader extends Model
 
     // $data['total_freight'] = $total_ritase + $total_cbm + $total_ritase2 + $total_multidrop + $total_unloading + $total_overstay;
     // $data['tax']           = $data['total_freight'] * 10 / 100;
-	
-	$data['total_freight'] = $this->amount_before_tax;
+
+    $data['total_freight'] = $this->amount_before_tax;
     $data['tax']           = $this->amount_ppn;
     $data['grand_total']   = $data['total_freight'] + $data['tax'];
 

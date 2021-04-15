@@ -26,11 +26,13 @@ class PickingToLMBController extends Controller
     $rs_picking_list_details = [];
     $delivery_exceptions     = [];
 
+    DB::statement('SET SESSION group_concat_max_len = 1000000');
+    
     foreach (json_decode($request->input('data'), true) as $key => $postSerialNumber) {
 
       // return $postSerialNumber;
 
-      if (!empty($postSerialNumber['pickingNo'])) {
+      if (!empty($postSerialNumber['pickingNo']) && !empty($postSerialNumber['serialNumber'])) {
         $serial_number = [
           'picking_id'    => $postSerialNumber['pickingNo'],
           'ean_code'      => $postSerialNumber['eanCode'],
