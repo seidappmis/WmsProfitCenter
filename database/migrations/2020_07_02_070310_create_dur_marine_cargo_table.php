@@ -26,6 +26,7 @@ class CreateDurMarineCargoTable extends Migration
          $table->datetime('delivery_date')->nullable();
          $table->string('cargo_description')->nullable();
          $table->integer('qty')->nullable();
+         $table->string('currency')->nullable();
 
          $table->timestamps();
          $table->integer('created_by')->nullable();
