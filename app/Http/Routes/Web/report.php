@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('report-loading-summary', 'Web\ReportLoadingSummaryController@index');
 
   Route::get('report-kpi-expeditions', 'Web\ReportKPIExpeditionsController@index');
+  Route::get('report-kpi-expeditions/export', 'Web\ReportKPIExpeditionsController@export');
 
   Route::get('summary-incoming-report', 'Web\SummaryIncomingReportController@index');
   Route::get('summary-incoming-report/export', 'Web\SummaryIncomingReportController@export');
