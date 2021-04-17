@@ -784,7 +784,7 @@ class PickingListController extends Controller
 
         $inventoryStorage->quantity_total -= $qty_hold;
         $inventoryStorage->qty_hold = $qty_hold;
-        $inventoryStorage->hold_pickinglist = $holdPickingDetail->hold_pickinglist;
+        $inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
         $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
       }
 
