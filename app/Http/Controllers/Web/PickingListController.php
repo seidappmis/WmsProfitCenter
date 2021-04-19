@@ -769,6 +769,7 @@ class PickingListController extends Controller
         $holdPickingDetail = PickinglistDetail::select(
           'wms_pickinglist_detail.ean_code',
           DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
+          DB::raw('GROUP_CONCAT(DISTINCT(wms_pickinglist_detail.header_id) SEPARATOR ", ") AS hold_pickinglist'),
           'wms_lmb_header.send_manifest'
         )
           ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
@@ -782,13 +783,15 @@ class PickingListController extends Controller
         $qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
 
         $inventoryStorage->quantity_total -= $qty_hold;
+        $inventoryStorage->qty_hold = $qty_hold;
+        $inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
         $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
       }
 
       $rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
 
       if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
-        return sendError('Quantity of model ' . $value['model'] . ' is defisit !');
+        return sendError('Quantity of model ' . $value['model'] . ' is defisit ! Hold ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->qty_hold . ' Unit. In picking: ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->hold_pickinglist);
       }
 
       $rs_pickinglistDetail[] = $pickingListDetail;
