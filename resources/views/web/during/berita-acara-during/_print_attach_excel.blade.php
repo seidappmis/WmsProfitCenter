@@ -66,7 +66,7 @@
          <br>
          <br>
 		 @if((! is_null($berita_acara->photo_seal_no)) && ($berita_acara->photo_seal_no != '') && Storage::disk('public')->exists($berita_acara->photo_seal_no))
-         <img class="materialboxed" width="200px" src="{{asset('storage') . '/' . $berita_acara->photo_seal_no}}">
+         <img class="materialboxed" width="200px" src="{{'storage/' . $berita_acara->photo_seal_no}}">
 		 @endif
       </td>
       <td style="text-align: center;vertical-align: text-top;" class="border" colspan="2">
