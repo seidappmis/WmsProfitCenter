@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateTable15April2021();
+    $this->updateTable28April2020();
+    // $this->updateTable15April2021();
     // $this->updateRitaseInviceByCBM();
     // $this->updateStockInventory();
     // $this->updateDOManifestDate();
@@ -44,6 +45,13 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable28April2020()
+  {
+    echo "Add Currency Marine Cargo";
+    DB::statement("ALTER TABLE `dur_marine_cargo` 
+    ADD COLUMN `currency` VARCHAR(255) NULL DEFAULT NULL AFTER `qty`");
   }
 
   protected function updatetable15April2021()

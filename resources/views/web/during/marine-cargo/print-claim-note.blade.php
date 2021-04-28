@@ -171,7 +171,7 @@
         <td style="text-align: center;" width="50px">X</td>
         <td style="text-align: center;" width="50px">{{ $value['qty'] }}</td>
         <?php $totalQty += $value['qty'] ?? 1; ?>
-        <td>&nbsp</td>
+        <td>&nbsp;</td>
         <td style="text-align: left;">=</td>
         <td colspan="2" width="120px" style="text-align: right;">IDR
           {{ thousand_reformat($value['price_carton_box'] * $value['qty']) }}</td>
@@ -202,14 +202,15 @@
         <td colspan="3" style="border-left: 1px solid black;"></td>
         <td>{{ $value['model_name'] }}</td>
         <td width="5px">=</td>
-        <td style="text-align: right;">USD {{ thousand_reformat($value['price']) }}</td>
+        <td style="text-align: right;">{{ $marineCargo->currency }} {{ thousand_reformat($value['price']) }}</td>
         <td style="text-align: center;" width="50px">X</td>
         <td>110%</td>
         <td style="text-align: center;" width="50px">X</td>
         <td style="text-align: center;">{{ $value['qty'] }}</td>
         <?php $totalQty += $value['qty'] ?? 1; ?>
         <td>=</td>
-        <td style="text-align: right;">USD {{ thousand_reformat(($value['qty'] * $value['price'] * 110) / 100) }}
+        <td style="text-align: right;">{{ $marineCargo->currency }}
+          {{ thousand_reformat(($value['qty'] * $value['price'] * 110) / 100) }}
         </td>
         <td style="border-right: 1px solid black;"></td>
       </tr>
@@ -219,7 +220,7 @@
         <td colspan="9" style="border-left: 1px solid black;"></td>
         <td style="text-align: center; border-top: 1px solid black;"><strong>{{ $totalQty }}</strong></td>
         <td></td>
-        <td style="text-align: right; border-top: 1px solid black;"><strong>USD
+        <td style="text-align: right; border-top: 1px solid black;"><strong>{{ $marineCargo->currency }}
             {{ thousand_reformat($totalPriceUSD) }}</strong></td>
         <td style="border-right: 1px solid black;"></td>
       </tr>
@@ -237,7 +238,7 @@
       </td>
       <td colspan="4" style="border-bottom: 1px solid black;"><strong>IDR
           {{ thousand_reformat($totalPriceIDR) }}</strong></td>
-      <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>USD
+      <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>{{ $marineCargo->currency }}
           {{ thousand_reformat($totalPriceUSD) }}</strong></td>
     </tr>
 

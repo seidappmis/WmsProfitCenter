@@ -10,6 +10,7 @@
     <td colspan="3">
       <select name="dur_dgr_id" class="select2-data-ajax browser-default" required>
       </select>
+      <input type="hidden" id="dur_dgr_no" name="dur_dgr_no" />
     </td>
   </tr>
   <tr>
@@ -62,7 +63,7 @@
   <tr>
     <td>Currency</td>
     <td colspan="3">
-      <input type="text" name="currency">
+      <input type="text" id="input-currency" name="currency">
     </td>
   </tr>
 </table>
@@ -84,7 +85,7 @@
                 <tr>
                   <th data-priority="1" width="30px">No.</th>
                   <th>MODEL NAME</th>
-                  <th>PRICE (USD)</th>
+                  <th>PRICE (<span id='text-currency'></span>)</th>
                 </tr>
               </thead>
             </table>
@@ -108,8 +109,14 @@
       // });
     });
 
+    $('#input-currency').keyup(function() {
+      $('#text-currency').text($(this).val())
+    })
+
     $('[name="dur_dgr_id"]').change(function() {
       var data = $(this).select2('data')[0];
+
+      $('#dur_dgr_no').val(data.text)
 
       $('[name="vessel_name"]').val('');
       if (data.ship_name) {
@@ -143,7 +150,8 @@
             {
               data: 'price',
               render: function(data, type, row, meta) {
-                return '<input name="price[' + row['id'] + ']" id="price_' + row['id'] + '" value="' + (data ?
+                return '<input name="price[' + row['berita_acara_during_detail_id'] + ']" id="price_' + row[
+                  'berita_acara_during_detail_id'] + '" value="' + (data ?
                   data : 0) + '" />';
               }
             }

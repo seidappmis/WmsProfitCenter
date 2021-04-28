@@ -145,9 +145,9 @@ class ReportKPIExpeditionsController extends Controller
       $tabeldata .= '<td>' . $value->non_achive . '</td>';
       $tabeldata .= '<td>' . $value->achieve . '</td>';
       $tabeldata .= '<td>' . $value->sum_of_concept . '</td>';
-      $tabeldata .= '<td>' . ($value->achieve / $value->sum_of_concept * 100) . ' %</td>';
-      $tabeldata .= '<td>' . ($value->non_achive / $value->sum_of_concept * 100) . ' %</td>';
-      $tabeldata .= '<td>' . ($value->sum_of_concept / $value->sum_of_concept * 100) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->achieve / $value->sum_of_concept * 100, 2) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->non_achive / $value->sum_of_concept * 100, 2) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->sum_of_concept / $value->sum_of_concept * 100, 2) . ' %</td>';
       $tabeldata .= '</tr>';
     }
 
