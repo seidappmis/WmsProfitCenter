@@ -110,7 +110,7 @@
 		<td style="text-align:center;"><strong>Reported by</strong></td>
 		<td colspan="2" style="text-align:right; padding-right:50px;"><strong>Acknowledged,</strong></td>
 		<td style="text-align:center;"><strong>Acknowledged,</strong></td>
-		<td style="text-align:center;"><strong>Acknowledged</strong></td>
+		<!--<td style="text-align:center;"><strong>Acknowledged</strong></td>-->
 		<td style="text-align:center;"><strong>Acknowledged</strong></td>
 	</tr>
 	<tr>
@@ -124,7 +124,7 @@
 		<td style="text-align:center;"><strong>(Chairul Anwar) <br>Asst. Manager</strong></td>
 		<td style="text-align:center;"><strong>(Firman) <br> Manager</strong></td>
 		<td style="text-align:center;"><strong>(Denny A.R ) <br> Logistic GM</strong></td>
-		<td style="text-align:center;"><strong>( K. Tani ) <br> Acc GM</strong></td>
+		<!--<td style="text-align:center;"><strong>( K. Tani ) <br> Acc GM</strong></td>-->
 		<td style="text-align:center;"><strong>(Sayloom Labiro) <br> Sr.Mgr.Acc Tax &amp; Fin</strong></td>
 	</tr>
 	<tr>
