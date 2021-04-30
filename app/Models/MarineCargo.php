@@ -25,15 +25,14 @@ class MarineCargo extends BaseModel
    }
 
    // Penomoran Notice of Claim "<sequence>/SEID/ACC/<bulan>/<tahun>"
-   public static function getNoticeOfClaimNo()
+   public static function getNoticeOfClaimNo($dur_dgr_no)
    {
       $suffix = '/SEID/ACC/' . date('m') . '/' . date('Y');
 
       $marineCargo = MarineCargo::select('notice_of_claim_no')
          ->orderBy('created_at', 'desc')
-         ->first()
-         ;
-      
+         ->first();
+
       $lastNo = 0;
 
       if (empty($marineCargo)) {
@@ -52,9 +51,11 @@ class MarineCargo extends BaseModel
          $lastNo = (int) $notice_of_claim_no[0];
       }
 
-      $max_no = str_pad($lastNo + 1, 3, 0, STR_PAD_LEFT);
+      $dgr = explode('/', $dur_dgr_no);
 
-      return $max_no . $suffix;
+      // $max_no = str_pad($lastNo + 1, 3, 0, STR_PAD_LEFT);
+
+      return $dgr[0] . $suffix;
    }
 
    public function dgr()

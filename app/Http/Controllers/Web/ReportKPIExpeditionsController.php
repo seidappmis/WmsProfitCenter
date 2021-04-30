@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use Amenadiel\JpGraph\Graph;
+use Amenadiel\JpGraph\Plot;
 
 class ReportKPIExpeditionsController extends Controller
 {
@@ -115,6 +117,7 @@ class ReportKPIExpeditionsController extends Controller
         ) ct ON ct.expedition_name = c.`expedition_name`
         WHERE YEAR(c.created_at) = ? AND MONTH(c.created_at) = ? AND c.`area` = ?
         GROUP BY c.`expedition_name`
+        ORDER BY c.`expedition_name`
         ", [
       $year,
       $month,
@@ -127,8 +130,19 @@ class ReportKPIExpeditionsController extends Controller
       $request->input('area'),
     ]);
 
+
     $tabeldata = '';
     $tabeldata .= '<div style="text-align: center; font-size: 14pt;"><strong>Fleet Capablility - Area : ' . $request->input('area') . ' (' . date('Y-m-d H:i:s') . ')</strong></div>';
+
+    if (count($query) !== 0) {
+      $graph = $this->getGraph($query);
+      ob_start();
+      imagepng($graph->Stroke(_IMG_HANDLER));
+      $imageData = ob_get_contents();
+      ob_end_clean();
+      $tabeldata .= '<img src="data:image/png;base64,' . base64_encode($imageData) . '" style="width: 100%;" />';
+    }
+
     $tabeldata .= '<table>';
     $tabeldata .= '<tr>';
     $tabeldata .= '<th style="text-align: center;">EXPEDITION NAME</th>';
@@ -145,14 +159,85 @@ class ReportKPIExpeditionsController extends Controller
       $tabeldata .= '<td>' . $value->non_achive . '</td>';
       $tabeldata .= '<td>' . $value->achieve . '</td>';
       $tabeldata .= '<td>' . $value->sum_of_concept . '</td>';
-      $tabeldata .= '<td>' . ($value->achieve / $value->sum_of_concept * 100) . ' %</td>';
-      $tabeldata .= '<td>' . ($value->non_achive / $value->sum_of_concept * 100) . ' %</td>';
-      $tabeldata .= '<td>' . ($value->sum_of_concept / $value->sum_of_concept * 100) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->achieve / $value->sum_of_concept * 100, 2) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->non_achive / $value->sum_of_concept * 100, 2) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->sum_of_concept / $value->sum_of_concept * 100, 2) . ' %</td>';
       $tabeldata .= '</tr>';
     }
 
     $tabeldata .= '</table>';
 
     return $tabeldata;
+  }
+
+  protected function getGraph($data)
+  {
+    // print_r($data);
+    $datayAchive = [];
+    $datayNonAchive = [];
+    $dataySumOFConcept = [];
+    $lbl = [];
+    foreach ($data as $key => $value) {
+      $lbl[] = $value->expedition_name;
+      $datayAchive[] = $value->achieve;
+      $datayNonAchive[] = $value->non_achive;
+      $dataySumOFConcept[] = $value->sum_of_concept;
+    }
+
+    // Size of graph
+    $__width  = 1200;
+    $__height = 800;
+
+    // Set the basic parameters of the graph
+    $graph = new Graph\Graph($__width, $__height, 'auto');
+    $graph->SetScale('textlin');
+
+    $top    = 50;
+    $bottom = 110;
+    $left   = 150;
+    $right  = 20;
+    $graph->SetMarginColor('white');
+    $graph->SetScale('textlin');
+    $graph->SetMargin(70, 50, 30, 5);
+    // $graph->Set90AndMargin($left, $right, $top, $bottom);
+
+    // Nice shadow
+    $graph->SetShadow();
+
+    $graph->xaxis->SetTickLabels($lbl);
+
+    // Label align for X-axis
+    // $graph->xaxis->SetLabelAlign('right', 'center', 'right');
+
+    // // Label align for Y-axis
+    // $graph->yaxis->SetLabelAlign('center', 'bottom');
+
+    // Titles
+    // $graph->title->Set('Number of incidents');
+
+    // Create a bar pot
+    $bplot = new Plot\BarPlot($datayAchive);
+    $bplot->SetFillColor('blue');
+    $bplot->SetLegend('Achive');
+    $bplot->SetWidth(0.1);
+    $b2plot = new Plot\BarPlot($datayNonAchive);
+    $b2plot->SetFillColor('orange');
+    $b2plot->SetLegend('Non Achive');
+    $b2plot->SetWidth(0.1);
+    $b3plot = new Plot\BarPlot($dataySumOFConcept);
+    $b3plot->SetFillColor('gray');
+    $b3plot->SetLegend('SumOfConcept');
+    $b3plot->SetWidth(0.1);
+    // $bplot->SetWidth(0.5);
+    // $bplot->SetYMin(1990);
+    $gbplot = new Plot\GroupBarPlot([$bplot, $b2plot, $b3plot]);
+
+    $graph->Add($gbplot);
+    $graph->xaxis->SetLabelAngle(90);
+    $graph->legend->SetPos(0.5, 0.01, 'center', 'top');
+
+    // $graph->Stroke();
+
+    return $graph;
   }
 }
