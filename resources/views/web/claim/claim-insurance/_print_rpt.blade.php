@@ -125,7 +125,7 @@
 		<td style="text-align:center;"><strong>(Firman) <br> Manager</strong></td>
 		<td style="text-align:center;"><strong>(Denny A.R ) <br> Logistic GM</strong></td>
 		<!--<td style="text-align:center;"><strong>( K. Tani ) <br> Acc GM</strong></td>-->
-		<td style="text-align:center;"><strong>(Sayloom Labiro) <br> Sr.Mgr.Acc Tax &amp; Fin</strong></td>
+		<td style="text-align:center;"><strong>(Syaloom Labiro) <br> Sr.Mgr.Acc Tax &amp; Fin</strong></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
