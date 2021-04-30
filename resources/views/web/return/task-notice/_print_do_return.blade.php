@@ -78,7 +78,7 @@ $plans = $header->plans()->orderBy('model')->get();
               <tr>
                 <td colspan="2" style="width: 40mm;">D/O No.</td>
                 <td style="width:5mm">:</td>
-                <td>{{$plans[0]->no_do}}</td>
+                <td>{{$plans[0]->no_document}}</td>
               </tr>
               <tr>
                 <td colspan="2" style="width: 40mm;">D/O Date.</td>
@@ -88,7 +88,7 @@ $plans = $header->plans()->orderBy('model')->get();
               <tr>
                 <td colspan="2" style="width: 40mm;">S/O No.</td>
                 <td style="width:5mm">:</td>
-                <td>{{$plans[0]->no_do}}</td>
+                <td>{{$plans[0]->no_document}}</td>
               </tr>
               <tr>
                 <td colspan="2" style="width: 40mm;">S/O Date.</td>
@@ -148,7 +148,7 @@ $plans = $header->plans()->orderBy('model')->get();
               @endphp
               @foreach($plans AS $kPlan => $vPlan)
               @php
-                $total_cbm += ($vPlan->cbm * $vPlan->qty);
+                $total_cbm += $vPlan->cbm;
                 $total_qty += $vPlan->qty;
               @endphp
               <tr>
