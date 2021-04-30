@@ -63,7 +63,7 @@
       <tr><td>&nbsp;</td></tr>
       <tr><td>&nbsp;</td></tr>
       <tr>
-            <td colspan="3">Thursday, {{date('d-F-Y h:i:s A')}}</td>
+            <td colspan="3">{{date('l, d-F-Y h:i:s A')}}</td>
             <td colspan="8" align="center"> Page {PAGENO} of {nbpg}</td>
             <td colspan="6" style="text-align: right; ">Print out from SEID WMS</td>
         </tr>
