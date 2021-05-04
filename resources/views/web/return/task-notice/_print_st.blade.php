@@ -115,7 +115,7 @@ $plans = $header->plans()->orderBy('model')->get();
               @foreach($plans AS $kPlan => $vPlan )
               @php
               $total_qty += $vPlan->qty;
-              $total_cbm += $vPlan->cbm;
+              $total_cbm += ($vPlan->cbm * $vPlan->qty);
               @endphp
               <tr>
                 <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$kPlan + 1}}</td>
@@ -123,7 +123,7 @@ $plans = $header->plans()->orderBy('model')->get();
                 <td style="border: 1pt solid #000000; padding: 2pt;">{{$vPlan->description}}</td>
                 <td style="border: 1pt solid #000000; padding: 2pt;">(TERLAMPIR)</td>
                 <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$vPlan->qty}}</td>
-                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{$vPlan->cbm}}</td>
+                <td style="border: 1pt solid #000000; text-align: center; padding: 2pt;">{{($vPlan->cbm * $vPlan->qty)}}</td>
                 <td style="border: 1pt solid #000000; padding: 2pt;">{{$vPlan->remark}}</td>
               </tr>
               @endforeach
