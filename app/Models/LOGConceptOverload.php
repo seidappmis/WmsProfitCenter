@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LOGConceptOverload extends Model
 {
+	use HasCompositePrimaryKey;
   protected $table      = "log_concept_overload";
   protected $primaryKey = ['invoice_no', 'line_no'];
   public $incrementing  = false;

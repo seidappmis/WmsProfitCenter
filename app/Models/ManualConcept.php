@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManualConcept extends Model
 {
+	use HasCompositePrimaryKey;
   protected $table      = "wms_manual_concept";
   protected $primaryKey = ['invoice_no', 'delivery_no', 'delivery_items'];
   public $incrementing  = false;
