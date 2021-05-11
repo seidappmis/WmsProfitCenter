@@ -20,7 +20,17 @@ class DriverRegistered extends Model
     return $this->belongsTo('App\Models\MasterExpedition', 'expedition_code', 'code');
   }
 
-  public static function transporterWaitingConcept($request)
+	public static function transporterWaitingConcept($request){
+		return DriverRegistered::select('tr_driver_registered.*', 'tr_vehicle_type_detail.cbm_max', 'tr_expedition.sap_vendor_code')
+		->toBase()->where('tr_driver_registered.area', $request->input('area'))
+		->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_driver_registered.vehicle_code_type')
+		->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver_registered.expedition_code')
+		->whereNull('tr_driver_registered.has_manifest')
+		->whereNull('tr_driver_registered.has_pickinglist')
+		->whereNull('datetime_out');
+	}
+
+  public static function transporterWaitingConcept_old($request)
   {
     return DriverRegistered::select('tr_driver_registered.*', 'tr_vehicle_type_detail.cbm_max', 'tr_expedition.sap_vendor_code')
       ->toBase()->where('tr_driver_registered.area', $request->input('area'))

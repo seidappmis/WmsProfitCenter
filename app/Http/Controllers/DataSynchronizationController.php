@@ -10,7 +10,8 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-    $this->updateTable28April2020();
+	  $this->updateTable11Mei2021();
+    // $this->updateTable28April2020();
     // $this->updateTable15April2021();
     // $this->updateRitaseInviceByCBM();
     // $this->updateStockInventory();
@@ -46,6 +47,108 @@ class DataSynchronizationController extends Controller
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
+
+	protected function updateTable11Mei2021(){
+		
+		DB::statement("ALTER TABLE `tr_driver_registered`
+		ADD COLUMN has_pickinglist BOOLEAN AFTER `wk_step_number`,
+		ADD COLUMN has_manifest BOOLEAN AFTER `has_pickinglist`");
+		echo "Alter table `tr_driver_registered`<br/>";
+
+		DB::statement("UPDATE `tr_driver_registered`, `wms_pickinglist_header`
+		SET `tr_driver_registered`.`has_pickinglist` = true
+		WHERE `tr_driver_registered`.`id` = `wms_pickinglist_header`.`driver_register_id`");
+		DB::statement("UPDATE `tr_driver_registered`, `log_manifest_header`
+		SET `tr_driver_registered`.`has_manifest` = true
+		WHERE `log_manifest_header`.`r_driver_register_id` = `tr_driver_registered`.`id`");
+		echo "Update table `tr_driver_registered`<br/>";
+
+		DB::unprepared("CREATE TRIGGER pickinglist_header_insert
+		AFTER INSERT ON wms_pickinglist_header FOR EACH ROW
+		BEGIN
+			IF NEW.driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_pickinglist = true
+				WHERE tr_driver_registered.id = NEW.driver_register_id;
+			END IF;
+		END");
+		DB::unprepared("CREATE TRIGGER pickinglist_header_update
+		AFTER UPDATE ON wms_pickinglist_header FOR EACH ROW
+		BEGIN
+			IF OLD.driver_register_id IS NOT NULL 
+			AND NEW.driver_register_id <> OLD.driver_register_id THEN
+				IF (SELECT COUNT(h.id) 
+				FROM wms_pickinglist_header h 
+				WHERE h.driver_register_id = OLD.driver_register_id) < 1 THEN
+					UPDATE tr_driver_registered
+					SET has_pickinglist = NULL
+					WHERE tr_driver_registered.id = OLD.driver_register_id;
+				END IF;
+			END IF;
+			IF NEW.driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_pickinglist = true
+				WHERE tr_driver_registered.id = NEW.driver_register_id;
+			END IF;
+		END");
+		DB::unprepared("CREATE TRIGGER pickinglist_header_delete
+		AFTER DELETE ON wms_pickinglist_header FOR EACH ROW
+		BEGIN
+			IF OLD.driver_register_id IS NOT NULL THEN
+				IF (SELECT COUNT(h.id)
+				FROM wms_pickinglist_header h
+				WHERE h.driver_register_id = OLD.driver_register_id) < 1 THEN
+					UPDATE tr_driver_registered
+					SET has_pickinglist = NULL
+					WHERE tr_driver_registered.id = OLD.driver_register_id;
+				END IF;
+			END IF;
+		END");
+		echo "Trigger for `wms_pickinglist_header` created<br/>";
+
+		DB::unprepared("CREATE TRIGGER manifest_header_insert
+		AFTER INSERT ON log_manifest_header FOR EACH ROW
+		BEGIN
+			IF NEW.r_driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_manifest = true
+				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+			END IF;
+		END");
+		DB::unprepared("CREATE TRIGGER manifest_header_update
+		AFTER UPDATE ON log_manifest_header FOR EACH ROW
+		BEGIN
+			IF OLD.r_driver_register_id IS NOT NULL
+			AND NEW.r_driver_register_id <> OLD.r_driver_register_id THEN
+				IF (SELECT COUNT(h.do_manifest_no)
+				FROM log_manifest_header h
+				WHERE h.r_driver_register_id = OLD.r_driver_register_id) < 1 THEN
+					UPDATE tr_driver_registered
+					SET has_manifest = NULL
+					WHERE tr_driver_registered.id = OLD.r_driver_register_id;
+				END IF;
+			END IF;
+			IF NEW.r_driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_manifest = true
+				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+			END IF;
+		END");
+		DB::unprepared("CREATE TRIGGER manifest_header_delete
+		AFTER DELETE ON log_manifest_header FOR EACH ROW
+		BEGIN
+			IF OLD.r_driver_register_id IS NOT NULL THEN
+				IF (SELECT COUNT(h.do_manifest_no)
+				FROM log_manifest_header h
+				WHERE h.r_driver_register_id = OLD.r_driver_register_id) < 1 THEN
+					UPDATE tr_driver_registered
+					SET has_manifest = NULL
+					WHERE tr_driver_registered.id = OLD.r_driver_register_id;
+				END IF;
+			END IF;
+		END");
+		echo "Trigger for `log_manifest_header` created<br/>";
+	}
 
   protected function updateTable28April2020()
   {
