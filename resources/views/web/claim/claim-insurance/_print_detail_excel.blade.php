@@ -1,4 +1,4 @@
-<table width="100%" style="font-size: 8pt; border-collapse: collapse;">
+<table style="font-size: 8pt; border-collapse: collapse;">
    <tr>
       <td>&nbsp;</td>
    </tr>
@@ -10,20 +10,20 @@
    </tr>
    <tr>
       <td colspan="7"></td>
-      <td style="width: 5mm;">&nbsp;</td>
-      <td colspan="3" style="text-align: right; width:30%;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
+      <td style="width: 19px;">&nbsp;</td>
+      <td colspan="3" style="text-align: right;"><strong>DATE OF REPORT {{date('d M Y', strtotime($claimInsurance->insurance_date))}}</strong></td>
    </tr>
    <tr>
       <td colspan="7"></td>
-      <td style="width: 5mm;">&nbsp;</td>
-      <td colspan="3" style="text-align: right; width:30%;"><strong>{{$claimInsurance->branch}} {{date('M Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
+      <td style="width: 19px;">&nbsp;</td>
+      <td colspan="3" style="text-align: right;"><strong>{{$claimInsurance->branch}} {{date('M Y', strtotime($claimInsurance->date_of_loss))}}</strong></td>
    </tr>
    <tr>
-      <td style="width: 5mm;">&nbsp;</td>
+      <td style="width: 19px;">&nbsp;</td>
       <td colspan="4" style="border-left: 1pt solid red;"><strong>1st Report</strong></td>
       <td colspan="4" style="border-left: 1pt solid red;"><strong>2nd Report</strong></td>
-      <td style="width: 5mm;">&nbsp;</td>
-      <td style="width: 5mm;">&nbsp;</td>
+      <td style="width: 19px;">&nbsp;</td>
+      <td style="width: 19px;">&nbsp;</td>
       <td colspan="7">
          <!-- <strong> : Wh Medan Des 2019</strong> -->
       </td>
@@ -35,24 +35,24 @@
       <td colspan="18" style="color: red;"><u>within a week</u> after the accident happened</td>
    </tr>
    <tr>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 5mm; text-align: center;"><strong>NO</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SERIAL NUMBER</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 10mm; text-align: center;"><strong>UNIT</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRODUCT</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 8mm; text-align: center;"><strong>CURR</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PRICE/UNIT</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>TOTAL</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>NATURE OF LOSS</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>LOCATION</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PHOTO</strong></td>
-      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td>
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM REPORT</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>CLAIM FILE</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>POLIS</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>PAYMENT MSIG</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>SALVEGE DATE</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>DATE PICKING</strong></td> --}}
-      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 20mm; text-align: center;"><strong>REMARKS</strong></td> --}}
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 19px; text-align: center;"><strong>NO</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>SERIAL NUMBER</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 39px; text-align: center;"><strong>UNIT</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>PRODUCT</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 30px; text-align: center;"><strong>CURR</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>PRICE/UNIT</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>TOTAL</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>NATURE OF LOSS</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>LOCATION</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>PHOTO</strong></td>
+      <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>REMARKS</strong></td>
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>CLAIM REPORT</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>CLAIM FILE</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>POLIS</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>PAYMENT MSIG</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>SALVEGE DATE</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>DATE PICKING</strong></td> --}}
+      {{-- <td style="border-top: 2pt solid #000000; border-left: 2pt solid #000000; border-right: 2pt solid #000000; width: 75px; text-align: center;"><strong>REMARKS</strong></td> --}}
    </tr>
 
    <?php
