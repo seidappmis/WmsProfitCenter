@@ -609,7 +609,7 @@ class ReceiptInvoiceController extends Controller
       $mpdf->Output();
       return;
     } elseif ($request->input('filetype') == 'xls') {
-
+		$view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice_excel', $data);
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

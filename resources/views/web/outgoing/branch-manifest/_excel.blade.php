@@ -12,34 +12,34 @@
     </tr>
     <tr><td>&nbsp;</td></tr>
     <tr>
-      <td style="width:30mm">Manifest No.</td>
+      <td style="width:113px">Manifest No.</td>
       <td>:</td>
-      <td colspan="6" style="text-align: left; width: 62mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
-      <td colspan="3" style="width:40mm">Vehicle</td>
+      <td colspan="6" style="text-align: left; width: 234px;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->do_manifest_no : ''}}</strong></td>
+      <td colspan="3" style="width:151px">Vehicle</td>
       <td>:</td>
       <td colspan="5" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->vehicle_number : ''}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{!empty($branchManifestHeader) ? $branchManifestHeader->vehicle_description : ''}}</strong></td>
     </tr>
     <tr>
-      <td style="width:30mm">Date</td>
+      <td style="width:113px">Date</td>
       <td>:</td>
-      <td colspan="6" style="text-align: left; width: 62mm;"><strong>{{!empty($branchManifestHeader) ? date('d-F-Y', strtotime($branchManifestHeader->do_manifest_date)) : ''}}</strong></td>
-      <td colspan="3" style="width:40mm">Expedition Name</td>
+      <td colspan="6" style="text-align: left; width: 234px;"><strong>{{!empty($branchManifestHeader) ? date('d-F-Y', strtotime($branchManifestHeader->do_manifest_date)) : ''}}</strong></td>
+      <td colspan="3" style="width:151px">Expedition Name</td>
       <td>:</td>
       <td colspan="5" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->expedition_name : ''}}</strong></td>
     </tr>
     <tr>
-      <td style="width:30mm">Destination</td>
+      <td style="width:113px">Destination</td>
       <td>:</td>
-      <td colspan="6" style="text-align: left; width: 62mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->city_name : ''}}</strong></td>
-      <td colspan="3" style="width:40mm">Container No.</td>
+      <td colspan="6" style="text-align: left; width: 234px;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->city_name : ''}}</strong></td>
+      <td colspan="3" style="width:151px">Container No.</td>
       <td>:</td>
       <td colspan="5" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->container_no : ''}}</strong></td>
     </tr>
     <tr>
-      <td style="width:30mm">Picking No</td>
+      <td style="width:113px">Picking No</td>
       <td>:</td>
-      <td colspan="6" style="text-align: left; width: 62mm;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->picking->picking_no : ''}}</strong></td>
-      <td colspan="3" style="width:40mm">PDO. No</td>
+      <td colspan="6" style="text-align: left; width: 234px;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->picking->picking_no : ''}}</strong></td>
+      <td colspan="3" style="width:151px">PDO. No</td>
       <td>:</td>
       <td colspan="5" style="text-align: left;"><strong>{{!empty($branchManifestHeader) ? $branchManifestHeader->pdo_no : ''}}</strong></td>
     </tr>
@@ -52,21 +52,21 @@
     <thead>
     <tr>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Ship To</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Ship To - Detail</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"><strong>#</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>DO No.</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"><strong>#</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Model</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"><strong>Qty</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"><strong>CBM</strong></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
         <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"><strong>Total CBM</strong></td>
       </tr>
     </thead>
@@ -94,24 +94,24 @@
       <tr>
         @if($km == 0)
         <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{$detail['data']->ship_to_code}}</td>
-        <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
+        <td rowspan="{{ count($detail['models']) }}" style="width: 19px;"></td>
         <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{$detail['data']->ship_to}}</td>
-        <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
+        <td rowspan="{{ count($detail['models']) }}" style="width: 19px;"></td>
         <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top; text-align: right;">{{ $start_no++ }}.</td>
-        <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
+        <td rowspan="{{ count($detail['models']) }}" style="width: 19px;"></td>
         <td rowspan="{{ count($detail['models']) }}" style="vertical-align: top;">{{!empty($detail['data']->do_internal) ? $detail['data']->do_internal : $detail['data']->delivery_no}}</td>
-        <td rowspan="{{ count($detail['models']) }}" style="width: 5mm;"></td>
+        <td rowspan="{{ count($detail['models']) }}" style="width: 19px;"></td>
         @endif
 
         {{-- MODEL START --}}
         <td style="text-align: right;">{{$km+1}}.</td>
-        <td style="width: 5mm;"></td>
+        <td style="width: 19px;"></td>
         <td style="padding: 5px 0;{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }}">{{$vm->model}}</td>
-        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 19px;"></td>
         <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->quantity}}</td>
-        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 19px;"></td>
         <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->cbm / $vm->quantity}}</td>
-        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 5mm;"></td>
+        <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} width: 19px;"></td>
         <td style="{{ count($detail['models']) == ($km + 1) ? 'border-bottom: 1pt solid #000000;' : ''  }} text-align: right;">{{$vm->cbm}}</td>
       </tr>
       @endforeach
@@ -121,10 +121,10 @@
       <tr>
         <td colspan="10"></td>
         <td style="text-align: right;"><strong>Sub Total</strong></td>
-        <td style="width: 5mm;"></td>
+        <td style="width: 19px;"></td>
         <td style="text-align: right;">{{$sub_total_qty}}</td>
-        <td style="width: 5mm;"></td>
-        <td style="width: 5mm;"></td>
+        <td style="width: 19px;"></td>
+        <td style="width: 19px;"></td>
         <td colspan="2" style="text-align: right;">{{$sub_total_cbm}}</td>
       </tr>
       @php
@@ -136,11 +136,11 @@
       <td colspan="7" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;"><strong>Total</strong></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"></td>
       <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: right;"></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td colspan="2" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;">{{$total_qty}}</td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
-      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 5mm;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
+      <td style="border-top: 1pt solid #000000; border-bottom: 1pt solid #000000; width: 19px;"></td>
       <td colspan="2" style="text-align: right; border-top: 1pt solid #000000; border-bottom: 1pt solid #000000;">{{$total_cbm}}</td>
     </tr>
     @php
@@ -156,24 +156,24 @@
   <!-- <footer> -->
     <table width="100%" style="font-size: 8pt;">
       <tr>
-        <td colspan="3" style="text-align: center; width: 70mm;"><strong>EXPEDITION</strong></td>
-        <td colspan="8" style="text-align: center; width: 70mm;"><strong>OUTSOURCE <br> LOGISTIC</strong></td>
-        <td colspan="6" style="text-align: center; width: 70mm;"><strong>RECEIVER</strong></td>
+        <td colspan="3" style="text-align: center; width: 265px;"><strong>EXPEDITION</strong></td>
+        <td colspan="8" style="text-align: center; width: 265px;"><strong>OUTSOURCE <br> LOGISTIC</strong></td>
+        <td colspan="6" style="text-align: center; width: 265px;"><strong>RECEIVER</strong></td>
       </tr>
       <tr><td>&nbsp;</td></tr>
       <tr><td>&nbsp;</td></tr>
       <tr><td>&nbsp;</td></tr>
       <tr>
-        <td colspan="3" style="text-align: center; width: 70mm;">(................................)</td>
-        <td colspan="8" style="text-align: center; width: 70mm;">(................................)</td>
-        <td colspan="6" style="text-align: center; width: 70mm;">(................................)</td>
+        <td colspan="3" style="text-align: center; width: 265px;">(................................)</td>
+        <td colspan="8" style="text-align: center; width: 265px;">(................................)</td>
+        <td colspan="6" style="text-align: center; width: 265px;">(................................)</td>
       </tr>
       <tr><td>&nbsp;</td></tr>
       <tr><td>&nbsp;</td></tr>
       <tr>
-        <td colspan="3" style="text-align: left; width: 70mm;">{{date('l, d-F-Y h:i:s A')}}</td>
-        <td colspan="8" style="text-align: center; width: 70mm;">Page 1 of 1</td>
-        <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
+        <td colspan="3" style="text-align: left; width: 265px;">{{date('l, d-F-Y h:i:s A')}}</td>
+        <td colspan="8" style="text-align: center; width: 265px;">Page 1 of 1</td>
+        <td colspan="6" style="text-align: right; width: 265px;">print out from SEID WMS</td>
       </tr>
     </table>
   <!-- </footer> -->
