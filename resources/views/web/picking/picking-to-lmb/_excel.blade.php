@@ -28,11 +28,11 @@
     <td>&nbsp;</td>
 </tr>
 <tr>
-    <td colspan="2" style="width: 30mm;">Tanggal</td>
-    <td style="width: 5mm;">:</td>
-    <td colspan="4" style="width: 60mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
-    <td colspan="4" style="width: 40mm;">No. Mobil/Jenis</td>
-    <td style="width: 5mm;">:</td>
+    <td colspan="2" style="width: 113.4px;">Tanggal</td>
+    <td style="width: 18.9px;">:</td>
+    <td colspan="4" style="width: 226.8px;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+    <td colspan="4" style="width: 151.2px;">No. Mobil/Jenis</td>
+    <td style="width: 18.9px;">:</td>
     <td colspan="3">{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
 </tr>
 <tr>
@@ -101,11 +101,11 @@ $row_no = 1;
 @endphp
 @foreach($chunks as $index=>$rs_details)
 <tr>
-    <td style="text-align: center; border: 1pt solid #000000; width: 10mm;">NO</td>
-    <td colspan="4" style="text-align: center; border: 1pt solid #000000; width: 50mm;">MODEL</td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 30mm;">QTY</td>
-    <td style="text-align: center; border: 1pt solid #000000; width: 30mm;" colspan="8">NO. SERI</td>
-    <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
+    <td style="text-align: center; border: 1pt solid #000000; width: 37.8px;">NO</td>
+    <td colspan="4" style="text-align: center; border: 1pt solid #000000; width: 1898px;">MODEL</td>
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 113.4px;">QTY</td>
+    <td style="text-align: center; border: 1pt solid #000000; width: 113.4px;" colspan="8">NO. SERI</td>
+    <td style="text-align: center; border-left: 1pt solid #000000; width: 3.78px;"></td>
 </tr>
 {{-- Table Body --}}
 @php
@@ -150,10 +150,10 @@ $qty = count($v_model['serial_numbers']);
     <td style="text-align: center;" colspan="3">
         {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
     </td>
-    <td style="text-align: center; border-right: 1pt solid #000000; width: 1mm;" colspan="2">
+    <td style="text-align: center; border-right: 1pt solid #000000; width: 3.78px;" colspan="2">
         {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
     </td>
-    <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;  width: 1mm;"></td>
+    <td style="text-align: center; border-left: 1pt solid #000000; width: 3.78px;  width: 3.78px;"></td>
 </tr>
 
 @while($row_serial_pointer < $row_serial_total)
@@ -167,7 +167,7 @@ $qty = count($v_model['serial_numbers']);
     <td style="text-align: center; border-bottom: 1pt solid #000000;border-right: 1pt solid #000000; " colspan="2">
         {{!empty($v_model['serial_numbers'][$serial_pointer]) ? $v_model['serial_numbers'][$serial_pointer++] : ''}}
     </td>
-    <td style="text-align: center; border-left: 1pt solid #000000; width: 1mm;"></td>
+    <td style="text-align: center; border-left: 1pt solid #000000; width: 3.78px;"></td>
 </tr>
 
 @php
@@ -208,20 +208,20 @@ if($index==0){
 <table width="100%" style="font-size: 10pt;">
 <tr>
     <td rowspan="3" colspan="4"
-        style="font-style: italic; width: 105mm; word-wrap: break-word;">
+        style="font-style: italic; width: 396.9px; word-wrap: break-word;">
         Pengangkut diharap memeriksa &amp; menghitung barang yang diangkut. *Claim
         kekurangan barang diluar areal pergudangan kami bukan menjadi tanggung jawab kami.
     </td>
-    <td style="width: 5mm;"></td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+    <td style="width: 18.9px;"></td>
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 75.6px;">
         LOADING</td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">ST.
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 75.6px;">ST.
         KEEPER</td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 75.6px;">
         CHECKER</td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 75.6px;">
         DRIVER</td>
-    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 20mm;">
+    <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 75.6px;">
         DEALER</td>
 </tr>
 <tr>
@@ -236,21 +236,21 @@ if($index==0){
     <td></td>
 </tr>
 <tr>
-    <td colspan="2" style="font-style: italic; width: 40mm;">Asli - Putih</td>
+    <td colspan="2" style="font-style: italic; width: 151.2px;">Asli - Putih</td>
     <td>:</td>
-    <td style="font-style: italic; width: 50mm;">Transporter</td>
+    <td style="font-style: italic; width: 1898px;">Transporter</td>
     <td></td>
 </tr>
 <tr>
-    <td colspan="2" style="font-style: italic; width: 40mm;">Copy 1 - Merah</td>
+    <td colspan="2" style="font-style: italic; width: 151.2px;">Copy 1 - Merah</td>
     <td>:</td>
-    <td style="font-style: italic; width: 50mm;">Customer</td>
+    <td style="font-style: italic; width: 1898px;">Customer</td>
     <td></td>
 </tr>
 <tr>
-    <td colspan="2" style="font-style: italic; width: 40mm;">Copy 2 - Kuning</td>
+    <td colspan="2" style="font-style: italic; width: 151.2px;">Copy 2 - Kuning</td>
     <td>:</td>
-    <td style="font-style: italic; width: 50mm;">Cabang (Lampiran DO)</td>
+    <td style="font-style: italic; width: 1898px;">Cabang (Lampiran DO)</td>
     <td></td>
 </tr>
 
