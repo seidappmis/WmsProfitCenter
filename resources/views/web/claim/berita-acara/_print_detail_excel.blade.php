@@ -34,7 +34,7 @@
       <td style="border: 1pt solid #000000;">{{str_replace(',', "\n", $value['serial_number'])}}</td>
       <td style="border: 1pt solid #000000;">{{$beritaAcara['driver_name'].' / '.$beritaAcara['vehicle_number']}}</td>
       <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
-      <td style="border: 1pt solid #000000; width: 50mm;"></td>
+      <td style="border: 1pt solid #000000; width: 189px;"></td>
    </tr>
    @php
    $no ++;

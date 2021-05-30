@@ -31,20 +31,20 @@ mpdf-->
                </tr>
                {{-- No --}}
                <tr>
-                  <td style="border-left: 2pt solid #000000; text-align: left; width: 7mm;"><strong>No :</strong></td>
+                  <td style="border-left: 2pt solid #000000; text-align: left; width: 26.48px;"><strong>No :</strong></td>
                   <td colspan="5" style="text-align: center; border-bottom: 1px solid #000000;">{{$claimNote->claim_note_no}}</td>
                   <td colspan="9" style="border-right: 2pt solid #000000">&nbsp;</td>
                </tr>
                <tr>
                   <td colspan="4" style="border-left: 2pt solid #000000; text-align: left;"><strong>Issued by :</strong></td>
-                  <td colspan="2" style="text-align: center; border-bottom: 1px solid #000000; width: 50mm;"><strong>LOGISTICS</strong></td>
-                  <td style="width: 7mm;">&nbsp;</td>
+                  <td colspan="2" style="text-align: center; border-bottom: 1px solid #000000; width: 189px;"><strong>LOGISTICS</strong></td>
+                  <td style="width: 26.48px;">&nbsp;</td>
                   <td colspan="2" style="text-align: left;"><strong>Division :</strong></td>
                   <td colspan="2" style="text-align: center; border-bottom: 1px solid #000000;"><strong>LOGISTICS</strong></td>
                   <td colspan="">&nbsp;</td>
                   <td style="text-align: center;"><strong>Date:</strong></td>
                   <td style="text-align: center; border-bottom: 1px solid #000000;"><strong>{{date('d-M-Y',strtotime($claimNote->created_at))}}</strong></td>
-                  <td style="border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
+                  <td style="border-right: 2pt solid #000000; width: 18.9px;">&nbsp;</td>
                </tr>
                <tr>
                   <td colspan="15" style="height: 10px; border-left: 2pt solid #000000; border-right: 2pt solid #000000;"></td>
@@ -55,7 +55,7 @@ mpdf-->
                   <td colspan="3" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Code :</strong></td>
                   <td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Part Name :</strong></td>
                   <td colspan="2" style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-left: 1pt solid #000000;"><strong>Mould Name :</strong></td>
-                  <td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-right: 2pt solid #000000; width: 5mm;">&nbsp;</td>
+                  <td style="border-top: 2pt solid #000000; border-bottom: 2pt solid #000000; border-right: 2pt solid #000000; width: 18.9px;">&nbsp;</td>
                </tr>
                {{-- Body --}}
                <tr>
@@ -70,7 +70,7 @@ mpdf-->
                         </tr>
                         <tr>
                            <td colspan="" style=" text-align: left;"><strong>Claim Unit : &nbsp; {{$claimNote->sum_qty}} Unit</strong></td>
-                           <td colspan="" style="width: 7mm;">&nbsp;</td>
+                           <td colspan="" style="width: 26.48px;">&nbsp;</td>
                         </tr>
                         <tr>
                            <td style="height: 10px;" colspan="8"></td>
@@ -159,22 +159,22 @@ mpdf-->
                </tr>
                <!-- Total Claim -->
                <tr>
-                  <td colspan="5" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; width: 130mm;"><strong>Total Claim Amount</strong></td>
+                  <td colspan="5" style="border-bottom: 2pt solid #000000; border-left: 2pt solid #000000; width: 491.4px;"><strong>Total Claim Amount</strong></td>
                   <td>
                      <table width="100%" style="font-size: 8pt;">
                         <tr>
                            <td>
                               <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:15px; height:15px; float: right;"></div>
                            </td>
-                           <td style="width: 5mm; text-align: left;"><strong>IDR</strong></td>
+                           <td style="width: 18.9px; text-align: left;"><strong>IDR</strong></td>
                            <td>
                               <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:15px; height:15px; float: right;"></div>
                            </td>
-                           <td style="width: 5mm; text-align: left;"><strong>USD</strong></td>
+                           <td style="width: 18.9px; text-align: left;"><strong>USD</strong></td>
                            <td>
                               <div style="border-bottom: 1pt solid #000000; border-left: 1pt solid #000000; border-right: 1pt solid #000000; border-top: 1pt solid #000000; width:15px; height:15px; float: right;"></div>
                            </td>
-                           <td style="width: 5mm; text-align: left;"><strong>JYP</strong></td>
+                           <td style="width: 18.9px; text-align: left;"><strong>JYP</strong></td>
                         </tr>
                      </table>
                   </td>
@@ -267,13 +267,13 @@ mpdf-->
                   <td colspan="" style="border-right: 2pt solid #000000;">
                      <table width="100%" style="font-size: 8pt; border-collapse: collapse;">
                         <tr>
-                           <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center; width: 15mm;">&nbsp;</td>
+                           <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center; width: 56.7px;">&nbsp;</td>
                         </tr>
                         <tr>
-                           <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000;text-align: center; width: 15mm;"><strong>PIC</strong></td>
+                           <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000;text-align: center; width: 56.7px;"><strong>PIC</strong></td>
                         </tr>
                         <tr>
-                           <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 15mm;">&nbsp;</td>
+                           <td style="border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 56.7px;">&nbsp;</td>
                         </tr>
                         <tr>
                            <td style=" border-right: 1pt solid #000000; border-left: 1pt solid #000000;">&nbsp;</td>
@@ -308,7 +308,7 @@ mpdf-->
                         <tr>
                            <td style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>Div. Head</strong></td>
                            <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center;"><strong>Dept. Head</strong></td>
-                           <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 15mm;"><strong>PIC</strong></td>
+                           <td rowspan="2" style="border-top: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; border-bottom: 1pt solid #000000; text-align: center; width: 56.7px;"><strong>PIC</strong></td>
                         </tr>
                         <tr>
                            <td style="border-bottom: 1pt solid #000000; border-right: 1pt solid #000000; border-left: 1pt solid #000000; text-align: center;"><strong>(Japanese)</strong></td>
@@ -409,7 +409,7 @@ mpdf-->
                            <td>&nbsp;</td>
                         </tr>
                         <tr>
-                           <td colspan="1" style="font-size: 8pt; text-align: left; width: 50mm;"><strong>01/Claim U-Log/Des/2019</strong></td>
+                           <td colspan="1" style="font-size: 8pt; text-align: left; width: 189px;"><strong>01/Claim U-Log/Des/2019</strong></td>
                            <td style="font-size: 8pt; text-align: left;"><strong>{{money_reformat($subTotal,'IDR')}}</strong></td>
                         </tr>
                         <tr>
@@ -424,20 +424,20 @@ mpdf-->
                      <table width="100%" style="font-family: Arial Narrow;border-collapse: collapse; font-size: 7pt;">
                         {{-- Table Head --}}
                         <tr>
-                           <td style="border: 1pt solid #000000; width: 15mm;">Date</td>
-                           <td style="border: 1pt solid #000000; width: 50mm;">Ekspedisi</td>
-                           <td style="border: 1pt solid #000000; width: 15mm;">Driver</td>
-                           <td style="border: 1pt solid #000000; width: 20mm;">Plate Number</td>
-                           <td style="border: 1pt solid #000000; width: 15mm;">Destination</td>
-                           <td style="border: 1pt solid #000000; width: 15mm;">Delivery Order</td>
-                           <td style="border: 1pt solid #000000; width: 20mm;">Model</td>
-                           <td style="border: 1pt solid #000000; width: 15mm;">Serial Number</td>
-                           <td style="border: 1pt solid #000000; width: 5mm;">Qty</td>
-                           <td style="border: 1pt solid #000000;width: 10mm;">Warehouse</td>
-                           <td style="border: 1pt solid #000000;width: 15mm; ">Description</td>
-                           <td style="border: 1pt solid #000000;width: 7mm;">Claim</td>
-                           <td style="border: 1pt solid #000000;width: 15mm;">Price</td>
-                           <td style="border: 1pt solid #000000;width: 15mm;">Total Price</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Date</td>
+                           <td style="border: 1pt solid #000000; width: 189px;">Ekspedisi</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Driver</td>
+                           <td style="border: 1pt solid #000000; width: 75.6px;">Plate Number</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Destination</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Delivery Order</td>
+                           <td style="border: 1pt solid #000000; width: 75.6px;">Model</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Serial Number</td>
+                           <td style="border: 1pt solid #000000; width: 18.9px;">Qty</td>
+                           <td style="border: 1pt solid #000000; width: 37.8px;">Warehouse</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px; ">Description</td>
+                           <td style="border: 1pt solid #000000; width: 26.48px;">Claim</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Price</td>
+                           <td style="border: 1pt solid #000000; width: 56.7px;">Total Price</td>
                         </tr>
                         {{-- Body Table --}}
                         @if (!empty($claimNoteDetail))

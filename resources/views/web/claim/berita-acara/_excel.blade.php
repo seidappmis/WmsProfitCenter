@@ -5,5 +5,5 @@
    <td style="border: 1pt solid #000000;">No. Seri</td>
    <td style="border: 1pt solid #000000;">Qty</td>
    <td style="border: 1pt solid #000000;">Jenis Kerusakan</td>
-   <td style="border: 1pt solid #000000; width: 50mm;">Keterangan</td>
+   <td style="border: 1pt solid #000000; width: 189px;">Keterangan</td>
 </table>

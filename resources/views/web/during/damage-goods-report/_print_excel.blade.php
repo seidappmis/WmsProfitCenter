@@ -41,17 +41,17 @@
 
 
    <tr>
-      <td style="text-align: center; border: 1pt solid #000000; width: 10mm;"><strong>NO</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 20mm;"><strong>DATE</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 35mm;"><strong>NO. BERITA ACARA</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 30mm;"><strong>INVOICE NO</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 30mm;"><strong>B/L NO</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 30mm;"><strong>CONTAINER NO</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 25mm;"><strong>MODEL</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 15mm;"><strong>POM</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 15mm;"><strong>QTY</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 30mm;"><strong>NO. SERI</strong></td>
-      <td style="text-align: center; border: 1pt solid #000000; width: 57mm;"><strong>REMARKS</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 37.8px;"><strong>NO</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 75.6px;"><strong>DATE</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 132.3px;"><strong>NO. BERITA ACARA</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 113.4px;"><strong>INVOICE NO</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 113.4px;"><strong>B/L NO</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 113.4px;"><strong>CONTAINER NO</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 94.5px;"><strong>MODEL</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 56.7px;"><strong>POM</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 56.7px;"><strong>QTY</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 113.4px;"><strong>NO. SERI</strong></td>
+      <td style="text-align: center; border: 1pt solid #000000; width: 215.46px;"><strong>REMARKS</strong></td>
    </tr>
    @php $no=1; $total=0; @endphp
    @forelse($detail as $k =>$v)

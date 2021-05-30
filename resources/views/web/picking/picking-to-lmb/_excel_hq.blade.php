@@ -6,8 +6,8 @@
     <table width="100%" style="font-size: 10pt;line-height: 1.4">
         
         <tr>
-            <td style="width: 64mm;"></td>
-            <td style="width: 93mm;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
+            <td style="width: 241.92px;"></td>
+            <td style="width: 351.54px;">{{ date('d/m/Y h:i:s A', strtotime($lmbHeader->created_at)) }}</td>
             <td >{{$lmbHeader->vehicle_number}}/{{$lmbHeader->destination_number != 'AS' ? $lmbHeader->picking->vehicle->vehicle_description : ''}}</td>
         </tr>
         <tr>
@@ -43,9 +43,9 @@
     @foreach($chunk as $rs_details)
     <table width="100%" style="border-collapse: collapse; font-size: 10pt;margin-top: 88mm;">
         <tr>
-            <td style="text-align: center; width: 15mm;"></td>
-            <td style="text-align: center; width: 38mm;"></td>
-            <td style="text-align: center; width: 19mm;"></td>
+            <td style="text-align: center; width: 56.7px;"></td>
+            <td style="text-align: center; width: 143.64px;"></td>
+            <td style="text-align: center; width: 71.82px;"></td>
             <td style="text-align: center;" colspan="12" ></td>
         </tr>
         {{-- Table Body --}}

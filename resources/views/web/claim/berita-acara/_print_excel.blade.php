@@ -29,13 +29,13 @@ mpdf-->
          <td>&nbsp;</td>
       </tr>
       <tr>
-         <td style="text-align: left; width: 40mm;"><strong>Hal</strong></td>
-         <td style="width: 3mm;"><strong>:</strong></td>
+         <td style="text-align: left; width: 151.2px;"><strong>Hal</strong></td>
+         <td style="width: 11.34px;"><strong>:</strong></td>
          <td><strong>BERITA ACARA KARTON BOX DAN UNIT RUSAK</strong></td>
       </tr>
       <tr>
-         <td style="text-align: left; width: 40mm;"><strong>No. Berita Acara</strong></td>
-         <td style="width: 3mm;"><strong>:</strong></td>
+         <td style="text-align: left; width: 151.2px;"><strong>No. Berita Acara</strong></td>
+         <td style="width: 11.34px;"><strong>:</strong></td>
          <td><strong>{{$beritaAcara->berita_acara_no}}</strong></td>
       </tr>
 
@@ -78,12 +78,12 @@ mpdf-->
          {{-- Detail Table --}}
       <tr>
          <td style="border: 1pt solid #000000; text-align:center;">No.</td>
-         <td style="border: 1pt solid #000000; text-align:center;width: 15mm;">No. DO</td>
+         <td style="border: 1pt solid #000000; text-align:center;width: 56.7px;">No. DO</td>
          <td style="border: 1pt solid #000000; text-align:center;">Model/Item No.</td>
          <td style="border: 1pt solid #000000; text-align:center;">No. Seri</td>
          <td style="border: 1pt solid #000000; text-align:center;">Qty</td>
          <td style="border: 1pt solid #000000; text-align:center;">Jenis Kerusakan</td>
-         <td style="border: 1pt solid #000000; text-align:center; width: 50mm;">Keterangan</td>
+         <td style="border: 1pt solid #000000; text-align:center; width: 189px;">Keterangan</td>
       </tr>
       {{-- Body --}}
       @php
@@ -99,7 +99,7 @@ mpdf-->
          <td style="border: 1pt solid #000000;">{{$value['serial_number']}}</td>
          <td style="border: 1pt solid #000000;">{{$value['qty']}}</td>
          <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
-         <td style="border: 1pt solid #000000; width: 50mm;">{{$value['keterangan']}}</td>
+         <td style="border: 1pt solid #000000; width: 189px;">{{$value['keterangan']}}</td>
       </tr>
       @php
       $no ++;
@@ -160,22 +160,22 @@ mpdf-->
       </tr>
       <tr>
          <td style="text-align:center;height: 50mm;" colspan="2">
-            <div width="100%" style="margin: auto;width:40mm !important;border-top: 1pt solid #000000;">
+            <div width="100%" style="margin: auto;width: 151.2px !important;border-top: 1pt solid #000000;">
                Branch Manager
             </div>
          </td>
          <td style="text-align:center;height: 50mm;" colspan="2">
-            <div width="100%" style="margin: auto;width:40mm !important;border-top: 1pt solid #000000;">
+            <div width="100%" style="margin: auto;width: 151.2px !important;border-top: 1pt solid #000000;">
                Chief Admin
             </div>
          </td>
          <td style="text-align:center;height: 50mm;" colspan="2">
-            <div width="100%" style="margin: auto;width:40mm !important;border-top: 1pt solid #000000;">
+            <div width="100%" style="margin: auto;width: 151.2px !important;border-top: 1pt solid #000000;">
                Chief Warehouse
             </div>
          </td>
          <td style="text-align:center;">
-            <div width="100%" style="margin: auto;width:40mm !important;border-top: 1pt solid #000000;">
+            <div width="100%" style="margin: auto;width: 151.2px !important;border-top: 1pt solid #000000;">
                Supir
             </div>
          </td>

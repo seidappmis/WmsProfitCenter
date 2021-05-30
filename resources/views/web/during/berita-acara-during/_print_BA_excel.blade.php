@@ -6,7 +6,7 @@
    <table style="font-family: Arial;">
       <tr>
          <td>
-            <table style="width: 210.0003mm;">
+            <table style="width: 793.8px;">
                <tr>
                   <td>
                      <table width="100%" style=" font-size: 10pt;">
@@ -50,9 +50,9 @@
                            <td colspan="8">Pada hari kami menemukan barang rusak dengan data sebagai berikut :</td>
                         </tr>
                         <tr>
-                           <td style="width: 25mm;">Tanggal</td>
-                           <td style="width: 5mm;">:</td>
-                           <td colspan="3" style="width: 60mm;"><strong>{{!empty($berita_acara->tanggal_berita_acara)?date('d M Y',strtotime($berita_acara->tanggal_berita_acara)):'-'}}</strong></td>
+                           <td style="width: 94.5px;">Tanggal</td>
+                           <td style="width: 18.9px;">:</td>
+                           <td colspan="3" style="width: 226.8px;"><strong>{{!empty($berita_acara->tanggal_berita_acara)?date('d M Y',strtotime($berita_acara->tanggal_berita_acara)):'-'}}</strong></td>
                            <td colspan="3">Jenis Kerusakan :</td>
                         </tr>
                         <tr>
@@ -125,11 +125,11 @@
                   <td>
                      <table width="100%" style="font-size: 10pt; border-collapse: collapse;">
                         <tr>
-                           <td style="text-align: center; border: 1pt solid #000000; width: 20mm;"><strong>No</strong></td>
-                           <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 40mm;"><strong>Model</strong></td>
-                           <td style="text-align: center; border: 1pt solid #000000; width: 15mm;"><strong>Qty</strong></td>
-                           <td style="text-align: center; border: 1pt solid #000000; width: 20mm;"><strong>P.O.M</strong></td>
-                           <td style="text-align: center; border: 1pt solid #000000; width: 50mm;"><strong>Serie No</strong></td>
+                           <td style="text-align: center; border: 1pt solid #000000; width: 75.6px;"><strong>No</strong></td>
+                           <td colspan="2" style="text-align: center; border: 1pt solid #000000; width: 151.2px;"><strong>Model</strong></td>
+                           <td style="text-align: center; border: 1pt solid #000000; width: 56.7px;"><strong>Qty</strong></td>
+                           <td style="text-align: center; border: 1pt solid #000000; width: 75.6px;"><strong>P.O.M</strong></td>
+                           <td style="text-align: center; border: 1pt solid #000000; width: 189px;"><strong>Serie No</strong></td>
                            <td colspan="2" style="text-align: center; border: 1pt solid #000000; "><strong>Kerusakan</strong></td>
                         </tr>
                         @php
@@ -164,8 +164,8 @@
                   <td>
                      <table width="100%" style=" font-size: 10pt;">
                         <tr>
-                           <td style="width: 25mm;"><strong>KET</strong></td>
-                           <td style="width: 5mm;"><strong>:</strong></td>
+                           <td style="width: 94.5px;"><strong>KET</strong></td>
+                           <td style="width: 18.9px;"><strong>:</strong></td>
                            <td colspan="6" style="width: ;"><strong>Kemasan Rusak/Basah Dari dalam Container</strong></td>
                         </tr>
                         <tr>
@@ -202,12 +202,12 @@
                            <td>&nbsp;</td>
                         </tr>
                         <tr>
-                           <td colspan="2" style="text-align: center; width: 30mm; text-decoration: underline;"><strong>SULAM</strong></td>
-                           <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>RIYAN</strong></td>
-                           <td colspan="2" style="text-align: center; width: 60mm; text-decoration: underline;"><strong>RONY PASLAH</strong></td>
-                           <td style="width: 30mm;"></td>
-                           <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>HARDIAN</strong></td>
-                           <td style="text-align: center; width: 30mm; text-decoration: underline;"><strong>KUKUH</strong></td>
+                           <td colspan="2" style="text-align: center; width: 113.4px; text-decoration: underline;"><strong>SULAM</strong></td>
+                           <td style="text-align: center; width: 113.4px; text-decoration: underline;"><strong>RIYAN</strong></td>
+                           <td colspan="2" style="text-align: center; width: 226.8px; text-decoration: underline;"><strong>RONY PASLAH</strong></td>
+                           <td style="width: 113.4px;"></td>
+                           <td style="text-align: center; width: 113.4px; text-decoration: underline;"><strong>HARDIAN</strong></td>
+                           <td style="text-align: center; width: 113.4px; text-decoration: underline;"><strong>KUKUH</strong></td>
                         </tr>
                         <tr>
                            <td colspan="2" style="text-align: center;">Checker</td>
