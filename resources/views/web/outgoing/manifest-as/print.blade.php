@@ -103,7 +103,7 @@
               				</tr>
               				<tr>
 				                <td colspan="5"></td>
-              					<td style="text-align: right;"><strong>Sub Total</strong></td>
+              					<td style="text-align: right; white-space: nowrap;"><strong>Sub Total</strong></td>
               					<td style="text-align: right;">80</td>
               					<td>&nbsp;</td>
               					<td style="text-align: right;">30.923</td>

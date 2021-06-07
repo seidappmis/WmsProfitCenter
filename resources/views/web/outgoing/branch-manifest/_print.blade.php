@@ -114,7 +114,7 @@
       @endforeach
       <tr>
         <td colspan="10"></td>
-        <td style="text-align: right;"><strong>Sub Total</strong></td>
+        <td style="text-align: right; white-space: nowrap;"><strong>Sub Total</strong></td>
         <td style="width: 5mm;"></td>
         <td style="text-align: right;">{{$sub_total_qty}}</td>
         <td style="width: 5mm;"></td>
