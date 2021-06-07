@@ -17,7 +17,7 @@
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-									<td colspan="1" style="font-size: 8pt; text-align: left; "><strong>{{$claimNote->claim_note_no}}</strong></td>
+									<td colspan="1" style="font-size: 8pt; text-align: left; "><strong>{{ isset($claimNote) ? $claimNote->claim_note_no : '-' }}</strong></td>
 									<td style="font-size: 8pt; text-align: left;"><strong>{{money_reformat($subTotal,'IDR')}}</strong></td>
 								</tr>
 								<tr>
@@ -85,7 +85,6 @@
 	</table>
 	<footer>
 	</footer>
-
 </body>
 
 </html>
