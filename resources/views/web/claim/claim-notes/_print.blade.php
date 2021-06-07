@@ -21,41 +21,41 @@
         </tr>
         <tr>
             {{-- <td colspan="35" style="border-left: 2pt solid #000000; border-right: 2pt solid #000000;">&nbsp;</td> --}}
-            <td style="border-left: 2pt solid #000000; width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="width: 5.8mm;">&nbsp;</td>
-            <td style="border-right: 2pt solid #000000; width: 5.8mm;">&nbsp;</td>
+            <td style="border-left: 2pt solid #000000; width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="width: 21.92px;">&nbsp;</td>
+            <td style="border-right: 2pt solid #000000; width: 21.92px;">&nbsp;</td>
         </tr>
         {{-- No --}}
         <tr>
