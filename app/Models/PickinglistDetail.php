@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\BaseModel;
 use App\Models\Concept;
 use App\Models\ManualConcept;
-use Illuminate\Database\Eloquent\Model;
 
-class PickinglistDetail extends Model
+class PickinglistDetail extends BaseModel
 {
   protected $table     = 'wms_pickinglist_detail';
   public $incrementing = false;

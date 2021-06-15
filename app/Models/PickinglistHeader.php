@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\BaseModel;
 use DB;
-use Illuminate\Database\Eloquent\Model;
 
-class PickinglistHeader extends Model
+class PickinglistHeader extends BaseModel
 {
   protected $table     = 'wms_pickinglist_header';
   public $incrementing = false;

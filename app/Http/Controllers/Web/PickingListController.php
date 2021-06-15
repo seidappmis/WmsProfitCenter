@@ -33,6 +33,8 @@ class PickingListController extends Controller
         'wms_pickinglist_header.city_name',
         'wms_pickinglist_header.expedition_name',
         'wms_pickinglist_header.storage_type',
+		'wms_pickinglist_header.created_at',
+		'wms_pickinglist_header.created_by',
         // 'wms_pickinglist_header.picking_no',
         'wms_lmb_header.send_manifest',
         DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
@@ -101,6 +103,12 @@ class PickingListController extends Controller
           }
           return $lmb;
         })
+		->addColumn('createdBy', function($data){
+			return $data->createdBy !== null ? ($data->createdBy->first_name !== null ? $data->createdBy->first_name : '') . ' ' . ($data->createdBy->last_name !== null ? $data->createdBy->last_name : '') : '';
+		})
+		->addColumn('created_at', function($data){
+			return $data->created_at;
+		})
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->lmb_details->count() == 0) {
@@ -173,7 +181,7 @@ class PickingListController extends Controller
   }
 
   public function transporterList(Request $request)
-  {
+  {	  
     if ($request->ajax()) {
       $query = DriverRegistered::transporterWaitingConcept($request)
         ->get();
