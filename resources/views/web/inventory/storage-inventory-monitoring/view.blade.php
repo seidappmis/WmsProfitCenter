@@ -78,7 +78,7 @@ jQuery(document).ready(function($) {
           {data: 'storage_location_from', className: 'detail'},
           {data: 'storage_location_to', className: 'detail'},
           {data: 'ref', className: 'detail'},
-          {data: 'quantity', name: 'last_updated', className: 'detail'},
+          {data: 'quantity', name: 'quantity', className: 'detail'},
           {data: 'created_at', name: 'created_at', className: 'detail'},
       ],
       "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
