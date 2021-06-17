@@ -766,6 +766,8 @@ class PickingListController extends Controller
       $pickingListDetail['code_sales']     = $value['code_sales'];
       $pickingListDetail['remarks']        = $value['remarks'];
       $pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
+	  $pickingListDetail['created_by']     = auth()->user()->id;
+	  $pickingListDetail['created_at']     = date('Y-m-d H:i:s');
 
       // Check Inventory Storage
       if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
