@@ -62,8 +62,6 @@
                       <th>STORAGE</th>
                       <th>DO STATUS</th>
                       <th>LMB</th>
-					  <th>CREATED BY</th>
-					  <th>CREATED AT</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -141,16 +139,6 @@
             name: 'lmb',
             className: 'detail'
           },
-		  {
-			  data: 'createdBy',
-			  name: 'createdBy',
-			  className: 'detail'
-		  },
-		  {
-			  data: 'created_at',
-			  data: 'created_at',
-			  className: 'detail'
-		  },
           {
             data: 'action',
             className: 'center-align',
