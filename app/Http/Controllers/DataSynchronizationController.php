@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogManifestDetail;
-use DB;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DataSynchronizationController extends Controller
 {
@@ -49,11 +50,14 @@ class DataSynchronizationController extends Controller
   }
 
 	protected function updateTable11Mei2021(){
-		
-		DB::statement("ALTER TABLE `tr_driver_registered`
-		ADD COLUMN has_pickinglist BOOLEAN AFTER `wk_step_number`,
-		ADD COLUMN has_manifest BOOLEAN AFTER `has_pickinglist`");
-		echo "Alter table `tr_driver_registered`<br/>";
+		try {
+			DB::statement("ALTER TABLE `tr_driver_registered`
+			ADD COLUMN has_pickinglist BOOLEAN AFTER `wk_step_number`,
+			ADD COLUMN has_manifest BOOLEAN AFTER `has_pickinglist`");
+			echo "Alter table `tr_driver_registered`<br/>";
+		} catch (Exception $e) {
+			echo $e->getMessage() . '<br/>' . '<br/>';
+		}
 
 		DB::statement("UPDATE `tr_driver_registered`, `wms_pickinglist_header`
 		SET `tr_driver_registered`.`has_pickinglist` = true
@@ -63,6 +67,7 @@ class DataSynchronizationController extends Controller
 		WHERE `log_manifest_header`.`r_driver_register_id` = `tr_driver_registered`.`id`");
 		echo "Update table `tr_driver_registered`<br/>";
 
+		DB::unprepared('DROP TRIGGER IF EXISTS pickinglist_header_insert');
 		DB::unprepared("CREATE TRIGGER pickinglist_header_insert
 		AFTER INSERT ON wms_pickinglist_header FOR EACH ROW
 		BEGIN
@@ -72,6 +77,7 @@ class DataSynchronizationController extends Controller
 				WHERE tr_driver_registered.id = NEW.driver_register_id;
 			END IF;
 		END");
+		DB::unprepared("DROP TRIGGER IF EXISTS pickinglist_header_update");
 		DB::unprepared("CREATE TRIGGER pickinglist_header_update
 		AFTER UPDATE ON wms_pickinglist_header FOR EACH ROW
 		BEGIN
@@ -91,6 +97,7 @@ class DataSynchronizationController extends Controller
 				WHERE tr_driver_registered.id = NEW.driver_register_id;
 			END IF;
 		END");
+		DB::unprepared('DROP TRIGGER IF EXISTS pickinglist_header_delete');
 		DB::unprepared("CREATE TRIGGER pickinglist_header_delete
 		AFTER DELETE ON wms_pickinglist_header FOR EACH ROW
 		BEGIN
@@ -106,6 +113,7 @@ class DataSynchronizationController extends Controller
 		END");
 		echo "Trigger for `wms_pickinglist_header` created<br/>";
 
+		DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_insert');
 		DB::unprepared("CREATE TRIGGER manifest_header_insert
 		AFTER INSERT ON log_manifest_header FOR EACH ROW
 		BEGIN
@@ -115,6 +123,7 @@ class DataSynchronizationController extends Controller
 				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
 			END IF;
 		END");
+		DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_update');
 		DB::unprepared("CREATE TRIGGER manifest_header_update
 		AFTER UPDATE ON log_manifest_header FOR EACH ROW
 		BEGIN
@@ -134,6 +143,7 @@ class DataSynchronizationController extends Controller
 				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
 			END IF;
 		END");
+		DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_delete');
 		DB::unprepared("CREATE TRIGGER manifest_header_delete
 		AFTER DELETE ON log_manifest_header FOR EACH ROW
 		BEGIN
