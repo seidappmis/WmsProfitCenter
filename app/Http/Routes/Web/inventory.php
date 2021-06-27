@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Route::view('storage-inventory-monitoring', 'web.inventory.storage-inventory-monitoring.index');
   Route::get('storage-inventory-monitoring', 'Web\StorageInventoryMonitoringController@index');
@@ -19,4 +21,9 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Route::view('cancel-movement', 'web.inventory.cancel-movement.index');
   Route::get('cancel-movement', 'Web\CancelMovementController@index');
+
 });
+
+Route::get('stock-check', 'Web\StorageInventoryMonitoringController@check');
+Route::get('stock-check/{id}', 'Web\StorageInventoryMonitoringController@check_show');
+Route::get('log-check', 'Web\MovementTypeController@index');

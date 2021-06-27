@@ -98,10 +98,10 @@
     $('#form-adjust-inventory-movement [name="model"]').change(function(event) {
       /* Act on the event */
       var data = $(this).select2('data')[0];
-      $('#form-adjust-inventory-movement [name="prev_quantity"]').val(data.quantity_total)
-      $('#form-adjust-inventory-movement [name="model_name"]').val(data.model_name)
-      $('#form-adjust-inventory-movement [name="ean_code"]').val(data.ean_code)
-      $('#form-adjust-inventory-movement [name="cbm"]').val(data.cbm)
+		$('#form-adjust-inventory-movement [name="prev_quantity"]').val(data.quantity_total);
+		$('#form-adjust-inventory-movement [name="model_name"]').val(data.model_name);
+		$('#form-adjust-inventory-movement [name="ean_code"]').val(data.ean_code);
+		$('#form-adjust-inventory-movement [name="cbm"]').val(data.cbm);
     });
   }
 
@@ -123,7 +123,8 @@
     });
     $('#form-adjust-inventory-movement [name="sloc"]').change(function(event) {
       /* Act on the event */
-      set_select2_model({sloc: $(this).val()})
+      set_select2_model({sloc: $(this).val()});
+	  //$('#form-adjust-inventory-movement [name="model"]').trigger('change');
     });
     $('#form-adjust-inventory-movement [name="sloc"]').val('').trigger('change')
   }
