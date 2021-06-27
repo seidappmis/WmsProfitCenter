@@ -35,12 +35,9 @@
 								<thead>
 									<tr>
 										<th data-priority="1" width="30px">NO.</th>
-										<th>TRANSACTION</th>
 										<th>MOVEMENT</th>
+										<th>CODE</th>
 										<th>DESCRIPTION</th>
-										<th>FROM</th>
-										<th>TO</th>
-										<th>MODUL</th>
 										<th>LOG COUNT</th>
 										<th width="100px"></th>
 									</tr>
@@ -74,13 +71,10 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', orderable:false, searchable:false, className: 'center-align'},
-				{data: 'transactions', className: 'detail'},
-				{data: 'jenis', className: 'detail'},
-				{data: 'action_description', className: 'detail'},
-				{data: 'from_desc', className: 'detail'},
-				{data: 'to_desc', className: 'detail'},
-				{data: 'modul_name', className: 'detail'},
-				{data: 'log_count', className: 'detail right-align'},
+				{data: 'inventory_movement', className: 'detail'},
+				{data: 'movement_code', className: 'detail'},
+				{data: 'transactions_desc', className: 'detail'},
+				{data: 'jumlah', className: 'detail right-align'},
 				{data: 'action', className: 'center-align', searchable: false, orderable: false},
 			]
 		});
