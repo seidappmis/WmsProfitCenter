@@ -25,7 +25,10 @@ class MovementTypeController extends Controller
 
 	public function index(Request $request){
 		if($request->ajax()){
-			$query = MovementTransactionType::leftJoin('wms_movement_transaction_log as lg', 'lg.movement_code', 'wms_master_movement_type.movement_code')
+			$query = MovementTransactionType::leftJoin('wms_movement_transaction_log as lg', function($join){
+				$join->on('lg.movement_code', '=','wms_master_movement_type.movement_code');
+				$join->on(DB::raw("REPLACE(lg.inventory_movement, 'Stock ', '')"), 'wms_master_movement_type.action');
+			})
 				->groupBy([
 					'id',
 					'transactions',
@@ -53,5 +56,25 @@ class MovementTypeController extends Controller
 			return $datatables->make(true);
 		}
 		return view('web.master.movement-type.index');
+	}
+
+	public function edit($id){
+		switch ($id) {
+			case 3:
+				$code = '101';
+				$table = 'log_incoming_manual_header';
+				$key = 'arrival_no';
+				break;
+			case 4:
+				//cancel 3
+				$code = '102';
+				break;
+			case 5:
+				$code = '101';
+
+			default:
+				# code...
+				break;
+		}
 	}
 }

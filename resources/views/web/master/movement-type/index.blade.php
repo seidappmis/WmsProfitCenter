@@ -36,7 +36,7 @@
 									<tr>
 										<th data-priority="1" width="30px">NO.</th>
 										<th>TRANSACTION</th>
-										<th>TYPE</th>
+										<th>MOVEMENT</th>
 										<th>DESCRIPTION</th>
 										<th>FROM</th>
 										<th>TO</th>

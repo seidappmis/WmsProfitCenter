@@ -27,3 +27,4 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 Route::get('stock-check', 'Web\StorageInventoryMonitoringController@check');
 Route::get('stock-check/{id}', 'Web\StorageInventoryMonitoringController@check_show');
 Route::get('log-check', 'Web\MovementTypeController@index');
+Route::get('log-check/{id}', 'Web\MovementTypeController@edit');
