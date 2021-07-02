@@ -215,7 +215,8 @@ class LoadingStatusListController extends Controller
     }
 
     if (!empty($request->input('destination_number'))) {
-      $query->where('tr_concept_truck_flow.destination_number', $request->input('destination_number'));
+      //$query->where('tr_concept_truck_flow.destination_number', $request->input('destination_number'));
+	  $query->where('tr_driver_registered.destination_number', $request->input('destination_number'));
     }
 
     if (!empty($request->input('expedition_code'))) {

@@ -355,7 +355,7 @@
               d.status = $('#form-summary-outgoing-report [name="status"]').val()
             }
       },
-      order: [1, 'asc'],
+      order: [2, 'asc'],
       columns: [
           {data: 'manifest_type'},
           {data: 'do_manifest_date'},
