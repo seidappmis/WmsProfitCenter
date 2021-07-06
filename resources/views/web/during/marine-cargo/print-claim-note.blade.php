@@ -209,7 +209,7 @@
         <td style="text-align: center;">{{ $value['qty'] }}</td>
         <?php $totalQty += $value['qty'] ?? 1; ?>
         <td>=</td>
-        <td style="text-align: right;">{{ $marineCargo->currency }}
+        <td style="text-align: right;">
           {{ thousand_reformat(($value['qty'] * $value['price'] * 110) / 100) }}
         </td>
         <td style="border-right: 1px solid black;"></td>
@@ -230,7 +230,7 @@
     </tr>
     <tr>
       <td colspan="12" style="border-left: 1px solid black;"></td>
-      <td style="border-right: 1px solid black;"><strong>Curr:</strong></td>
+      <td style="border-right: 1px solid black;"><strong>Curr: {{ $marineCargo->currency }}</strong></td>
     </tr>
     <tr>
       <td colspan="8" style="text-align: right; border-left: 1px solid black; border-bottom: 1px solid black;">
@@ -238,7 +238,7 @@
       </td>
       <td colspan="4" style="border-bottom: 1px solid black;"><strong>IDR
           {{ thousand_reformat($totalPriceIDR) }}</strong></td>
-      <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>{{ $marineCargo->currency }}
+      <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>USD
           {{ thousand_reformat($totalPriceUSD) }}</strong></td>
     </tr>
 

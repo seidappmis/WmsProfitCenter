@@ -11,6 +11,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+	  $this->updateTable06Juli2021();
 	  $this->updateTable11Mei2021();
     // $this->updateTable28April2020();
     // $this->updateTable15April2021();
@@ -48,6 +49,19 @@ class DataSynchronizationController extends Controller
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
+
+  	protected function updateTable06Juli2021(){
+		try {
+			DB::statement("ALTER TABLE `dur_marine_cargo`
+			MODIFY COLUMN sailed_date DATE,
+			MODIFY COLUMN arrived_date DATE,
+			MODIFY COLUMN discharging_date DATE,
+			MODIFY COLUMN delivery_date DATE");
+			echo "Alter table `dur_marine_cargo`<br/>";
+		} catch (Exception $e) {
+			echo $e->getMessage() . '<br/><br/>';
+		}
+	}
 
 	protected function updateTable11Mei2021(){
 		try {
