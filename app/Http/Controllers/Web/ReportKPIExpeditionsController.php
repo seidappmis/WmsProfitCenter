@@ -136,11 +136,41 @@ class ReportKPIExpeditionsController extends Controller
 
     if (count($query) !== 0) {
       $graph = $this->getGraph($query);
+	  //$graph->Stroke();
+	  //die;
       ob_start();
       imagepng($graph->Stroke(_IMG_HANDLER));
       $imageData = ob_get_contents();
       ob_end_clean();
-      $tabeldata .= '<img src="data:image/png;base64,' . base64_encode($imageData) . '" style="width: 100%;" />';
+	  if($request->input('filetype') == 'xls'){
+		  /*
+		  $file = tmpfile();
+		  $path = stream_get_meta_data($file)['uri'];
+		  fwrite($file, $imageData);
+		  */
+		  $deletetime = time() - (86400/2);
+
+		  $dir = '/tmp';
+		  $prefix = 'wms-report-kpi';
+
+		  if($handle = opendir($dir)){
+			  while (false != ($file = readdir($handle))){
+				  if((filetype("$dir/$file") == 'file')
+				  && (str_starts_with($file, $prefix))
+				  && (filemtime("$dir/$file") < $deletetime)){
+					  unlink("$dir/$file");
+				  }
+			  }
+			  closedir($handle);
+		  }
+
+		  $path = tempnam($dir, $prefix);
+		  file_put_contents($path, $imageData);
+		  $tabeldata .= '<img src="' . $path . '" style="width: 100%;" />';
+	  }else{
+		$tabeldata .= '<img src="data:image/png;base64,' . base64_encode($imageData) . '" style="width: 100%;" />';
+	  }
+	  //$tabeldata .= '<img src="/home/kurnia/afedigi_project/wms-sharp/storage/app/public/do-manifest/files/6041097abf5a7.png" style="width: 100%;" />';
     }
 
     $tabeldata .= '<table>';
@@ -240,4 +270,5 @@ class ReportKPIExpeditionsController extends Controller
 
     return $graph;
   }
+  
 }
