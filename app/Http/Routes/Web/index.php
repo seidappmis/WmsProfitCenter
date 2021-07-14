@@ -78,6 +78,9 @@ Route::get('/test', function () {
   
   Route::group(['middleware' => 'auth'], function () {
     Route::get('data-synchronization', 'DataSynchronizationController@index');
+
+	Route::get('data-fix/lmb-detail', 'DataFixController@lmb_detail');
+
     Route::view('home', 'web.home.index');
     Route::view('only-branch-access', 'web.only-branch-access');
     Route::post('/change-password', 'Web\Auth\ChangePasswordController@changePassword')->name('change-password');
