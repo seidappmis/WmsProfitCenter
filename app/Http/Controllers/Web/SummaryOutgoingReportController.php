@@ -435,7 +435,8 @@ class SummaryOutgoingReportController extends Controller
     $sheet->getStyle('A1:' . ($col) . '1')->applyFromArray(getPHPSpreadsheetTitleStyle());
 
     $data = $this->getSummaryOutgoingReport($request)
-      ->get();
+		->orderBy('log_manifest_header.do_manifest_no')
+		->get();
     \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder( new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder() );
 
     $row = 2;

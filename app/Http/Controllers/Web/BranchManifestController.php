@@ -91,14 +91,12 @@ class BranchManifestController extends Controller
     $request->validate([
       'driver_register_id' => 'required',
     ]);
-
-	$cek = WMSBranchManifestHeader::where([
-			'driver_register_id' => $request->input('driver_register_id'),
-			'manifest_type' => 'NORMAL',
-		])->exists();
 	
-	if($cek){
-		return sendError('Manifest telah ada');
+	if(($cek = WMSBranchManifestHeader::where([
+		'driver_register_id' => $request->input('driver_register_id'),
+		'manifest_type' => 'NORMAL',
+	])->first()) !== null){
+		return redirect()->back()->with('error', 'Manifest for pickinglist ' . $cek->picking->picking_no . ' already created');
 	}else{
 		$manifestHeader = new WMSBranchManifestHeader;
 

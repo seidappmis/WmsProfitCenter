@@ -75,8 +75,9 @@ class MarineCargoController extends Controller
       $query = BeritaAcaraDuringDetail::where('dur_dgr_id', $id)
          ->leftjoin('dur_dgr_detail', 'dur_dgr_detail.berita_acara_during_detail_id', '=', 'dur_berita_acara_detail.id')
          //->where('dur_dgr_detail.dur_dgr_id', $id)
-         ->where('dur_berita_acara_detail.claim', '<>', "'carton-box'")
-         ->where('dur_berita_acara_detail.claim', '<>', "'Carton Box'");
+         //->where('dur_berita_acara_detail.claim', '<>', "'carton-box'")
+         //->where('dur_berita_acara_detail.claim', '<>', "'Carton Box'");
+		 ->where('dur_berita_acara_detail.category_damage', 'Unit Damage');
       $datatables = DataTables::of($query)->addIndexColumn();
       return $datatables->make(true);
    }
@@ -99,6 +100,7 @@ class MarineCargoController extends Controller
 
       $cartonBoxs = [];
       $units = [];
+	  
       foreach ($marineCargo->details() as $key => $value) {
          if ($value->claim == 'carton-box' || $value->claim == 'Carton Box') {
             $cartonBoxs[$value->model_name]['model_name'] = $value->model_name;
@@ -127,8 +129,6 @@ class MarineCargoController extends Controller
 
       if ($request->input('filetype') == 'html') {
 
-         // return $view_print;
-         // die;
          // request HTML View
          $mpdf = new \Mpdf\Mpdf([
             'tempDir'       => '/tmp',
@@ -144,6 +144,9 @@ class MarineCargoController extends Controller
          $mpdf->Output();
          return;
       } else if ($request->input('filetype') == 'xls') {
+
+		//return $view_print;
+		//die;
 
          // Request FILE EXCEL
          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
