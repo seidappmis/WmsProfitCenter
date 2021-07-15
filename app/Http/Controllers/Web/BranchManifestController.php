@@ -96,7 +96,11 @@ class BranchManifestController extends Controller
 		'driver_register_id' => $request->input('driver_register_id'),
 		'manifest_type' => 'NORMAL',
 	])->first()) !== null){
-		return redirect()->back()->with('error', 'Manifest for pickinglist ' . $cek->picking->picking_no . ' already created');
+		//return redirect()->back()->with('error', 'Manifest for pickinglist ' . $cek->picking->picking_no . ' already created');
+		return [
+			'status' => 'failed',
+			'message' => 'Manifest for pickinglist ' . $cek->picking->picking_no . ' already created',
+		];
 	}else{
 		$manifestHeader = new WMSBranchManifestHeader;
 
@@ -153,7 +157,11 @@ class BranchManifestController extends Controller
 
 		$manifestHeader->save();
 
-		return $manifestHeader;
+		return [
+			'status' => 'success',
+			'message' => 'Data manifest created',
+			'do_manifest_no' => $do_manifest_no,
+		];
 	}
   }
 

@@ -166,7 +166,7 @@
                         <tr>
                            <td style="width: 94.5px;"><strong>KET</strong></td>
                            <td style="width: 18.9px;"><strong>:</strong></td>
-                           <td colspan="6" style="width: ;"><strong>Kemasan Rusak/Basah Dari dalam Container</strong></td>
+                           <td colspan="6"><strong>Kemasan Rusak/Basah Dari dalam Container</strong></td>
                         </tr>
                         <tr>
                            <td>&nbsp;</td>

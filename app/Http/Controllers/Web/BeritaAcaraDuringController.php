@@ -82,7 +82,10 @@ class BeritaAcaraDuringController extends Controller
       $mpdf->Output();
       return;
     } elseif ($req->input('filetype') == 'xls') {
-
+		/*
+		return $view_print;
+		die;
+		*/
       // req FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

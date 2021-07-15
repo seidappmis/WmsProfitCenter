@@ -59,8 +59,20 @@
           data: $(form).serialize(),
         })
         .done(function(data) { // selesai dan berhasil
-          showSwalAutoClose("Data manifest created.")
-          window.location.href = "{{ url('branch-manifest') }}" + '/' + data.do_manifest_no + '/edit';
+			if(data.status == 'success'){
+				showSwalAutoClose(data.message);
+				window.location.href = "{{ url('branch-manifest') }}" + '/' + data.do_manifest_no + '/edit';
+			}else{
+				swal({
+					title: "Warning!", 
+					text: data.message, 
+					type: "warning",
+					closeOnConfirm: false,
+				}).then((hasil) => {
+					window.location.href = "{{ url('branch-manifest') }}";
+				});
+				//showSwalAutoClose(data.message);
+			}
         })
         .fail(function(xhr) {
             setLoading(false); // Enable Button when failed

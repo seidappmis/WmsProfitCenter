@@ -226,7 +226,7 @@
         <td style="text-align: right; border-top: 1px solid black;">
 			<strong>
 				{{-- $marineCargo->currency --}}
-				{{ number_format($totalPriceUSD, 3) }}
+				USD {{ number_format($totalPriceUSD, 3) }}
 			</strong>
 		</td>
         <td style="border-right: 1px solid black;"></td>
