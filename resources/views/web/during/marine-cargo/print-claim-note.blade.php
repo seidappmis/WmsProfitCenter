@@ -196,7 +196,7 @@
     <?php $totalQty = 0; ?>
     @foreach ($units as $value)
       @php
-        $totalPriceUSD = empty($totalPriceUSD) ? $value['qty'] * $value['price'] : $totalPriceUSD + ($value['qty'] * $value['price'] * 110) / 100;
+        $totalPriceUSD = empty($totalPriceUSD) ? $value['qty'] * $value['price'] * (110 / 100) : $totalPriceUSD + ($value['qty'] * $value['price'] * (110 / 100));
       @endphp
       <tr>
         <td colspan="3" style="border-left: 1px solid black;"></td>
@@ -225,8 +225,8 @@
         <td></td>
         <td style="text-align: right; border-top: 1px solid black;">
 			<strong>
-				{{ $marineCargo->currency }}
-				{{-- thousand_reformat($totalPriceUSD) --}}
+				{{-- $marineCargo->currency --}}
+				{{ number_format($totalPriceUSD, 3) }}
 			</strong>
 		</td>
         <td style="border-right: 1px solid black;"></td>
@@ -246,7 +246,7 @@
       <td colspan="4" style="border-bottom: 1px solid black;"><strong>IDR
           {{ thousand_reformat($totalPriceIDR) }}</strong></td>
       <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>USD
-          {{ thousand_reformat($totalPriceUSD) }}</strong></td>
+          {{ number_format($totalPriceUSD, 3) }}</strong></td>
     </tr>
 
     <tr>

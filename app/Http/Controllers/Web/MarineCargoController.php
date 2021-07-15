@@ -145,9 +145,6 @@ class MarineCargoController extends Controller
          return;
       } else if ($request->input('filetype') == 'xls') {
 
-		//return $view_print;
-		//die;
-
          // Request FILE EXCEL
          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
          $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
