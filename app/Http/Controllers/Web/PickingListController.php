@@ -111,7 +111,7 @@ class PickingListController extends Controller
 		})
         ->addColumn('action', function ($data) {
           $action = '';
-          if ($data->lmb_details->count() == 0) {
+          if (($data->lmb_header == null) || ($data->lmb_header->send_manifest != 1)) {
             $action .= ' ' . get_button_edit(url('picking-list/' . $data->id . '/edit'));
             $action .= ' ' . get_button_delete('Cancel');
           } else {
@@ -621,7 +621,23 @@ class PickingListController extends Controller
     try {
 
       if (!empty($rs_lmb_detail)) {
-        LMBDetail::insert($rs_lmb_detail);
+        //LMBDetail::insert($rs_lmb_detail);
+		LMBDetail::upsert($rs_lmb_detail, [
+			'serial_number',
+			'delivery_no',
+			'model',
+			'delivery_items',
+		], [
+			'invoice_no',
+			'ean_code',
+			'cmb_unit',
+			'diver_register_id',
+			'picking_id',
+			'city_code',
+			'city_name',
+			'kode_customer',
+			'code_sales'
+		]);
       }
       return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
     } catch (Exception $e) {

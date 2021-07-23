@@ -98,6 +98,23 @@
                                     </select>
                                 </div></td>
                               </tr>
+							  <tr>
+							  	<td>Picking List Status</td>
+								<td>
+									<div class="input-field col s12">
+										<select name="picking_list_status" class="select2-data-ajax browser-default">
+										</select>
+									</div>
+								</td>
+							  </tr>
+							  <tr>
+							  	<td>LMB Status</td>
+								<td>
+									<div class="input-field col s12">
+										<select name="lmb_status" class="select2-data-ajax browser-default"></select>
+									</div>
+								</td>
+							  </tr>
                             </table>
                             <div class="input-field col s12">
                               <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1 ml-1">Submit</button>
@@ -120,6 +137,11 @@
                                 <thead>
                                     <tr>
                                         <th>SHIPMENT NO</th>
+										<th>PICKING DATE</th>
+										<th>PICKING NO</th>
+										<th>LMB DATE</th>
+										<th>PICKINGLIST STATUS</th>
+										<th>LMB STATUS</th>
                                         <th>LINE NO</th>
                                         <th>OUTPUT DATE</th>
                                         <th>OUTPUT TIME</th>
@@ -252,6 +274,11 @@
       },
       columns: [
           {data: 'invoice_no'},
+		  {data: 'picking_date'},
+		  {data: 'picking_no'},
+		  {data: 'lmb_date'},
+		  {data: 'pickinglist_status'},
+		  {data: 'lmb_status'},
           {data: 'line_no'},
           {data: 'output_date'},
           {data: 'output_time'},
@@ -401,6 +428,16 @@
      placeholder: '-- All --',
      allowClear: true,
      ajax: get_select2_ajax_options('/master-vehicle/select2-vehicle')
+  });
+  $('#form-report-outstanding-list [name="picking_list_status"]').select2({
+	  placeholder: '-- All --',
+	  allowClear: true,
+	  data: ['', 'DO Already'],
+  });
+  $('#form-report-outstanding-list [name="lmb_status"]').select2({
+	  placeholder: '-- All --',
+	  allowClear: true,
+	  data: ['', 'LMB Send Manifest']
   });
 </script>
 @endpush

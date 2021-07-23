@@ -28,7 +28,8 @@
                       <div class="collapsible-body padding-1">
                           @include('web.picking.picking-list._form_picking_list')
                           @include('web.picking.picking-list._table_picking_list_detail')
-                          @if($pickinglistHeader->lmb_details->count() == 0)
+                          <?php //@if($pickinglistHeader->lmb_details->count() == 0) ?>
+						  @if(($pickinglistHeader->lmb_header == null) || ($pickinglistHeader->lmb_header->send_manifest != 1))
                           @include('web.picking.picking-list._form_assign_item_picking')
                           @endif
                       </div>

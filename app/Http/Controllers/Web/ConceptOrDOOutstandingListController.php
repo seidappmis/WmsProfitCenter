@@ -34,7 +34,12 @@ class ConceptOrDOOutstandingListController extends Controller
       $query = Concept::select(
         'tr_concept.*',
         DB::raw('tr_destination.destination_description AS destination_name'),
-        DB::raw('users.username AS upload_by')
+        DB::raw('users.username AS upload_by'),
+		'wms_pickinglist_header.picking_date',
+		'wms_pickinglist_header.picking_no',
+		'wms_lmb_header.lmb_date',
+		DB::raw('IF(wms_pickinglist_detail.id is null, "", "DO Already") as pickinglist_status'),
+		DB::raw('IF(wms_lmb_header.send_manifest, "LMB Send Manifest", IF(wms_lmb_header.send_manifest is null, "-", "Loading Process")) as lmb_status'),
       )
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->leftjoin('users', 'users.id', '=', 'tr_concept.created_by')
@@ -42,6 +47,19 @@ class ConceptOrDOOutstandingListController extends Controller
           $join->on('tr_concept_flow_detail.invoice_no', '=', 'tr_concept.invoice_no');
           $join->on('tr_concept_flow_detail.line_no', '=', 'tr_concept.line_no');
         })
+		->leftjoin('wms_pickinglist_detail', function ($join) {
+			$join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
+			$join->on('wms_pickinglist_detail.line_no', '=', 'tr_concept.line_no');
+		})
+		->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+		->leftjoin('wms_lmb_detail', function ($join) {
+			$join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
+			$join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
+			$join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
+			$join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
+			$join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+		})
+		->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
         ->whereNull('tr_concept_flow_detail.id_header')
         ->where('tr_concept.area', $request->input('area'))
       ;
@@ -69,6 +87,14 @@ class ConceptOrDOOutstandingListController extends Controller
       if (!empty($request->input('vehicle_code_type'))) {
         $query->where('tr_concept.vehicle_code_type', $request->input('vehicle_code_type'));
       }
+
+	  if(!empty($request->input('picking_list_status')) && ($request->input('picking_list_status') == 'DO Already')){
+		  $query->whereNotNull('wms_pickinglist_detail.id');
+	  }
+
+	  if(!empty($request->input('lmb_status')) && ($request->input('lmb_status') == 'LMB Send Manifest')){
+		  $query->where('wms_lmb_header.send_manifest');
+	  }
 
     } else {
       $query = ManualConcept::select(
