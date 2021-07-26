@@ -621,7 +621,8 @@ class PickingListController extends Controller
     try {
 
       if (!empty($rs_lmb_detail)) {
-        //LMBDetail::insert($rs_lmb_detail);
+        LMBDetail::insert($rs_lmb_detail);
+		/*
 		LMBDetail::upsert($rs_lmb_detail, [
 			'serial_number',
 			'delivery_no',
@@ -638,6 +639,7 @@ class PickingListController extends Controller
 			'kode_customer',
 			'code_sales'
 		]);
+		*/
       }
       return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
     } catch (Exception $e) {
