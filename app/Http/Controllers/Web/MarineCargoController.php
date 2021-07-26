@@ -48,9 +48,13 @@ class MarineCargoController extends Controller
             $data['notice_of_claim_no'] = MarineCargo::getNoticeOfClaimNo($data['dur_dgr_no']);
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['created_by'] = auth()->user()->id;
-            $prices = $data['price'];
-            // return $data;
-            unset($data['dur_dgr_no']);
+			if(key_exists('price', $data)){
+				$prices = $data['price'];
+			}else{
+				$prices = [];
+			}
+
+			unset($data['dur_dgr_no']);
             unset($data['price']);
             DB::transaction(function () use (&$data, $prices) {
                MarineCargo::insert($data);
