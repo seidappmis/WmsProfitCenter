@@ -40,6 +40,7 @@ class ConceptOrDOOutstandingListController extends Controller
 		'wms_lmb_header.lmb_date',
 		DB::raw('IF(wms_pickinglist_detail.id is null, "", "DO Already") as pickinglist_status'),
 		DB::raw('IF(wms_lmb_header.send_manifest, "LMB Send Manifest", IF(wms_lmb_header.send_manifest is null, "-", "Loading Process")) as lmb_status'),
+		DB::raw('IF(log_manifest_header.status_complete, "Complete", "") as concept_status'),
       )
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->leftjoin('users', 'users.id', '=', 'tr_concept.created_by')
@@ -60,6 +61,11 @@ class ConceptOrDOOutstandingListController extends Controller
 			$join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
 		})
 		->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
+		->leftJoin('log_manifest_detail', function($join){
+			$join->on('log_manifest_detail.invoice_no', '=', 'tr_concept.invoice_no');
+			$join->on('log_manifest_detail.line_no', '=', 'tr_concept.line_no');
+		})
+		->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
         ->whereNull('tr_concept_flow_detail.id_header')
         ->where('tr_concept.area', $request->input('area'))
       ;
@@ -94,6 +100,10 @@ class ConceptOrDOOutstandingListController extends Controller
 
 	  if(!empty($request->input('lmb_status')) && ($request->input('lmb_status') == 'LMB Send Manifest')){
 		  $query->where('wms_lmb_header.send_manifest');
+	  }
+
+	  if(!empty($request->input('concept_status')) && ($request->input('concept_status') == 'Complete')){
+		  $query->where('log_manifest_header.status_complete');
 	  }
 
     } else {

@@ -115,6 +115,14 @@
 									</div>
 								</td>
 							  </tr>
+							  <tr>
+								  <td>Concept Status</td>
+								  <td>
+									  <div class="input-field col s12">
+										  <select name="concept_status" class="select2-data-ajax browser-default"></select>
+									  </div>
+								  </td>
+							  </tr>
                             </table>
                             <div class="input-field col s12">
                               <button type="submit" class="waves-effect waves-light indigo btn mt-1 mb-1 ml-1">Submit</button>
@@ -142,6 +150,7 @@
 										<th>LMB DATE</th>
 										<th>PICKINGLIST STATUS</th>
 										<th>LMB STATUS</th>
+										<th>CONCEPT STATUS</th>
                                         <th>LINE NO</th>
                                         <th>OUTPUT DATE</th>
                                         <th>OUTPUT TIME</th>
@@ -279,6 +288,7 @@
 		  {data: 'lmb_date'},
 		  {data: 'pickinglist_status'},
 		  {data: 'lmb_status'},
+		  {data: 'concept_status'},
           {data: 'line_no'},
           {data: 'output_date'},
           {data: 'output_time'},
@@ -438,6 +448,14 @@
 	  placeholder: '-- All --',
 	  allowClear: true,
 	  data: ['', 'LMB Send Manifest']
+  });
+  $('#form-report-outstanding-list [name="concept_status"]').select2({
+	  placeholder: '-- All --',
+	  allowClear: true,
+	  data: [
+		  '', 
+		  'Complete',
+		]
   });
 </script>
 @endpush
