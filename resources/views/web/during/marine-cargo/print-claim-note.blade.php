@@ -213,7 +213,7 @@
         <?php $totalQty += $value['qty'] ?? 1; ?>
         <td>=</td>
         <td style="text-align: right;">
-			USD {{ number_format($value['qty'] * $value['price'] * (110 / 100),3) }}
+			USD {{ number_format($value['qty'] * $value['price'] * (110 / 100), 2) }}
         </td>
         <td style="border-right: 1px solid black;"></td>
       </tr>
@@ -226,7 +226,7 @@
         <td style="text-align: right; border-top: 1px solid black;">
 			<strong>
 				{{-- $marineCargo->currency --}}
-				USD {{ number_format($totalPriceUSD, 3) }}
+				USD {{ number_format($totalPriceUSD, 2) }}
 			</strong>
 		</td>
         <td style="border-right: 1px solid black;"></td>
@@ -246,7 +246,7 @@
       <td colspan="4" style="border-bottom: 1px solid black;"><strong>IDR
           {{ thousand_reformat($totalPriceIDR) }}</strong></td>
       <td style="border-right: 1px solid black; border-bottom: 1px solid black;"><strong>USD
-          {{ number_format($totalPriceUSD, 3) }}</strong></td>
+          {{ number_format($totalPriceUSD, 2) }}</strong></td>
     </tr>
 
     <tr>
