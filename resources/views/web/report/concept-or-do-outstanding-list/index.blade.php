@@ -271,14 +271,17 @@
           url: '{{ url('concept-or-do-outstanding-list') }}',
           type: 'GET',
           data: function(d) {
-            d.type = $('#form-report-outstanding-list [name="type"]').val()
-            d.area = $('#form-report-outstanding-list [name="area"]').val()
-            d.expedition_code = $('#form-report-outstanding-list [name="expedition_code"]').val()
-            d.invoice_no = $('#form-report-outstanding-list [name="invoice_no"]').val()
-            d.delivery_no = $('#form-report-outstanding-list [name="delivery_no"]').val()
-            d.start_upload_concept_date = $('#form-report-outstanding-list [name="start_upload_concept_date"]').val()
-            d.end_upload_concept_date = $('#form-report-outstanding-list [name="end_upload_concept_date"]').val()
-            d.vehicle_code_type = $('#form-report-outstanding-list [name="vehicle_code_type"]').val()
+            d.type = $('#form-report-outstanding-list [name="type"]').val();
+            d.area = $('#form-report-outstanding-list [name="area"]').val();
+            d.expedition_code = $('#form-report-outstanding-list [name="expedition_code"]').val();
+            d.invoice_no = $('#form-report-outstanding-list [name="invoice_no"]').val();
+            d.delivery_no = $('#form-report-outstanding-list [name="delivery_no"]').val();
+            d.start_upload_concept_date = $('#form-report-outstanding-list [name="start_upload_concept_date"]').val();
+            d.end_upload_concept_date = $('#form-report-outstanding-list [name="end_upload_concept_date"]').val();
+            d.vehicle_code_type = $('#form-report-outstanding-list [name="vehicle_code_type"]').val();
+			d.picking_list_status = $('#form-report-outstanding-list [name="picking_list_status"]').val();
+			d.lmb_status = $('#form-report-outstanding-list [name="lmb_status"]').val();
+			d.concept_status = $('#form-report-outstanding-list [name="concept_status"]').val();
           }
       },
       columns: [

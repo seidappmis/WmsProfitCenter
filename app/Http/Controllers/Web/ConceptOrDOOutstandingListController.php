@@ -99,11 +99,11 @@ class ConceptOrDOOutstandingListController extends Controller
 	  }
 
 	  if(!empty($request->input('lmb_status')) && ($request->input('lmb_status') == 'LMB Send Manifest')){
-		  $query->where('wms_lmb_header.send_manifest');
+		  $query->where('wms_lmb_header.send_manifest', 1);
 	  }
 
 	  if(!empty($request->input('concept_status')) && ($request->input('concept_status') == 'Complete')){
-		  $query->where('log_manifest_header.status_complete');
+		  $query->where('log_manifest_header.status_complete', 1);
 	  }
 
     } else {
