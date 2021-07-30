@@ -66,7 +66,11 @@ class BranchManifestController extends Controller
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
+			if(($data != null) && ($data->picking != null)){
+				return $data->picking->picking_no;
+			}else{
+				return null;
+			}
         })
         ->addColumn('action', function ($data) {
           $action = '';
