@@ -77,7 +77,7 @@
                         type="hidden" 
                         class="validate" 
                         name="vehicle_code_type" 
-                        value="{{!empty($manifestHeader) ? $manifestHeader->vehicle_code_type : $lmbHeader->picking->vehicle_code_type}}"
+                        value="{{ !empty($manifestHeader) ? $manifestHeader->vehicle_code_type : ((!empty($lmbHeader) && !empty($lmbHeader->picking)) ? $lmbHeader->picking->vehicle_code_type : '') }}"
                         readonly 
                         />
                         <input 
