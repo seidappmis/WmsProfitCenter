@@ -32,4 +32,15 @@ Route::middleware('auth:api')->get('branch', function () {
   return $rs_cabang;
   // return \App\Models\MasterCabang::select('kode_customer', 'long_description')->get();
 });
+
 Route::post('login', 'API\UserController@login');
+
+Route::get('check-connection', function () {
+  return true;
+});
+
+Route::get('master-model', function () {
+  $models = \App\Models\MasterModel::select('model_name', 'ean_code', 'cbm', 'description')->get();
+
+  return $models;
+});
