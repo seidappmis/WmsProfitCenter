@@ -11,8 +11,10 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
-	  $this->updateTable06Juli2021();
-	  $this->updateTable11Mei2021();
+	  $this->updateTable05Agustus2021();
+	  //$this->updateTable06Juli2021();
+	  //$this->updateTable11Mei2021();
+
     // $this->updateTable28April2020();
     // $this->updateTable15April2021();
     // $this->updateRitaseInviceByCBM();
@@ -48,6 +50,17 @@ class DataSynchronizationController extends Controller
     // $this->updateClaimDatabase();
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
+  }
+
+  protected function updateTable05Agustus2021(){
+	  try {
+		  DB::statement("ALTER TABLE `dur_berita_acara_detail`
+		  ADD COLUMN `deleted_from_outstanding_dgr` BOOLEAN NOT NULL DEFAULT false AFTER `photo_damage`
+		  ");
+		  echo "Alter table `dur_berita_acara_detail`<br/>";
+	  } catch (\Throwable $th) {
+		  echo $th->getMessage();
+	  }
   }
 
   	protected function updateTable06Juli2021(){

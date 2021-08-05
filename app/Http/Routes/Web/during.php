@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('/damage-goods-report', 'Web\DamageGoodsReportController@index');
   // Route::get('/damage-goods-report/{id}', 'Web\DamageGoodsReportController@show');
   Route::get('/damage-goods-report/list-outstanding', 'Web\DamageGoodsReportController@listOutstanding'); //get datatable outstanding
+  Route::delete('/damage-goods-report/delete-outstanding/{id}', 'Web\DamageGoodsReportController@destroyOutstanding');
   Route::get('/damage-goods-report/list-damage-goods-report', 'Web\DamageGoodsReportController@listDGR'); //get datatable detail
   Route::get('/damage-goods-report/{id}/print', 'Web\DamageGoodsReportController@export');
   Route::get('/damage-goods-report/{id}/print-detail', 'Web\DamageGoodsReportController@exportDetail');

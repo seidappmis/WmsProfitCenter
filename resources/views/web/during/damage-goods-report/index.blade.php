@@ -194,7 +194,7 @@
 		  }).then(function(confirm){
 			  if (confirm) {
 				  $.ajax({
-					  url: "{{ url('berita-acara-during') }}/" + data.id + "/delete",
+					  url: "{{ url('/damage-goods-report/delete-outstanding') }}/" + data.id,
 					  type: "DELETE",
 					  dataType: 'json',
 				  }).done(function(result){

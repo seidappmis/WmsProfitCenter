@@ -8,6 +8,7 @@ use App\Models\DamageGoodsReport;
 use App\Models\DamageGoodsReportDetail;
 use DataTables;
 use DB;
+use Exception;
 use Illuminate\Http\Request;
 
 class DamageGoodsReportController extends Controller
@@ -36,6 +37,7 @@ class DamageGoodsReportController extends Controller
         ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'dur_berita_acara.expedition_code')
         ->whereNotNull('dur_berita_acara.submit_date')
         ->whereNull('dur_dgr_detail.id')
+		->where('dur_berita_acara_detail.deleted_from_outstanding_dgr', false)
         ->orderBy('created_at', 'DESC');
 
       $datatables = DataTables::of($query)
@@ -496,6 +498,16 @@ class DamageGoodsReportController extends Controller
     return sendSuccess('Item deleted', ['detail' => $detail]);
   }
 
+  public function destroyOutstanding($id){
+	  try {
+		  $baDetail = BeritaAcaraDuringDetail::findOrFail($id);
+		  $baDetail->deleted_from_outstanding_dgr = true;
+		  $baDetail->save();
+		  return sendSuccess('Outstanding detail berhasil dihapus.', $baDetail);
+	  } catch (Exception $e) {
+		  return sendError($e->getMessage(), [$id, $e]);
+	  }
+  }
 
   public function getDetail(Request $request, $id)
   {
