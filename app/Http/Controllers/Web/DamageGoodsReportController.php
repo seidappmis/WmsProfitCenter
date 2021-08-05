@@ -36,11 +36,13 @@ class DamageGoodsReportController extends Controller
         ->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'dur_berita_acara.expedition_code')
         ->whereNotNull('dur_berita_acara.submit_date')
         ->whereNull('dur_dgr_detail.id')
-        ->orderBy('created_at', 'DESC')
-        ->get();
+        ->orderBy('created_at', 'DESC');
 
       $datatables = DataTables::of($query)
-        ->addIndexColumn(); //DT_RowIndex (Penomoran)
+        ->addIndexColumn()
+		->addColumn('action', function($data){
+			return '<span class="waves-effect waves-light btn btn-small red darken-4 btn-delete-outstanding">Delete</span>';
+		}); //DT_RowIndex (Penomoran)
 
       return $datatables->make(true);
     }

@@ -58,6 +58,7 @@
                           <th class="center-align">Qty</th>
                           <th class="center-align">No Seri</th>
                           <th class="center-align">Remark</th>
+						  <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -170,12 +171,43 @@
           },
           {
             data: 'damage'
-          }
+          },
+		  {data: 'action'}
         ]
       });
 
       set_datatables_checkbox('#table-outstanding', dtOutstanding)
 
+	  dtOutstanding.on('click', '.btn-delete-outstanding', function(event){
+		  event.preventDefault();
+
+		  var tr = $(this).parent().parent();
+		  var data = dtOutstanding.row(tr).data();
+
+		  swal({
+			  text: "Anda yakin akan menghapus No Seri : " + data.serial_number + "?",
+			  icon: 'warning',
+			  buttons: {
+				  cancel: true,
+				  delete: 'Ya, hapus',
+			  },
+		  }).then(function(confirm){
+			  if (confirm) {
+				  $.ajax({
+					  url: "{{ url('berita-acara-during') }}/" + data.id + "/delete",
+					  type: "DELETE",
+					  dataType: 'json',
+				  }).done(function(result){
+					  if (result.status) {
+						  showSwalAutoClose('Success', 'Outstanding dengan No Seri : ' + data.serial_number + ' telah dihapus.');
+						  dtOutstanding.ajax.reload(null, false); // (null, false) => user paging is not reset on reload
+					  }
+				  }).fail(function(){
+					  console.log("error");
+				  });
+			  }
+		  });
+	  });
     });
 
     $("input#outstanding-search").on("keyup click", function() {
