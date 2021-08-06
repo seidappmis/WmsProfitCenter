@@ -7,9 +7,9 @@ use App\Models\BeritaAcaraDuringDetail;
 use App\Models\DamageGoodsReport;
 use App\Models\DamageGoodsReportDetail;
 use DataTables;
-use DB;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DamageGoodsReportController extends Controller
 {
@@ -506,6 +506,23 @@ class DamageGoodsReportController extends Controller
 		  return sendSuccess('Outstanding detail berhasil dihapus.', $baDetail);
 	  } catch (Exception $e) {
 		  return sendError($e->getMessage(), [$id, $e]);
+	  }
+  }
+
+  public function destroyMultipleOutstanding(Request $request){
+	  $selectedOutstandings = json_decode($request->input('data_outstandings'), true);
+	  try {
+		  DB::beginTransaction();
+		  foreach ($selectedOutstandings as $key => $outstanding) {
+			  $baDetail = BeritaAcaraDuringDetail::findOrFail($outstanding['id']);
+			  $baDetail->deleted_from_outstanding_dgr = true;
+			  $baDetail->save();
+		  }
+		  DB::commit();
+		  return sendSuccess("Success delete selected outstanding.", $selectedOutstandings);
+	  } catch (\Throwable $th) {
+		  DB::rollBack();
+		  return sendError($th->getMessage(), [$request->all(), $th]);
 	  }
   }
 

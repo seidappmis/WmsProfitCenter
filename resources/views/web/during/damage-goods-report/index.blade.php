@@ -42,6 +42,7 @@
                   </div>
                 </div>
                 <div class="collapsible-body p-0">
+					{!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item mb-1 mt-1') !!}
                   <div class="section-data-tables">
                     <table id="table-outstanding" class="display" width="100%">
                       <thead>
@@ -209,6 +210,39 @@
 		  });
 	  });
     });
+
+	$('.btn-multi-delete-selected-item').click(function(event){
+		swal({
+			title: 'Are you sure?',
+			text: 'Are you sure delete selected item?',
+			icon: 'warning',
+			buttons: {
+				cancel: true,
+				delete: 'Yes, Delete It'
+			}
+		}).then(function(confirm){
+			var data_outstandings = [];
+			dtOutstanding.$('input[type="checkbox"]').each(function(){
+				if (this.checked) {
+					var row = $(this).closest('tr');
+					var row_data = dtOutstanding.row(row).data();
+					data_outstandings.push(row_data);
+				}
+			});
+			if (confirm) {
+				$.ajax({
+					url: '{{ url("/damage-goods-report/delete-multiple-outstandings") }}',
+					type: 'DELETE',
+					data: 'data_outstandings=' + JSON.stringify(data_outstandings),
+				}).done(function() {
+					showSwalAutoClose('Success', 'selected data deleted.');
+					dtOutstanding.ajax.reload(null, false);
+				}).fail(function() {
+					console.log('error');
+				});
+			}
+		});
+	});
 
     $("input#outstanding-search").on("keyup click", function() {
       dtOutstanding.search($("#outstanding-search").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
