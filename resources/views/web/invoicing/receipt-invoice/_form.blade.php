@@ -380,8 +380,9 @@
           dttable_list_manifest_receipt_do.ajax.reload(null, false); // reload datatable
         }
       })
-      .fail(function() { // Kalau ajax nya gagal
+      .fail(function(xhr) { // Kalau ajax nya gagal
         console.log("error");
+		showSwalError(xhr);
       });
     })
 
