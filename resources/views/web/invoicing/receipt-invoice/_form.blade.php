@@ -165,8 +165,7 @@
 		$('.btn-print-receipt-no').click(function(event) {
 			/* Act on the event */
 			$('#modal-print-PrintReceiptNo').modal('open');
-			initPrintPreviewPrintReceiptNo('/receipt-invoice/{{ (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '
-				') }}/export-receipt-no', 'remarks=' + $('#remarks').val());
+			initPrintPreviewPrintReceiptNo('/receipt-invoice/{{ (!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->id : '') }}/export-receipt-no', 'remarks=' + $('#remarks').val());
 		});
 
 		$('.mask_money').inputmask({
@@ -536,13 +535,7 @@
 	});
 
 	function calculateInvoice() {
-		{
-			{
-				--
-				var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val()) - parseFloat($('#amount_pph').val());
-				--
-			}
-		}
+		{{-- var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val()) - parseFloat($('#amount_pph').val()); --}}
 		var amount_after_tax = parseFloat($('#amount_ppn').val()) + parseFloat($('#amount_before_tax').val());
 		$('#amount_after_tax').val(amount_after_tax.toFixed(3))
 	}
