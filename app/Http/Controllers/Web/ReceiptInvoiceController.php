@@ -164,6 +164,9 @@ class ReceiptInvoiceController extends Controller
       $value->save();
     }
 
+	$invoiceReceiptHeader = InvoiceReceiptHeader::findOrFail($id);
+	$invoiceReceiptHeader->updateAmountInvoice();
+
     // InvoiceReceiptDetail::where('id_header', $id)->where('do_manifest_no', $do_manifest_no)->update([
     //   'ritase_amount' => $request->input('ritase_amount') / count($details)
     // ]);
