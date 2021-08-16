@@ -3,7 +3,7 @@
 <table style="font-family: courier New; font-size: 8pt;">
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
+      <table style="width: 793.59px;">
         <tr>
           <td>
             <table width="100%" style="font-family: courier New; font-size: 8pt;">
@@ -17,11 +17,11 @@
               <tr><td></td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="2" style="width: 30mm; font-color:solid black;"><strong>Arrival No.</strong></td>
-                <td style="width: 5mm;"><strong>:</strong></td>
-                <td colspan="4" style="width: 60mm;"><strong>{{$incomingManualHeader->arrival_no}}</strong></td>
-                <td colspan="2" style="width: 40mm;"><strong>Vendor Name</strong></td>
-                <td style="width: 5mm;"><strong>N:</strong></td>
+                <td colspan="2" style="width: 113.37px; font-color:solid black;"><strong>Arrival No.</strong></td>
+                <td style="width: 18.895px;"><strong>:</strong></td>
+                <td colspan="4" style="width: 226.74px;"><strong>{{$incomingManualHeader->arrival_no}}</strong></td>
+                <td colspan="2" style="width: 151.16px;"><strong>Vendor Name</strong></td>
+                <td style="width: 18.895px;"><strong>N:</strong></td>
                 <td><strong>{{$incomingManualHeader->vendor_name}}</strong></td>
               </tr>
               <tr>
@@ -63,12 +63,12 @@
 
               {{-- Judul Tabel --}}
               <tr>
-                <td style="text-align: center; border: 1pt solid #000000; width: 10mm;"><strong>No.</strong></td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 50mm;" colspan="3"><strong>Model Name</strong></td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 30mm;" colspan="2"><strong>CBM</strong></td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 30mm;" colspan="2"><strong>Quantity</strong></td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 30mm;"><strong>SLoc</strong></td>
-                <td style="text-align: center; border: 1pt solid #000000; width: 50mm;" colspan="2"><strong>Description</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 37.79px;"><strong>No.</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 188.95px;" colspan="3"><strong>Model Name</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 113.37px;" colspan="2"><strong>CBM</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 113.37px;" colspan="2"><strong>Quantity</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 113.37px;"><strong>SLoc</strong></td>
+                <td style="text-align: center; border: 1pt solid #000000; width: 188.95px;" colspan="2"><strong>Description</strong></td>
               </tr>
               {{-- AKHIR Judul Tabel --}}
 
@@ -110,21 +110,21 @@
   </tr>
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
+      <table style="width: 793.59px;">
         <tr>
           <td>
             <table style="font-family: courier New; font-size: 8pt;">
               <tr>
-                <td colspan="3" style="width: 30mm;"><strong>TRANSFER BY</strong></td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['transfer_by']) ? $request['transfer_by'] : '' }}</strong></td>
+                <td colspan="3" style="width: 113.37px;"><strong>TRANSFER BY</strong></td>
+                <td style="width: 113.37px; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['transfer_by']) ? $request['transfer_by'] : '' }}</strong></td>
               </tr>
               <tr>
-                <td colspan="3" style="width: 30mm;"><strong>CHECKED BY</strong></td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['checked_by']) ? $request['checked_by'] : '' }}</strong></td>
+                <td colspan="3" style="width: 113.37px;"><strong>CHECKED BY</strong></td>
+                <td style="width: 113.37px; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['checked_by']) ? $request['checked_by'] : '' }}</strong></td>
               </tr>
               <tr>
-                <td colspan="3" style="width: 30mm;"><strong>LOCATE</strong></td>
-                <td style="width: 30mm; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['locate']) ? $request['locate'] : '' }}</strong></td>
+                <td colspan="3" style="width: 113.37px;"><strong>LOCATE</strong></td>
+                <td style="width: 113.37px; text-align: left; border-bottom: 1px solid #000000;"><strong>{{ !empty($request['locate']) ? $request['locate'] : '' }}</strong></td>
               </tr>
               <tr><td>&nbsp;</td></tr>
             </table>
@@ -134,7 +134,7 @@
           <td>
             <table style="font-family: courier New; font-size: 8pt;">
               <tr>
-                <td colspan="11" style=" width: 200mm;text-align: right;"><strong>{{date(' l, d-F-Y h:i:s A')}}</strong></td>
+                <td colspan="11" style=" width: 755.8px;text-align: right;"><strong>{{date(' l, d-F-Y h:i:s A')}}</strong></td>
               </tr>
             </table>
           </td>
