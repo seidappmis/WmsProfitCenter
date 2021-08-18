@@ -600,6 +600,7 @@ class PickingListController extends Controller
 
       for ($i = 0; $i < $value->quantity; $i++) {
         $detail['picking_id']         = $pickingHeader->id;
+		$detail['picking_detail_id']  = $value->id;
         $detail['ean_code']           = $value->ean_code;
         $detail['serial_number']      = $value->model . str_pad($rs_max_no[$value->ean_code]++, 3, 0, STR_PAD_LEFT);
         $detail['created_at']         = date('Y-m-d H:i:s');

@@ -45,25 +45,28 @@ class ConceptOrDOOutstandingListController extends Controller
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->leftjoin('users', 'users.id', '=', 'tr_concept.created_by')
         ->leftjoin('tr_concept_flow_detail', function ($join) {
-          $join->on('tr_concept_flow_detail.invoice_no', '=', 'tr_concept.invoice_no');
-          $join->on('tr_concept_flow_detail.line_no', '=', 'tr_concept.line_no');
+          $join->on('tr_concept_flow_detail.invoice_no',	'=', 'tr_concept.invoice_no');
+          $join->on('tr_concept_flow_detail.line_no',		'=', 'tr_concept.line_no');
         })
 		->leftjoin('wms_pickinglist_detail', function ($join) {
 			$join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
 			$join->on('wms_pickinglist_detail.line_no', '=', 'tr_concept.line_no');
 		})
 		->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+		/*
 		->leftjoin('wms_lmb_detail', function ($join) {
-			$join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
-			$join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
-			$join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
-			$join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
-			$join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
+			$join->on('wms_lmb_detail.picking_id',		'=', 'wms_pickinglist_detail.header_id');
+			$join->on('wms_lmb_detail.delivery_no',		'=', 'wms_pickinglist_detail.delivery_no');
+			$join->on('wms_lmb_detail.invoice_no',		'=', 'wms_pickinglist_detail.invoice_no');
+			$join->on('wms_lmb_detail.ean_code',		'=', 'wms_pickinglist_detail.ean_code');
+			$join->on('wms_lmb_detail.delivery_items',	'=', 'wms_pickinglist_detail.delivery_items');
 		})
+		*/
+		->leftjoin('wms_lmb_detail', 'wms_lmb_detail.pingking_detail_id', '=', 'wms_pickinglist_detail.id')
 		->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
 		->leftJoin('log_manifest_detail', function($join){
-			$join->on('log_manifest_detail.invoice_no', '=', 'tr_concept.invoice_no');
-			$join->on('log_manifest_detail.line_no', '=', 'tr_concept.line_no');
+			$join->on('log_manifest_detail.invoice_no',	'=', 'tr_concept.invoice_no');
+			$join->on('log_manifest_detail.line_no',	'=', 'tr_concept.line_no');
 		})
 		->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
         ->whereNull('tr_concept_flow_detail.id_header')

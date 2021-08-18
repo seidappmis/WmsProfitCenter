@@ -11,6 +11,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+	  $this->updateTable16Agustus2021();
 	  $this->updateTable05Agustus2021();
 	  //$this->updateTable06Juli2021();
 	  //$this->updateTable11Mei2021();
@@ -52,16 +53,68 @@ class DataSynchronizationController extends Controller
     // $this->updateDeliveryItemsLMB();
   }
 
-  protected function updateTable05Agustus2021(){
-	  try {
-		  DB::statement("ALTER TABLE `dur_berita_acara_detail`
-		  ADD COLUMN `deleted_from_outstanding_dgr` BOOLEAN NOT NULL DEFAULT false AFTER `photo_damage`
-		  ");
-		  echo "Alter table `dur_berita_acara_detail`<br/>";
-	  } catch (\Throwable $th) {
-		  echo $th->getMessage();
-	  }
-  }
+	protected function updateTable16Agustus2021(){
+		try {
+			if (count(DB::select("SHOW FIELDS FROM `wms_lmb_detail` WHERE `Field` = 'picking_detail_id'")) <=0) {
+
+				DB::statement("ALTER TABLE `wms_lmb_detail`
+				ADD COLUMN `picking_detail_id` VARCHAR(20) AFTER `picking_id`");
+				
+				echo "ALTER TABLE `wms_lmb_detail` <br/>";
+
+			}
+		} catch (\Throwable $th) {
+			echo $th->getMessage() . '<br/>';
+		}
+
+		try {
+			$limit = 10000;
+
+			$perintah = 
+			"UPDATE `wms_lmb_detail`
+			SET `wms_lmb_detail`.`picking_detail_id` = IFNULL((
+				SELECT `wms_pickinglist_detail`.`id`
+				FROM `wms_pickinglist_detail`
+				WHERE `wms_lmb_detail`.`picking_id` = `wms_pickinglist_detail`.`header_id`
+					AND `wms_lmb_detail`.`delivery_no` = `wms_pickinglist_detail`.`delivery_no`
+					AND `wms_lmb_detail`.`invoice_no` = `wms_pickinglist_detail`.`invoice_no`
+					AND `wms_lmb_detail`.`ean_code` = `wms_pickinglist_detail`.`ean_code`
+					AND `wms_lmb_detail`.`delivery_items` = `wms_pickinglist_detail`.`delivery_items`)
+				, '#NULL')
+			WHERE `wms_lmb_detail`.`picking_detail_id` is null
+			LIMIT $limit";
+
+			//echo $perintah . '<br/><br/><br/>';
+
+			$result = DB::update($perintah);
+
+			echo "UPDATE `wms_lmb_detail`; $result rows affected. ";
+
+			$belum = DB::selectOne("SELECT COUNT(1) belum from `wms_lmb_detail` WHERE `picking_detail_id` is null");
+
+			if ($belum->belum > 0) {
+				echo 'Hit <a href="'. url('/data-synchronization') .'">here</a> aggain for execute more rows. (Remaining : '. $belum->belum .' rows)';
+			}
+
+			echo '<br/>';
+		} catch (\Throwable $th) {
+			//throw $th;
+			echo $th->getMessage() . '<br/>';
+		}
+	}
+
+	protected function updateTable05Agustus2021(){
+		try {
+			if (count(DB::select("SHOW FIELDS FROM `dur_berita_acara_detail` WHERE `Field` = 'deleted_from_outstanding_dgr'")) <= 0) {
+				DB::statement("ALTER TABLE `dur_berita_acara_detail`
+				ADD COLUMN `deleted_from_outstanding_dgr` BOOLEAN NOT NULL DEFAULT false AFTER `photo_damage`
+				");
+				echo "Alter table `dur_berita_acara_detail`<br/>";
+			}
+		} catch (\Throwable $th) {
+			echo $th->getMessage() . '<br/>';
+		}
+	}
 
   	protected function updateTable06Juli2021(){
 		try {

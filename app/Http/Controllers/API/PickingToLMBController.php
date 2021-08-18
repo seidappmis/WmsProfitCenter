@@ -172,6 +172,8 @@ class PickingToLMBController extends Controller
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
         }
 
+		$serial_number['picking_detail_id'] = $rs_picking_list_details[$serial_number['ean_code']]->id;
+		
         $serial_number['model'] = $rs_models[$serial_number['ean_code']]->model_name;
         // $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
         // $serial_number['invoice_no']         = $rs_picking_list_details[$serial_number['ean_code']]->invoice_no;
