@@ -62,7 +62,7 @@ class ConceptOrDOOutstandingListController extends Controller
 			$join->on('wms_lmb_detail.delivery_items',	'=', 'wms_pickinglist_detail.delivery_items');
 		})
 		*/
-		->leftjoin('wms_lmb_detail', 'wms_lmb_detail.pingking_detail_id', '=', 'wms_pickinglist_detail.id')
+		->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_detail_id', '=', 'wms_pickinglist_detail.id')
 		->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
 		->leftJoin('log_manifest_detail', function($join){
 			$join->on('log_manifest_detail.invoice_no',	'=', 'tr_concept.invoice_no');
