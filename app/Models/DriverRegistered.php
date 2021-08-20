@@ -25,9 +25,9 @@ class DriverRegistered extends Model
 		->toBase()->where('tr_driver_registered.area', $request->input('area'))
 		->leftjoin('tr_vehicle_type_detail', 'tr_vehicle_type_detail.vehicle_code_type', '=', 'tr_driver_registered.vehicle_code_type')
 		->leftjoin('tr_expedition', 'tr_expedition.code', '=', 'tr_driver_registered.expedition_code')
-		//->whereNull('tr_driver_registered.has_manifest')
-		//->whereNull('tr_driver_registered.has_pickinglist')
-		->whereNull('tr_driver_registered.has_manifest_complete')
+		->whereNull('tr_driver_registered.has_manifest')
+		->whereNull('tr_driver_registered.has_pickinglist')
+		//->whereNull('tr_driver_registered.has_manifest_complete')
 		->whereNull('datetime_out');
 	}
 

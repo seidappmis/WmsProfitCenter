@@ -663,16 +663,23 @@ class PickingListController extends Controller
         DB::raw('MAX(wmcT.line_no) AS max_line_no'),
         DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
       )
-        ->leftjoin('wms_pickinglist_detail', function ($join) {
+	  ->leftJoin('log_manifest_detail', function($join){
+		  $join->on('log_manifest_detail.invoice_no',	'=', 'tr_concept.invoice_no');
+		  $join->on('log_manifest_detail.line_no',		'=', 'tr_concept.line_no');
+	  })
+	  ->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        /*->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
           $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-        })
+        })*/
+
         ->leftjoin(DB::raw('tr_concept AS wmcT'), function ($join) {
           $join->on('wmcT.invoice_no', '=', 'tr_concept.invoice_no');
           // $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
         })
-        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        //->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+		->where('log_manifest_header.status_complete', '<>', 1) // ambil yang belum manifest_header.complete
         // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
         // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
@@ -699,17 +706,24 @@ class PickingListController extends Controller
         DB::raw('0 AS line_no'),
         DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
       )
-        ->leftjoin('wms_pickinglist_detail', function ($join) {
+		->leftJoin('log_manifest_detail', function($join){
+			$join->on('log_manifest_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
+			$join->on('log_manifest_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
+			$join->on('log_manifest_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
+		})
+		->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+        /*->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'wms_manual_concept.delivery_no');
           $join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
-        })
+        })*/
         ->leftjoin(DB::raw('wms_manual_concept AS wmcT'), function ($join) {
           $join->on('wmcT.invoice_no', '=', 'wms_manual_concept.invoice_no');
           $join->on('wmcT.delivery_no', '=', 'wms_manual_concept.delivery_no');
         })
         ->where('wmcT.kode_cabang', auth()->user()->cabang->kode_cabang)
-        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        //->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+		->where('log_manifest_header.status_complete', '<>', 1)
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
         ->orderBy('delivery_no', 'asc')
         ->orderBy('delivery_items', 'asc')
