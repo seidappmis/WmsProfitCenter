@@ -11,6 +11,7 @@ class DataSynchronizationController extends Controller
 {
   public function index(Request $request)
   {
+	  $this->updateTable20Agustus2021();
 	  $this->updateTable16Agustus2021();
 	  $this->updateTable05Agustus2021();
 	  //$this->updateTable06Juli2021();
@@ -52,6 +53,73 @@ class DataSynchronizationController extends Controller
     // $this->updateDatabaseModules();
     // $this->updateDeliveryItemsLMB();
   }
+
+	protected function updateTable20Agustus2021(){
+		try {
+			if (count(DB::select("SHOW FIELDS from `tr_driver_registered` WHERE `Field` = 'has_manifest_complete'")) <= 0) {
+				DB::statement("ALTER TABLE `tr_driver_registered`
+				ADD COLUMN has_manifest_complete BOOLEAN AFTER `has_manifest`");
+				echo "Alter table `tr_driver_registered` <br/>";
+			}
+
+			DB::statement("UPDATE `tr_driver_registered`, `log_manifest_header`
+			SET `tr_driver_registered`.`has_manifest_complete` = `log_manifest_header`.`status_complete`
+			WHERE `log_manifest_header`.`r_driver_register_id` = `tr_driver_registered`.`id`");
+			echo "Update table `tr_driver_registered`<br/>";
+
+			DB::unprepared("DROP TRIGGER IF EXISTS manifest_header_insert");
+			DB::unprepared("CREATE TRIGGER manifest_header_insert
+			AFTER INSERT ON log_manifest_header FOR EACH ROW
+			BEGIN
+				IF NEW.r_driver_register_id IS NOT NULL THEN
+					UPDATE tr_driver_registered
+					SET has_manifest = true,
+						has_manifest_complete = NEW.status_complete
+					WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+				END IF;
+			END");
+			DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_update');
+			DB::unprepared('CREATE TRIGGER manifest_header_update
+			AFTER UPDATE ON log_manifest_header FOR EACH ROW
+			BEGIN
+				IF OLD.r_driver_register_id IS NOT NULL
+				AND NEW.r_driver_register_id <> OLD.r_driver_register_id THEN
+					IF (SELECT COUNT(h.do_manifest_no)
+					FROM log_manifest_header h
+					WHERE h.r_driver_register_id = OLD.r_driver_register_id) < 1 THEN
+						UPDATE tr_driver_registered
+						SET has_manifest = NULL,
+							has_manifest_complete = NULL
+						WHERE tr_driver_registered.id = OLD.r_driver_register_id;
+					END IF;
+				END IF;
+				IF NEW.r_driver_register_id IS NOT NULL THEN
+					UPDATE tr_driver_registered
+					SET has_manifest = true,
+						has_manifest_complete = NEW.status_complete
+					WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+				END IF;
+			END');
+			DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_delete');
+			DB::unprepared("CREATE TRIGGER manifest_header_delete
+			AFTER DELETE ON log_manifest_header FOR EACH ROW
+			BEGIN
+				IF OLD.r_driver_register_id IS NOT NULL THEN
+					IF (SELECT COUNT(h.do_manifest_no)
+					FROM log_manifest_header h
+					WHERE h.r_driver_register_id = OLD.r_driver_register_id) < 1 THEN
+						UPDATE tr_driver_registered
+						SET has_manifest = NULL,
+							has_manifest_complete = NULL
+						WHERE tr_driver_registered.id = OLD.r_driver_register_id;
+					END IF;
+				END IF;
+			END");
+			echo "Trigger for `log_manifest_header` created / updated<br/>";
+		} catch (Exception $e){
+			echo $e->getMessage() . '<br />' . '<br />';
+		}
+	}
 
 	protected function updateTable16Agustus2021(){
 		try {
