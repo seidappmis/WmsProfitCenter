@@ -53,11 +53,15 @@ class PickingListController extends Controller
 
       // }
 
-      // Tampilkan data yang belum ada manifest bila tidak di search
-      $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+	  $query->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id');
+	  $query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
       if (empty($request->input('search')['value'])) {
-        $query->whereRaw('(wms_lmb_header.driver_register_id IS NULL OR wms_lmb_header.send_manifest = 0)');
-      }
+      //  Tampilkan data yang belum ada manifest bila tidak di search
+      //  $query->whereRaw('(wms_lmb_header.driver_register_id IS NULL OR wms_lmb_header.send_manifest = 0)');
+	  //  Tampilkan data yang manifestnya belum complete bila tidak di search
+		$query->whereRaw('((log_manifest_header.driver_register_id IS NULL) OR (log_manifest_header.status_complete <> 1))');
+	  }
+
       $query->with(['details', 'lmb_details']);
 
       // if (auth()->user()->cabang->hq) {
