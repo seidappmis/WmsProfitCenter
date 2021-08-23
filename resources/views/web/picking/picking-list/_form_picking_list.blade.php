@@ -200,7 +200,7 @@
           $('#form-picking-list [name="storage_name"]').val(data.text);
       });
 
-      @if(!empty($pickinglistHeader) && $pickinglistHeader->lmb_details->count() == 0)
+      @if(!empty($pickinglistHeader) && ($pickinglistHeader->lmb_header) !== null || ($pickinglistHeader->lmb_header->hasManifestComplete()))
         $('.btn-delete-picking-list').removeClass('hide')
         $('.btn-delete-picking-list').click(function(event) {
           /* Act on the event */
