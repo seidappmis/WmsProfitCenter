@@ -562,7 +562,8 @@ class PickingListController extends Controller
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->quantity_in_lmb == 0) {
-            $action .= ' ' . get_button_delete('Delete');
+            $action .= '<a class="waves-effect waves-light indigo darken-4 btn-small btn-send-to-lmb " >Send To Lmb</a>'
+					. ' ' . get_button_delete('Delete');
           }
           return $action;
         })
@@ -683,7 +684,7 @@ class PickingListController extends Controller
           // $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
         })
         //->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
-		->where('log_manifest_header.status_complete', '<>', 1) // ambil yang belum manifest_header.complete
+		->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
         // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
         // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
