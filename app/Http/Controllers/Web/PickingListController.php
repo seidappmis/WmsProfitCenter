@@ -855,18 +855,35 @@ class PickingListController extends Controller
 
       if (!empty($conceptFlowHeader->id)) {
         foreach ($rs_pickinglistDetail as $key => $value) {
-          $conceptFlowDetail = new ConceptFlowDetail;
+			try {
+				$conceptFlowDetail = new ConceptFlowDetail;
 
-          $conceptFlowDetail->id_header      = $conceptFlowHeader->id;
-          $conceptFlowDetail->invoice_no     = $value['invoice_no'];
-          $conceptFlowDetail->line_no        = $value['line_no'];
-          $conceptFlowDetail->quantity       = $value['quantity'];
-          $conceptFlowDetail->cbm_max        = $value['cbm'];
-          $conceptFlowDetail->concept_type   = "STANDAR";
-          $conceptFlowDetail->delivery_no    = $value['delivery_no'];
-          $conceptFlowDetail->delivery_items = $value['delivery_items'];
-
-          $conceptFlowDetail->save();
+				$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
+				$conceptFlowDetail->invoice_no     = $value['invoice_no'];
+				$conceptFlowDetail->line_no        = $value['line_no'];
+				$conceptFlowDetail->quantity       = $value['quantity'];
+				$conceptFlowDetail->cbm_max        = $value['cbm'];
+				$conceptFlowDetail->concept_type   = "STANDAR";
+				$conceptFlowDetail->delivery_no    = $value['delivery_no'];
+				$conceptFlowDetail->delivery_items = $value['delivery_items'];
+	  
+				$conceptFlowDetail->save();
+			} catch (\Throwable $th) {
+				$conceptFlowDetail = ConceptFlowDetail::where('invoice_no', $value['invoice_no'])
+										->where('line_no', $value['line_no'])
+										->first();
+				
+				$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
+				//$conceptFlowDetail->invoice_no     = $value['invoice_no'];
+				//$conceptFlowDetail->line_no        = $value['line_no'];
+				$conceptFlowDetail->quantity       = $value['quantity'];
+				$conceptFlowDetail->cbm_max        = $value['cbm'];
+				$conceptFlowDetail->concept_type   = "STANDAR";
+				$conceptFlowDetail->delivery_no    = $value['delivery_no'];
+				$conceptFlowDetail->delivery_items = $value['delivery_items'];
+		
+				$conceptFlowDetail->save();
+			}
         }
       }
 
