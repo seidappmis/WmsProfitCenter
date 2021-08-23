@@ -176,6 +176,20 @@ class LMBHeader extends Model
     return $lmbHeader;
   }
 
+	public function hasManifestComplete(){
+		if ($this->send_manifest) {
+			if (auth()->user()->cabang->hq) {
+				return LogManifestHeader::where('driver_register_id', $this->driver_register_id)
+					->where('status_complete', 1)->count() > 0;
+			} else {
+				return WMSBranchManifestHeader::where('driver_register_id', $this->driver_register_id)
+					->where('status_complete', 1)->count() > 0;
+			}
+		} else {
+			return false;
+		}
+	}
+
   public function cabang()
   {
     return $this->belongsTo('App\Models\MasterCabang', 'kode_cabang', 'kode_cabang');

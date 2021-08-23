@@ -29,7 +29,7 @@
                           @include('web.picking.picking-list._form_picking_list')
                           @include('web.picking.picking-list._table_picking_list_detail')
                           <?php //@if($pickinglistHeader->lmb_details->count() == 0) ?>
-						  @if(($pickinglistHeader->lmb_header == null) || ($pickinglistHeader->lmb_header->send_manifest != 1))
+						  @if(($pickinglistHeader->lmb_header == null) || (!$pickinglistHeader->lmb_header->hasManifestComplete()))
                           @include('web.picking.picking-list._form_assign_item_picking')
                           @endif
                       </div>
