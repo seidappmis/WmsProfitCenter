@@ -37,7 +37,7 @@
       scrollX: true,
       responsive: true,
       ajax: {
-          url: '{{ url('picking-list/' . $pickinglistHeader->id) }}',
+          url: '{{ url("picking-list/" . $pickinglistHeader->id) }}',
           type: 'GET',
           data: function(d) {
               d.search['value'] = $('#global_filter').val()
@@ -47,7 +47,7 @@
         [2, 'asc'],
         [3, 'asc']
       ],
-      "fnDrawCallback": function( oSettings ) {
+      fnDrawCallback: function( oSettings ) {
         var total_cbm = oSettings.json.total_cbm;
         $('#text-total-cbm-concept').text(setDecimal(total_cbm != null ? total_cbm : 0))
       },
@@ -101,7 +101,7 @@
         if (confirm) { // Bila oke post ajax ke url delete nya
           // Ajax Post Delete
           $.ajax({
-            url: '{{ url('picking-list/delete-selected-details') }}' ,
+            url: '{{ url("picking-list/delete-selected-details") }}' ,
             type: 'DELETE',
             data: 'data_picking_list_details=' + JSON.stringify(data_picking_list_details),
           })
@@ -139,7 +139,7 @@
           if (confirm) { // Bila oke post ajax ke url delete nya
             // Ajax Post Delete
             $.ajax({
-              url: '{{url('picking-list/detail')}}' + '/' + id,
+              url: '{{url("picking-list/detail")}}' + '/' + id,
               type: 'DELETE',
             })
             .done(function() { // Kalau ajax nya success
@@ -154,6 +154,40 @@
           }
         })
     });
+
+	dtdatatable_picking_list_detail.on('click', '.btn-detail-send-lmb', function(event) {
+		event.preventDefault();
+
+		var tr = $(this).parent().parent();
+		var data = dtdatatable_picking_list_detail.row(tr).data();
+		id = data.id;
+		
+		swal({
+			text: 'Are you sure send to LMB?',
+			icon: 'warning',
+			buttons: {
+				cancel: true,
+				ok: 'OK'
+			}
+		}).then(function(confirm){
+			if (confirm) {
+				setLoading(true);
+				$.ajax({
+					url: '{{url("picking-list/detail")}}' + '/' + id + '/send-to-lmb',
+				}).done(function(){
+					setLoading(false);
+					showSwalAutoClose('Success', 'detail already send to lmb');
+					dtdatatable_do_for_picking.ajax.reload(null, false);
+					dtdatatable_picking_list_detail.ajax.reload(null, false);
+				}).fail(function(xhr){
+					setLoading(false);
+					console.log('error');
+					showSwalError(xhr);
+				});
+			}
+		});
+	});
+
   });
 </script>
 @endpush

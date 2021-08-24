@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Route::view('upload-do-for-picking', 'web.picking.upload-do-for-picking.index');
   Route::get('upload-do-for-picking', 'Web\UploadDOForPickingController@index');
@@ -21,6 +23,7 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::post('picking-list/submit-do', 'Web\PickingListController@submitDO');
   Route::delete('picking-list/delete-selected-details', 'Web\PickingListController@destroySelectedDetails');
   Route::delete('picking-list/detail/{id}', 'Web\PickingListController@destroyDetail');
+  Route::get('picking-list/detail/{id}/send-to-lmb', 'Web\PickingListController@detailSendToLMB');
   
   Route::post('picking-list/{id}/send-to-lmb', 'Web\PickingListController@sendToLMB');
   Route::get('picking-list/{id}/export', 'Web\PickingListController@export');

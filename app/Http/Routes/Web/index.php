@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 // use DB;
 
@@ -80,6 +81,27 @@ Route::get('/test', function () {
     Route::get('data-synchronization', 'DataSynchronizationController@index');
 
 	Route::get('data-fix/lmb-detail', 'DataFixController@lmb_detail');
+	
+	/*
+	Route::get('data-fix', function(){
+		try {
+			$schema = DB::select('SHOW TABLES');
+			foreach ($schema as $table){
+				$table_name = $table->Tables_in_afe_sharp_wms;
+				try {
+					DB::statement("CREATE TABLE `afe_sharp_wms_live`.`$table_name` LIKE `$table_name`");
+					echo "CREATE TABLE `$table_name` <br/>";
+				} catch (\Throwable $th) {
+					//throw $th;
+					echo $th->getMessage() . '<br/>';
+				}
+			}
+		} catch (\Throwable $th) {
+			//throw $th;
+			echo $th->getMessage() . '<br/>';
+		}
+	});
+	*/
 
     Route::view('home', 'web.home.index');
     Route::view('only-branch-access', 'web.only-branch-access');

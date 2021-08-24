@@ -16,8 +16,8 @@ use App\Models\MasterModel;
 use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
 use DataTables;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class PickingListController extends Controller
@@ -562,7 +562,7 @@ class PickingListController extends Controller
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->quantity_in_lmb == 0) {
-            $action .= '<a class="waves-effect waves-light indigo darken-4 btn-small btn-send-to-lmb " >Send To Lmb</a>'
+            $action .= '<a class="waves-effect waves-light indigo darken-4 btn-small btn-detail-send-lmb" >Send To Lmb</a>'
 					. ' ' . get_button_delete('Delete');
           }
           return $action;
@@ -896,6 +896,53 @@ class PickingListController extends Controller
       DB::rollBack();
     }
   }
+
+	public function detailSendToLMB($id){
+		$rs_lmb_detail = [];
+		$value = PickinglistDetail::findOrFail($id);
+		$prefix = $value->model;
+
+		$query_max_no = DB::select("SELECT MAX(serial_number) AS max_no
+			FROM wms_lmb_detail
+			LEFT JOIN wms_master_model AS m ON wms_lmb_detail.serial_number = m.model_name
+			WHERE (m.model_name IS NULL) AND serial_number LIKE '$value->model%' AND model = '$value->model'")[0]->max_no;
+		if (empty($query_max_no)) {
+			$max_no = 0;
+		} else {
+			$max_no = explode($value->model, $query_max_no)[1];
+		}
+		$max_no++;
+		
+		for ($i = 0; $i < $value->quantity; $i++) {
+			$detail['picking_id']         = $value->header_id;
+			$detail['picking_detail_id']  = $value->id;
+			$detail['ean_code']           = $value->ean_code;
+			$detail['serial_number']      = $value->model . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
+			$detail['created_at']         = date('Y-m-d H:i:s');
+			$detail['model']              = $value->model;
+			$detail['delivery_no']        = $value->delivery_no;
+			$detail['invoice_no']         = $value->invoice_no;
+			$detail['delivery_items']     = $value->delivery_items;
+			$detail['kode_customer']      = $value->kode_customer;
+			$detail['code_sales']         = $value->code_sales;
+			$detail['city_code']          = $value->header->city_code;
+			$detail['city_name']          = $value->header->city_name;
+			$detail['driver_register_id'] = $value->header->driver_register_id;
+			$detail['cbm_unit']           = $value->cbm / $value->quantity;
+
+			$rs_lmb_detail[] = $detail;
+		}
+
+		try {
+			if(!empty($rs_lmb_detail)) {
+				LMBDetail::insert($rs_lmb_detail);
+			}
+			return sendSuccess('Picking List detail sent to lmb', $rs_lmb_detail);
+		} catch (\Throwable $th) {
+			//throw $th;
+			//return sendError($th->getMessage(), $th);
+		}
+	}
 
   public function destroy($id)
   {
