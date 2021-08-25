@@ -9,50 +9,63 @@ use Illuminate\Support\Facades\DB;
 
 class DataSynchronizationController extends Controller
 {
-  public function index(Request $request)
-  {
-	  $this->updateTable20Agustus2021();
-	  $this->updateTable16Agustus2021();
-	  $this->updateTable05Agustus2021();
-	  //$this->updateTable06Juli2021();
-	  //$this->updateTable11Mei2021();
+	public function index(Request $request)
+	{
+		$this->updateTable25Agustus2021();
+		$this->updateTable20Agustus2021();
+		$this->updateTable16Agustus2021();
+		$this->updateTable05Agustus2021();
+		//$this->updateTable06Juli2021();
+		//$this->updateTable11Mei2021();
 
-    // $this->updateTable28April2020();
-    // $this->updateTable15April2021();
-    // $this->updateRitaseInviceByCBM();
-    // $this->updateStockInventory();
-    // $this->updateDOManifestDate();
-    // $this->updateRitaseInvoice();
-    // $this->updateBeritaAcaraNo();
-    // $this->updateDatabaseBranchManifest();
-    // $this->createLogInvoiceReceiptPrTable();
-    // $this->updateDatabase18Jan2021();
-    // $this->updateStockFromLMB();
-    // $this->update13Jan2020MissingCBM();
-    // $this->updateCreateByPickinglist();
-    // $this->updateTable22Des2020();
-    // $this->updateCBMLMB();
-    // $this->updateCBMManifest();
-    // $this->updateStockFromManifest();
-    // $this->updateTable19Des2020();
-    // $this->updateTable16Des2020();
-    // $this->updateTable9Des2020();
-    // $this->updateTable1Des2020();
-    // $this->insertSummaryDGRMenu();
-    // $this->updateTable30Nov2020();
-    // $this->updateTable26Nov2020();
-    // $this->updateHargaCartonBox();
-    // $this->updateTable25Nov2020();
-    // $this->updateTable23Nov2020();
-    // $this->updateClaimInsuranceTable();
-    // $this->updateBeritaAcaraTable();
-    // $this->updateReceiptInvoiceDetail();
-    // $this->updatePickinglist();
-    // $this->updateConceptTruckFlow();
-    // $this->updateClaimDatabase();
-    // $this->updateDatabaseModules();
-    // $this->updateDeliveryItemsLMB();
-  }
+		// $this->updateTable28April2020();
+		// $this->updateTable15April2021();
+		// $this->updateRitaseInviceByCBM();
+		// $this->updateStockInventory();
+		// $this->updateDOManifestDate();
+		// $this->updateRitaseInvoice();
+		// $this->updateBeritaAcaraNo();
+		// $this->updateDatabaseBranchManifest();
+		// $this->createLogInvoiceReceiptPrTable();
+		// $this->updateDatabase18Jan2021();
+		// $this->updateStockFromLMB();
+		// $this->update13Jan2020MissingCBM();
+		// $this->updateCreateByPickinglist();
+		// $this->updateTable22Des2020();
+		// $this->updateCBMLMB();
+		// $this->updateCBMManifest();
+		// $this->updateStockFromManifest();
+		// $this->updateTable19Des2020();
+		// $this->updateTable16Des2020();
+		// $this->updateTable9Des2020();
+		// $this->updateTable1Des2020();
+		// $this->insertSummaryDGRMenu();
+		// $this->updateTable30Nov2020();
+		// $this->updateTable26Nov2020();
+		// $this->updateHargaCartonBox();
+		// $this->updateTable25Nov2020();
+		// $this->updateTable23Nov2020();
+		// $this->updateClaimInsuranceTable();
+		// $this->updateBeritaAcaraTable();
+		// $this->updateReceiptInvoiceDetail();
+		// $this->updatePickinglist();
+		// $this->updateConceptTruckFlow();
+		// $this->updateClaimDatabase();
+		// $this->updateDatabaseModules();
+		// $this->updateDeliveryItemsLMB();
+	}
+
+	protected function updateTable25Agustus2021(){
+		try {
+			if (count(DB::select("SHOW FIELDS FROM `wms_lmb_detail` WHERE `Field` = 'no_manifest'")) <= 0) {
+				DB::statement("ALTER TABLE `wms_lmb_detail`
+				ADD COLUMN no_manifest BOOLEAN AFTER code_sales");
+				echo "Alter table `wms_lmb_detail`<br/>";
+			}
+		} catch (\Throwable $th) {
+			echo $th->getMessage();
+		}
+	}
 
 	protected function updateTable20Agustus2021(){
 		try {

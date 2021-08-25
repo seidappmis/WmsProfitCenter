@@ -914,21 +914,22 @@ class PickingListController extends Controller
 		$max_no++;
 		
 		for ($i = 0; $i < $value->quantity; $i++) {
-			$detail['picking_id']         = $value->header_id;
-			$detail['picking_detail_id']  = $value->id;
-			$detail['ean_code']           = $value->ean_code;
-			$detail['serial_number']      = $value->model . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
-			$detail['created_at']         = date('Y-m-d H:i:s');
-			$detail['model']              = $value->model;
-			$detail['delivery_no']        = $value->delivery_no;
-			$detail['invoice_no']         = $value->invoice_no;
-			$detail['delivery_items']     = $value->delivery_items;
-			$detail['kode_customer']      = $value->kode_customer;
-			$detail['code_sales']         = $value->code_sales;
-			$detail['city_code']          = $value->header->city_code;
-			$detail['city_name']          = $value->header->city_name;
-			$detail['driver_register_id'] = $value->header->driver_register_id;
-			$detail['cbm_unit']           = $value->cbm / $value->quantity;
+			$detail['picking_id']			= $value->header_id;
+			$detail['picking_detail_id']	= $value->id;
+			$detail['ean_code']				= $value->ean_code;
+			$detail['serial_number']		= $value->model . str_pad($max_no++, 3, 0, STR_PAD_LEFT);
+			$detail['created_at']			= date('Y-m-d H:i:s');
+			$detail['model']				= $value->model;
+			$detail['delivery_no']			= $value->delivery_no;
+			$detail['invoice_no']			= $value->invoice_no;
+			$detail['delivery_items']		= $value->delivery_items;
+			$detail['kode_customer']		= $value->kode_customer;
+			$detail['code_sales']			= $value->code_sales;
+			$detail['city_code']			= $value->header->city_code;
+			$detail['city_name']			= $value->header->city_name;
+			$detail['driver_register_id']	= $value->header->driver_register_id;
+			$detail['cbm_unit']				= $value->cbm / $value->quantity;
+			$detail['no_manifest']			= true;
 
 			$rs_lmb_detail[] = $detail;
 		}

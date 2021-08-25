@@ -34,7 +34,7 @@ class PickingToLMBController extends Controller
 				// Tampilkan data yang belum ada manifest bila tidak di search
 				$query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
 				if (empty($request->input('search')['value'])) {
-					$query->whereNull('log_manifest_header.driver_register_id');
+					$query->whereRaw('((log_manifest_header.status_complete IS NULL) OR (log_manifest_header.status_complete != 1))');
 				}
 				if (auth()->user()->area == 'All') {
 					$query->where('wms_pickinglist_header.hq', 1);
@@ -112,10 +112,42 @@ class PickingToLMBController extends Controller
 		$data['rsLoadingQuantity'] = $rsLoadingQuantity;
 
 		// $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
+		/*
 		$data['pickingListDetail'] = PickinglistDetail::select('wms_pickinglist_detail.*')
 			->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
 			->where('wms_pickinglist_header.driver_register_id', $id)
 			->get();
+		*/
+		$dataPickingListDetail = PickinglistDetail::leftJoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+			->where('wms_pickinglist_header.driver_register_id', $id);
+
+		if ($data['lmbHeader']->send_manifest) {
+			$pickingListFields = [
+				'wms_pickinglist_detail.id',
+				'wms_pickinglist_detail.header_id',
+				'wms_pickinglist_detail.invoice_no',
+				'wms_pickinglist_detail.line_no',
+				'wms_pickinglist_detail.delivery_no',
+				'wms_pickinglist_detail.delivery_items',
+				'wms_pickinglist_detail.model',
+				'wms_pickinglist_detail.quantity',
+				'wms_pickinglist_detail.cbm',
+				'wms_pickinglist_detail.ean_code',
+				'wms_pickinglist_detail.code_sales',
+				'wms_pickinglist_detail.remarks',
+				'wms_pickinglist_detail.kode_customer',
+				'wms_pickinglist_detail.created_at',
+				'wms_pickinglist_detail.updated_at',
+				'wms_pickinglist_detail.created_by',
+				'wms_pickinglist_detail.updated_by'
+			];
+			$dataPickingListDetail = $dataPickingListDetail->leftJoin('wms_lmb_detail', 'wms_lmb_detail.picking_detail_id', '=', 'wms_pickinglist_detail.id')
+				->where('wms_lmb_detail.no_manifest', 1)
+				->select($pickingListFields)
+				->groupBy($pickingListFields);
+		}
+
+		$data['pickingListDetail'] = $dataPickingListDetail->get();
 
 		// echo "<pre>";
 		// print_r($data['rsLoadingQuantity']);
@@ -245,7 +277,7 @@ class PickingToLMBController extends Controller
 	{
 		$lmbHeader = LMBHeader::findOrFail($id);
 
-		if ($lmbHeader->send_manifest == 1) {
+		if (($lmbHeader->send_manifest == 1) && ($lmbHeader->details()->where('no_manifest', 1)->count() <= 0)) {
 			return sendError('Manifest already sent!');
 		}
 
@@ -350,8 +382,13 @@ class PickingToLMBController extends Controller
 					'wms_master_storage.sto_loc_code_long'
 				)
 				->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
-				->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
-				->get();
+				->leftjoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id');
+			
+			if ($lmbHeader->send_manifest == 1) {
+				$details = $details->where('no_manifest' , 1);
+			}
+			
+			$details = $details->get();
 
 			$rs_models = [];
 
@@ -374,6 +411,9 @@ class PickingToLMBController extends Controller
 
 				$rs_models[$value->model . $value->code_sales]['qty'] += 1;
 				$rs_models[$value->model . $value->code_sales]['cbm_total'] += $value->cbm_unit;
+
+				$value->no_manifest = 0;
+				$value->save();
 			}
 
 			// print_r($rs_models);
