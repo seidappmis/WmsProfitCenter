@@ -150,6 +150,12 @@ class ConceptOrDOOutstandingListController extends Controller
     if ($request->input('type') == 'area') {
       $col = 'A';
       $sheet->setCellValue(($col++) . '1', 'SHIPMENT NO');
+	  $sheet->setCellValue(($col++) . '1', 'PICKING DATE');
+	  $sheet->setCellValue(($col++) . '1', 'PICKING NO');
+	  $sheet->setCellValue(($col++) . '1', 'LMB DATE');
+	  $sheet->setCellValue(($col++) . '1', 'PICKINGLIST STATUS');
+	  $sheet->setCellValue(($col++) . '1', 'LMB STATUS');
+	  $sheet->setCellValue(($col++) . '1', 'CONCEPT STATUS');
       $sheet->setCellValue(($col++) . '1', 'LINE NO');
       $sheet->setCellValue(($col++) . '1', 'OUTPUT DATE');
       $sheet->setCellValue(($col++) . '1', 'OUTPUT TIME');
@@ -185,6 +191,12 @@ class ConceptOrDOOutstandingListController extends Controller
       foreach ($data as $key => $value) {
         $col = 'A';
         $sheet->setCellValue(($col++) . $row, $value->invoice_no);
+		$sheet->setCellValue(($col++) . $row, $value->picking_date);
+		$sheet->setCellValue(($col++) . $row, $value->picking_no);
+		$sheet->setCellValue(($col++) . $row, $value->lmb_date);
+		$sheet->setCellValue(($col++) . $row, $value->pickinglist_status);
+		$sheet->setCellValue(($col++) . $row, $value->lmb_status);
+		$sheet->setCellValue(($col++) . $row, $value->concept_status);
         $sheet->setCellValue(($col++) . $row, $value->line_no);
         $sheet->setCellValue(($col++) . $row, $value->output_date);
         $sheet->setCellValue(($col++) . $row, $value->output_time);
