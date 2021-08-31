@@ -98,7 +98,7 @@ class LMBHeader extends Model
         ->whereNull('wms_branch_manifest_detail.id');
     }
 
-	$details->groupByRaw('invoice_no, delivery_no, model, d_lmb.delivery_items, ean_code, cbm_unit, picking_id, city_code, wms_lmb_detail.kode_customer, wms_pickinglist_detail.kode_customer, code_sales, line_no');
+	$details->groupByRaw('invoice_no, delivery_no, model, wms_lmb_detail.delivery_items, ean_code, cbm_unit, picking_id, city_code, wms_lmb_detail.kode_customer, wms_pickinglist_detail.kode_customer, code_sales, line_no');
     $details->orderBy('wms_lmb_detail.delivery_no');
 
     return $details;
