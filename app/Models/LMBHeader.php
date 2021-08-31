@@ -88,18 +88,17 @@ class LMBHeader extends Model
         $join->on('log_manifest_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
         $join->on('log_manifest_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
       })
-        ->whereNull('log_manifest_detail.id')
-        ->groupByRaw('invoice_no, delivery_no, model, wms_lmb_detail.delivery_items');
+        ->whereNull('log_manifest_detail.id');
     } else {
       $details->leftjoin('wms_branch_manifest_detail', function ($join) {
         $join->on('wms_branch_manifest_detail.invoice_no', '=', 'wms_lmb_detail.invoice_no');
         $join->on('wms_branch_manifest_detail.delivery_no', '=', 'wms_lmb_detail.delivery_no');
         $join->on('wms_branch_manifest_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
       })
-        ->whereNull('wms_branch_manifest_detail.id')
-        ->groupByRaw('invoice_no, delivery_no, model, wms_lmb_detail.delivery_items');
+        ->whereNull('wms_branch_manifest_detail.id');
     }
 
+	$details->groupByRaw('invoice_no, delivery_no, model, d_lmb.delivery_items, ean_code, cbm_unit, picking_id, city_code, wms_lmb_detail.kode_customer, wms_pickinglist_detail.kode_customer, code_sales, line_no');
     $details->orderBy('wms_lmb_detail.delivery_no');
 
     return $details;
