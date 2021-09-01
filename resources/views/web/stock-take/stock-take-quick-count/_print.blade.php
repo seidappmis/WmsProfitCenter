@@ -3,18 +3,18 @@
 <table style="font-family: Arial; font-size: 10pt;">
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
+      <table style="width: 793.59px;">
         <tr>
           <td>
             <table width="100%">
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td style="width: 30mm">STS Schedule</td>
-                <td style="width: 10mm">:</td>
-                <td colspan="2" style="width: 70mm">{{$schedule->sto_id}}</td>
-                <td style="width: 30mm">Description</td>
-                <td style="width: 10mm">:</td>
+                <td style="width: 113.37px">STS Schedule</td>
+                <td style="width: 37.79px">:</td>
+                <td colspan="2" style="width: 264.53px">{{$schedule->sto_id}}</td>
+                <td style="width: 113.37px">Description</td>
+                <td style="width: 37.79px">:</td>
                 <td colspan="2">{{$schedule->description}}</td>
               </tr>
               <tr>
@@ -35,12 +35,12 @@
             <table width="100%" style="border-collapse: collapse;">
               {{-- Table Head --}}
               <tr>
-                <td style="border: 1pt solid #000000; text-align: center; width: 30mm;">Tag No</td>
-                <td colspan="2" style="border: 1pt solid #000000; text-align: center; width: 45mm;">Model</td>
-                <td style="border: 1pt solid #000000; text-align: center; width: 45mm;">Location</td>
-                <td style="border: 1pt solid #000000; text-align: center; width: 30mm;">Input 1</td>
-                <td colspan="2" style="border: 1pt solid #000000; text-align: center; width: 30mm;">Input 2</td>
-                <td style="border: 1pt solid #000000; text-align: center; width: 30mm;">Diff</td>
+                <td style="border: 1pt solid #000000; text-align: center; width: 113.37px;">Tag No</td>
+                <td colspan="2" style="border: 1pt solid #000000; text-align: center; width: 170.055px;">Model</td>
+                <td style="border: 1pt solid #000000; text-align: center; width: 170.055px;">Location</td>
+                <td style="border: 1pt solid #000000; text-align: center; width: 113.37px;">Input 1</td>
+                <td colspan="2" style="border: 1pt solid #000000; text-align: center; width: 113.37px;">Input 2</td>
+                <td style="border: 1pt solid #000000; text-align: center; width: 113.37px;">Diff</td>
               </tr>
               @foreach($details AS $key => $value)
               <tr>
