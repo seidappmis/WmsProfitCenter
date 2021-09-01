@@ -4,7 +4,7 @@
 <table style="font-family: Arial; {{ $key % 2 == 1 ? 'page-break-after: always;' : '' }}">
   <tr>
     <td>
-      <table style="width: 210.0003mm;">
+      <table style="width: 793.8px;">
         <tr>
           <td>
             <table width="100%" style=" font-size: 10pt;">
@@ -13,13 +13,13 @@
               <tr><td colspan="7" style="text-align: center;">Stock Take Card</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td style="width: 30mm;">Area</td>
-                <td style="width: 5mm;">:</td>
-                <td style="width: 40mm; text-align: left;">{{$value->warehouse}}</td>
-                <td style="width: 60mm; text-align: center;">{{$value->area != '' ? $value->area : $value->short_description}}</td>
-                <td style="width: 30mm;">Tag No</td>
-                <td style="width: 5mm;">:</td>
-                <td style="width: 40mm; text-align: left;">{{$value->no_tag}}</td>
+                <td style="width: 113.4px;">Area</td>
+                <td style="width: 18.9px;">:</td>
+                <td style="width: 151.2px; text-align: left;">{{$value->warehouse}}</td>
+                <td style="width: 226.8px; text-align: center;">{{$value->area != '' ? $value->area : $value->short_description}}</td>
+                <td style="width: 113.4px;">Tag No</td>
+                <td style="width: 18.9px;">:</td>
+                <td style="width: 151.2px; text-align: left;">{{$value->no_tag}}</td>
               </tr>
               <tr>
                 <td>Model</td>
@@ -49,11 +49,11 @@
             <table width="100%" style="font-size: 10pt; border-collapse: collapse;">
               {{-- Head --}}
               <tr>
-                <td colspan="2" style="width: 35mm; text-align: center; border: 1pt solid #000000;">Nomor Jalur</td>
-                <td style="width: 35mm; text-align: center; border: 1pt solid #000000;">Jumlah Pallet</td>
-                <td style="width: 35mm; text-align: center; border: 1pt solid #000000;">Qty/Pallet</td>
-                <td style="width: 35mm; text-align: center; border: 1pt solid #000000;">Total</td>
-                <td colspan="2" style="width: 70mm; text-align: center; border: 1pt solid #000000;">Remark</td>
+                <td colspan="2" style="width: 132.3px; text-align: center; border: 1pt solid #000000;">Nomor Jalur</td>
+                <td style="width: 132.3px; text-align: center; border: 1pt solid #000000;">Jumlah Pallet</td>
+                <td style="width: 132.3px; text-align: center; border: 1pt solid #000000;">Qty/Pallet</td>
+                <td style="width: 132.3px; text-align: center; border: 1pt solid #000000;">Total</td>
+                <td colspan="2" style="width: 264.6px; text-align: center; border: 1pt solid #000000;">Remark</td>
               </tr>
               {{-- Body --}}
               <tr>
@@ -138,10 +138,10 @@
               <tr><td>&nbsp;</td></tr>
               <tr><td>&nbsp;</td></tr>
               <tr>
-                <td colspan="2" style="width: 40mm; border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-                <td style="width: 40mm; border: 1pt solid #000000; text-align: center;">&nbsp;</td>
-                <td colspan="2" style="width: 60mm;"></td>
-                <td colspan="2" style="width: 70mm; text-align: center;">Printed Date : {{date('d-m-Y')}}</td>
+                <td colspan="2" style="width: 151.2px; border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+                <td style="width: 151.2px; border: 1pt solid #000000; text-align: center;">&nbsp;</td>
+                <td colspan="2" style="width: 226.8px;"></td>
+                <td colspan="2" style="width: 264.6px; text-align: center;">Printed Date : {{date('d-m-Y')}}</td>
               </tr>
             </table>
           </td>
