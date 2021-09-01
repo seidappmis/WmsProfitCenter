@@ -179,6 +179,7 @@
 					showSwalAutoClose('Success', 'detail already send to lmb');
 					dtdatatable_do_for_picking.ajax.reload(null, false);
 					dtdatatable_picking_list_detail.ajax.reload(null, false);
+					setTimeout(function() { window.location.reload(); }, 2000);
 				}).fail(function(xhr){
 					setLoading(false);
 					console.log('error');

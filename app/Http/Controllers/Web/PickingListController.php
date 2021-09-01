@@ -673,17 +673,17 @@ class PickingListController extends Controller
 		  $join->on('log_manifest_detail.line_no',		'=', 'tr_concept.line_no');
 	  })
 	  ->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        /*->leftjoin('wms_pickinglist_detail', function ($join) {
+        ->leftjoin('wms_pickinglist_detail', function ($join) {
           $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
           $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
           $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-        })*/
+        })
 
         ->leftjoin(DB::raw('tr_concept AS wmcT'), function ($join) {
           $join->on('wmcT.invoice_no', '=', 'tr_concept.invoice_no');
           // $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
         })
-        //->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
+        ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
 		->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
         // ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
         // ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
