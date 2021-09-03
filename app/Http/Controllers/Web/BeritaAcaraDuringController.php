@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BeritaAcaraDuring;
 use App\Models\BeritaAcaraDuringDetail;
 use DataTables;
+use DateInterval;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -219,7 +220,6 @@ class BeritaAcaraDuringController extends Controller
 
   public function create(Request $req)
   {
-    // display create page
     return view('web.during.berita-acara-during.create');
   }
 
@@ -240,7 +240,7 @@ class BeritaAcaraDuringController extends Controller
        $date = date('Y-m-d');
       
       if(date('d') > 15){
-        $date = date('Y-m-d', strtotime('+1 month'));
+		$date = date('Y-m-d', strtotime(date('Y-m-1') . '+1 month'));
       }
       
       $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m', strtotime($date))) . "/" . date('Y', strtotime($date));
