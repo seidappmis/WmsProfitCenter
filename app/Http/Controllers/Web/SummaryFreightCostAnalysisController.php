@@ -16,8 +16,7 @@ class SummaryFreightCostAnalysisController extends Controller
     if ($request->ajax()) {
       $query = $this->getData($request);
 
-      $datatables = DataTables::of($query)
-      ;
+      $datatables = DataTables::of($query);
 
       return $datatables->make(true);
     }
@@ -199,7 +198,7 @@ class SummaryFreightCostAnalysisController extends Controller
         , lmd.do_date
         , SUM(lmd.cbm) AS total_cbm_do
         , SUM(lmd.quantity) as qty
-		, SUM(IFNULL(lird.ritas_amount)) as base_cost_ritase
+		, SUM(IFNULL(lird.ritase_amount, 0)) as base_cost_ritase
         , lfc.ritase AS base_cost_ritase_lfc
 		, SUM(IFNULL(lird.cbm_amount, 0)) / SUM(IFNULL(lird.cbm_do, 0)) as base_cost_cbm
         , lfc.cbm AS base_cost_cbm_lfc
