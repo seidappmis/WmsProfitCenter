@@ -199,8 +199,10 @@ class SummaryFreightCostAnalysisController extends Controller
         , lmd.do_date
         , SUM(lmd.cbm) AS total_cbm_do
         , SUM(lmd.quantity) as qty
-        , lfc.ritase AS base_cost_ritase
-        , lfc.cbm AS base_cost_cbm
+		, SUM(IFNULL(lird.ritas_amount)) as base_cost_ritase
+        , lfc.ritase AS base_cost_ritase_lfc
+		, SUM(IFNULL(lird.cbm_amount, 0)) / SUM(IFNULL(lird.cbm_do, 0)) as base_cost_cbm
+        , lfc.cbm AS base_cost_cbm_lfc
         , lmh_sum.cbm_truck AS total_cbm_truck
         , CASE
           WHEN lfc.cbm = 0 THEN (lfc.ritase / lmh_sum.cbm_truck) * SUM(lmd.cbm)
