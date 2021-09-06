@@ -67,7 +67,7 @@
                             <td></td>
                           </tr>
                         </table>
-                        {!! get_button_save('Send Manifest', 'btn-send-manifest ' . ($lmbHeader->hasManifestComplete() ? 'hide' : '')) !!}
+                        {!! get_button_save('Send Manifest', 'btn-send-manifest ' . (($lmbHeader->hasManifestComplete() || count($pickingListDetail) <= 0) ? 'hide' : '')) !!}
                         {!! get_button_save('Print', 'btn-print-manifest ') !!}
                         {!! get_button_cancel(url('picking-to-lmb'), 'Back', '') !!}
 
