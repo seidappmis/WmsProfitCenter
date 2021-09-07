@@ -178,6 +178,7 @@ class DataSynchronizationController extends Controller
 				AND `wms_lmb_detail`.`delivery_items` = `wms_pickinglist_detail`.`delivery_items`)
 			, '#NULL')
 		WHERE `wms_lmb_detail`.`picking_detail_id` is null
+		ORDER BY `wms_lmb_detail`.`created_at` DESC
 		LIMIT $limit";
 
 		//echo $perintah . '<br/><br/><br/>';
