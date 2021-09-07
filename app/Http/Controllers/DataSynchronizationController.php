@@ -149,27 +149,8 @@ class DataSynchronizationController extends Controller
 		}
 
 		try {
-			$limit = 10000;
 
-			$perintah = 
-			"UPDATE `wms_lmb_detail`
-			SET `wms_lmb_detail`.`picking_detail_id` = IFNULL((
-				SELECT `wms_pickinglist_detail`.`id`
-				FROM `wms_pickinglist_detail`
-				WHERE `wms_lmb_detail`.`picking_id` = `wms_pickinglist_detail`.`header_id`
-					AND `wms_lmb_detail`.`delivery_no` = `wms_pickinglist_detail`.`delivery_no`
-					AND `wms_lmb_detail`.`invoice_no` = `wms_pickinglist_detail`.`invoice_no`
-					AND `wms_lmb_detail`.`ean_code` = `wms_pickinglist_detail`.`ean_code`
-					AND `wms_lmb_detail`.`delivery_items` = `wms_pickinglist_detail`.`delivery_items`)
-				, '#NULL')
-			WHERE `wms_lmb_detail`.`picking_detail_id` is null
-			LIMIT $limit";
-
-			//echo $perintah . '<br/><br/><br/>';
-
-			$result = DB::update($perintah);
-
-			echo "UPDATE `wms_lmb_detail`; $result rows affected. ";
+			echo static::updateLMBDetail(1000);
 
 			$belum = DB::selectOne("SELECT COUNT(1) belum from `wms_lmb_detail` WHERE `picking_detail_id` is null");
 
@@ -182,6 +163,28 @@ class DataSynchronizationController extends Controller
 			//throw $th;
 			echo $th->getMessage() . '<br/>';
 		}
+	}
+
+	static function updateLMBDetail($limit = 10000){
+		$perintah = 
+		"UPDATE `wms_lmb_detail`
+		SET `wms_lmb_detail`.`picking_detail_id` = IFNULL((
+			SELECT `wms_pickinglist_detail`.`id`
+			FROM `wms_pickinglist_detail`
+			WHERE `wms_lmb_detail`.`picking_id` = `wms_pickinglist_detail`.`header_id`
+				AND `wms_lmb_detail`.`delivery_no` = `wms_pickinglist_detail`.`delivery_no`
+				AND `wms_lmb_detail`.`invoice_no` = `wms_pickinglist_detail`.`invoice_no`
+				AND `wms_lmb_detail`.`ean_code` = `wms_pickinglist_detail`.`ean_code`
+				AND `wms_lmb_detail`.`delivery_items` = `wms_pickinglist_detail`.`delivery_items`)
+			, '#NULL')
+		WHERE `wms_lmb_detail`.`picking_detail_id` is null
+		LIMIT $limit";
+
+		//echo $perintah . '<br/><br/><br/>';
+
+		$result = DB::update($perintah);
+
+		return "UPDATE `wms_lmb_detail`; $result rows affected. ";
 	}
 
 	protected function updateTable05Agustus2021(){
