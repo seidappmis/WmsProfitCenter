@@ -44,10 +44,10 @@ class ConceptOrDOOutstandingListController extends Controller
       )
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
         ->leftjoin('users', 'users.id', '=', 'tr_concept.created_by')
-        ->leftjoin('tr_concept_flow_detail', function ($join) {
+        /*->leftjoin('tr_concept_flow_detail', function ($join) {
           $join->on('tr_concept_flow_detail.invoice_no',	'=', 'tr_concept.invoice_no');
           $join->on('tr_concept_flow_detail.line_no',		'=', 'tr_concept.line_no');
-        })
+        })*/
 		->leftjoin('wms_pickinglist_detail', function ($join) {
 			$join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
 			$join->on('wms_pickinglist_detail.line_no', '=', 'tr_concept.line_no');
@@ -69,7 +69,7 @@ class ConceptOrDOOutstandingListController extends Controller
 			$join->on('log_manifest_detail.line_no',	'=', 'tr_concept.line_no');
 		})
 		->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        ->whereNull('tr_concept_flow_detail.id_header')
+        //->whereNull('tr_concept_flow_detail.id_header')
         ->where('tr_concept.area', $request->input('area'))
       ;
       if (!empty($request->input('expedition_code'))) {
