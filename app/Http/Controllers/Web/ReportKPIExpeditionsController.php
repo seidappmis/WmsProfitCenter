@@ -34,7 +34,7 @@ class ReportKPIExpeditionsController extends Controller
   public function export(Request $request)
   {
     $view_print = $this->getTableData($request);
-    $title      = 'Loading Lead Time Report';
+    $title      = 'Report KPI Expedition';
 
     if ($request->input('filetype') == 'html') {
 
@@ -176,8 +176,8 @@ class ReportKPIExpeditionsController extends Controller
     $tabeldata .= '<table>';
     $tabeldata .= '<tr>';
     $tabeldata .= '<th style="text-align: center;">EXPEDITION NAME</th>';
-    $tabeldata .= '<th style="text-align: center;">Non Achieve</th>';
     $tabeldata .= '<th style="text-align: center;">Acheive</th>';
+    $tabeldata .= '<th style="text-align: center;">Non Achieve</th>';
     $tabeldata .= '<th style="text-align: center;">Sum Of Concept</th>';
     $tabeldata .= '<th style="text-align: center;" colspan="2">(%)</th>';
     $tabeldata .= '<th style="text-align: center;">Total</th>';
