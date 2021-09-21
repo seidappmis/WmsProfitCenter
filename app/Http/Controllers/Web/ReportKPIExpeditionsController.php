@@ -176,8 +176,8 @@ class ReportKPIExpeditionsController extends Controller
     $tabeldata .= '<table>';
     $tabeldata .= '<tr>';
     $tabeldata .= '<th style="text-align: center;">EXPEDITION NAME</th>';
-    $tabeldata .= '<th style="text-align: center;">Acheive</th>';
     $tabeldata .= '<th style="text-align: center;">Non Achieve</th>';
+    $tabeldata .= '<th style="text-align: center;">Acheive</th>';
     $tabeldata .= '<th style="text-align: center;">Sum Of Concept</th>';
     $tabeldata .= '<th style="text-align: center;" colspan="2">(%)</th>';
     $tabeldata .= '<th style="text-align: center;">Total</th>';
@@ -189,8 +189,8 @@ class ReportKPIExpeditionsController extends Controller
       $tabeldata .= '<td>' . $value->non_achive . '</td>';
       $tabeldata .= '<td>' . $value->achieve . '</td>';
       $tabeldata .= '<td>' . $value->sum_of_concept . '</td>';
-      $tabeldata .= '<td>' . round($value->achieve / $value->sum_of_concept * 100, 2) . ' %</td>';
       $tabeldata .= '<td>' . round($value->non_achive / $value->sum_of_concept * 100, 2) . ' %</td>';
+      $tabeldata .= '<td>' . round($value->achieve / $value->sum_of_concept * 100, 2) . ' %</td>';
       $tabeldata .= '<td>' . round($value->sum_of_concept / $value->sum_of_concept * 100, 2) . ' %</td>';
       $tabeldata .= '</tr>';
     }
