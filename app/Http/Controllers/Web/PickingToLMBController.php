@@ -556,7 +556,6 @@ class PickingToLMBController extends Controller
 		while (!feof($file)) {
 			$row = fgetcsv($file);
 
-
 			// Validasi Data Per Baris
 			if (!empty($row[0]) && !empty($row[2])) {
 				// kalau data ada isinya
@@ -568,10 +567,17 @@ class PickingToLMBController extends Controller
 					'created_by'    => auth()->user()->id,
 				];
 
+				//CEK: Ada SN yang sama dalam satu file
+				if (array_key_exists($serial_number['serial_number'], $serial_numbers)){
+					return sendError("Duplicate SN `" . $serial_number['serial_number'] . "` in same file");
+				}
+
+				//CEK: Ada symbol di SN
 				if (!empty(strpos($serial_number['serial_number'], '%'))) {
 					return sendError("Serial number can't use symbol. Ean " .  $serial_number['ean_code'] . " Serial Number " . $serial_number['serial_number']);
 				}
 
+				//Ambil model name dari ean_code
 				if (empty($rs_models[$serial_number['ean_code']])) {
 					$model = MasterModel::where('ean_code', $serial_number['ean_code'])->first();
 					if (empty($model)) {
@@ -592,6 +598,7 @@ class PickingToLMBController extends Controller
 						'wms_pickinglist_header.city_code',
 						'wms_pickinglist_header.city_name',
 						'wms_pickinglist_header.driver_register_id',
+						'wms_pickinglist_header.kode_cabang',
 						'wms_pickinglist_detail.ean_code',
 						// 'wms_pickinglist_detail.quantity',
 						// 'wms_pickinglist_detail.cbm',
@@ -643,6 +650,15 @@ class PickingToLMBController extends Controller
 						$model_not_exist_in_pickinglist[$serial_number['ean_code']]['total_sn'] += 1;
 						$model_not_exist_in_pickinglist[$serial_number['ean_code']]['keterangan'] = 'Model not exists in picking list';
 						continue;
+					}
+
+					if (!empty($picking_detail->kode_cabang)) {
+						$cek_double = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', 'wms_lmb_detail.driver_register_id')
+							->where('wms_lmb_detail.serial_number', $serial_number['serial_number'])
+							->while('wms_lmb_header.kode_cabang', $picking_detail->kode_cabang);
+						if ($cek_double->count() > 0){
+							return sendError('Duplicate SN `'. $serial_number['serial_number'] .'` in same Branch.');
+						}
 					}
 
 					foreach (explode(',', $picking_detail->rs_in_dn_di_qty_cc_cs_cbmu) as $key => $value) {
@@ -778,7 +794,7 @@ class PickingToLMBController extends Controller
 					$model_not_exist_in_pickinglist[$serial_number['ean_code']]['keterangan'] = 'Quantity Picking : ' . $scan_summaries[$serial_number['ean_code']]['quantity_picking'];
 				}
 
-				$serial_numbers[] = $serial_number;
+				$serial_numbers[$serial_number['serial_number']] = $serial_number;
 			}
 			// Akhir validasi data per baris
 		}
