@@ -34,12 +34,17 @@ class PickingToLMBController extends Controller
 
       if (!empty($postSerialNumber['pickingNo']) && !empty($postSerialNumber['serialNumber'])) {
         $serial_number = [
-          'picking_id'    => $postSerialNumber['pickingNo'],
-          'ean_code'      => $postSerialNumber['eanCode'],
-          'serial_number' => $postSerialNumber['serialNumber'],
-          'created_at'    => $postSerialNumber['inputDate'],
-          'created_by'    => auth()->user()->id,
+			'picking_id'		=> $postSerialNumber['pickingNo'],
+			//'picking_detail_id'	=> $postSerialNumber['pickinglist_detail_id'],
+			'ean_code'			=> $postSerialNumber['eanCode'],
+			'serial_number'		=> $postSerialNumber['serialNumber'],
+			'created_at'		=> $postSerialNumber['inputDate'],
+			'created_by'		=> auth()->user()->id,
         ];
+
+		if (key_exists('pickinglist_detail_id', $postSerialNumber)){
+			$serial_number['picking_detail_id'] = $postSerialNumber['pickinglist_detail_id'];
+		}
 
         if (empty($postSerialNumber['serialNumber'])) {
           return sendError('Serial Number empty.');
@@ -172,7 +177,20 @@ class PickingToLMBController extends Controller
           $rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
         }
 
-		$serial_number['picking_detail_id'] = $rs_picking_list_details[$serial_number['ean_code']]->id;
+		//CEK: Ada SN sama dalam satu branch
+		$lmbPickingDetail = $rs_picking_list_details[$serial_number['ean_code']];
+		if (!empty($lmbPickingDetail->kode_cabang)) {
+			$cek_double = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', 'wms_lmb_detail.driver_register_id')
+				->where('wms_lmb_detail.serial_number', $serial_number['serial_number'])
+				->while('wms_lmb_header.kode_cabang', $lmbPickingDetail->kode_cabang);
+			if ($cek_double->count() > 0){
+				return sendError('Duplicate SN `'. $serial_number['serial_number'] .'` in same Branch.');
+			}
+		}
+		
+		if (!key_exists('picking_detail_id', $serial_number)) {
+			$serial_number['picking_detail_id'] = $rs_picking_list_details[$serial_number['ean_code']]->id;
+		}
 		
         $serial_number['model'] = $rs_models[$serial_number['ean_code']]->model_name;
         // $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
@@ -198,7 +216,10 @@ class PickingToLMBController extends Controller
 
         // return $scan_summaries;
 
-        if ($scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] && !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])) {
+        if (
+			$scan_summaries[$serial_number['ean_code']]['quantity_picking'] >= $scan_summaries[$serial_number['ean_code']]['quantity_scan'] 
+			&& !empty($rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0])
+		) {
           $serial_number['delivery_items'] = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_items[0];
           $serial_number['delivery_no']    = $rs_picking_list_details[$serial_number['ean_code']]->rs_delivery_no[0];
           $serial_number['invoice_no']     = $rs_picking_list_details[$serial_number['ean_code']]->rs_invoice_no[0];

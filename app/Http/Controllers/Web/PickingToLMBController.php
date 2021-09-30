@@ -652,15 +652,6 @@ class PickingToLMBController extends Controller
 						continue;
 					}
 
-					if (!empty($picking_detail->kode_cabang)) {
-						$cek_double = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', 'wms_lmb_detail.driver_register_id')
-							->where('wms_lmb_detail.serial_number', $serial_number['serial_number'])
-							->while('wms_lmb_header.kode_cabang', $picking_detail->kode_cabang);
-						if ($cek_double->count() > 0){
-							return sendError('Duplicate SN `'. $serial_number['serial_number'] .'` in same Branch.');
-						}
-					}
-
 					foreach (explode(',', $picking_detail->rs_in_dn_di_qty_cc_cs_cbmu) as $key => $value) {
 						$tempDQ = explode(':', $value);
 						if ($picking_detail->quantity_lmb <= $tempDQ[3]) {
@@ -681,7 +672,6 @@ class PickingToLMBController extends Controller
 							$picking_detail->quantity_lmb -= $tempDQ[3];
 						}
 					}
-
 
 					$picking_detail->quantity = $quantity - $picking_detail->quantity_lmb;
 
@@ -712,6 +702,19 @@ class PickingToLMBController extends Controller
 
 					$rs_picking_list_details[$serial_number['ean_code']] = $picking_detail;
 				}
+
+				//CEK: Ada SN sama dalam satu branch
+				$lmbPickingDetail = $rs_picking_list_details[$serial_number['ean_code']];
+				if (!empty($lmbPickingDetail->kode_cabang)) {
+					$cek_double = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', 'wms_lmb_detail.driver_register_id')
+						->where('wms_lmb_detail.serial_number', $serial_number['serial_number'])
+						->while('wms_lmb_header.kode_cabang', $lmbPickingDetail->kode_cabang);
+					if ($cek_double->count() > 0){
+						return sendError('Duplicate SN `'. $serial_number['serial_number'] .'` in same Branch.');
+					}
+				}
+
+				$serial_number['picking_detail_id'] = $rs_picking_list_details[$serial_number['ean_code']]->id;
 
 				$serial_number['model'] = $rs_models[$serial_number['ean_code']]->model_name;
 				// $serial_number['delivery_no']        = $rs_picking_list_details[$serial_number['ean_code']]->delivery_no;
