@@ -562,8 +562,11 @@ class PickingListController extends Controller
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->quantity_in_lmb == 0) {
-            $action .= '<a class="waves-effect waves-light indigo darken-4 btn-small btn-detail-send-lmb" >Send To Lmb</a>'
+            /*
+			$action .= '<a class="waves-effect waves-light indigo darken-4 btn-small btn-detail-send-lmb" >Send To Lmb</a>'
 					. ' ' . get_button_delete('Delete');
+			*/
+			$action .= get_button_delete('Delete');
           }
           return $action;
         })
