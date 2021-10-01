@@ -731,7 +731,7 @@ class PickingListController extends Controller
         })
         ->where('wmcT.kode_cabang', auth()->user()->cabang->kode_cabang)
         //->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
-		->where('log_manifest_header.status_complete', '<>', 1)
+		->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
         ->groupBy('invoice_no', 'delivery_no', 'delivery_items')
         ->orderBy('delivery_no', 'asc')
         ->orderBy('delivery_items', 'asc')
