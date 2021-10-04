@@ -312,7 +312,7 @@ class PickingToLMBController extends Controller
 					PickinglistDetail::destroy($value);
 				} elseif ($rs_picking_quantity_loading[$key] < $rs_picking_quantity[$key]) {
 					// update quantity Pickinglist
-					$picking_detail           = PickinglistDetail::find($rs_picking_detail_id[$key]);
+					$picking_detail           = PickinglistDetail::findOrFail($rs_picking_detail_id[$key]);
 					$picking_detail->quantity = $rs_picking_quantity_loading[$key];
 					$cbm_before               = $picking_detail->cbm;
 					$cbm_unit                 = $picking_detail->cbm / $rs_picking_quantity[$key];
