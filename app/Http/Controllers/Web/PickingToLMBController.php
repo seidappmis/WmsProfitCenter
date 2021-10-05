@@ -18,8 +18,9 @@ use App\Models\PickinglistDetail;
 use App\Models\PickinglistHeader;
 use App\Models\StorageMaster;
 use DataTables;
-use DB;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class PickingToLMBController extends Controller
@@ -371,7 +372,7 @@ class PickingToLMBController extends Controller
 						$logConceptOverload->cbm_before         = $cbm_before;
 
 						$logConceptOverload->save();
-						
+
 					}
 
 				}
@@ -536,6 +537,7 @@ class PickingToLMBController extends Controller
 			return sendSuccess('LMB Send Manifest', $lmbHeader);
 		} catch (Exception $e) {
 			DB::rollBack();
+			return sendError($e->getMessage());
 		}
 	}
 
