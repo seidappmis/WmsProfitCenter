@@ -301,7 +301,7 @@ class PickingToLMBController extends Controller
 				}
 			}
 
-			$lmbHeader->send_manifest = 1;
+			//$lmbHeader->send_manifest = 1;
 
 			$rs_picking_detail_id        = $request->input('picking_detail_id');
 			$rs_picking_quantity         = $request->input('picking_quantity');
@@ -529,7 +529,8 @@ class PickingToLMBController extends Controller
 			}
 
 			MovementTransactionLog::insert($rs_movement_transaction_log);
-
+			
+			$lmbHeader->send_manifest = 1;
 			$lmbHeader->save();
 
 			DB::commit();
