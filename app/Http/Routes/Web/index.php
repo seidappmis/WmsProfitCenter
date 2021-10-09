@@ -80,6 +80,8 @@ Route::get('/test', function () {
   Route::group(['middleware' => 'auth'], function () {
     Route::get('data-synchronization', 'DataSynchronizationController@index');
 
+	Route::get('data-recalculate', 'DataSynchronizationController@recalculate');
+
 	Route::get('data-fix/lmb-detail', 'DataFixController@lmb_detail');
 	
 	/*

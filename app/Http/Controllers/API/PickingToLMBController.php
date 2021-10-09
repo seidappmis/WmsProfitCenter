@@ -182,6 +182,7 @@ class PickingToLMBController extends Controller
 		if (!empty($lmbPickingDetail->kode_cabang)) {
 			$cek_double = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', 'wms_lmb_detail.driver_register_id')
 				->where('wms_lmb_detail.serial_number', $serial_number['serial_number'])
+				->where('wms_lmb_detail.ean_code', $serial_number['ean_code'])
 				->where('wms_lmb_header.kode_cabang', $lmbPickingDetail->kode_cabang);
 			if ($cek_double->count() > 0){
 				return sendError('Duplicate SN `'. $serial_number['serial_number'] .'` in same Branch.');
