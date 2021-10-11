@@ -87,7 +87,7 @@ class DataSynchronizationController extends Controller
 					'wms_pickinglist_header.storage_id',
 					'wms_pickinglist_header.picking_no',
 					'wms_master_storage.sto_loc_code_long',
-					'wms_lmb_header.kode_cabang',
+					'wms_lmb_header.kode_cabang as header_kode_cabang',
 				])
 				->get();
 
