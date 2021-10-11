@@ -81,6 +81,7 @@ class DataSynchronizationController extends Controller
 						->orWhere('wms_lmb_detail.no_manifest', '1');
 				})
 				->whereBetween('wms_lmb_header.created_at', ['2021-10-01', '2021-10-08'])
+				->whereNotNull('wms_pickinglist_header.storage_id')
 				->select([
 					'wms_lmb_detail.*',
 					'wms_pickinglist_header.storage_id',
