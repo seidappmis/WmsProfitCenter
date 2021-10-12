@@ -148,8 +148,15 @@ class DataSynchronizationController extends Controller
 						'model_name' => $value['model'],
 					], [
 						'ean_code'       => $value['ean_code'],
+						/*
 						'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
 						'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value['cbm_total']),
+
+						* Reverse Process
+						*/
+						'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value['qty']),
+						'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+
 						'last_updated'   => $date_now,
 					]);
 
@@ -159,8 +166,14 @@ class DataSynchronizationController extends Controller
 						'model_name' => $value['model'],
 					], [
 						'ean_code'       => $value['ean_code'],
+						/*
 						'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) + ' . $value['qty']),
 						'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) + ' . $value['cbm_total']),
+
+						* Reverse Process
+						*/
+						'quantity_total' => DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
+						'cbm_total'      => DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value['cbm_total']),
 						'last_updated'   => $date_now,
 					]);
 
@@ -169,7 +182,7 @@ class DataSynchronizationController extends Controller
 					 * 	Movement Code : 
 					 * 		id 7 Code 101 Increase Menambah SLOC Intransit HQ
 					 * 		id 16 Code 9Z3 Increase Menambah SLOC Intransit BRANCH
-					 */
+					 *
 					$rs_movement_transaction_log = [];
 
 					$movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
@@ -194,7 +207,7 @@ class DataSynchronizationController extends Controller
 					/**
 					 * id 8 Code 647 Decrease Mengurangi SLOC HQ
 					 * id 17 Code 9Z3 Decrease Mengurangi SLOC BRANCH
-					 */
+					 *
 					$movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
 					$movement_transaction_log['arrival_no']            = $value['picking_no'];
 					$movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 8 : 17;
@@ -215,6 +228,7 @@ class DataSynchronizationController extends Controller
 					$rs_movement_transaction_log[] = $movement_transaction_log;
 
 					MovementTransactionLog::insert($rs_movement_transaction_log);
+					*/
 				}
 			}
 
