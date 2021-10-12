@@ -76,10 +76,10 @@ class DataSynchronizationController extends Controller
 			$details = LMBDetail::join('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_lmb_detail.driver_register_id')
 				->leftJoin('wms_pickinglist_header', 'wms_pickinglist_header.picking_no', '=', 'wms_lmb_detail.picking_id')
 				->leftJoin('wms_master_storage', 'wms_master_storage.id', '=', 'wms_pickinglist_header.storage_id')
-				->where(function ($query) {
+				/*->where(function ($query) {
 					$query->whereNull('wms_lmb_detail.no_manifest')
 						->orWhere('wms_lmb_detail.no_manifest', '1');
-				})
+				})*/
 				->whereBetween('wms_lmb_header.created_at', ['2021-10-01', '2021-10-08'])
 				->whereNotNull('wms_pickinglist_header.storage_id')
 				->select([
