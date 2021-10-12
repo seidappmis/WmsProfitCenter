@@ -134,8 +134,6 @@ class DataSynchronizationController extends Controller
 				$storageIntransit['DS'][$value->kode_cabang] = $value;
 			}
 
-			$rs_movement_transaction_log = [];
-
 			/**
 			 * MAIN LOOP
 			 */
@@ -172,6 +170,8 @@ class DataSynchronizationController extends Controller
 					 * 		id 7 Code 101 Increase Menambah SLOC Intransit HQ
 					 * 		id 16 Code 9Z3 Increase Menambah SLOC Intransit BRANCH
 					 */
+					$rs_movement_transaction_log = [];
+
 					$movement_transaction_log['log_id']                = Uuid::uuid4()->toString();
 					$movement_transaction_log['arrival_no']            = $value['picking_no'];
 					$movement_transaction_log['mvt_master_id']         = auth()->user()->cabang->hq ? 7 : 16;
@@ -213,10 +213,10 @@ class DataSynchronizationController extends Controller
 					$movement_transaction_log['created_by']            = auth()->user()->id;
 
 					$rs_movement_transaction_log[] = $movement_transaction_log;
+
+					MovementTransactionLog::insert($rs_movement_transaction_log);
 				}
 			}
-
-			MovementTransactionLog::insert($rs_movement_transaction_log);
 
 			DB::commit();
 
