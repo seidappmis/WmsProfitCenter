@@ -62,7 +62,8 @@ class ManifestASController extends Controller
       $datatables = DataTables::of($query)
         ->addIndexColumn() //DT_RowIndex (Penomoran)
         ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
+          //return $data->picking->picking_no;
+		  return !empty($data->picking) ? $data->picking->picking_no : '';
         })
         ->addColumn('action', function ($data) {
           $action = '';
