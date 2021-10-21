@@ -217,7 +217,7 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_header.checker',
         DB::raw('log_manifest_header.city_name AS destination_driver_name'),
         //'log_manifest_header.city_name',
-		'tr_concept.ship_to_city as city_name',
+		'log_manidest_detail.city_name',
         'log_manifest_header.city_code',
         'log_manifest_header.expedition_name',
         'log_manifest_header.container_no',
@@ -304,10 +304,10 @@ class SummaryOutgoingReportController extends Controller
 
       if (!empty($request->input('start_do_date'))) {
         $queryHQ->where('log_manifest_detail.do_date', '>=', $request->input('start_do_date'));
-      }
-      if (!empty($request->input('end_do_date'))) {
+		if (!empty($request->input('end_do_date'))) {
         $queryHQ->where('log_manifest_detail.do_date', '<=', $request->input('end_do_date')  . ' 23:59:59');
       }
+	}
 
       if (!empty($request->input('start_actual_time_arrival'))) {
         $queryHQ->where('log_manifest_detail.actual_time_arrival', '>=', $request->input('start_actual_time_arrival'));
