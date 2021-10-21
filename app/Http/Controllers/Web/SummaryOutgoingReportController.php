@@ -217,7 +217,7 @@ class SummaryOutgoingReportController extends Controller
         'log_manifest_header.checker',
         DB::raw('log_manifest_header.city_name AS destination_driver_name'),
         //'log_manifest_header.city_name',
-		'log_manidest_detail.city_name',
+		'log_manifest_detail.city_name',
         'log_manifest_header.city_code',
         'log_manifest_header.expedition_name',
         'log_manifest_header.container_no',
