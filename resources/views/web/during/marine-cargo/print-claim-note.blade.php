@@ -237,7 +237,7 @@
     </tr>
     <tr>
       <td colspan="12" style="border-left: 1px solid black;"></td>
-      <td style="border-right: 1px solid black;"><strong>Curr: {{ thousand_reformat($marineCargo->currency) }}</strong></td>
+      <td style="border-right: 1px solid black;"><strong>Curr: {{ $marineCargo->currency }}</strong></td>
     </tr>
     <tr>
       <td colspan="8" style="text-align: right; border-left: 1px solid black; border-bottom: 1px solid black;">
