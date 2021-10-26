@@ -395,10 +395,30 @@ class PickingToLMBController extends Controller
 			
 			$details = $details->get();
 
-			$rs_models = [];
+			$fstClass_models = [];
+			$intransit_models = [];
 
 			foreach ($details as $key => $value) {
-				if (empty($rs_models[$value->model . $value->code_sales])) {
+				/** Rekap berdasar model untuk mengurangi 1stClass */
+				if (empty($fstClass_models[$value->model])) {
+					$model['model']             = $value->model;
+					$model['storage_id']        = $value->storage_id;
+					$model['sto_loc_code_long'] = $value->sto_loc_code_long;
+					$model['ean_code']          = $value->ean_code;
+					$model['code_sales']        = $value->code_sales;
+					$model['picking_no']        = $value->picking_no;
+					$model['qty']               = 0;
+					$model['cbm_total']         = 0;
+
+					$model['kode_cabang'] = substr($value->kode_customer, 0, 2);
+
+					$fstClass_models[$value->model] = $model;
+				}
+				$fstClass_models[$value->model]['qty'] += 1;
+				$fstClass_models[$value->model]['cbm_total'] += $value->cbm_unit;
+
+				/** Rekap berdasar model dan code_sales untuk menambah instransit */
+				if (empty($intransit_models[$value->model . $value->code_sales])) {
 					$model                      = [];
 					$model['model']             = $value->model;
 					$model['storage_id']        = $value->storage_id;
@@ -411,17 +431,17 @@ class PickingToLMBController extends Controller
 
 					$model['kode_cabang'] = substr($value->kode_customer, 0, 2);
 
-					$rs_models[$value->model . $value->code_sales] = $model;
+					$intransit_models[$value->model . $value->code_sales] = $model;
 				}
+				$intransit_models[$value->model . $value->code_sales]['qty'] += 1;
+				$intransit_models[$value->model . $value->code_sales]['cbm_total'] += $value->cbm_unit;
 
-				$rs_models[$value->model . $value->code_sales]['qty'] += 1;
-				$rs_models[$value->model . $value->code_sales]['cbm_total'] += $value->cbm_unit;
 
 				$value->no_manifest = 0;
 				$value->save();
 			}
 
-			// print_r($rs_models);
+			// print_r($intransit_models);
 			// exit;
 			$date_now = date('Y-m-d H:i:s');
 
@@ -450,8 +470,22 @@ class PickingToLMBController extends Controller
 
 			$rs_movement_transaction_log = [];
 
-			// Update Movement 1 class berkurang intransit bertambah
-			foreach ($rs_models as $key => $value) {
+			/** Update Movement 1st Class Berkurang */
+			foreach ($fstClass_models as $key => $value) {
+				InventoryStorage::updateOrCreate([
+					'storage_id' => $value['storage_id'],
+					'model_name' => $value['model'],
+				], [
+					'ean_code' 			=> $value['ean_code'],
+					'quantity_total'	=> DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
+					'cbm_total'			=> DB::raw('IF(ISNULL(cbm_total), 0, cmb_total) - ' . $value['cmb_total']),
+					'last_updated'		=> $date_now,
+				]);
+			}
+
+			// Update Movement intransit bertambah
+			foreach ($intransit_models as $key => $value) {
+				/*
 				// Update Or Create Inventory Stroage data
 				InventoryStorage::updateOrCreate(
 					// Condition
@@ -467,6 +501,7 @@ class PickingToLMBController extends Controller
 						'last_updated'   => $date_now,
 					]
 				);
+				*/
 
 				InventoryStorage::updateOrCreate(
 					// Condition
