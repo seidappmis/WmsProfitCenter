@@ -149,6 +149,12 @@ class MarineCargoController extends Controller
          return;
       } else if ($request->input('filetype') == 'xls') {
 
+		$view_print =  view('web.during.marine-cargo.print-claim-note-excel', [
+			'marineCargo' => $marineCargo,
+			'cartonBoxs' => $cartonBoxs,
+			'units' => $units,
+		]);
+
          // Request FILE EXCEL
          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
          $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
