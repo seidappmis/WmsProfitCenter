@@ -478,7 +478,7 @@ class PickingToLMBController extends Controller
 				], [
 					'ean_code' 			=> $value['ean_code'],
 					'quantity_total'	=> DB::raw('IF(ISNULL(quantity_total), 0, quantity_total) - ' . $value['qty']),
-					'cbm_total'			=> DB::raw('IF(ISNULL(cbm_total), 0, cmb_total) - ' . $value['cmb_total']),
+					'cbm_total'			=> DB::raw('IF(ISNULL(cbm_total), 0, cbm_total) - ' . $value['cbm_total']),
 					'last_updated'		=> $date_now,
 				]);
 			}
