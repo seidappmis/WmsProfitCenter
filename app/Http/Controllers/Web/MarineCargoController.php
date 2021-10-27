@@ -220,7 +220,10 @@ class MarineCargoController extends Controller
          $mpdf->Output();
          return;
       } else if ($request->input('filetype') == 'xls') {
-
+		$view_print =  view('web.during.marine-cargo.print-notice-of-claim-excel', [
+			'marineCargo' => $marineCargo
+		]);
+   
          // Request FILE EXCEL
          $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
          $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
