@@ -794,6 +794,8 @@ class PickingListController extends Controller
         }
       }
 
+	  $pickingListDetail = [];
+
       $pickingListDetail['id']             = $base_id . $key;
       $pickingListDetail['header_id']      = $request->input('picking_id');
       $pickingListDetail['invoice_no']     = $value['invoice_no'];
