@@ -794,64 +794,78 @@ class PickingListController extends Controller
         }
       }
 
-	  $pickingListDetail = [];
+	  $invoice_no = $value['invoice_no'];
+	  $line_no = auth()->user()->cabang->hq ? $value['line_no'] : 0;
+	  $delivery_no = $value['delivery_no'];
+	  $delivery_items = $value['delivery_items'];
 
-      $pickingListDetail['id']             = $base_id . $key;
-      $pickingListDetail['header_id']      = $request->input('picking_id');
-      $pickingListDetail['invoice_no']     = $value['invoice_no'];
-      $pickingListDetail['line_no']        = auth()->user()->cabang->hq ? $value['line_no'] : 0;
-      $pickingListDetail['delivery_no']    = $value['delivery_no'];
-      $pickingListDetail['delivery_items'] = $value['delivery_items'];
-      $pickingListDetail['model']          = $value['model'];
-      $pickingListDetail['quantity']       = $value['quantity'];
-      $pickingListDetail['cbm']            = $value['cbm'];
-      $pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
-      $pickingListDetail['code_sales']     = $value['code_sales'];
-      $pickingListDetail['remarks']        = $value['remarks'];
-      $pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
-	  $pickingListDetail['created_by']     = auth()->user()->id;
-	  $pickingListDetail['created_at']     = date('Y-m-d H:i:s');
+		$jml = PickinglistDetail::where([
+			['invoice_no', '=', $invoice_no],
+			['line_no', '=', $line_no],
+			['delivery_no', '=', $delivery_no],
+			['delivery_items', '=', $delivery_items],
+		])->count();
 
-      // Check Inventory Storage
-      if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
-        $inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
-          ->where('storage_id', $pickinglistHeader->storage_id)
-          ->first();
+		if ($jml <= 0) {
+			$pickingListDetail = [];
 
-        if (empty($inventoryStorage)) {
-          return sendError('Model ' . $value['model'] . ' not exist in storage !');
-        }
-
-        // Dikurangi item terbooking, picking list yang belum send manifest;
-        $holdPickingDetail = PickinglistDetail::select(
-          'wms_pickinglist_detail.ean_code',
-          DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
-          DB::raw('GROUP_CONCAT(DISTINCT(wms_pickinglist_detail.header_id) SEPARATOR ", ") AS hold_pickinglist'),
-          'wms_lmb_header.send_manifest'
-        )
-          ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
-          ->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-          ->whereNull('wms_lmb_header.send_manifest')
-          ->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
-          ->where('wms_pickinglist_header.storage_id', $pickinglistHeader->storage_id)
-          ->groupBy('wms_pickinglist_detail.ean_code')
-          ->first();
-
-        $qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
-
-        $inventoryStorage->quantity_total -= $qty_hold;
-        $inventoryStorage->qty_hold = $qty_hold;
-        $inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
-        $rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
-      }
-
-      $rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
-
-      if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
-        return sendError('Quantity of model ' . $value['model'] . ' is defisit ! Hold ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->qty_hold . ' Unit. In picking: ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->hold_pickinglist);
-      }
-
-      $rs_pickinglistDetail[] = $pickingListDetail;
+			$pickingListDetail['id']             = $base_id . $key;
+			$pickingListDetail['header_id']      = $request->input('picking_id');
+			$pickingListDetail['invoice_no']     = $invoice_no; //
+			$pickingListDetail['line_no']        = $line_no; //
+			$pickingListDetail['delivery_no']    = $delivery_no; //
+			$pickingListDetail['delivery_items'] = $delivery_items; //
+			$pickingListDetail['model']          = $value['model'];
+			$pickingListDetail['quantity']       = $value['quantity'];
+			$pickingListDetail['cbm']            = $value['cbm'];
+			$pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
+			$pickingListDetail['code_sales']     = $value['code_sales'];
+			$pickingListDetail['remarks']        = $value['remarks'];
+			$pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
+			$pickingListDetail['created_by']     = auth()->user()->id;
+			$pickingListDetail['created_at']     = date('Y-m-d H:i:s');
+	  
+			// Check Inventory Storage
+			if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
+				$inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
+					->where('storage_id', $pickinglistHeader->storage_id)
+					->first();
+	  
+				if (empty($inventoryStorage)) {
+					return sendError('Model ' . $value['model'] . ' not exist in storage !');
+				}
+	  
+				// Dikurangi item terbooking, picking list yang belum send manifest;
+				$holdPickingDetail = PickinglistDetail::select(
+					'wms_pickinglist_detail.ean_code',
+					DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
+					DB::raw('GROUP_CONCAT(DISTINCT(wms_pickinglist_detail.header_id) SEPARATOR ", ") AS hold_pickinglist'),
+					'wms_lmb_header.send_manifest'
+				)
+				->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+				->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+				->whereNull('wms_lmb_header.send_manifest')
+				->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
+				->where('wms_pickinglist_header.storage_id', $pickinglistHeader->storage_id)
+				->groupBy('wms_pickinglist_detail.ean_code')
+				->first();
+	  
+				$qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
+		
+				$inventoryStorage->quantity_total -= $qty_hold;
+				$inventoryStorage->qty_hold = $qty_hold;
+				$inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
+				$rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
+			}
+	  
+			$rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
+	  
+			if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
+				return sendError('Quantity of model ' . $value['model'] . ' is defisit ! Hold ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->qty_hold . ' Unit. In picking: ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->hold_pickinglist);
+			}
+	  
+			$rs_pickinglistDetail[] = $pickingListDetail;
+		}
     }
 
     try {
