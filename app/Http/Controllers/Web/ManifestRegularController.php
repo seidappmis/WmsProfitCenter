@@ -102,7 +102,7 @@ class ManifestRegularController extends Controller
         })
         ->addColumn('action', function ($data) {
           $action = '';
-          if (!$data->status_complete) {
+          if (($data->manifest_type == 'LCL') || (! $data->status_complete)) {
             $action .= ' ' . get_button_delete();
           }
           return $action;

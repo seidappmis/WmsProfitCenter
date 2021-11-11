@@ -225,7 +225,7 @@
         });
 
         @if(!empty($manifestHeader))
-        @if($manifestHeader->status_complete)
+        @if($manifestHeader->status_complete && ($manifestHeader->manifest_type != 'LCL'))
         $('.btn-delete-manifest').addClass('hide')
         @endif
         $('.btn-delete-manifest').click(function(event) {

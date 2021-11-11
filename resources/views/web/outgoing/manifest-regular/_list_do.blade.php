@@ -42,7 +42,7 @@
   var dttable_list_do
   jQuery(document).ready(function($) {
 
-    @if($manifestHeader->status_complete)
+    @if($manifestHeader->status_complete && ($manifestHeader->manifest_type != 'LCL'))
     $('.btn-save').addClass('hide')
     $('.btn-upload').addClass('hide')
     $('.btn-delete').addClass('hide')
