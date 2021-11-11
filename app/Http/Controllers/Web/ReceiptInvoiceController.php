@@ -223,9 +223,10 @@ class ReceiptInvoiceController extends Controller
           // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'),
           // DB::raw('='),
           // DB::raw('log_manifest_header.city_code)')
-          DB::raw('IF(log_manifest_header.manifest_type = "LCL",  log_freight_cost.city_code = log_manifest_header.city_code, log_freight_cost.city_code'),
+          DB::raw('IF(log_manifest_header.manifest_type = "LCL", log_freight_cost.city_code = log_manifest_header.city_code, log_freight_cost.city_code'),
           DB::raw('='),
-          DB::raw('log_manifest_detail.city_code)')
+          //DB::raw('log_manifest_detail.city_code)')
+		  DB::raw('log_manifest_header.city_code)')
           // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
           // DB::raw('='),
           // DB::raw('log_manifest_header.city_code))')
