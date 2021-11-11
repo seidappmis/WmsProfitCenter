@@ -36,7 +36,8 @@ class LogManifestDetail extends BaseModel
     return LogManifestDetail::select(
       'log_manifest_detail.*',
       DB::raw('IF(log_manifest_detail.code_sales = "BR", log_cabang.long_description, log_manifest_detail.ship_to) AS ship_to'),
-      'log_manifest_header.status_complete'
+      'log_manifest_header.status_complete',
+	  'log_manifest_header.manifest_type'
     )
       ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
       ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
