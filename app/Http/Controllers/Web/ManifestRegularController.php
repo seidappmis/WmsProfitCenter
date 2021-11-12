@@ -13,79 +13,82 @@ use App\Models\MasterCabang;
 use App\Models\MasterModel;
 use App\Models\PickinglistHeader;
 use DataTables;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ManifestRegularController extends Controller
 {
-  public function index(Request $request)
-  {
-    if ($request->ajax()) {
-      $query = LogManifestHeader::select(
-        'log_manifest_header.driver_register_id',
-        'log_manifest_header.status_complete',
-        DB::raw('log_manifest_header.do_manifest_no AS first_do_manifest_no'),
-        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.do_manifest_no SEPARATOR ", <br>") AS do_manifest_no'),
-        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.expedition_name SEPARATOR ", <br>") AS expedition_name'),
-        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.city_name SEPARATOR ", <br>") AS city_name'),
-        DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.vehicle_number SEPARATOR ", <br>") AS vehicle_number'),
-        // DB::raw('COUNT(wms_pickinglist_detail.id) AS total_detail_tcs_do'),
-        // DB::raw('COUNT(log_manifest_detail.id) AS countManifestDO'),
-        // DB::raw('SUM(IF(log_manifest_detail.status_confirm = 0, 1, 0)) AS countUnconfirmDetail')
-		//'wms_pickinglist_header.picking_no',
-      )
-        // ->where('city_name', '<>', 'Ambil Sendiri')
-        // ->leftjoin('log_manifest_detail', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-        // ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
-        // ->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
-        ->where('log_manifest_header.ambil_sendiri', 0)
-        ->where('log_manifest_header.area', $request->input('area'))
-        ->groupBy('log_manifest_header.driver_register_id');
 
+	public function index(Request $request)
+	{
+		if ($request->ajax()) {
+			$query = LogManifestHeader::select(
+				'log_manifest_header.driver_register_id',
+				'log_manifest_header.status_complete',
+				DB::raw('log_manifest_header.do_manifest_no AS first_do_manifest_no'),
+				DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.do_manifest_no SEPARATOR ", <br>") AS do_manifest_no'),
+				DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.expedition_name SEPARATOR ", <br>") AS expedition_name'),
+				DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.city_name SEPARATOR ", <br>") AS city_name'),
+				DB::raw('GROUP_CONCAT(DISTINCT log_manifest_header.vehicle_number SEPARATOR ", <br>") AS vehicle_number'),
+				// DB::raw('COUNT(wms_pickinglist_detail.id) AS total_detail_tcs_do'),
+				// DB::raw('COUNT(log_manifest_detail.id) AS countManifestDO'),
+				// DB::raw('SUM(IF(log_manifest_detail.status_confirm = 0, 1, 0)) AS countUnconfirmDetail')
+				//'wms_pickinglist_header.picking_no',
+			)
+			// ->where('city_name', '<>', 'Ambil Sendiri')
+			// ->leftjoin('log_manifest_detail', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+			// ->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
+			// ->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+			->where('log_manifest_header.ambil_sendiri', 0)
+			->where('log_manifest_header.area', $request->input('area'))
+			->groupBy('log_manifest_header.driver_register_id');
 
-
-      $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)
-		->filter(function($instance) use ($request){
-			if(!empty($request->input('search'))){
-				$value = Str::lower($request->input('search')['value']);
-				if($value !== ''){
-					//$instance->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
-					$instance->where(function($query) use($value){
-						$query->orWhereRaw('LOWER(`log_manifest_header`.`do_manifest_no`) LIKE "%'. $value .'%"')
-							->orWhereRaw('LOWER(`log_manifest_header`.`expedition_name`) LIKE "%'. $value .'%"')
-							->orWhereRaw('LOWER(`log_manifest_header`.`city_name`) LIKE "%'. $value .'%"')
-							->orWhereRaw('LOWER(`log_manifest_header`.`vehicle_number`) LIKE "%'. $value .'%"');
-							//->orWhereRaw('LOWER(`wms_pickinglist_header`.`picking_no`) LIKE "%'. $value .'%"');
-						$pickinglists = PickinglistHeader::select('driver_register_id')->where('picking_no', 'like', '%'. $value .'%')->get();
-						foreach ($pickinglists as $key => $header) {
-							$query->orWhere('driver_register_id',$header->driver_register_id);
-						}
-					});
-				}
+			if ($request->input('search')['value'] == null) {
+				$query->where('log_manifest_header.created_at', '>=', DB::raw('(NOW() - INTERVAL 3 MONTH)'));
 			}
-		})
-        ->addColumn('picking_no', function ($data) {
-          return $data->picking->picking_no;
-		  //return $data->picking_no;
-        })
-        ->addColumn('status', function ($data) {
-          // return LogManifestHeader::status($data);
-          return $data->status();
-        })
-        ->addColumn('action', function ($data) {
-          $action = '';
-          $action .= ' ' . get_button_view(url('manifest-regular/' . $data->first_do_manifest_no . '/edit'), 'View');
-          return $action;
-        })
-        ->rawColumns(['picking_no', 'do_manifest_no', 'expedition_name', 'city_name', 'vehicle_number', 'status', 'action']);
 
-      return $datatables->make(true);
-    }
+			$datatables = DataTables::of($query)
+			->addIndexColumn() //DT_RowIndex (Penomoran)
+			->filter(function($instance) use ($request){
+				if(!empty($request->input('search'))){
+					$value = Str::lower($request->input('search')['value']);
+					if($value !== ''){
+						//$instance->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'log_manifest_header.driver_register_id')
+						$instance->where(function($query) use($value){
+							$query->orWhereRaw('LOWER(`log_manifest_header`.`do_manifest_no`) LIKE "%'. $value .'%"')
+								->orWhereRaw('LOWER(`log_manifest_header`.`expedition_name`) LIKE "%'. $value .'%"')
+								->orWhereRaw('LOWER(`log_manifest_header`.`city_name`) LIKE "%'. $value .'%"')
+								->orWhereRaw('LOWER(`log_manifest_header`.`vehicle_number`) LIKE "%'. $value .'%"');
+								//->orWhereRaw('LOWER(`wms_pickinglist_header`.`picking_no`) LIKE "%'. $value .'%"');
+							$pickinglists = PickinglistHeader::select('driver_register_id')->where('picking_no', 'like', '%'. $value .'%')->get();
+							foreach ($pickinglists as $key => $header) {
+								$query->orWhere('driver_register_id',$header->driver_register_id);
+							}
+						});
+					}
+				}
+			})
+			->addColumn('picking_no', function ($data) {
+				return $data->picking->picking_no;
+				//return $data->picking_no;
+			})
+			->addColumn('status', function ($data) {
+				// return LogManifestHeader::status($data);
+				return $data->status();
+			})
+			->addColumn('action', function ($data) {
+				$action = '';
+				$action .= ' ' . get_button_view(url('manifest-regular/' . $data->first_do_manifest_no . '/edit'), 'View');
+				return $action;
+			})
+			->rawColumns(['picking_no', 'do_manifest_no', 'expedition_name', 'city_name', 'vehicle_number', 'status', 'action']);
 
-    return view('web.outgoing.manifest-regular.index');
-  }
+			return $datatables->make(true);
+		}
+
+		return view('web.outgoing.manifest-regular.index');
+	}
 
   public function listDO(Request $request, $do_manifest_no)
   {

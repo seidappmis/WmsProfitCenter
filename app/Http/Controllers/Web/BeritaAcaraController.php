@@ -444,7 +444,6 @@ class BeritaAcaraController extends Controller
       $mpdf->Output();
       return;
     } elseif ($request->input('filetype') == 'xls') {
-
       // Request FILE EXCEL
       $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();

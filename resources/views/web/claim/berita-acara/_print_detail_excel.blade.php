@@ -1,4 +1,7 @@
-<table width="100%" style="border-collapse: collapse;">
+<?php
+use Illuminate\Support\Facades\Storage;
+?>
+<table style="border-collapse: collapse;">
    <!-- <tr><td>&nbsp;</td></tr> -->
    <!-- <tr><td>&nbsp;</td></tr> -->
    <tr>
@@ -28,14 +31,23 @@
    @endphp
    @if(!empty($beritaAcaraDetail))
    @forelse($beritaAcaraDetail as $key => $value)
-   <tr>
-      <td style="border: 1pt solid #000000;">{{$no}}.</td>
-      <td style="border: 1pt solid #000000;" width="200px">{{$value['do_no']}}</td>
-      <td style="border: 1pt solid #000000;">{{str_replace(',', "\n", $value['serial_number'])}}</td>
-      <td style="border: 1pt solid #000000;">{{$beritaAcara['driver_name'].' / '.$beritaAcara['vehicle_number']}}</td>
-      <td style="border: 1pt solid #000000;">{{$value['description']}}</td>
-      <td style="border: 1pt solid #000000; width: 189px;"></td>
-   </tr>
+	<tr>
+		<td style="border: 1pt solid #000000;">{{$no}}.</td>
+		<td style="border: 1pt solid #000000; width: 200px;">{{$value['do_no']}}</td>
+		<td style="border: 1pt solid #000000;">{{str_replace(',', "\n", $value['serial_number'])}}</td>
+		<td style="border: 1pt solid #000000;">{{$beritaAcara['driver_name'].' / '.$beritaAcara['vehicle_number']}}</td>
+		<td style="border: 1pt solid #000000;">{{$value['description']}}</td>
+		<td style="border: 1pt solid #000000; width: 250px;">
+		<?php
+			if((! is_null($value->photo_url))){ // && (Storage::exists($value->photo_url)))) {
+				$filePath = Storage::path('public/' . $value->photo_url);
+				if (file_exists($filePath)) {
+					?><img src="<?=$filePath?>" width="200px" alt=""><?php
+				}
+			}
+		?>
+		</td>
+	</tr>
    @php
    $no ++;
    $qty+=$value['qty'];
