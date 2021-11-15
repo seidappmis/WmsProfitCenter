@@ -9,7 +9,7 @@ use App\Models\InvoiceReceiptConfirm;
 use App\Models\LogManifestDetail;
 use App\Models\LogManifestHeader;
 use DataTables;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ReceiptInvoiceController extends Controller
@@ -176,67 +176,67 @@ class ReceiptInvoiceController extends Controller
 
   protected function getPostManifestDetailData($request, $invoiceReceiptHeader)
   {
-    $rs_do_manifest_no = [];
-    foreach (json_decode($request->input('data_manifest'), true) as $key => $value) {
-      $rs_do_manifest_no[] = $value['do_manifest_no'];
-    }
+	$rs_do_manifest_no = [];
+	foreach (json_decode($request->input('data_manifest'), true) as $key => $value) {
+		$rs_do_manifest_no[] = $value['do_manifest_no'];
+	}
 
-    $rs_manifest_detail = LogManifestDetail::select(
-      'log_manifest_detail.delivery_no',
-      'log_manifest_detail.do_manifest_no',
-      'log_manifest_detail.do_date',
-      'log_manifest_detail.model',
-      'log_manifest_detail.region',
-      'log_manifest_detail.area',
-      'log_manifest_detail.kode_cabang',
-      'log_manifest_detail.code_sales',
-      'log_manifest_detail.city_name',
-      'log_manifest_detail.city_code',
-      'log_manifest_detail.ship_to',
-      'log_manifest_detail.ship_to_code',
-      'log_manifest_detail.sold_to',
-      'log_manifest_detail.sold_to_code',
-      'log_manifest_detail.sold_to_street',
-      'log_manifest_header.do_manifest_date',
-      'log_manifest_header.vehicle_code_type',
-      'log_manifest_header.vehicle_number',
-      'log_manifest_header.vehicle_description',
-      'log_manifest_header.manifest_type',
-      'log_manifest_header.driver_name',
-      DB::raw('SUM(log_manifest_detail.quantity) AS quantity'),
-      DB::raw('SUM(log_manifest_detail.cbm) AS cbm_do'),
-      DB::raw('SUM(log_manifest_detail.nilai_cbm) AS nilai_cbm'),
-      DB::raw('log_manifest_detail.nilai_ritase AS nilai_ritase'),
-      DB::raw('log_manifest_detail.nilai_ritase2 AS nilai_ritase2'),
-      DB::raw('log_cabang.short_description AS short_description_cabang'),
-      DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
-      DB::raw('log_manifest_header.city_code AS city_code_header'),
-      DB::raw('log_manifest_header.city_name AS city_name_header'),
-      'log_freight_cost.cbm as cbm_master',
-      'log_freight_cost.ritase as ritase_master'
-    )
-      ->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-      ->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
-      ->leftjoin('log_freight_cost', function ($join) use ($invoiceReceiptHeader) {
-        $join->on('log_freight_cost.area', '=', 'log_manifest_header.area');
-        $join->on(
-          // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'),
-          // DB::raw('='),
-          // DB::raw('log_manifest_header.city_code)')
-          DB::raw('IF(log_manifest_header.manifest_type = "LCL", log_freight_cost.city_code = log_manifest_header.city_code, log_freight_cost.city_code'),
-          DB::raw('='),
-          //DB::raw('log_manifest_detail.city_code)')
-		  DB::raw('log_manifest_header.city_code)')
-          // DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
-          // DB::raw('='),
-          // DB::raw('log_manifest_header.city_code))')
-        );
-        $join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
-        $join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
-      })
-      ->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
-      ->groupBy(['do_manifest_no', 'delivery_no'])
-      ->get();
+	$rs_manifest_detail = LogManifestDetail::select(
+		'log_manifest_detail.delivery_no',
+		'log_manifest_detail.do_manifest_no',
+		'log_manifest_detail.do_date',
+		'log_manifest_detail.model',
+		'log_manifest_detail.region',
+		'log_manifest_detail.area',
+		'log_manifest_detail.kode_cabang',
+		'log_manifest_detail.code_sales',
+		'log_manifest_detail.city_name',
+		'log_manifest_detail.city_code',
+		'log_manifest_detail.ship_to',
+		'log_manifest_detail.ship_to_code',
+		'log_manifest_detail.sold_to',
+		'log_manifest_detail.sold_to_code',
+		'log_manifest_detail.sold_to_street',
+		'log_manifest_header.do_manifest_date',
+		'log_manifest_header.vehicle_code_type',
+		'log_manifest_header.vehicle_number',
+		'log_manifest_header.vehicle_description',
+		'log_manifest_header.manifest_type',
+		'log_manifest_header.driver_name',
+		DB::raw('SUM(log_manifest_detail.quantity) AS quantity'),
+		DB::raw('SUM(log_manifest_detail.cbm) AS cbm_do'),
+		DB::raw('SUM(log_manifest_detail.nilai_cbm) AS nilai_cbm'),
+		DB::raw('log_manifest_detail.nilai_ritase AS nilai_ritase'),
+		DB::raw('log_manifest_detail.nilai_ritase2 AS nilai_ritase2'),
+		DB::raw('log_cabang.short_description AS short_description_cabang'),
+		DB::raw('log_manifest_header.cbm AS cbm_vehicle'),
+		DB::raw('log_manifest_header.city_code AS city_code_header'),
+		DB::raw('log_manifest_header.city_name AS city_name_header'),
+		'log_freight_cost.cbm as cbm_master',
+		'log_freight_cost.ritase as ritase_master'
+	)
+	->leftjoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+	->leftjoin('log_cabang', 'log_cabang.kode_cabang', '=', 'log_manifest_detail.kode_cabang')
+	->leftjoin('log_freight_cost', function ($join) use ($invoiceReceiptHeader) {
+		$join->on('log_freight_cost.area', '=', 'log_manifest_header.area');
+		$join->on(
+			// DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR log_freight_cost.city_code'),
+			// DB::raw('='),
+			// DB::raw('log_manifest_header.city_code)')
+			DB::raw('IF(log_manifest_header.manifest_type = "LCL", log_freight_cost.city_code = log_manifest_header.city_code, log_freight_cost.city_code'),
+			DB::raw('='),
+			DB::raw('IF(log_manifest_detail.nilai_ritase > 0, log_manifest_header.city_code, log_manifest_detail.city_code))')
+			//DB::raw('log_manifest_header.city_code)')
+			// DB::raw('(log_freight_cost.city_code = log_manifest_detail.city_code OR (log_manifest_header.manifest_type = "LCL" AND log_freight_cost.city_code'),
+			// DB::raw('='),
+			// DB::raw('log_manifest_header.city_code))')
+		);
+		$join->on('log_freight_cost.expedition_code', '=', DB::raw("'$invoiceReceiptHeader->expedition_code'"));
+		$join->on('log_freight_cost.vehicle_code_type', '=', 'log_manifest_header.vehicle_code_type');
+	})
+	->whereIn('log_manifest_detail.do_manifest_no', $rs_do_manifest_no)
+	->groupBy(['do_manifest_no', 'delivery_no'])
+	->get();
 
     // print_r($rs_manifest_detail);
 
