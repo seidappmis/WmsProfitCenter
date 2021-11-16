@@ -5,185 +5,150 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\LogReturnSuratTugasHeader;
 use DataTables;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SummaryTaskNoticeController extends Controller
 {
-  public function index(Request $request)
-  {
-    if ($request->ajax()) {
-      $query = LogReturnSuratTugasHeader::select(
-        DB::raw('log_return_surat_tugas_header.date AS upload_date'),
-        DB::raw('log_return_surat_tugas_actual.created_date AS receive_date'),
-        DB::raw('log_return_surat_tugas_plan.no AS no_doc'),
-        DB::raw('log_return_surat_tugas_plan.costumer_code'),
-        DB::raw('log_return_surat_tugas_plan.costumer_name'),
-        DB::raw('log_return_surat_tugas_plan.cbm'),
-        DB::raw('log_return_surat_tugas_plan.no_app AS no_apply'),
-        DB::raw('log_return_surat_tugas_plan.model AS model_plan'),
-        DB::raw('log_return_surat_tugas_plan.no_do AS do_number_plan'),
-        DB::raw('log_return_surat_tugas_plan.vehicle_no AS no_mobil'),
-        DB::raw('log_return_surat_tugas_plan.expedition AS expedisi'),
-        DB::raw('log_return_surat_tugas_plan.driver AS driver'),
-        DB::raw('log_return_surat_tugas_plan.qty AS qty_plan'),
-        DB::raw('log_return_surat_tugas_plan.category AS category'),
-        DB::raw('log_return_surat_tugas_actual.model AS model_actual'),
-        DB::raw('log_return_surat_tugas_actual.qty AS qty_actual'),
-        DB::raw('log_return_surat_tugas_actual.ceck AS `check`'),
-        DB::raw('log_return_surat_tugas_actual.no_do AS do_number_actual'),
-        DB::raw('log_return_surat_tugas_actual.serial_number AS no_serial'),
-        DB::raw('log_return_surat_tugas_actual.no_so'),
-        DB::raw('log_return_surat_tugas_actual.no_po'),
-        DB::raw('log_return_surat_tugas_actual.kondisi'),
-        DB::raw('log_return_surat_tugas_actual.rr'),
-        DB::raw('log_return_surat_tugas_actual.remark'),
-        DB::raw('log_return_surat_tugas_header.no_document AS no_st_or_no_urf'),
-        'log_return_surat_tugas_actual.modify_date'
-      )
-        ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_plan.id_header', '=', 'log_return_surat_tugas_header.id_header')
-        ->leftjoin('log_return_surat_tugas_actual', 'log_return_surat_tugas_actual.id_detail_plan', '=', 'log_return_surat_tugas_plan.id_detail_plan');
-      if (!empty($request->input('no_document')))
-        $query->where('log_return_surat_tugas_plan.no', $request->input('no_document'));
-      $query->where('log_return_surat_tugas_header.area', $request->input('area'));
-      $query->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-      $query->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))) . '  23:59:59');
 
-      if (!empty($request->input('modified_start_date')))
-        $query->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
-      if (!empty($request->input('modified_end_date')))
-        $query->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))) . '  23:59:59');
+	public function index(Request $request)
+	{
+		if ($request->ajax()) {
+			$datatables = DataTables::of($this->getQuery($request))
+				->editColumn('date', function ($data) {
+					return $data->date;
+				});
 
-      $datatables = DataTables::of($query)
-        ->editColumn('date', function ($data) {
-          return $data->date;
-        });
+			return $datatables->make(true);
+		}
 
-      return $datatables->make(true);
-    }
+		return view('web.report.summary-task-notice.index');
+	}
 
-    return view('web.report.summary-task-notice.index');
-  }
+	private function getQuery(Request $request)
+	{
+		$query = LogReturnSuratTugasHeader::select(
+			DB::raw('log_return_surat_tugas_header.date AS upload_date'),
+			DB::raw('log_return_surat_tugas_actual.created_date AS receive_date'),
+			DB::raw('log_return_surat_tugas_plan.no AS no_doc'),
+			DB::raw('log_return_surat_tugas_plan.costumer_code'),
+			DB::raw('log_return_surat_tugas_plan.costumer_name'),
+			DB::raw('log_return_surat_tugas_plan.cbm'),
+			DB::raw('log_return_surat_tugas_plan.no_app AS no_apply'),
+			DB::raw('log_return_surat_tugas_plan.model AS model_plan'),
+			DB::raw('log_return_surat_tugas_plan.no_do AS do_number_plan'),
+			DB::raw('log_return_surat_tugas_plan.vehicle_no AS no_mobil'),
+			DB::raw('log_return_surat_tugas_plan.expedition AS expedisi'),
+			DB::raw('log_return_surat_tugas_plan.driver AS driver'),
+			DB::raw('log_return_surat_tugas_plan.qty AS qty_plan'),
+			DB::raw('log_return_surat_tugas_plan.category AS category'),
+			DB::raw('log_return_surat_tugas_actual.model AS model_actual'),
+			DB::raw('log_return_surat_tugas_actual.qty AS qty_actual'),
+			DB::raw('log_return_surat_tugas_actual.ceck AS `check`'),
+			DB::raw('log_return_surat_tugas_actual.no_do AS do_number_actual'),
+			DB::raw('log_return_surat_tugas_actual.serial_number AS no_serial'),
+			DB::raw('log_return_surat_tugas_actual.no_so'),
+			DB::raw('log_return_surat_tugas_actual.no_po'),
+			DB::raw('log_return_surat_tugas_actual.kondisi'),
+			DB::raw('log_return_surat_tugas_actual.rr'),
+			DB::raw('log_return_surat_tugas_actual.remark'),
+			DB::raw('log_return_surat_tugas_header.no_document AS no_st_or_no_urf'),
+			'log_return_surat_tugas_actual.modify_date'
+		)
+			->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_plan.id_header', '=', 'log_return_surat_tugas_header.id_header')
+			->leftjoin('log_return_surat_tugas_actual', 'log_return_surat_tugas_actual.id_detail_plan', '=', 'log_return_surat_tugas_plan.id_detail_plan');
 
+		if (!empty($request->input('no_document'))) $query->where('log_return_surat_tugas_plan.no', $request->input('no_document'));
 
-  public function export(Request $request)
-  {
+		$query->where('log_return_surat_tugas_header.area', $request->input('area'));
 
-    $main = LogReturnSuratTugasHeader::select(
-      DB::raw('log_return_surat_tugas_header.date AS upload_date'),
-      DB::raw('log_return_surat_tugas_actual.created_date AS receive_date'),
-      DB::raw('log_return_surat_tugas_plan.no AS no_doc'),
-      DB::raw('log_return_surat_tugas_plan.costumer_code'),
-      DB::raw('log_return_surat_tugas_plan.costumer_name'),
-      DB::raw('log_return_surat_tugas_plan.cbm'),
-      DB::raw('log_return_surat_tugas_plan.no_app AS no_apply'),
-      DB::raw('log_return_surat_tugas_plan.model AS model_plan'),
-      DB::raw('log_return_surat_tugas_plan.no_do AS do_number_plan'),
-      DB::raw('log_return_surat_tugas_plan.vehicle_no AS no_mobil'),
-      DB::raw('log_return_surat_tugas_plan.expedition AS expedisi'),
-      DB::raw('log_return_surat_tugas_plan.driver AS driver'),
-      DB::raw('log_return_surat_tugas_plan.qty AS qty_plan'),
-      DB::raw('log_return_surat_tugas_plan.category AS category'),
-      DB::raw('log_return_surat_tugas_actual.model AS model_actual'),
-      DB::raw('log_return_surat_tugas_actual.qty AS qty_actual'),
-      DB::raw('log_return_surat_tugas_actual.ceck AS `check`'),
-      DB::raw('log_return_surat_tugas_actual.no_do AS do_number_actual'),
-      DB::raw('log_return_surat_tugas_actual.serial_number AS no_serial'),
-      DB::raw('log_return_surat_tugas_actual.no_so'),
-      DB::raw('log_return_surat_tugas_actual.no_po'),
-      DB::raw('log_return_surat_tugas_actual.kondisi'),
-      DB::raw('log_return_surat_tugas_actual.rr'),
-      DB::raw('log_return_surat_tugas_actual.remark'),
-      DB::raw('log_return_surat_tugas_header.no_document AS no_st_or_no_urf'),
-      'log_return_surat_tugas_actual.modify_date'
-    )
-      ->leftjoin('log_return_surat_tugas_plan', 'log_return_surat_tugas_plan.id_header', '=', 'log_return_surat_tugas_header.id_header')
-      ->leftjoin('log_return_surat_tugas_actual', 'log_return_surat_tugas_actual.id_detail_plan', '=', 'log_return_surat_tugas_plan.id_detail_plan');
-    if (!empty($request->input('no_document')))
-      $main->where('log_return_surat_tugas_plan.no', $request->input('no_document'));
-    $main->where('log_return_surat_tugas_header.area', $request->input('area'));
-    $main->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
-    $main->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))));
+		if (!empty($request->input('start_date'))) $query->where('log_return_surat_tugas_header.date', '>=', date('Y-m-d', strtotime($request->input('start_date'))));
+		if (!empty($request->input('end_date'))) $query->where('log_return_surat_tugas_header.date', '<=', date('Y-m-d', strtotime($request->input('end_date'))) . '  23:59:59');
+		if (!empty($request->input('modified_start_date'))) $query->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
+		if (!empty($request->input('modified_end_date'))) $query->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))) . '  23:59:59');
 
-    if (!empty($request->input('modified_start_date')))
-      $main->where('log_return_surat_tugas_actual.modify_date', '>=', date('Y-m-d', strtotime($request->input('modified_start_date'))));
-    if (!empty($request->input('modified_end_date')))
-      $main->where('log_return_surat_tugas_actual.modify_date', '<=', date('Y-m-d', strtotime($request->input('modified_end_date'))));
+		return $query;
+	}
 
-    $data['data'] = $main->get()->toArray();
-    $data['request'] = $request->all();
-    // dd($data);
-    $view_print = view('web.report.summary-task-notice._print', $data);
+	public function export(Request $request)
+	{
+		$main = $this->getQuery($request);
 
-    $title = 'claim_letter';
+		$data['data'] = $main->get()->toArray();
+		$data['request'] = $request->all();
+		// dd($data);
+		$view_print = view('web.report.summary-task-notice._print', $data);
 
-    if ($request->input('filetype') == 'html') {
+		$title = 'claim_letter';
 
-      // return $view_print;
-      // request HTML View
-      $mpdf = new \Mpdf\Mpdf([
-        'tempDir'       => '/tmp',
-        'margin_left'   => 3,
-        'margin_right'  => 3,
-        'margin_top'    => 4,
-        'margin_bottom' => 4,
-        'format'        => 'A4',
-      ]);
-      $mpdf->shrink_tables_to_fit = 1;
-      $mpdf->WriteHTML($view_print);
+		if ($request->input('filetype') == 'html') {
 
-      $mpdf->Output();
-      return;
-    } else if ($request->input('filetype') == 'xls') {
+			// return $view_print;
+			// request HTML View
+			$mpdf = new \Mpdf\Mpdf([
+				'tempDir'       => '/tmp',
+				'margin_left'   => 3,
+				'margin_right'  => 3,
+				'margin_top'    => 4,
+				'margin_bottom' => 4,
+				'format'        => 'A4',
+			]);
+			$mpdf->shrink_tables_to_fit = 1;
+			$mpdf->WriteHTML($view_print);
 
-      // Request FILE EXCEL
-      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+			$mpdf->Output();
+			return;
+		} else if ($request->input('filetype') == 'xls') {
 
-      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+			// Request FILE EXCEL
+			$reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+			$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
-      // $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-      // $drawing->setPath('images/sharp-logo.png'); // put your path and image here
-      // $drawing->setCoordinates('A1');
-      // $drawing->getShadow()->setVisible(true);
-      // $drawing->setWorksheet($spreadsheet->getActiveSheet());
+			$spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
-      $spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
-      $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
-      $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
-      $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
-      $spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
-      // // Set warna background putih
-      $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
-      // // Set Font
-      // $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
+			// $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+			// $drawing->setPath('images/sharp-logo.png'); // put your path and image here
+			// $drawing->setCoordinates('A1');
+			// $drawing->getShadow()->setVisible(true);
+			// $drawing->setWorksheet($spreadsheet->getActiveSheet());
 
-      $colResize = 'A';
-      while ($colResize != 'AI') {
-        $spreadsheet->getActiveSheet()->getColumnDimension($colResize++)->setWidth(4.08);
-      }
+			$spreadsheet->getActiveSheet()->getPageMargins()->setTop(0.2);
+			$spreadsheet->getActiveSheet()->getPageMargins()->setRight(0.2);
+			$spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0.2);
+			$spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0.2);
+			$spreadsheet->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+			// // Set warna background putih
+			$spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
+			// // Set Font
+			// $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
-      $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
-      header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+			$colResize = 'A';
+			while ($colResize != 'AI') {
+				$spreadsheet->getActiveSheet()->getColumnDimension($colResize++)->setWidth(4.08);
+			}
 
-      $writer->save("php://output");
-    } else if ($request->input('filetype') == 'pdf') {
-      $mpdf = new \Mpdf\Mpdf([
-        'tempDir'       => '/tmp',
-        'margin_left'   => 3,
-        'margin_right'  => 3,
-        'margin_top'    => 4,
-        'margin_bottom' => 4,
-        'format'        => 'A4',
-      ]);
-      $mpdf->shrink_tables_to_fit = 1;
-      $mpdf->WriteHTML($view_print);
+			$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename="' . $title . '.xls"');
 
-      $mpdf->Output($title . '.pdf', "D");
-    } else {
-      // Parameter filetype tidak valid / tidak ditemukan return 404
-      return redirect(404);
-    }
-  }
+			$writer->save("php://output");
+		} else if ($request->input('filetype') == 'pdf') {
+			$mpdf = new \Mpdf\Mpdf([
+				'tempDir'       => '/tmp',
+				'margin_left'   => 3,
+				'margin_right'  => 3,
+				'margin_top'    => 4,
+				'margin_bottom' => 4,
+				'format'        => 'A4',
+			]);
+			$mpdf->shrink_tables_to_fit = 1;
+			$mpdf->WriteHTML($view_print);
+
+			$mpdf->Output($title . '.pdf', "D");
+		} else {
+			// Parameter filetype tidak valid / tidak ditemukan return 404
+			return redirect(404);
+		}
+	}
+
 }

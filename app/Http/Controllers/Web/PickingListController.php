@@ -766,154 +766,153 @@ class PickingListController extends Controller
 		return $datatables->make(true);
 	}
 
-  public function submitDO(Request $request)
-  {
-    $request->validate([
-      'picking_id' => 'required',
-    ]);
+	public function submitDO(Request $request){
+		$request->validate([
+			'picking_id' => 'required',
+		]);
 
-    $pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
-    // echo $pickinglistHeader->storage_id;
-    // exit;
+		$pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
+		// echo $pickinglistHeader->storage_id;
+		// exit;
 
-    $rs_pickinglistDetail = [];
+		$rs_pickinglistDetail = [];
 
-    $base_id              = auth()->user()->id . date('YMdHis');
-    $rs_models            = [];
-    $rs_inventory_storage = [];
+		$base_id              = auth()->user()->id . date('YMdHis');
+		$rs_models            = [];
+		$rs_inventory_storage = [];
 
-    foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
-      if (empty($value['ean_code'])) {
-        if (empty($rs_models[$value['model']])) {
-          $model = MasterModel::where('model_name', $value['model'])->first();
-          if (empty($model)) {
-            return sendError('Model ' . $value['model'] . ' not found in master model !');
-          }
-          $rs_models[$value['model']] = $model;
-        }
-      }
-
-	  $invoice_no = $value['invoice_no'];
-	  $line_no = auth()->user()->cabang->hq ? $value['line_no'] : 0;
-	  $delivery_no = $value['delivery_no'];
-	  $delivery_items = $value['delivery_items'];
-
-		$jml = PickinglistDetail::where([
-			['invoice_no', '=', $invoice_no],
-			['line_no', '=', $line_no],
-			['delivery_no', '=', $delivery_no],
-			['delivery_items', '=', $delivery_items],
-		])->count();
-
-		if ($jml <= 0) {
-			$pickingListDetail = [];
-
-			$pickingListDetail['id']             = $base_id . $key;
-			$pickingListDetail['header_id']      = $request->input('picking_id');
-			$pickingListDetail['invoice_no']     = $invoice_no; //
-			$pickingListDetail['line_no']        = $line_no; //
-			$pickingListDetail['delivery_no']    = $delivery_no; //
-			$pickingListDetail['delivery_items'] = $delivery_items; //
-			$pickingListDetail['model']          = $value['model'];
-			$pickingListDetail['quantity']       = $value['quantity'];
-			$pickingListDetail['cbm']            = $value['cbm'];
-			$pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
-			$pickingListDetail['code_sales']     = $value['code_sales'];
-			$pickingListDetail['remarks']        = $value['remarks'];
-			$pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
-			$pickingListDetail['created_by']     = auth()->user()->id;
-			$pickingListDetail['created_at']     = date('Y-m-d H:i:s');
-	  
-			// Check Inventory Storage
-			if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
-				$inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
-					->where('storage_id', $pickinglistHeader->storage_id)
-					->first();
-	  
-				if (empty($inventoryStorage)) {
-					return sendError('Model ' . $value['model'] . ' not exist in storage !');
+		foreach (json_decode($request->input('selected_list'), true) as $key => $value) {
+			if (empty($value['ean_code'])) {
+				if (empty($rs_models[$value['model']])) {
+				$model = MasterModel::where('model_name', $value['model'])->first();
+				if (empty($model)) {
+					return sendError('Model ' . $value['model'] . ' not found in master model !');
 				}
-	  
-				// Dikurangi item terbooking, picking list yang belum send manifest;
-				$holdPickingDetail = PickinglistDetail::select(
-					'wms_pickinglist_detail.ean_code',
-					DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
-					DB::raw('GROUP_CONCAT(DISTINCT(wms_pickinglist_detail.header_id) SEPARATOR ", ") AS hold_pickinglist'),
-					'wms_lmb_header.send_manifest'
-				)
-				->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
-				->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
-				->whereNull('wms_lmb_header.send_manifest')
-				->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
-				->where('wms_pickinglist_header.storage_id', $pickinglistHeader->storage_id)
-				->groupBy('wms_pickinglist_detail.ean_code')
-				->first();
-	  
-				$qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
+				$rs_models[$value['model']] = $model;
+				}
+			}
+
+			$invoice_no = $value['invoice_no'];
+			$line_no = auth()->user()->cabang->hq ? $value['line_no'] : 0;
+			$delivery_no = $value['delivery_no'];
+			$delivery_items = $value['delivery_items'];
+
+			$jml = PickinglistDetail::where([
+				['invoice_no', '=', $invoice_no],
+				['line_no', '=', $line_no],
+				['delivery_no', '=', $delivery_no],
+				['delivery_items', '=', $delivery_items],
+			])->count();
+
+			if ($jml <= 0) {
+				$pickingListDetail = [];
+
+				$pickingListDetail['id']             = $base_id . $key;
+				$pickingListDetail['header_id']      = $request->input('picking_id');
+				$pickingListDetail['invoice_no']     = $invoice_no; //
+				$pickingListDetail['line_no']        = $line_no; //
+				$pickingListDetail['delivery_no']    = $delivery_no; //
+				$pickingListDetail['delivery_items'] = $delivery_items; //
+				$pickingListDetail['model']          = $value['model'];
+				$pickingListDetail['quantity']       = $value['quantity'];
+				$pickingListDetail['cbm']            = $value['cbm'];
+				$pickingListDetail['ean_code']       = empty($value['ean_code']) ? $rs_models[$value['model']]->ean_code : $value['ean_code'];
+				$pickingListDetail['code_sales']     = $value['code_sales'];
+				$pickingListDetail['remarks']        = $value['remarks'];
+				$pickingListDetail['kode_customer']  = empty($value['kode_customer']) ? $value['ship_to_code'] : $value['kode_customer'];
+				$pickingListDetail['created_by']     = auth()->user()->id;
+				$pickingListDetail['created_at']     = date('Y-m-d H:i:s');
 		
-				$inventoryStorage->quantity_total -= $qty_hold;
-				$inventoryStorage->qty_hold = $qty_hold;
-				$inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
-				$rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
+				// Check Inventory Storage
+				if (empty($rs_inventory_storage[$pickingListDetail['ean_code']])) {
+					$inventoryStorage = InventoryStorage::where('ean_code', $pickingListDetail['ean_code'])
+						->where('storage_id', $pickinglistHeader->storage_id)
+						->first();
+		
+					if (empty($inventoryStorage)) {
+						return sendError('Model ' . $value['model'] . ' not exist in storage !');
+					}
+		
+					// Dikurangi item terbooking, picking list yang belum send manifest;
+					$holdPickingDetail = PickinglistDetail::select(
+						'wms_pickinglist_detail.ean_code',
+						DB::raw('SUM(wms_pickinglist_detail.quantity) AS total_qty'),
+						DB::raw('GROUP_CONCAT(DISTINCT(wms_pickinglist_detail.header_id) SEPARATOR ", ") AS hold_pickinglist'),
+						'wms_lmb_header.send_manifest'
+					)
+					->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.id', '=', 'wms_pickinglist_detail.header_id')
+					->leftjoin('wms_lmb_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id')
+					->whereNull('wms_lmb_header.send_manifest')
+					->where('wms_pickinglist_detail.ean_code', $pickingListDetail['ean_code'])
+					->where('wms_pickinglist_header.storage_id', $pickinglistHeader->storage_id)
+					->groupBy('wms_pickinglist_detail.ean_code')
+					->first();
+		
+					$qty_hold = !empty($holdPickingDetail->total_qty) ? $holdPickingDetail->total_qty : 0;
+			
+					$inventoryStorage->quantity_total -= $qty_hold;
+					$inventoryStorage->qty_hold = $qty_hold;
+					$inventoryStorage->hold_pickinglist = !empty($holdPickingDetail->hold_pickinglist) ? $holdPickingDetail->hold_pickinglist : '';
+					$rs_inventory_storage[$pickingListDetail['ean_code']] = $inventoryStorage;
+				}
+		
+				$rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
+		
+				if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
+					return sendError('Quantity of model ' . $value['model'] . ' is defisit ! Hold ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->qty_hold . ' Unit. In picking: ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->hold_pickinglist);
+				}
+		
+				$rs_pickinglistDetail[] = $pickingListDetail;
 			}
-	  
-			$rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total -= $pickingListDetail['quantity'];
-	  
-			if ($rs_inventory_storage[$pickingListDetail['ean_code']]->quantity_total < 0) {
-				return sendError('Quantity of model ' . $value['model'] . ' is defisit ! Hold ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->qty_hold . ' Unit. In picking: ' . $rs_inventory_storage[$pickingListDetail['ean_code']]->hold_pickinglist);
-			}
-	  
-			$rs_pickinglistDetail[] = $pickingListDetail;
 		}
-    }
 
-    try {
-      DB::beginTransaction();
-      // ADD CONCEPT FLOW DETAIL
-      $conceptFlowHeader = ConceptFlowHeader::where('driver_register_id', $pickinglistHeader->driver_register_id)->first();
+		try {
+			DB::beginTransaction();
+			// ADD CONCEPT FLOW DETAIL
+			$conceptFlowHeader = ConceptFlowHeader::where('driver_register_id', $pickinglistHeader->driver_register_id)->first();
 
-      if (!empty($conceptFlowHeader->id)) {
-        foreach ($rs_pickinglistDetail as $key => $value) {
-			try {
-				$conceptFlowDetail = new ConceptFlowDetail;
+			if (!empty($conceptFlowHeader->id)) {
+				foreach ($rs_pickinglistDetail as $key => $value) {
+					try {
+						$conceptFlowDetail = new ConceptFlowDetail;
 
-				$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
-				$conceptFlowDetail->invoice_no     = $value['invoice_no'];
-				$conceptFlowDetail->line_no        = $value['line_no'];
-				$conceptFlowDetail->quantity       = $value['quantity'];
-				$conceptFlowDetail->cbm_max        = $value['cbm'];
-				$conceptFlowDetail->concept_type   = "STANDAR";
-				$conceptFlowDetail->delivery_no    = $value['delivery_no'];
-				$conceptFlowDetail->delivery_items = $value['delivery_items'];
-	  
-				$conceptFlowDetail->save();
-			} catch (\Throwable $th) {
-				$conceptFlowDetail = ConceptFlowDetail::where('invoice_no', $value['invoice_no'])
-										->where('line_no', $value['line_no'])
-										->first();
+						$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
+						$conceptFlowDetail->invoice_no     = $value['invoice_no'];
+						$conceptFlowDetail->line_no        = $value['line_no'];
+						$conceptFlowDetail->quantity       = $value['quantity'];
+						$conceptFlowDetail->cbm_max        = $value['cbm'];
+						$conceptFlowDetail->concept_type   = "STANDAR";
+						$conceptFlowDetail->delivery_no    = $value['delivery_no'];
+						$conceptFlowDetail->delivery_items = $value['delivery_items'];
+			
+						$conceptFlowDetail->save();
+					} catch (\Throwable $th) {
+						$conceptFlowDetail = ConceptFlowDetail::where('invoice_no', $value['invoice_no'])
+												->where('line_no', $value['line_no'])
+												->first();
+						
+						$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
+						//$conceptFlowDetail->invoice_no     = $value['invoice_no'];
+						//$conceptFlowDetail->line_no        = $value['line_no'];
+						$conceptFlowDetail->quantity       = $value['quantity'];
+						$conceptFlowDetail->cbm_max        = $value['cbm'];
+						$conceptFlowDetail->concept_type   = "STANDAR";
+						$conceptFlowDetail->delivery_no    = $value['delivery_no'];
+						$conceptFlowDetail->delivery_items = $value['delivery_items'];
 				
-				$conceptFlowDetail->id_header      = $conceptFlowHeader->id;
-				//$conceptFlowDetail->invoice_no     = $value['invoice_no'];
-				//$conceptFlowDetail->line_no        = $value['line_no'];
-				$conceptFlowDetail->quantity       = $value['quantity'];
-				$conceptFlowDetail->cbm_max        = $value['cbm'];
-				$conceptFlowDetail->concept_type   = "STANDAR";
-				$conceptFlowDetail->delivery_no    = $value['delivery_no'];
-				$conceptFlowDetail->delivery_items = $value['delivery_items'];
-		
-				$conceptFlowDetail->save();
+						$conceptFlowDetail->save();
+					}
+				}
 			}
-        }
-      }
 
-      PickinglistDetail::insert($rs_pickinglistDetail);
-      DB::commit();
+			PickinglistDetail::insert($rs_pickinglistDetail);
+			DB::commit();
 
-      return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
-    } catch (Exception $e) {
-      DB::rollBack();
-    }
-  }
+			return sendSuccess('Items Submited to picking list.', $rs_pickinglistDetail);
+		} catch (Exception $e) {
+			DB::rollBack();
+		}
+	}
 
 	public function detailSendToLMB($id){
 		$rs_lmb_detail = [];

@@ -436,7 +436,6 @@ class PickingToLMBController extends Controller
 				$intransit_models[$value->model . $value->code_sales]['qty'] += 1;
 				$intransit_models[$value->model . $value->code_sales]['cbm_total'] += $value->cbm_unit;
 
-
 				$value->no_manifest = 0;
 				$value->save();
 			}

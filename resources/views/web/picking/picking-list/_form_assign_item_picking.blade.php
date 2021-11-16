@@ -63,7 +63,7 @@
         <td width="35%">
           <h4 class="card-title">Submit to Picking List</h4>
           <hr>
-          <span class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mb-1" onclick="submit_do()">Submit DO</span>
+          <span id="btn-submit-do" class="waves-effect waves-light btn btn-small indigo darken-4 btn-view mb-1" onclick="submit_do()">Submit DO</span>
           <table id="item-picking-list" class="table-pick-list-result display" width="100%">
             <thead><tr><th>Shipment NO | Delivery No | Model | Delivery Item | Quantity | CBM</th></tr></thead>
             <tbody>
@@ -275,33 +275,34 @@
     dtdatatable_do_for_picking.ajax.reload(null, false)
   }
 
-  function submit_do(){
-    var selected_list = [];
-    dtdatatable_picking.$('tr').each(function() {
-      var row_data = dtdatatable_picking.row(this).data()
-      selected_list.push(row_data);
-    });
-    $.ajax({
-      url: '{{ url("picking-list/submit-do") }}',
-      type: 'POST',
-      data: {picking_id: "{{$pickinglistHeader->id}}", selected_list: JSON.stringify(selected_list)},
-    })
-    .done(function(result) { // selesai dan berhasil
-      if (result.status) {
-        showSwalAutoClose('Success', result.message);
-        dtdatatable_picking_list_detail.ajax.reload(null, false)
-        dtdatatable_do_for_picking.ajax.reload(null, false)
-        dtdatatable_picking
-        .rows()
-        .remove()
-        .draw();
-        } else {
-          swal('Warning!', result.message, 'warning')
-        }
-    })
-    .fail(function(xhr) {
-        showSwalError(xhr) // Custom function to show error with sweetAlert
-    });
-  }
+function submit_do(){
+	$('btn-submit-do').prop('disabled', true);
+	var selected_list = [];
+	dtdatatable_picking.$('tr').each(function() {
+		var row_data = dtdatatable_picking.row(this).data()
+		selected_list.push(row_data);
+	});
+	$.ajax({
+		url: '{{ url("picking-list/submit-do") }}',
+		type: 'POST',
+		data: {picking_id: "{{$pickinglistHeader->id}}", selected_list: JSON.stringify(selected_list)},
+	}).done(function(result) { // selesai dan berhasil
+		if (result.status) {
+		showSwalAutoClose('Success', result.message);
+		dtdatatable_picking_list_detail.ajax.reload(null, false)
+		dtdatatable_do_for_picking.ajax.reload(null, false)
+		dtdatatable_picking
+		.rows()
+		.remove()
+		.draw();
+		} else {
+			swal('Warning!', result.message, 'warning')
+		}
+	}).fail(function(xhr) {
+		showSwalError(xhr) // Custom function to show error with sweetAlert
+	}).always(function(){
+		$('btn-submit-do').prop('disabled', false);
+	});
+}
 </script>
 @endpush
