@@ -40,46 +40,39 @@
 
 @push('script_js')
 <script type="text/javascript">
-   jQuery(document).ready(function($) {
-      // Choose Plant
-      $('.select-category').select2({
-         placeholder: '-- Select Plant--',
-         ajax: get_select2_ajax_options('/master-model/select2-category')
-      });
+jQuery(document).ready(function($) {
+	// Choose Plant
+	$('.select-category').select2({
+		placeholder: '-- Select Plant--',
+		ajax: get_select2_ajax_options('/master-model/select2-category')
+	});
 
-      // Choose Type
-      $('.select-model-type').select2({
-         placeholder: '-- Select Type--',
-         allowClear: true,
-         ajax: get_select2_ajax_options('/master-model/select2-model-type')
-      });
+	// Choose Type
+	$('.select-model-type').select2({
+		placeholder: '-- Select Type--',
+		allowClear: true,
+		ajax: get_select2_ajax_options('/master-model/select2-model-type')
+	});
 
-      $('#form-find-delivery-ticket').validate({
-        submitHandler: function(form){
-          $.ajax({
-            url: '{{url("finish-good-production/search-delivery-ticket")}}',
-            type: 'GET',
-            dataType: 'json',
-            data: $(form).serialize(),
-          })
-          .done(function(result) {
-            dtdatatable_submit_to_logsys.rows()
-              .remove()
-              .draw();
-            dttable_from_barcode_production.rows()
-              .remove()
-              .draw();
-            dttable_from_barcode_production.rows.add(result).draw();
-          })
-          .fail(function() {
-            console.log("error");
-          })
-          .always(function() {
-            console.log("complete");
-          });
-          
-        }
-      })
-   });
+	$('#form-find-delivery-ticket').validate({
+		submitHandler: function(form){
+			$.ajax({
+				url: '{{url("finish-good-production/search-delivery-ticket")}}',
+				type: 'GET',
+				dataType: 'json',
+				data: $(form).serialize(),
+			}).done(function(result) {
+				dtdatatable_submit_to_logsys.rows().remove().draw();
+				dttable_from_barcode_production.rows().remove().draw();
+				dttable_from_barcode_production.rows.add(result).draw();
+			}).fail(function() {
+				console.log("error");
+			}).always(function() {
+				console.log("complete");
+			});			
+		}
+	});
+
+});
 </script>
 @endpush
