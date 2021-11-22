@@ -9,19 +9,26 @@ class BarcodeController extends Controller{
 
 	public function upload(Request $request){
 		$data = $request->post('data', []);
-		try {
-			foreach ($data as &$d) {
-				$d['created_at'] = date('Y-m-d H:i:s');
+		if (count($data) > 0) {
+			try {
+				foreach ($data as &$d) {
+					$d['created_at'] = date('Y-m-d H:i:s');
+				}
+				FinishGoodTicket::insert($data);
+				return [
+					'status' => 'success',
+					'message' => "Sukses insert data barcode",
+				];
+			} catch (\Throwable $th) {
+				return [
+					'status' => 'failed',
+					'message' => $th->getMessage(),
+				];
 			}
-			FinishGoodTicket::insert($data);
-			return [
-				'status' => 'success',
-				'message' => "Sukses insert data barcode",
-			];
-		} catch (\Throwable $th) {
+		} else {
 			return [
 				'status' => 'failed',
-				'message' => $th->getMessage(),
+				'message' => 'Data is null, or zero length',
 			];
 		}
 	}
