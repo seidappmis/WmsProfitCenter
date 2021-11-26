@@ -83,6 +83,7 @@ class FinishGoodController extends Controller
 
 	public function searchDeliveryTicket(Request $request)
 	{
+		$rsData = [];
 		try {
 			DB::connection('sqlsrv')->statement('SET ANSI_NULLS, QUOTED_IDENTIFIER, CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON');
 
@@ -109,7 +110,6 @@ class FinishGoodController extends Controller
 				strtolower($request->input('tipe')),
 			]);
 
-			$rsData = [];
 			foreach ($sql as $key => $value) {
 				if (FinishGoodDetail::where('bar_ticket_header', $value->HEADER_NAME)->doesntExist()) {
 					$rsData[] = $value;
@@ -142,7 +142,7 @@ class FinishGoodController extends Controller
 			->leftjoin('log_finish_good_detail', 'log_finish_good_detail.bar_ticket_header', '=', 'log_finish_good_ticket.ticket_no')
 			->where('log_finish_good_ticket.ticket_no', 'LIKE', "%{$request->input('header_name')}%")
 			->whereNull('log_finish_good_detail.bar_ticket_header')
-			->get();
+			->get()->toArray();
 		return $sql;
 	}
 
