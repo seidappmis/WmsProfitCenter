@@ -51,13 +51,14 @@ class PickinglistHeader extends BaseModel
         // DB::raw('wms_lmb_detail.serial_number AS quantity_in_lmb')
         DB::raw('COUNT(wms_lmb_detail.serial_number) AS quantity_in_lmb')
       )
-      ->leftjoin('wms_lmb_detail', function ($join) {
+      /*->leftjoin('wms_lmb_detail', function ($join) {
         $join->on('wms_lmb_detail.picking_id', '=', 'wms_pickinglist_detail.header_id');
         $join->on('wms_lmb_detail.delivery_no', '=', 'wms_pickinglist_detail.delivery_no');
         $join->on('wms_lmb_detail.invoice_no', '=', 'wms_pickinglist_detail.invoice_no');
         $join->on('wms_lmb_detail.ean_code', '=', 'wms_pickinglist_detail.ean_code');
         $join->on('wms_lmb_detail.delivery_items', '=', 'wms_pickinglist_detail.delivery_items');
-      })
+      })*/
+	  ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_detail_id', '=', 'wms_pickinglist_detail.id')
       ->groupBy(
         'wms_pickinglist_detail.header_id',
         'wms_pickinglist_detail.invoice_no',
