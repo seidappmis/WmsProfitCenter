@@ -792,12 +792,12 @@ class PickingListController extends Controller
 				}
 			}
 
-			/*
 			$invoice_no = $value['invoice_no'];
 			$line_no = auth()->user()->cabang->hq ? $value['line_no'] : 0;
 			$delivery_no = $value['delivery_no'];
 			$delivery_items = $value['delivery_items'];
-
+			
+			/*
 			$jml = PickinglistDetail::where([
 				['invoice_no', '=', $invoice_no],
 				['line_no', '=', $line_no],
