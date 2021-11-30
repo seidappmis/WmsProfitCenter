@@ -792,6 +792,7 @@ class PickingListController extends Controller
 				}
 			}
 
+			/*
 			$invoice_no = $value['invoice_no'];
 			$line_no = auth()->user()->cabang->hq ? $value['line_no'] : 0;
 			$delivery_no = $value['delivery_no'];
@@ -804,7 +805,7 @@ class PickingListController extends Controller
 				['delivery_items', '=', $delivery_items],
 			])->count();
 
-			if ($jml <= 0) {
+			if ($jml <= 0) {*/
 				$pickingListDetail = [];
 
 				$pickingListDetail['id']             = $base_id . $key;
@@ -863,7 +864,7 @@ class PickingListController extends Controller
 				}
 		
 				$rs_pickinglistDetail[] = $pickingListDetail;
-			}
+			//}
 		}
 
 		try {
