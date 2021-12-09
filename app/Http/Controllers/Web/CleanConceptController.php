@@ -21,11 +21,7 @@ class CleanConceptController extends Controller
           COUNT(tr_concept.line_no) AS total_do_items
         ')
         ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
-        ->leftjoin('wms_pickinglist_detail', function ($join) {
-          $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
-          $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
-          $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-        })
+        ->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
         ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
         ->where('area', $request->input('area'))
         ->groupBy('invoice_no', 'delivery_no')
@@ -45,34 +41,26 @@ class CleanConceptController extends Controller
     return view('web.others.clean-concept.index');
   }
 
-  public function destroy(Request $request)
-  {
-    return Concept::leftjoin('wms_pickinglist_detail', function ($join) {
-      $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
-      $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
-      $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-    })
-      ->where('tr_concept.invoice_no', $request->input('invoice_no'))
-      ->where('tr_concept.delivery_no', $request->input('delivery_no'))
-      ->whereNull('wms_pickinglist_detail.id')
-      ->delete();
-  }
+	public function destroy(Request $request)
+	{
+		return Concept::leftjoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
+			->where('tr_concept.invoice_no', $request->input('invoice_no'))
+			->where('tr_concept.delivery_no', $request->input('delivery_no'))
+			->whereNull('wms_pickinglist_detail.id')
+			->delete();
+	}
 
   public function destroySelectedItem(Request $request)
   {
     $data_concept = json_decode($request->input('data_concept'), true);
 
-    foreach ($data_concept as $key => $value) {
-      Concept::leftjoin('wms_pickinglist_detail', function ($join) {
-        $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
-        $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
-        $join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-      })
-        ->where('tr_concept.invoice_no', $value['invoice_no'])
-        ->where('tr_concept.delivery_no', $value['delivery_no'])
-        ->whereNull('wms_pickinglist_detail.id')
-        ->delete();
-    }
+	foreach ($data_concept as $key => $value) {
+		Concept::leftjoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
+			->where('tr_concept.invoice_no', $value['invoice_no'])
+			->where('tr_concept.delivery_no', $value['delivery_no'])
+			->whereNull('wms_pickinglist_detail.id')
+			->delete();
+	}
 
     return true;
 

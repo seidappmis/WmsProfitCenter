@@ -130,10 +130,7 @@ class TruckingMonitorController extends Controller
           COUNT(tr_concept.line_no) AS total_do_items
         ')
       ->leftjoin('tr_destination', 'tr_destination.destination_number', '=', 'tr_concept.destination_number')
-      ->leftjoin('wms_pickinglist_detail', function ($join) {
-        $join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
-        $join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
-      })
+      ->leftjoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
       ->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
       ->where('area', $request->input('area'))
       ->groupBy('tr_concept.invoice_no', 'tr_concept.delivery_no')

@@ -36,6 +36,8 @@ class PickingListController extends Controller
 		'wms_pickinglist_header.created_at',
 		'wms_pickinglist_header.created_by',
         // 'wms_pickinglist_header.picking_no',
+		'wms_pickinglist_header.detail_count',
+		'wms_pickinglist_header.lmb_detail_count',
         'wms_lmb_header.send_manifest',
         DB::raw('GROUP_CONCAT(picking_no SEPARATOR ",<br>") as picking_no')
       )
@@ -62,7 +64,7 @@ class PickingListController extends Controller
 		// $query->whereRaw('((log_manifest_header.driver_register_id IS NULL) OR (log_manifest_header.status_complete <> 1))');
 	  }
 
-      $query->with(['details', 'lmb_details']);
+      //$query->with(['details', 'lmb_details']);
 
       // if (auth()->user()->cabang->hq) {
       //   // Tampilkan data yang belum ada manifest bila tidak di search
@@ -97,19 +99,22 @@ class PickingListController extends Controller
           return $driver_name;
         })
         ->addColumn('do_status', function ($data) {
-          return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
+          //return $data->details()->count() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
+		  return $data->getDetailCount() > 0 ? 'DO Already' : '<span class="red-text">DO not yet assign</span>';
         })
         ->addColumn('lmb', function ($data) {
-          $lmb = $data->lmb_details->count() > 0 ? "Loading Process" : '-';
+          $lmb = $data->getLmbDetCount() > 0 ? "Loading Process" : '-';
           // if (!empty($data->lmb_header) && $data->lmb_header->send_manifest) {
           if ($data->send_manifest) {
             $lmb = 'LMB Send Manifest';
           }
           return $lmb;
         })
+		/*
 		->addColumn('createdBy', function($data){
 			return $data->createdBy !== null ? ($data->createdBy->first_name !== null ? $data->createdBy->first_name : '') . ' ' . ($data->createdBy->last_name !== null ? $data->createdBy->last_name : '') : '';
 		})
+		*/
 		->addColumn('created_at', function($data){
 			return $data->created_at;
 		})
@@ -671,22 +676,12 @@ class PickingListController extends Controller
 				DB::raw('MAX(wmcT.line_no) AS max_line_no'),
 				DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
 			)
-			->leftJoin('log_manifest_detail', function($join){
-				$join->on('log_manifest_detail.invoice_no',	'=', 'tr_concept.invoice_no');
-				$join->on('log_manifest_detail.line_no',		'=', 'tr_concept.line_no');
-			})
-			->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
-			->leftjoin('wms_pickinglist_detail', function ($join) {
-				$join->on('wms_pickinglist_detail.invoice_no', '=', 'tr_concept.invoice_no');
-				$join->on('wms_pickinglist_detail.delivery_no', '=', 'tr_concept.delivery_no');
-				$join->on('wms_pickinglist_detail.delivery_items', '=', 'tr_concept.delivery_items');
-			})
-			->leftjoin(DB::raw('tr_concept AS wmcT'), function ($join) {
-				$join->on('wmcT.invoice_no', '=', 'tr_concept.invoice_no');
-				// $join->on('wmcT.delivery_no', '=', 'tr_concept.delivery_no');
-			})
+			//->leftJoin('log_manifest_detail', 'log_manifest_detail.tr_concept_id', '=', 'tr_concept.id')
+			//->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
+			->leftJoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
+			->leftjoin(DB::raw('tr_concept AS wmcT'), 'wmcT.invoice_no', '=', 'tr_concept.invoice_no')
 			->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
-			->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
+			//->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
 			// ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
 			// ->whereRaw('(tr_concept.invoice_no like "%' . $request->input('do_or_shipment') . '%" OR tr_concept.delivery_no like "%' . $request->input('do_or_shipment') . '%")')
 			->groupBy('invoice_no', 'delivery_no', 'delivery_items')
@@ -810,6 +805,7 @@ class PickingListController extends Controller
 
 				$pickingListDetail['id']             = $base_id . $key;
 				$pickingListDetail['header_id']      = $request->input('picking_id');
+				$pickingListDetail['tr_concept_id']	 = $value['id'];
 				$pickingListDetail['invoice_no']     = $invoice_no; //
 				$pickingListDetail['line_no']        = $line_no; //
 				$pickingListDetail['delivery_no']    = $delivery_no; //

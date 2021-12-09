@@ -1,4 +1,4 @@
-@if($pickinglistHeader->lmb_details->count() == 0)
+@if($pickinglistHeader->getLmbDetCount() == 0)
 {!! get_button_delete('Multi Delete Selected Items', 'btn-multi-delete-selected-item mb-1') !!}
 @endif
 <div class="section-data-tables"> 

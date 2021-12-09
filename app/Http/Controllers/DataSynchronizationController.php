@@ -24,8 +24,8 @@ class DataSynchronizationController extends Controller
 		$this->updateTable20Agustus2021();
 		$this->updateTable16Agustus2021();
 		$this->updateTable05Agustus2021();
-		//$this->updateTable06Juli2021();
-		//$this->updateTable11Mei2021();
+		$this->updateTable06Juli2021();
+		$this->updateTable11Mei2021(); //Memastikan trigger
 
 		// $this->updateTable28April2020();
 		// $this->updateTable15April2021();

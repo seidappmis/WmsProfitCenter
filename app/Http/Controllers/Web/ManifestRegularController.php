@@ -586,6 +586,7 @@ class ManifestRegularController extends Controller
       $manifestDetail['model']           = $value['model'];
       $manifestDetail['expedition_code'] = $manifestHeader->expedition_code;
       $manifestDetail['expedition_name'] = $manifestHeader->expedition_name;
+	  $manifestDetail['tr_concept_id']	 = $concept->id;
       $manifestDetail['sold_to']         = $concept->sold_to;
       $manifestDetail['sold_to_code']    = $concept->sold_to_code;
       $manifestDetail['sold_to_street']  = $concept->sold_to_street;
