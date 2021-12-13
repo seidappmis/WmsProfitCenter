@@ -137,6 +137,8 @@ class UploadConceptController extends Controller
         $concept['destination_number'] = $rs_destination[$concept['destination_name']];
         $concept['expedition_id']      = $rs_expedition[$concept['expedition_code']];
 
+		$concept['id'] = $concept['invoice_no'] . '-'. $concept['line_no'] .'-' . $concept['delivery_no'] . '-' . $concept['delivery_items'];
+
         if (empty($rsModelException[$concept['model']])) {
           $concepts[] = $concept;
         }
@@ -179,8 +181,6 @@ class UploadConceptController extends Controller
 
       $data_concept[$key] = $value;
     }
-
-	$data_concept['id'] = $data_concept['invoice_no'] . '-'. $data_concept['line_no'] .'-' . $data_concept['delivery_no'] . '-' . $data_concept['delivery_items'];
 
     Concept::insert($data_concept);
 
