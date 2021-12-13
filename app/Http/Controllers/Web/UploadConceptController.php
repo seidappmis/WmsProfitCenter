@@ -180,6 +180,8 @@ class UploadConceptController extends Controller
       $data_concept[$key] = $value;
     }
 
+	$data_concept['id'] = $data_concept['invoice_no'] . '-'. $data_concept['line_no'] .'-' . $data_concept['delivery_no'] . '-' . $data_concept['delivery_items'];
+
     Concept::insert($data_concept);
 
     return true;

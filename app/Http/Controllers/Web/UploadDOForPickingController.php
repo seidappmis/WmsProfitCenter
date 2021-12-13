@@ -95,7 +95,6 @@ class UploadDOForPickingController extends Controller
         $do['remarks']    = '-';
         $do['created_by'] = auth()->user()->id;
         $do['created_at'] = date('Y-m-d H:i:s');
-		$do['id']		  = $do['invoice'] . '--' . $do['delivery_no'] . '-' . $do['delivery_items'];
 
         // CEK database
         $check_manual_concept->orWhere(function ($query) use ($do) {
@@ -120,6 +119,8 @@ class UploadDOForPickingController extends Controller
 
         $do['ean_code'] = !empty($rs_model[$do['model']]) ? $rs_model[$do['model']]->ean_code : '';
 
+		$do['id'] = $do['invoice_no'] . '--' . $do['delivery_no'] . '-' . $do['delivery_items'];
+
         if (empty($rsModelException[$do['model']])) {
           $rs_do[] = $do;
         }
@@ -132,7 +133,7 @@ class UploadDOForPickingController extends Controller
     }
 
     if (!empty($rs_do)) {
-      ManualConcept::insert($rs_do);
+		ManualConcept::insert($rs_do);
     }
 
     return $rs_do;

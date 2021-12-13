@@ -519,6 +519,7 @@ class PickingListController extends Controller
       $split_concept['split_by']       = auth()->user()->username;
       $split_concept['split_date']     = $dateTime;
 
+	  $split_concept['id'] = $split_concept['invoice_no'] . '-'. ($split_concept['line_no'] ?? '') .'-' . $split_concept['delivery_no'] . '-' . $split_concept['delivery_items'];
       $rs_split_concept[] = $split_concept;
     }
 
