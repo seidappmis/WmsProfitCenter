@@ -95,6 +95,7 @@ class UploadDOForPickingController extends Controller
         $do['remarks']    = '-';
         $do['created_by'] = auth()->user()->id;
         $do['created_at'] = date('Y-m-d H:i:s');
+		$do['id']		  = $do['invoice'] . '--' . $do['delivery_no'] . '-' . $do['delivery_items'];
 
         // CEK database
         $check_manual_concept->orWhere(function ($query) use ($do) {
