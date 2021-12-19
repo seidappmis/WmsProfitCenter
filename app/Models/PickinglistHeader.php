@@ -140,7 +140,7 @@ class PickinglistHeader extends BaseModel
   {
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
-      ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.picking_no')
+      ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.id')
       // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
       ->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail

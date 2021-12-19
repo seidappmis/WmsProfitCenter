@@ -539,6 +539,11 @@ class DataSynchronizationController extends Controller
 				SET has_manifest = true
 				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
 			END IF;
+			IF NEW.status_complete = 1 THEN
+				UPDATE wms_lmb_header
+				SET manifest_complete = NEW.status_complete
+				WHERE wms_lmb_header.driver_register_id = NEW.driver_register_id;
+			END IF;
 		END");
 		DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_update');
 		DB::unprepared("CREATE TRIGGER manifest_header_update
@@ -559,6 +564,11 @@ class DataSynchronizationController extends Controller
 				SET has_manifest = true
 				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
 			END IF;
+			IF NEW.status_complete = 1 THEN
+				UPDATE wms_lmb_header
+				SET manifest_complete = NEW.status_complete
+				WHERE wms_lmb_header.driver_register_id = NEW.driver_register_id;
+			END IF;
 		END");
 		DB::unprepared('DROP TRIGGER IF EXISTS manifest_header_delete');
 		DB::unprepared("CREATE TRIGGER manifest_header_delete
@@ -575,6 +585,48 @@ class DataSynchronizationController extends Controller
 			END IF;
 		END");
 		echo "Trigger for `log_manifest_header` created<br/>";
+
+		DB::unprepared('DROP TRIGGER IF EXISTS branch_manifest_header_insert');
+		DB::unprepared("CREATE TRIGGER branch_manifest_header_insert
+		AFTER INSERT ON wms_branch_manifest_header FOR EACH ROW
+		BEGIN
+			IF NEW.r_driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_manifest = true
+				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+			END IF;
+			IF NEW.status_complete = 1 THEN
+				UPDATE wms_lmb_header
+				SET manifest_complete = NEW.status_complete
+				WHERE wms_lmb_header.driver_register_id = NEW.driver_register_id;
+			END IF;
+		END");
+		DB::unprepared('DROP TRIGGER IF EXISTS branch_manifest_header_update');
+		DB::unprepared("CREATE TRIGGER branch_manifest_header_update
+		AFTER UPDATE ON wms_branch_manifest_header FOR EACH ROW
+		BEGIN
+			IF OLD.r_driver_register_id IS NOT NULL
+			AND NEW.r_driver_register_id <> OLD.r_driver_register_id THEN
+				IF (SELECT COUNT(h.do_manifest_no)
+				FROM log_manifest_header h
+				WHERE h.r_driver_register_id = OLD.r_driver_register_id) < 1 THEN
+					UPDATE tr_driver_registered
+					SET has_manifest = NULL
+					WHERE tr_driver_registered.id = OLD.r_driver_register_id;
+				END IF;
+			END IF;
+			IF NEW.r_driver_register_id IS NOT NULL THEN
+				UPDATE tr_driver_registered
+				SET has_manifest = true
+				WHERE tr_driver_registered.id = NEW.r_driver_register_id;
+			END IF;
+			IF NEW.status_complete = 1 THEN
+				UPDATE wms_lmb_header
+				SET manifest_complete = NEW.status_complete
+				WHERE wms_lmb_header.driver_register_id = NEW.driver_register_id;
+			END IF;
+		END");
+		echo "Trigger for `branch_manifest_header` created<br/>";
 	}
 
 	protected function updateTable28April2020()

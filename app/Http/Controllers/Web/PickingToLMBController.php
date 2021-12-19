@@ -29,13 +29,17 @@ class PickingToLMBController extends Controller
 	{
 		if ($request->ajax()) {
 			$query = LMBHeader::select('wms_lmb_header.*')
-				->leftjoin('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+				->join('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+
+			if (empty($request->input('search')['value'])) {
+				$query->whereRaw('(wms_lmb_header.manifest_complete IS NUll) OR (wms_lmb_header.manifest_complete != 1)');
+			}
 
 			if (auth()->user()->cabang->hq) {
 				// Tampilkan data yang belum ada manifest bila tidak di search
-				$query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+				//$query->leftjoin('log_manifest_header', 'log_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');				
 				if (empty($request->input('search')['value'])) {
-					$query->whereRaw('((log_manifest_header.status_complete IS NULL) OR (log_manifest_header.status_complete != 1))');
+					//$query->whereRaw('((log_manifest_header.status_complete IS NULL) OR (log_manifest_header.status_complete != 1))');
 				}
 				if (auth()->user()->area == 'All') {
 					$query->where('wms_pickinglist_header.hq', 1);
@@ -44,15 +48,15 @@ class PickingToLMBController extends Controller
 				}
 			} else {
 				// Tampilkan data yang belum ada manifest bila tidak di search
-				$query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
+				/*$query->leftjoin('wms_branch_manifest_header', 'wms_branch_manifest_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
 				if (empty($request->input('search')['value'])) {
 					$query->whereNull('wms_branch_manifest_header.driver_register_id');
-				}
+				}*/
 				$query->where('wms_lmb_header.kode_cabang', auth()->user()->cabang->kode_cabang);
 			}
 
-			$query->whereNotNull('wms_pickinglist_header.picking_no');
-			$query->groupBy('wms_lmb_header.driver_register_id');
+			//$query->whereNotNull('wms_pickinglist_header.picking_no');
+			//$query->groupBy('wms_lmb_header.driver_register_id');
 
 			$datatables = DataTables::of($query)
 				->addIndexColumn() //DT_RowIndex (Penomoran)
@@ -94,6 +98,7 @@ class PickingToLMBController extends Controller
 			return sendSuccess('Seat Loading Quantity', $details);
 		}
 
+		/*
 		$tempDetailLMB = LMBDetail::selectRaw('
         wms_lmb_detail.invoice_no,
         wms_lmb_detail.delivery_no,
@@ -111,6 +116,7 @@ class PickingToLMBController extends Controller
 			$rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model . $value->delivery_items] = $value->qty_loading;
 		}
 		$data['rsLoadingQuantity'] = $rsLoadingQuantity;
+		*/
 
 		// $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
 		/*
