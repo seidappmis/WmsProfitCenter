@@ -19,6 +19,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 class PickingListController extends Controller
 {
@@ -588,78 +589,61 @@ class PickingListController extends Controller
     return view('web.picking.picking-list.view', $data);
   }
 
-  public function sendToLMB(Request $request, $id)
-  {
-    $pickingHeader = PickinglistHeader::findOrFail($id);
+	public function sendToLMB(Request $request, $id)
+	{
+		$pickingHeader = PickinglistHeader::findOrFail($id);
 
-    $rs_lmb_detail = [];
-    $rs_max_no     = [];
-    foreach ($pickingHeader->details as $key => $value) {
-      $prefix = $value->model;
+		$rs_lmb_detail = [];
+		$rs_max_no     = [];
+		foreach ($pickingHeader->details as $key => $value) {
+			$prefix = $value->model;
 
-      if (empty($rs_max_no[$value->ean_code])) {
-        $prefix_length = strlen($prefix);
-        $query_max_no        = DB::select('SELECT MAX(serial_number) AS max_no 
-		FROM wms_lmb_detail
-		LEFT JOIN wms_master_model AS m
-		ON wms_lmb_detail.serial_number = m.model_name
-		WHERE (m.model_name IS null) AND serial_number LIKE "' . $value->model . '%" and model = "' . $value->model . '"')[0]->max_no;
-        if (empty($query_max_no)) {
-          $max_no = 0;
-        } else {
-          $max_no = explode($value->model, $query_max_no)[1];
-        }
-        $rs_max_no[$value->ean_code] = $max_no + 1;
-      }
+			if (empty($rs_max_no[$value->ean_code])) {
+				$prefix_length = strlen($prefix);
+				$query_max_no        = DB::select('SELECT MAX(serial_number) AS max_no 
+										FROM wms_lmb_detail
+										LEFT JOIN wms_master_model AS m
+										ON wms_lmb_detail.serial_number = m.model_name
+										WHERE (m.model_name IS null) AND serial_number LIKE "' . $value->model . '%" and model = "' . $value->model . '"')[0]->max_no;
+				if (empty($query_max_no)) {
+					$max_no = 0;
+				} else {
+					$max_no = explode($value->model, $query_max_no)[1];
+				}
+				$rs_max_no[$value->ean_code] = $max_no + 1;
+			}
 
-      for ($i = 0; $i < $value->quantity; $i++) {
-        $detail['picking_id']         = $pickingHeader->id;
-		$detail['picking_detail_id']  = $value->id;
-        $detail['ean_code']           = $value->ean_code;
-        $detail['serial_number']      = $value->model . str_pad($rs_max_no[$value->ean_code]++, 3, 0, STR_PAD_LEFT);
-        $detail['created_at']         = date('Y-m-d H:i:s');
-        $detail['model']              = $value->model;
-        $detail['delivery_no']        = $value->delivery_no;
-        $detail['invoice_no']         = $value->invoice_no;
-        $detail['delivery_items']     = $value->delivery_items;
-        $detail['kode_customer']      = $value->kode_customer;
-        $detail['code_sales']         = $value->code_sales;
-        $detail['city_code']          = $pickingHeader->city_code;
-        $detail['city_name']          = $pickingHeader->city_name;
-        $detail['driver_register_id'] = $pickingHeader->driver_register_id;
-        $detail['cbm_unit']           = $value->cbm / $value->quantity;
+			for ($i = 0; $i < $value->quantity; $i++) {
+				$detail = [];
+				$detail['picking_id']         = $pickingHeader->id;
+				$detail['picking_detail_id']  = $value->id;
+				$detail['ean_code']           = $value->ean_code;
+				$detail['serial_number']      = $value->model . str_pad($rs_max_no[$value->ean_code]++, 3, 0, STR_PAD_LEFT);
+				$detail['created_at']         = date('Y-m-d H:i:s');
+				$detail['model']              = $value->model;
+				$detail['delivery_no']        = $value->delivery_no;
+				$detail['invoice_no']         = $value->invoice_no;
+				$detail['delivery_items']     = $value->delivery_items;
+				$detail['kode_customer']      = $value->kode_customer;
+				$detail['code_sales']         = $value->code_sales;
+				$detail['city_code']          = $pickingHeader->city_code;
+				$detail['city_name']          = $pickingHeader->city_name;
+				$detail['driver_register_id'] = $pickingHeader->driver_register_id;
+				$detail['cbm_unit']           = $value->cbm / $value->quantity;
 
-        $rs_lmb_detail[] = $detail;
-      }
-    }
+				$rs_lmb_detail[] = $detail;
+			}
+		}
 
-    try {
-
-      if (!empty($rs_lmb_detail)) {
-        LMBDetail::insert($rs_lmb_detail);
-		/*
-		LMBDetail::upsert($rs_lmb_detail, [
-			'serial_number',
-			'delivery_no',
-			'model',
-			'delivery_items',
-		], [
-			'invoice_no',
-			'ean_code',
-			'cmb_unit',
-			'diver_register_id',
-			'picking_id',
-			'city_code',
-			'city_name',
-			'kode_customer',
-			'code_sales'
-		]);
-		*/
-      }
-      return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
-    } catch (Exception $e) {
-    }
-  }
+		try {
+			if (!empty($rs_lmb_detail)) {
+				LMBDetail::insert($rs_lmb_detail);
+			}
+			return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
+		} catch (Throwable $th) {
+			return sendError($th->getMessage(), $rs_lmb_detail);
+		}
+	}
 
 	public function doOrShipmentData(Request $request)
 	{
