@@ -86,11 +86,15 @@
       scrollX: true,
       responsive: true,
       ajax: {
-          url: '{{ url('picking-list/non-assign-pickinglist') }}',
-          type: 'GET',
-          data: function(d) {
-              d.search['value'] = $('#global_filter').val()
-            }
+		url: '{{ url('picking-list/non-assign-pickinglist') }}',
+		type: 'GET',
+		data: function(d) {
+			d.search['value'] = $('#global_filter').val()
+		},
+		error: function (xhr, error, code){
+			console.log(xhr);
+			console.log(code);
+		}
       },
       order: [2, 'asc'],
       columns: [
