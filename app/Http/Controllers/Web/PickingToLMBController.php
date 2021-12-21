@@ -32,7 +32,7 @@ class PickingToLMBController extends Controller
 				->join('wms_pickinglist_header', 'wms_pickinglist_header.driver_register_id', '=', 'wms_lmb_header.driver_register_id');
 
 			if (empty($request->input('search')['value'])) {
-				$query->whereRaw('(wms_lmb_header.manifest_complete IS NUll) OR (wms_lmb_header.manifest_complete != 1)');
+				$query->whereRaw('((wms_lmb_header.manifest_complete IS NUll) OR (wms_lmb_header.manifest_complete != 1))');
 			}
 
 			if (auth()->user()->cabang->hq) {
