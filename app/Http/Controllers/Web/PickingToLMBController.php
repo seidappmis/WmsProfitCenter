@@ -98,7 +98,7 @@ class PickingToLMBController extends Controller
 			return sendSuccess('Seat Loading Quantity', $details);
 		}
 
-		/*
+		
 		$tempDetailLMB = LMBDetail::selectRaw('
         wms_lmb_detail.invoice_no,
         wms_lmb_detail.delivery_no,
@@ -116,8 +116,7 @@ class PickingToLMBController extends Controller
 			$rsLoadingQuantity[$value->invoice_no . $value->delivery_no . $value->model . $value->delivery_items] = $value->qty_loading;
 		}
 		$data['rsLoadingQuantity'] = $rsLoadingQuantity;
-		*/
-
+		
 		// $data['pickingListDetail'] = PickinglistHeader::where('driver_register_id', $id)->first()->details;
 		/*
 		$data['pickingListDetail'] = PickinglistDetail::select('wms_pickinglist_detail.*')
