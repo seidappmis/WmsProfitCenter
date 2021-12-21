@@ -139,21 +139,25 @@ class PickingListController extends Controller
 
   public function getNonAssignedPicking(Request $request)
   {
-    if ($request->ajax()) {
-      $query = PickinglistHeader::select('wms_pickinglist_header.*')
-        // ->has('details')
-        ->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
-        ->where('wms_pickinglist_header.area', auth()->user()->area)
-        ->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
-        ->whereNull('tr_driver_registered.id')
-        ->whereNull('wms_pickinglist_header.deleted_at')
-        ->get();
-
-      $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)
-      ;
-      return $datatables->make(true);
-    }
+    //if ($request->ajax()) {
+		try {
+			$query = PickinglistHeader::select('wms_pickinglist_header.*')
+			// ->has('details')
+			->leftjoin('tr_driver_registered', 'tr_driver_registered.id', '=', 'wms_pickinglist_header.driver_register_id')
+			->where('wms_pickinglist_header.area', auth()->user()->area)
+			->where('wms_pickinglist_header.expedition_code', '!=', 'AS')
+			->whereNull('tr_driver_registered.id')
+			->whereNull('wms_pickinglist_header.deleted_at')
+			->get();
+		
+			$datatables = DataTables::of($query)
+			->addIndexColumn() //DT_RowIndex (Penomoran)
+			;
+			return $datatables->make(true);
+		} catch (\Throwable $th) {
+			return $th->getMessage();
+		}
+    //}
   }
 
   public function getSelect2DriverByRegisterID(Request $request)
