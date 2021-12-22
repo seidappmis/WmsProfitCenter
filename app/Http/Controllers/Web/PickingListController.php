@@ -457,6 +457,8 @@ class PickingListController extends Controller
         $pickinglistHeader->driver_register_id = Uuid::uuid4();
       }
 
+	  $pickinglistHeader->detail_count = 0;
+	  $pickinglistHeader->lmb_detail_count = 0;
       $pickinglistHeader->save();
 
       DB::commit();
@@ -642,6 +644,8 @@ class PickingListController extends Controller
 		try {
 			if (!empty($rs_lmb_detail)) {
 				LMBDetail::insert($rs_lmb_detail);
+				$pickingHeader->lmb_detail_count = count($rs_lmb_detail);
+				$pickingHeader->save();
 			}
 			return sendSuccess('Picking List sent to lmb', $rs_lmb_detail);
 		} catch (Throwable $th) {
@@ -894,6 +898,10 @@ class PickingListController extends Controller
 				}
 			}
 
+			if (($pickinglistHeader->detail_count == null) || ($pickinglistHeader->lmb_detail_count == 0)) {
+				$pickinglistHeader->detail_count = count($rs_pickinglistDetail);
+				$pickinglistHeader->save();
+			}
 			PickinglistDetail::insert($rs_pickinglistDetail);
 			DB::commit();
 
@@ -943,6 +951,10 @@ class PickingListController extends Controller
 		try {
 			if(!empty($rs_lmb_detail)) {
 				LMBDetail::insert($rs_lmb_detail);
+				if (($pickingHeader = PickinglistHeader::find($value->header_id)) != null) {
+					$pickingHeader->lmb_detail_count += count($detail);
+					$pickingHeader->save();
+				}
 			}
 			return sendSuccess('Picking List detail sent to lmb', $rs_lmb_detail);
 		} catch (\Throwable $th) {

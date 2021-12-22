@@ -98,9 +98,9 @@ class PickinglistHeader extends BaseModel
   }
 
 	public function getLmbDetCount(){
-		if ($this->lmb_detail_count == null && $this->lmb_detail_count !== 0) {
+		if (is_null($this->lmb_detail_count)) {
 			//$this->lmb_detail_count = $this->lmb_details()->count();
-			$this->lmb_detail_count = LMBDetail::where(['picking_id' => $this->id])->limit(1)->get()->count(); //sementara hanya bisa cek jika ada lmb detail
+			$this->lmb_detail_count = LMBDetail::where(['picking_id' => $this->id])->limit(2)->get()->count(); //sementara hanya bisa cek jika ada lmb detail
 			$this->save();
 		}
 		return $this->lmb_detail_count;
