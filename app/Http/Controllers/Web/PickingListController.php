@@ -572,6 +572,9 @@ class PickingListController extends Controller
         // ->addColumn('quantity_in_lmb', function ($data) {
         //   return '-';
         // })
+		->addColumn('quantity_in_lmb', function($data){
+			return $data->getQuantityInLmb();
+		})
         ->addColumn('action', function ($data) {
           $action = '';
           if ($data->quantity_in_lmb == 0) {
@@ -656,7 +659,7 @@ class PickingListController extends Controller
 	public function doOrShipmentData(Request $request)
 	{
 		$request->validate([
-		'picking_id' => 'required',
+			'picking_id' => 'required',
 		]);
 
 		$pickinglistHeader = PickinglistHeader::findOrFail($request->input('picking_id'));
@@ -666,13 +669,13 @@ class PickingListController extends Controller
 			// HQ ambil dari Concept
 			$query = Concept::select(
 				'tr_concept.*',
-				DB::raw('MAX(wmcT.line_no) AS max_line_no'),
-				DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
+				//DB::raw('MAX(wmcT.line_no) AS max_line_no'),
+				//DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
 			)
 			//->leftJoin('log_manifest_detail', 'log_manifest_detail.tr_concept_id', '=', 'tr_concept.id')
 			//->leftJoin('log_manifest_header', 'log_manifest_header.do_manifest_no', '=', 'log_manifest_detail.do_manifest_no')
 			->leftJoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'tr_concept.id')
-			->leftjoin(DB::raw('tr_concept AS wmcT'), 'wmcT.invoice_no', '=', 'tr_concept.invoice_no')
+			//->leftjoin(DB::raw('tr_concept AS wmcT'), 'wmcT.invoice_no', '=', 'tr_concept.invoice_no')
 			->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
 			//->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete
 			// ->whereRaw('(tr_concept.invoice_no = "' . $request->input('do_or_shipment') . '" OR tr_concept.delivery_no = "' . $request->input('do_or_shipment') . '")');
@@ -698,8 +701,8 @@ class PickingListController extends Controller
 			// Cabang Ambil Dari Upload DO for Picking
 			$query = ManualConcept::select(
 				'wms_manual_concept.*',
-				DB::raw('0 AS line_no'),
-				DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
+				//DB::raw('0 AS line_no'),
+				//DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
 			)
 			/*
 			->leftJoin('log_manifest_detail', function($join){
@@ -715,10 +718,12 @@ class PickingListController extends Controller
 				$join->on('wms_pickinglist_detail.delivery_items', '=', 'wms_manual_concept.delivery_items');
 			})*/
 			->leftJoin('wms_pickinglist_detail', 'wms_pickinglist_detail.tr_concept_id', '=', 'wms_manual_concept.id')
+			/*
 			->leftjoin(DB::raw('wms_manual_concept AS wmcT'), function ($join) {
 				$join->on('wmcT.invoice_no', '=', 'wms_manual_concept.invoice_no');
 				$join->on('wmcT.delivery_no', '=', 'wms_manual_concept.delivery_no');
 			})
+			*/
 			->where('wmcT.kode_cabang', auth()->user()->cabang->kode_cabang)
 			//->whereNull('wms_pickinglist_detail.id') // Ambil yang belum masuk picking list
 			//->whereRaw('((log_manifest_header.status_complete is null) OR (log_manifest_header.status_complete <> 1))') // ambil yang belum manifest_header.complete

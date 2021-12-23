@@ -16,6 +16,15 @@ class PickinglistDetail extends BaseModel
     return $this->belongsTo('App\Models\PickinglistHeader', 'header_id', 'id');
   }
 
+	public function lmb_details()
+	{
+		return $this->hasMany('App\Models\LMBDetail', 'picking_detail_id', 'id');
+	}
+
+	public function getQuantityInLmb(){
+		return $this->lmb_details()->count();
+	}
+
   public function customer()
   {
     $customer = '';
