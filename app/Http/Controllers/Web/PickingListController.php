@@ -701,7 +701,7 @@ class PickingListController extends Controller
 			// Cabang Ambil Dari Upload DO for Picking
 			$query = ManualConcept::select(
 				'wms_manual_concept.*',
-				//DB::raw('0 AS line_no'),
+				DB::raw('0 AS line_no'),
 				//DB::raw('MAX(wmcT.delivery_items) AS max_delivery_items')
 			)
 			/*
