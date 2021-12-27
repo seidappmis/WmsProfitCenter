@@ -369,7 +369,8 @@ CREATE TABLE `wms_pickinglist_detail` (
 	`created_at` timestamp NULL DEFAULT NULL,
 	`updated_at` timestamp NULL DEFAULT NULL,
 	`created_by` int(11) DEFAULT NULL,
-	`updated_by` int(11) DEFAULT NULL
+	`updated_by` int(11) DEFAULT NULL,
+	KEY `tr_concept_id` (`tr_concept_id`)
 );
 INSERT INTO wms_pickinglist_detail
 SELECT dt.* FROM ar_pickinglist_detail dt
@@ -429,8 +430,12 @@ DELETE ar FROM ar_concept ar
 INNER JOIN tr_concept c ON c.id = ar.id;
 
 /** wms_manual_concept **/
+ALTER table wms_manual_concept
+drop primary key,
+add primary key(id);
 ALTER TABLE wms_manual_concept RENAME TO ar_manual_concept;
 CREATE TABLE `wms_manual_concept` (
+	`id` varchar(60) NOT NULL PRIMARY KEY,
 	`invoice_no` varchar(10) NOT NULL,
 	`delivery_no` varchar(20) NOT NULL,
 	`delivery_items` int(11) NOT NULL,
@@ -450,15 +455,14 @@ CREATE TABLE `wms_manual_concept` (
 	`created_at` timestamp NULL DEFAULT NULL,
 	`updated_at` timestamp NULL DEFAULT NULL,
 	`created_by` int(11) DEFAULT NULL,
-	`updated_by` int(11) DEFAULT NULL,
-	PRIMARY KEY (`invoice_no`,`delivery_no`,`delivery_items`)
-)
+	`updated_by` int(11) DEFAULT NULL
+);
 INSERT INTO wms_manual_concept
-SELECT c.* FROM ar_manual_concept
-LEFT JOIN ar_pickinglist_detail pd ON pd.invoice_no = c.invoice_no AND pd.delivery_no = c.delivery_no AND pd.delivery_items = c.delivery_items
+SELECT c.* FROM ar_manual_concept c
+LEFT JOIN ar_pickinglist_detail pd ON pd.tr_concept_id = c.id
 WHERE pd.id IS NULL;
-DELETE ar FROM ar_manual_concept
-INNER JOIN wms_manual_concept c ON c.invoice_no = ar.invoice_no AND c.delivery_no = ar.delivery_no AND c.delivery_items = ar.delivery_items;
+DELETE ar FROM ar_manual_concept ar
+INNER JOIN wms_manual_concept c ON c.id = ar.id;
 
 
 
