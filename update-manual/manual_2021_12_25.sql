@@ -430,6 +430,8 @@ DELETE ar FROM ar_concept ar
 INNER JOIN tr_concept c ON c.id = ar.id;
 
 /** wms_manual_concept **/
+UPDATE wms_manual_concept
+SET id = CONCAT(invoice_no, '-0-', delivery_no, '-', delivery_items);
 ALTER table wms_manual_concept
 drop primary key,
 add primary key(id);
