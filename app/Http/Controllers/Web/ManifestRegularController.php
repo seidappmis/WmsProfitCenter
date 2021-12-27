@@ -70,7 +70,7 @@ class ManifestRegularController extends Controller
 				}
 			})
 			->addColumn('picking_no', function ($data) {
-				return $data->picking->picking_no;
+				return $data->picking->picking_no ?? '';
 				//return $data->picking_no;
 			})
 			->addColumn('status', function ($data) {
