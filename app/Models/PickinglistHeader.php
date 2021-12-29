@@ -142,6 +142,7 @@ class PickinglistHeader extends BaseModel
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
       ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.id')
       // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
+	  ->where('wms_lmb_detail.created_at', '>=', DB::raw('(NOW() - INTERVAL 10 DAY)'))
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
       ->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
       ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang) // yang se area
