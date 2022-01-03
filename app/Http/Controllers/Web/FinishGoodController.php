@@ -137,7 +137,7 @@ class FinishGoodController extends Controller
 				'log_finish_good_ticket.ean as EAN_CODE',
 				'log_finish_good_ticket.model as MODEL',
 				DB::raw('"" as PLANT'),
-				DB::raw('"" as TIPE'),
+				DB::raw('"'. $request->input('tipe') .'" as TIPE'),
 			])
 			->leftjoin('log_finish_good_detail', 'log_finish_good_detail.bar_ticket_header', '=', 'log_finish_good_ticket.ticket_no')
 			->where('log_finish_good_ticket.ticket_no', 'LIKE', "%{$request->input('header_name')}%")
