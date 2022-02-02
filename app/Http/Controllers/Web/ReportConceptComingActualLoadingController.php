@@ -41,14 +41,10 @@ class ReportConceptComingActualLoadingController extends Controller
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-      $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(true);
+      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(true);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -59,7 +55,8 @@ class ReportConceptComingActualLoadingController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = New \Mpdf\Mpdf(['tempDir'=>storage_path('tempdir')]);
+      //$mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 
