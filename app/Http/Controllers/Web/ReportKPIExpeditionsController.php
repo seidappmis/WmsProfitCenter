@@ -69,7 +69,8 @@ class ReportKPIExpeditionsController extends Controller
     } else if ($request->input('filetype') == 'pdf') {
 
       // REQUEST PDF
-      $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+      $mpdf = New \Mpdf\Mpdf(['tempDir'=>storage_path('tempdir')]);
+      //$mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
 
       $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
 

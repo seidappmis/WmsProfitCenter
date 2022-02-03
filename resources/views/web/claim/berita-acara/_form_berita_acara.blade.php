@@ -172,6 +172,7 @@
     set_select_driver({
       expedition_code: $(this).val()
     })
+    // issue vehicle_number
     set_select_vehicle_number({
       expedition_code: $(this).val()
     })
@@ -199,7 +200,7 @@
       @endif
     })
   }
-
+// issue vehicle_number
   function set_select_vehicle_number(filter = {
     expedition_code: ''
   }) {

@@ -9,6 +9,7 @@ DROP TRIGGER IF EXISTS pickinglist_header_update;
 DROP TRIGGER IF EXISTS pickinglist_header_delete;
 
 /** log_manifest_header **/
+/** Awal **/
 ALTER Table log_manifest_header RENAME TO ar_manifest_header;
 CREATE TABLE `log_manifest_header` (
 	`driver_register_id` varchar(50) NOT NULL,
@@ -60,6 +61,7 @@ CREATE TABLE `log_manifest_header` (
 INSERT INTO log_manifest_header
 SELECT * FROM ar_manifest_header WHERE status_complete <> 1 OR created_at >= (NOW() - INTERVAL 3 MONTH);
 DELETE FROM ar_manifest_header WHERE status_complete <> 1 OR created_at >= (NOW() - INTERVAL 3 MONTH);
+
 
 /** log_manifest_detail **/
 ALTER Table log_manifest_detail RENAME TO ar_manifest_detail;
@@ -178,6 +180,7 @@ INSERT INTO wms_branch_manifest_header
 SELECT * FROM ar_branch_manifest_header WHERE status_complete <> 1 OR created_at >= (NOW() - INTERVAL 3 MONTH);
 DELETE FROM ar_branch_manifest_header WHERE status_complete <> 1 OR created_at >= (NOW() - INTERVAL 3 MONTH);
 
+
 /** wms_branch_manifest_detail **/
 ALTER TABLE wms_branch_manifest_detail RENAME TO ar_branch_manifest_detail;
 CREATE TABLE `wms_branch_manifest_detail` (
@@ -270,6 +273,7 @@ WHERE ((mn.do_manifest_no IS NULL) AND (br_mn.do_manifest_no IS NULL));
 DELETE ar FROM ar_lmb_header ar
 INNER JOIN wms_lmb_header wms ON wms.driver_register_id = ar.driver_register_id;
 
+
 /** wms_lmb_detail **/
 ALTER TABLE wms_lmb_detail RENAME TO ar_lmb_detail;
 CREATE TABLE `wms_lmb_detail` (
@@ -300,6 +304,7 @@ LEFT JOIN ar_lmb_header hd ON hd.driver_register_id = dt.driver_register_id
 WHERE hd.driver_register_id IS NULL;
 DELETE ar FROM ar_lmb_detail ar
 INNER JOIN wms_lmb_detail wms ON wms.serial_number = ar.serial_number AND wms.delivery_no = ar.delivery_no AND wms.model = ar.model AND wms.delivery_items = ar.delivery_items;
+
 
 /** wms_pickinglist_header **/
 ALTER TABLE wms_pickinglist_header RENAME TO ar_pickinglist_header;
@@ -349,6 +354,7 @@ WHERE l.driver_register_id IS NULL;
 DELETE ar FROM ar_pickinglist_header ar
 INNER JOIN wms_pickinglist_header wms on wms.driver_register_id = ar.driver_register_id;
 
+
 /** wms_pickinglist_detail **/
 ALTER TABLE wms_pickinglist_detail RENAME TO ar_pickinglist_detail;
 CREATE TABLE `wms_pickinglist_detail` (
@@ -378,6 +384,7 @@ LEFT JOIN ar_pickinglist_header h ON h.id = dt.header_id
 WHERE h.id IS NULL;
 DELETE ar FROM ar_pickinglist_detail ar
 INNER JOIN wms_pickinglist_detail p ON p.id = ar.id;
+
 
 /** tr_concept **/
 ALTER TABLE tr_concept RENAME TO ar_concept;
@@ -428,6 +435,7 @@ LEFT JOIN ar_pickinglist_detail pd ON pd.tr_concept_id = c.id
 WHERE pd.id IS NULL;
 DELETE ar FROM ar_concept ar
 INNER JOIN tr_concept c ON c.id = ar.id;
+
 
 /** wms_manual_concept **/
 UPDATE wms_manual_concept

@@ -383,7 +383,7 @@ class DamageGoodsReportController extends Controller
             if (empty($lastNo[0])) {
               $lastNo[0] = 0;
             }
-            // reset number every date 16
+            // reset number every date 16 berubah - issue dg nomer disini
             // if (isset($lastNo[2]) && $lastNo[2] != $this->rome((int) date('m', strtotime($date))) && (int) date('d') >= 16) {
               //   $lastNo[0] = 0;
               // }

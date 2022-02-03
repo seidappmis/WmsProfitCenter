@@ -30,25 +30,64 @@ class ReportConceptComingActualLoadingController extends Controller
     } elseif ($request->input('filetype') == 'xls') {
 
       // Request FILE EXCEL
-      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+      //$reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      //$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
-      $spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
+      //$spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
+
+      $graph = $this->getGraph($request);
+      $contentType = 'image/png';
+      $gdImgHandler = $graph->Stroke(_IMG_HANDLER);
+      
+      ob_start();                        // start buffering
+      $graph->img->Stream();             // print data to buffer
+      $image_data = ob_get_contents();   // retrieve buffer contents
+      ob_end_clean();                    // stop buffer
+      
+      //echo "data:$contentType;base64," . base64_encode($image_data);
+      $htmlString = '<table>
+                          <tr>
+                           <td><img src="data:image/png;base64,'.base64_encode($image_data).'" style="width: 100%;" /></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                          </tr>
+                         <tr>
+                            <td style="text-align: right;">Print date : '.date('d M, Y').'</td>
+                          </tr>
+                          <tr>
+                            <td style="text-align: right;">Print by : '.auth()->user()->username.'</td>
+                          </tr>
+                    </table>';
+      //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      //$spreadsheet = $reader->load($view_print);
+      //$spreadsheet->getSheet(0)->setTitle('file1');
+      //$reader->setSheetIndex(1);
+      //$reader->loadIntoExisting($view_print, $spreadsheet);
+      //$writer1 = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+      //header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      //header('Content-Disposition: attachment; filename="' . $title . '.xlsx"');
+
+      //$writer1->save("php://output");
+      //$writer1->save('outfile.xlsx');
+
+      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = $reader->loadFromString($htmlString);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
       $spreadsheet->getDefaultStyle()->getFont()->setName('courier New');
 
       // Atur lebar kolom
-      $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(true);
-      $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(true);
+      //$spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(15);
+      //$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+      //$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+      //$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
 
       $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
       header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      header('Content-Disposition: attachment; filename="' . $title . '.xls"');
+      header('Content-Disposition: attachment; filename="' . $title . '.xlsx"');
 
       $writer->save("php://output");
 
