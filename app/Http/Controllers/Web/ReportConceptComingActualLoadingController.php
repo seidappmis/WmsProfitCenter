@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Web;
 use Amenadiel\JpGraph\Graph;
 use Amenadiel\JpGraph\Plot;
 use App\Http\Controllers\Controller;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportConceptComingActualLoadingController extends Controller
 {
@@ -15,6 +18,27 @@ class ReportConceptComingActualLoadingController extends Controller
     return view('web.report.report-concept-coming-vs-actual-loading.index');
   }
 
+  public function exports(Request $request)
+  {
+    $data['graph'] = $this->getGraph($request);
+    function index(){
+      
+        Excel::create('New File', function($excel){
+          $excel->sheet('First shhet', function($sheet){
+            $sheet->LoadView('web.report.report-concept-coming-vs-actual-loading.print', $data);
+          });
+        })->export('xlsx');
+    }
+  }
+
+  public function gambar(Request $request)
+  {
+    $data['graph'] = $this->getGraph($request);
+
+    $view_gambar = view('web.report.report-concept-coming-vs-actual-loading.gambar', $data);
+
+    return $view_gambar;
+  }
   public function export(Request $request)
   {
     $data['graph'] = $this->getGraph($request);
@@ -35,31 +59,48 @@ class ReportConceptComingActualLoadingController extends Controller
 
       //$spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
 
-
       $graph = $this->getGraph($request);
-      $contentType = 'image/png';
-      $gdImgHandler = $graph->Stroke(_IMG_HANDLER);
-      
-      ob_start();                        // start buffering
+     
+
+      ob_start();
+      $img = 'image/PNG';
+      $img = $graph->Stroke(_IMG_HANDLER);
+
+      ob_start();  
       $graph->img->Stream();             // print data to buffer
-      $image_data = ob_get_contents();   // retrieve buffer contents
-      ob_end_clean();                    // stop buffer
+      $image_data = ob_get_contents(); 
+      ob_end_clean();
+      
+      
+
+      //$graph = $this->getGraph($request);
+      //$contentType = 'image/PNG';
+      //$gdImgHandler = $graph->Stroke(_IMG_HANDLER);
+      
+      //ob_start();                        // start buffering
+      //$graph->img->Stream();             // print data to buffer
+      //$image_data = ob_get_contents();   // retrieve buffer contents
+      //ob_end_clean();                    // stop buffer
       
       //echo "data:$contentType;base64," . base64_encode($image_data);
       $htmlString = '<table>
                           <tr>
-                           <td><img src="data:image/png;base64,'.base64_encode($image_data).'" style="width: 100%;" /></td>
+                           <td><img src="data:image/png;base64,'.base64_encode($image_data).'" /></td>
                           </tr>
                           <tr>
                             <td></td>
                           </tr>
                          <tr>
-                            <td style="text-align: right;">Print date : '.date('d M, Y').'</td>
+                            <td style="">Print date : '.date('d M, Y').'</td>
                           </tr>
                           <tr>
-                            <td style="text-align: right;">Print by : '.auth()->user()->username.'</td>
+                            <td style="">Print by : '.auth()->user()->username.'</td>
                           </tr>
                     </table>';
+      $reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+      $spreadsheet = $reader->loadFromString($htmlString, $spreadsheet);              
       //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
       //$spreadsheet = $reader->load($view_print);
       //$spreadsheet->getSheet(0)->setTitle('file1');
@@ -71,9 +112,13 @@ class ReportConceptComingActualLoadingController extends Controller
 
       //$writer1->save("php://output");
       //$writer1->save('outfile.xlsx');
-
-      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      $spreadsheet = $reader->loadFromString($htmlString);
+      //$spreadsheet = new Spreadsheet();
+      //$sheet = $spreadsheet->getActiveSheet();
+      //$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+      //$drawing->setPath(imagepng($img));
+      //$drawing->setWorksheet($spreadsheet->getActiveSheet());
+      //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
+      //$spreadsheet = $reader->loadFromString($htmlString);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font
