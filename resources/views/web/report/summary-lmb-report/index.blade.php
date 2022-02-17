@@ -86,6 +86,7 @@
                                  <tr>
                                     <td>Model</td>
                                     <td><div class="input-field col s12">
+                                      <!--Tidak Mandatory Input Model -->
                                        <input id="" type="text" class="validate" name="model" >
                                      </div></td>
                                 </tr>
