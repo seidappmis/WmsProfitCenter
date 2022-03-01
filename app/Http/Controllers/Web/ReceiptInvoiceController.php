@@ -114,7 +114,7 @@ class ReceiptInvoiceController extends Controller
       DB::rollBack();
     }
 
-    return $rsInvoiceManifestDetail;
+    return $rsInvoiceReceiptDetail;
   }
 
   public function update(Request $request, $id)
@@ -143,7 +143,7 @@ class ReceiptInvoiceController extends Controller
       DB::rollBack();
     }
 
-    return $rsInvoiceManifestDetail;
+    return $rsInvoiceReceiptDetail;
   }
 
   public function updateManifestRitase(Request $request, $id, $do_manifest_no)

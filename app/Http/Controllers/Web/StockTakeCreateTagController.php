@@ -72,17 +72,17 @@ class StockTakeCreateTagController extends Controller
 		if (!empty($row[0])) {
 			if(!empty($row[1]) && array_key_exists($row[1],$schedule_detail)){
 				$stockTakeInput['sto_id']		= $request->input('sto_id');
-				//$stockTakeInput['no_tag']		= $no_tag++;
-				$stockTakeInput['no_tag']		= $row[0];
-				$stockTakeInput['model']		= $row[1];
-				$stockTakeInput['location']		= $row[2];
+				$stockTakeInput['no_tag']		= $no_tag++;
+				//$stockTakeInput['no_tag']		= $row[0];
+				$stockTakeInput['model']		= $row[0];
+				$stockTakeInput['location']		= $row[1];
 				$stockTakeInput['upload_date']	= $date;
 				$stockTakeInput['upload_by']	= auth()->user()->id;
 	
 				$stocktake_inputs[] = $stockTakeInput;
-				$stocktake_cek[] = $row[1];	
-			}else if(!empty($row[1])){
-				$stocktakeNoExist[] = $row[1] . ' tidak ada dalam detail schedule';
+				$stocktake_cek[] = $row[0];	
+			}else if(!empty($row[0])){
+				$stocktakeNoExist[] = $row[0] . ' tidak ada dalam detail schedule';
 			}
 		}
 	}
