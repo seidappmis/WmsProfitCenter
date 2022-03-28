@@ -90,7 +90,7 @@ class ReceiptInvoiceController extends Controller
     $invoiceReceiptHeader->expedition_code      = $request->input('expedition_code');
     $invoiceReceiptHeader->expedition_name      = $request->input('expedition_name');
     $invoiceReceiptHeader->pph                  = 2;
-    $invoiceReceiptHeader->ppn                  = 10;
+    $invoiceReceiptHeader->ppn                  = 11;
     $invoiceReceiptHeader->amount_ppn           = 0;
     $invoiceReceiptHeader->amount_pph           = 0;
     $invoiceReceiptHeader->amount_before_tax    = 0;

@@ -67,7 +67,7 @@
 							</div>
 							<div class="input-field col s2">
 								<input id="amount_ppn" class="mask_money" type="text" value="{{!empty($invoiceReceiptHeader) ? $invoiceReceiptHeader->amount_ppn : ''}}" placeholder="" required>
-								<label for="amount_ppn">PPn 10% (B)</label>
+								<label for="amount_ppn">PPn 11% (B)</label>
 							</div>
 							<div class="input-field col s2">
 								<input id="amount_before_tax" class="mask_money" type="text" placeholder="" readonly="readonly">
