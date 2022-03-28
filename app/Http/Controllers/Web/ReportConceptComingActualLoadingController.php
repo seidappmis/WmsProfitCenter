@@ -41,51 +41,45 @@ class ReportConceptComingActualLoadingController extends Controller
   }
   public function export(Request $request)
   {
-    $data['graph'] = $this->getGraph($request);
+	$graph = $this->getGraph($request);
+	$data['graph'] = $graph;
 
     $view_print = view('web.report.report-concept-coming-vs-actual-loading.print', $data);
     $title      = 'Concept Coming vs Actual Loading Report';
 
     if ($request->input('filetype') == 'html') {
-
       // request HTML View
       return $view_print;
 
     } elseif ($request->input('filetype') == 'xls') {
-
       // Request FILE EXCEL
-      //$reader      = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      //$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-
-      //$spreadsheet = $reader->loadFromString($view_print, $spreadsheet);
-
-      $graph = $this->getGraph($request);
-     
-
       ob_start();
       $img = 'image/PNG';
       $img = $graph->Stroke(_IMG_HANDLER);
-
       ob_start();  
       $graph->img->Stream();             // print data to buffer
       $image_data = ob_get_contents(); 
       ob_end_clean();
-      
-      
 
-      //$graph = $this->getGraph($request);
-      //$contentType = 'image/PNG';
-      //$gdImgHandler = $graph->Stroke(_IMG_HANDLER);
-      
-      //ob_start();                        // start buffering
-      //$graph->img->Stream();             // print data to buffer
-      //$image_data = ob_get_contents();   // retrieve buffer contents
-      //ob_end_clean();                    // stop buffer
-      
-      //echo "data:$contentType;base64," . base64_encode($image_data);
-      $htmlString = '<table>
+	  $deletetime = time() - (86400 / 2);
+	  $dir = '/tmp';
+	  $prefix = 'wms-report-concept-vs-loading';
+	  if ($handle = opendir($dir)) {
+		  while (false != ($file = readdir($handle))) {
+			  if ((filetype("$dir/$file") == 'file')
+			  && (str_starts_with($file, $prefix))
+			  && (filemtime("$dir/$file") < $deletetime)) {
+				  unlink("$dir/$file");
+			  }
+		  }
+		  closedir($handle);
+	  }
+	  $path = tempnam($dir, $prefix);
+	  file_put_contents($path, $image_data);
+
+	  $htmlString = '<table>
                           <tr>
-                           <td><img src="data:image/png;base64,'.base64_encode($image_data).'" /></td>
+                           <td><img src="'. $path .'" /></td>
                           </tr>
                           <tr>
                             <td></td>
@@ -101,24 +95,6 @@ class ReportConceptComingActualLoadingController extends Controller
       $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
       $spreadsheet = $reader->loadFromString($htmlString, $spreadsheet);              
-      //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      //$spreadsheet = $reader->load($view_print);
-      //$spreadsheet->getSheet(0)->setTitle('file1');
-      //$reader->setSheetIndex(1);
-      //$reader->loadIntoExisting($view_print, $spreadsheet);
-      //$writer1 = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
-      //header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      //header('Content-Disposition: attachment; filename="' . $title . '.xlsx"');
-
-      //$writer1->save("php://output");
-      //$writer1->save('outfile.xlsx');
-      //$spreadsheet = new Spreadsheet();
-      //$sheet = $spreadsheet->getActiveSheet();
-      //$drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-      //$drawing->setPath(imagepng($img));
-      //$drawing->setWorksheet($spreadsheet->getActiveSheet());
-      //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Html();
-      //$spreadsheet = $reader->loadFromString($htmlString);
       // Set warna background putih
       $spreadsheet->getDefaultStyle()->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffffff');
       // Set Font

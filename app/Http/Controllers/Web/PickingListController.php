@@ -227,6 +227,12 @@ class PickingListController extends Controller
 
   public function storeAssignPicking(Request $request, $id)
   {
+	$request->validate([
+		'city_code' => 'required',
+		'city_name' => 'required',
+		//'gate_number' => 'required',
+	]);
+
     $driverRegistered = DriverRegistered::findOrFail($id);
 
     if (empty(json_decode($request->input('data_picking'), true))) {
