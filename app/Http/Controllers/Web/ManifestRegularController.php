@@ -745,7 +745,8 @@ class ManifestRegularController extends Controller
         }
 
         $do['nilai_ritase']  = $freightCost->ritase;
-        $do['nilai_ritase2'] = $freightCost->ritase2;
+        //$do['nilai_ritase2'] = $freightCost->ritase2;
+        $do['nilai_ritase2'] = $freightCost->ritase2 != null ?: 0;
         $do['lead_time']     = $freightCost->leadtime;
         $do['base_price']    = $freightCost->cbm;
         $do['nilai_cbm']     = $do['base_price'] * $do['cbm'];
