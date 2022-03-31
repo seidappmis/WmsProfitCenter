@@ -623,7 +623,8 @@ class ManifestRegularController extends Controller
       }
 
       $manifestDetail['nilai_ritase']  = $freightCost->ritase;
-      $manifestDetail['nilai_ritase2'] = $freightCost->ritase2;
+      //$manifestDetail['nilai_ritase2'] = $freightCost->ritase2;
+      $manifestDetail['nilai_ritase2']        = $freightCost->ritase2 != null ?: 0;
       $manifestDetail['lead_time']     = $freightCost->leadtime;
       $manifestDetail['base_price']    = $freightCost->cbm;
       $manifestDetail['nilai_cbm']     = $manifestDetail['base_price'] * $manifestDetail['cbm'];
