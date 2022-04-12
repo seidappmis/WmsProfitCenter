@@ -26,8 +26,8 @@ class SummaryClaimNoteController extends Controller
             'claim_note_id',
             DB::raw("sum(1) as unit"),
             DB::raw("sum(qty) as sum_qty"),
-            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) ) as sum_price"),
-            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) *qty) as sub_total")
+            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 111 / 100, price) ) as sum_price"),
+            DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 111 / 100, price) *qty) as sub_total")
          )
             ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
             // ->leftJoin('wms_master_model AS m', 'm.model_name', '=', 'nd.model_name')
@@ -193,8 +193,8 @@ class SummaryClaimNoteController extends Controller
          'claim_note_id',
          DB::raw("sum(1) as unit"),
          DB::raw("sum(qty) as sum_qty"),
-         DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) ) as sum_price"),
-         DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 110 / 100, price) *qty) as sub_total")
+         DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 111 / 100, price) ) as sum_price"),
+         DB::raw("sum( if(clm_claim_notes.claim = 'unit', price * 111 / 100, price) *qty) as sub_total")
       )
          ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id')
          ->groupBy('claim_note_id');

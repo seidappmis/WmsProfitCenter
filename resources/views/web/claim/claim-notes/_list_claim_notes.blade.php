@@ -281,10 +281,10 @@
                      price_condition = v.price_carton_box;
                   }
 
-                  var price_unit = format_currency((price_condition * 110 / 100));
+                  var price_unit = format_currency((price_condition * 111 / 100));
 
                   if (claim == 'unit') {
-                     total = format_currency(v.qty * (price_condition * 110 / 100));
+                     total = format_currency(v.qty * (price_condition * 111 / 100));
                   } else {
                      total = format_currency(v.qty * price_condition);
                   }

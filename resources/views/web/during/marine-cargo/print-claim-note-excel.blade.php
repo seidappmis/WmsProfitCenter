@@ -112,7 +112,7 @@
     <tr>
       <td colspan="4" style="border-left: 1px solid black;">Increased Value</td>
       <td <?php /* width="20px" */ ?>>:</td>
-      <td colspan="7">Price unit * 110 % * Qty unit</td>
+      <td colspan="7">Price unit * 111 % * Qty unit</td>
     </tr>
     <tr>
       <td colspan="4" style="border-left: 1px solid black; border-bottom: 1px solid black;">Kind of Damage/Kind of Loss
@@ -195,7 +195,7 @@
     <?php $totalQty = 0; ?>
     @foreach ($units as $value)
       @php
-        $totalPriceUSD = empty($totalPriceUSD) ? $value['qty'] * $value['price'] * (110 / 100) : $totalPriceUSD + ($value['qty'] * $value['price'] * (110 / 100));
+        $totalPriceUSD = empty($totalPriceUSD) ? $value['qty'] * $value['price'] * (111 / 100) : $totalPriceUSD + ($value['qty'] * $value['price'] * (111 / 100));
       @endphp
       <tr>
         <td colspan="3" style="border-left: 1px solid black;"></td>
@@ -206,13 +206,13 @@
 			USD {{ $value['price'] }}
 		</td>
         <td style="text-align: center;" <?php /* width="50px" */ ?>>X</td>
-        <td>110%</td>
+        <td>111%</td>
         <td style="text-align: center;" <?php /* width="50px" */ ?>>X</td>
         <td style="text-align: center;">{{ $value['qty'] }}</td>
         <?php $totalQty += $value['qty'] ?? 1; ?>
         <td>=</td>
         <td style="text-align: right;">
-			USD {{ number_format($value['qty'] * $value['price'] * (110 / 100), 2) }}
+			USD {{ number_format($value['qty'] * $value['price'] * (111 / 100), 2) }}
         </td>
         <td style="border-right: 1px solid black;"></td>
       </tr>

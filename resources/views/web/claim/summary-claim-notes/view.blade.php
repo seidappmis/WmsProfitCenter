@@ -190,7 +190,7 @@
             orderable: false,
             searchable: false,
             render: function(data, type, row, meta) {
-               return '<tag class="price-10"> ' + format_currency((row.price * 110 / 100));
+               return '<tag class="price-10"> ' + format_currency((row.price * 111 / 100));
             },
             className: "center-align"
          },
@@ -200,7 +200,7 @@
             searchable: false,
             render: function(data, type, row, meta) {
                @if($claimType == 'unit')
-               return '<tag class="sub-total"> ' + format_currency(row.qty * (row.price * 110 / 100));
+               return '<tag class="sub-total"> ' + format_currency(row.qty * (row.price * 111 / 100));
                @else
                return '<tag class="sub-total"> ' + format_currency(row.qty * row.price);
                @endif

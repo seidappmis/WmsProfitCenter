@@ -49,7 +49,7 @@
 					@php
 					$price = $v->price;
 					if ($claimNote->claim == 'unit') {
-					$price = $price * 110 / 100;
+					$price = $price * 111 / 100;
 					}
 					@endphp
 					<td style="border: 1pt solid #000000; text-align:right;">{{!empty($v->price)?money_reformat($price,'IDR'):0}}</td>

@@ -518,8 +518,8 @@ class ClaimNoteController extends Controller
         DB::raw("sum(1) as unit"),
         DB::raw("GROUP_CONCAT(DISTINCT reason SEPARATOR ',') AS reasons"),
         DB::raw("sum(qty) as sum_qty"),
-        DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 110 / 100), sum(price)) as sum_price"),
-        DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 110 / 100 , price) * qty) as sub_total")
+        DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 111 / 100), sum(price)) as sum_price"),
+        DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 111 / 100 , price) * qty) as sub_total")
       )
       ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id');
     $claimNoteSubQuery2 = ClaimNoteDetail::where('claim_note_id', $id)
@@ -654,8 +654,8 @@ class ClaimNoteController extends Controller
         'claim_note_id',
         DB::raw("sum(1) as unit"),
         DB::raw("sum(qty) as sum_qty"),
-        DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 110 / 100), sum(price)) as sum_price"),
-        DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 110 / 100 , price) * qty) as sub_total")
+        DB::raw("IF(clm_claim_notes.claim = 'unit', sum(price * 111 / 100), sum(price)) as sum_price"),
+        DB::raw("sum(IF(clm_claim_notes.claim = 'unit', price * 111 / 100 , price) * qty) as sub_total")
       )
       ->leftJoin('clm_claim_notes', 'clm_claim_notes.id', '=', 'clm_claim_note_detail.claim_note_id');
 
@@ -686,7 +686,7 @@ class ClaimNoteController extends Controller
     if (!$data['claimNoteDetail']->isEmpty()) {
       foreach ($data['claimNoteDetail'] as $key => $value) {
         $data['qty'] += $value->qty;
-        $price = $data['claimNote']->claim == 'unit' ? $value->price * 110 / 100 : $value->price;
+        $price = $data['claimNote']->claim == 'unit' ? $value->price * 111 / 100 : $value->price;
         $data['price'] += $price;
         $data['subTotal'] += ($value->qty * $price);
       }

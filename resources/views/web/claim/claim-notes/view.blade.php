@@ -239,7 +239,7 @@
             if (row.description == 'Carton Box Damage' && !row.price) {
               price = row.price_carton_box;
             }
-            return '<tag class="price-10"> ' + format_currency((price * 110 / 100));
+            return '<tag class="price-10"> ' + format_currency((price * 111 / 100));
           },
           className: "right-align"
         },
@@ -255,7 +255,7 @@
             }
 
             @if($claimReason == 'unit')
-            return '<tag class="sub-total"> ' + format_currency(row.qty * (price * 110 / 100));
+            return '<tag class="sub-total"> ' + format_currency(row.qty * (price * 111 / 100));
             @else
             return '<tag class="sub-total"> ' + format_currency(row.qty * price);
             @endif
@@ -286,8 +286,8 @@
       price = classPrice.val();
 
     @if($claimReason == 'unit')
-    tr.find('.price-10').html(format_currency(price * 110 / 100))
-    classSubTotal.html(format_currency(qty * (price * 110 / 100)));
+    tr.find('.price-10').html(format_currency(price * 111 / 100))
+    classSubTotal.html(format_currency(qty * (price * 111 / 100)));
     @else
     classSubTotal.html(format_currency(qty * price));
     @endif
