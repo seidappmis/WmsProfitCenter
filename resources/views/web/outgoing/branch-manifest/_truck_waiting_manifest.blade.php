@@ -94,10 +94,18 @@ jQuery(document).ready(function($) {
       ]
   });
 
-  $("input#truck_waiting_manifest_filter").on("keyup click", function () {
+  $("input#truck_waiting_manifest_filter").on("keyup click", delay(function () {
     filterGlobalTruckWaitingManifest();
-  });
+  }, 1500));
 });
+
+function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+}
 
 function filterGlobalTruckWaitingManifest() {
   dtdatatable_data_manifest_normal.search($("#truck_waiting_manifest_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();

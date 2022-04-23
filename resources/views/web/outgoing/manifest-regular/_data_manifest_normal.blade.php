@@ -81,10 +81,19 @@ jQuery(document).ready(function($) {
       ]
   });
 
-  $("input#data_manifest_normal_filter").on("keyup click", function () {
+  $("input#data_manifest_normal_filter").on("keyup click", delay(function() {
     filterGlobalDataManifestNormal();
-  });
+  }, 1500));
+
 });
+
+function delay(fn, ms) {
+  let timer = 0;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(fn.bind(this, ...args), ms || 0);
+  }
+}
 
 function filterGlobalDataManifestNormal() {
   dtdatatable_data_manifest_normal.search($("#data_manifest_normal_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();

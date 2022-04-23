@@ -77,11 +77,18 @@
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });
-    $("input#from-manifest-hq-filter").on("keyup click", function () {
+    $("input#from-manifest-hq-filter").on("keyup click", delay(function () {
       filterManifestHQ();
-    });
+    }, 1500));
   });
 
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
   function filterManifestHQ(){
     dttable_manifest_hq.search($("#from-manifest-hq-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
