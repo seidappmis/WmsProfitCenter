@@ -358,7 +358,8 @@ class DamageGoodsReportController extends Controller
             // Generate No. dgr :  001/DR -HQ-XII/2019
             $date = date('Y-m-d');
 
-            if (date('d') > 15) {
+            //create after 16
+            if (date('d') > 16) {
               $date = date('Y-m-d', strtotime('+1 month'));
             }
 
