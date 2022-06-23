@@ -48,3 +48,5 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('update-serial-no', 'Web\UpdateSerialNoController@index');
   Route::post('update-serial-no/upload', 'Web\UpdateSerialNoController@upload');
 });
+
+Route::get('export-lmb-detail', 'Web\PickingToLMBController@exportLmbDetail');

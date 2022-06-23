@@ -19,6 +19,7 @@ use App\Models\PickinglistHeader;
 use App\Models\StorageMaster;
 use DataTables;
 use Exception;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
@@ -1118,5 +1119,60 @@ class PickingToLMBController extends Controller
 			// Parameter filetype tidak valid / tidak ditemukan return 404
 			return redirect(404);
 		}
+	}
+
+	public function exportLmbDetail(Request $request)
+	{
+		$tanggal = $request->get('date', date('Y-m-d'));
+		$fileName = $tanggal . '.txt';
+		$data = DB::table('wms_lmb_detail')
+			->where(new Expression('DATE_FORMAT(wms_lmb_detail.created_at, \'%Y-%m-%d\')'), $tanggal)
+			->leftJoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_lmb_detail.model')
+			->select([
+				'wms_lmb_detail.model',
+				'wms_lmb_detail.serial_number',
+				new Expression('DATE_FORMAT(wms_lmb_detail.created_at, "%m/%d/%Y %H:%i") as created_at'),
+				'wms_lmb_detail.ean_code',
+				'wms_lmb_detail.kode_customer',
+				'wms_master_model.category',
+				'wms_master_model.model_type',
+				'wms_lmb_detail.code_sales',
+				'wms_lmb_detail.picking_id'
+			])
+			->get();
+		$headers = [
+			"Content-type" => "text/csv",
+			"Content-Disposition" => "attachment; filename=" . $fileName,
+			"Pragma" => "no-cache",
+			"Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+			"Expires" => "0"
+		];
+		$callback = function() use ($data) {
+			$file = fopen('php://output', 'w');
+			$columns = [
+				'model',
+				'serial_number',
+				'created_at',
+				'ean_code',
+				'kode_customer',
+				'category',
+				'model_type',
+				'code_sales',
+				'picking_id',
+			];
+			fputcsv($file, $columns);
+			
+			foreach ($data as $row) {
+				$baris = [];
+				foreach ($columns as $field) {
+					$baris[] = $row->$field;
+				}
+				fputcsv($file, $baris);
+			}
+			
+			fclose($file);
+		};
+
+		return response()->stream($callback, 200, $headers);
 	}
 }
