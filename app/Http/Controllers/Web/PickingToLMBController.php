@@ -1123,10 +1123,10 @@ class PickingToLMBController extends Controller
 
 	public function exportLmbDetail(Request $request)
 	{
-		$tanggal = $request->get('date', date('Y-m-d'));
-		$fileName = $tanggal . '.txt';
+		$tanggal = $request->get('date', date('Ymd'));
+		$fileName = 'wms_' . $tanggal . '.txt';
 		$data = DB::table('wms_lmb_detail')
-			->where(new Expression('DATE_FORMAT(wms_lmb_detail.created_at, \'%Y-%m-%d\')'), $tanggal)
+			->where(new Expression('DATE_FORMAT(wms_lmb_detail.created_at, \'%Y%m%d\')'), $tanggal)
 			->leftJoin('wms_master_model', 'wms_master_model.model_name', '=', 'wms_lmb_detail.model')
 			->select([
 				'wms_lmb_detail.model',
