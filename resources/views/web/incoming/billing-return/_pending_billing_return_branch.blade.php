@@ -81,11 +81,18 @@
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });
-    $("input#pending-billing-return-branch-filter").on("keyup click", function () {
+    $("input#pending-billing-return-branch-filter").on("keyup click", delay(function () {
       filterPendingBillingBranch();
-    });
+    }, 1500));
   });
 
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
   function filterPendingBillingBranch(){
     dttable_pending_billing_return_branch.search($("#pending-billing-return-branch-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }

@@ -139,11 +139,19 @@
       })
     });
 
-    $("input#global_filter").on("keyup click", function () {
+    $("input#global_filter").on("keyup click", delay(function () {
         filterGlobal();
-      });
+      }, 1500));
   });
 
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
+  
   function filterGlobal() {
       dtdatatable.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }

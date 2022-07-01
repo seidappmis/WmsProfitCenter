@@ -131,18 +131,24 @@
             {data: 'action', className: 'center-align', searchable: false, orderable: false},
         ]
       });
-      $("input#global_filter").on("keyup click", function () {
+      $("input#global_filter").on("keyup click", delay(function () {
         filterLoadingProcess();
-      });
+      }, 1500));
 
       $('#area_filter').change(function(event) {
         /* Act on the event */
         filterLoadingProcess();
       });
     });
-
+    function delay(fn, ms) {
+      let timer = 0;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(fn.bind(this, ...args), ms || 0);
+      }
+    }
     function filterLoadingProcess(){
-    dttable_loading_process.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
-  }
+      dttable_loading_process.search($("#global_filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
+    }
 </script>
 @endpush

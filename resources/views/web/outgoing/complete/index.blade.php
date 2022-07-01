@@ -105,15 +105,22 @@
             {data: 'action', className: 'center-align', searchable: false, orderable: false},
         ]
       });
-      $("input#complete-filter").on("keyup click", function () {
+      $("input#complete-filter").on("keyup click", delay(function () {
         filterManifestBranch();
-      });
+      }, 1500));
       $('#area_filter').change(function(event) {
         /* Act on the event */
         filterManifestBranch();
       });
     });
-
+  
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
   function filterManifestBranch(){
     dttable_complete.search($("#complete-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }

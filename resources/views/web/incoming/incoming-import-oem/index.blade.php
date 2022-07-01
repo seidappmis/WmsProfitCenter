@@ -252,9 +252,9 @@
           
         });
 
-      $("input#global_filter").on("keyup click", function () {
+      $("input#global_filter").on("keyup click", delay(function () {
         filterGlobal();
-      });
+      }, 1500));
       
       $('#area_filter').change(function(event) {
         /* Act on the event */
@@ -273,6 +273,13 @@
         });
     });
 
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
 
   // Custom search
   function filterGlobal() {

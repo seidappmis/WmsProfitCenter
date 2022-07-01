@@ -1015,6 +1015,11 @@ class PickingListController extends Controller
         ->where('delivery_items', $pickingDetail->delivery_items)
         ->delete();
 
+      LMBDetail::where([
+        'picking_detail_id' => $id,
+        'picking_id' => $pickingDetail->header_id,
+      ])->delete();
+      
       $pickingDetail->delete();
 
       DB::commit();

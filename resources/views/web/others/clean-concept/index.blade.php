@@ -130,9 +130,9 @@
       dttable_clean_concept.ajax.reload(null, false)
     });
 
-    $("input#global_filter").on("keyup click", function () {
+    $("input#global_filter").on("keyup click", delay(function () {
       filterGlobal();
-    });
+    }, 1500));
 
     set_datatables_checkbox('#clean-concept-table', dttable_clean_concept)
 
@@ -211,6 +211,14 @@
       })
     });
   });
+
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
 
 // Custom search
   function filterGlobal() {

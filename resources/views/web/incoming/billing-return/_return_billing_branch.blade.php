@@ -72,11 +72,18 @@
           {data: 'action', className: 'center-align', searchable: false, orderable: false},
       ]
     });
-    $("input#return-billing-branch-filter").on("keyup click", function () {
+    $("input#return-billing-branch-filter").on("keyup click", delay(function () {
       filterReturnBillingBranch();
-    });
+    }, 1500));
   });
 
+  function delay(fn, ms) {
+    let timer = 0;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(fn.bind(this, ...args), ms || 0);
+    }
+  }
   function filterReturnBillingBranch(){
     dttable_return_billing_branch.search($("#return-billing-branch-filter").val(), $("#global_regex").prop("checked"), $("#global_smart").prop("checked")).draw();
   }
