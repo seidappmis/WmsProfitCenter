@@ -70,7 +70,7 @@ class StockTakeCreateTagController extends Controller
 		}
 
 		if (!empty($row[0])) {
-			if(!empty($row[1]) && array_key_exists($row[1],$schedule_detail)){
+			if(!empty($row[1]) && array_key_exists($row[0],$schedule_detail)){
 				$stockTakeInput['sto_id']		= $request->input('sto_id');
 				$stockTakeInput['no_tag']		= $no_tag++;
 				//$stockTakeInput['no_tag']		= $row[0];
