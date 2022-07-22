@@ -5,9 +5,9 @@ namespace App;
 use App\Models\UserRoleDetail;
 use App\Models\UsersGrantCabang;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Request;
 
 class User extends Authenticatable
 {
@@ -107,23 +107,26 @@ class User extends Authenticatable
     return $result;
   }
 
-  public function allowTo($access = 'view', $modul_link = '')
-  {
-    if (!in_array($access, ['view', 'edit', 'delete'])) {
-      return false;
-    }
-    if ($modul_link == '') {
-      if (Request::ajax()) {
-        return true;
-      }
-      $modul_link = Request::segment(1);
-    }
-    $roleDetail = UserRoleDetail::leftjoin('tr_modules', 'tr_modules.id', '=', 'tr_user_roles_detail.modul_id')
-      ->where('roles_id', $this->roles_id)
-      ->where('tr_modules.modul_link', $modul_link)
-      ->where($access, 1)
-      ->first();
+	public function allowTo($access = 'view', $modul_link = '')
+	{
+		if (!in_array($access, ['view', 'edit', 'delete'])) {
+			return false;
+		}
 
-    return !empty($roleDetail);
-  }
+    	if ($modul_link == '') {
+      		$modul_link = Request::segment(1);
+    	}
+
+		if ($modul_link == '' && Request::ajax()) {
+			return true;
+		}
+
+		$roleDetail = UserRoleDetail::leftjoin('tr_modules', 'tr_modules.id', '=', 'tr_user_roles_detail.modul_id')
+			->where('roles_id', $this->roles_id)
+			->where('tr_modules.modul_link', $modul_link)
+			->where($access, 1)
+			->first();
+
+		return !empty($roleDetail);
+	}
 }

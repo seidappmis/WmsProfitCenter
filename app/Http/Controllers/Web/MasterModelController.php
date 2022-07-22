@@ -11,37 +11,41 @@ use Illuminate\Support\Facades\Storage;
 
 class MasterModelController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index(Request $request)
-  {
-    if ($request->ajax()) {
-      $query = MasterModel::select(
-        'wms_master_model.*',
-        DB::raw('wms_model_material_group.description AS material_group_description')
-      )
-        ->leftjoin('wms_model_material_group', 'wms_model_material_group.code', '=',
-          'wms_master_model.material_group');
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index(Request $request)
+	{
+		if ($request->ajax()) {
+			$query = MasterModel::select(
+				'wms_master_model.*',
+				DB::raw('wms_model_material_group.description AS material_group_description')
+			)
+			->leftjoin('wms_model_material_group', 'wms_model_material_group.code', '=',
+			'wms_master_model.material_group');
 
-      $datatables = DataTables::of($query)
-        ->addIndexColumn() //DT_RowIndex (Penomoran)
-        ->editColumn('cbm', function($data){
-          return setDecimal($data->cbm);
-        })
-        ->addColumn('action', function ($data) {
-          $action = '';
-          $action .= ' ' . get_button_edit(url('master-model/' . $data->id . '/edit'));
-          $action .= ' ' . get_button_delete();
-          return $action;
-        });
+			$datatables = DataTables::of($query)
+				->addIndexColumn() //DT_RowIndex (Penomoran)
+				->editColumn('cbm', function($data){
+					return setDecimal($data->cbm);
+				})
+				->addColumn('action', function ($data) {
+					$action = '';
+					//if (auth()->user()->allowTo('edit')) {
+						$action .= ' ' . get_button_edit(url('master-model/' . $data->id . '/edit'));
+					//}
+					//if (auth()->user()->allowTo('delete')) {
+						$action .= ' ' . get_button_delete();
+					//}
+					return $action;
+				});
 
-      return $datatables->make(true);
-    }
-    return view('web.master.master-model.index');
-  }
+			return $datatables->make(true);
+		}
+		return view('web.master.master-model.index');
+	}
 
   /**
    * Show the form for creating a new resource.

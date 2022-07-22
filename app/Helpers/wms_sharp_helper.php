@@ -28,17 +28,19 @@ function get_button_return($url = '#', $label = "Send Back")
 // edit
 function get_button_edit($url = '#!', $label = "Edit", $class = 'btn-edit')
 {
-  if (auth()->user()->allowTo('edit')) {
-  return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' " href="' . $url . '">' . $label . '</a>';
-  }
+	if (auth()->user()->allowTo('edit')) {
+		return '<a class="waves-effect waves-light btn btn-small amber darken-4 ' . $class . ' " href="' . $url . '">' . $label . '</a>';
+	}
+	return '';
 }
 
 // delete, clear
 function get_button_delete($label = "Delete", $class = 'btn-delete')
 {
-  if (auth()->user()->allowTo('delete')) {
-    return '<a class="waves-effect waves-light red darken-4 btn-small ' . $class . ' " >' . $label . '</a>';
-  }
+	if (auth()->user()->allowTo('delete')) {
+		return '<a class="waves-effect waves-light red darken-4 btn-small ' . $class . ' " >' . $label . '</a>';
+	}
+	return '';
 }
 
 // save, update, submit, load
