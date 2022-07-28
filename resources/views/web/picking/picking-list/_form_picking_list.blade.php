@@ -193,7 +193,7 @@
     jQuery(document).ready(function($) {
       $('#form-picking-list [name="storage_id"]').select2({
         placeholder: '-- Select Storage --',
-        ajax: get_select2_ajax_options('{{url('/storage-master/select2-user-storage-without-intransit')}}')
+        ajax: get_select2_ajax_options('{{url('/storage-master-select2-user-storage-without-intransit')}}')
       })
       $('#form-picking-list [name="storage_id"]').change(function(event) {
           var data = $(this).select2('data')[0];

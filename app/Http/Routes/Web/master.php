@@ -2,6 +2,8 @@
 
 use App\Http\Middleware\OnlyBranchAccess;
 
+Route::get('storage-master-select2-user-storage-without-intransit', 'Web\StorageMasterController@getSelect2UserStorageWithoutIntransit');
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
   Route::get('master-gate/select2-free-gate', 'Web\GateController@getSelect2FreeGate');
@@ -48,7 +50,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Storage Master
   Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
-  Route::get('storage-master/select2-user-storage-without-intransit', 'Web\StorageMasterController@getSelect2UserStorageWithoutIntransit');
   Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
   Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
   Route::get('storage-master/select2-storage-cabang-id-sto-code', 'Web\StorageMasterController@getSelect2StorageCabangIdStoCode');

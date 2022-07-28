@@ -189,7 +189,7 @@ class StorageMasterController extends Controller
   }
 
   public function getSelect2UserStorageWithoutIntransit(Request $request)
-  {
+  {	
     $query = StorageMaster::select(
       'wms_master_storage.id',
       DB::raw("CONCAT('[', sto_loc_code_long , '] ', sto_type_desc) AS text")
