@@ -1,5 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
+	Route::get('master-cabang/select2-grant-cabang', 'Web\MasterCabangController@getSelect2GrantCabang'); // Option: HYP-PT. SEID HQ JKT
+});
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // User Manager
   Route::post('user-manager/{id}/grant-cabang', 'Web\UserManagerController@grantCabang');
@@ -14,7 +21,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::resource('user-roles', 'Web\UserRoleController');
 
   // Master Area
-  Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
   Route::get('master-area/select2-area-only-all', 'Web\AreaController@getSelect2AreaOnlyAll');
   Route::get('master-area/select2-area-with-all', 'Web\AreaController@getSelect2AreaWithAll');
   Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
@@ -26,7 +32,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('master-cabang/select2-cabang-only', 'Web\MasterCabangController@getSelect2CabangOnly'); // Option: PT. SEID HQ JKT
   Route::get('master-cabang/select2-all-cabang-id-kode-customer', 'Web\MasterCabangController@getSelect2AllCabangIdKodeCustomer'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-all-cabang', 'Web\MasterCabangController@getSelect2AllCabang'); // Option: HYP-PT. SEID HQ JKT
-  Route::get('master-cabang/select2-grant-cabang', 'Web\MasterCabangController@getSelect2GrantCabang'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-cabang', 'Web\MasterCabangController@getSelect2Cabang'); // Option: HYP-PT. SEID HQ JKT
   Route::get('master-cabang/select2-branch', 'Web\MasterCabangController@getSelect2Branch'); // Option: [JF] PT. SEID CAB. JAKARTA (Bukan HQ)
   Route::resource('master-cabang', 'Web\MasterCabangController');
