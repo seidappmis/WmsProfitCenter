@@ -239,9 +239,11 @@ class BeritaAcaraDuringController extends Controller
 
        $date = date('Y-m-d');
       
-      if(date('d') > 15){
+      /*
+	  if(date('d') > 15){
 		$date = date('Y-m-d', strtotime(date('Y-m-1') . '+1 month'));
       }
+	  */
       
       $format = "%s/%s-" . auth()->user()->area_data->code . "/" . $this->rome((int) date('m', strtotime($date))) . "/" . date('Y', strtotime($date));
 

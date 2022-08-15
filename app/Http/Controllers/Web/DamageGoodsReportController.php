@@ -359,9 +359,11 @@ class DamageGoodsReportController extends Controller
             $date = date('Y-m-d');
 
             //create after 16, rollback ke 15
+			/*
             if (date('d') > 15) {
               $date = date('Y-m-d', strtotime('+1 month'));
             }
+			*/
 
             $code = '';
             if (isset($data[0]['berita_acara_during_no'])) {
