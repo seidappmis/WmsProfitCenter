@@ -5,6 +5,7 @@ use App\Http\Middleware\OnlyBranchAccess;
 Route::get('storage-master-select2-user-storage-without-intransit', 'Web\StorageMasterController@getSelect2UserStorageWithoutIntransit');
 Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
 Route::get('master-freight-cost/select2-vehicle', 'Web\MasterFreightCostController@getSelect2Vehicle');
+Route::get('master-vendor/select2-vendor-name', 'Web\VendorController@getSelect2VendorName');
   
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -66,7 +67,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::resource('master-model', 'Web\MasterModelController');
 
   // Master Vendor
-  Route::get('master-vendor/select2-vendor-name', 'Web\VendorController@getSelect2VendorName');
   Route::resource('master-vendor', 'Web\VendorController');
 
   // Master Model Exception
