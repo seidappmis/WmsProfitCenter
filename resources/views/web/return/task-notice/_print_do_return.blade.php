@@ -184,6 +184,9 @@ $plans = $header->plans()->orderBy('model')->get();
                     <td colspan="2" style="padding: 2pt;" ></td>
                     <td></td>
                   </tr>
+									@if ((($kPlan + 1) % 15) = 0)
+									<pagebreak/>
+									@endif
                   @endforeach
                   <tr><td>&nbsp;</td></tr>
                   <tr>
