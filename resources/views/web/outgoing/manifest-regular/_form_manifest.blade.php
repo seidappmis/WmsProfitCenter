@@ -145,7 +145,7 @@ $prevLink = $rsManifest[$key]->url;
 		$('#form-manifest [name="city_code"]').select2({
 			placeholder: '-- Select Destination City --',
 			allowClear: true,
-			ajax: get_select2_ajax_options('{{url(' / master - expedition / select2 - expedition - destination - city ')}}', {
+			ajax: get_select2_ajax_options('{{url(' / master-expedition / select2-expedition-destination-city ')}}', {
 				expedition_code: '{{$lmbHeader->expedition_code}}'
 			})
 		})
@@ -156,7 +156,7 @@ $prevLink = $rsManifest[$key]->url;
 		});
 
 		@if(!empty($manifestHeader))
-		@if($manifestHeader - > status_complete && ($manifestHeader - > manifest_type != 'LCL'))
+		@if($manifestHeader->status_complete && ($manifestHeader->manifest_type != 'LCL'))
 		$('.btn-delete-manifest').addClass('hide')
 		@endif
 		$('.btn-delete-manifest').click(function(event) {
@@ -172,8 +172,7 @@ $prevLink = $rsManifest[$key]->url;
 				if (confirm) { // Bila oke post ajax ke url delete nya
 					// Ajax Post Delete
 					$.ajax({
-							url: '{{url('
-							manifest - regular / '. $manifestHeader->do_manifest_no)}}',
+							url: '{{url('manifest-regular/'. $manifestHeader->do_manifest_no)}}',
 							type: 'DELETE',
 						})
 						.done(function(result) { // Kalau ajax nya success
