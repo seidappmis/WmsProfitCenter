@@ -54,7 +54,7 @@ class DestinationCityController extends Controller
   {
     $request->validate([
       'city_code' => 'required|unique:log_destination_city|digits_between:1,10',
-      'city_name' => 'required|alpha|max:100',
+      'city_name' => 'required|string|max:100',
     ]);
 
     $destinationCity            = new DestinationCity;
@@ -99,7 +99,7 @@ class DestinationCityController extends Controller
   {
     $request->validate([
       'city_code' => 'required|digits_between:1,10',
-      'city_name' => 'required|alpha|max:100',
+      'city_name' => 'required|string|max:100',
     ]);
 
     $destinationCity            = DestinationCity::findOrFail($id);
