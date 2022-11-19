@@ -23,7 +23,7 @@
 			<td width="20%">Vehicle No.</td>
 			<td width="30%">
 				<div class="input-field col s12">
-					<input type="text" class="validate" name="vehicle_number" value="{{$lmbHeader->vehicle_number}}" readonly required="" />
+					<input type="text" class="validate" name="vehicle_number" value="{{$lmbHeader->vehicle_number}}" readonly required />
 				</div>
 			</td>
 			<td width="20%">Expedition</td>
@@ -87,12 +87,7 @@
 			<td width="30%">
 				<div class="input-field col s12">
 					<input type="text" name="order_no" class="validate" value="{{!empty($manifestHeader) ? ($manifestHeader->picking->picking_no ?? '') : '' }}" readonly="">
-					{{-- <input 
-                        type="text" 
-                        class="validate" 
-                        name="pdo_no" 
-                        value="{{!empty($manifestHeader->pdo_no) ? $manifestHeader->pdo_no : ''}}"
-					/> --}}
+					{{-- <input type="text" class="validate" name="pdo_no" value="{{!empty($manifestHeader->pdo_no) ? $manifestHeader->pdo_no : ''}}" /> --}}
 				</div>
 			</td>
 			<td colspan="2"></td>
@@ -110,15 +105,15 @@ $prevLink = '#!';
 $nextLink = '#!';
 $activeFound = 0;
 foreach ($rsManifest as $key => $value) {
-$rsManifest[$key]->linkActive = $value->do_manifest_no == $manifestHeader->do_manifest_no;
-$rsManifest[$key]->url = url('manifest-regular/' . $value->do_manifest_no . '/edit#!');
+	$rsManifest[$key]->linkActive = $value->do_manifest_no == $manifestHeader->do_manifest_no;
+	$rsManifest[$key]->url = url('manifest-regular/' . $value->do_manifest_no . '/edit#!');
 
-if (!$activeFound && $rsManifest[$key]->linkActive) {
-$activeFound = 1;
-$nextLink = !empty($rsManifest[$key + 1]) ? url('manifest-regular/' . $rsManifest[$key + 1]->do_manifest_no . '/edit#!') : '#!' ;
-} elseif (!$activeFound) {
-$prevLink = $rsManifest[$key]->url;
-}
+	if (!$activeFound && $rsManifest[$key]->linkActive) {
+		$activeFound = 1;
+		$nextLink = !empty($rsManifest[$key + 1]) ? url('manifest-regular/' . $rsManifest[$key + 1]->do_manifest_no . '/edit#!') : '#!' ;
+	} elseif (!$activeFound) {
+		$prevLink = $rsManifest[$key]->url;
+	}
 }
 @endphp
 <ul class="pagination mt-2">
@@ -134,9 +129,9 @@ $prevLink = $rsManifest[$key]->url;
 
 {{-- Load Modal Print --}}
 @include('layouts.materialize.components.modal-print', [
-'title' => 'Print Manifest',
-'url' => 'manifest-regular/' . (!empty($manifestHeader) ? $manifestHeader->do_manifest_no : '') . '/export',
-'trigger' => '.btn-print'
+	'title' => 'Print Manifest',
+	'url' => 'manifest-regular/' .  (!empty($manifestHeader) ? $manifestHeader->do_manifest_no : '') . '/export',
+	'trigger' => '.btn-print'
 ])
 
 @push('script_js')
@@ -145,9 +140,7 @@ $prevLink = $rsManifest[$key]->url;
 		$('#form-manifest [name="city_code"]').select2({
 			placeholder: '-- Select Destination City --',
 			allowClear: true,
-			ajax: get_select2_ajax_options('{{url(' / master-expedition / select2-expedition-destination-city ')}}', {
-				expedition_code: '{{$lmbHeader->expedition_code}}'
-			})
+			ajax: get_select2_ajax_options('{{url('/master-expedition/select2-expedition-destination-city')}}', {expedition_code: '{{$lmbHeader->expedition_code}}'})
 		})
 
 		$('#form-manifest [name="city_code"]').change(function(event) {
