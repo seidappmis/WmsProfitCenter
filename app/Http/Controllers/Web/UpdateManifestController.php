@@ -79,7 +79,7 @@ class UpdateManifestController extends Controller
         $freightCost = FreightCost::where('area', $manifestHeader->area)
           ->where('vehicle_code_type', $manifestHeader->vehicle_code_type)
           ->where('expedition_code', $manifestHeader->expedition_code)
-          ->where('city_code', $value->city_code)
+          ->where('city_code', $manifestHeader->city_code)
           ->first();
 
         if (empty($freightCost)) {
