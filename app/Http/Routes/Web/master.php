@@ -6,6 +6,7 @@ Route::get('storage-master-select2-user-storage-without-intransit', 'Web\Storage
 Route::get('storage-master/select2-sto-type', 'Web\StorageMasterController@getSelect2StorageType');
 Route::get('master-freight-cost/select2-vehicle', 'Web\MasterFreightCostController@getSelect2Vehicle');
 Route::get('master-vendor/select2-vendor-name', 'Web\VendorController@getSelect2VendorName');
+Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
   
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -60,7 +61,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('master-model/select2-material-group', 'Web\MasterModelController@getSelect2MaterialGroup');
   Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
   Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
-  Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
   Route::get('master-model/select2-model2', 'Web\MasterModelController@getSelect2Model2');
   Route::get('master-model/select2-model-sloc', 'Web\MasterModelController@getSelect2ModelSloc');
   Route::post('master-model/upload', 'Web\MasterModelController@proses_upload');
