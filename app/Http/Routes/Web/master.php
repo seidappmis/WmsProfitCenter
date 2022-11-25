@@ -8,6 +8,7 @@ Route::get('master-freight-cost/select2-vehicle', 'Web\MasterFreightCostControll
 Route::get('master-vendor/select2-vendor-name', 'Web\VendorController@getSelect2VendorName');
 Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
 Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
+Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
   
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -54,7 +55,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Storage Master
   //Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
-  Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
   Route::get('storage-master/select2-storage-cabang-id-sto-code', 'Web\StorageMasterController@getSelect2StorageCabangIdStoCode');
   Route::resource('storage-master', 'Web\StorageMasterController');
 
