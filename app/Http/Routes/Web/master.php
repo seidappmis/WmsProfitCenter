@@ -10,7 +10,9 @@ Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Mo
 Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
 Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
 Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
-  
+Route::get('master-vehicle-expedition/select2-vehicle', 'Web\MasterVehicleExpeditionController@getSelect2Vehicle');
+Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicleExpeditionController@getSelect2VehicleNumber');
+
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
   Route::get('master-gate/select2-free-gate', 'Web\GateController@getSelect2FreeGate');
@@ -34,8 +36,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::resource('master-expedition', 'Web\MasterExpeditionController');
 
   // Master Vehicle Expedition
-  Route::get('master-vehicle-expedition/select2-vehicle', 'Web\MasterVehicleExpeditionController@getSelect2Vehicle');
-  Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicleExpeditionController@getSelect2VehicleNumber');
   Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
 
   // Master Driver
