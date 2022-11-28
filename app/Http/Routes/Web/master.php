@@ -12,6 +12,9 @@ Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController
 Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
 Route::get('master-vehicle-expedition/select2-vehicle', 'Web\MasterVehicleExpeditionController@getSelect2Vehicle');
 Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicleExpeditionController@getSelect2VehicleNumber');
+Route::get('master-driver/select2-driver-expedition', 'Web\MasterDriverController@getSelect2DriverExpedition');
+Route::get('master-driver/select2-branch-driver-expedition', 'Web\MasterDriverController@getSelect2BranchDriverExpedition');
+Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
 
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -39,9 +42,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::resource('master-vehicle-expedition', 'Web\MasterVehicleExpeditionController');
 
   // Master Driver
-  Route::get('master-driver/select2-driver-expedition', 'Web\MasterDriverController@getSelect2DriverExpedition');
-  Route::get('master-driver/select2-branch-driver-expedition', 'Web\MasterDriverController@getSelect2BranchDriverExpedition');
-  Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
   Route::resource('master-driver', 'Web\MasterDriverController');
 
   // Destination City
