@@ -9,6 +9,7 @@ Route::get('master-vendor/select2-vendor-name', 'Web\VendorController@getSelect2
 Route::get('master-model/select2-model', 'Web\MasterModelController@getSelect2Model');
 Route::get('storage-master/select2-storage', 'Web\StorageMasterController@getSelect2Storage');
 Route::get('storage-master/select2-storage-cabang', 'Web\StorageMasterController@getSelect2StorageCabang');
+Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
   
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -28,7 +29,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::resource('master-vehicle', 'Web\VehicleController');
 
   // Master Expedition
-  Route::get('master-expedition/select2-active-expedition', 'Web\MasterExpeditionController@getSelect2ActiveExpedition');
   Route::get('master-expedition/select2-all-expedition', 'Web\MasterExpeditionController@getSelect2AllExpedition');
   Route::get('master-expedition/select2-expedition-destination-city', 'Web\MasterExpeditionController@getSelect2ExpeditionDestinationCity');
   Route::resource('master-expedition', 'Web\MasterExpeditionController');
