@@ -6,6 +6,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('master-area/select2-area-only', 'Web\AreaController@getSelect2AreaOnly');
 	Route::get('master-cabang/select2-grant-cabang', 'Web\MasterCabangController@getSelect2GrantCabang'); // Option: HYP-PT. SEID HQ JKT
 	Route::get('master-area/select2-area-with-all', 'Web\AreaController@getSelect2AreaWithAll');
+  Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
 });
 
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
@@ -23,7 +24,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
 
   // Master Area
   Route::get('master-area/select2-area-only-all', 'Web\AreaController@getSelect2AreaOnlyAll');
-  Route::get('master-area/select2-areas', 'Web\AreaController@getSelect2Area');
   Route::get('master-area/select2-areas-all', 'Web\AreaController@getSelect2AreaAll');
   Route::get('master-area/select2-code-area', 'Web\AreaController@getSelect2AreaCode');
   Route::resource('master-area', 'Web\AreaController');
