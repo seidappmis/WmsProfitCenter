@@ -16,6 +16,7 @@ Route::get('master-vehicle-expedition/select2-vehicle-number', 'Web\MasterVehicl
 Route::get('master-driver/select2-driver-expedition', 'Web\MasterDriverController@getSelect2DriverExpedition');
 Route::get('master-driver/select2-branch-driver-expedition', 'Web\MasterDriverController@getSelect2BranchDriverExpedition');
 Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getSelect2DriverName');
+Route::get('master-model/select2-model-sloc', 'Web\MasterModelController@getSelect2ModelSloc');
 
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -63,7 +64,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('master-model/select2-material-group', 'Web\MasterModelController@getSelect2MaterialGroup');
   Route::get('master-model/select2-category', 'Web\MasterModelController@getSelect2Category');
   Route::get('master-model/select2-model-type', 'Web\MasterModelController@getSelect2ModelType');
-  Route::get('master-model/select2-model-sloc', 'Web\MasterModelController@getSelect2ModelSloc');
   Route::post('master-model/upload', 'Web\MasterModelController@proses_upload');
   Route::resource('master-model', 'Web\MasterModelController');
 
