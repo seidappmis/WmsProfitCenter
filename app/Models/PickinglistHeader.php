@@ -138,13 +138,20 @@ class PickinglistHeader extends BaseModel
 
   public static function noLMBPickingList()
   {
+		$lmb_detail = LMBDetail::where('created_at', '>=', DB::raw('(NOW() - INTERVAL 10 DAY)'))
+			->select(['picking_id'])
+			->groupBy('picking_id');
+
     return PickinglistHeader::selectRaw('wms_pickinglist_header.*')
+      //->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.id')
+			->joinSub($lmb_detail, 'wms_lmb_detail', function($join) {
+				$join->on('wms_lmb_detail.picking_id', 'wms_pickinglist_header.id');
+			})
       ->leftjoin('wms_lmb_header', 'wms_lmb_header.driver_register_id', '=', 'wms_pickinglist_header.driver_register_id')
-      ->leftjoin('wms_lmb_detail', 'wms_lmb_detail.picking_id', '=', 'wms_pickinglist_header.id')
-      // ->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
-	  ->where('wms_lmb_detail.created_at', '>=', DB::raw('(NOW() - INTERVAL 10 DAY)'))
+      //->whereNotNull('wms_pickinglist_header.driver_register_id') // yang sudah ada driver
+			//->where('wms_lmb_detail.created_at', '>=', DB::raw('(NOW() - INTERVAL 10 DAY)'))
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
-      ->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
+      //->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
       ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang) // yang se area
       ->groupBy('wms_pickinglist_header.driver_register_id')
       // ->has('lmb_details')
