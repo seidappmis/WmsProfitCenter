@@ -19,10 +19,11 @@ Route::get('master-driver/select2-driver-name', 'Web\MasterDriverController@getS
 Route::get('master-model/select2-model-sloc', 'Web\MasterModelController@getSelect2ModelSloc');
 
 Route::get('master-vehicle/select2-vehicle', 'Web\VehicleDetailController@getSelect2Vehicle');
+Route::get('master-destination/select2-destination', 'Web\MasterDestinationController@getSelect2Destination');
+
 Route::get('branch-expedition-vehicle/select2-vehicle-number', 'Web\BranchExpeditionVehicleController@getSelect2VehicleNumber');
 Route::get('branch-expedition-vehicle/select2-vehicle-number-without-vehicle-type', 'Web\BranchExpeditionVehicleController@getSelect2VehicleNumberWithoutVehicleType');
 Route::get('branch-expedition-vehicle/select2-vehicle', 'Web\BranchExpeditionVehicleController@getSelect2Vehicle');
-
 
 Route::group(['middleware' => ['auth', 'authorize.module.access']], function () {
   // Master Gate
@@ -33,7 +34,6 @@ Route::group(['middleware' => ['auth', 'authorize.module.access']], function () 
   Route::get('region/select2-region', 'Web\RegionController@getSelect2Region');
 
   // Master Destination
-  Route::get('master-destination/select2-destination', 'Web\MasterDestinationController@getSelect2Destination');
   Route::resource('master-destination', 'Web\MasterDestinationController');
 
   // Master Vehicle
