@@ -330,7 +330,7 @@ class ReceiptInvoiceController extends Controller
         DB::raw('SUM(multidro_amount) AS multidro_amount'),
         DB::raw('SUM(unloading_amount) AS unloading_amount'),
         DB::raw('SUM(overstay_amount) AS overstay_amount'),
-        DB::raw('COUNT(DISTINCT(delivery_no)) AS count_of_do'),
+        DB::raw('COUNT(DISTINCT(log_invoice_receipt_detail.delivery_no)) AS count_of_do'),
         //'log_freight_cost.cbm as cbm_master'
       )
         /*
@@ -689,8 +689,13 @@ class ReceiptInvoiceController extends Controller
 
   public function getListDo(Request $request, $id_header)
   {
-    $query = InvoiceReceiptDetail::where('id_header', $id_header)
-      ->where('do_manifest_no', $request->input('do_manifest_no'));
+    $query = InvoiceReceiptDetail::where('log_invoice_receipt_detail.id_header', $id_header)
+      ->where('log_invoice_receipt_detail.do_manifest_no', $request->input('do_manifest_no'))
+			->leftJoin('log_manifest_detail', 'log_manifest_detail.delivery_no', 'log_invoice_receipt_detail.delivery_no')
+			->select([
+				'log_invoice_receipt_detail.*',
+				'log_manifest_detail.do_internal',
+			]);
 
     $datatables = DataTables::of($query)
       ->addIndexColumn() //DT_RowIndex (Penomoran)

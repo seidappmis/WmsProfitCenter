@@ -302,7 +302,7 @@
 					data: 'delivery_no'
 				},
 				{
-					data: 'do_manifest_no'
+					data: 'do_internal'
 				},
 				{
 					data: 'city_name'
