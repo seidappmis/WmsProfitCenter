@@ -582,13 +582,17 @@ class ReceiptInvoiceController extends Controller
     // echo "</pre>";
     // return;
 
+		$view_header = view('web.invoicing.receipt-invoice._print_receipt_invoice_header-footer', $data);
+
     $view_print = view('web.invoicing.receipt-invoice._print_receipt_invoice', $data);
-    $split_view = str_split($view_print, 800000);
+    //$split_view = str_split($view_print, 800000);
+		$split_view = explode('</tr>', $view_print);
     $title      = 'receipt_invoice';
 
     if ($request->input('filetype') == 'html') {
       // request HTML View
       // return $view_print;
+			// return $split_view[count($split_view) - 1];
       // REQUEST PDF
       $mpdf = new \Mpdf\Mpdf([
         'tempDir'       => '/tmp',
@@ -598,17 +602,23 @@ class ReceiptInvoiceController extends Controller
         'margin_bottom' => 5,
         'format'        => 'A4',
         'orientation'   => 'L',
+				'debug' => true,
+				'allow_output_buffering' => true,
       ]);
 
       $mpdf->shrink_tables_to_fit = 0; //1;
       $mpdf->setAutoBottomMargin = 'stretch';
+			$mpdf->WriteHTML($view_header, \Mpdf\HTMLParserMode::HTML_BODY, true, false);
       if (count($split_view) > 1) {
         $max_key = max(array_keys($split_view));
         foreach ($split_view as $key => $value) {
-          $mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::DEFAULT_MODE, $key == 0, $key >= $max_key);
+					if ($key < $max_key) {
+						$value .= '</tr>';
+					}
+          $mpdf->WriteHTML($value, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
         }
       } else {
-        $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY);
+        $mpdf->WriteHTML($view_print, \Mpdf\HTMLParserMode::HTML_BODY, false);
       }
 
       $mpdf->Output();
