@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\BaseModel;
 use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PickinglistHeader extends BaseModel
 {
+	use SoftDeletes;
+	
   protected $table     = 'wms_pickinglist_header';
   public $incrementing = false;
 
@@ -152,6 +155,7 @@ class PickinglistHeader extends BaseModel
 			//->where('wms_lmb_detail.created_at', '>=', DB::raw('(NOW() - INTERVAL 10 DAY)'))
       ->whereNull('wms_lmb_header.driver_register_id') // yang belum ada LMB
       //->whereNotNull('wms_lmb_detail.serial_number') // yang punya detail
+			->whereNull('wms_pickinglist_header.deleted_at') // hide yang SoftDeleted record
       ->where('wms_pickinglist_header.kode_cabang', auth()->user()->cabang->kode_cabang) // yang se area
       ->groupBy('wms_pickinglist_header.driver_register_id')
       // ->has('lmb_details')
