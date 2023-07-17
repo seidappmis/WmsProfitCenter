@@ -139,7 +139,7 @@ $plans = $header->plans()->orderBy('model')->get();
           </td>
         </tr>
       </table>
-      <footer>
+      <?php /* <footer> */ ?>
       <table style="width: 210.0003mm;">
         <tr>
           <td>
@@ -208,7 +208,7 @@ $plans = $header->plans()->orderBy('model')->get();
           </td>
         </tr>
       </table>
-      </footer>
+      <?php /* </footer> */ ?>
     </td>
   </tr>
 </table>
