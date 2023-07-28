@@ -5,7 +5,7 @@
   <htmlpageheader name="myHeader1">
     <table width="100%" style="font-size: 9pt;">
       <tr>
-        <td colspan="17" style="font-size: 10pt;"><strong>PT. SHARP ELECTRONICS INDONESIA</strong></td>
+        <td colspan="17" style="font-size: 10pt;"><strong></strong></td>
       </tr>
       <tr>
         <td colspan="17" style="font-size: 12pt; text-align: center;"><strong>DO MANIFEST</strong></td>
@@ -66,7 +66,7 @@
       <tr>
             <td colspan="3">{{date('l, d-F-Y h:i:s A')}}</td>
             <td colspan="8" align="center"> Page {PAGENO} of {nbpg}</td>
-            <td colspan="6" style="text-align: right; ">Print out from SEID WMS</td>
+            <td colspan="6" style="text-align: right; ">Print out from WMS</td>
         </tr>
     </table>
   </htmlpagefooter>

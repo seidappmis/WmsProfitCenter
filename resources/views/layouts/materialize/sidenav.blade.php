@@ -4,7 +4,7 @@
         <h1 class="logo-wrapper">
             <a class="brand-logo darken-1" href="/">
             <img class="hide-on-med-and-down" src="" alt="WMS SHARP Logo" style="margin: 0 8px;">
-            <span class="logo-text hide-on-med-and-down">WMS SEID</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i>
+            <span class="logo-text hide-on-med-and-down">WMS</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i>
             </a>
             <a class="navbar-toggler" href="#"></a>
         </h1>

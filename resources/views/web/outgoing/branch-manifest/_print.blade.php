@@ -4,7 +4,7 @@
   <table width="100%" style="font-size: 9pt;">
     <tr><td>&nbsp;</td></tr>
     <tr>
-      <td colspan="17" style="font-size: 10pt;"><strong>PT. SHARP ELECTRONICS INDONESIA</strong></td>
+      <td colspan="17" style="font-size: 10pt;"><strong></strong></td>
     </tr>
     <tr><td>&nbsp;</td></tr>
     <tr>
@@ -162,7 +162,7 @@
       <tr>
         <td colspan="3" style="text-align: left; width: 70mm;">{{date('l, d-F-Y h:i:s A')}}</td>
         <td colspan="8" style="text-align: center; width: 70mm;">Page 1 of 1</td>
-        <td colspan="6" style="text-align: right; width: 70mm;">print out from SEID WMS</td>
+        <td colspan="6" style="text-align: right; width: 70mm;">print out from WMS</td>
       </tr>
     </table>
   </footer>

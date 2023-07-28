@@ -9,7 +9,7 @@
                     <div class="card-content center-align" style="">
                         <img src="{{ asset('app_logo.png') }}">
                         <h5>::Welcome to::</h5>
-                        <h5>::SEID - WAREHOUSE MANAGEMENT SYSTEM::</h5>
+                        <h5>::WAREHOUSE MANAGEMENT SYSTEM::</h5>
                     </div>
                 </div>
             </div>

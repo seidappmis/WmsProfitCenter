@@ -9,7 +9,7 @@
     <meta name="description" content="WMS SEID.">
     <meta name="keywords" content="WMS SEID">
     <meta name="author" content="ThemeSelect">
-    <title>User Login | WMS SEID</title>
+    <title>User Login | WMS </title>
     <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
     <link href="{{ url('materialize/css/icon.css') }}" rel="stylesheet">
@@ -43,7 +43,7 @@
                             <div class="row center-align">
                                 <div class="input-field col s12">
                                     <img src="{{asset('app_logo.png')}}">
-                                    <h5 class="ml-4">SEID WAREHOUSE MANAGEMENT SYSTEM</h5>
+                                    <h5 class="ml-4">WAREHOUSE MANAGEMENT SYSTEM</h5>
                                 </div>
                                 <div class="col s12 center-align">
                                     @error('username')

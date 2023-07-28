@@ -16,7 +16,7 @@
   <meta property="og:site_name" content="WMS SEID" />
   <meta property="og:description" content="WMS SEID." />
   <meta name="author" content="ThemeSelect">
-  <title>SEID - Warehouse Management System</title>
+  <title>Warehouse Management System</title>
   <link rel="apple-touch-icon" href="{{ url('favicon.ico') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}">
   <link href="{{ url('materialize/css/icon.css') }}" rel="stylesheet">
@@ -65,7 +65,7 @@
   <footer class="page-footer footer footer-static footer-dark gradient-shadow navbar-border navbar-shadow">
     <div class="footer-copyright">
       <div class="container"><span>&copy; 2020 <a href="http://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-            target="_blank">WMS SEID</a> All rights reserved.</span><span class="right hide-on-small-only">SEID :: Warehouse Management System</a></span></div>
+            target="_blank">WMS</a> All rights reserved.</span><span class="right hide-on-small-only">Warehouse Management System</a></span></div>
     </div>
   </footer>
 

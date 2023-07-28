@@ -11,7 +11,7 @@
               <tr><td>&nbsp;</td></tr>
               {{-- <tr><td style="height: 2px;"></td></tr> --}}
               <tr>
-                <td style="font-size: 10pt;" rowspan="2" colspan="10"><strong>PT. SHARP ELECTRONICS INDONESIA <br> WAREHOUSE RECEIPT</strong></td>
+                <td style="font-size: 10pt;" rowspan="2" colspan="10"><strong><br> WAREHOUSE RECEIPT</strong></td>
                 <td style="font-size: 10pt; text-align: right;"><strong>{{$incomingManualHeader->inc_type}}</strong></td>
               </tr>
               <tr><td></td></tr>

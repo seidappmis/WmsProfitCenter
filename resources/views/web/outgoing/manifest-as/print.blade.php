@@ -8,7 +8,7 @@
 					<td>
 						<table width="100%">
 							<tr>
-								<td style="font-size: 12pt;" colspan="3"><strong>PT. SHARP ELECTRONICS INDONESIA</strong></td>
+								<td style="font-size: 12pt;" colspan="3"><strong></strong></td>
 							</tr>
 			              	<tr><td>&nbsp;</td></tr>
 			              	<tr><td style="height: 2px;"></td></tr>
@@ -173,7 +173,7 @@
 		          	<td style="width: 30mm;">&nbsp;</td>
 		          	<td style="text-align: left;  width: 200mm; font-size: 9pt;">&nbsp; Page 1 of 1</td>
 		          	<td style="width: 30mm;">&nbsp;</td>
-		          	<td colspan="4" style="text-align: left;  width: 100mm; font-size: 9pt;">&nbsp; &nbsp; print out from SEID WMS</td>
+		          	<td colspan="4" style="text-align: left;  width: 100mm; font-size: 9pt;">&nbsp; &nbsp; print out from WMS</td>
 		        </tr>
 			</table>
 			</footer>
