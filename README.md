@@ -47,6 +47,13 @@
   </Directory>
    ``
   - reload web server ``sudo service apache2 reload``
+
+
+
+
+
+
+
 `` Fixing error ketika deploy ``
 1. Jika mengalami error permission / error laravel log storage lakukan langkah berikut.
    - sudo chown -R www-data:www-data <Folder Projek> / Folder yang ingin diubah permission nya.
