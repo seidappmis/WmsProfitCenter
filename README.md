@@ -47,6 +47,22 @@
   </Directory>
    ``
   - reload web server ``sudo service apache2 reload``
+1. Jika mengalami error permission / error laravel log storage lakukan langkah berikut.
+   - sudo chown -R www-data:www-data <Folder Projek> / Folder yang ingin diubah permission nya.
+   - masuk ke folder projek kemudian masukan perintah ls -l untuk mengecek apakah permission sudah berubah atau belum. 
+2. Jika mengalami error not found lakukan langkah berikut
+   - cd /etc/apache2 
+   - sudo nano apache2.conf
+   - cari isi file konfigurasi "<Directory /var/www/>
+   Options Indexes FollowSymLinks
+   AllowOverride none
+   Require all granted
+</Directory>"
+   - ubah AllowOverride none menjadi AllowOverride All
+   - Save -> restart apache menggunakan perintah sudo systemctl restart apache2.service
+   - sudo a2enmod rewrite
+   - sudo systemctl restart apache2.service
+
 
 
 ## Reset database ke kondisi awal
